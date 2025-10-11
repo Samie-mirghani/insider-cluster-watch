@@ -1,0 +1,19 @@
+<html>
+  <body style="font-family:Arial,sans-serif;color:#222;background-color:#fff3f3;">
+    <h2>🚨 Urgent Insider Alert — {{ date }}</h2>
+    <p style="font-weight:bold;">Immediate signals detected that meet your 'urgent' thresholds.</p>
+    {% for item in urgent_trades %}
+      <div style="margin-bottom:15px;border-bottom:1px solid #ddd;padding-bottom:10px;">
+        <b>{{ item.ticker }}</b> — {{ item.company }}
+        <ul>
+          <li><b>Executives:</b> {{ item.executives }}</li>
+          <li><b>Cluster Score:</b> {{ item.cluster_score }}</li>
+          <li><b>Conviction Score:</b> {{ item.conviction_score }}</li>
+          <li><b>Suggested Action:</b> {{ item.action }}</li>
+          <li><b>Rationale:</b> {{ item.rationale }}</li>
+        </ul>
+      </div>
+    {% endfor %}
+    <p style="font-size:12px;color:#666;">Generated automatically by Insider Signal Reports</p>
+  </body>
+</html>
