@@ -1,18 +1,20 @@
+<!-- templates/daily_report.html -->
 <html>
   <body style="font-family:Arial,sans-serif;color:#222;">
     <h2>📈 Daily Insider Trade Report — {{ date }}</h2>
     {% for item in trades %}
       <div style="margin-bottom:15px;border-bottom:1px solid #ddd;padding-bottom:10px;">
-        <b>{{ item.ticker }}</b> — {{ item.company }}
+        <b>{{ item.ticker }}</b>
         <ul>
-          <li><b>Executives:</b> {{ item.executives }}</li>
-          <li><b>Cluster Score:</b> {{ item.cluster_score }}</li>
-          <li><b>Conviction Score:</b> {{ item.conviction_score }}</li>
-          <li><b>Suggested Action:</b> {{ item.action }}</li>
+          <li><b>Insiders:</b> {{ item.insiders }}</li>
+          <li><b>Cluster Score:</b> {{ item.cluster_count }}</li>
+          <li><b>Conviction Score:</b> {{ item.avg_conviction|round(2) }}</li>
+          <li><b>Total Reported $:</b> ${{ item.total_value|int }}</li>
+          <li><b>Suggested Action:</b> {{ item.suggested_action }}</li>
           <li><b>Rationale:</b> {{ item.rationale }}</li>
         </ul>
       </div>
     {% endfor %}
-    <p style="font-size:12px;color:#666;">Generated automatically by Insider Signal Reports</p>
+    <p style="font-size:12px;color:#666;">Notes: This report is generated from public Form 4 filings (OpenInsider). Do your own research before trading.</p>
   </body>
 </html>
