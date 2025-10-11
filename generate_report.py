@@ -13,3 +13,14 @@ def render_report(cluster_df, template_path='templates'):
     for r in cluster_df.to_dict(orient='records'):
         text.append(f"{r['ticker']}: cluster_count={r['cluster_count']} total_value=${int(r['total_value']):,} rank={r['rank_score']:.2f}")
     return html, "\n".join(text)
+
+def generate_html_report(data, urgent=False):
+    env = Environment(loader=FileSystemLoader("templates"))
+    template_name = "urgent_alert.html" if urgent else "daily_report.html"
+    template = env.get_template(template_name)
+    return template.render(
+        date=datetime.now().strftime("%B %d, %Y"),
+        trades=data if not urgent else None,
+        urgent_trades=data if urgent else None
+    )
+
