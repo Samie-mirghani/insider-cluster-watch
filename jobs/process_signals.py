@@ -6,6 +6,7 @@ and flag urgent signals according to thresholds.
 
 import pandas as pd
 import math
+import time
 from datetime import timedelta
 import yfinance as yf
 
@@ -49,7 +50,9 @@ def enrich_with_market_data(cluster_df):
                 'fiftyTwoWeekLow': q.get('fiftyTwoWeekLow'),
                 'fiftyTwoWeekHigh': q.get('fiftyTwoWeekHigh'),
             }
-        except Exception:
+            time.sleep(0.5)
+        except Exception as e:
+            print(f"Warning: Failed to fetch market data for {t}: {e}")
             info[t] = {}
     cluster_df['currentPrice'] = cluster_df['ticker'].map(lambda x: info.get(x, {}).get('currentPrice'))
     cluster_df['marketCap'] = cluster_df['ticker'].map(lambda x: info.get(x, {}).get('marketCap'))
