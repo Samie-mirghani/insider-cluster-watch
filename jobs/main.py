@@ -52,6 +52,12 @@ def main(test=False, urgent_test=False):
 
     if cluster_df is None or cluster_df.empty:
         print("No clusters detected.")
+        # Still send an email saying "no signals today"
+        send_email(
+            f"Daily Insider Report — {datetime.utcnow().strftime('%Y-%m-%d')}",
+            "<html><body><p>No significant insider buying activity detected today.</p></body></html>",
+            "No significant insider buying activity detected today."
+        )
         return
 
     # 3) append to history CSV
