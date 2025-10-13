@@ -110,11 +110,11 @@ def format_sell_warning(sell_df):
 
 def append_to_history(cluster_df):
     """
-    cluster_df expected columns: ticker,last_trade_date,cluster_count,total_value,avg_conviction,insiders,currentPrice,...
-    We'll save: date,ticker,signal_score,action
+    Append new signals to the historical tracking CSV.
     """
     if cluster_df is None or cluster_df.empty:
         return
+    
     rows = []
     for _, r in cluster_df.iterrows():
         rows.append({
@@ -125,45 +125,63 @@ def append_to_history(cluster_df):
             'cluster_count': int(r.get('cluster_count', 0)),
             'total_value': float(r.get('total_value', 0))
         })
+    
     new_df = pd.DataFrame(rows)
+    
     if os.path.exists(HISTORY_CSV):
         old = pd.read_csv(HISTORY_CSV)
         combined = pd.concat([old, new_df], ignore_index=True)
     else:
         combined = new_df
+    
     combined.to_csv(HISTORY_CSV, index=False)
-    print(f"Appended {len(new_df)} signals to {HISTORY_CSV}")
+    print(f"✅ Saved {len(new_df)} signal(s) to history (total: {len(combined)} signals tracked)")
 
 def main(test=False, urgent_test=False):
-    # 1) fetch
+    print(f"{'='*60}")
+    print(f"🔍 Insider Cluster Watch - {datetime.utcnow().strftime('%Y-%m-%d %H:%M UTC')}")
+    print(f"{'='*60}\n")
+    
+    # 1) Fetch insider trading data
+    print("📥 Fetching recent insider transactions from OpenInsider...")
     df = fetch_openinsider_recent()
     
-    # DEBUG output
-    print(f"DEBUG: Fetched {len(df) if df is not None else 0} raw records")
-    if df is not None and not df.empty:
-        print(f"DEBUG: Trade types: {df['trade_type'].value_counts()}")
-    
     if df is None or df.empty:
-        print("No data fetched from OpenInsider.")
+        print("❌ No data available from OpenInsider (possibly weekend/holiday)")
         html = "<html><body><p>No data available from OpenInsider today (possibly weekend/holiday)</p></body></html>"
         text = "No data available from OpenInsider today"
         send_email(f"Daily Insider Report — {datetime.utcnow().strftime('%Y-%m-%d')}", html, text)
         return
 
-    # 2) Check for heavy selling BEFORE processing buys
+    print(f"✅ Fetched {len(df)} transaction(s)")
+    
+    # Show breakdown of transaction types
+    buy_count = df[df['trade_type'].str.upper().str.contains('BUY', na=False)].shape[0]
+    sell_count = df[df['trade_type'].str.upper().str.contains('SALE|SELL', na=False)].shape[0]
+    print(f"   • {buy_count} buy transaction(s)")
+    print(f"   • {sell_count} sale transaction(s)\n")
+
+    # 2) Check for concerning insider selling
+    print("🔍 Analyzing insider selling patterns...")
     sell_warnings = detect_heavy_selling(df)
     sell_warning_html, sell_warning_text = format_sell_warning(sell_warnings)
     
     if not sell_warnings.empty:
-        print(f"⚠️  Warning: Detected concerning selling in {len(sell_warnings)} ticker(s)")
+        print(f"⚠️  WARNING: Detected concerning selling activity in {len(sell_warnings)} ticker(s):")
+        for _, row in sell_warnings.iterrows():
+            c_suite_indicator = " (C-suite)" if row['is_c_suite'] else ""
+            print(f"   • {row['ticker']}: {row['num_sellers']} seller(s), ${int(row['total_sold']):,}{c_suite_indicator}")
+        print()
+    else:
+        print("✅ No concerning selling activity detected\n")
 
-    # 3) compute clusters & scores (buys only)
+    # 3) Process buy signals and compute cluster scores
+    print("🔎 Processing buy signals and clustering...")
     cluster_df = cluster_and_score(df, window_days=5, top_n=50)
-    
-    print(f"DEBUG: Found {len(cluster_df) if cluster_df is not None else 0} clusters")
 
     if cluster_df is None or cluster_df.empty:
-        print("No clusters detected.")
+        print("ℹ️  No significant insider buying clusters detected")
+        
         # Send email with just the sell warnings if they exist
         if sell_warnings.empty:
             html = "<html><body><p>No significant insider buying clusters detected today</p></body></html>"
@@ -171,27 +189,47 @@ def main(test=False, urgent_test=False):
         else:
             html = f"<html><body><p>No significant insider buying clusters detected today</p>{sell_warning_html}</body></html>"
             text = f"No significant insider buying clusters detected today\n{sell_warning_text}"
+        
         send_email(f"Daily Insider Report — {datetime.utcnow().strftime('%Y-%m-%d')}", html, text)
+        print(f"\n{'='*60}")
+        print("✅ Report complete - email sent")
+        print(f"{'='*60}\n")
         return
 
-    # 4) append to history CSV
-    append_to_history(cluster_df)
+    print(f"✅ Found {len(cluster_df)} buy cluster(s)\n")
+    
+    # Show top signals
+    print("📊 Top signals:")
+    for idx, row in cluster_df.head(5).iterrows():
+        print(f"   {row['ticker']}: Cluster={row['cluster_count']}, Score={row['rank_score']:.2f}, ${int(row['total_value']):,}")
+    print()
 
-    # 5) prepare urgent and daily reports
+    # 4) Save signals to history
+    print("💾 Saving signals to history...")
+    append_to_history(cluster_df)
+    print()
+
+    # 5) Check for urgent signals
     urgent_df = cluster_df[cluster_df.apply(lambda r: is_urgent(r), axis=1)].copy()
+    
+    if not urgent_df.empty:
+        print(f"🚨 URGENT: {len(urgent_df)} high-conviction signal(s) detected:")
+        for _, row in urgent_df.iterrows():
+            print(f"   • {row['ticker']} - {row['suggested_action']}")
+        print()
+
+    # 6) Generate reports
+    print("📧 Generating email reports...")
     daily_html, daily_text = render_daily_html(cluster_df)
     
     # Insert sell warning banner into the reports
     if not sell_warnings.empty:
-        # Insert warning after the header in HTML
         daily_html = daily_html.replace('</h2>', f'</h2>{sell_warning_html}')
-        # Insert warning at the top in text
         daily_text = sell_warning_text + '\n\n' + daily_text
     
-    # If urgent signals exist, render urgent email
+    # Generate urgent email if needed
     if not urgent_df.empty:
         urgent_html, urgent_text = render_urgent_html(urgent_df)
-        # Add sell warnings to urgent emails too
         if not sell_warnings.empty:
             urgent_html = urgent_html.replace('</h2>', f'</h2>{sell_warning_html}')
             urgent_text = sell_warning_text + '\n\n' + urgent_text
@@ -199,26 +237,32 @@ def main(test=False, urgent_test=False):
         urgent_html = None
         urgent_text = None
 
-    # 6) If in test mode, send a forced test email and exit
+    # 7) Send emails
     if test:
+        print("📬 Sending TEST emails...")
         send_email(f"TEST — Daily Insider Report — {datetime.utcnow().strftime('%Y-%m-%d')}", daily_html, daily_text)
         if urgent_html:
             send_email(f"TEST — URGENT Insider Alert — {datetime.utcnow().strftime('%Y-%m-%d')}", urgent_html, urgent_text)
-        return
-
-    # 7) Normal run: send daily email always, urgent only if exists
-    send_email(f"Daily Insider Report — {datetime.utcnow().strftime('%Y-%m-%d')}", daily_html, daily_text)
-    if urgent_html:
-        send_email(f"URGENT Insider Alert — {datetime.utcnow().strftime('%Y-%m-%d')}", urgent_html, urgent_text)
+    else:
+        print("📬 Sending daily report...")
+        send_email(f"Daily Insider Report — {datetime.utcnow().strftime('%Y-%m-%d')}", daily_html, daily_text)
+        if urgent_html:
+            print("📬 Sending urgent alert...")
+            send_email(f"URGENT Insider Alert — {datetime.utcnow().strftime('%Y-%m-%d')}", urgent_html, urgent_text)
+    
+    print(f"\n{'='*60}")
+    print("✅ All done! Reports sent successfully")
+    print(f"{'='*60}\n")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--test', action='store_true', help='Send test emails and exit')
     parser.add_argument('--urgent-test', action='store_true', help='Generate a fake urgent email for testing')
     args = parser.parse_args()
+    
     if args.urgent_test:
-        # generate a fake urgent HTML so you can test templates
-        import pandas as pd
+        # Generate a fake urgent HTML so you can test templates
+        print("🧪 Generating test urgent alert...\n")
         fake = pd.DataFrame([{
             'ticker':'FAKE',
             'last_trade_date':pd.Timestamp.now(),
