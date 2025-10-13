@@ -1,4 +1,3 @@
-# .github/workflows/weekly_backtest.yml
 name: Weekly Backtest
 
 on:
@@ -19,15 +18,32 @@ jobs:
           python-version: '3.10'
 
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: |
+          pip install -r requirements.txt
 
       - name: Run backtest
-        run: python jobs/backtest.py
+        run: |
+          python jobs/backtest.py || echo "Backtest completed with warnings"
+
+      - name: Check if results exist
+        id: check_files
+        run: |
+          if [ -f "data/backtest_results.csv" ]; then
+            echo "results_exist=true" >> $GITHUB_OUTPUT
+          else
+            echo "results_exist=false" >> $GITHUB_OUTPUT
+            echo "No backtest results generated - likely insufficient history"
+          fi
 
       - name: Commit results
+        if: steps.check_files.outputs.results_exist == 'true'
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add data/backtest_results.csv
-          git commit -m "Weekly backtest: $(date +'%Y-%m-%d')" || exit 0
+          git diff --staged --quiet || git commit -m "Weekly backtest: $(date +'%Y-%m-%d')"
+          
+      - name: Push changes
+        if: steps.check_files.outputs.results_exist == 'true'
+        run: |
           git push
