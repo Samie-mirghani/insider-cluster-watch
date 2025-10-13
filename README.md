@@ -394,3 +394,319 @@ Based on insider trading research and initial testing:
 | Metric | Target | Notes |
 |--------|--------|-------|
 | **Hit Rate (1w)** | 55-65% | % of signals with positive return |
+| **Hit Rate (1m)** | 50-60% | Longer horizon = more noise |
+| **Avg Return (1w)** | 2-4% | Average gain per signal |
+| **Avg Return (1m)** | 4-8% | Better returns over longer period |
+| **Alpha vs SPY** | 0.5-2% | Outperformance vs market |
+
+**Reality check:** Not every signal wins. Expect 35-45% of signals to lose money. Success comes from:
+- Larger winners than losers
+- Proper position sizing (2-5% per signal)
+- Using stop losses (-5% to -7%)
+- Taking profits at targets (+8% to +12%)
+
+---
+
+## 💡 Trading Strategy Recommendations
+
+### Position Sizing
+```
+Portfolio size: $10,000
+Per-signal allocation: 3% = $300
+Typical # of signals/week: 2-3
+Max concurrent positions: 5-7
+```
+
+### Entry Strategy
+1. **Receive email** before market open (7:05 AM)
+2. **Quick research** (10-15 minutes)
+   - Check chart for support/resistance
+   - Google recent news
+   - Verify Form 4 on SEC.gov (optional)
+3. **Place limit order** slightly above current price
+4. **Set stop loss** immediately after fill (-5%)
+5. **Set take-profit** at target (+8-10%)
+
+### Exit Strategy
+- **Target hit:** Take profits automatically
+- **Stop hit:** Accept small loss, move on
+- **Time-based:** Exit after 3-4 weeks if no movement
+- **News-driven:** Exit on negative fundamental news
+
+### Risk Management
+- **Max 5% per position**
+- **Max 20% total in signals** (rest in index funds)
+- **Never add to losing positions**
+- **Always use stop losses**
+
+---
+
+## 🐛 Troubleshooting
+
+### Email Not Sending
+
+**Error:** `Missing GMAIL_USER / GMAIL_APP_PASSWORD`
+- **Fix:** Set environment variables or GitHub secrets
+
+**Error:** `Authentication failed`
+- **Fix:** Use Gmail [app password](https://support.google.com/accounts/answer/185833), not regular password
+- Ensure 2FA is enabled on your Google account
+
+**Emails going to spam:**
+- **Fix:** Mark first email as "Not Spam"
+- Add sender to contacts
+- Check Gmail filters
+
+### No Signals Generated
+
+**Issue:** "No clusters detected" every day
+- **Cause:** Weekend, or only insider sales (no buys)
+- **Fix:** Normal behavior. Wait for weekdays when insider buys occur.
+
+**Issue:** Signals generated but not saved to history
+- **Cause:** `.gitignore` blocking CSV files
+- **Fix:** Remove `data/*.csv` from `.gitignore`
+
+### Backtest Failing
+
+**Error:** `No history file at data/signals_history.csv`
+- **Cause:** No signals have been generated yet
+- **Fix:** Run `main.py` for several days to build history first
+
+**Error:** `No backtest results (no valid price series)`
+- **Cause:** Tickers are invalid or delisted
+- **Fix:** Normal for some signals. Backtest skips invalid tickers.
+
+### GitHub Actions Failing
+
+**Error:** `fatal: pathspec 'data/backtest_results.csv' did not match any files`
+- **Cause:** `.gitignore` blocking CSV files, or no history to backtest
+- **Fix:** 
+  1. Update `.gitignore` to allow CSV files
+  2. Ensure `signals_history.csv` exists with data
+  3. Workflow will auto-fix once data exists
+
+**Error:** `push failed`
+- **Cause:** Workflow doesn't have write permissions
+- **Fix:** Settings → Actions → General → Workflow permissions → Select "Read and write"
+
+### yfinance Errors
+
+**Error:** `Failed to fetch market data for TICKER`
+- **Cause:** Yahoo Finance rate limiting or ticker invalid
+- **Fix:** Code continues with missing data. Consider paid API for reliability.
+
+---
+
+## 📚 How It Works (Technical Details)
+
+### Signal Generation Pipeline
+
+```
+1. OpenInsider Scraping
+   ↓
+2. Parse HTML table → DataFrame
+   ↓
+3. Filter for BUY transactions
+   ↓
+4. Compute conviction scores (role × log(dollars))
+   ↓
+5. Cluster by ticker (5-day window)
+   ↓
+6. Enrich with yfinance market data
+   ↓
+7. Rank by composite score
+   ↓
+8. Generate HTML/text report
+   ↓
+9. Send email via Gmail SMTP
+   ↓
+10. Save to signals_history.csv
+```
+
+### Scoring Algorithm
+
+**Conviction Score (per transaction):**
+```python
+conviction = log(1 + purchase_value) × role_weight
+
+Role weights:
+- CEO: 3.0x
+- CFO: 2.5x
+- President: 2.0x
+- Director: 1.5x
+- VP: 1.2x
+- Officer: 1.0x
+```
+
+**Cluster Score (per ticker):**
+```python
+cluster_score = (num_insiders × 2.0) + (avg_conviction / 10.0)
+```
+
+**Urgent Criteria (all must be true):**
+```python
+✓ cluster_count >= 3
+✓ total_value >= $250,000
+✓ avg_conviction >= 7.0
+✓ price within 15% of 52-week low
+```
+
+### Sell Warning Criteria
+
+Flags tickers where:
+```python
+(C-suite executive selling) OR
+(Sale > $1M) OR
+(Multiple insiders selling same ticker)
+
+AND
+
+(Multiple sellers OR Total sold > $2M OR C-suite involved)
+```
+
+---
+
+## 🤝 Contributing
+
+This is a personal project, but suggestions are welcome!
+
+### To suggest improvements:
+1. Open an issue with your idea
+2. Describe the problem and proposed solution
+3. Include example data if relevant
+
+### Areas for contribution:
+- Better scraping reliability
+- Alternative data sources
+- Improved scoring models
+- Additional alert channels (SMS, Slack, etc.)
+- Performance optimizations
+
+---
+
+## ⚖️ License & Disclaimer
+
+### License
+MIT License - Free to use, modify, and distribute.
+
+### Important Disclaimers
+
+**⚠️ NOT FINANCIAL ADVICE**
+
+This tool is for **educational and informational purposes only**. It is not financial advice.
+
+- **Do your own research** before making any investment decisions
+- **Past performance does not guarantee future results**
+- **Insider buying is not a guarantee** of stock price appreciation
+- **You can lose money** trading stocks
+
+**Risk Warnings:**
+- Insider buying can be wrong (insiders lose money too)
+- Form 4 data can be incomplete or delayed
+- Market conditions change rapidly
+- Small/micro-cap stocks are more volatile
+- Always use stop losses and proper position sizing
+
+**Data Accuracy:**
+- Data is scraped from public sources (OpenInsider)
+- No guarantee of accuracy or completeness
+- Always verify important trades on SEC.gov
+- Market data from yfinance may have delays
+
+**No Liability:**
+The creators and maintainers of this project assume no liability for any financial losses resulting from use of this tool.
+
+---
+
+## 📖 Additional Resources
+
+### Learning About Insider Trading
+- [SEC Insider Trading Overview](https://www.sec.gov/fast-answers/answersinsiderhtm.html)
+- [Form 4 Filing Requirements](https://www.sec.gov/files/forms-3-4-5.pdf)
+- [OpenInsider Website](http://openinsider.com)
+
+### Trading Education
+- [Position Sizing Guide](https://www.investopedia.com/terms/p/positionsizing.asp)
+- [Stop Loss Strategies](https://www.investopedia.com/articles/stocks/09/use-stop-loss.asp)
+- [Risk Management Basics](https://www.investopedia.com/terms/r/riskmanagement.asp)
+
+### Technical Setup
+- [GitHub Actions Documentation](https://docs.github.com/en/actions)
+- [Gmail App Passwords](https://support.google.com/accounts/answer/185833)
+- [Python Virtual Environments](https://docs.python.org/3/tutorial/venv.html)
+
+---
+
+## 💬 Support & Questions
+
+### Common Questions
+
+**Q: How much money do I need to start?**  
+A: Minimum $5,000-$10,000 to properly diversify across 3-5 signals with 2-3% position sizing.
+
+**Q: What's a realistic return expectation?**  
+A: 5-15% annually if strategy works. NOT a get-rich-quick scheme.
+
+**Q: Should I follow every signal?**  
+A: No. Do your own research. Skip signals you're not comfortable with.
+
+**Q: What if I miss the morning email?**  
+A: Set up phone notifications. If you miss it, wait for the next signal. Don't chase.
+
+**Q: Can I paper trade first?**  
+A: Absolutely! Track signals on paper for 4-8 weeks before risking real money.
+
+**Q: How do I know if it's working?**  
+A: Check the backtest results after 4+ weeks. Look for >55% hit rate and positive alpha.
+
+**Q: What brokers work best?**  
+A: Any broker works (Robinhood, Fidelity, Schwab, IBKR). Use whichever you prefer.
+
+**Q: Should I use margin?**  
+A: Not recommended for beginners. Master the strategy with cash first.
+
+---
+
+## 📞 Contact
+
+- **GitHub Issues:** [Report bugs or request features](https://github.com/Samie-mirghani/insider-cluster-watch/issues)
+- **Email:** Open an issue instead (keeps discussion public)
+- **Owner:** Samie-Mirghani
+
+---
+
+## 🙏 Acknowledgments
+
+Built with:
+- [OpenInsider](http://openinsider.com) - Public Form 4 data aggregation
+- [yfinance](https://github.com/ranaroussi/yfinance) - Market data API
+- [BeautifulSoup](https://www.crummy.com/software/BeautifulSoup/) - HTML parsing
+- [Jinja2](https://jinja.palletsprojects.com/) - Email templating
+- [GitHub Actions](https://github.com/features/actions) - Automation
+
+---
+
+**Last Updated:** October 2025  
+**Version:** 1.0.0
+
+---
+
+## Quick Start Checklist
+
+- [ ] Clone repository
+- [ ] Install dependencies (`pip install -r requirements.txt`)
+- [ ] Create Gmail app password
+- [ ] Set up `.env` file with credentials
+- [ ] Test locally (`python jobs/main.py --test`)
+- [ ] Set up GitHub secrets
+- [ ] Enable GitHub Actions
+- [ ] Update `.gitignore` to allow CSV tracking
+- [ ] Wait 1 week for initial signal history
+- [ ] Review first backtest results
+- [ ] Paper trade for 4-8 weeks
+- [ ] Start with small position sizes (2-3%)
+- [ ] Track your personal results
+- [ ] Adjust strategy based on performance
+
+**Good luck and trade safely! 🚀📈**
