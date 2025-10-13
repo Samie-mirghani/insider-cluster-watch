@@ -1,0 +1,33 @@
+# .github/workflows/weekly_backtest.yml
+name: Weekly Backtest
+
+on:
+  schedule:
+    - cron: '0 12 * * 0'  # Runs every Sunday at 12pm UTC (8am ET)
+  workflow_dispatch:  # Allow manual runs
+
+jobs:
+  backtest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run backtest
+        run: python jobs/backtest.py
+
+      - name: Commit results
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add data/backtest_results.csv
+          git commit -m "Weekly backtest: $(date +'%Y-%m-%d')" || exit 0
+          git push
