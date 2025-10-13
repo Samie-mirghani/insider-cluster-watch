@@ -29,7 +29,19 @@ jobs:
           MARKET_DATA_API_KEY: ${{ secrets.MARKET_DATA_API_KEY }}
         run: python jobs/main.py
 
+      - name: Check if history file exists
+        id: check_history
+        run: |
+          if [ -f "data/signals_history.csv" ]; then
+            echo "history_exists=true" >> $GITHUB_OUTPUT
+            echo "✅ Signal history file created"
+          else
+            echo "history_exists=false" >> $GITHUB_OUTPUT
+            echo "ℹ️ No signal history generated (likely no buy signals detected)"
+          fi
+
       - name: Commit signal history
+        if: steps.check_history.outputs.history_exists == 'true'
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
@@ -37,5 +49,6 @@ jobs:
           git diff --staged --quiet || git commit -m "Daily signal update: $(date +'%Y-%m-%d')"
           
       - name: Push changes
+        if: steps.check_history.outputs.history_exists == 'true'
         run: |
-          git push || echo "No changes to push"
+          git push
