@@ -22,6 +22,47 @@ def render_urgent_html(cluster_df):
     text = build_plain_text(rows)
     return html, text
 
+def render_no_activity_html(total_transactions=0, buy_count=0, sell_warning_html=""):
+    """
+    Render the enhanced no-activity report template.
+    """
+    env = Environment(loader=FileSystemLoader(TEMPLATE_DIR))
+    tmpl = env.get_template('no_activity_report.html')
+    html = tmpl.render(
+        date=datetime.now().strftime("%B %d, %Y"),
+        total_transactions=total_transactions,
+        buy_count=buy_count,
+        sell_warning_html=sell_warning_html
+    )
+    
+    # Plain text version
+    text_lines = [
+        f"Daily Insider Trade Report — {datetime.now().strftime('%Y-%m-%d')}",
+        "=" * 60,
+        "",
+        "📭 NO SIGNIFICANT ACTIVITY TODAY",
+        "",
+        f"Transactions Analyzed: {total_transactions}",
+        f"Buy Transactions: {buy_count}",
+        "",
+        "Why No Signals?",
+        "Our system requires:",
+        "  • Multiple insiders buying the same stock (cluster)",
+        "  • Meaningful purchase amounts ($100k+)",
+        "  • C-suite involvement for urgent alerts",
+        "  • Open-market purchases (not options/routine)",
+        "",
+        "What's Next?",
+        "Your system is monitoring correctly. We'll alert you when",
+        "significant insider buying clusters are detected.",
+        "",
+        "Next report: Tomorrow at 7:05 AM ET",
+        "=" * 60
+    ]
+    
+    text = "\n".join(text_lines)
+    return html, text
+
 def build_plain_text(rows):
     lines = []
     lines.append(f"Insider Cluster Report — {datetime.now().strftime('%Y-%m-%d')}\n")

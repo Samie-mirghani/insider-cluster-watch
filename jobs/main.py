@@ -8,6 +8,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 from fetch_openinsider import fetch_openinsider_recent
+from fetch_sec_edgar import fetch_sec_edgar_data
 from process_signals import cluster_and_score, is_urgent
 from generate_report import render_daily_html, render_urgent_html
 from send_email import send_email
@@ -149,17 +150,28 @@ def main(test=False, urgent_test=False):
     print("📥 Fetching recent insider transactions from OpenInsider...")
     df = fetch_openinsider_recent()
     
-    # In main.py, update the error message:
     if df is None or df.empty:
-        print("❌ No data available from OpenInsider")
-        print("   This could be due to:")
-        print("   • Network timeout (OpenInsider is slow/down)")
-        print("   • Weekend/holiday (no new filings)")
-        print("   • Website maintenance")
-        html = "<html><body><p>No data available from OpenInsider today. The site may be experiencing issues or there are no new filings.</p></body></html>"
-        text = "No data available from OpenInsider today (site may be down or no new filings)"
-        send_email(f"Daily Insider Report — {datetime.utcnow().strftime('%Y-%m-%d')}", html, text)
-        return
+        print("⚠️  OpenInsider returned no data, trying SEC EDGAR backup...")
+        df = fetch_sec_edgar_data(days_back=3, max_filings=50)
+
+        if df is None or df.empty:
+            print("❌ No data available from either OpenInsider or SEC EDGAR")
+            print("   This could be due to:")
+            print("   • Network issues")
+            print("   • Weekend/holiday (no new filings)")
+            print("   • Both sources under maintenance")
+            
+            # Send the enhanced no-activity email
+            from generate_report import render_no_activity_html
+            html, text = render_no_activity_html(
+                total_transactions=0,
+                buy_count=0,
+                sell_warning_html=""
+            )
+            send_email(f"Daily Insider Report — {datetime.utcnow().strftime('%Y-%m-%d')}", html, text)
+            return
+    else:
+        print(f"✅ Using SEC EDGAR data: {len(df)} transaction(s)")
 
     print(f"✅ Fetched {len(df)} transaction(s)")
     
@@ -190,17 +202,19 @@ def main(test=False, urgent_test=False):
     if cluster_df is None or cluster_df.empty:
         print("ℹ️  No significant insider buying clusters detected")
         
-        # Send email with just the sell warnings if they exist
-        if sell_warnings.empty:
-            html = "<html><body><p>No significant insider buying clusters detected today</p></body></html>"
-            text = "No significant insider buying clusters detected today"
-        else:
-            html = f"<html><body><p>No significant insider buying clusters detected today</p>{sell_warning_html}</body></html>"
-            text = f"No significant insider buying clusters detected today\n{sell_warning_text}"
+        # Use the enhanced no-activity template
+        from generate_report import render_no_activity_html
+        
+        total_tx = len(df) if df is not None and not df.empty else 0
+        html, text = render_no_activity_html(
+            total_transactions=total_tx,
+            buy_count=buy_count,
+            sell_warning_html=sell_warning_html if not sell_warnings.empty else ""
+        )
         
         send_email(f"Daily Insider Report — {datetime.utcnow().strftime('%Y-%m-%d')}", html, text)
         print(f"\n{'='*60}")
-        print("✅ Report complete - email sent")
+        print("✅ Report complete - enhanced no-activity email sent")
         print(f"{'='*60}\n")
         return
 

@@ -1,0 +1,174 @@
+<!-- templates/no_activity_report.html -->
+<html>
+<head>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+      color: #333;
+      line-height: 1.6;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 30px;
+      border-radius: 10px;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .header h1 {
+      margin: 0;
+      font-size: 24px;
+      font-weight: 600;
+    }
+    .header p {
+      margin: 10px 0 0 0;
+      opacity: 0.9;
+      font-size: 14px;
+    }
+    .content-box {
+      background: #f8f9fa;
+      border-left: 4px solid #667eea;
+      padding: 20px;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+    .content-box h2 {
+      margin-top: 0;
+      color: #667eea;
+      font-size: 18px;
+    }
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin: 20px 0;
+    }
+    .info-card {
+      background: white;
+      padding: 15px;
+      border-radius: 5px;
+      border: 1px solid #e0e0e0;
+    }
+    .info-card .label {
+      font-size: 12px;
+      color: #666;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 5px;
+    }
+    .info-card .value {
+      font-size: 20px;
+      font-weight: 600;
+      color: #333;
+    }
+    .status-badge {
+      display: inline-block;
+      padding: 8px 16px;
+      background: #e3f2fd;
+      color: #1976d2;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 500;
+      margin: 10px 0;
+    }
+    .explanation {
+      background: white;
+      padding: 20px;
+      border-radius: 5px;
+      border: 1px solid #e0e0e0;
+      margin-bottom: 20px;
+    }
+    .explanation h3 {
+      margin-top: 0;
+      color: #333;
+      font-size: 16px;
+    }
+    .explanation ul {
+      margin: 10px 0;
+      padding-left: 20px;
+    }
+    .explanation li {
+      margin: 8px 0;
+      color: #555;
+    }
+    .next-steps {
+      background: #fff3cd;
+      border-left: 4px solid #ffc107;
+      padding: 15px;
+      border-radius: 5px;
+      margin: 20px 0;
+    }
+    .next-steps h3 {
+      margin-top: 0;
+      color: #856404;
+      font-size: 16px;
+    }
+    .footer {
+      text-align: center;
+      padding: 20px;
+      color: #666;
+      font-size: 12px;
+      border-top: 1px solid #e0e0e0;
+      margin-top: 30px;
+    }
+    .emoji {
+      font-size: 24px;
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>📊 Daily Insider Trade Report</h1>
+    <p>{{ date }}</p>
+  </div>
+
+  <div class="content-box">
+    <h2>📭 No Significant Activity Today</h2>
+    <span class="status-badge">✓ Monitoring Active</span>
+    <p style="margin-top: 15px;">No significant insider buying clusters were detected in today's filings. This is normal and occurs regularly.</p>
+  </div>
+
+  <div class="info-grid">
+    <div class="info-card">
+      <div class="label">Transactions Analyzed</div>
+      <div class="value">{{ total_transactions or 0 }}</div>
+    </div>
+    <div class="info-card">
+      <div class="label">Buy Transactions</div>
+      <div class="value">{{ buy_count or 0 }}</div>
+    </div>
+  </div>
+
+  <div class="explanation">
+    <h3>💡 Why No Signals Today?</h3>
+    <p>Our system requires specific criteria for a signal:</p>
+    <ul>
+      <li><strong>Multiple insiders</strong> buying the same stock within a 5-day window</li>
+      <li><strong>Meaningful purchase amounts</strong> (typically $100k+)</li>
+      <li><strong>C-suite involvement</strong> (CEO, CFO) for urgent alerts</li>
+      <li><strong>Open-market purchases</strong> (not option exercises or routine plans)</li>
+    </ul>
+    <p>When these conditions aren't met, we don't generate signals to maintain quality.</p>
+  </div>
+
+  {% if sell_warning_html %}
+    {{ sell_warning_html|safe }}
+  {% endif %}
+
+  <div class="next-steps">
+    <h3>📌 What's Next?</h3>
+    <p><strong>Your system is working correctly.</strong> We'll continue monitoring and will send you an alert when significant insider buying clusters are detected.</p>
+    <p style="margin-bottom: 0;">Next report: Tomorrow at 7:05 AM ET</p>
+  </div>
+
+  <div class="footer">
+    <p><strong>Insider Cluster Watch</strong></p>
+    <p>Automated monitoring of Form 4 filings from OpenInsider & SEC EDGAR</p>
+    <p style="margin-top: 10px;">This is an automated report. Data sourced from public SEC filings.</p>
+  </div>
+</body>
+</html>
