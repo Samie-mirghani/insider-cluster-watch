@@ -14,7 +14,7 @@ from xml.etree import ElementTree as ET
 
 SEC_RSS_URL = "https://www.sec.gov/cgi-bin/browse-edgar"
 SEC_HEADERS = {
-    'User-Agent': 'InsiderClusterWatch your-email@example.com',  # SEC requires identification
+    'User-Agent': 'InsiderClusterWatch samie.mirghani@gmail.com',
     'Accept-Encoding': 'gzip, deflate',
     'Host': 'www.sec.gov'
 }
