@@ -146,10 +146,15 @@ def main(test=False, urgent_test=False):
     print("📥 Fetching recent insider transactions from OpenInsider...")
     df = fetch_openinsider_recent()
     
+    # In main.py, update the error message:
     if df is None or df.empty:
-        print("❌ No data available from OpenInsider (possibly weekend/holiday)")
-        html = "<html><body><p>No data available from OpenInsider today (possibly weekend/holiday)</p></body></html>"
-        text = "No data available from OpenInsider today"
+        print("❌ No data available from OpenInsider")
+        print("   This could be due to:")
+        print("   • Network timeout (OpenInsider is slow/down)")
+        print("   • Weekend/holiday (no new filings)")
+        print("   • Website maintenance")
+        html = "<html><body><p>No data available from OpenInsider today. The site may be experiencing issues or there are no new filings.</p></body></html>"
+        text = "No data available from OpenInsider today (site may be down or no new filings)"
         send_email(f"Daily Insider Report — {datetime.utcnow().strftime('%Y-%m-%d')}", html, text)
         return
 
