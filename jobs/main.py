@@ -3,6 +3,9 @@ import os
 import argparse
 from datetime import datetime
 import pandas as pd
+from dotenv import load_dotenv
+
+load_dotenv()
 
 from fetch_openinsider import fetch_openinsider_recent
 from process_signals import cluster_and_score, is_urgent
