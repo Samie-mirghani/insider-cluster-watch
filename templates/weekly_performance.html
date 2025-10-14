@@ -1,0 +1,323 @@
+<!-- templates/weekly_performance.html -->
+<html>
+<head>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+      color: #333;
+      line-height: 1.6;
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f5f5f5;
+    }
+    .email-container {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 30px;
+      text-align: center;
+    }
+    .header h1 {
+      margin: 0;
+      font-size: 28px;
+      font-weight: 600;
+    }
+    .header p {
+      margin: 10px 0 0 0;
+      opacity: 0.9;
+      font-size: 14px;
+    }
+    .summary-section {
+      padding: 30px;
+    }
+    .intro-text {
+      fontSize: '16px';
+      color: '#333';
+      line-height: '1.6';
+      margin-bottom: 25px;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      margin: 25px 0;
+    }
+    .stat-card {
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+      color: white;
+    }
+    .stat-card.primary {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    .stat-card.success {
+      background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+    }
+    .stat-card.info {
+      background: linear-gradient(135deg, #2196f3 0%, #1976d2 100%);
+    }
+    .stat-card.warning {
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    }
+    .stat-label {
+      font-size: 12px;
+      opacity: 0.9;
+      margin-bottom: 5px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .stat-value {
+      font-size: 36px;
+      font-weight: 700;
+    }
+    .stat-subtext {
+      font-size: 13px;
+      opacity: 0.9;
+      margin-top: 5px;
+    }
+    .performance-box {
+      background: #f8f9fa;
+      border-left: 4px solid #667eea;
+      padding: 20px;
+      border-radius: 5px;
+      margin: 25px 0;
+    }
+    .performance-box h3 {
+      margin: 0 0 15px 0;
+      color: #667eea;
+      font-size: 18px;
+    }
+    .performance-box ul {
+      margin: 0;
+      padding-left: 20px;
+      color: #555;
+      line-height: 1.8;
+    }
+    .performance-box li {
+      margin: 8px 0;
+    }
+    .top-performers {
+      margin-top: 25px;
+    }
+    .top-performers h3 {
+      margin: 0 0 15px 0;
+      color: #333;
+      font-size: 18px;
+    }
+    .performer-card {
+      background: white;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .performer-card:hover {
+      border-color: #667eea;
+    }
+    .performer-left {
+      flex: 1;
+    }
+    .performer-ticker {
+      font-size: 18px;
+      font-weight: 700;
+      color: #667eea;
+      margin-bottom: 3px;
+    }
+    .performer-date {
+      font-size: 13px;
+      color: #666;
+    }
+    .performer-right {
+      text-align: right;
+    }
+    .performer-return {
+      font-size: 24px;
+      font-weight: 700;
+      color: #16a34a;
+    }
+    .performer-alpha {
+      font-size: 12px;
+      color: #666;
+    }
+    .charts-note {
+      background: #fff3cd;
+      border-left: 4px solid #ffc107;
+      padding: 15px;
+      border-radius: 5px;
+      margin-top: 25px;
+    }
+    .charts-note p {
+      margin: 0;
+      font-size: 13px;
+      color: #856404;
+    }
+    .charts-note code {
+      background: #fff;
+      padding: 2px 6px;
+      borderRadius: 3px;
+      margin: 0 3px;
+      font-family: 'Courier New', monospace;
+    }
+    .footer {
+      background: #f8f9fa;
+      padding: 20px;
+      text-align: center;
+      color: #666;
+      fontSize: 12px;
+      border-top: 1px solid #e0e0e0;
+    }
+    .footer p {
+      margin: 5px 0;
+    }
+    .horizon-badge {
+      display: inline-block;
+      background: #e3f2fd;
+      color: #1976d2;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 600;
+      margin-left: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="email-container">
+    <!-- Header -->
+    <div class="header">
+      <h1>📊 Weekly Performance Report</h1>
+      <p>{{ date }}</p>
+    </div>
+
+    <!-- Summary Section -->
+    <div class="summary-section">
+      <p class="intro-text">
+        {% if total_signals_1m > 0 %}
+        Your Insider Cluster Watch system has tracked <strong>{{ total_signals_1m }} signal{{ 's' if total_signals_1m != 1 else '' }}</strong> 
+        over the past month. Here's how they performed:
+        {% else %}
+        Your Insider Cluster Watch system is actively monitoring. Not enough historical data yet for a full performance report. 
+        Keep accumulating signals!
+        {% endif %}
+      </p>
+
+      {% if total_signals_1m > 0 %}
+      <!-- Stats Grid -->
+      <div class="stats-grid">
+        <div class="stat-card primary">
+          <div class="stat-label">Total Signals</div>
+          <div class="stat-value">{{ total_signals_1m }}</div>
+          <div class="stat-subtext">tracked this period</div>
+        </div>
+        
+        <div class="stat-card success">
+          <div class="stat-label">Hit Rate</div>
+          <div class="stat-value">{{ hit_rate_1m }}%</div>
+          <div class="stat-subtext">{{ winners_1m }} of {{ total_signals_1m }} profitable</div>
+        </div>
+        
+        <div class="stat-card info">
+          <div class="stat-label">Avg Return</div>
+          <div class="stat-value">{{ avg_return_1m }}%</div>
+          <div class="stat-subtext">per signal (1-month)</div>
+        </div>
+        
+        <div class="stat-card warning">
+          <div class="stat-label">Avg Alpha</div>
+          <div class="stat-value">{{ avg_alpha_1m }}%</div>
+          <div class="stat-subtext">vs SPY benchmark</div>
+        </div>
+      </div>
+
+      <!-- Performance Summary -->
+      <div class="performance-box">
+        <h3>📈 Key Takeaways</h3>
+        <ul>
+          {% if avg_alpha_1m|float > 0 %}
+          <li>Your signals are <strong style="color: #16a34a;">outperforming SPY</strong> by an average of <strong>{{ avg_alpha_1m }}%</strong></li>
+          {% else %}
+          <li>Your signals are <strong style="color: #dc2626;">underperforming SPY</strong> by <strong>{{ avg_alpha_1m }}%</strong> - continue monitoring</li>
+          {% endif %}
+          
+          {% if hit_rate_1m|float >= 55 %}
+          <li>Hit rate of <strong>{{ hit_rate_1m }}%</strong> exceeds the 55% target ✅</li>
+          {% else %}
+          <li>Hit rate of <strong>{{ hit_rate_1m }}%</strong> is below the 55% target - may need adjustments ⚠️</li>
+          {% endif %}
+          
+          {% if total_signals_1w > 0 %}
+          <li>1-week performance: <strong>{{ hit_rate_1w }}%</strong> hit rate, <strong>{{ avg_alpha_1w }}%</strong> alpha</li>
+          {% endif %}
+          
+          {% if avg_alpha_1m|float > 1 and hit_rate_1m|float >= 55 %}
+          <li><strong style="color: #16a34a;">Strategy is working</strong> - continue with current approach 🎯</li>
+          {% elif total_signals_1m < 10 %}
+          <li>Need more data points for statistical significance - keep monitoring 📊</li>
+          {% else %}
+          <li>Review your signal criteria - results may need optimization 🔧</li>
+          {% endif %}
+        </ul>
+      </div>
+
+      <!-- Top Performers -->
+      {% if top_performers|length > 0 %}
+      <div class="top-performers">
+        <h3>🏆 Top Performers (1-Month)</h3>
+        {% for signal in top_performers %}
+        <div class="performer-card">
+          <div class="performer-left">
+            <div class="performer-ticker">{{ signal.ticker }}</div>
+            <div class="performer-date">
+              Signal: {{ signal.signal_date }} | Score: {{ signal.signal_score }}
+            </div>
+          </div>
+          <div class="performer-right">
+            <div class="performer-return">{{ signal.return_pct }}%</div>
+            <div class="performer-alpha">Alpha: {{ signal.alpha_pct }}%</div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      <!-- Charts Note -->
+      <div class="charts-note">
+        <p>
+          📊 <strong>Detailed Charts Available:</strong> View rolling hit rate and cumulative alpha visualizations 
+          in your GitHub repository at <code>data/plots/</code> or run <code>python jobs/visualize.py</code> locally.
+        </p>
+      </div>
+
+      {% else %}
+      <!-- Not Enough Data -->
+      <div class="performance-box">
+        <h3>📊 Building Your Track Record</h3>
+        <ul>
+          <li>Your system is actively monitoring insider filings daily</li>
+          <li>Performance tracking begins after signals accumulate</li>
+          <li>Target: 10+ signals for meaningful statistics</li>
+          <li>Weekly reports will show full metrics once data is available</li>
+        </ul>
+      </div>
+      {% endif %}
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <p><strong>Insider Cluster Watch</strong></p>
+      <p>Performance tracking powered by real-time backtest analysis</p>
+      <p style="margin-top: 10px;"><em>This report is for informational purposes only. Past performance does not guarantee future results.</em></p>
+    </div>
+  </div>
+</body>
+</html>

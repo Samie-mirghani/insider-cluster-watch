@@ -35,12 +35,27 @@ jobs:
             echo "No backtest results generated - likely insufficient history"
           fi
 
+      - name: Generate visualizations
+        if: steps.check_files.outputs.results_exist == 'true'
+        run: |
+          python jobs/visualize.py || echo "Visualization completed with warnings"
+
+      - name: Send weekly performance email
+        if: steps.check_files.outputs.results_exist == 'true'
+        env:
+          GMAIL_USER: ${{ secrets.GMAIL_USER }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          RECIPIENT_EMAIL: ${{ secrets.RECIPIENT_EMAIL }}
+        run: |
+          python jobs/weekly_summary.py || echo "Weekly summary completed with warnings"
+
       - name: Commit results
         if: steps.check_files.outputs.results_exist == 'true'
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add data/backtest_results.csv
+          git add data/plots/*.png || echo "No plots to commit"
           git diff --staged --quiet || git commit -m "Weekly backtest: $(date +'%Y-%m-%d')"
           
       - name: Push changes
