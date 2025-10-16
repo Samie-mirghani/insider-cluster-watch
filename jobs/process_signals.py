@@ -39,25 +39,48 @@ def enrich_with_market_data(cluster_df):
     Uses yfinance (free) to add currentPrice, marketCap, fiftyTwoWeekLow to cluster_df.
     This is rate-limited by Yahoo; for production use a paid price feed.
     """
+    import warnings
+    import logging
+    
+    # Suppress yfinance warnings and errors
+    warnings.filterwarnings('ignore')
+    logging.getLogger('yfinance').setLevel(logging.CRITICAL)
+    
     tickers = cluster_df['ticker'].unique().tolist()
     info = {}
+    
+    print(f"   Fetching market data for {len(tickers)} tickers...")
+    successful = 0
+    failed = 0
+    
     for t in tickers:
         try:
             q = yf.Ticker(t).info
-            info[t] = {
-                'currentPrice': q.get('currentPrice'),
-                'marketCap': q.get('marketCap'),
-                'fiftyTwoWeekLow': q.get('fiftyTwoWeekLow'),
-                'fiftyTwoWeekHigh': q.get('fiftyTwoWeekHigh'),
-            }
+            if q and 'currentPrice' in q:
+                info[t] = {
+                    'currentPrice': q.get('currentPrice'),
+                    'marketCap': q.get('marketCap'),
+                    'fiftyTwoWeekLow': q.get('fiftyTwoWeekLow'),
+                    'fiftyTwoWeekHigh': q.get('fiftyTwoWeekHigh'),
+                }
+                successful += 1
+            else:
+                # No data available, use empty dict
+                info[t] = {}
+                failed += 1
             time.sleep(0.5)
         except Exception as e:
-            print(f"Warning: Failed to fetch market data for {t}: {e}")
+            # Silently skip tickers that fail (404, invalid, etc)
             info[t] = {}
+            failed += 1
+    
+    print(f"   Market data: {successful} successful, {failed} failed/unavailable")
+    
     cluster_df['currentPrice'] = cluster_df['ticker'].map(lambda x: info.get(x, {}).get('currentPrice'))
     cluster_df['marketCap'] = cluster_df['ticker'].map(lambda x: info.get(x, {}).get('marketCap'))
     cluster_df['fiftyTwoWeekLow'] = cluster_df['ticker'].map(lambda x: info.get(x, {}).get('fiftyTwoWeekLow'))
     cluster_df['pct_from_52wk_low'] = None
+    
     def pct_from_low(row):
         low = row.get('fiftyTwoWeekLow')
         cur = row.get('currentPrice')
@@ -67,7 +90,12 @@ def enrich_with_market_data(cluster_df):
             except Exception:
                 return None
         return None
+    
     cluster_df['pct_from_52wk_low'] = cluster_df.apply(pct_from_low, axis=1)
+    
+    # Re-enable warnings
+    warnings.filterwarnings('default')
+    
     return cluster_df
 
 def cluster_and_score(df, window_days=5, top_n=50):
@@ -76,7 +104,7 @@ def cluster_and_score(df, window_days=5, top_n=50):
     returns: DataFrame with per-ticker aggregated cluster info and suggested action/rationale
     """
     # filter buys
-    buys = df[df['trade_type'].str.upper().str.contains('BUY', na=False)].copy()
+    buys = df[df['trade_type'].str.upper().str.contains('BUY|PURCHASE|P -', na=False)].copy()
     if buys.empty:
         return pd.DataFrame()
 
@@ -131,7 +159,14 @@ def cluster_and_score(df, window_days=5, top_n=50):
     cluster_df['suggested_action'] = cluster_df.apply(lambda r: suggest_action(r), axis=1)
     cluster_df['rationale'] = cluster_df.apply(lambda r: build_rationale(r), axis=1)
 
-    return cluster_df.sort_values('rank_score', ascending=False).head(top_n)
+    # Include all signals, not just clusters of 2+
+    # Sort by rank score and return top N
+    result = cluster_df.sort_values('rank_score', ascending=False).head(top_n)
+        
+    # Filter out very low quality signals
+    result = result[result['rank_score'] >= 3.0]  # Minimum threshold
+        
+    return result
 
 # Default urgent thresholds (feel free to tune)
 URGENT_THRESHOLDS = {
@@ -159,15 +194,45 @@ def is_urgent(r, thresholds=URGENT_THRESHOLDS):
 
 def suggest_action(r):
     """
-    Very simple rules:
-      - If urgent -> "Consider small entry at open / immediate review"
-      - If cluster_count >=2 and rank_score high -> "Watchlist / Consider"
-      - Else "Monitor"
+    Determine suggested action based on signal strength.
+    Now includes high-conviction single-insider buys.
+    
+    Rules:
+      - Urgent: Multiple insiders + high conviction + near 52w low
+      - Watchlist: 2+ insiders OR single high-conviction insider
+      - Monitor: Everything else
     """
+    # Check if urgent first
     if is_urgent(r):
         return "URGENT: Consider small entry at open / immediate review"
-    if r.get('cluster_count',0) >= 2 and r.get('rank_score',0) > 5:
+    
+    # Multiple insiders (cluster of 2+)
+    if r.get('cluster_count', 0) >= 2 and r.get('rank_score', 0) > 5:
         return "Watchlist - consider small entry after confirmation"
+    
+    # Single insider but HIGH conviction
+    # This catches: CEOs buying $500k+, CFOs buying $250k+, anyone buying $1M+
+    if r.get('cluster_count', 0) == 1:
+        total_value = r.get('total_value', 0)
+        conviction = r.get('avg_conviction', 0)
+        
+        # Very high conviction (CEO/CFO with large purchase)
+        if conviction >= 12.0 and total_value >= 500000:
+            return "Watchlist - strong single-insider signal"
+        
+        # High conviction with meaningful size
+        elif conviction >= 10.0 and total_value >= 250000:
+            return "Watchlist - notable insider purchase"
+        
+        # Large purchase (any insider buying $1M+)
+        elif total_value >= 1000000:
+            return "Watchlist - significant dollar amount"
+        
+        # Moderate conviction
+        elif conviction >= 8.0 and total_value >= 100000:
+            return "Monitor - single insider buying"
+    
+    # Default
     return "Monitor"
 
 def build_rationale(r):

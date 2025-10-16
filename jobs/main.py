@@ -176,8 +176,9 @@ def main(test=False, urgent_test=False):
     print(f"✅ Fetched {len(df)} transaction(s)")
     
     # Show breakdown of transaction types
-    buy_count = df[df['trade_type'].str.upper().str.contains('BUY', na=False)].shape[0]
-    sell_count = df[df['trade_type'].str.upper().str.contains('SALE|SELL', na=False)].shape[0]
+    # Show breakdown of transaction types
+    buy_count = df[df['trade_type'].str.upper().str.contains('BUY|PURCHASE|P -', na=False)].shape[0]
+    sell_count = df[df['trade_type'].str.upper().str.contains('SALE|SELL|S -', na=False)].shape[0]
     print(f"   • {buy_count} buy transaction(s)")
     print(f"   • {sell_count} sale transaction(s)\n")
 
