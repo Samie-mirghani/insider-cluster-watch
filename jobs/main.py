@@ -12,6 +12,8 @@ from fetch_sec_edgar import fetch_sec_edgar_data
 from process_signals import cluster_and_score, is_urgent
 from generate_report import render_daily_html, render_urgent_html, render_no_activity_html
 from send_email import send_email
+from paper_trade import PaperTradingPortfolio
+from news_sentiment import check_news_for_signals
 
 DATA_DIR = os.path.join(os.path.dirname(__file__), '..', 'data')
 if not os.path.exists(DATA_DIR):
@@ -177,6 +179,7 @@ def format_sell_warning(sell_df):
 def append_to_history(cluster_df):
     """
     Append new signals to the historical tracking CSV.
+    Now includes sector and quality_score.
     """
     if cluster_df is None or cluster_df.empty:
         return
@@ -189,7 +192,10 @@ def append_to_history(cluster_df):
             'signal_score': float(r.get('rank_score', 0)),
             'action': r.get('suggested_action'),
             'cluster_count': int(r.get('cluster_count', 0)),
-            'total_value': float(r.get('total_value', 0))
+            'total_value': float(r.get('total_value', 0)),
+            'sector': r.get('sector', 'Unknown'),
+            'quality_score': float(r.get('quality_score', 0)),
+            'pattern_detected': r.get('pattern_detected', 'None')
         })
     
     new_df = pd.DataFrame(rows)
@@ -203,10 +209,22 @@ def append_to_history(cluster_df):
     combined.to_csv(HISTORY_CSV, index=False)
     print(f"✅ Saved {len(new_df)} signal(s) to history (total: {len(combined)} signals tracked)")
 
-def main(test=False, urgent_test=False):
+def main(test=False, urgent_test=False, enable_paper_trading=True):
     print(f"{'='*60}")
     print(f"🔍 Insider Cluster Watch - {datetime.utcnow().strftime('%Y-%m-%d %H:%M UTC')}")
     print(f"{'='*60}\n")
+    
+    # Initialize paper trading simulator
+    paper_trader = None
+    if enable_paper_trading:
+        paper_trader = PaperTradingPortfolio()
+        portfolio_value = paper_trader.get_portfolio_value()
+        total_return = ((portfolio_value - paper_trader.starting_capital) / paper_trader.starting_capital) * 100
+
+        print(f"📊 Paper Trading: Enabled")
+        print(f"   Portfolio Value: ${portfolio_value:,.2f}")
+        print(f"   Cash: ${paper_trader.cash:,.2f}")
+        print(f"   Open Positions: {len(paper_trader.positions)}\n")
     
     # 1) Fetch insider trading data
     print("📥 Fetching recent insider transactions from OpenInsider...")
@@ -250,8 +268,11 @@ def main(test=False, urgent_test=False):
     else:
         print("✅ No concerning selling activity detected\n")
 
-    # 3) Process buy signals and compute cluster scores
-    print("🔎 Processing buy signals and clustering...")
+    # 3) Process buy signals and compute cluster scores (with enhanced features)
+    print("🔎 Processing buy signals with enhanced features...")
+    print("   • Quality filtering (penny stocks, small buys)")
+    print("   • Sector analysis")
+    print("   • Pattern detection (accelerating buys, CEO clusters)")
     cluster_df = cluster_and_score(df, window_days=5, top_n=50)
 
     if cluster_df is None or cluster_df.empty:
@@ -272,7 +293,39 @@ def main(test=False, urgent_test=False):
 
     print(f"✅ Found {len(cluster_df)} buy cluster(s)")
     
-    # 4) Filter out duplicate signals (NEW STEP)
+    # Show quality and sector breakdown
+    if 'quality_score' in cluster_df.columns:
+        high_quality = len(cluster_df[cluster_df['quality_score'] >= 7])
+        print(f"   • {high_quality} high-quality signals (score ≥7)")
+    
+    if 'sector' in cluster_df.columns:
+        sector_counts = cluster_df['sector'].value_counts()
+        print(f"   • Sectors: {dict(sector_counts.head(3))}")
+    
+    if 'pattern_detected' in cluster_df.columns:
+        patterns = cluster_df[cluster_df['pattern_detected'] != 'None']['pattern_detected'].value_counts()
+        if not patterns.empty:
+            print(f"   • Patterns: {dict(patterns)}")
+    
+    # 4) Check news sentiment for signals
+    print("\n📰 Checking news sentiment...")
+    cluster_df = check_news_for_signals(cluster_df)
+    
+    if cluster_df.empty:
+        print("⚠️  All signals filtered out due to negative news")
+        total_tx = len(df) if df is not None and not df.empty else 0
+        html, text = render_no_activity_html(
+            total_transactions=total_tx,
+            buy_count=buy_count,
+            sell_warning_html=sell_warning_html if not sell_warnings.empty else ""
+        )
+        send_email(f"Daily Insider Report — {datetime.utcnow().strftime('%Y-%m-%d')}", html, text)
+        print(f"\n{'='*60}")
+        print("✅ Report complete - no signals passed news filter")
+        print(f"{'='*60}\n")
+        return
+    
+    # 5) Filter out duplicate signals
     print("\n🔍 Checking for duplicate signals...")
     recent_signals = load_recent_signals(days_back=7)
     print(f"   Loaded {len(recent_signals)} recent signals from last 7 days")
@@ -301,18 +354,61 @@ def main(test=False, urgent_test=False):
     # Use new_cluster_df instead of cluster_df from here on
     cluster_df = new_cluster_df
     
-    # Show top signals
+    # Show top signals with enhanced info
     print("📊 New signals:")
     for idx, row in cluster_df.head(5).iterrows():
-        print(f"   {row['ticker']}: Cluster={row['cluster_count']}, Score={row['rank_score']:.2f}, ${int(row['total_value']):,}")
+        quality = f", Quality={row.get('quality_score', 0):.1f}" if 'quality_score' in row else ""
+        sector = f", {row.get('sector', 'N/A')}" if 'sector' in row else ""
+        pattern = f", Pattern: {row.get('pattern_detected', 'None')}" if 'pattern_detected' in row and row.get('pattern_detected') != 'None' else ""
+        print(f"   {row['ticker']}: Cluster={row['cluster_count']}, Score={row['rank_score']:.2f}{quality}{sector}{pattern}, ${int(row['total_value']):,}")
     print()
 
-    # 5) Save signals to history
+    
+    # 6) Paper trading: Process signals
+    if paper_trader:
+        print("📈 Processing paper trading signals...")
+        signals_executed = 0
+        signals_skipped = 0
+
+        for _, signal_row in cluster_df.iterrows():
+            entry_price = signal_row.get('currentPrice')
+            
+            # Skip if no valid price (market data fetch failed)
+            if entry_price is None or pd.isna(entry_price) or entry_price <= 0:
+                signals_skipped += 1
+                continue
+            
+            # Execute signal if price is valid
+            signal = {
+                'ticker': signal_row['ticker'],
+                'entry_price': entry_price,
+                'signal_date': datetime.utcnow().strftime('%Y-%m-%d'),
+                'signal_score': signal_row.get('rank_score', 0),
+                'cluster_count': signal_row.get('cluster_count', 0)
+            }
+            paper_trader.execute_signal(signal)
+            signals_executed += 1  # INCREMENT COUNTER
+        
+        # Update existing positions
+        paper_trader.check_exits()
+        paper_trader.save()
+        
+        portfolio_value = paper_trader.get_portfolio_value()
+        total_return = ((portfolio_value - paper_trader.starting_capital) / paper_trader.starting_capital) * 100
+
+        print(f"   Executed: {signals_executed} positions")
+        if signals_skipped > 0:
+            print(f"   Skipped: {signals_skipped} signals (no price data)")
+        print(f"   Portfolio Value: ${portfolio_value:,.2f}")
+        print(f"   Total Return: {total_return:.2f}%")
+        print(f"   Active Positions: {len(paper_trader.positions)}\n")
+
+    # 7) Save signals to history
     print("💾 Saving signals to history...")
     append_to_history(cluster_df)
     print()
 
-    # 6) Check for urgent signals
+    # 8) Check for urgent signals
     urgent_df = cluster_df[cluster_df.apply(lambda r: is_urgent(r), axis=1)].copy()
     
     if not urgent_df.empty:
@@ -321,7 +417,7 @@ def main(test=False, urgent_test=False):
             print(f"   • {row['ticker']} - {row['suggested_action']}")
         print()
 
-    # 7) Generate reports
+    # 9) Generate reports
     print("📧 Generating email reports...")
     daily_html, daily_text = render_daily_html(cluster_df)
     
@@ -340,7 +436,7 @@ def main(test=False, urgent_test=False):
         urgent_html = None
         urgent_text = None
 
-    # 8) Send emails
+    # 10) Send emails
     if test:
         print("📬 Sending TEST emails...")
         send_email(f"TEST — Daily Insider Report — {datetime.utcnow().strftime('%Y-%m-%d')}", daily_html, daily_text)
@@ -355,12 +451,17 @@ def main(test=False, urgent_test=False):
     
     print(f"\n{'='*60}")
     print("✅ All done! Reports sent successfully")
+    if paper_trader:
+        portfolio_value = paper_trader.get_portfolio_value()
+        total_return = ((portfolio_value - paper_trader.starting_capital) / paper_trader.starting_capital) * 100
+        print(f"📊 Paper Portfolio: ${portfolio_value:,.2f} ({total_return:+.2f}%)")
     print(f"{'='*60}\n")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--test', action='store_true', help='Send test emails and exit')
     parser.add_argument('--urgent-test', action='store_true', help='Generate a fake urgent email for testing')
+    parser.add_argument('--no-paper-trading', action='store_true', help='Disable paper trading simulation')
     args = parser.parse_args()
     
     if args.urgent_test:
@@ -377,10 +478,14 @@ if __name__ == "__main__":
             'pct_from_52wk_low': 10.0,
             'rank_score': 15.0,
             'suggested_action': 'URGENT: Consider small entry at open / immediate review',
-            'rationale': 'Cluster count:4 | Total reported buys: $500,000 | Current Price: $5.25 | 10.0% above 52-week low | Rank Score: 15.00'
+            'rationale': 'Cluster count:4 | Total reported buys: $500,000 | Current Price: $5.25 | 10.0% above 52-week low | Rank Score: 15.00',
+            'sector': 'Technology',
+            'quality_score': 8.5,
+            'pattern_detected': 'CEO Cluster',
+            'news_sentiment': 'positive'
         }])
         from generate_report import render_urgent_html
         html, text = render_urgent_html(fake)
         send_email("URGENT TEST INSIDER ALERT", html, text)
     else:
-        main(test=args.test)
+        main(test=args.test, enable_paper_trading=not args.no_paper_trading)

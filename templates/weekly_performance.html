@@ -1,4 +1,4 @@
-<!-- templates/weekly_performance.html -->
+<!-- templates/weekly_performance_enhanced.html -->
 <html>
 <head>
   <style>
@@ -6,7 +6,7 @@
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
       color: #333;
       line-height: 1.6;
-      max-width: 700px;
+      max-width: 800px;
       margin: 0 auto;
       padding: 20px;
       background-color: #f5f5f5;
@@ -37,9 +37,9 @@
       padding: 30px;
     }
     .intro-text {
-      fontSize: '16px';
-      color: '#333';
-      line-height: '1.6';
+      font-size: 16px;
+      color: #333;
+      line-height: 1.6;
       margin-bottom: 25px;
     }
     .stats-grid {
@@ -66,6 +66,9 @@
     .stat-card.warning {
       background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
     }
+    .stat-card.danger {
+      background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+    }
     .stat-label {
       font-size: 12px;
       opacity: 0.9;
@@ -82,26 +85,134 @@
       opacity: 0.9;
       margin-top: 5px;
     }
-    .performance-box {
+    .enhanced-metrics {
       background: #f8f9fa;
-      border-left: 4px solid #667eea;
-      padding: 20px;
-      border-radius: 5px;
+      border-radius: 10px;
+      padding: 25px;
       margin: 25px 0;
     }
-    .performance-box h3 {
-      margin: 0 0 15px 0;
+    .enhanced-metrics h3 {
+      margin: 0 0 20px 0;
       color: #667eea;
       font-size: 18px;
     }
-    .performance-box ul {
-      margin: 0;
-      padding-left: 20px;
-      color: #555;
-      line-height: 1.8;
+    .metrics-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      margin-bottom: 15px;
     }
-    .performance-box li {
-      margin: 8px 0;
+    .metric-box {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      border: 2px solid #e0e0e0;
+      text-align: center;
+    }
+    .metric-box .label {
+      font-size: 11px;
+      color: #666;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .metric-box .value {
+      font-size: 24px;
+      font-weight: 700;
+      color: #667eea;
+    }
+    .metric-box .value.positive {
+      color: #16a34a;
+    }
+    .metric-box .value.negative {
+      color: #dc2626;
+    }
+    .paper-trading-section {
+      background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+      border-radius: 10px;
+      padding: 25px;
+      margin: 25px 0;
+      border: 2px solid #f59e0b;
+    }
+    .paper-trading-section h3 {
+      margin: 0 0 20px 0;
+      color: #92400e;
+      font-size: 18px;
+    }
+    .pt-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+    .pt-metric {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+    }
+    .pt-metric .label {
+      font-size: 11px;
+      color: #92400e;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .pt-metric .value {
+      font-size: 24px;
+      font-weight: 700;
+      color: #92400e;
+    }
+    .analysis-section {
+      margin: 25px 0;
+    }
+    .analysis-section h3 {
+      margin: 0 0 15px 0;
+      color: #333;
+      font-size: 18px;
+    }
+    .analysis-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .analysis-table th {
+      background: #f8f9fa;
+      padding: 12px;
+      text-align: left;
+      font-size: 12px;
+      color: #666;
+      text-transform: uppercase;
+      border-bottom: 2px solid #e0e0e0;
+    }
+    .analysis-table td {
+      padding: 12px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .analysis-table tr:last-child td {
+      border-bottom: none;
+    }
+    .hit-rate-badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .hit-rate-badge.excellent {
+      background: #dcfce7;
+      color: #15803d;
+    }
+    .hit-rate-badge.good {
+      background: #dbeafe;
+      color: #1e40af;
+    }
+    .hit-rate-badge.moderate {
+      background: #fef3c7;
+      color: #92400e;
+    }
+    .hit-rate-badge.poor {
+      background: #fee2e2;
+      color: #991b1b;
     }
     .top-performers {
       margin-top: 25px;
@@ -145,9 +256,54 @@
       font-weight: 700;
       color: #16a34a;
     }
+    .performer-return.negative {
+      color: #dc2626;
+    }
     .performer-alpha {
       font-size: 12px;
       color: #666;
+    }
+    .assessment-box {
+      background: #f8f9fa;
+      border-left: 4px solid #667eea;
+      padding: 20px;
+      border-radius: 5px;
+      margin: 25px 0;
+    }
+    .assessment-box h3 {
+      margin: 0 0 15px 0;
+      color: #667eea;
+      font-size: 18px;
+    }
+    .assessment-box ul {
+      margin: 0;
+      padding-left: 20px;
+      color: #555;
+      line-height: 1.8;
+    }
+    .assessment-box li {
+      margin: 8px 0;
+    }
+    .assessment-box.excellent {
+      border-left-color: #16a34a;
+      background: #f0fdf4;
+    }
+    .assessment-box.excellent h3 {
+      color: #16a34a;
+    }
+    .assessment-box.warning {
+      border-left-color: #f59e0b;
+      background: #fffbeb;
+    }
+    .assessment-box.warning h3 {
+      color: #f59e0b;
+    }
+    .assessment-box.danger {
+      border-left-color: #dc2626;
+      background: #fef2f2;
+    }
+    .assessment-box.danger h3 {
+      color: #dc2626;
     }
     .charts-note {
       background: #fff3cd;
@@ -164,7 +320,7 @@
     .charts-note code {
       background: #fff;
       padding: 2px 6px;
-      borderRadius: 3px;
+      border-radius: 3px;
       margin: 0 3px;
       font-family: 'Courier New', monospace;
     }
@@ -173,21 +329,11 @@
       padding: 20px;
       text-align: center;
       color: #666;
-      fontSize: 12px;
+      font-size: 12px;
       border-top: 1px solid #e0e0e0;
     }
     .footer p {
       margin: 5px 0;
-    }
-    .horizon-badge {
-      display: inline-block;
-      background: #e3f2fd;
-      color: #1976d2;
-      padding: 4px 10px;
-      border-radius: 12px;
-      font-size: 11px;
-      font-weight: 600;
-      margin-left: 8px;
     }
   </style>
 </head>
@@ -204,7 +350,7 @@
       <p class="intro-text">
         {% if total_signals_1m > 0 %}
         Your Insider Cluster Watch system has tracked <strong>{{ total_signals_1m }} signal{{ 's' if total_signals_1m != 1 else '' }}</strong> 
-        over the past month. Here's how they performed:
+        over the past month. Here's your comprehensive performance analysis:
         {% else %}
         Your Insider Cluster Watch system is actively monitoring. Not enough historical data yet for a full performance report. 
         Keep accumulating signals!
@@ -212,7 +358,7 @@
       </p>
 
       {% if total_signals_1m > 0 %}
-      <!-- Stats Grid -->
+      <!-- Primary Stats Grid -->
       <div class="stats-grid">
         <div class="stat-card primary">
           <div class="stat-label">Total Signals</div>
@@ -239,40 +385,152 @@
         </div>
       </div>
 
-      <!-- Performance Summary -->
-      <div class="performance-box">
-        <h3>📈 Key Takeaways</h3>
-        <ul>
-          {% if avg_alpha_1m|float > 0 %}
-          <li>Your signals are <strong style="color: #16a34a;">outperforming SPY</strong> by an average of <strong>{{ avg_alpha_1m }}%</strong></li>
-          {% else %}
-          <li>Your signals are <strong style="color: #dc2626;">underperforming SPY</strong> by <strong>{{ avg_alpha_1m }}%</strong> - continue monitoring</li>
-          {% endif %}
-          
-          {% if hit_rate_1m|float >= 55 %}
-          <li>Hit rate of <strong>{{ hit_rate_1m }}%</strong> exceeds the 55% target ✅</li>
-          {% else %}
-          <li>Hit rate of <strong>{{ hit_rate_1m }}%</strong> is below the 55% target - may need adjustments ⚠️</li>
-          {% endif %}
-          
-          {% if total_signals_1w > 0 %}
-          <li>1-week performance: <strong>{{ hit_rate_1w }}%</strong> hit rate, <strong>{{ avg_alpha_1w }}%</strong> alpha</li>
-          {% endif %}
-          
-          {% if avg_alpha_1m|float > 1 and hit_rate_1m|float >= 55 %}
-          <li><strong style="color: #16a34a;">Strategy is working</strong> - continue with current approach 🎯</li>
-          {% elif total_signals_1m < 10 %}
-          <li>Need more data points for statistical significance - keep monitoring 📊</li>
-          {% else %}
-          <li>Review your signal criteria - results may need optimization 🔧</li>
-          {% endif %}
-        </ul>
+      <!-- Enhanced Metrics -->
+      <div class="enhanced-metrics">
+        <h3>📈 Advanced Risk Metrics</h3>
+        <div class="metrics-row">
+          <div class="metric-box">
+            <div class="label">Sharpe Ratio</div>
+            <div class="value {% if sharpe_ratio_1m >= 1 %}positive{% elif sharpe_ratio_1m < 0 %}negative{% endif %}">
+              {{ sharpe_ratio_1m }}
+            </div>
+          </div>
+          <div class="metric-box">
+            <div class="label">Max Drawdown</div>
+            <div class="value negative">{{ max_drawdown_1m }}%</div>
+          </div>
+          <div class="metric-box">
+            <div class="label">Win/Loss Ratio</div>
+            <div class="value {% if win_loss_ratio_1m >= 1.5 %}positive{% endif %}">
+              {{ win_loss_ratio_1m }}
+            </div>
+          </div>
+        </div>
+        <div class="metrics-row">
+          <div class="metric-box">
+            <div class="label">Median Return</div>
+            <div class="value {% if median_return_1m > 0 %}positive{% else %}negative{% endif %}">
+              {{ median_return_1m }}%
+            </div>
+          </div>
+          <div class="metric-box">
+            <div class="label">Best Trade</div>
+            <div class="value positive">+{{ best_return_1m }}%</div>
+          </div>
+          <div class="metric-box">
+            <div class="label">Worst Trade</div>
+            <div class="value negative">{{ worst_return_1m }}%</div>
+          </div>
+        </div>
       </div>
 
+      <!-- Paper Trading Section -->
+      {% if paper_trading.enabled %}
+      <div class="paper-trading-section">
+        <h3>💰 Paper Trading Performance</h3>
+        <div class="pt-grid">
+          <div class="pt-metric">
+            <div class="label">Portfolio Value</div>
+            <div class="value">${{ "{:,.2f}".format(paper_trading.portfolio_value) }}</div>
+          </div>
+          <div class="pt-metric">
+            <div class="label">Total Return</div>
+            <div class="value">{{ "{:+.2f}".format(paper_trading.total_return) }}%</div>
+          </div>
+          <div class="pt-metric">
+            <div class="label">Win Rate</div>
+            <div class="value">{{ "{:.1f}".format(paper_trading.hit_rate) }}%</div>
+          </div>
+          <div class="pt-metric">
+            <div class="label">Total Trades</div>
+            <div class="value">{{ paper_trading.total_trades }}</div>
+          </div>
+          <div class="pt-metric">
+            <div class="label">Open Positions</div>
+            <div class="value">{{ paper_trading.open_positions }}</div>
+          </div>
+          <div class="pt-metric">
+            <div class="label">Realized P&L</div>
+            <div class="value">${{ "{:,.2f}".format(paper_trading.realized_pnl) }}</div>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+
+      <!-- Sector Analysis -->
+      {% if sector_analysis %}
+      <div class="analysis-section">
+        <h3>🏢 Performance by Sector</h3>
+        <table class="analysis-table">
+          <thead>
+            <tr>
+              <th>Sector</th>
+              <th>Signals</th>
+              <th>Hit Rate</th>
+              <th>Avg Return</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for sector in sector_analysis[:5] %}
+            <tr>
+              <td><strong>{{ sector.sector }}</strong></td>
+              <td>{{ sector.count }}</td>
+              <td>
+                <span class="hit-rate-badge {% if sector.hit_rate >= 65 %}excellent{% elif sector.hit_rate >= 55 %}good{% elif sector.hit_rate >= 45 %}moderate{% else %}poor{% endif %}">
+                  {{ sector.hit_rate }}%
+                </span>
+              </td>
+              <td>
+                <strong style="color: {% if sector.avg_return > 0 %}#16a34a{% else %}#dc2626{% endif %}">
+                  {{ "{:+.2f}".format(sector.avg_return) }}%
+                </strong>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% endif %}
+
+      <!-- Pattern Analysis -->
+      {% if pattern_analysis %}
+      <div class="analysis-section">
+        <h3>🔍 Performance by Pattern</h3>
+        <table class="analysis-table">
+          <thead>
+            <tr>
+              <th>Pattern</th>
+              <th>Count</th>
+              <th>Hit Rate</th>
+              <th>Avg Return</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for pattern in pattern_analysis %}
+            <tr>
+              <td><strong>{{ pattern.pattern }}</strong></td>
+              <td>{{ pattern.count }}</td>
+              <td>
+                <span class="hit-rate-badge {% if pattern.hit_rate >= 65 %}excellent{% elif pattern.hit_rate >= 55 %}good{% elif pattern.hit_rate >= 45 %}moderate{% else %}poor{% endif %}">
+                  {{ pattern.hit_rate }}%
+                </span>
+              </td>
+              <td>
+                <strong style="color: {% if pattern.avg_return > 0 %}#16a34a{% else %}#dc2626{% endif %}">
+                  {{ "{:+.2f}".format(pattern.avg_return) }}%
+                </strong>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% endif %}
+
       <!-- Top Performers -->
-      {% if top_performers|length > 0 %}
+      {% if top_performers %}
       <div class="top-performers">
-        <h3>🏆 Top Performers (1-Month)</h3>
+        <h3>🏆 Top 3 Performers (1-Month)</h3>
         {% for signal in top_performers %}
         <div class="performer-card">
           <div class="performer-left">
@@ -290,32 +548,114 @@
       </div>
       {% endif %}
 
-      <!-- Charts Note -->
-      <div class="charts-note">
-        <p>
-          📊 <strong>Detailed Charts Available:</strong> View rolling hit rate and cumulative alpha visualizations 
-          in your GitHub repository at <code>data/plots/</code> or run <code>python jobs/visualize.py</code> locally.
-        </p>
+      <!-- Worst Performers (for learning) -->
+      {% if worst_performers %}
+      <div class="top-performers">
+        <h3>📉 Worst 3 Performers (Learn from These)</h3>
+        {% for signal in worst_performers %}
+        <div class="performer-card">
+          <div class="performer-left">
+            <div class="performer-ticker">{{ signal.ticker }}</div>
+            <div class="performer-date">
+              Signal: {{ signal.signal_date }}
+            </div>
+          </div>
+          <div class="performer-right">
+            <div class="performer-return negative">{{ signal.return_pct }}%</div>
+            <div class="performer-alpha">Alpha: {{ signal.alpha_pct }}%</div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      <!-- Performance Assessment -->
+      {% set assessment_class = 'excellent' if (sharpe_ratio_1m|float >= 1.0 and avg_alpha_1m|float > 0 and hit_rate_1m|float >= 55) else ('good' if (sharpe_ratio_1m|float >= 0.5 and avg_alpha_1m|float > 0) else ('warning' if avg_alpha_1m|float > 0 else 'danger')) %}
+      
+      <div class="assessment-box {{ assessment_class }}">
+        <h3>📋 Strategy Assessment</h3>
+        <ul>
+          {% if sharpe_ratio_1m|float >= 1.0 %}
+          <li><strong>✅ Excellent risk-adjusted returns</strong> - Sharpe ratio of {{ sharpe_ratio_1m }} indicates strong performance relative to volatility</li>
+          {% elif sharpe_ratio_1m|float >= 0.5 %}
+          <li><strong>✅ Good risk-adjusted returns</strong> - Sharpe ratio of {{ sharpe_ratio_1m }} shows positive risk/reward</li>
+          {% elif sharpe_ratio_1m|float >= 0 %}
+          <li><strong>⚠️ Moderate risk-adjusted returns</strong> - Sharpe ratio of {{ sharpe_ratio_1m }} could be improved</li>
+          {% else %}
+          <li><strong>⚠️ Poor risk-adjusted returns</strong> - Negative Sharpe ratio indicates losses or excessive volatility</li>
+          {% endif %}
+          
+          {% if avg_alpha_1m|float > 0 %}
+          <li>Your signals are <strong style="color: #16a34a;">outperforming SPY</strong> by an average of <strong>{{ avg_alpha_1m }}%</strong></li>
+          {% else %}
+          <li>Your signals are <strong style="color: #dc2626;">underperforming SPY</strong> by <strong>{{ avg_alpha_1m }}%</strong> - strategy needs review</li>
+          {% endif %}
+          
+          {% if hit_rate_1m|float >= 55 %}
+          <li>Hit rate of <strong>{{ hit_rate_1m }}%</strong> exceeds the 55% target ✅</li>
+          {% else %}
+          <li>Hit rate of <strong>{{ hit_rate_1m }}%</strong> is below the 55% target ⚠️</li>
+          {% endif %}
+
+          {% if win_loss_ratio_1m|float >= 1.5 %}
+          <li><strong>✅ Strong win/loss ratio</strong> of {{ win_loss_ratio_1m }} - winners are significantly larger than losers</li>
+          {% elif win_loss_ratio_1m|float >= 1.0 %}
+          <li><strong>Moderate win/loss ratio</strong> of {{ win_loss_ratio_1m }} - average win slightly larger than average loss</li>
+          {% else %}
+          <li><strong>⚠️ Poor win/loss ratio</strong> of {{ win_loss_ratio_1m }} - losses are larger than wins on average</li>
+          {% endif %}
+
+          {% if max_drawdown_1m|float > -10 %}
+          <li><strong>✅ Low drawdown</strong> of {{ max_drawdown_1m }}% indicates good risk management</li>
+          {% elif max_drawdown_1m|float > -20 %}
+          <li><strong>Moderate drawdown</strong> of {{ max_drawdown_1m }}% - acceptable but monitor closely</li>
+          {% else %}
+          <li><strong>⚠️ High drawdown</strong> of {{ max_drawdown_1m }}% - consider tighter stop losses</li>
+          {% endif %}
+          
+          {% if total_signals_1w > 0 %}
+          <li>1-week performance: <strong>{{ hit_rate_1w }}%</strong> hit rate, <strong>{{ avg_alpha_1w }}%</strong> alpha, Sharpe: <strong>{{ sharpe_ratio_1w }}</strong></li>
+          {% endif %}
+          
+          {% if sharpe_ratio_1m|float >= 1.0 and avg_alpha_1m|float > 1 and hit_rate_1m|float >= 55 %}
+          <li><strong style="color: #16a34a;">🎯 STRATEGY IS WORKING EXCELLENTLY</strong> - Continue with current approach</li>
+          {% elif avg_alpha_1m|float > 0 and hit_rate_1m|float >= 50 %}
+          <li><strong style="color: #2196f3;">Strategy is working</strong> - Minor optimization may help</li>
+          {% elif total_signals_1m < 10 %}
+          <li>Need more data points for statistical significance - keep monitoring 📊</li>
+          {% else %}
+          <li><strong style="color: #dc2626;">⚠️ Strategy needs review</strong> - Consider adjusting signal criteria or position sizing</li>
+          {% endif %}
+        </ul>
       </div>
 
       {% else %}
       <!-- Not Enough Data -->
-      <div class="performance-box">
+      <div class="assessment-box">
         <h3>📊 Building Your Track Record</h3>
         <ul>
           <li>Your system is actively monitoring insider filings daily</li>
           <li>Performance tracking begins after signals accumulate</li>
           <li>Target: 10+ signals for meaningful statistics</li>
           <li>Weekly reports will show full metrics once data is available</li>
+          <li>New features active: Sector analysis, quality filters, pattern detection, news sentiment</li>
         </ul>
       </div>
       {% endif %}
+
+      <!-- Charts Note -->
+      <div class="charts-note">
+        <p>
+          📊 <strong>Detailed Charts Available:</strong> View rolling hit rate, cumulative alpha, and sector performance visualizations 
+          in your GitHub repository at <code>data/plots/</code> or run <code>python jobs/visualize.py</code> locally.
+        </p>
+      </div>
     </div>
 
     <!-- Footer -->
     <div class="footer">
-      <p><strong>Insider Cluster Watch</strong></p>
-      <p>Performance tracking powered by real-time backtest analysis</p>
+      <p><strong>Insider Cluster Watch - Enhanced Performance Tracking</strong></p>
+      <p>Performance tracking powered by real-time backtest analysis with advanced risk metrics</p>
       <p style="margin-top: 10px;"><em>This report is for informational purposes only. Past performance does not guarantee future results.</em></p>
     </div>
   </div>
