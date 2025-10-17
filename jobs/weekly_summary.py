@@ -11,6 +11,9 @@ from datetime import datetime
 from jinja2 import Environment, FileSystemLoader
 from send_email import send_email
 from paper_trade import PaperTradingPortfolio
+from dotenv import load_dotenv
+
+load_dotenv()
 
 DATA_DIR = os.path.join(os.path.dirname(__file__), '..', 'data')
 BACKTEST_CSV = os.path.join(DATA_DIR, 'backtest_results.csv')
@@ -284,22 +287,28 @@ def calculate_performance_stats():
         stats['pattern_analysis'] = []
     
     # Paper trading stats
-    paper_trader = PaperTradingSimulator()
-    if os.path.exists(paper_trader.state_file):
-        paper_trader.load_state()
-        stats['paper_trading'] = {
-            'enabled': True,
-            'portfolio_value': paper_trader.portfolio_value,
-            'total_return': paper_trader.total_return,
-            'total_trades': paper_trader.total_trades,
-            'winning_trades': paper_trader.winning_trades,
-            'hit_rate': paper_trader.hit_rate,
-            'open_positions': len(paper_trader.positions),
-            'realized_pnl': paper_trader.realized_pnl
-        }
-    else:
+    try:
+        paper_trader = PaperTradingPortfolio.load()
+        if paper_trader:
+            portfolio_value = paper_trader.get_portfolio_value()
+            total_return = ((portfolio_value - paper_trader.starting_capital) / paper_trader.starting_capital) * 100
+            hit_rate = (paper_trader.winning_trades / paper_trader.total_trades * 100) if paper_trader.total_trades > 0 else 0
+            
+            stats['paper_trading'] = {
+                'enabled': True,
+                'portfolio_value': portfolio_value,
+                'total_return': total_return,
+                'total_trades': paper_trader.total_trades,
+                'winning_trades': paper_trader.winning_trades,
+                'hit_rate': hit_rate,
+                'open_positions': len(paper_trader.positions),
+                'realized_pnl': paper_trader.total_profit
+            }
+        else:
+            stats['paper_trading'] = {'enabled': False}
+    except (FileNotFoundError, Exception):
         stats['paper_trading'] = {'enabled': False}
-    
+        
     return stats
 
 def render_weekly_performance_email(stats):
@@ -307,7 +316,7 @@ def render_weekly_performance_email(stats):
     Render the weekly performance email template with enhanced metrics.
     """
     env = Environment(loader=FileSystemLoader(TEMPLATE_DIR))
-    template = env.get_template('weekly_performance_enhanced.html')
+    template = env.get_template('weekly_performance.html')
     
     html = template.render(
         date=datetime.now().strftime("%B %d, %Y"),

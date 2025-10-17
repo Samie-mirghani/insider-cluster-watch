@@ -1,21 +1,34 @@
 # jobs/backtest.py
 """
-Enhanced backtesting with professional trading metrics
-
-NEW FEATURES:
-- Sharpe ratio (risk-adjusted returns)
-- Maximum drawdown
-- Win/loss ratio
-- Consecutive losses tracking
-- Profit factor
-- Sector performance analysis
+Backtest historical insider trading signals.
+Calculates returns at 1-week and 1-month horizons and compares to SPY benchmark.
 """
 
 import pandas as pd
 import yfinance as yf
 from datetime import datetime, timedelta
 import os
-import numpy as np
+import warnings
+import logging
+import sys
+
+# Suppress all warnings
+warnings.filterwarnings('ignore')
+
+# Suppress yfinance logging
+logging.getLogger('yfinance').setLevel(logging.CRITICAL)
+
+# Context manager to suppress stderr output
+class SuppressStderr:
+    """Suppress stderr output (used for yfinance error messages)"""
+    def __enter__(self):
+        self._original_stderr = sys.stderr
+        sys.stderr = open(os.devnull, 'w')
+        return self
+    
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        sys.stderr.close()
+        sys.stderr = self._original_stderr
 
 DATA_DIR = os.path.join(os.path.dirname(__file__), '..', 'data')
 HISTORY_CSV = os.path.join(DATA_DIR, 'signals_history.csv')
@@ -23,229 +36,190 @@ OUT_CSV = os.path.join(DATA_DIR, 'backtest_results.csv')
 
 def fetch_forward_returns(ticker, start_date, days_forward):
     """
-    Fetch daily close prices from start_date (inclusive) to start_date + days_forward (inclusive).
-    Returns (start_price, price_at_horizon, return_fraction)
+    Fetch daily close prices from start_date to start_date + days_forward.
+    
+    Args:
+        ticker: Stock ticker symbol
+        start_date: Starting date for price fetch
+        days_forward: Number of trading days forward
+    
+    Returns:
+        Tuple of (start_price, horizon_price, return_fraction) or None if error
     """
     start = start_date
-    end = start_date + timedelta(days=days_forward+3)  # buffer for weekends/holidays
+    end = start_date + timedelta(days=days_forward+5)  # Buffer for weekends/holidays
+    
     try:
-        df = yf.download(ticker, start=start.strftime('%Y-%m-%d'), end=end.strftime('%Y-%m-%d'), progress=False)
-        if df.empty:
+        # Download data with suppressed output
+        with SuppressStderr():
+            df = yf.download(
+                ticker, 
+                start=start.strftime('%Y-%m-%d'), 
+                end=end.strftime('%Y-%m-%d'), 
+                progress=False,
+                auto_adjust=True
+            )
+        
+        # Check if we got valid data
+        if df.empty or 'Close' not in df.columns:
             return None
-        # normalize indices, pick first usable close as start, and close at ~days_forward (approx)
+        
+        # Reset index to access by position
         df = df.reset_index()
-        start_price = df['Close'].iloc[0]
-        idx_horizon = min(days_forward, len(df)-1)
-        horizon_price = df['Close'].iloc[idx_horizon]
-        ret = (horizon_price - start_price) / start_price
+        
+        # Ensure we have enough data
+        if len(df) == 0:
+            return None
+        
+        # Get start price (first available close)
+        start_price = float(df['Close'].iloc[0])
+        
+        # Get horizon price (at days_forward or last available)
+        idx_horizon = min(days_forward, len(df) - 1)
+        horizon_price = float(df['Close'].iloc[idx_horizon])
+        
+        # Calculate return as scalar float
+        ret = float((horizon_price - start_price) / start_price)
+        
         return start_price, horizon_price, ret
-    except Exception as e:
-        print(f"Error fetching {ticker}: {e}")
+        
+    except Exception:
+        # Silently skip errors (delisted stocks, etc.)
         return None
 
-def calculate_advanced_metrics(results_df, horizon_label):
-    """
-    NEW: Calculate professional trading metrics
-    
-    Returns dict with:
-    - Sharpe ratio
-    - Max drawdown
-    - Win/loss ratio
-    - Consecutive losses
-    - Profit factor
-    """
-    if results_df.empty:
-        return {}
-    
-    returns = results_df['ticker_return']
-    
-    metrics = {}
-    
-    # Sharpe Ratio (annualized, assuming risk-free rate = 0)
-    if returns.std() > 0:
-        if horizon_label == '1w':
-            # Annualize: sqrt(52) for weekly
-            metrics['sharpe_ratio'] = (returns.mean() / returns.std()) * np.sqrt(52)
-        else:  # 1m
-            # Annualize: sqrt(12) for monthly
-            metrics['sharpe_ratio'] = (returns.mean() / returns.std()) * np.sqrt(12)
-    else:
-        metrics['sharpe_ratio'] = 0.0
-    
-    # Maximum Drawdown
-    cumulative = (1 + returns).cumprod()
-    running_max = cumulative.cummax()
-    drawdown = (cumulative - running_max) / running_max
-    metrics['max_drawdown'] = drawdown.min()
-    
-    # Win/Loss Ratio
-    wins = returns[returns > 0]
-    losses = returns[returns < 0]
-    
-    if len(losses) > 0 and losses.mean() != 0:
-        metrics['win_loss_ratio'] = abs(wins.mean() / losses.mean())
-    else:
-        metrics['win_loss_ratio'] = 0.0
-    
-    # Max Consecutive Losses
-    metrics['max_consecutive_losses'] = max_consecutive_losses(returns)
-    
-    # Profit Factor (total wins / total losses)
-    total_wins = wins.sum()
-    total_losses = abs(losses.sum())
-    
-    if total_losses > 0:
-        metrics['profit_factor'] = total_wins / total_losses
-    else:
-        metrics['profit_factor'] = 0.0
-    
-    # Expectancy (avg $ per trade if you risked $100)
-    metrics['expectancy_pct'] = returns.mean() * 100
-    
-    return metrics
-
-def max_consecutive_losses(returns):
-    """Calculate maximum consecutive losing trades"""
-    consecutive = 0
-    max_consecutive = 0
-    
-    for ret in returns:
-        if ret < 0:
-            consecutive += 1
-            max_consecutive = max(max_consecutive, consecutive)
-        else:
-            consecutive = 0
-    
-    return max_consecutive
-
-def calculate_sector_performance(results_df, history_df):
-    """
-    NEW: Analyze performance by sector
-    
-    Returns DataFrame with sector-level statistics
-    """
-    if results_df.empty or history_df.empty:
-        return pd.DataFrame()
-    
-    # Merge to get sector info
-    merged = results_df.merge(
-        history_df[['ticker', 'date', 'sector']],
-        left_on=['ticker', 'signal_date'],
-        right_on=['ticker', 'date'],
-        how='left'
-    )
-    
-    if 'sector' not in merged.columns or merged['sector'].isna().all():
-        return pd.DataFrame()
-    
-    # Group by sector
-    sector_stats = merged.groupby('sector').agg({
-        'ticker_return': ['count', 'mean', lambda x: (x > 0).mean()],
-        'alpha': 'mean'
-    }).round(4)
-    
-    sector_stats.columns = ['count', 'avg_return', 'hit_rate', 'avg_alpha']
-    sector_stats = sector_stats[sector_stats['count'] >= 3]  # Min 3 signals
-    sector_stats = sector_stats.sort_values('avg_return', ascending=False)
-    
-    return sector_stats
-
 def run_backtest():
+    """
+    Main backtest function.
+    Reads signals_history.csv and calculates forward returns for each signal.
+    """
+    print("=" * 60)
+    print("BACKTEST RESULTS")
+    print("=" * 60)
+    
+    # Check if history file exists
     if not os.path.exists(HISTORY_CSV):
-        print(f"No history file at {HISTORY_CSV}. Run main to generate signals history first.")
+        print(f"❌ No history file at {HISTORY_CSV}")
+        print("   Run main.py to generate signals history first.")
         return
     
+    # Load signals history
     df = pd.read_csv(HISTORY_CSV, parse_dates=['date'])
+    
+    if df.empty:
+        print("❌ Signals history file is empty")
+        return
+    
+    print(f"📊 Analyzing {len(df)} historical signals...")
+    
+    # Prepare results storage
     results = []
     spy_ticker = 'SPY'
+    failed_tickers = set()
     
-    for _, row in df.iterrows():
+    # Process each signal
+    for idx, row in df.iterrows():
         ticker = row['ticker']
-        sig_date = row['date'].to_pydatetime() if hasattr(row['date'],'to_pydatetime') else row['date']
+        
+        # Parse signal date
         try:
             sig_date = pd.to_datetime(row['date']).to_pydatetime()
         except Exception:
             continue
         
-        # 1-week (~5 trading days) and 1-month (~21 trading days)
+        # Test both 1-week (~5 trading days) and 1-month (~21 trading days)
         for horizon_days, label in [(5, '1w'), (21, '1m')]:
-            res_t = fetch_forward_returns(ticker, sig_date, horizon_days)
+            # Get ticker returns
+            res_ticker = fetch_forward_returns(ticker, sig_date, horizon_days)
+            
+            # Get SPY returns for comparison
             res_spy = fetch_forward_returns(spy_ticker, sig_date, horizon_days)
-            if not res_t or not res_spy:
+            
+            # Skip if either failed
+            if not res_ticker or not res_spy:
+                failed_tickers.add(ticker)
                 continue
-            _, _, ret_t = res_t
+            
+            # Extract returns
+            _, _, ret_ticker = res_ticker
             _, _, ret_spy = res_spy
-            alpha = ret_t - ret_spy
+            
+            # Calculate alpha (excess return vs SPY)
+            alpha = ret_ticker - ret_spy
+            
+            # Store result
             results.append({
                 'ticker': ticker,
                 'signal_date': sig_date,
                 'horizon': label,
-                'ticker_return': ret_t,
-                'spy_return': ret_spy,
-                'alpha': alpha,
-                'signal_score': row.get('signal_score'),
-                'action': row.get('action'),
-                'sector': row.get('sector', 'Unknown')  # NEW
+                'ticker_return': float(ret_ticker),
+                'spy_return': float(ret_spy),
+                'alpha': float(alpha),
+                'signal_score': float(row.get('signal_score', 0)) if pd.notna(row.get('signal_score')) else 0.0,
+                'action': str(row.get('action', ''))
             })
-
-    results_df = pd.DataFrame(results)
-    if results_df.empty:
-        print("No backtest results (no valid price series).")
-        return results_df
-
-    # Summary metrics for each horizon
-    print("\n" + "="*60)
-    print("BACKTEST RESULTS")
-    print("="*60)
     
-    for label in ['1w','1m']:
-        subset = results_df[results_df['horizon']==label]
+    # Show summary of failed tickers
+    if failed_tickers:
+        print(f"   ⚠️  Skipped {len(failed_tickers)} ticker(s) (delisted/invalid): {', '.join(sorted(failed_tickers))}")
+    
+    # Convert to DataFrame
+    results_df = pd.DataFrame(results)
+    
+    if results_df.empty:
+        print("\n⚠️  No backtest results generated")
+        print("   Possible reasons:")
+        print("   - All tickers are delisted or invalid")
+        print("   - Signals are too recent (not enough price history)")
+        print("   - Yahoo Finance data unavailable")
+        return results_df
+    
+    # Ensure all numeric columns are proper floats
+    for col in ['ticker_return', 'spy_return', 'alpha', 'signal_score']:
+        results_df[col] = pd.to_numeric(results_df[col], errors='coerce')
+    
+    # Drop any rows with NaN values
+    results_df = results_df.dropna(subset=['ticker_return', 'spy_return', 'alpha'])
+    
+    if results_df.empty:
+        print("\n⚠️  No valid backtest results after cleaning")
+        return results_df
+    
+    # Print summary statistics
+    print("\n" + "=" * 60)
+    print("PERFORMANCE SUMMARY")
+    print("=" * 60)
+    
+    for label in ['1w', '1m']:
+        subset = results_df[results_df['horizon'] == label].copy()
+        
         if subset.empty:
             continue
         
+        # Calculate metrics
+        total_signals = len(subset)
         hit_rate = (subset['ticker_return'] > 0).mean()
-        avg_alpha = subset['alpha'].mean()
         avg_return = subset['ticker_return'].mean()
+        avg_alpha = subset['alpha'].mean()
+        median_return = subset['ticker_return'].median()
+        best_return = subset['ticker_return'].max()
+        worst_return = subset['ticker_return'].min()
         
-        print(f"\n=== Horizon: {label} ===")
-        print(f"Signals tested: {len(subset)}  Hit rate (pos return): {hit_rate*100:.2f}%")
-        print(f"Avg return: {avg_return*100:.2f}%   Avg alpha vs SPY: {avg_alpha*100:.2f}%")
-        
-        # NEW: Advanced metrics
-        adv_metrics = calculate_advanced_metrics(subset, label)
-        if adv_metrics:
-            print(f"\n📊 Advanced Metrics ({label}):")
-            print(f"   Sharpe Ratio: {adv_metrics['sharpe_ratio']:.2f}")
-            print(f"   Max Drawdown: {adv_metrics['max_drawdown']*100:.2f}%")
-            print(f"   Win/Loss Ratio: {adv_metrics['win_loss_ratio']:.2f}")
-            print(f"   Max Consecutive Losses: {int(adv_metrics['max_consecutive_losses'])}")
-            print(f"   Profit Factor: {adv_metrics['profit_factor']:.2f}")
-            print(f"   Expectancy: {adv_metrics['expectancy_pct']:.2f}%")
+        print(f"\n📊 {label.upper()} HORIZON:")
+        print(f"   Signals Tested: {total_signals}")
+        print(f"   Hit Rate: {hit_rate*100:.1f}% ({int(hit_rate*total_signals)} profitable)")
+        print(f"   Avg Return: {avg_return*100:+.2f}%")
+        print(f"   Median Return: {median_return*100:+.2f}%")
+        print(f"   Avg Alpha vs SPY: {avg_alpha*100:+.2f}%")
+        print(f"   Best Trade: {best_return*100:+.2f}%")
+        print(f"   Worst Trade: {worst_return*100:+.2f}%")
     
-    # NEW: Sector performance analysis
-    print("\n" + "="*60)
-    print("SECTOR PERFORMANCE ANALYSIS (1-month)")
-    print("="*60)
-    
-    sector_perf = calculate_sector_performance(
-        results_df[results_df['horizon'] == '1m'], 
-        df
-    )
-    
-    if not sector_perf.empty:
-        print("\nSector Stats:")
-        for sector, row in sector_perf.iterrows():
-            print(f"\n{sector}:")
-            print(f"  Signals: {int(row['count'])}")
-            print(f"  Hit Rate: {row['hit_rate']*100:.1f}%")
-            print(f"  Avg Return: {row['avg_return']*100:.2f}%")
-            print(f"  Avg Alpha: {row['avg_alpha']*100:.2f}%")
-    else:
-        print("\n⚠️  Not enough sector data yet for analysis")
-
+    # Save results to CSV
     results_df.to_csv(OUT_CSV, index=False)
-    print(f"\n✅ Wrote backtest results to {OUT_CSV}")
-    print("="*60 + "\n")
+    print(f"\n💾 Backtest results saved to: {OUT_CSV}")
+    
+    print("\n" + "=" * 60)
+    print("BACKTEST COMPLETE")
+    print("=" * 60)
     
     return results_df
 
