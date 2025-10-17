@@ -1,6 +1,8 @@
-<!-- Fixed Urgent Alert Template -->
+<!DOCTYPE html>
 <html>
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
@@ -21,57 +23,60 @@
     .header {
       background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
       color: white;
-      padding: 30px;
+      padding: 40px 30px;
       text-align: center;
     }
     .urgent-badge {
       background: #fef2f2;
       color: #dc2626;
       display: inline-block;
-      padding: 8px 20px;
-      border-radius: 20px;
-      font-size: 12px;
+      padding: 10px 24px;
+      border-radius: 25px;
+      font-size: 13px;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 15px;
+      letter-spacing: 1.5px;
+      margin-bottom: 20px;
     }
     .header h1 {
       margin: 0;
-      font-size: 32px;
+      font-size: 28px;
       font-weight: 700;
+      line-height: 1.3;
     }
     .header p {
-      margin: 10px 0 0 0;
+      margin: 12px 0 0 0;
       opacity: 0.95;
-      font-size: 14px;
+      font-size: 15px;
     }
     .alert-notice {
       background: #fef2f2;
       border: 2px solid #dc2626;
       border-radius: 8px;
-      padding: 20px;
-      margin: 20px;
+      padding: 25px;
+      margin: 25px;
       text-align: center;
     }
     .alert-notice h2 {
-      margin: 0 0 10px 0;
+      margin: 0 0 12px 0;
       color: #dc2626;
       font-size: 20px;
+      font-weight: 700;
     }
     .alert-notice p {
       margin: 0;
       color: #991b1b;
-      font-size: 14px;
+      font-size: 15px;
+      font-weight: 500;
     }
     .content {
-      padding: 20px 30px 30px 30px;
+      padding: 25px 30px 35px 30px;
     }
     .urgent-signal-card {
       background: linear-gradient(135deg, #fef2f2 0%, #fff 100%);
       border: 3px solid #dc2626;
       border-radius: 10px;
-      padding: 25px;
+      padding: 30px;
       margin-bottom: 25px;
       box-shadow: 0 4px 6px rgba(220, 38, 38, 0.1);
     }
@@ -79,41 +84,43 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 20px;
-      padding-bottom: 15px;
+      margin-bottom: 25px;
+      padding-bottom: 20px;
       border-bottom: 3px solid #fee2e2;
     }
     .ticker {
-      font-size: 32px;
+      font-size: 36px;
       font-weight: 900;
       color: #dc2626;
       margin: 0;
+      letter-spacing: 2px;
     }
     .urgency-indicator {
       background: #dc2626;
       color: white;
-      padding: 10px 20px;
+      padding: 12px 24px;
       border-radius: 25px;
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 1.5px;
+      white-space: nowrap;
     }
     .key-metrics {
       background: white;
       border: 2px solid #fee2e2;
       border-radius: 8px;
-      padding: 20px;
-      margin: 20px 0;
+      padding: 25px;
+      margin: 25px 0;
     }
     .metrics-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 15px;
+      gap: 20px;
     }
     .metric {
       text-align: center;
-      padding: 15px;
+      padding: 20px 15px;
       background: linear-gradient(135deg, #fef2f2 0%, #fff 100%);
       border-radius: 8px;
       border: 1px solid #fee2e2;
@@ -122,133 +129,150 @@
       font-size: 11px;
       color: #991b1b;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 8px;
-      font-weight: 600;
+      letter-spacing: 0.8px;
+      margin-bottom: 10px;
+      font-weight: 700;
+      display: block;
     }
     .metric-value {
-      font-size: 24px;
+      font-size: 28px;
       font-weight: 700;
       color: #dc2626;
+      display: block;
+      margin-bottom: 5px;
     }
     .metric-unit {
       font-size: 14px;
       color: #991b1b;
-      font-weight: 500;
+      font-weight: 600;
+      display: block;
     }
     .insiders-highlight {
       background: white;
       border: 2px solid #fbbf24;
       border-radius: 8px;
-      padding: 15px;
-      margin: 15px 0;
+      padding: 20px;
+      margin: 20px 0;
     }
     .insiders-highlight .label {
       font-size: 12px;
       color: #92400e;
       font-weight: 700;
       text-transform: uppercase;
-      margin-bottom: 8px;
+      letter-spacing: 0.8px;
+      margin-bottom: 10px;
+      display: block;
     }
     .insiders-highlight .names {
       color: #78350f;
       font-size: 15px;
       font-weight: 600;
+      line-height: 1.6;
     }
     .price-highlight {
       display: flex;
       justify-content: space-around;
+      align-items: center;
       background: white;
       border: 2px solid #fee2e2;
       border-radius: 8px;
-      padding: 15px;
-      margin: 15px 0;
+      padding: 20px 15px;
+      margin: 20px 0;
+      gap: 10px;
     }
     .price-item {
       text-align: center;
+      flex: 1;
     }
     .price-item .icon {
-      font-size: 24px;
-      margin-bottom: 5px;
+      font-size: 28px;
+      margin-bottom: 8px;
+      display: block;
     }
     .price-item .label {
       font-size: 11px;
       color: #991b1b;
       text-transform: uppercase;
-      margin-bottom: 5px;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+      display: block;
+      font-weight: 600;
     }
     .price-item .value {
-      font-size: 20px;
+      font-size: 22px;
       font-weight: 700;
       color: #dc2626;
+      display: block;
     }
     .action-urgent {
       background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
       color: white;
-      padding: 20px;
+      padding: 25px;
       border-radius: 8px;
-      margin: 20px 0;
+      margin: 25px 0;
       text-align: center;
     }
     .action-urgent .label {
       font-size: 12px;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 10px;
-      opacity: 0.9;
+      letter-spacing: 1.5px;
+      margin-bottom: 12px;
+      opacity: 0.95;
+      display: block;
     }
     .action-urgent .text {
       font-size: 18px;
       font-weight: 700;
-      line-height: 1.4;
+      line-height: 1.5;
     }
     .rationale-box {
       background: #f8f9fa;
       border-left: 4px solid #dc2626;
-      padding: 15px;
+      padding: 20px;
       border-radius: 5px;
-      margin: 15px 0;
+      margin: 20px 0;
     }
     .rationale-box .label {
       font-size: 12px;
       color: #666;
-      font-weight: 600;
+      font-weight: 700;
       text-transform: uppercase;
-      margin-bottom: 8px;
+      letter-spacing: 0.8px;
+      margin-bottom: 10px;
+      display: block;
     }
     .rationale-box .text {
       color: #333;
       font-size: 14px;
-      line-height: 1.6;
+      line-height: 1.7;
     }
     .warning-box {
       background: #fffbeb;
       border: 2px solid #f59e0b;
       border-radius: 8px;
-      padding: 15px;
-      margin: 20px 0;
+      padding: 20px;
+      margin: 25px 0;
     }
     .warning-box .text {
       color: #92400e;
       font-size: 13px;
-      line-height: 1.5;
+      line-height: 1.7;
+      margin: 0;
     }
     .footer {
       background: #f8f9fa;
-      padding: 20px;
+      padding: 25px;
       text-align: center;
       color: #666;
       font-size: 12px;
       border-top: 1px solid #e0e0e0;
     }
     .footer p {
-      margin: 5px 0;
+      margin: 8px 0;
     }
-    .divider {
-      height: 2px;
-      background: linear-gradient(90deg, transparent, #fee2e2, transparent);
-      margin: 30px 0;
+    .footer strong {
+      color: #333;
     }
   </style>
 </head>
@@ -257,7 +281,7 @@
     <div class="header">
       <div class="urgent-badge">🚨 URGENT ALERT</div>
       <h1>High-Conviction Insider Buying</h1>
-      <p>October 16, 2025</p>
+      <p>October 17, 2025</p>
     </div>
 
     <div class="alert-notice">
@@ -275,67 +299,67 @@
         <div class="key-metrics">
           <div class="metrics-grid">
             <div class="metric">
-              <div class="metric-label">Insider Cluster</div>
-              <div class="metric-value">3</div>
-              <div class="metric-unit">buyers</div>
+              <span class="metric-label">Insider Cluster</span>
+              <span class="metric-value">3</span>
+              <span class="metric-unit">buyers</span>
             </div>
             <div class="metric">
-              <div class="metric-label">Total Value</div>
-              <div class="metric-value">$7486K</div>
-              <div class="metric-unit">purchased</div>
+              <span class="metric-label">Total Value</span>
+              <span class="metric-value">$7486K</span>
+              <span class="metric-unit">purchased</span>
             </div>
             <div class="metric">
-              <div class="metric-label">Conviction Score</div>
-              <div class="metric-value">32.2</div>
-              <div class="metric-unit">/ 20</div>
+              <span class="metric-label">Conviction Score</span>
+              <span class="metric-value">32.2</span>
+              <span class="metric-unit">/ 20</span>
             </div>
             <div class="metric">
-              <div class="metric-label">Rank Score</div>
-              <div class="metric-value">9.2</div>
-              <div class="metric-unit">high</div>
+              <span class="metric-label">Rank Score</span>
+              <span class="metric-value">9.2</span>
+              <span class="metric-unit">high</span>
             </div>
           </div>
         </div>
 
         <div class="insiders-highlight">
-          <div class="label">👥 INSIDERS BUYING (3 TOTAL)</div>
+          <span class="label">👥 INSIDERS BUYING (3 TOTAL)</span>
           <div class="names">Stark Eugene S, Barry John F, Eliasek M Grier</div>
         </div>
 
         <div class="price-highlight">
           <div class="price-item">
-            <div class="icon">💰</div>
-            <div class="label">Current Price</div>
-            <div class="value">$2.81</div>
+            <span class="icon">💰</span>
+            <span class="label">Current Price</span>
+            <span class="value">$2.81</span>
           </div>
           <div class="price-item">
-            <div class="icon">📊</div>
-            <div class="label">From 52w Low</div>
-            <div class="value">+9.1%</div>
+            <span class="icon">📊</span>
+            <span class="label">From 52w Low</span>
+            <span class="value">+9.1%</span>
           </div>
           <div class="price-item">
-            <div class="icon">📅</div>
-            <div class="label">Last Trade</div>
-            <div class="value">Sep 25</div>
+            <span class="icon">📅</span>
+            <span class="label">Last Trade</span>
+            <span class="value">Sep 25</span>
           </div>
         </div>
 
         <div class="action-urgent">
-          <div class="label">⚡ RECOMMENDED ACTION</div>
+          <span class="label">⚡ RECOMMENDED ACTION</span>
           <div class="text">URGENT: Consider small entry at open / immediate review</div>
         </div>
 
         <div class="rationale-box">
-          <div class="label">📋 SIGNAL RATIONALE</div>
+          <span class="label">📋 SIGNAL RATIONALE</span>
           <div class="text">Cluster count: 3 | Total reported buys: $7,485,740 | Current Price: $2.805 | 9.1% above 52-week low | Rank Score: 9.22</div>
         </div>
 
         <div class="warning-box">
-          <div class="text">
+          <p class="text">
             <strong>⚠️ Risk Reminder:</strong> Always conduct your own research before trading. 
             Use proper position sizing (2-5% of portfolio) and set stop losses immediately after entry. 
             Past insider buying does not guarantee future returns.
-          </div>
+          </p>
         </div>
       </div>
     </div>
@@ -343,7 +367,7 @@
     <div class="footer">
       <p><strong>⚡ Insider Cluster Watch - Urgent Alert System</strong></p>
       <p>Data sourced from public SEC Form 4 filings via OpenInsider & SEC EDGAR</p>
-      <p style="margin-top: 10px;"><em>This alert is for informational purposes only and does not constitute financial advice.</em></p>
+      <p style="margin-top: 12px;"><em>This alert is for informational purposes only and does not constitute financial advice.</em></p>
     </div>
   </div>
 </body>
