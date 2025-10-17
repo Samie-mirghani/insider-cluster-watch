@@ -3,372 +3,219 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
-      color: #333;
-      line-height: 1.6;
-      max-width: 700px;
-      margin: 0 auto;
-      padding: 20px;
-      background-color: #fff5f5;
-    }
-    .email-container {
-      background: white;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 4px 12px rgba(220, 38, 38, 0.2);
-      border: 3px solid #dc2626;
-    }
-    .header {
-      background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
-      color: white;
-      padding: 40px 30px;
-      text-align: center;
-    }
-    .urgent-badge {
-      background: #fef2f2;
-      color: #dc2626;
-      display: inline-block;
-      padding: 10px 24px;
-      border-radius: 25px;
-      font-size: 13px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      margin-bottom: 20px;
-    }
-    .header h1 {
-      margin: 0;
-      font-size: 28px;
-      font-weight: 700;
-      line-height: 1.3;
-    }
-    .header p {
-      margin: 12px 0 0 0;
-      opacity: 0.95;
-      font-size: 15px;
-    }
-    .alert-notice {
-      background: #fef2f2;
-      border: 2px solid #dc2626;
-      border-radius: 8px;
-      padding: 25px;
-      margin: 25px;
-      text-align: center;
-    }
-    .alert-notice h2 {
-      margin: 0 0 12px 0;
-      color: #dc2626;
-      font-size: 20px;
-      font-weight: 700;
-    }
-    .alert-notice p {
-      margin: 0;
-      color: #991b1b;
-      font-size: 15px;
-      font-weight: 500;
-    }
-    .content {
-      padding: 25px 30px 35px 30px;
-    }
-    .urgent-signal-card {
-      background: linear-gradient(135deg, #fef2f2 0%, #fff 100%);
-      border: 3px solid #dc2626;
-      border-radius: 10px;
-      padding: 30px;
-      margin-bottom: 25px;
-      box-shadow: 0 4px 6px rgba(220, 38, 38, 0.1);
-    }
-    .signal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 25px;
-      padding-bottom: 20px;
-      border-bottom: 3px solid #fee2e2;
-    }
-    .ticker {
-      font-size: 36px;
-      font-weight: 900;
-      color: #dc2626;
-      margin: 0;
-      letter-spacing: 2px;
-    }
-    .urgency-indicator {
-      background: #dc2626;
-      color: white;
-      padding: 12px 24px;
-      border-radius: 25px;
-      font-size: 13px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      white-space: nowrap;
-    }
-    .key-metrics {
-      background: white;
-      border: 2px solid #fee2e2;
-      border-radius: 8px;
-      padding: 25px;
-      margin: 25px 0;
-    }
-    .metrics-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
-    }
-    .metric {
-      text-align: center;
-      padding: 20px 15px;
-      background: linear-gradient(135deg, #fef2f2 0%, #fff 100%);
-      border-radius: 8px;
-      border: 1px solid #fee2e2;
-    }
-    .metric-label {
-      font-size: 11px;
-      color: #991b1b;
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
-      margin-bottom: 10px;
-      font-weight: 700;
-      display: block;
-    }
-    .metric-value {
-      font-size: 28px;
-      font-weight: 700;
-      color: #dc2626;
-      display: block;
-      margin-bottom: 5px;
-    }
-    .metric-unit {
-      font-size: 14px;
-      color: #991b1b;
-      font-weight: 600;
-      display: block;
-    }
-    .insiders-highlight {
-      background: white;
-      border: 2px solid #fbbf24;
-      border-radius: 8px;
-      padding: 20px;
-      margin: 20px 0;
-    }
-    .insiders-highlight .label {
-      font-size: 12px;
-      color: #92400e;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
-      margin-bottom: 10px;
-      display: block;
-    }
-    .insiders-highlight .names {
-      color: #78350f;
-      font-size: 15px;
-      font-weight: 600;
-      line-height: 1.6;
-    }
-    .price-highlight {
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      background: white;
-      border: 2px solid #fee2e2;
-      border-radius: 8px;
-      padding: 20px 15px;
-      margin: 20px 0;
-      gap: 10px;
-    }
-    .price-item {
-      text-align: center;
-      flex: 1;
-    }
-    .price-item .icon {
-      font-size: 28px;
-      margin-bottom: 8px;
-      display: block;
-    }
-    .price-item .label {
-      font-size: 11px;
-      color: #991b1b;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 8px;
-      display: block;
-      font-weight: 600;
-    }
-    .price-item .value {
-      font-size: 22px;
-      font-weight: 700;
-      color: #dc2626;
-      display: block;
-    }
-    .action-urgent {
-      background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
-      color: white;
-      padding: 25px;
-      border-radius: 8px;
-      margin: 25px 0;
-      text-align: center;
-    }
-    .action-urgent .label {
-      font-size: 12px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      margin-bottom: 12px;
-      opacity: 0.95;
-      display: block;
-    }
-    .action-urgent .text {
-      font-size: 18px;
-      font-weight: 700;
-      line-height: 1.5;
-    }
-    .rationale-box {
-      background: #f8f9fa;
-      border-left: 4px solid #dc2626;
-      padding: 20px;
-      border-radius: 5px;
-      margin: 20px 0;
-    }
-    .rationale-box .label {
-      font-size: 12px;
-      color: #666;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
-      margin-bottom: 10px;
-      display: block;
-    }
-    .rationale-box .text {
-      color: #333;
-      font-size: 14px;
-      line-height: 1.7;
-    }
-    .warning-box {
-      background: #fffbeb;
-      border: 2px solid #f59e0b;
-      border-radius: 8px;
-      padding: 20px;
-      margin: 25px 0;
-    }
-    .warning-box .text {
-      color: #92400e;
-      font-size: 13px;
-      line-height: 1.7;
-      margin: 0;
-    }
-    .footer {
-      background: #f8f9fa;
-      padding: 25px;
-      text-align: center;
-      color: #666;
-      font-size: 12px;
-      border-top: 1px solid #e0e0e0;
-    }
-    .footer p {
-      margin: 8px 0;
-    }
-    .footer strong {
-      color: #333;
-    }
-  </style>
 </head>
-<body>
-  <div class="email-container">
-    <div class="header">
-      <div class="urgent-badge">🚨 URGENT ALERT</div>
-      <h1>High-Conviction Insider Buying</h1>
-      <p>October 17, 2025</p>
-    </div>
+<body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; background-color: #fff5f5;">
+  
+  <!-- Main Container - Full Width -->
+  <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background: white; border: 3px solid #dc2626;">
+    
+    <!-- Header -->
+    <tr>
+      <td style="background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%); padding: 40px 30px; text-align: center; color: white;">
+        <table width="100%" cellpadding="0" cellspacing="0" border="0">
+          <tr>
+            <td align="center">
+              <div style="background: #fef2f2; color: #dc2626; display: inline-block; padding: 10px 24px; border-radius: 25px; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 20px;">
+                🚨 URGENT ALERT
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td align="center" style="padding-top: 10px;">
+              <h1 style="margin: 0; font-size: 28px; font-weight: 700; color: white;">High-Conviction Insider Buying</h1>
+            </td>
+          </tr>
+          <tr>
+            <td align="center" style="padding-top: 12px;">
+              <p style="margin: 0; font-size: 15px; opacity: 0.95; color: white;">October 17, 2025</p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    
+    <!-- Alert Notice -->
+    <tr>
+      <td style="padding: 25px;">
+        <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background: #fef2f2; border: 2px solid #dc2626; border-radius: 8px;">
+          <tr>
+            <td style="padding: 25px; text-align: center;">
+              <h2 style="margin: 0 0 12px 0; color: #dc2626; font-size: 20px; font-weight: 700;">⚡ Immediate Attention Required</h2>
+              <p style="margin: 0; color: #991b1b; font-size: 15px; font-weight: 500;">1 high-conviction insider buying cluster detected</p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    
+    <!-- Content -->
+    <tr>
+      <td style="padding: 0 30px 35px 30px;">
+        
+        <!-- Signal Card -->
+        <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background: linear-gradient(135deg, #fef2f2 0%, #fff 100%); border: 3px solid #dc2626; border-radius: 10px;">
+          <tr>
+            <td style="padding: 30px;">
+              
+              <!-- Signal Header -->
+              <table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-bottom: 3px solid #fee2e2; padding-bottom: 20px; margin-bottom: 25px;">
+                <tr>
+                  <td align="left" valign="middle" width="60%">
+                    <h2 style="margin: 0; font-size: 36px; font-weight: 900; color: #dc2626; letter-spacing: 2px;">PSEC</h2>
+                  </td>
+                  <td align="right" valign="middle" width="40%">
+                    <span style="background: #dc2626; color: white; padding: 12px 24px; border-radius: 25px; font-size: 13px; font-weight: 700; text-transform: uppercase; white-space: nowrap; display: inline-block;">⚡ URGENT</span>
+                  </td>
+                </tr>
+              </table>
+              
+              <!-- Key Metrics -->
+              <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background: white; border: 2px solid #fee2e2; border-radius: 8px; margin: 25px 0;">
+                <tr>
+                  <td style="padding: 25px;">
+                    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                      <!-- First Row -->
+                      <tr>
+                        <td width="50%" style="padding: 10px;">
+                          <table width="100%" cellpadding="15" cellspacing="0" border="0" style="background: linear-gradient(135deg, #fef2f2 0%, #fff 100%); border-radius: 8px; border: 1px solid #fee2e2;">
+                            <tr>
+                              <td align="center">
+                                <div style="font-size: 11px; color: #991b1b; text-transform: uppercase; font-weight: 700; margin-bottom: 10px;">INSIDER CLUSTER</div>
+                                <div style="font-size: 28px; font-weight: 700; color: #dc2626; margin-bottom: 5px;">3</div>
+                                <div style="font-size: 14px; color: #991b1b; font-weight: 600;">buyers</div>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                        <td width="50%" style="padding: 10px;">
+                          <table width="100%" cellpadding="15" cellspacing="0" border="0" style="background: linear-gradient(135deg, #fef2f2 0%, #fff 100%); border-radius: 8px; border: 1px solid #fee2e2;">
+                            <tr>
+                              <td align="center">
+                                <div style="font-size: 11px; color: #991b1b; text-transform: uppercase; font-weight: 700; margin-bottom: 10px;">TOTAL VALUE</div>
+                                <div style="font-size: 28px; font-weight: 700; color: #dc2626; margin-bottom: 5px;">$7486K</div>
+                                <div style="font-size: 14px; color: #991b1b; font-weight: 600;">purchased</div>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                      <!-- Second Row -->
+                      <tr>
+                        <td width="50%" style="padding: 10px;">
+                          <table width="100%" cellpadding="15" cellspacing="0" border="0" style="background: linear-gradient(135deg, #fef2f2 0%, #fff 100%); border-radius: 8px; border: 1px solid #fee2e2;">
+                            <tr>
+                              <td align="center">
+                                <div style="font-size: 11px; color: #991b1b; text-transform: uppercase; font-weight: 700; margin-bottom: 10px;">CONVICTION SCORE</div>
+                                <div style="font-size: 28px; font-weight: 700; color: #dc2626; margin-bottom: 5px;">32.2</div>
+                                <div style="font-size: 14px; color: #991b1b; font-weight: 600;">/ 20</div>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                        <td width="50%" style="padding: 10px;">
+                          <table width="100%" cellpadding="15" cellspacing="0" border="0" style="background: linear-gradient(135deg, #fef2f2 0%, #fff 100%); border-radius: 8px; border: 1px solid #fee2e2;">
+                            <tr>
+                              <td align="center">
+                                <div style="font-size: 11px; color: #991b1b; text-transform: uppercase; font-weight: 700; margin-bottom: 10px;">RANK SCORE</div>
+                                <div style="font-size: 28px; font-weight: 700; color: #dc2626; margin-bottom: 5px;">9.2</div>
+                                <div style="font-size: 14px; color: #991b1b; font-weight: 600;">high</div>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+              
+              <!-- Insiders Highlight -->
+              <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background: white; border: 2px solid #fbbf24; border-radius: 8px; margin: 20px 0;">
+                <tr>
+                  <td style="padding: 20px;">
+                    <div style="font-size: 12px; color: #92400e; font-weight: 700; text-transform: uppercase; margin-bottom: 10px;">👥 INSIDERS BUYING (3 TOTAL)</div>
+                    <div style="color: #78350f; font-size: 15px; font-weight: 600; line-height: 1.6;">Stark Eugene S, Barry John F, Eliasek M Grier</div>
+                  </td>
+                </tr>
+              </table>
+              
+              <!-- Price Highlight -->
+              <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background: white; border: 2px solid #fee2e2; border-radius: 8px; margin: 20px 0;">
+                <tr>
+                  <td style="padding: 20px 15px;">
+                    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                      <tr>
+                        <td width="33%" align="center" style="padding: 5px;">
+                          <div style="font-size: 28px; margin-bottom: 8px;">💰</div>
+                          <div style="font-size: 11px; color: #991b1b; text-transform: uppercase; font-weight: 600; margin-bottom: 8px;">CURRENT PRICE</div>
+                          <div style="font-size: 22px; font-weight: 700; color: #dc2626;">$2.81</div>
+                        </td>
+                        <td width="33%" align="center" style="padding: 5px;">
+                          <div style="font-size: 28px; margin-bottom: 8px;">📊</div>
+                          <div style="font-size: 11px; color: #991b1b; text-transform: uppercase; font-weight: 600; margin-bottom: 8px;">FROM 52W LOW</div>
+                          <div style="font-size: 22px; font-weight: 700; color: #dc2626;">+9.1%</div>
+                        </td>
+                        <td width="33%" align="center" style="padding: 5px;">
+                          <div style="font-size: 28px; margin-bottom: 8px;">📅</div>
+                          <div style="font-size: 11px; color: #991b1b; text-transform: uppercase; font-weight: 600; margin-bottom: 8px;">LAST TRADE</div>
+                          <div style="font-size: 22px; font-weight: 700; color: #dc2626;">Sep 25</div>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+              
+              <!-- Action Urgent -->
+              <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%); border-radius: 8px; margin: 25px 0;">
+                <tr>
+                  <td style="padding: 25px; text-align: center; color: white;">
+                    <div style="font-size: 12px; font-weight: 700; text-transform: uppercase; margin-bottom: 12px; opacity: 0.95;">⚡ RECOMMENDED ACTION</div>
+                    <div style="font-size: 18px; font-weight: 700; line-height: 1.5;">URGENT: Consider small entry at open / immediate review</div>
+                  </td>
+                </tr>
+              </table>
+              
+              <!-- Rationale Box -->
+              <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background: #f8f9fa; border-left: 4px solid #dc2626; border-radius: 5px; margin: 20px 0;">
+                <tr>
+                  <td style="padding: 20px;">
+                    <div style="font-size: 12px; color: #666; font-weight: 700; text-transform: uppercase; margin-bottom: 10px;">📋 SIGNAL RATIONALE</div>
+                    <div style="color: #333; font-size: 14px; line-height: 1.7;">Cluster count: 3 | Total reported buys: $7,485,740 | Current Price: $2.805 | 9.1% above 52-week low | Rank Score: 9.22</div>
+                  </td>
+                </tr>
+              </table>
+              
+              <!-- Warning Box -->
+              <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background: #fffbeb; border: 2px solid #f59e0b; border-radius: 8px; margin: 25px 0;">
+                <tr>
+                  <td style="padding: 20px;">
+                    <p style="color: #92400e; font-size: 13px; line-height: 1.7; margin: 0;">
+                      <strong>⚠️ Risk Reminder:</strong> Always conduct your own research before trading. 
+                      Use proper position sizing (2-5% of portfolio) and set stop losses immediately after entry. 
+                      Past insider buying does not guarantee future returns.
+                    </p>
+                  </td>
+                </tr>
+              </table>
+              
+            </td>
+          </tr>
+        </table>
+        
+      </td>
+    </tr>
+    
+    <!-- Footer -->
+    <tr>
+      <td style="background: #f8f9fa; padding: 25px; text-align: center; border-top: 1px solid #e0e0e0;">
+        <p style="margin: 8px 0; color: #333; font-size: 12px; font-weight: 600;">⚡ Insider Cluster Watch - Urgent Alert System</p>
+        <p style="margin: 8px 0; color: #666; font-size: 12px;">Data sourced from public SEC Form 4 filings via OpenInsider & SEC EDGAR</p>
+        <p style="margin: 12px 0 8px 0; color: #666; font-size: 12px;"><em>This alert is for informational purposes only and does not constitute financial advice.</em></p>
+      </td>
+    </tr>
+    
+  </table>
 
-    <div class="alert-notice">
-      <h2>⚡ Immediate Attention Required</h2>
-      <p>1 high-conviction insider buying cluster detected</p>
-    </div>
-
-    <div class="content">
-      <div class="urgent-signal-card">
-        <div class="signal-header">
-          <h2 class="ticker">PSEC</h2>
-          <span class="urgency-indicator">⚡ URGENT</span>
-        </div>
-
-        <div class="key-metrics">
-          <div class="metrics-grid">
-            <div class="metric">
-              <span class="metric-label">Insider Cluster</span>
-              <span class="metric-value">3</span>
-              <span class="metric-unit">buyers</span>
-            </div>
-            <div class="metric">
-              <span class="metric-label">Total Value</span>
-              <span class="metric-value">$7486K</span>
-              <span class="metric-unit">purchased</span>
-            </div>
-            <div class="metric">
-              <span class="metric-label">Conviction Score</span>
-              <span class="metric-value">32.2</span>
-              <span class="metric-unit">/ 20</span>
-            </div>
-            <div class="metric">
-              <span class="metric-label">Rank Score</span>
-              <span class="metric-value">9.2</span>
-              <span class="metric-unit">high</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="insiders-highlight">
-          <span class="label">👥 INSIDERS BUYING (3 TOTAL)</span>
-          <div class="names">Stark Eugene S, Barry John F, Eliasek M Grier</div>
-        </div>
-
-        <div class="price-highlight">
-          <div class="price-item">
-            <span class="icon">💰</span>
-            <span class="label">Current Price</span>
-            <span class="value">$2.81</span>
-          </div>
-          <div class="price-item">
-            <span class="icon">📊</span>
-            <span class="label">From 52w Low</span>
-            <span class="value">+9.1%</span>
-          </div>
-          <div class="price-item">
-            <span class="icon">📅</span>
-            <span class="label">Last Trade</span>
-            <span class="value">Sep 25</span>
-          </div>
-        </div>
-
-        <div class="action-urgent">
-          <span class="label">⚡ RECOMMENDED ACTION</span>
-          <div class="text">URGENT: Consider small entry at open / immediate review</div>
-        </div>
-
-        <div class="rationale-box">
-          <span class="label">📋 SIGNAL RATIONALE</span>
-          <div class="text">Cluster count: 3 | Total reported buys: $7,485,740 | Current Price: $2.805 | 9.1% above 52-week low | Rank Score: 9.22</div>
-        </div>
-
-        <div class="warning-box">
-          <p class="text">
-            <strong>⚠️ Risk Reminder:</strong> Always conduct your own research before trading. 
-            Use proper position sizing (2-5% of portfolio) and set stop losses immediately after entry. 
-            Past insider buying does not guarantee future returns.
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <div class="footer">
-      <p><strong>⚡ Insider Cluster Watch - Urgent Alert System</strong></p>
-      <p>Data sourced from public SEC Form 4 filings via OpenInsider & SEC EDGAR</p>
-      <p style="margin-top: 12px;"><em>This alert is for informational purposes only and does not constitute financial advice.</em></p>
-    </div>
-  </div>
 </body>
 </html>
