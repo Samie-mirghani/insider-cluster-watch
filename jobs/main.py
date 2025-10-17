@@ -1,7 +1,7 @@
 # jobs/main.py
 import os
 import argparse
-from datetime import datetime
+from datetime import datetime, timedelta
 import pandas as pd
 from dotenv import load_dotenv
 
@@ -10,13 +10,78 @@ load_dotenv()
 from fetch_openinsider import fetch_openinsider_recent
 from fetch_sec_edgar import fetch_sec_edgar_data
 from process_signals import cluster_and_score, is_urgent
-from generate_report import render_daily_html, render_urgent_html
+from generate_report import render_daily_html, render_urgent_html, render_no_activity_html
 from send_email import send_email
 
 DATA_DIR = os.path.join(os.path.dirname(__file__), '..', 'data')
 if not os.path.exists(DATA_DIR):
     os.makedirs(DATA_DIR)
 HISTORY_CSV = os.path.join(DATA_DIR, 'signals_history.csv')
+
+def load_recent_signals(days_back=7):
+    """
+    Load signals from the last N days to check for duplicates.
+    Returns set of (ticker, date) tuples.
+    """
+    if not os.path.exists(HISTORY_CSV):
+        return set()
+    
+    df = pd.read_csv(HISTORY_CSV, parse_dates=['date'])
+    cutoff = datetime.utcnow() - timedelta(days=days_back)
+    recent = df[df['date'] >= cutoff]
+    
+    # Return set of (ticker, date_str) for quick lookup
+    return set(zip(recent['ticker'], recent['date'].dt.strftime('%Y-%m-%d')))
+
+def filter_new_signals(cluster_df, recent_signals):
+    """
+    Filter out signals that were already sent in the last 7 days,
+    UNLESS there's been new insider activity.
+    
+    Logic: A signal is "new" if:
+    1. Ticker hasn't been signaled in last 7 days, OR
+    2. The last_trade_date is more recent than the last signal date
+    """
+    if cluster_df is None or cluster_df.empty:
+        return pd.DataFrame()
+    
+    today = datetime.utcnow().strftime('%Y-%m-%d')
+    new_signals = []
+    
+    for _, row in cluster_df.iterrows():
+        ticker = row['ticker']
+        
+        # Check if this ticker was signaled recently
+        recent_dates = [date_str for (t, date_str) in recent_signals if t == ticker]
+        
+        if not recent_dates:
+            # Never signaled before - include it
+            new_signals.append(row)
+            print(f"   ✅ {ticker}: NEW signal (first time)")
+        else:
+            # Ticker was signaled before - check if there's new activity
+            last_signal_date = max(recent_dates)  # Most recent signal date
+            
+            # Get the last trade date from this signal
+            last_trade = row.get('last_trade_date')
+            if pd.isna(last_trade):
+                # No trade date available, skip to be safe
+                print(f"   ⏭️  {ticker}: SKIPPED (no trade date, already signaled on {last_signal_date})")
+                continue
+            
+            last_trade_str = last_trade.strftime('%Y-%m-%d') if hasattr(last_trade, 'strftime') else str(last_trade)[:10]
+            
+            # If the last trade is AFTER the last signal, it's new activity
+            if last_trade_str > last_signal_date:
+                new_signals.append(row)
+                print(f"   ✅ {ticker}: NEW activity (last trade {last_trade_str} > last signal {last_signal_date})")
+            else:
+                print(f"   ⏭️  {ticker}: SKIPPED (already signaled on {last_signal_date}, no new activity)")
+    
+    if not new_signals:
+        return pd.DataFrame()
+    
+    return pd.DataFrame(new_signals)
 
 def detect_heavy_selling(df):
     """
@@ -45,10 +110,7 @@ def detect_heavy_selling(df):
         else (abs(r.get('qty', 0)) * r.get('price', 0)), axis=1
     )
     
-    # Flag concerning sells:
-    # 1. C-suite selling
-    # 2. Large value (>$1M)
-    # 3. Multiple insiders selling same ticker
+    # Flag concerning sells
     concerning = sells[
         (sells['is_c_suite'] == True) | 
         (sells['value_calc'] > 1000000)
@@ -57,7 +119,7 @@ def detect_heavy_selling(df):
     if concerning.empty:
         return pd.DataFrame()
     
-    # Group by ticker to find clusters of selling
+    # Group by ticker
     ticker_groups = concerning.groupby('ticker').agg({
         'insider': lambda x: list(x.unique()),
         'value_calc': 'sum',
@@ -67,7 +129,7 @@ def detect_heavy_selling(df):
     ticker_groups['num_sellers'] = ticker_groups['insider'].apply(len)
     ticker_groups['total_sold'] = ticker_groups['value_calc']
     
-    # Filter for significant selling (multiple sellers OR large value OR c-suite)
+    # Filter for significant selling
     significant = ticker_groups[
         (ticker_groups['num_sellers'] >= 2) |
         (ticker_groups['total_sold'] >= 2000000) |
@@ -156,13 +218,6 @@ def main(test=False, urgent_test=False):
 
         if df is None or df.empty:
             print("❌ No data available from either OpenInsider or SEC EDGAR")
-            print("   This could be due to:")
-            print("   • Network issues")
-            print("   • Weekend/holiday (no new filings)")
-            print("   • Both sources under maintenance")
-            
-            # Send the enhanced no-activity email
-            from generate_report import render_no_activity_html
             html, text = render_no_activity_html(
                 total_transactions=0,
                 buy_count=0,
@@ -170,13 +225,12 @@ def main(test=False, urgent_test=False):
             )
             send_email(f"Daily Insider Report — {datetime.utcnow().strftime('%Y-%m-%d')}", html, text)
             return
-    else:
-        print(f"✅ Using SEC EDGAR data: {len(df)} transaction(s)")
+        else:
+            print(f"✅ Using SEC EDGAR data: {len(df)} transaction(s)")
 
     print(f"✅ Fetched {len(df)} transaction(s)")
     
-    # Show breakdown of transaction types
-    # Show breakdown of transaction types
+    # Show breakdown
     buy_count = df[df['trade_type'].str.upper().str.contains('BUY|PURCHASE|P -', na=False)].shape[0]
     sell_count = df[df['trade_type'].str.upper().str.contains('SALE|SELL|S -', na=False)].shape[0]
     print(f"   • {buy_count} buy transaction(s)")
@@ -203,9 +257,6 @@ def main(test=False, urgent_test=False):
     if cluster_df is None or cluster_df.empty:
         print("ℹ️  No significant insider buying clusters detected")
         
-        # Use the enhanced no-activity template
-        from generate_report import render_no_activity_html
-        
         total_tx = len(df) if df is not None and not df.empty else 0
         html, text = render_no_activity_html(
             total_transactions=total_tx,
@@ -215,24 +266,53 @@ def main(test=False, urgent_test=False):
         
         send_email(f"Daily Insider Report — {datetime.utcnow().strftime('%Y-%m-%d')}", html, text)
         print(f"\n{'='*60}")
-        print("✅ Report complete - enhanced no-activity email sent")
+        print("✅ Report complete - no-activity email sent")
         print(f"{'='*60}\n")
         return
 
-    print(f"✅ Found {len(cluster_df)} buy cluster(s)\n")
+    print(f"✅ Found {len(cluster_df)} buy cluster(s)")
+    
+    # 4) Filter out duplicate signals (NEW STEP)
+    print("\n🔍 Checking for duplicate signals...")
+    recent_signals = load_recent_signals(days_back=7)
+    print(f"   Loaded {len(recent_signals)} recent signals from last 7 days")
+    
+    new_cluster_df = filter_new_signals(cluster_df, recent_signals)
+    
+    if new_cluster_df.empty:
+        print("\n⚠️  All signals are duplicates - no new insider activity")
+        print("   Sending no-activity report\n")
+        
+        total_tx = len(df) if df is not None and not df.empty else 0
+        html, text = render_no_activity_html(
+            total_transactions=total_tx,
+            buy_count=buy_count,
+            sell_warning_html=sell_warning_html if not sell_warnings.empty else ""
+        )
+        
+        send_email(f"Daily Insider Report — {datetime.utcnow().strftime('%Y-%m-%d')}", html, text)
+        print(f"{'='*60}")
+        print("✅ Report complete - no new signals to report")
+        print(f"{'='*60}\n")
+        return
+    
+    print(f"\n✅ Found {len(new_cluster_df)} NEW signal(s) to report\n")
+    
+    # Use new_cluster_df instead of cluster_df from here on
+    cluster_df = new_cluster_df
     
     # Show top signals
-    print("📊 Top signals:")
+    print("📊 New signals:")
     for idx, row in cluster_df.head(5).iterrows():
         print(f"   {row['ticker']}: Cluster={row['cluster_count']}, Score={row['rank_score']:.2f}, ${int(row['total_value']):,}")
     print()
 
-    # 4) Save signals to history
+    # 5) Save signals to history
     print("💾 Saving signals to history...")
     append_to_history(cluster_df)
     print()
 
-    # 5) Check for urgent signals
+    # 6) Check for urgent signals
     urgent_df = cluster_df[cluster_df.apply(lambda r: is_urgent(r), axis=1)].copy()
     
     if not urgent_df.empty:
@@ -241,11 +321,11 @@ def main(test=False, urgent_test=False):
             print(f"   • {row['ticker']} - {row['suggested_action']}")
         print()
 
-    # 6) Generate reports
+    # 7) Generate reports
     print("📧 Generating email reports...")
     daily_html, daily_text = render_daily_html(cluster_df)
     
-    # Insert sell warning banner into the reports
+    # Insert sell warning banner
     if not sell_warnings.empty:
         daily_html = daily_html.replace('</h2>', f'</h2>{sell_warning_html}')
         daily_text = sell_warning_text + '\n\n' + daily_text
@@ -260,7 +340,7 @@ def main(test=False, urgent_test=False):
         urgent_html = None
         urgent_text = None
 
-    # 7) Send emails
+    # 8) Send emails
     if test:
         print("📬 Sending TEST emails...")
         send_email(f"TEST — Daily Insider Report — {datetime.utcnow().strftime('%Y-%m-%d')}", daily_html, daily_text)
@@ -299,6 +379,7 @@ if __name__ == "__main__":
             'suggested_action': 'URGENT: Consider small entry at open / immediate review',
             'rationale': 'Cluster count:4 | Total reported buys: $500,000 | Current Price: $5.25 | 10.0% above 52-week low | Rank Score: 15.00'
         }])
+        from generate_report import render_urgent_html
         html, text = render_urgent_html(fake)
         send_email("URGENT TEST INSIDER ALERT", html, text)
     else:
