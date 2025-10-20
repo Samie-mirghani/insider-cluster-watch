@@ -14,6 +14,7 @@ from generate_report import render_daily_html, render_urgent_html, render_no_act
 from send_email import send_email
 from paper_trade import PaperTradingPortfolio
 from news_sentiment import check_news_for_signals
+from paper_trade_monitor import PaperTradingMonitor
 
 DATA_DIR = os.path.join(os.path.dirname(__file__), '..', 'data')
 if not os.path.exists(DATA_DIR):
@@ -366,7 +367,31 @@ def main(test=False, urgent_test=False, enable_paper_trading=True):
     
     # 6) Paper trading: Process signals
     if paper_trader:
-        print("📈 Processing paper trading signals...")
+        print("\n" + "="*60)
+        print("📈 PAPER TRADING - SIGNAL PROCESSING")
+        print("="*60)
+        
+        # Initialize monitor
+        monitor = PaperTradingMonitor()
+        start_value = paper_trader.get_portfolio_value()
+        monitor.set_start_of_day_value(start_value)
+        
+        # Show current status
+        stats = paper_trader.get_performance_summary()
+        print(f"\n📊 Current Portfolio Status:")
+        print(f"   Portfolio Value: ${stats['current_value']:,.2f}")
+        print(f"   Cash: ${stats['cash']:,.2f}")
+        print(f"   Open Positions: {stats['open_positions']}")
+        print(f"   Pending Entries: {stats['pending_entries']}")
+        print(f"   Total Return: {stats['total_return_pct']:+.2f}%")
+        print(f"   Exposure: {stats['exposure_pct']:.1f}%")
+        
+        # Check exits first (stops, targets, scaling)
+        print(f"\n🔍 Checking exits and updates...")
+        closed = paper_trader.check_exits()
+        
+        # Process new signals
+        print(f"\n📊 Processing {len(cluster_df)} new signal(s)...")
         signals_executed = 0
         signals_skipped = 0
 
@@ -384,24 +409,40 @@ def main(test=False, urgent_test=False, enable_paper_trading=True):
                 'entry_price': entry_price,
                 'signal_date': datetime.utcnow().strftime('%Y-%m-%d'),
                 'signal_score': signal_row.get('rank_score', 0),
-                'cluster_count': signal_row.get('cluster_count', 0)
+                'cluster_count': signal_row.get('cluster_count', 0),
+                'sector': signal_row.get('sector', 'Unknown')
             }
-            paper_trader.execute_signal(signal)
-            signals_executed += 1  # INCREMENT COUNTER
+            
+            if paper_trader.execute_signal(signal):
+                signals_executed += 1
         
-        # Update existing positions
-        paper_trader.check_exits()
+        # Run health check
+        print(f"\n🏥 Running portfolio health check...")
+        status, alerts = monitor.check_portfolio_health(paper_trader)
+        
+        if alerts:
+            print(monitor.format_alerts_report(status, alerts))
+            monitor.log_alerts(status, alerts)
+        else:
+            print("   ✅ Portfolio health: HEALTHY")
+        
+        # Save portfolio
         paper_trader.save()
         
-        portfolio_value = paper_trader.get_portfolio_value()
-        total_return = ((portfolio_value - paper_trader.starting_capital) / paper_trader.starting_capital) * 100
-
-        print(f"   Executed: {signals_executed} positions")
+        # Final summary
+        final_stats = paper_trader.get_performance_summary()
+        print(f"\n📊 Paper Trading Summary:")
+        print(f"   Executed: {signals_executed} position(s)")
         if signals_skipped > 0:
-            print(f"   Skipped: {signals_skipped} signals (no price data)")
-        print(f"   Portfolio Value: ${portfolio_value:,.2f}")
-        print(f"   Total Return: {total_return:.2f}%")
-        print(f"   Active Positions: {len(paper_trader.positions)}\n")
+            print(f"   Skipped: {signals_skipped} signal(s) (no price data)")
+        if closed:
+            print(f"   Closed: {len(closed)} position(s)")
+        print(f"   Portfolio Value: ${final_stats['current_value']:,.2f}")
+        print(f"   Total Return: {final_stats['total_return_pct']:+.2f}%")
+        print(f"   Win Rate: {final_stats['win_rate']:.1f}%")
+        print(f"   Active Positions: {final_stats['open_positions']}")
+        print(f"   Pending Entries: {final_stats['pending_entries']}")
+        print("="*60 + "\n")
 
     # 7) Save signals to history
     print("💾 Saving signals to history...")

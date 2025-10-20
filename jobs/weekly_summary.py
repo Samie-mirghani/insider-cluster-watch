@@ -290,23 +290,41 @@ def calculate_performance_stats():
     try:
         paper_trader = PaperTradingPortfolio.load()
         if paper_trader:
-            portfolio_value = paper_trader.get_portfolio_value()
-            total_return = ((portfolio_value - paper_trader.starting_capital) / paper_trader.starting_capital) * 100
-            hit_rate = (paper_trader.winning_trades / paper_trader.total_trades * 100) if paper_trader.total_trades > 0 else 0
+            paper_stats = paper_trader.get_performance_summary()
             
             stats['paper_trading'] = {
                 'enabled': True,
-                'portfolio_value': portfolio_value,
-                'total_return': total_return,
-                'total_trades': paper_trader.total_trades,
-                'winning_trades': paper_trader.winning_trades,
-                'hit_rate': hit_rate,
-                'open_positions': len(paper_trader.positions),
-                'realized_pnl': paper_trader.total_profit
+                'portfolio_value': paper_stats['current_value'],
+                'total_return': paper_stats['total_return_pct'],
+                'total_trades': paper_stats['total_trades'],
+                'winning_trades': paper_stats['winning_trades'],
+                'losing_trades': paper_stats['losing_trades'],
+                'hit_rate': paper_stats['win_rate'],
+                'open_positions': paper_stats['open_positions'],
+                'pending_entries': paper_stats['pending_entries'],
+                'realized_pnl': paper_stats['realized_pnl'],
+                'avg_win': paper_stats['avg_win'],
+                'avg_loss': paper_stats['avg_loss'],
+                'avg_win_pct': paper_stats['avg_win_pct'],
+                'avg_loss_pct': paper_stats['avg_loss_pct'],
+                'avg_hold_days': paper_stats['avg_hold_days'],
+                'max_drawdown': paper_stats['max_drawdown'],
+                'exposure_pct': paper_stats['exposure_pct'],
+                'cash': paper_stats['cash']
             }
+            
+            # Add health check
+            from paper_trade_monitor import PaperTradingMonitor
+            monitor = PaperTradingMonitor()
+            health_status, health_alerts = monitor.check_portfolio_health(paper_trader)
+            
+            stats['paper_trading']['health_status'] = health_status
+            stats['paper_trading']['health_alerts'] = len(health_alerts)
+            
         else:
             stats['paper_trading'] = {'enabled': False}
-    except (FileNotFoundError, Exception):
+    except (FileNotFoundError, Exception) as e:
+        logger.warning(f"Could not load paper trading stats: {e}")
         stats['paper_trading'] = {'enabled': False}
         
     return stats

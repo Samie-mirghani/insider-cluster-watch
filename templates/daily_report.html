@@ -1,6 +1,4 @@
-<!-- templates/daily_report.html - ENHANCED VERSION -->
-<!-- This is OPTIONAL - your current template works fine -->
-<!-- Use this if you want to display sector, quality, and pattern info -->
+<!-- templates/daily_report.html -->
 
 <html>
 <head>
@@ -291,10 +289,18 @@
             <div class="metric-label">Cluster Size</div>
             <div class="metric-value">{{ item.cluster_count }} insiders</div>
           </div>
-          <div class="metric">
-            <div class="metric-label">Total Purchased</div>
-            <div class="metric-value">${{ (item.total_value/1000)|round(0)|int }}K</div>
-          </div>
+        <div class="metric">
+          <div class="metric-label">Total Purchased</div>
+          <div class="metric-value">
+              {% if item.total_value >= 1000000 %}
+                  ${{ "{:.1f}".format(item.total_value/1000000) }}M
+              {% elif item.total_value >= 1000 %}
+                  ${{ "{:.1f}".format(item.total_value/1000) }}K
+              {% else %}
+                  ${{ "{:,.0f}".format(item.total_value) }}
+              {% endif %}
+            </div>
+        </div>
           <div class="metric">
             <div class="metric-label">Conviction Score</div>
             <div class="metric-value">{{ item.avg_conviction|round(2) }}</div>

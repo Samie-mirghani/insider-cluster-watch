@@ -424,10 +424,28 @@
         </div>
       </div>
 
-      <!-- Paper Trading Section -->
+      <!-- Paper Trading Section - ENHANCED -->
       {% if paper_trading.enabled %}
       <div class="paper-trading-section">
         <h3>💰 Paper Trading Performance</h3>
+        
+        <!-- Health Status Badge -->
+        <div style="text-align: center; margin-bottom: 20px;">
+          {% if paper_trading.health_status == 'HEALTHY' %}
+          <span style="background: #dcfce7; color: #15803d; padding: 8px 20px; border-radius: 20px; font-size: 14px; font-weight: 600;">
+            ✅ Portfolio Health: HEALTHY
+          </span>
+          {% elif paper_trading.health_status == 'WARNING' %}
+          <span style="background: #fef3c7; color: #92400e; padding: 8px 20px; border-radius: 20px; font-size: 14px; font-weight: 600;">
+            ⚠️ Portfolio Health: WARNING ({{ paper_trading.health_alerts }} alert{{ 's' if paper_trading.health_alerts != 1 else '' }})
+          </span>
+          {% elif paper_trading.health_status == 'CRITICAL' %}
+          <span style="background: #fee2e2; color: #991b1b; padding: 8px 20px; border-radius: 20px; font-size: 14px; font-weight: 600;">
+            🚨 Portfolio Health: CRITICAL ({{ paper_trading.health_alerts }} alert{{ 's' if paper_trading.health_alerts != 1 else '' }})
+          </span>
+          {% endif %}
+        </div>
+        
         <div class="pt-grid">
           <div class="pt-metric">
             <div class="label">Portfolio Value</div>
@@ -435,11 +453,23 @@
           </div>
           <div class="pt-metric">
             <div class="label">Total Return</div>
-            <div class="value">{{ "{:+.2f}".format(paper_trading.total_return) }}%</div>
+            <div class="value" style="color: {% if paper_trading.total_return >= 0 %}#15803d{% else %}#991b1b{% endif %}">
+              {{ "{:+.2f}".format(paper_trading.total_return) }}%
+            </div>
+          </div>
+          <div class="pt-metric">
+            <div class="label">Cash Available</div>
+            <div class="value">${{ "{:,.2f}".format(paper_trading.cash) }}</div>
+          </div>
+          <div class="pt-metric">
+            <div class="label">Exposure</div>
+            <div class="value">{{ "{:.1f}".format(paper_trading.exposure_pct) }}%</div>
           </div>
           <div class="pt-metric">
             <div class="label">Win Rate</div>
-            <div class="value">{{ "{:.1f}".format(paper_trading.hit_rate) }}%</div>
+            <div class="value" style="color: {% if paper_trading.hit_rate >= 55 %}#15803d{% elif paper_trading.hit_rate >= 45 %}#92400e{% else %}#991b1b{% endif %}">
+              {{ "{:.1f}".format(paper_trading.hit_rate) }}%
+            </div>
           </div>
           <div class="pt-metric">
             <div class="label">Total Trades</div>
@@ -450,8 +480,61 @@
             <div class="value">{{ paper_trading.open_positions }}</div>
           </div>
           <div class="pt-metric">
+            <div class="label">Pending Entries</div>
+            <div class="value">{{ paper_trading.pending_entries }}</div>
+          </div>
+          <div class="pt-metric">
             <div class="label">Realized P&L</div>
-            <div class="value">${{ "{:,.2f}".format(paper_trading.realized_pnl) }}</div>
+            <div class="value" style="color: {% if paper_trading.realized_pnl >= 0 %}#15803d{% else %}#991b1b{% endif %}">
+              ${{ "{:,.2f}".format(paper_trading.realized_pnl) }}
+            </div>
+          </div>
+          <div class="pt-metric">
+            <div class="label">Max Drawdown</div>
+            <div class="value" style="color: {% if paper_trading.max_drawdown > -10 %}#15803d{% elif paper_trading.max_drawdown > -20 %}#92400e{% else %}#991b1b{% endif %}">
+              {{ "{:.2f}".format(paper_trading.max_drawdown) }}%
+            </div>
+          </div>
+          <div class="pt-metric">
+            <div class="label">Avg Win</div>
+            <div class="value" style="color: #15803d;">
+              ${{ "{:.2f}".format(paper_trading.avg_win) }}
+              <div style="font-size: 11px; color: #666;">({{ "{:+.2f}".format(paper_trading.avg_win_pct) }}%)</div>
+            </div>
+          </div>
+          <div class="pt-metric">
+            <div class="label">Avg Loss</div>
+            <div class="value" style="color: #991b1b;">
+              ${{ "{:.2f}".format(paper_trading.avg_loss) }}
+              <div style="font-size: 11px; color: #666;">({{ "{:+.2f}".format(paper_trading.avg_loss_pct) }}%)</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Additional Stats Row -->
+        <div style="margin-top: 15px; padding: 15px; background: white; border-radius: 8px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; text-align: center;">
+          <div>
+            <div style="font-size: 11px; color: #92400e; margin-bottom: 5px;">Winners</div>
+            <div style="font-size: 18px; font-weight: 700; color: #15803d;">{{ paper_trading.winning_trades }}</div>
+          </div>
+          <div>
+            <div style="font-size: 11px; color: #92400e; margin-bottom: 5px;">Losers</div>
+            <div style="font-size: 18px; font-weight: 700; color: #991b1b;">{{ paper_trading.losing_trades }}</div>
+          </div>
+          <div>
+            <div style="font-size: 11px; color: #92400e; margin-bottom: 5px;">Avg Hold Time</div>
+            <div style="font-size: 18px; font-weight: 700; color: #92400e;">{{ "{:.1f}".format(paper_trading.avg_hold_days) }} days</div>
+          </div>
+        </div>
+        
+        <!-- Feature Highlights -->
+        <div style="margin-top: 15px; padding: 12px; background: #fff; border-left: 3px solid #f59e0b; border-radius: 5px;">
+          <div style="font-size: 12px; color: #92400e; font-weight: 600; margin-bottom: 8px;">🔧 ACTIVE FEATURES:</div>
+          <div style="font-size: 12px; color: #78350f; line-height: 1.6;">
+            ✓ Trailing Stop Loss (auto-adjusting after +3% gain)<br>
+            ✓ Position Sizing Validation (max 5% per position, 25% total exposure)<br>
+            ✓ Partial Position Scaling (2-tranche entries on -2% pullback)<br>
+            ✓ Health Monitoring (daily risk checks)
           </div>
         </div>
       </div>
