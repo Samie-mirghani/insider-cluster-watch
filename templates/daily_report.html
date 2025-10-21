@@ -275,7 +275,7 @@
           {% endif %}
           
           {% if item.news_sentiment and item.news_sentiment != 'none' %}
-          <span class="badge badge-news">📰 {{ item.news_sentiment|capitalize }} News</span>
+          <span class="badge badge-news">📰 {{ item.sentiment_display }} News</span>
           {% endif %}
         </div>
 

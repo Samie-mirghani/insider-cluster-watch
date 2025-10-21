@@ -172,6 +172,9 @@ def check_news_for_signal(ticker, company_name=None):
         }
     
     analysis = analyze_sentiment(articles)
+
+    # Format sentiment display text for emails
+    formatted_sentiment = analysis['sentiment'].replace('_', ' ').title()
     
     # Determine recommendation
     if analysis['sentiment'] in ['VERY_NEGATIVE', 'NEGATIVE']:
@@ -195,6 +198,7 @@ def check_news_for_signal(ticker, company_name=None):
         'ticker': ticker,
         'has_news': True,
         'sentiment': analysis['sentiment'],
+        'sentiment_display': formatted_sentiment,
         'score': analysis['score'],
         'recommendation': recommendation,
         'reason': reason,
