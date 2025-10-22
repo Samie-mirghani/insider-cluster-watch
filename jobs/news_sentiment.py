@@ -235,6 +235,7 @@ def check_news_for_signals(cluster_df):
     cluster_df['news_recommendation'] = [n['recommendation'] for n in news_results]
     cluster_df['news_reason'] = [n['reason'] for n in news_results]
     cluster_df['news_articles'] = [n['articles'] for n in news_results]
+    cluster_df['sentiment_display'] = [n.get('sentiment_display', '') for n in news_results]
     
     # Print summary
     avoid_count = sum(1 for n in news_results if n['recommendation'] == 'AVOID')
