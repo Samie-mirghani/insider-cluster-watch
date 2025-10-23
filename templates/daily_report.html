@@ -244,7 +244,18 @@
       </div>
       <div class="summary-item">
         <div class="label">Total Value</div>
-        <div class="value">${{ (trades|sum(attribute='total_value')/1000000)|round(1) }}M</div>
+        <div class="value">
+          {% set total_val = trades|sum(attribute='total_value') %}
+          {% if total_val >= 1_000_000_000 %}
+            ${{ "{:.2f}".format(total_val / 1_000_000_000) }}B
+          {% elif total_val >= 1_000_000 %}
+            ${{ "{:.1f}".format(total_val / 1_000_000) }}M
+          {% elif total_val >= 1_000 %}
+            ${{ "{:.1f}".format(total_val / 1_000) }}K
+          {% else %}
+            ${{ "{:,.0f}".format(total_val) }}
+          {% endif %}
+        </div>
       </div>
       <div class="summary-item">
         <div class="label">Avg Score</div>
