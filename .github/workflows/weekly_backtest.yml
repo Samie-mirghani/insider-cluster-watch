@@ -63,19 +63,29 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           
-          # Switch to data branch
-          git fetch origin data:data 2>/dev/null || git checkout -b data || git checkout data
-          git checkout data
-          
-          # Ensure directories exist
+          # Ensure data branch exists (create it if missing)
+          if git show-ref --quiet refs/heads/data; then
+            git checkout data
+          else
+            git fetch origin data || true
+            if git show-ref --quiet refs/remotes/origin/data; then
+              git checkout -b data origin/data
+            else
+              git checkout -b data
+            fi
+          fi
+      
           mkdir -p data/plots
-          
-          # Add results
-          git add data/backtest_results.csv
-          git add data/plots/*.png 2>/dev/null || echo "No plots to commit"
+      
+          # Force add ignored or new files
+          git add -f data/backtest_results.csv
+          git add -f data/plots/*.png 2>/dev/null || echo "No plots to commit"
+      
+          # Commit only if there are changes
           git diff --staged --quiet || git commit -m "Weekly backtest: $(date +'%Y-%m-%d')"
-          
+
       - name: Push changes to data branch
         if: steps.check_files.outputs.results_exist == 'true'
         run: |
           git push origin data
+
