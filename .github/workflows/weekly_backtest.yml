@@ -11,6 +11,8 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Fetch all history for branch operations
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -20,6 +22,12 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
+
+      - name: Fetch data branch
+        run: |
+          # Fetch the data branch to get signals_history.csv
+          git fetch origin data:data || echo "No data branch yet"
+          git checkout data -- data/signals_history.csv 2>/dev/null || echo "No history file yet"
 
       - name: Run backtest
         run: |
@@ -49,16 +57,25 @@ jobs:
         run: |
           python jobs/weekly_summary.py || echo "Weekly summary completed with warnings"
 
-      - name: Commit results
+      - name: Commit results to data branch
         if: steps.check_files.outputs.results_exist == 'true'
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
+          
+          # Switch to data branch
+          git fetch origin data:data 2>/dev/null || git checkout -b data || git checkout data
+          git checkout data
+          
+          # Ensure directories exist
+          mkdir -p data/plots
+          
+          # Add results
           git add data/backtest_results.csv
-          git add data/plots/*.png || echo "No plots to commit"
+          git add data/plots/*.png 2>/dev/null || echo "No plots to commit"
           git diff --staged --quiet || git commit -m "Weekly backtest: $(date +'%Y-%m-%d')"
           
-      - name: Push changes
+      - name: Push changes to data branch
         if: steps.check_files.outputs.results_exist == 'true'
         run: |
-          git push
+          git push origin data
