@@ -11,6 +11,8 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history for rebase
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -29,7 +31,7 @@ jobs:
           MARKET_DATA_API_KEY: ${{ secrets.MARKET_DATA_API_KEY }}
         run: python jobs/main.py
 
-      - name: Check if history file exists
+      - name: Check if signal history exists
         id: check_history
         run: |
           if [ -f "data/signals_history.csv" ]; then
@@ -40,34 +42,19 @@ jobs:
             echo "ℹ️ No signal history generated (likely no buy signals detected)"
           fi
 
-      - name: Commit signal history to data branch
+      - name: Commit and push data updates to main
         if: steps.check_history.outputs.history_exists == 'true'
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          
-          # Ensure data branch exists (create it if missing)
-          if git show-ref --quiet refs/heads/data; then
-            git checkout data
-          else
-            git fetch origin data || true
-            if git show-ref --quiet refs/remotes/origin/data; then
-              git checkout -b data origin/data
-            else
-              git checkout -b data
-            fi
-          fi
-      
-          mkdir -p data
-      
-          # Copy the generated file (safe even if unchanged)
-          cp data/signals_history.csv data/signals_history.csv 2>/dev/null || true
-      
-          # Force add ignored file and commit if there are changes
-          git add -f data/signals_history.csv
-          git diff --staged --quiet || git commit -m "Daily signal update: $(date +'%Y-%m-%d')"
-      
-      - name: Push changes to data branch
-        if: steps.check_history.outputs.history_exists == 'true'
-        run: |
-          git push origin data
+
+          # Un-ignore and explicitly add the data files
+          git add -f data/paper_portfolio.json data/paper_trading.log data/signals_history.csv
+
+          git commit -m "Daily data update: $(date +'%Y-%m-%d %H:%M:%S')" || echo "No changes to commit"
+
+          # Rebase on latest main to avoid conflicts
+          git pull --rebase origin main || true
+
+          # Push changes back to main
+          git push origin HEAD:main
