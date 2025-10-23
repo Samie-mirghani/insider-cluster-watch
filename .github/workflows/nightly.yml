@@ -40,15 +40,29 @@ jobs:
             echo "ℹ️ No signal history generated (likely no buy signals detected)"
           fi
 
-      - name: Commit signal history
+      - name: Commit signal history to data branch
         if: steps.check_history.outputs.history_exists == 'true'
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
+          
+          # Try to fetch data branch, create if doesn't exist
+          git fetch origin data:data 2>/dev/null || git checkout -b data || git checkout data
+          
+          # Make sure we're on data branch
+          git checkout data
+          
+          # Ensure data directory exists
+          mkdir -p data
+          
+          # Copy the generated file
+          cp data/signals_history.csv data/signals_history.csv 2>/dev/null || true
+          
+          # Add and commit
           git add data/signals_history.csv
           git diff --staged --quiet || git commit -m "Daily signal update: $(date +'%Y-%m-%d')"
           
-      - name: Push changes
+      - name: Push changes to data branch
         if: steps.check_history.outputs.history_exists == 'true'
         run: |
-          git push
+          git push origin data
