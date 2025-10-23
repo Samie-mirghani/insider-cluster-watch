@@ -42,19 +42,32 @@ jobs:
             echo "ℹ️ No signal history generated (likely no buy signals detected)"
           fi
 
-      - name: Commit and push data updates to main
-        if: steps.check_history.outputs.history_exists == 'true'
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-
-          # Un-ignore and explicitly add the data files
-          git add -f data/paper_portfolio.json data/paper_trading.log data/signals_history.csv
-
-          git commit -m "Daily data update: $(date +'%Y-%m-%d %H:%M:%S')" || echo "No changes to commit"
-
-          # Rebase on latest main to avoid conflicts
-          git pull --rebase origin main || true
-
-          # Push changes back to main
-          git push origin HEAD:main
+            - name: Commit and push data updates to main
+              if: steps.check_history.outputs.history_exists == 'true'
+              run: |
+                git config --local user.email "action@github.com"
+                git config --local user.name "GitHub Action"
+      
+                # Explicitly add ignored files
+                git add -f data/paper_portfolio.json data/paper_trading.log data/signals_history.csv
+      
+                # Commit any changes (ignore if none)
+                git diff --staged --quiet || git commit -m "Daily data update: $(date +'%Y-%m-%d %H:%M:%S')"
+      
+                # Stash any remaining changes to prevent rebase errors
+                git stash --include-untracked || true
+      
+                # Rebase onto latest main (ignore errors if none)
+                git pull --rebase origin main || true
+      
+                # Re-apply stashed changes
+                git stash pop || true
+      
+                # Add any reapplied files again
+                git add -f data/paper_portfolio.json data/paper_trading.log data/signals_history.csv
+      
+                # Recommit after rebase if necessary
+                git diff --staged --quiet || git commit -m "Daily data rebase sync: $(date +'%Y-%m-%d %H:%M:%S')"
+      
+                # Push changes safely
+                git push origin HEAD:main
