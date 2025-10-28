@@ -1,89 +1,89 @@
 {
   "starting_capital": 10000,
-  "cash": 9120.83,
+  "cash": 9330.439999999999,
   "positions": {
-    "EMIS": {
-      "entry_date": "2025-10-27T11:27:03.834258",
-      "entry_price": 9.9,
-      "shares": 30,
-      "cost_basis": 297.0,
-      "initial_stop_loss": 9.405,
-      "stop_loss": 9.405,
-      "take_profit": 10.692000000000002,
-      "highest_price": 9.9,
+    "FCN": {
+      "entry_date": "2025-10-28T11:25:34.659873",
+      "entry_price": 166.58,
+      "shares": 1,
+      "cost_basis": 166.58,
+      "initial_stop_loss": 158.251,
+      "stop_loss": 158.251,
+      "take_profit": 179.90640000000002,
+      "highest_price": 166.58,
       "trailing_enabled": false,
-      "signal_score": 3.4946912992035966,
-      "sector": "Unknown",
+      "signal_score": 6.1822200215054925,
+      "sector": "Industrials",
       "tranches": [
         {
-          "shares": 30,
-          "price": 9.9,
-          "date": "2025-10-27T11:27:03.834261"
+          "shares": 1,
+          "price": 166.58,
+          "date": "2025-10-28T11:25:34.659875"
         }
       ]
     },
-    "TONX": {
-      "entry_date": "2025-10-27T11:27:03.993265",
-      "entry_price": 3.95,
-      "shares": 75,
-      "cost_basis": 296.25,
-      "initial_stop_loss": 3.7525,
-      "stop_loss": 3.7525,
-      "take_profit": 4.266000000000001,
-      "highest_price": 3.95,
+    "SIGI": {
+      "entry_date": "2025-10-28T11:25:34.813280",
+      "entry_price": 76.87,
+      "shares": 3,
+      "cost_basis": 230.61,
+      "initial_stop_loss": 73.0265,
+      "stop_loss": 73.0265,
+      "take_profit": 83.01960000000001,
+      "highest_price": 76.87,
       "trailing_enabled": false,
-      "signal_score": 3.311755784932784,
-      "sector": "Technology",
-      "tranches": [
-        {
-          "shares": 75,
-          "price": 3.95,
-          "date": "2025-10-27T11:27:03.993268"
-        }
-      ]
-    },
-    "SFNC": {
-      "entry_date": "2025-10-27T11:27:04.262768",
-      "entry_price": 17.87,
-      "shares": 16,
-      "cost_basis": 285.92,
-      "initial_stop_loss": 16.9765,
-      "stop_loss": 16.9765,
-      "take_profit": 19.2996,
-      "highest_price": 17.87,
-      "trailing_enabled": false,
-      "signal_score": 3.305322636523414,
+      "signal_score": 5.058494899695795,
       "sector": "Financial Services",
       "tranches": [
         {
-          "shares": 16,
-          "price": 17.87,
-          "date": "2025-10-27T11:27:04.262770"
+          "shares": 3,
+          "price": 76.87,
+          "date": "2025-10-28T11:25:34.813284"
+        }
+      ]
+    },
+    "UTG": {
+      "entry_date": "2025-10-28T11:25:34.998231",
+      "entry_price": 38.91,
+      "shares": 7,
+      "cost_basis": 272.37,
+      "initial_stop_loss": 36.964499999999994,
+      "stop_loss": 36.964499999999994,
+      "take_profit": 42.0228,
+      "highest_price": 38.91,
+      "trailing_enabled": false,
+      "signal_score": 3.653332595272791,
+      "sector": "Financial Services",
+      "tranches": [
+        {
+          "shares": 7,
+          "price": 38.91,
+          "date": "2025-10-28T11:25:34.998234"
         }
       ]
     }
   },
   "pending_entries": {
-    "EMIS": {
-      "shares": 20,
-      "trigger_price": 9.702,
-      "original_entry": 9.9,
-      "expires": "2025-11-01T11:27:03.952679",
-      "signal_score": 3.4946912992035966
+    "FCN": {
+      "shares": 1,
+      "trigger_price": 163.2484,
+      "original_entry": 166.58,
+      "expires": "2025-11-02T11:25:34.771412",
+      "signal_score": 6.1822200215054925
     },
-    "TONX": {
-      "shares": 50,
-      "trigger_price": 3.871,
-      "original_entry": 3.95,
-      "expires": "2025-11-01T11:27:04.182908",
-      "signal_score": 3.311755784932784
+    "SIGI": {
+      "shares": 2,
+      "trigger_price": 75.3326,
+      "original_entry": 76.87,
+      "expires": "2025-11-02T11:25:34.914999",
+      "signal_score": 5.058494899695795
     },
-    "SFNC": {
-      "shares": 11,
-      "trigger_price": 17.5126,
-      "original_entry": 17.87,
-      "expires": "2025-11-01T11:27:04.368193",
-      "signal_score": 3.305322636523414
+    "UTG": {
+      "shares": 5,
+      "trigger_price": 38.1318,
+      "original_entry": 38.91,
+      "expires": "2025-11-02T11:25:35.118471",
+      "signal_score": 3.653332595272791
     }
   },
   "total_trades": 3,
@@ -91,6 +91,6 @@
   "losing_trades": 0,
   "total_profit": 0.0,
   "max_portfolio_value": 10000,
-  "max_drawdown": 0.0,
-  "last_updated": "2025-10-27T11:27:04.459206"
+  "max_drawdown": -1.8189894035458565e-14,
+  "last_updated": "2025-10-28T11:25:35.215833"
 }
