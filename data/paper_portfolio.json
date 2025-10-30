@@ -1,96 +1,96 @@
 {
   "starting_capital": 10000,
-  "cash": 9156.260000000002,
+  "cash": 9146.42,
   "positions": {
-    "ASA": {
-      "entry_date": "2025-10-29T11:27:53.799315",
-      "entry_price": 45.41,
-      "shares": 6,
-      "cost_basis": 272.46,
-      "initial_stop_loss": 43.1395,
-      "stop_loss": 43.1395,
-      "take_profit": 49.0428,
-      "highest_price": 45.41,
+    "OBK": {
+      "entry_date": "2025-10-30T11:26:04.703649",
+      "entry_price": 34.54,
+      "shares": 8,
+      "cost_basis": 276.32,
+      "initial_stop_loss": 32.812999999999995,
+      "stop_loss": 32.812999999999995,
+      "take_profit": 37.303200000000004,
+      "highest_price": 34.54,
       "trailing_enabled": false,
-      "signal_score": 4.7066951434940965,
+      "signal_score": 23.020917205035236,
       "sector": "Financial Services",
       "tranches": [
         {
-          "shares": 6,
-          "price": 45.41,
-          "date": "2025-10-29T11:27:53.799318"
+          "shares": 8,
+          "price": 34.54,
+          "date": "2025-10-30T11:26:04.703652"
         }
       ]
     },
-    "ASIC": {
-      "entry_date": "2025-10-29T11:27:54.375356",
-      "entry_price": 18.96,
-      "shares": 15,
-      "cost_basis": 284.40000000000003,
-      "initial_stop_loss": 18.012,
-      "stop_loss": 18.012,
-      "take_profit": 20.4768,
-      "highest_price": 18.96,
+    "REFI": {
+      "entry_date": "2025-10-30T11:26:04.835612",
+      "entry_price": 12.92,
+      "shares": 23,
+      "cost_basis": 297.16,
+      "initial_stop_loss": 12.274,
+      "stop_loss": 12.274,
+      "take_profit": 13.953600000000002,
+      "highest_price": 12.92,
       "trailing_enabled": false,
-      "signal_score": 3.728345026655152,
-      "sector": "Financial Services",
+      "signal_score": 12.867105856243523,
+      "sector": "Real Estate",
       "tranches": [
         {
-          "shares": 15,
-          "price": 18.96,
-          "date": "2025-10-29T11:27:54.375358"
+          "shares": 23,
+          "price": 12.92,
+          "date": "2025-10-30T11:26:04.835616"
         }
       ]
     },
-    "KMI": {
-      "entry_date": "2025-10-29T11:27:55.368184",
-      "entry_price": 26.08,
-      "shares": 11,
-      "cost_basis": 286.88,
-      "initial_stop_loss": 24.775999999999996,
-      "stop_loss": 24.775999999999996,
-      "take_profit": 28.1664,
-      "highest_price": 26.08,
+    "ZBIO": {
+      "entry_date": "2025-10-30T11:26:05.105700",
+      "entry_price": 28.01,
+      "shares": 10,
+      "cost_basis": 280.1,
+      "initial_stop_loss": 26.6095,
+      "stop_loss": 26.6095,
+      "take_profit": 30.250800000000005,
+      "highest_price": 28.01,
       "trailing_enabled": false,
-      "signal_score": 3.707225622242833,
-      "sector": "Energy",
+      "signal_score": 12.699559431760752,
+      "sector": "Healthcare",
       "tranches": [
         {
-          "shares": 11,
-          "price": 26.08,
-          "date": "2025-10-29T11:27:55.368187"
+          "shares": 10,
+          "price": 28.01,
+          "date": "2025-10-30T11:26:05.105704"
         }
       ]
     }
   },
   "pending_entries": {
-    "ASA": {
-      "shares": 4,
-      "trigger_price": 44.501799999999996,
-      "original_entry": 45.41,
-      "expires": "2025-11-03T11:27:54.145018",
-      "signal_score": 4.7066951434940965
+    "OBK": {
+      "shares": 5,
+      "trigger_price": 33.849199999999996,
+      "original_entry": 34.54,
+      "expires": "2025-11-04T11:26:04.789022",
+      "signal_score": 23.020917205035236
     },
-    "ASIC": {
-      "shares": 10,
-      "trigger_price": 18.5808,
-      "original_entry": 18.96,
-      "expires": "2025-11-03T11:27:54.777123",
-      "signal_score": 3.728345026655152
+    "REFI": {
+      "shares": 15,
+      "trigger_price": 12.6616,
+      "original_entry": 12.92,
+      "expires": "2025-11-04T11:26:05.022267",
+      "signal_score": 12.867105856243523
     },
-    "KMI": {
+    "ZBIO": {
       "shares": 7,
-      "trigger_price": 25.5584,
-      "original_entry": 26.08,
-      "expires": "2025-11-03T11:27:55.645925",
-      "signal_score": 3.707225622242833
+      "trigger_price": 27.4498,
+      "original_entry": 28.01,
+      "expires": "2025-11-04T11:26:05.246959",
+      "signal_score": 12.699559431760752
     }
   },
   "total_trades": 3,
   "winning_trades": 0,
   "losing_trades": 0,
   "total_profit": 0.0,
-  "max_portfolio_value": 10000.000000000002,
+  "max_portfolio_value": 10000,
   "max_drawdown": 0.0,
-  "last_updated": "2025-10-29T11:27:56.316236"
+  "last_updated": "2025-10-30T11:26:05.340954"
 }
