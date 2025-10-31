@@ -1,89 +1,89 @@
 {
   "starting_capital": 10000,
-  "cash": 9146.42,
+  "cash": 9128.19,
   "positions": {
-    "OBK": {
-      "entry_date": "2025-10-30T11:26:04.703649",
-      "entry_price": 34.54,
-      "shares": 8,
-      "cost_basis": 276.32,
-      "initial_stop_loss": 32.812999999999995,
-      "stop_loss": 32.812999999999995,
-      "take_profit": 37.303200000000004,
-      "highest_price": 34.54,
+    "SMMT": {
+      "entry_date": "2025-10-31T11:25:18.844602",
+      "entry_price": 18.64,
+      "shares": 16,
+      "cost_basis": 298.24,
+      "initial_stop_loss": 17.708,
+      "stop_loss": 17.708,
+      "take_profit": 20.131200000000003,
+      "highest_price": 18.64,
       "trailing_enabled": false,
-      "signal_score": 23.020917205035236,
-      "sector": "Financial Services",
-      "tranches": [
-        {
-          "shares": 8,
-          "price": 34.54,
-          "date": "2025-10-30T11:26:04.703652"
-        }
-      ]
-    },
-    "REFI": {
-      "entry_date": "2025-10-30T11:26:04.835612",
-      "entry_price": 12.92,
-      "shares": 23,
-      "cost_basis": 297.16,
-      "initial_stop_loss": 12.274,
-      "stop_loss": 12.274,
-      "take_profit": 13.953600000000002,
-      "highest_price": 12.92,
-      "trailing_enabled": false,
-      "signal_score": 12.867105856243523,
-      "sector": "Real Estate",
-      "tranches": [
-        {
-          "shares": 23,
-          "price": 12.92,
-          "date": "2025-10-30T11:26:04.835616"
-        }
-      ]
-    },
-    "ZBIO": {
-      "entry_date": "2025-10-30T11:26:05.105700",
-      "entry_price": 28.01,
-      "shares": 10,
-      "cost_basis": 280.1,
-      "initial_stop_loss": 26.6095,
-      "stop_loss": 26.6095,
-      "take_profit": 30.250800000000005,
-      "highest_price": 28.01,
-      "trailing_enabled": false,
-      "signal_score": 12.699559431760752,
+      "signal_score": 10.41173607707703,
       "sector": "Healthcare",
       "tranches": [
         {
-          "shares": 10,
-          "price": 28.01,
-          "date": "2025-10-30T11:26:05.105704"
+          "shares": 16,
+          "price": 18.64,
+          "date": "2025-10-31T11:25:18.844605"
+        }
+      ]
+    },
+    "TTRX": {
+      "entry_date": "2025-10-31T11:25:19.006198",
+      "entry_price": 5.24,
+      "shares": 57,
+      "cost_basis": 298.68,
+      "initial_stop_loss": 4.978,
+      "stop_loss": 4.978,
+      "take_profit": 5.6592,
+      "highest_price": 5.24,
+      "trailing_enabled": false,
+      "signal_score": 8.341087983029178,
+      "sector": "Healthcare",
+      "tranches": [
+        {
+          "shares": 57,
+          "price": 5.24,
+          "date": "2025-10-31T11:25:19.006200"
+        }
+      ]
+    },
+    "SON": {
+      "entry_date": "2025-10-31T11:25:19.208204",
+      "entry_price": 39.27,
+      "shares": 7,
+      "cost_basis": 274.89000000000004,
+      "initial_stop_loss": 37.3065,
+      "stop_loss": 37.3065,
+      "take_profit": 42.41160000000001,
+      "highest_price": 39.27,
+      "trailing_enabled": false,
+      "signal_score": 6.7761633966982115,
+      "sector": "Consumer Cyclical",
+      "tranches": [
+        {
+          "shares": 7,
+          "price": 39.27,
+          "date": "2025-10-31T11:25:19.208206"
         }
       ]
     }
   },
   "pending_entries": {
-    "OBK": {
+    "SMMT": {
+      "shares": 10,
+      "trigger_price": 18.2672,
+      "original_entry": 18.64,
+      "expires": "2025-11-05T11:25:18.972575",
+      "signal_score": 10.41173607707703
+    },
+    "TTRX": {
+      "shares": 38,
+      "trigger_price": 5.1352,
+      "original_entry": 5.24,
+      "expires": "2025-11-05T11:25:19.139902",
+      "signal_score": 8.341087983029178
+    },
+    "SON": {
       "shares": 5,
-      "trigger_price": 33.849199999999996,
-      "original_entry": 34.54,
-      "expires": "2025-11-04T11:26:04.789022",
-      "signal_score": 23.020917205035236
-    },
-    "REFI": {
-      "shares": 15,
-      "trigger_price": 12.6616,
-      "original_entry": 12.92,
-      "expires": "2025-11-04T11:26:05.022267",
-      "signal_score": 12.867105856243523
-    },
-    "ZBIO": {
-      "shares": 7,
-      "trigger_price": 27.4498,
-      "original_entry": 28.01,
-      "expires": "2025-11-04T11:26:05.246959",
-      "signal_score": 12.699559431760752
+      "trigger_price": 38.4846,
+      "original_entry": 39.27,
+      "expires": "2025-11-05T11:25:19.317246",
+      "signal_score": 6.7761633966982115
     }
   },
   "total_trades": 3,
@@ -92,5 +92,5 @@
   "total_profit": 0.0,
   "max_portfolio_value": 10000,
   "max_drawdown": 0.0,
-  "last_updated": "2025-10-30T11:26:05.340954"
+  "last_updated": "2025-10-31T11:25:19.395933"
 }

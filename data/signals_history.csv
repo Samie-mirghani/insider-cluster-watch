@@ -68,40 +68,51 @@ date,ticker,signal_score,action,cluster_count,total_value,sector,quality_score,p
 2025-10-29,ASIC,3.728345026655152,Monitor - single insider buying,1,216089.0,Financial Services,0.0,
 2025-10-29,KMI,3.707225622242833,Watchlist - strong single-insider signal,1,25964900.0,Energy,0.0,
 2025-10-29,KO,3.381418668202711,Watchlist - strong single-insider signal,1,998676.0,Consumer Defensive,0.0,
-2025-10-30,OBK,23.020917205035236,Watchlist - consider small entry after confirmation,9,728633.0,Financial Services,0.0,None
-2025-10-30,HEI,19.051815920696757,Watchlist - consider small entry after confirmation,8,1317242.0,Industrials,0.0,None
-2025-10-30,REFI,12.867105856243523,URGENT: Consider small entry at open / immediate review,5,579866.0,Real Estate,0.0,None
-2025-10-30,ZBIO,12.699559431760752,Watchlist - consider small entry after confirmation,5,12628124.0,Healthcare,0.0,None
-2025-10-30,WDFC,12.336169173791301,URGENT: Consider small entry at open / immediate review,4,323054.0,Basic Materials,0.0,None
-2025-10-30,ADC,9.310385945273367,URGENT: Consider small entry at open / immediate review,3,2045780.0,Real Estate,0.0,None
-2025-10-30,SPWH,9.227405541564396,Watchlist - consider small entry after confirmation,3,390609.0,Consumer Cyclical,0.0,None
-2025-10-30,ANGO,9.143720554044712,Watchlist - consider small entry after confirmation,2,121432.0,Healthcare,0.0,None
-2025-10-30,BGC,9.07299053822315,Watchlist - consider small entry after confirmation,3,247895454.0,Financial Services,0.0,None
-2025-10-30,NMRA,8.79249440703887,Watchlist - consider small entry after confirmation,3,14999931.0,Healthcare,0.0,None
-2025-10-30,MBX,7.001840606960367,Watchlist - consider small entry after confirmation,2,537774.0,Healthcare,0.0,None
-2025-10-30,EBC,6.775204337594374,Watchlist - consider small entry after confirmation,2,1200100.0,Financial Services,0.0,None
-2025-10-30,CSX,6.356746150878098,Watchlist - strong single-insider signal,1,2027850.0,Industrials,0.0,None
-2025-10-30,WTI,5.952634719348775,Watchlist - strong single-insider signal,1,527259.0,Energy,0.0,None
-2025-10-30,KMX,5.727107117027296,Watchlist - consider small entry after confirmation,2,590947.0,Consumer Cyclical,0.0,None
-2025-10-30,AMBC,5.6814190386441785,Monitor - single insider buying,1,213500.0,Financial Services,0.0,None
-2025-10-30,RGP,5.4552305841344175,Monitor - single insider buying,1,100451.0,Industrials,0.0,None
-2025-10-30,PLCE,5.245945485083092,Monitor,1,50001.0,Consumer Cyclical,0.0,None
-2025-10-30,FDS,4.883007942864991,Monitor - single insider buying,1,101928.0,Financial Services,0.0,None
-2025-10-30,MLTX,4.87523599317616,Monitor,1,98808.0,Healthcare,0.0,None
-2025-10-30,GSHD,4.770485632218777,Monitor,1,64986.0,Financial Services,0.0,None
-2025-10-30,EPSN,4.75771636217277,Monitor,1,61750.0,Energy,0.0,None
-2025-10-30,KYN,4.648756259735831,Watchlist - strong single-insider signal,1,2147483647.0,Financial Services,0.0,None
-2025-10-30,BNC,4.4996458454893835,Monitor,1,59667.0,Industrials,0.0,None
-2025-10-30,CGEM,4.11006383552207,Watchlist - strong single-insider signal,1,9826941.0,Healthcare,0.0,None
-2025-10-30,HYMC,3.772723353838942,Watchlist - strong single-insider signal,1,49985000.0,Basic Materials,0.0,None
-2025-10-30,LAW,3.690343935862518,Monitor - single insider buying,1,147773.0,Technology,0.0,None
-2025-10-30,SRRK,3.6749758468355127,Watchlist - strong single-insider signal,1,18807352.0,Healthcare,0.0,None
-2025-10-30,SOC,3.650860413092639,Watchlist - strong single-insider signal,1,14777319.0,Energy,0.0,None
-2025-10-30,GRND,3.6391932392633675,Watchlist - strong single-insider signal,1,13150000.0,Technology,0.0,None
-2025-10-30,EARN,3.599949645533412,Monitor,1,59843.0,Financial Services,0.0,None
-2025-10-30,UUU,3.5504648628535453,Monitor,1,88494.0,Industrials,0.0,None
-2025-10-30,CNS,3.486153643582831,Watchlist - strong single-insider signal,1,2846316.0,Financial Services,0.0,None
-2025-10-30,MSTR,3.465548380157772,Watchlist - strong single-insider signal,1,2316304.0,Technology,0.0,None
-2025-10-30,LAC,3.4595278227810455,Monitor - single insider buying,1,191516.0,Basic Materials,0.0,None
-2025-10-30,NMZ,3.4368861769174734,Monitor,1,70024.0,Financial Services,0.0,None
-2025-10-30,NVCT,3.3771646440877823,Watchlist - strong single-insider signal,1,957083.0,Healthcare,0.0,None
+2025-10-30,OBK,23.02091720503524,Watchlist - consider small entry after confirmation,9,728633.0,Financial Services,0.0,
+2025-10-30,HEI,19.05181592069676,Watchlist - consider small entry after confirmation,8,1317242.0,Industrials,0.0,
+2025-10-30,REFI,12.867105856243525,URGENT: Consider small entry at open / immediate review,5,579866.0,Real Estate,0.0,
+2025-10-30,ZBIO,12.699559431760752,Watchlist - consider small entry after confirmation,5,12628124.0,Healthcare,0.0,
+2025-10-30,WDFC,12.3361691737913,URGENT: Consider small entry at open / immediate review,4,323054.0,Basic Materials,0.0,
+2025-10-30,ADC,9.310385945273367,URGENT: Consider small entry at open / immediate review,3,2045780.0,Real Estate,0.0,
+2025-10-30,SPWH,9.227405541564396,Watchlist - consider small entry after confirmation,3,390609.0,Consumer Cyclical,0.0,
+2025-10-30,ANGO,9.143720554044712,Watchlist - consider small entry after confirmation,2,121432.0,Healthcare,0.0,
+2025-10-30,BGC,9.07299053822315,Watchlist - consider small entry after confirmation,3,247895454.0,Financial Services,0.0,
+2025-10-30,NMRA,8.79249440703887,Watchlist - consider small entry after confirmation,3,14999931.0,Healthcare,0.0,
+2025-10-30,MBX,7.001840606960367,Watchlist - consider small entry after confirmation,2,537774.0,Healthcare,0.0,
+2025-10-30,EBC,6.775204337594374,Watchlist - consider small entry after confirmation,2,1200100.0,Financial Services,0.0,
+2025-10-30,CSX,6.356746150878098,Watchlist - strong single-insider signal,1,2027850.0,Industrials,0.0,
+2025-10-30,WTI,5.952634719348775,Watchlist - strong single-insider signal,1,527259.0,Energy,0.0,
+2025-10-30,KMX,5.727107117027296,Watchlist - consider small entry after confirmation,2,590947.0,Consumer Cyclical,0.0,
+2025-10-30,AMBC,5.6814190386441785,Monitor - single insider buying,1,213500.0,Financial Services,0.0,
+2025-10-30,RGP,5.4552305841344175,Monitor - single insider buying,1,100451.0,Industrials,0.0,
+2025-10-30,PLCE,5.245945485083092,Monitor,1,50001.0,Consumer Cyclical,0.0,
+2025-10-30,FDS,4.883007942864991,Monitor - single insider buying,1,101928.0,Financial Services,0.0,
+2025-10-30,MLTX,4.87523599317616,Monitor,1,98808.0,Healthcare,0.0,
+2025-10-30,GSHD,4.770485632218777,Monitor,1,64986.0,Financial Services,0.0,
+2025-10-30,EPSN,4.75771636217277,Monitor,1,61750.0,Energy,0.0,
+2025-10-30,KYN,4.648756259735831,Watchlist - strong single-insider signal,1,2147483647.0,Financial Services,0.0,
+2025-10-30,BNC,4.499645845489384,Monitor,1,59667.0,Industrials,0.0,
+2025-10-30,CGEM,4.11006383552207,Watchlist - strong single-insider signal,1,9826941.0,Healthcare,0.0,
+2025-10-30,HYMC,3.772723353838942,Watchlist - strong single-insider signal,1,49985000.0,Basic Materials,0.0,
+2025-10-30,LAW,3.690343935862518,Monitor - single insider buying,1,147773.0,Technology,0.0,
+2025-10-30,SRRK,3.6749758468355127,Watchlist - strong single-insider signal,1,18807352.0,Healthcare,0.0,
+2025-10-30,SOC,3.650860413092639,Watchlist - strong single-insider signal,1,14777319.0,Energy,0.0,
+2025-10-30,GRND,3.639193239263368,Watchlist - strong single-insider signal,1,13150000.0,Technology,0.0,
+2025-10-30,EARN,3.599949645533412,Monitor,1,59843.0,Financial Services,0.0,
+2025-10-30,UUU,3.5504648628535453,Monitor,1,88494.0,Industrials,0.0,
+2025-10-30,CNS,3.486153643582831,Watchlist - strong single-insider signal,1,2846316.0,Financial Services,0.0,
+2025-10-30,MSTR,3.465548380157772,Watchlist - strong single-insider signal,1,2316304.0,Technology,0.0,
+2025-10-30,LAC,3.459527822781045,Monitor - single insider buying,1,191516.0,Basic Materials,0.0,
+2025-10-30,NMZ,3.436886176917473,Monitor,1,70024.0,Financial Services,0.0,
+2025-10-30,NVCT,3.3771646440877823,Watchlist - strong single-insider signal,1,957083.0,Healthcare,0.0,
+2025-10-31,SMMT,10.41173607707703,Watchlist - consider small entry after confirmation,3,10999949.0,Healthcare,0.0,None
+2025-10-31,TTRX,8.341087983029178,Watchlist - consider small entry after confirmation,3,190714.0,Healthcare,0.0,None
+2025-10-31,SON,6.7761633966982115,Watchlist - consider small entry after confirmation,2,909660.0,Consumer Cyclical,0.0,None
+2025-10-31,BAH,6.354825377315839,Watchlist - strong single-insider signal,1,2014908.0,Industrials,0.0,None
+2025-10-31,EG,5.941557094788927,Watchlist - consider small entry after confirmation,2,4448369.0,Financial Services,0.0,None
+2025-10-31,MRP,5.685774877007354,Watchlist - consider small entry after confirmation,2,325589.0,Real Estate,0.0,None
+2025-10-31,ITGR,5.666388853190498,Monitor - single insider buying,1,203067.0,Healthcare,0.0,None
+2025-10-31,WAL,5.159464577175922,Watchlist - notable insider purchase,1,308000.0,Financial Services,0.0,None
+2025-10-31,FMNB,3.881437591449977,Watchlist - strong single-insider signal,1,998865.0,Financial Services,0.0,None
+2025-10-31,TCBI,3.7098156825149307,Watchlist - notable insider purchase,1,413650.0,Financial Services,0.0,None
+2025-10-31,MPLT,3.660052167674581,Watchlist - strong single-insider signal,1,16199997.0,Healthcare,0.0,None
