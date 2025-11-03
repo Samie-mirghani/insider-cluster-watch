@@ -3,7 +3,7 @@ name: Weekly Backtest
 on:
   schedule:
     - cron: '0 12 * * 0'  # Runs every Sunday at 12pm UTC (8am ET)
-  workflow_dispatch:  # Allow manual runs
+  workflow_dispatch:
 
 jobs:
   backtest:
@@ -11,6 +11,8 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Ensure full history for rebase
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -49,16 +51,19 @@ jobs:
         run: |
           python jobs/weekly_summary.py || echo "Weekly summary completed with warnings"
 
-      - name: Commit results
+      - name: Commit and push backtest results to main
         if: steps.check_files.outputs.results_exist == 'true'
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add data/backtest_results.csv
-          git add data/plots/*.png || echo "No plots to commit"
-          git diff --staged --quiet || git commit -m "Weekly backtest: $(date +'%Y-%m-%d')"
-          
-      - name: Push changes
-        if: steps.check_files.outputs.results_exist == 'true'
-        run: |
-          git push
+
+          # Explicitly add ignored files
+          git add -f data/backtest_results.csv data/plots/*.png 2>/dev/null || true
+
+          git commit -m "Weekly backtest update: $(date +'%Y-%m-%d %H:%M:%S')" || echo "No changes to commit"
+
+          # Rebase on latest main to prevent merge issues
+          git pull --rebase origin main || true
+
+          # Push changes back to main
+          git push origin HEAD:main
