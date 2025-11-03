@@ -1,89 +1,89 @@
 {
   "starting_capital": 10000,
-  "cash": 9128.19,
+  "cash": 9160.73,
   "positions": {
-    "SMMT": {
-      "entry_date": "2025-10-31T11:25:18.844602",
-      "entry_price": 18.64,
-      "shares": 16,
-      "cost_basis": 298.24,
-      "initial_stop_loss": 17.708,
-      "stop_loss": 17.708,
-      "take_profit": 20.131200000000003,
-      "highest_price": 18.64,
+    "YCY": {
+      "entry_date": "2025-11-03T11:26:16.828975",
+      "entry_price": 9.93,
+      "shares": 30,
+      "cost_basis": 297.9,
+      "initial_stop_loss": 9.433499999999999,
+      "stop_loss": 9.433499999999999,
+      "take_profit": 10.724400000000001,
+      "highest_price": 9.93,
       "trailing_enabled": false,
-      "signal_score": 10.41173607707703,
-      "sector": "Healthcare",
+      "signal_score": 7.504296332870807,
+      "sector": "Financial Services",
       "tranches": [
         {
-          "shares": 16,
-          "price": 18.64,
-          "date": "2025-10-31T11:25:18.844605"
+          "shares": 30,
+          "price": 9.93,
+          "date": "2025-11-03T11:26:16.828978"
         }
       ]
     },
-    "TTRX": {
-      "entry_date": "2025-10-31T11:25:19.006198",
-      "entry_price": 5.24,
-      "shares": 57,
-      "cost_basis": 298.68,
-      "initial_stop_loss": 4.978,
-      "stop_loss": 4.978,
-      "take_profit": 5.6592,
-      "highest_price": 5.24,
+    "AMRZ": {
+      "entry_date": "2025-11-03T11:26:17.181272",
+      "entry_price": 51.84,
+      "shares": 5,
+      "cost_basis": 259.20000000000005,
+      "initial_stop_loss": 49.248,
+      "stop_loss": 49.248,
+      "take_profit": 55.98720000000001,
+      "highest_price": 51.84,
       "trailing_enabled": false,
-      "signal_score": 8.341087983029178,
-      "sector": "Healthcare",
+      "signal_score": 6.67219674347915,
+      "sector": "Basic Materials",
       "tranches": [
         {
-          "shares": 57,
-          "price": 5.24,
-          "date": "2025-10-31T11:25:19.006200"
+          "shares": 5,
+          "price": 51.84,
+          "date": "2025-11-03T11:26:17.181277"
         }
       ]
     },
-    "SON": {
-      "entry_date": "2025-10-31T11:25:19.208204",
-      "entry_price": 39.27,
+    "CNXC": {
+      "entry_date": "2025-11-03T11:26:17.675168",
+      "entry_price": 40.31,
       "shares": 7,
-      "cost_basis": 274.89000000000004,
-      "initial_stop_loss": 37.3065,
-      "stop_loss": 37.3065,
-      "take_profit": 42.41160000000001,
-      "highest_price": 39.27,
+      "cost_basis": 282.17,
+      "initial_stop_loss": 38.2945,
+      "stop_loss": 38.2945,
+      "take_profit": 43.534800000000004,
+      "highest_price": 40.31,
       "trailing_enabled": false,
-      "signal_score": 6.7761633966982115,
-      "sector": "Consumer Cyclical",
+      "signal_score": 5.901775125738558,
+      "sector": "Technology",
       "tranches": [
         {
           "shares": 7,
-          "price": 39.27,
-          "date": "2025-10-31T11:25:19.208206"
+          "price": 40.31,
+          "date": "2025-11-03T11:26:17.675171"
         }
       ]
     }
   },
   "pending_entries": {
-    "SMMT": {
-      "shares": 10,
-      "trigger_price": 18.2672,
-      "original_entry": 18.64,
-      "expires": "2025-11-05T11:25:18.972575",
-      "signal_score": 10.41173607707703
+    "YCY": {
+      "shares": 20,
+      "trigger_price": 9.731399999999999,
+      "original_entry": 9.93,
+      "expires": "2025-11-08T11:26:17.022766",
+      "signal_score": 7.504296332870807
     },
-    "TTRX": {
-      "shares": 38,
-      "trigger_price": 5.1352,
-      "original_entry": 5.24,
-      "expires": "2025-11-05T11:25:19.139902",
-      "signal_score": 8.341087983029178
+    "AMRZ": {
+      "shares": 3,
+      "trigger_price": 50.803200000000004,
+      "original_entry": 51.84,
+      "expires": "2025-11-08T11:26:17.358913",
+      "signal_score": 6.67219674347915
     },
-    "SON": {
-      "shares": 5,
-      "trigger_price": 38.4846,
-      "original_entry": 39.27,
-      "expires": "2025-11-05T11:25:19.317246",
-      "signal_score": 6.7761633966982115
+    "CNXC": {
+      "shares": 4,
+      "trigger_price": 39.5038,
+      "original_entry": 40.31,
+      "expires": "2025-11-08T11:26:17.953175",
+      "signal_score": 5.901775125738558
     }
   },
   "total_trades": 3,
@@ -92,5 +92,5 @@
   "total_profit": 0.0,
   "max_portfolio_value": 10000,
   "max_drawdown": 0.0,
-  "last_updated": "2025-10-31T11:25:19.395933"
+  "last_updated": "2025-11-03T11:26:18.391111"
 }
