@@ -369,7 +369,11 @@ def cluster_and_score(df, window_days=5, top_n=50):
         cluster_df['avg_conviction'] / 10.0 +
         cluster_df['pattern_score'] * 0.5  # Bonus for patterns
     )
-
+    # sanitize pattern_detected column
+    if 'pattern_detected' in cluster_df.columns:
+        cluster_df['pattern_detected'] = cluster_df['pattern_detected'].apply(sanitize_pattern_value)
+    else:
+        cluster_df['pattern_detected'] = None
     # suggested action and rationale
     cluster_df['suggested_action'] = cluster_df.apply(lambda r: suggest_action(r), axis=1)
     cluster_df['rationale'] = cluster_df.apply(lambda r: build_rationale(r), axis=1)
@@ -389,6 +393,12 @@ URGENT_THRESHOLDS = {
     'has_c_suite': True,       # at least one of CEO/CFO in insiders list
     'pct_from_52wk_low': 15.0, # within 15% of 52-week low (i.e., discounted)
 }
+
+def sanitize_pattern_value(value):
+    """Convert None string or empty to actual None"""
+    if value in ['None', '', 'none', None]:
+        return None
+    return str(value)
 
 def is_urgent(r, thresholds=URGENT_THRESHOLDS):
     # r: a row from cluster_df

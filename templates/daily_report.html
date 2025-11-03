@@ -1,22 +1,14 @@
-<!-- templates/daily_report.html -->
-
+<!DOCTYPE html>
 <html>
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
+      margin: 0;
+      padding: 0;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
-      color: #333;
-      line-height: 1.6;
-      max-width: 700px;
-      margin: 0 auto;
-      padding: 20px;
       background-color: #f5f5f5;
-    }
-    .email-container {
-      background: white;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
     .header {
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -58,6 +50,8 @@
     }
     .content {
       padding: 30px;
+      max-width: 700px;
+      margin: 0 auto;
     }
     .signal-card {
       background: white;
@@ -92,8 +86,6 @@
       font-size: 14px;
       font-weight: 600;
     }
-    
-    /* NEW: Badge styles for enhanced features */
     .badges-row {
       display: flex;
       gap: 8px;
@@ -122,7 +114,6 @@
       background: #e8f5e9;
       color: #2e7d32;
     }
-    
     .signal-metrics {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -231,125 +222,235 @@
   </style>
 </head>
 <body>
-  <div class="email-container">
-    <div class="header">
-      <h1>📈 Daily Insider Trade Report</h1>
-      <p>{{ date }}</p>
-    </div>
+  <!-- Main Container -->
+  <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background: white;">
+    
+    <!-- Header -->
+    <tr>
+      <td style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px; text-align: center; color: white;">
+        <h1 style="margin: 0; font-size: 28px; font-weight: 600;">📈 Daily Insider Trade Report</h1>
+        <p style="margin: 10px 0 0 0; opacity: 0.9; font-size: 14px;">{{ date }}</p>
+      </td>
+    </tr>
 
-    <div class="summary-bar">
-      <div class="summary-item">
-        <div class="label">Signals</div>
-        <div class="value">{{ trades|length }}</div>
-      </div>
-      <div class="summary-item">
-        <div class="label">Total Value</div>
-        <div class="value">${{ (trades|sum(attribute='total_value')/1000000)|round(1) }}M</div>
-      </div>
-      <div class="summary-item">
-        <div class="label">Avg Score</div>
-        <div class="value">{{ (trades|sum(attribute='rank_score')/trades|length)|round(1) }}</div>
-      </div>
-    </div>
+    <!-- Summary Bar -->
+    <tr>
+      <td style="background: #f8f9fa; padding: 20px; border-bottom: 1px solid #e0e0e0;">
+        <table width="100%" cellpadding="0" cellspacing="0" border="0">
+          <tr>
+            <td width="33%" align="center">
+              <div style="font-size: 12px; color: #666; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px;">Signals</div>
+              <div style="font-size: 24px; font-weight: 700; color: #667eea;">{{ trades|length }}</div>
+            </td>
+            <td width="33%" align="center">
+              <div style="font-size: 12px; color: #666; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px;">Total Value</div>
+              <div style="font-size: 24px; font-weight: 700; color: #667eea;">
+                {% set total_val = trades|sum(attribute='total_value') %}
+                {% if total_val >= 1_000_000_000 %}
+                  ${{ "{:.2f}".format(total_val / 1_000_000_000) }}B
+                {% elif total_val >= 1_000_000 %}
+                  ${{ "{:.1f}".format(total_val / 1_000_000) }}M
+                {% elif total_val >= 1_000 %}
+                  ${{ "{:.1f}".format(total_val / 1_000) }}K
+                {% else %}
+                  ${{ "{:,.0f}".format(total_val) }}
+                {% endif %}
+              </div>
+            </td>
+            <td width="33%" align="center">
+              <div style="font-size: 12px; color: #666; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px;">Avg Score</div>
+              <div style="font-size: 24px; font-weight: 700; color: #667eea;">{{ (trades|sum(attribute='rank_score')/trades|length)|round(1) }}</div>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
 
-    <div class="content">
-      {% for item in trades %}
-      <div class="signal-card">
-        <div class="signal-header">
-          <h2 class="ticker">{{ item.ticker }}</h2>
-          <span class="rank-badge">Score: {{ item.rank_score|round(2) }}</span>
-        </div>
+    <!-- Content -->
+    <tr>
+      <td style="padding: 30px;">
+        {% for item in trades %}
+        <!-- Signal Card -->
+        <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background: white; border: 2px solid #e0e0e0; border-radius: 8px; margin-bottom: 20px;">
+          <tr>
+            <td style="padding: 20px;">
+              
+              <!-- Signal Header -->
+              <table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-bottom: 2px solid #f0f0f0; padding-bottom: 15px; margin-bottom: 15px;">
+                <tr>
+                  <td align="left" width="60%">
+                    <h2 style="margin: 0; font-size: 24px; font-weight: 700; color: #667eea;">{{ item.ticker }}</h2>
+                  </td>
+                  <td align="right" width="40%">
+                    <span style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 8px 16px; border-radius: 20px; font-size: 14px; font-weight: 600; white-space: nowrap; display: inline-block;">Score: {{ item.rank_score|round(2) }}</span>
+                  </td>
+                </tr>
+              </table>
 
-        <!-- NEW: Enhanced badges -->
-        <div class="badges-row">
-          {% if item.sector and item.sector != 'Unknown' %}
-          <span class="badge badge-sector">🏢 {{ item.sector }}</span>
-          {% endif %}
-          
-          {% if item.quality_score and item.quality_score > 0 %}
-          <span class="badge badge-quality">⭐ Quality: {{ item.quality_score|round(1) }}/10</span>
-          {% endif %}
-          
-          {% if item.pattern_detected and item.pattern_detected != 'None' %}
-          <span class="badge badge-pattern">🔍 {{ item.pattern_detected }}</span>
-          {% endif %}
-          
-          {% if item.news_sentiment and item.news_sentiment != 'none' %}
-          <span class="badge badge-news">📰 {{ item.sentiment_display }} News</span>
-          {% endif %}
-        </div>
+              <!-- Enhanced Badges -->
+              <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin: 10px 0;">
+                <tr>
+                  <td>
+                    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                      {% if item.sector and item.sector != 'Unknown' %}
+                      <span style="background: #e3f2fd; color: #1976d2; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 600; display: inline-block;">🏢 {{ item.sector }}</span>
+                      {% endif %}
+                      
+                      {% if item.quality_score and item.quality_score > 0 %}
+                      <span style="background: #f3e5f5; color: #7b1fa2; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 600; display: inline-block;">⭐ Quality: {{ item.quality_score|round(1) }}/10</span>
+                      {% endif %}
+                      
+                      {% if item.pattern_detected and item.pattern_detected not in ['None', '', none] %}
+                      <span style="background: #fff3e0; color: #e65100; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 600; display: inline-block;">🔍 {{ item.pattern_detected }}</span>
+                      {% endif %}
+                      
+                      {% if item.sentiment_display and item.sentiment_display != '' and item.news_sentiment not in ['UNKNOWN', 'none', '', none] %}
+                      <span style="background: #e8f5e9; color: #2e7d32; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 600; display: inline-block;">📰 {{ item.sentiment_display }} News</span>
+                      {% endif %}
+                    </div>
+                  </td>
+                </tr>
+              </table>
 
-        <div class="insiders-section">
-          <div class="label">👥 INSIDERS BUYING</div>
-          <div class="names">{{ item.insiders }}</div>
-        </div>
+              <!-- Insiders Section -->
+              <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background: #fff3cd; border-left: 4px solid #ffc107; border-radius: 5px; margin: 15px 0;">
+                <tr>
+                  <td style="padding: 12px;">
+                    <div style="font-size: 12px; color: #856404; font-weight: 600; margin-bottom: 5px;">👥 INSIDERS BUYING</div>
+                    <div style="color: #856404; font-size: 14px;">{{ item.insiders }}</div>
+                  </td>
+                </tr>
+              </table>
 
-        <div class="signal-metrics">
-          <div class="metric">
-            <div class="metric-label">Cluster Size</div>
-            <div class="metric-value">{{ item.cluster_count }} insiders</div>
-          </div>
-        <div class="metric">
-          <div class="metric-label">Total Purchased</div>
-          <div class="metric-value">
-              {% if item.total_value >= 1000000 %}
-                  ${{ "{:.1f}".format(item.total_value/1000000) }}M
-              {% elif item.total_value >= 1000 %}
-                  ${{ "{:.1f}".format(item.total_value/1000) }}K
-              {% else %}
-                  ${{ "{:,.0f}".format(item.total_value) }}
+              <!-- Signal Metrics -->
+              <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin: 15px 0;">
+                <tr>
+                  <td width="50%" style="padding-right: 7px;">
+                    <table width="100%" cellpadding="12" cellspacing="0" border="0" style="background: #f8f9fa; border-radius: 5px;">
+                      <tr>
+                        <td>
+                          <div style="font-size: 11px; color: #666; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px;">Cluster Size</div>
+                          <div style="font-size: 18px; font-weight: 600; color: #333;">{{ item.cluster_count }} insiders</div>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                  <td width="50%" style="padding-left: 7px;">
+                    <table width="100%" cellpadding="12" cellspacing="0" border="0" style="background: #f8f9fa; border-radius: 5px;">
+                      <tr>
+                        <td>
+                          <div style="font-size: 11px; color: #666; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px;">Total Purchased</div>
+                          <div style="font-size: 18px; font-weight: 600; color: #333;">
+                            {% if item.total_value >= 1000000 %}
+                              ${{ "{:.1f}".format(item.total_value/1000000) }}M
+                            {% elif item.total_value >= 1000 %}
+                              ${{ "{:.1f}".format(item.total_value/1000) }}K
+                            {% else %}
+                              ${{ "{:,.0f}".format(item.total_value) }}
+                            {% endif %}
+                          </div>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td width="50%" style="padding-right: 7px; padding-top: 15px;">
+                    <table width="100%" cellpadding="12" cellspacing="0" border="0" style="background: #f8f9fa; border-radius: 5px;">
+                      <tr>
+                        <td>
+                          <div style="font-size: 11px; color: #666; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px;">Conviction Score</div>
+                          <div style="font-size: 18px; font-weight: 600; color: #333;">{{ item.avg_conviction|round(2) }}</div>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                  <td width="50%" style="padding-left: 7px; padding-top: 15px;">
+                    <table width="100%" cellpadding="12" cellspacing="0" border="0" style="background: #f8f9fa; border-radius: 5px;">
+                      <tr>
+                        <td>
+                          <div style="font-size: 11px; color: #666; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px;">Last Trade</div>
+                          <div style="font-size: 18px; font-weight: 600; color: #333;">{{ item.last_trade_date.strftime('%b %d') if item.last_trade_date else 'Recent' }}</div>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- Price Info -->
+              {% if item.currentPrice %}
+              <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin: 10px 0;">
+                <tr>
+                  <td width="50%" style="padding: 5px;">
+                    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                      <tr>
+                        <td>
+                          <span style="font-size: 16px;">💰</span>
+                          <span style="font-size: 13px; color: #666; margin: 0 5px;">Current Price:</span>
+                          <span style="font-weight: 600; color: #333; font-size: 13px;">${{ item.currentPrice|round(2) }}</span>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                  {% if item.pct_from_52wk_low %}
+                  <td width="50%" style="padding: 5px;">
+                    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                      <tr>
+                        <td>
+                          <span style="font-size: 16px;">📊</span>
+                          <span style="font-size: 13px; color: #666; margin: 0 5px;">From 52w Low:</span>
+                          <span style="font-weight: 600; color: #333; font-size: 13px;">+{{ item.pct_from_52wk_low|round(1) }}%</span>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                  {% endif %}
+                </tr>
+              </table>
               {% endif %}
-            </div>
-        </div>
-          <div class="metric">
-            <div class="metric-label">Conviction Score</div>
-            <div class="metric-value">{{ item.avg_conviction|round(2) }}</div>
-          </div>
-          <div class="metric">
-            <div class="metric-label">Last Trade</div>
-            <div class="metric-value">{{ item.last_trade_date.strftime('%b %d') if item.last_trade_date else 'Recent' }}</div>
-          </div>
-        </div>
 
-        {% if item.currentPrice %}
-        <div class="price-info">
-          <div class="price-item">
-            <span class="icon">💰</span>
-            <span class="text">Current Price:</span>
-            <span class="value">${{ item.currentPrice|round(2) }}</span>
-          </div>
-          {% if item.pct_from_52wk_low %}
-          <div class="price-item">
-            <span class="icon">📊</span>
-            <span class="text">From 52w Low:</span>
-            <span class="value">+{{ item.pct_from_52wk_low|round(1) }}%</span>
-          </div>
-          {% endif %}
-        </div>
+              <!-- Action Box -->
+              <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background: #e3f2fd; border-left: 4px solid #2196f3; border-radius: 5px; margin: 15px 0;">
+                <tr>
+                  <td style="padding: 15px;">
+                    <div style="font-size: 12px; color: #1565c0; font-weight: 600; text-transform: uppercase; margin-bottom: 5px;">📌 Suggested Action</div>
+                    <div style="color: #1565c0; font-size: 14px; font-weight: 500;">{{ item.suggested_action }}</div>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- Rationale -->
+              <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background: #f8f9fa; border-radius: 5px; margin-top: 10px;">
+                <tr>
+                  <td style="padding: 12px;">
+                    <div style="font-size: 13px; color: #555;">
+                      <strong>Rationale:</strong> {{ item.rationale }}
+                    </div>
+                  </td>
+                </tr>
+              </table>
+
+            </td>
+          </tr>
+        </table>
+
+        {% if not loop.last %}
+        <div style="height: 1px; background: #e0e0e0; margin: 30px 0;"></div>
         {% endif %}
+        {% endfor %}
+      </td>
+    </tr>
 
-        <div class="action-box">
-          <div class="label">📌 Suggested Action</div>
-          <div class="text">{{ item.suggested_action }}</div>
-        </div>
+    <!-- Footer -->
+    <tr>
+      <td style="background: #f8f9fa; padding: 20px; text-align: center; color: #666; font-size: 12px; border-top: 1px solid #e0e0e0;">
+        <p style="margin: 5px 0;"><strong>Insider Cluster Watch - Enhanced Edition</strong></p>
+        <p style="margin: 5px 0;">Data sourced from public SEC Form 4 filings via OpenInsider & SEC EDGAR</p>
+        <p style="margin: 10px 0 5px 0;"><em>This report is for informational purposes only. Always conduct your own research before making investment decisions.</em></p>
+      </td>
+    </tr>
 
-        <div class="rationale">
-          <strong>Rationale:</strong> {{ item.rationale }}
-        </div>
-      </div>
-
-      {% if not loop.last %}
-      <div class="divider"></div>
-      {% endif %}
-      {% endfor %}
-    </div>
-
-    <div class="footer">
-      <p><strong>Insider Cluster Watch - Enhanced Edition</strong></p>
-      <p>Data sourced from public SEC Form 4 filings via OpenInsider & SEC EDGAR</p>
-      <p>Enhanced with sector analysis, quality filters, pattern detection & news sentiment</p>
-      <p style="margin-top: 10px;"><em>This report is for informational purposes only. Always conduct your own research before making investment decisions.</em></p>
-    </div>
-  </div>
+  </table>
 </body>
 </html>
