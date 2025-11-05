@@ -1,82 +1,89 @@
 {
   "starting_capital": 10000,
-  "cash": 9217.75,
+  "cash": 9143.34,
   "positions": {
-    "MTDR": {
-      "entry_date": "2025-11-04T11:28:26.916601",
-      "entry_price": 39.26,
-      "shares": 7,
-      "cost_basis": 274.82,
-      "initial_stop_loss": 37.297,
-      "stop_loss": 37.297,
-      "take_profit": 42.400800000000004,
-      "highest_price": 39.26,
+    "OBK": {
+      "entry_date": "2025-11-05T11:27:52.509759",
+      "entry_price": 34.57,
+      "shares": 8,
+      "cost_basis": 276.56,
+      "initial_stop_loss": 32.841499999999996,
+      "stop_loss": 32.841499999999996,
+      "take_profit": 37.3356,
+      "highest_price": 34.57,
       "trailing_enabled": false,
-      "signal_score": 12.922210805362361,
-      "sector": "Energy",
-      "tranches": [
-        {
-          "shares": 7,
-          "price": 39.26,
-          "date": "2025-11-04T11:28:26.916603"
-        }
-      ]
-    },
-    "VRSK": {
-      "entry_date": "2025-11-04T11:28:27.083783",
-      "entry_price": 215.4,
-      "shares": 1,
-      "cost_basis": 215.4,
-      "initial_stop_loss": 204.63,
-      "stop_loss": 204.63,
-      "take_profit": 232.63200000000003,
-      "highest_price": 215.4,
-      "trailing_enabled": false,
-      "signal_score": 8.405957505313472,
-      "sector": "Industrials",
-      "tranches": [
-        {
-          "shares": 1,
-          "price": 215.4,
-          "date": "2025-11-04T11:28:27.083788"
-        }
-      ]
-    },
-    "AVBC": {
-      "entry_date": "2025-11-04T11:28:27.273260",
-      "entry_price": 15.37,
-      "shares": 19,
-      "cost_basis": 292.03,
-      "initial_stop_loss": 14.601499999999998,
-      "stop_loss": 14.601499999999998,
-      "take_profit": 16.5996,
-      "highest_price": 15.37,
-      "trailing_enabled": false,
-      "signal_score": 7.174430750487706,
+      "signal_score": 23.520917205035236,
       "sector": "Financial Services",
       "tranches": [
         {
-          "shares": 19,
-          "price": 15.37,
-          "date": "2025-11-04T11:28:27.273263"
+          "shares": 8,
+          "price": 34.57,
+          "date": "2025-11-05T11:27:52.509762"
+        }
+      ]
+    },
+    "UTZ": {
+      "entry_date": "2025-11-05T11:27:52.742701",
+      "entry_price": 10.11,
+      "shares": 29,
+      "cost_basis": 293.19,
+      "initial_stop_loss": 9.6045,
+      "stop_loss": 9.6045,
+      "take_profit": 10.918800000000001,
+      "highest_price": 10.11,
+      "trailing_enabled": false,
+      "signal_score": 15.990897044362358,
+      "sector": "Consumer Defensive",
+      "tranches": [
+        {
+          "shares": 29,
+          "price": 10.11,
+          "date": "2025-11-05T11:27:52.742703"
+        }
+      ]
+    },
+    "CRTO": {
+      "entry_date": "2025-11-05T11:27:52.929476",
+      "entry_price": 22.07,
+      "shares": 13,
+      "cost_basis": 286.91,
+      "initial_stop_loss": 20.9665,
+      "stop_loss": 20.9665,
+      "take_profit": 23.835600000000003,
+      "highest_price": 22.07,
+      "trailing_enabled": false,
+      "signal_score": 5.618574450434954,
+      "sector": "Communication Services",
+      "tranches": [
+        {
+          "shares": 13,
+          "price": 22.07,
+          "date": "2025-11-05T11:27:52.929478"
         }
       ]
     }
   },
   "pending_entries": {
-    "MTDR": {
+    "OBK": {
       "shares": 5,
-      "trigger_price": 38.474799999999995,
-      "original_entry": 39.26,
-      "expires": "2025-11-09T11:28:27.006836",
-      "signal_score": 12.922210805362361
+      "trigger_price": 33.8786,
+      "original_entry": 34.57,
+      "expires": "2025-11-10T11:27:52.692749",
+      "signal_score": 23.520917205035236
     },
-    "AVBC": {
-      "shares": 13,
-      "trigger_price": 15.0626,
-      "original_entry": 15.37,
-      "expires": "2025-11-09T11:28:27.379228",
-      "signal_score": 7.174430750487706
+    "UTZ": {
+      "shares": 19,
+      "trigger_price": 9.9078,
+      "original_entry": 10.11,
+      "expires": "2025-11-10T11:27:52.850889",
+      "signal_score": 15.990897044362358
+    },
+    "CRTO": {
+      "shares": 9,
+      "trigger_price": 21.6286,
+      "original_entry": 22.07,
+      "expires": "2025-11-10T11:27:53.050174",
+      "signal_score": 5.618574450434954
     }
   },
   "total_trades": 3,
@@ -85,5 +92,5 @@
   "total_profit": 0.0,
   "max_portfolio_value": 10000,
   "max_drawdown": 0.0,
-  "last_updated": "2025-11-04T11:28:27.479587"
+  "last_updated": "2025-11-05T11:27:53.144472"
 }
