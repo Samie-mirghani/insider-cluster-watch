@@ -309,6 +309,13 @@ def cluster_and_score(df, window_days=5, top_n=50):
     if buys.empty:
         return pd.DataFrame()
 
+    # Deduplicate transactions to prevent duplicate data from inflating cluster counts
+    # This handles cases where the same transaction appears multiple times (e.g., amended Form 4 filings)
+    initial_count = len(buys)
+    buys = buys.drop_duplicates(subset=['ticker', 'insider', 'trade_date', 'trade_type', 'qty', 'price'], keep='first')
+    if len(buys) < initial_count:
+        print(f"   ℹ️  Removed {initial_count - len(buys)} duplicate transactions")
+
     buys['role'] = buys['title'].apply(normalize_title)
     buys['role_weight'] = buys['role'].map(ROLE_WEIGHT).fillna(1.0)
     # ensure value column - prefer explicit 'value' if present, else qty*price
