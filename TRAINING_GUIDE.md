@@ -1,1099 +1,676 @@
-# Trading Guide: How to Use Insider Cluster Watch
+# Training Guide: Using Insider Cluster Watch
 
-> **A complete walkthrough from receiving your first signal to executing trades**
+> **A practical guide to understanding and using your automated insider trading signals**
 
 ---
 
 ## 📋 Table of Contents
 
-1. [Overview](#overview)
-2. [Prerequisites](#prerequisites)
-3. [Real-World Trading Scenario](#real-world-trading-scenario)
-4. [Step-by-Step Walkthrough](#step-by-step-walkthrough)
-5. [Alternative Scenarios](#alternative-scenarios)
-6. [Key Principles for Success](#key-principles-for-success)
-7. [Common Mistakes to Avoid](#common-mistakes-to-avoid)
-8. [Tracking Your Results](#tracking-your-results)
-9. [FAQ](#faq)
+1. [Understanding Your Emails](#understanding-your-emails)
+2. [Signal Quality Assessment](#signal-quality-assessment)
+3. [Validating Signals](#validating-signals)
+4. [Paper Trading System](#paper-trading-system)
+5. [Performance Monitoring](#performance-monitoring)
+6. [Common Questions](#common-questions)
 
 ---
 
-## Overview
+## Understanding Your Emails
 
-This guide walks you through **exactly** how to use Insider Cluster Watch signals in real trading. We'll follow a complete example from the moment you receive an email alert to closing a profitable position.
+You receive three types of automated emails from the system:
 
-### What You'll Learn
+### 1. Daily Reports (Mon-Fri, 7:05 AM ET)
 
-- How to read and interpret signal emails
-- How to research signals before trading
-- How to calculate position sizes
-- How to place orders on Robinhood (or similar brokers)
-- How to set stop losses and take profits
-- When to exit positions
+**When:** Every weekday morning before market open
 
-### Important Disclaimers
+**What's included:**
+- All detected insider buying signals
+- Sorted by rank score (highest conviction first)
+- Sell warnings (when detected)
+- Signal metrics and suggested actions
 
-⚠️ **This is educational content, not financial advice.**
-
-- Past performance doesn't guarantee future results
-- You can lose money trading
-- Always do your own research
-- Never invest more than you can afford to lose
-- Start with small positions while learning
-
----
-
-## Prerequisites
-
-Before you start trading signals, make sure you have:
-
-### Account Setup
-- ✅ Broker account (Robinhood, Fidelity, Schwab, etc.)
-- ✅ At least $5,000-$10,000 to properly diversify
-- ✅ Insider Cluster Watch emails working
-- ✅ Basic understanding of limit orders and stop losses
-
-### Mental Preparation
-- ✅ Paper traded for 4-8 weeks (recommended)
-- ✅ Reviewed backtest results (hit rate, returns)
-- ✅ Prepared for losses (35-45% of signals may lose)
-- ✅ Committed to following your trading plan
-
-### Time Commitment
-- **Morning:** 15-25 minutes before market open (7:00-9:30 AM ET)
-- **Intraday:** 5-10 minutes (optional check-ins)
-- **End of day:** 2-5 minutes review
-
----
-
-## Real-World Trading Scenario
-
-Let's walk through a **complete, realistic scenario** from email to order execution.
-
-This example assumes:
-- **Your portfolio:** $10,000
-- **Position size:** 3% per signal = $300
-- **Trading experience:** Weeks 5-8 (past paper trading phase)
-- **Broker:** Robinhood (process similar for others)
-
----
-
-## Step-by-Step Walkthrough
-
-### 📱 Monday, November 3, 2025 - 7:15 AM ET
-
----
-
-### Step 1: Receive the Email (7:15 AM)
-
-**Your phone buzzes with a notification.**
-
+**Example signal:**
 ```
-From: Insider Cluster Watch
-To: your-email@gmail.com
-Subject: Daily Insider Report — 2025-11-03
-Time: 7:05 AM ET (2 hours before market open)
+MTDR (Matador Resources)
+  • Insiders: CEO, CFO, and 11 others (13 total)
+  • Total Reported: $1,408,102
+  • Conviction Score: 15.2 / 20
+  • Rank Score: 30.97
+  • Current Price: $37.94
+  • 12.3% above 52-week low
+  • Suggested Action: URGENT: Consider small entry
+  • Rationale: Cluster count: 13 | Total buys: $1.4M |
+              Near 52-week lows
 ```
 
-**Email content:**
+**What to look for:**
+- **Cluster count (insiders):** More = stronger signal
+- **Total value:** Larger purchases = more conviction
+- **Rank score:** Higher = better signal quality
+- **Distance from 52w low:** Closer = better value entry
+- **Suggested action:** System's recommendation
 
-```
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-📈 Daily Insider Trade Report — November 3, 2025
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+### 2. Urgent Alerts (As Needed)
 
-SOFI (SoFi Technologies)
-  • Insiders: CEO Noto, CFO Lapointe, Director Smith
-  • Cluster Score: 3
-  • Conviction Score: 8.45
-  • Total Reported: $450,000
-  • Current Price: $9.25
-  • 8.5% above 52-week low
-  • Rank Score: 9.22
-  • Suggested Action: Watchlist - consider small entry after confirmation
-  • Rationale: Cluster count:3 | Total reported buys: $450,000 | 
-              Current Price: $9.25 | 8.5% above 52-week low | 
-              Rank Score: 9.22
+**When:** Immediately when high-conviction signals are detected
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+**Criteria for urgent:**
+- ≥3 insiders buying
+- ≥$250k total purchase value
+- High conviction score (≥7.0)
+- Price within 15% of 52-week low
 
-PLTR (Palantir Technologies)
-  • Insiders: Director Cohen, Director Williams
-  • Cluster Score: 2
-  • Conviction Score: 6.20
-  • Total Reported: $280,000
-  • Current Price: $22.50
-  • 15.2% above 52-week low
-  • Rank Score: 5.62
-  • Suggested Action: Monitor
-  • Rationale: Cluster count:2 | Total reported buys: $280,000 | 
-              Current Price: $22.50 | 15.2% above 52-week low
+**What makes it urgent:**
+These signals historically have higher hit rates and represent coordinated buying by multiple insiders, often including C-suite executives.
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+**Key differences from daily report:**
+- Red/urgent color scheme
+- Only shows signals meeting urgent criteria
+- Sent immediately (not waiting for daily schedule)
+- Warrants faster research and decision-making
 
-RDDT (Reddit Inc)
-  • Insiders: VP Engineering
-  • Cluster Score: 1
-  • Conviction Score: 4.10
-  • Total Reported: $95,000
-  • Current Price: $45.30
-  • Suggested Action: Monitor
-  • Rationale: Single insider buy - not significant
-```
+### 3. Weekly Performance Summaries (Sundays, 9 AM ET)
 
----
+**When:** Every Sunday morning
 
-### Step 2: Initial Triage (7:15 - 7:25 AM)
+**What's included:**
+- Paper trading portfolio status
+- Win rate and profit/loss metrics
+- Risk-adjusted returns (Sharpe ratio)
+- Maximum drawdown
+- Sector and pattern performance
+- Top 3 and worst 3 performers
+- Strategy assessment
 
-**You're having coffee, reviewing the email on your phone.**
+**Why it matters:**
+Helps you track whether the signals are actually working and identify patterns in what works best.
 
-#### Your Mental Checklist:
+### 4. No Activity Reports (When Applicable)
 
-**SOFI - Looks Interesting ✅**
-- ✅ 3 insiders (including CEO and CFO) = strong signal
-- ✅ Rank score 9.22 = high conviction
-- ✅ $9.25 price = reasonable entry point
-- ✅ Action says "Watchlist - consider small entry"
-- ✅ Near 52-week low (potential value)
+**When:** On days with no significant signals
 
-**PLTR - Okay but Less Compelling ⚠️**
-- ⚠️ Only 2 insiders = weaker signal
-- ⚠️ Lower conviction score (6.20)
-- 📝 Note: Will monitor but not priority today
+**What's included:**
+- Explanation of why no signals were generated
+- Transaction statistics (total analyzed, buy count)
+- Confirmation system is monitoring correctly
+- Optional sell warnings
 
-**RDDT - Skip ❌**
-- ❌ Only 1 insider = very weak signal
-- ❌ Action says "Monitor" = not urgent
-- 📝 Decision: Ignore for now
-
-**Your Decision:** **Focus on SOFI**
+**What it means:**
+Not every day has actionable insider buying. This is normal and shows the system's filters are working correctly.
 
 ---
 
-### Step 3: Quick Research (7:25 - 7:45 AM)
+## Signal Quality Assessment
 
-**Before placing ANY order, do 10-15 minutes of research.**
+Not all signals are equal. Here's how to evaluate them:
 
-#### 3A. Check the Chart
+### Signal Strength Tiers
 
-Open TradingView (or Robinhood charts):
-- Search: "SOFI"
-- Timeframe: Daily
-- Look back: 3-6 months
+**Excellent (Rank Score >10.0)**
+- ✅ Priority signals - research first
+- ✅ Multiple insiders (3+)
+- ✅ High conviction scores
+- ✅ Often includes C-suite
+- ✅ Meaningful purchase amounts
 
-**What you're looking for:**
-- ✅ Is it in a clear downtrend? (More risky)
-- ✅ Is it bouncing off support? (Good entry)
-- ✅ Is it breaking out? (Chase carefully)
-- ✅ Recent volume trends
+**Good (Rank Score 7.0-10.0)**
+- ✅ Trade if comfortable after research
+- ✅ 2-3 insiders typically
+- ✅ Solid conviction
+- ✅ Worth investigating
 
-**What you see for SOFI:**
-- Stock dropped from $12 to $9 over past month
-- Bounced off $9.00 support level yesterday
-- Currently at $9.25 (slightly above support)
-- Volume slightly elevated
+**Okay (Rank Score 5.0-7.0)**
+- ⚠️ Requires extra research
+- ⚠️ Often 2 insiders or single large buy
+- ⚠️ Lower conviction
+- ⚠️ Consider skipping unless you have strong conviction
 
-**Assessment:** Chart looks okay - bouncing off support ✅
+**Skip (Rank Score <5.0)**
+- ❌ Low conviction
+- ❌ Often single insider
+- ❌ Small purchase amounts
+- ❌ Better to wait for stronger signals
+
+### Red Flags to Watch For
+
+Even high-scoring signals can have issues:
+
+**❌ Recent Negative News**
+- Lawsuits announced
+- Accounting scandals
+- Major executive departures
+- Bankruptcy concerns
+- Regulatory issues
+
+**❌ Downtrend on Chart**
+- Falling knife pattern
+- No support levels nearby
+- High volume selling
+- Bearish technical indicators
+
+**❌ Sector Weakness**
+- Entire sector under pressure
+- Regulatory headwinds
+- Macro factors working against industry
+
+**❌ Timing Issues**
+- Earnings tomorrow (high volatility risk)
+- Major news event pending
+- Market-wide selloff in progress
+
+### Suggested Action Guide
+
+The system provides action recommendations:
+
+**"URGENT: Consider small entry"**
+- Meets all urgent criteria
+- Multiple insiders + high conviction
+- Consider 2-4% position if comfortable
+- Research quickly but thoroughly
+
+**"Watchlist - consider small entry after confirmation"**
+- Good signal quality (2+ insiders or high conviction)
+- May want to wait for price confirmation
+- Consider 2-3% position
+- Take time to research properly
+
+**"Monitor"**
+- Lower conviction signal
+- Single insider or smaller amounts
+- Keep on radar but don't prioritize
+- Consider skipping unless exceptional circumstances
 
 ---
 
-#### 3B. Google News Check
+## Validating Signals
 
-Google: **"SOFI news"**
+Before acting on any signal, do quick research (10-15 minutes):
 
-Look through headlines from last 3 days:
+### Step 1: Check the Chart (2-3 minutes)
 
-**What you're looking for:**
-- ❌ Lawsuits announced
-- ❌ Accounting scandals
-- ❌ Major executive departures (beyond normal)
-- ❌ Bankruptcy concerns
-- ✅ Positive catalysts
-- ✅ Earnings coming up
+Use TradingView, Yahoo Finance, or your broker's charts:
 
-**What you find for SOFI:**
-- No major negative news
-- Quiet period before earnings (2 weeks away)
-- Some analyst upgrades last week
+**Questions to answer:**
+- Is it in a clear downtrend? (More risky)
+- Is it bouncing off support? (Good entry)
+- Is it breaking out? (Don't chase)
+- What's the recent volume trend?
 
-**Assessment:** No red flags ✅
+**Green flags:**
+- ✅ Bouncing off support level
+- ✅ Sideways consolidation
+- ✅ Low volume dip (quiet selling)
+- ✅ Breaking above resistance
 
----
+**Red flags:**
+- ❌ Falling knife (steep decline)
+- ❌ No clear support nearby
+- ❌ High volume selloff
+- ❌ Already extended/overbought
 
-#### 3C. Verify Insider Buying (Optional but Smart)
+### Step 2: Google News Check (5 minutes)
+
+Google: "[TICKER] news"
+
+**Look through last 3-7 days of headlines:**
+
+**Green flags:**
+- ✅ Positive earnings
+- ✅ New contracts/partnerships
+- ✅ Analyst upgrades
+- ✅ Product launches
+- ✅ Quiet period (no major news)
+
+**Red flags:**
+- ❌ Lawsuits
+- ❌ Accounting issues
+- ❌ Executive departures
+- ❌ Analyst downgrades
+- ❌ Regulatory problems
+
+### Step 3: Verify Insider Buying (Optional, 5 minutes)
 
 Go to: https://www.sec.gov/cgi-bin/browse-edgar
 
-- Company: "SOFI"
-- Filing Type: "4" (Form 4 = insider transactions)
-- Look at recent filings
+**Steps:**
+1. Company name: Enter ticker
+2. Filing Type: "4" (Form 4 = insider transactions)
+3. Look at recent filings
+4. Verify: Open-market purchases (not option exercises)
+5. Check: Match the dates and amounts in your email
 
-**What you find:**
-- ✅ CEO Anthony Noto bought $200k worth on Oct 30
-- ✅ CFO bought $150k on Oct 31
-- ✅ Director bought $100k on Nov 1
-- All open-market purchases (not option exercises)
+**Why verify:**
+- Confirms data accuracy
+- Shows transaction details
+- Identifies any unusual patterns
+- Builds confidence in the signal
 
-**Assessment:** Insider buys confirmed on SEC.gov ✅
+### Step 4: Quick Fundamentals (2 minutes)
 
----
+Look up basic metrics on Yahoo Finance:
 
-#### 3D. Final Decision Point
+**Minimum checks:**
+- Market cap: >$100M preferred (avoid micro-caps if new)
+- Average volume: >500k shares/day (ensure liquidity)
+- Price: >$2 (avoid penny stocks)
 
-After 15 minutes of research:
-
-| Factor | Assessment |
-|--------|------------|
-| Chart | ✅ Bounced off support |
-| News | ✅ No negative catalysts |
-| Insider buys | ✅ Verified on SEC |
-| Multiple insiders | ✅ CEO + CFO + Director |
-| Signal strength | ✅ Rank score 9.22 |
-
-**Decision: I'll take a small position** 🎯
-
----
-
-### Step 4: Calculate Position Size (7:45 AM)
-
-**Never wing this - always calculate first.**
-
-#### Your Trading Plan:
-
-```
-Total Portfolio: $10,000
-Risk per trade: 3%
-Max position size: $300
-```
-
-#### Calculate Shares to Buy:
-
-```
-Current SOFI price: $9.25
-Position size: $300
-Shares = $300 ÷ $9.25 = 32.43 shares
-
-Round down: 32 shares
-Actual investment: 32 × $9.25 = $296
-```
+**Optional deeper dive:**
+- Recent earnings trends
+- Revenue growth
+- Profit margins
+- Debt levels
 
 ---
 
-#### Set Your Exit Levels BEFORE You Buy:
+## Paper Trading System
 
-**Take Profit Target:**
-```
-Entry: $9.25
-Conservative target: +8% = $9.99
-Round to: $10.00 (nice round number)
-Potential profit: ($10.00 - $9.25) × 32 = $24
-```
+Your system includes automated paper trading simulation:
 
-**Stop Loss:**
-```
-Entry: $9.25
-Max risk: -5% = $8.79
-Round to: $8.75 (nice round number)
-Max loss: ($9.25 - $8.75) × 32 = $16
-```
+### How It Works
 
-**Time Stop:**
-```
-If no movement after 3 weeks: Re-evaluate or exit
-Calendar reminder: November 24
-```
+**Automatic execution:**
+1. Signal generated with rank score ≥5.0
+2. System calculates position size (2% of portfolio)
+3. "Buys" at current market price
+4. Sets stop loss (-5%)
+5. Sets take profit (+8%)
+6. Tracks performance
 
----
+**Position sizing:**
+- Normal signals: 2% of portfolio
+- Strong signals (>10.0): Up to 3%
+- Maximum concurrent: 10 positions
+- Starting capital: $10,000
 
-### Step 5: Place the Order (8:45 AM)
+**Exit strategy:**
+- **Stop loss:** Triggers at -5% loss
+- **Take profit:** Triggers at +8% gain
+- **Time stop:** Evaluates after 3 weeks if no movement
 
-**Market opens in 45 minutes. Time to place your order.**
+**Scaling entries:**
+- 50% initial position
+- 25% added on +2% confirmation
+- 25% added on +4% confirmation
 
----
+### Tracking Performance
 
-#### Option A: Market Order at Open (Not Recommended)
+The paper trading system tracks:
 
-**How to do it:**
-1. Open Robinhood app
-2. Search: "SOFI"
-3. Tap "Trade" → "Buy"
-4. Enter quantity: 32 shares
-5. Order type: Market
-6. Time in force: Day
-7. Review → Submit
+**Portfolio metrics:**
+- Current cash balance
+- Active positions (tickers, entry prices, P&L)
+- Pending orders (stops, take profits, scaling entries)
+- Total portfolio value
+- Overall return %
 
-**Why NOT recommended:**
-- ❌ Market orders at open get bad fills (high volatility)
-- ❌ Might pay $9.40 instead of $9.25
-- ❌ Loses 1.6% immediately = harder to profit
+**Performance metrics:**
+- Win rate (% profitable trades)
+- Average winner vs average loser
+- Profit factor (wins/losses ratio)
+- Maximum drawdown
+- Sharpe ratio (risk-adjusted returns)
 
----
+**Trade history:**
+- Entry/exit dates and prices
+- Holding periods
+- Profit/loss amounts
+- Reasons for exit (stop/target/time)
 
-#### Option B: Limit Order (Recommended) ✅
+### Interpreting Results
 
-**How to do it:**
+**After 4-8 weeks, evaluate:**
 
-1. **Open Robinhood app**
+**Good signs:**
+- ✅ Win rate >55%
+- ✅ Average winner > average loser
+- ✅ Positive total return
+- ✅ Sharpe ratio >1.0
+- ✅ Drawdown <15%
 
-2. **Search for the ticker**
-   - Tap search icon
-   - Type: "SOFI"
-   - Select: SoFi Technologies
+**Warning signs:**
+- ❌ Win rate <45%
+- ❌ Average loser > average winner
+- ❌ Negative total return
+- ❌ Sharpe ratio <0.5
+- ❌ Drawdown >20%
 
-3. **Tap "Trade"**
-   - Green "Trade" button
-   - Select "Buy"
-
-4. **Enter quantity**
-   - Type: 32
-   - (Or use $ amount: $300)
-
-5. **Change order type**
-   - Tap "Market" → Change to "Limit"
-   - This lets you set your max price
-
-6. **Set limit price**
-   - Enter: $9.30
-   - (Slightly above current $9.25 for flexibility)
-
-7. **Set time in force**
-   - Select: "Day"
-   - (Order expires end of day if not filled)
-
-8. **Review your order**
-   ```
-   Buy 32 SOFI
-   Limit @ $9.30
-   Est. total: ~$297.60
-   Day order
-   ```
-
-9. **Double-check everything**
-   - ✅ Correct ticker
-   - ✅ Buying (not selling)
-   - ✅ 32 shares
-   - ✅ Limit $9.30
-   - ✅ Day order
-
-10. **Tap "Submit Order"**
-
-**Confirmation screen appears:**
-```
-✅ Order Submitted
-Buy 32 SOFI
-Limit $9.30
-Status: Pending
-```
+**What to do if performance is poor:**
+1. Review which signals are failing
+2. Check if certain sectors underperform
+3. Consider adjusting thresholds
+4. Evaluate market conditions (bear market?)
+5. Give it more time (minimum 8 weeks)
 
 ---
 
-**Why limit orders are better:**
-- ✅ Controls your entry price
-- ✅ Avoids market open volatility spikes
-- ✅ If it gaps up to $9.50, you don't buy (can reassess)
-- ✅ Professional traders use limits, not markets
+## Performance Monitoring
+
+### Daily Monitoring (Optional)
+
+**Time required:** 2-5 minutes
+
+**What to check:**
+- New signals in daily email
+- Paper trading position updates
+- Any stops or targets hit
+- Overall portfolio status
+
+**What NOT to do:**
+- Don't obsessively check prices
+- Don't manually interfere with paper trades
+- Don't second-guess the system daily
+- Don't panic on small losses
+
+### Weekly Review (Recommended)
+
+**Every Sunday morning:**
+
+1. **Read weekly performance email**
+   - Check overall win rate
+   - Review top performers
+   - Note worst performers
+   - Read strategy assessment
+
+2. **Analyze patterns**
+   - Which sectors work best?
+   - Which signal types win most?
+   - What's the average holding period?
+   - Are stops too tight or too loose?
+
+3. **Adjust if needed**
+   - Refine signal preferences
+   - Update position sizing
+   - Modify stop/target levels
+   - Skip certain sectors
+
+### Monthly Deep Dive (Highly Recommended)
+
+**Once per month:**
+
+1. **Calculate statistics**
+   - Total return %
+   - Win rate over month
+   - Profit factor
+   - Sharpe ratio
+
+2. **Review backtest results**
+   - Compare paper trading to backtest
+   - Check if results are consistent
+   - Identify divergences
+
+3. **Identify improvements**
+   - Best performing patterns
+   - Worst performing patterns
+   - Optimal holding periods
+   - Sector preferences
+
+4. **Update strategy**
+   - Adjust parameters if needed
+   - Document lessons learned
+   - Set goals for next month
 
 ---
 
-### Step 6: Monitor the Fill (9:30 - 10:00 AM)
+## Common Questions
 
-**Market opens at 9:30 AM ET.**
+### Q: Should I act on every signal?
 
-Set a reminder to check at **9:35 AM** (5 minutes after open).
+**A:** No. Focus on signals with rank score >7.0 and do your own research. It's better to skip marginal signals than to take low-quality ones.
 
----
+### Q: How many signals should I expect per week?
 
-#### Scenario A: Order Fills Immediately ✅
+**A:** Varies widely. Expect:
+- 0-5 signals on quiet days
+- 5-15 signals on active days
+- 1-2 urgent signals per week (on average)
+- More activity during earnings seasons
 
-**9:31 AM - Notification:**
-```
-Robinhood: Your order for 32 SOFI at $9.28 has been filled
-```
+### Q: Why so much activity recently?
 
-**Result:**
-- ✅ Filled at $9.28 (better than $9.30 limit!)
-- Total cost: 32 × $9.28 = $296.96
-- You saved $0.02/share vs your limit
+**A:** Several factors can cause increased signal volume:
+- Earnings season (insiders buying before results)
+- Market volatility (insiders see value)
+- Sector rotation (specific industries active)
+- End of quarter (window for insider buying)
 
-**What you do:**
-- 📝 Note actual entry price in your log
-- ⏭️ Move to Step 7 (set stop loss)
+**System now includes deduplication** to prevent inflated counts from amended filings.
 
----
+### Q: What if I see the same ticker multiple times in a week?
 
-#### Scenario B: Order Doesn't Fill ⚠️
+**A:** This is by design. If new insiders join the buying cluster, it generates a new signal. This indicates strengthening conviction.
 
-**9:35 AM - Check Robinhood:**
-```
-Order Status: Open
-Buy 32 SOFI @ $9.30 Limit
-Current price: $9.45
-```
+**How to handle:**
+- First signal: Do full research, consider entry
+- Second signal (new insiders): Consider adding to position
+- Third signal: Likely near peak, proceed cautiously
 
-**What happened:**
-- Stock gapped up at open to $9.45
-- Your $9.30 limit is below the current price
-- Order sits unfilled
+### Q: How do I know if the paper trading is accurate?
 
-**Decision time - What do you do?**
+**A:** The paper trading uses:
+- Real market prices (from yfinance)
+- Realistic execution (assumes market orders)
+- Conservative fills (uses worst-case scenarios)
 
-**Option 1: Cancel and move on** (Conservative)
-- Thesis was to buy near $9.25
-- At $9.45, you're paying 2% more
-- Pass and wait for next signal
-- **Best if:** Signal was marginal to begin with
+It won't match live trading perfectly but provides good estimates.
 
-**Option 2: Raise limit to current price** (Moderate)
-- Cancel old order
-- Place new limit at $9.45
-- Only if thesis still strong
-- **Best if:** Signal is very strong (rank score >10)
+### Q: Should I trust urgent alerts more than regular signals?
 
-**Option 3: Wait for pullback** (Patient)
-- Keep limit at $9.30
-- Watch during day for dip
-- Cancel at 3:59 PM if never fills
-- **Best if:** You have time to monitor
+**A:** Urgent alerts have historically shown higher hit rates because they meet stricter criteria. However:
+- Still do your research
+- Higher conviction doesn't mean guaranteed
+- Market conditions still matter
+- Risk management still required
 
-**For this example: Assume Option 1 - filled at $9.28** ✅
+### Q: What if I disagree with the system's ranking?
 
----
+**A:** Trust your research. The system provides data-driven signals, but you should:
+- Use signals as starting points for research
+- Apply your own analysis
+- Skip signals you're not comfortable with
+- Develop your own preferences over time
 
-### Step 7: Set Stop Loss (Immediately After Fill)
+### Q: How do I handle sell warnings?
 
-**9:35 AM - As soon as you're filled, protect yourself.**
+**A:** Sell warnings indicate concerning selling activity:
+- **If you own the stock:** Consider your position carefully
+- **If considering buying:** Proceed with extra caution
+- **If it's a minor warning:** May not be significant
+- **If it's a major warning (C-suite, large amounts):** Likely skip
 
-**CRITICAL:** Do this within 5 minutes of entry. No exceptions.
+### Q: When should I start real trading (if ever)?
 
----
+**A:** Only after:
+- ✅ 8+ weeks of paper trading
+- ✅ Win rate >55% consistently
+- ✅ Positive total returns
+- ✅ You understand the system thoroughly
+- ✅ You have capital you can afford to lose
+- ✅ You've developed your research process
 
-#### How to Set Stop Loss on Robinhood:
+**Never:**
+- ❌ Trade with money you can't afford to lose
+- ❌ Skip the research process
+- ❌ Oversize positions (>5%)
+- ❌ Trade on margin initially
+- ❌ Blindly follow every signal
 
-1. **Go to your SOFI position**
-   - Tap "Investing" tab
-   - Find SOFI in your holdings
-   - Tap to open
+### Q: How do I track my own performance if I'm trading live?
 
-2. **Tap "Trade"**
-   - Then "Sell"
+**A:** Create a simple spreadsheet with:
+- Date, Ticker, Entry, Exit, Shares, P/L ($), P/L (%), Days Held
+- Signal Score, Outcome (stop/target/time), Notes
 
-3. **Enter quantity**
-   - Type: 32 shares (all of them)
+Calculate monthly:
+- Total trades
+- Win rate
+- Average winner/loser
+- Total return
+- Compare to paper trading
 
-4. **Change order type**
-   - Tap "Market" → Change to "Stop Loss"
+### Q: What if the system generates signals for stocks I can't trade?
 
-5. **Set stop price**
-   - Enter: $8.75
-   - (Your predetermined -5% stop)
+**A:** Some signals may be for:
+- OTC stocks (may require special approval)
+- Foreign stocks (may need international trading)
+- Low liquidity stocks (hard to enter/exit)
 
-6. **Set time in force**
-   - Select: **"GTC"** (Good-Til-Canceled)
-   - This keeps the order active indefinitely
+**Solution:** Skip these signals and focus on liquid, exchange-traded stocks with volume >500k shares/day.
 
-7. **Review**
-   ```
-   Sell 32 SOFI
-   Stop Loss @ $8.75
-   GTC
-   ```
+### Q: How often should I check my email?
 
-8. **Submit**
+**A:** Recommended schedule:
+- **Morning (7:30-9:00 AM ET):** Check daily email before market open
+- **Occasional:** Check for urgent alerts (maybe 2-3x/week)
+- **Sunday morning:** Read weekly performance summary
+- **Avoid:** Constant checking throughout the day
 
----
+### Q: What if I miss the morning email?
 
-**How it works:**
-- If SOFI drops to $8.75, it triggers a market sell
-- Your shares automatically sell around $8.75
-- Limits your loss to ~$16 (-5.4%)
-- You don't have to watch the stock constantly
+**A:** If you miss the 7:05 AM email:
+- Don't chase gaps up at market open
+- Wait for pullback or next day
+- There will be more signals
+- Better to miss one than enter poorly
 
-**Common question:** *"What if it dips to $8.75 then recovers?"*
-- **Answer:** You're stopped out. Accept it. Move on.
-- This is the cost of risk management
-- 1-2% of the time you'll get stopped and miss a recovery
-- 98% of the time, the stop saves you from bigger losses
+### Q: How do I know if something is a bug vs. real activity?
 
----
+**A:** With recent fixes:
+- ✅ Deduplication prevents duplicate counting
+- ✅ Dynamic counts show accurate numbers
+- ✅ Re-signaling on new activity is intentional
 
-### Step 8: Set Take-Profit (Optional but Recommended)
-
-**Also set an automatic take-profit order.**
-
----
-
-#### How to Set Take-Profit on Robinhood:
-
-1. **While still in SOFI position**
-   - Tap "Trade" → "Sell"
-
-2. **Enter quantity**
-   - Type: 32 shares
-
-3. **Change order type**
-   - Tap "Market" → Change to "Limit"
-
-4. **Set limit price**
-   - Enter: $10.00
-   - (Your +8% target)
-
-5. **Set time in force**
-   - Select: "GTC"
-
-6. **Review**
-   ```
-   Sell 32 SOFI
-   Limit $10.00
-   GTC
-   ```
-
-7. **Submit**
+**If you suspect a bug:**
+1. Check recent commits/updates
+2. Compare to SEC.gov directly
+3. Review paper trading logs
+4. Open an issue on GitHub
 
 ---
 
-**How it works:**
-- If SOFI hits $10.00, your shares automatically sell
-- Locks in $24 profit without you doing anything
-- Removes emotion from taking profits
-- Prevents you from getting greedy
-
-**Now you have TWO orders active:**
-- Stop Loss at $8.75 (protects downside)
-- Limit Sell at $10.00 (captures upside)
-
-**One of these will execute eventually. You're set!**
-
----
-
-### Step 9: Track the Position (Next 3 Weeks)
-
-**Now you wait. Check periodically but don't obsess.**
-
----
-
-#### Week 1 (Nov 3-8):
-
-**Monday (Day 1) - Entry**
-- Entered at $9.28
-- Stop set at $8.75
-- Target set at $10.00
-
-**Tuesday**
-- SOFI: $9.45 (+1.8% from entry)
-- Your thought: *"Nice, trending right direction"*
-- Action: None (orders are set)
-
-**Wednesday**
-- SOFI: $9.20 (-0.9% from entry)
-- Your thought: *"Small pullback, normal. Stop still far away at $8.75"*
-- Action: None
-
-**Thursday**
-- SOFI: $9.35 (+0.8% from entry)
-- Your thought: *"Back in the green"*
-- Action: None
-
-**Friday**
-- SOFI: $9.50 (+2.4% from entry)
-- Your thought: *"Week 1: +2.4%. Good start!"*
-- Action: None
-
----
-
-#### Week 2 (Nov 10-15):
-
-**Monday**
-- SOFI: $9.60 (+3.4% from entry)
-
-**Tuesday**
-- SOFI: $9.75 (+5.1% from entry)
-- Your thought: *"Halfway to $10 target!"*
-
-**Wednesday - AFTER MARKET CLOSE**
-- 📰 **News:** SOFI beats earnings expectations
-- Revenue up 20% YoY
-- Raised guidance
-- Stock up 5% after hours to $10.25
-
-**Thursday Morning**
-- 🔔 **9:35 AM - Your phone buzzes**
-
-```
-Robinhood: Your limit order to sell 32 SOFI at $10.00 has been filled
-```
-
-- Stock gapped up to $10.15 at open
-- Your limit sell at $10.00 executed automatically
-- **Position closed at target!** ✅
-
----
-
-### Step 10: Calculate Your Result
-
-**Position closed. Time to tally up.**
-
-```
-═══════════════════════════════════════
-              TRADE SUMMARY
-═══════════════════════════════════════
-
-Ticker:        SOFI
-Entry Date:    Nov 3, 2025
-Entry Price:   $9.28
-Exit Date:     Nov 13, 2025
-Exit Price:    $10.00
-
-Shares:        32
-Entry Cost:    $296.96
-Exit Value:    $320.00
-
-Gross Profit:  $23.04
-Return:        +7.76%
-Days Held:     9 days
-
-Strategy:      Insider cluster signal
-Signal Score:  9.22
-Outcome:       Target hit ✅
-
-═══════════════════════════════════════
-```
-
----
-
-**After broker fees (minimal on Robinhood):**
-- Net profit: ~$23
-- Portfolio impact: +0.23% (on $10k portfolio)
-
-**Annualized return (if repeated):**
-- 7.76% in 9 days
-- Annualized: ~314% (not sustainable, but shows the edge)
-
----
-
-### Step 11: Log the Trade
-
-**Update your tracking spreadsheet:**
-
-| Date | Ticker | Entry | Exit | Shares | P/L | % | Days | Score | Notes |
-|------|--------|-------|------|--------|-----|---|------|-------|-------|
-| 11/3 | SOFI | $9.28 | $10.00 | 32 | +$23 | +7.8% | 9 | 9.22 | Earnings beat triggered early exit |
-
----
-
-**Why track every trade?**
-- Verifies your personal hit rate vs backtest
-- Identifies which signals work best for YOU
-- Improves decision-making over time
-- Required for tax reporting
-- Keeps you honest about results
-
----
-
-## Alternative Scenarios
-
-Not every trade goes perfectly. Here's what happens when things go wrong:
-
----
-
-### Scenario B: Stop Loss Triggered 📉
-
-**Week 1 - Wednesday:**
-- SOFI drops to $8.90 on Tuesday
-- Further drops to $8.75 on Wednesday morning
-- **9:45 AM - Your phone buzzes:**
-
-```
-Robinhood: Your stop loss order for 32 SOFI at $8.75 has been triggered
-Sold at $8.73 (market order)
-```
-
-**Result:**
-```
-Entry:  32 × $9.28 = $296.96
-Exit:   32 × $8.73 = $279.36
-Loss:   -$17.60 (-5.9%)
-```
-
-**What you do:**
-1. Accept the loss (it happens)
-2. Log it in your spreadsheet
-3. Move on to the next signal
-4. **DO NOT:**
-   - Try to "revenge trade" to make it back
-   - Double your position size on the next signal
-   - Second-guess your stop loss system
-
-**Lesson:** Signal didn't work this time. Your stop loss protected you from a bigger loss. This is the cost of doing business.
-
----
-
-### Scenario C: Time Stop - No Movement ⏰
-
-**Week 3 (Nov 24):**
-- Entry: $9.28
-- Current price: $9.30
-- Gain: +$0.02/share = +0.2% (basically nothing)
-- 3 weeks have passed
-
-**Decision Time:**
-```
-Option 1: Exit at breakeven
-- Capital isn't working
-- Could deploy in better signal
-- Take the minor win and move on
-
-Option 2: Give it one more week
-- Only if fundamentals still strong
-- Earnings or catalyst coming up
-- Set hard deadline: Exit by Friday
-
-Option 3: Adjust target
-- Lower target to $9.75 (+5%)
-- Accept smaller win for faster exit
-```
-
-**You choose Option 1:**
-- Cancel your $10 limit sell
-- Place market order, sell at $9.32
-- Net result: +$0.04/share = +$1.28 total (+0.4%)
-
-**Outcome:** Tiny win, but capital freed for next signal ✅
-
----
-
-### Scenario D: Urgent Alert - Highly Actionable 🚨
-
-**Tuesday Morning - 7:05 AM:**
-
-You receive TWO emails:
-1. Daily Report
-2. **URGENT Insider Alert**
-
-```
-🚨 URGENT Insider Alert — November 5, 2025
-
-High-conviction cluster buys detected.
-
-PLTR (Palantir Technologies)
-  • Insiders: CEO Karp, CFO Sankar, Director Thiel, Director Cohen
-  • Cluster Score: 4
-  • Conviction Score: 15.20
-  • Total Reported: $1,200,000
-  • Current Price: $25.50
-  • 8.2% above 52-week low
-  • Rank Score: 14.52
-  • Suggested Action: URGENT: Consider small entry at open / immediate review
-  • Rationale: Cluster count:4 | Total reported buys: $1,200,000
-```
-
-**What makes this urgent:**
-- ✅ 4 insiders (very rare)
-- ✅ $1.2M total (large dollar amount)
-- ✅ CEO + CFO buying (highest conviction)
-- ✅ Score 14.52 (very high)
-- ✅ Near 52-week low (value entry)
-
-**What you do differently:**
-1. **Prioritize this signal** over others
-2. **Increase position size** (if comfortable):
-   - Normal: 3% = $300
-   - Urgent: 4% = $400 (still controlled)
-3. **Faster research** (but still do it!)
-4. **Tighter stops** (-4% instead of -5%)
-5. **Higher target** (+12% instead of +8%)
-
-**Why urgent matters:**
-- These signals have historically higher hit rates
-- Rare occurrence (1-2 per month)
-- Multiple insiders = strong conviction
-- Worth taking more seriously
-
----
-
-## Key Principles for Success
+## Best Practices
 
 ### ✅ DO:
 
-1. **Always use position sizing** (2-5% max per signal)
-2. **Always set stop losses** before price can move against you
-3. **Always take profits at targets** (don't get greedy)
-4. **Always track your results** (spreadsheet or app)
-5. **Always do quick research** (10-15 min minimum)
-6. **Always be patient** (wait for good setups)
-7. **Always follow your plan** (no emotional deviations)
+1. **Read daily emails before market open**
+2. **Focus on high-quality signals (>7.0)**
+3. **Do 10-15 minutes of research per signal**
+4. **Monitor weekly performance summaries**
+5. **Track patterns in what works**
+6. **Trust the paper trading system**
+7. **Be patient with results (8+ weeks)**
+8. **Skip signals you're not comfortable with**
 
 ### ❌ DON'T:
 
-1. **Don't oversize positions** (>5% = too risky)
-2. **Don't skip stop losses** ("it'll come back" = disaster)
-3. **Don't hold forever** (these are tactical, not buy-and-hold)
-4. **Don't chase gaps** (if it runs away, let it go)
-5. **Don't panic sell on small dips** (stop loss handles that)
-6. **Don't trade on margin** (master cash first)
-7. **Don't revenge trade after losses** (emotional trading loses money)
-8. **Don't follow every signal blindly** (do your research)
+1. **Don't follow every signal blindly**
+2. **Don't skip the research process**
+3. **Don't panic on small losses**
+4. **Don't constantly check prices**
+5. **Don't overtrade (quality > quantity)**
+6. **Don't ignore sell warnings**
+7. **Don't chase stocks that gap up**
+8. **Don't second-guess stops after they trigger**
 
 ---
 
-## Common Mistakes to Avoid
+## Troubleshooting
 
-### Mistake #1: Not Setting Stop Losses
+### Issue: Too many signals to research
 
-**What happens:**
-- You buy SOFI at $9.25
-- It drops to $8.00 (-13.5%)
-- You think "it'll come back"
-- It drops to $6.50 (-30%)
-- Now you're stuck in a big loss
+**Solution:**
+- Focus only on rank score >8.0
+- Skip signals in sectors you don't know
+- Limit yourself to 2-3 new positions per week
 
-**Fix:** Set stop loss immediately. Always.
+### Issue: Emails going to spam
 
----
+**Solution:**
+- Mark first email as "Not Spam"
+- Add sender to contacts
+- Create Gmail filter to never send to spam
 
-### Mistake #2: Moving Stop Losses Lower
+### Issue: Paper trading shows losses
 
-**What happens:**
-- You set stop at $8.75
-- Stock drops to $8.80
-- You think "just a bit more room"
-- Move stop to $8.25
-- Stock keeps dropping
-- You lose more than planned
+**Solution:**
+- Give it more time (minimum 8 weeks)
+- Check if market conditions are poor (bear market)
+- Review which types of signals are failing
+- Consider adjusting parameters after sufficient data
 
-**Fix:** NEVER move stops lower. Only move them up (trailing).
+### Issue: Urgent alerts seem too frequent
 
----
+**Solution:**
+- This can happen during earnings seasons or volatile periods
+- System thresholds can be adjusted in `process_signals.py`
+- More alerts = more market activity (not necessarily bad)
+- Continue filtering by quality (rank score)
 
-### Mistake #3: Not Taking Profits
+### Issue: Can't verify signals on SEC.gov
 
-**What happens:**
-- You buy at $9.25, target $10.00
-- Stock hits $10.05
-- You think "it might go to $11!"
-- It drops back to $9.40
-- You missed easy profit
-
-**Fix:** Take profits at targets. You can always re-enter.
-
----
-
-### Mistake #4: Oversizing Positions
-
-**What happens:**
-- Signal looks "really good"
-- You put 15% of portfolio in
-- It drops 10%
-- You lose 1.5% of entire portfolio in one trade
-- Takes 5+ winning trades to recover
-
-**Fix:** Stick to 2-5% per position. No exceptions.
+**Solution:**
+- Filings can lag by 2-3 days
+- Some filings may be amendments (duplicates now filtered)
+- Check multiple insider names if unsure
+- OpenInsider is usually accurate but verify important signals
 
 ---
 
-### Mistake #5: Not Doing Research
+## Next Steps
 
-**What happens:**
-- Email says "buy SOFI"
-- You buy immediately without checking
-- Turns out there's a lawsuit announced yesterday
-- Stock tanks
-- Signal was good, but timing was bad
+### Week 1-2: Learning Phase
+- Read all daily emails
+- Note which signals look interesting
+- Don't take action yet
+- Learn the patterns
+- Get comfortable with the format
 
-**Fix:** Always spend 10-15 minutes researching first.
+### Week 3-4: Research Phase
+- Start researching high-quality signals
+- Practice the 10-15 minute research process
+- Compare your assessments to outcomes
+- Build confidence in evaluation
 
----
+### Week 5-8: Paper Trading Monitoring
+- Actively monitor paper trading performance
+- Track which signals work best
+- Identify your preferences
+- Develop your strategy
 
-## Tracking Your Results
-
-### Create a Simple Spreadsheet
-
-**Minimum columns:**
-- Date (entry)
-- Ticker
-- Entry price
-- Exit price
-- Shares
-- Profit/Loss ($)
-- Profit/Loss (%)
-- Days held
-- Signal score
-- Outcome (target/stop/time)
-- Notes
-
-**Example:**
-
-```
-Date     | Ticker | Entry | Exit  | P/L   | %     | Days | Score | Outcome | Notes
----------|--------|-------|-------|-------|-------|------|-------|---------|-------
-11/3/25  | SOFI   | $9.28 | $10.00| +$23  | +7.8% | 9    | 9.22  | Target  | Earnings beat
-11/5/25  | PLTR   | $25.50| $24.20| -$26  | -5.1% | 3    | 14.52 | Stop    | Macro selloff
-11/10/25 | RDDT   | $45.30| $47.85| +$51  | +5.6% | 7    | 6.80  | Target  | Good momentum
-```
+### Week 9+: Decide Next Steps
+- Review 8+ weeks of paper trading results
+- Decide if strategy is working
+- Consider live trading with small positions (if confident)
+- Continue refining your approach
 
 ---
 
-### Calculate Your Stats Monthly
+## Additional Resources
 
-**Key metrics:**
-- Total trades
-- Win rate (% profitable)
-- Average winner
-- Average loser
-- Profit factor (total wins / total losses)
-- Average days held
-- Total return
+**System Documentation:**
+- README.md - Full system documentation
+- GitHub Issues - Report bugs or request features
+- Commit history - See recent changes and fixes
 
-**Example after 10 trades:**
-```
-Trades: 10
-Winners: 6 (60%)
-Losers: 4 (40%)
-Avg winner: +8.2%
-Avg loser: -5.1%
-Profit factor: 1.45
-Total return: +2.8% (on capital deployed)
-```
+**External Resources:**
+- [SEC EDGAR](https://www.sec.gov/edgar) - Verify Form 4 filings
+- [OpenInsider](http://openinsider.com) - Browse insider activity
+- [TradingView](https://www.tradingview.com) - Chart analysis
+- [Yahoo Finance](https://finance.yahoo.com) - Quick fundamentals
+
+**Best Practices:**
+- Start small (paper trading first)
+- Be patient (8+ weeks minimum)
+- Do your research (10-15 min per signal)
+- Track your results (spreadsheet or app)
+- Learn continuously (identify patterns)
 
 ---
 
-## Advanced Tips (After 3+ Months Experience)
-
-### Tip #1: Trailing Stop Losses
-
-Once a position is up 5%, move your stop to breakeven:
-
-**Example:**
-```
-Entry: $9.28
-Initial stop: $8.75 (-5.7%)
-Stock moves to $9.75 (+5.1%)
-
-New stop: $9.30 (breakeven)
-```
-
-**Why:** Protects profits. If it reverses, you lose nothing.
+**Remember: This is a tool to help identify potential opportunities, not a guarantee of profits. Always do your own research, manage risk properly, and never invest more than you can afford to lose.**
 
 ---
 
-### Tip #2: Scaling Out
+*Last Updated: November 2025*
+*Version: 2.0.0*
 
-Instead of all-or-nothing, sell in tranches:
-
-**Example:**
-```
-32 shares entered at $9.28
-
-Sell 16 shares at $10.00 (+7.8%) = Lock in $11.52 profit
-Let 16 shares run to $10.50 target
-Or stop out at $9.30 breakeven
-
-Result: Partial profit secured, still have upside exposure
-```
-
----
-
-### Tip #3: Correlating with Sector Trends
-
-Track if certain sectors perform better with insider signals:
-
-**Example observations:**
-- Fintech signals (SOFI, UPST) → 65% hit rate
-- Tech signals (PLTR, SNOW) → 58% hit rate
-- Biotech signals → 45% hit rate (avoid?)
-
-**Adjust:** Focus on sectors with proven results in YOUR tracking.
-
----
-
-### Tip #4: Earnings Calendar Awareness
-
-Check if earnings are coming up:
-
-**Before Earnings (1-2 weeks out):**
-- ✅ Insider buying before earnings = potentially bullish
-- ✅ They may know results are good
-- ⚠️ Higher volatility risk
-
-**Right After Earnings:**
-- ⚠️ Be cautious - volatility high
-- ✅ If insiders buy AFTER bad earnings = strong signal
-
----
-
-### Tip #5: Combining with Technical Analysis
-
-Add simple technical filters:
-
-**Before entering, check:**
-- ✅ Stock above 20-day moving average = healthier
-- ✅ RSI < 70 = not overbought
-- ✅ Volume increasing = confirmation
-- ❌ Stock in clear downtrend = avoid
-
-**This can improve hit rate 3-5%.**
-
----
-
-**Good luck, stay disciplined, and trade safely!** 🚀📈
-
----
-
-## Appendix: Quick Reference Card
-
-Print this and keep it visible:
-
-```
-╔══════════════════════════════════════════════════╗
-║         INSIDER CLUSTER WATCH CHEAT SHEET        ║
-╠══════════════════════════════════════════════════╣
-║                                                  ║
-║  POSITION SIZING:                                ║
-║    Normal: 3% of portfolio                       ║
-║    Urgent: 4% of portfolio                       ║
-║    Weak: Skip or 2%                              ║
-║                                                  ║
-║  STOP LOSS: -5% (set immediately!)               ║
-║                                                  ║
-║  TAKE PROFIT: +8-10%                             ║
-║                                                  ║
-║  TIME STOP: 3 weeks maximum                      ║
-║                                                  ║
-║  SIGNAL QUALITY:                                 ║
-║    >10.0 = Excellent (priority)                  ║
-║    7.0-10.0 = Good (trade if comfortable)        ║
-║    5.0-7.0 = Okay (extra research)               ║
-║    <5.0 = Skip                                   ║
-║                                                  ║
-║  BEFORE EVERY TRADE:                             ║
-║    ✓ Check chart (support/resistance)            ║
-║    ✓ Google news (last 3 days)                   ║
-║    ✓ Verify on SEC.gov (optional)                ║
-║    ✓ Calculate position size                     ║
-║    ✓ Write down plan                             ║
-║                                                  ║
-║  AFTER ENTRY:                                    ║
-║    ✓ Set stop loss (within 5 min)                ║
-║    ✓ Set take-profit limit                       ║
-║    ✓ Log in spreadsheet                          ║
-║    ✓ Walk away (don't obsess)                    ║
-║                                                  ║
-║  NEVER:                                          ║
-║    ✗ Move stops lower                            ║
-║    ✗ Skip stop losses                            ║
-║    ✗ Oversize positions                          ║
-║    ✗ Revenge trade                               ║
-║    ✗ Trade without research                      ║
-║                                                  ║
-║  EMERGENCY: If in doubt, exit and reassess       ║
-║                                                  ║
-╚══════════════════════════════════════════════════╝
-```
-
-**Print this. Tape it to your monitor. Follow it.**
-
----
-
-*Last Updated: October 2025*  
-*Version: 1.0.0*
-
-*This is educational content only. Not financial advice. You can lose money trading.*
+*This is educational content only. Not financial advice.*
