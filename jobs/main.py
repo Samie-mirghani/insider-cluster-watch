@@ -218,7 +218,7 @@ def main(test=False, urgent_test=False, enable_paper_trading=True):
     # Initialize paper trading simulator
     paper_trader = None
     if enable_paper_trading:
-        paper_trader = PaperTradingPortfolio()
+        paper_trader = PaperTradingPortfolio.load()
         portfolio_value = paper_trader.get_portfolio_value()
         total_return = ((portfolio_value - paper_trader.starting_capital) / paper_trader.starting_capital) * 100
 
