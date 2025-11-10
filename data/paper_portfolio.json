@@ -1,89 +1,89 @@
 {
   "starting_capital": 10000,
-  "cash": 9148.35,
+  "cash": 9130.339999999998,
   "positions": {
-    "MTDR": {
-      "entry_date": "2025-11-07T11:27:45.743562",
-      "entry_price": 37.94,
-      "shares": 7,
-      "cost_basis": 265.58,
-      "initial_stop_loss": 36.043,
-      "stop_loss": 36.043,
-      "take_profit": 40.9752,
-      "highest_price": 37.94,
+    "XZO": {
+      "entry_date": "2025-11-10T11:27:45.477006",
+      "entry_price": 19.38,
+      "shares": 15,
+      "cost_basis": 290.7,
+      "initial_stop_loss": 18.410999999999998,
+      "stop_loss": 18.410999999999998,
+      "take_profit": 20.9304,
+      "highest_price": 19.38,
       "trailing_enabled": false,
-      "signal_score": 30.966849687421814,
-      "sector": "Energy",
-      "tranches": [
-        {
-          "shares": 7,
-          "price": 37.94,
-          "date": "2025-11-07T11:27:45.743565"
-        }
-      ]
-    },
-    "RLMD": {
-      "entry_date": "2025-11-07T11:27:46.234307",
-      "entry_price": 2.61,
-      "shares": 114,
-      "cost_basis": 297.53999999999996,
-      "initial_stop_loss": 2.4795,
-      "stop_loss": 2.4795,
-      "take_profit": 2.8188,
-      "highest_price": 2.61,
-      "trailing_enabled": false,
-      "signal_score": 13.237337777728866,
-      "sector": "Healthcare",
-      "tranches": [
-        {
-          "shares": 114,
-          "price": 2.61,
-          "date": "2025-11-07T11:27:46.234312"
-        }
-      ]
-    },
-    "BBT": {
-      "entry_date": "2025-11-07T11:27:46.959972",
-      "entry_price": 26.23,
-      "shares": 11,
-      "cost_basis": 288.53000000000003,
-      "initial_stop_loss": 24.918499999999998,
-      "stop_loss": 24.918499999999998,
-      "take_profit": 28.328400000000002,
-      "highest_price": 26.23,
-      "trailing_enabled": false,
-      "signal_score": 11.242712362971766,
+      "signal_score": 20.543970087447175,
       "sector": "Financial Services",
       "tranches": [
         {
-          "shares": 11,
-          "price": 26.23,
-          "date": "2025-11-07T11:27:46.959976"
+          "shares": 15,
+          "price": 19.38,
+          "date": "2025-11-10T11:27:45.477008"
+        }
+      ]
+    },
+    "BETA": {
+      "entry_date": "2025-11-10T11:27:45.690166",
+      "entry_price": 32.01,
+      "shares": 9,
+      "cost_basis": 288.09,
+      "initial_stop_loss": 30.409499999999998,
+      "stop_loss": 30.409499999999998,
+      "take_profit": 34.5708,
+      "highest_price": 32.01,
+      "trailing_enabled": false,
+      "signal_score": 17.241516327141355,
+      "sector": "Industrials",
+      "tranches": [
+        {
+          "shares": 9,
+          "price": 32.01,
+          "date": "2025-11-10T11:27:45.690171"
+        }
+      ]
+    },
+    "YCY": {
+      "entry_date": "2025-11-10T11:27:45.955285",
+      "entry_price": 10.03,
+      "shares": 29,
+      "cost_basis": 290.87,
+      "initial_stop_loss": 9.5285,
+      "stop_loss": 9.5285,
+      "take_profit": 10.8324,
+      "highest_price": 10.03,
+      "trailing_enabled": false,
+      "signal_score": 6.995602034106074,
+      "sector": "Financial Services",
+      "tranches": [
+        {
+          "shares": 29,
+          "price": 10.03,
+          "date": "2025-11-10T11:27:45.955289"
         }
       ]
     }
   },
   "pending_entries": {
-    "MTDR": {
-      "shares": 5,
-      "trigger_price": 37.1812,
-      "original_entry": 37.94,
-      "expires": "2025-11-12T11:27:45.999128",
-      "signal_score": 30.966849687421814
+    "XZO": {
+      "shares": 10,
+      "trigger_price": 18.9924,
+      "original_entry": 19.38,
+      "expires": "2025-11-15T11:27:45.617910",
+      "signal_score": 20.543970087447175
     },
-    "RLMD": {
-      "shares": 76,
-      "trigger_price": 2.5578,
-      "original_entry": 2.61,
-      "expires": "2025-11-12T11:27:46.481442",
-      "signal_score": 13.237337777728866
+    "BETA": {
+      "shares": 6,
+      "trigger_price": 31.369799999999998,
+      "original_entry": 32.01,
+      "expires": "2025-11-15T11:27:45.814261",
+      "signal_score": 17.241516327141355
     },
-    "BBT": {
-      "shares": 7,
-      "trigger_price": 25.7054,
-      "original_entry": 26.23,
-      "expires": "2025-11-12T11:27:47.377062",
-      "signal_score": 11.242712362971766
+    "YCY": {
+      "shares": 19,
+      "trigger_price": 9.8294,
+      "original_entry": 10.03,
+      "expires": "2025-11-15T11:27:46.197352",
+      "signal_score": 6.995602034106074
     }
   },
   "total_trades": 3,
@@ -91,6 +91,6 @@
   "losing_trades": 0,
   "total_profit": 0.0,
   "max_portfolio_value": 10000,
-  "max_drawdown": 0.0,
-  "last_updated": "2025-11-07T11:27:48.096887"
+  "max_drawdown": -1.8189894035458565e-14,
+  "last_updated": "2025-11-10T11:27:46.411942"
 }
