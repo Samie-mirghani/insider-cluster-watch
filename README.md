@@ -86,6 +86,26 @@ Enhances insider signals by checking for confirmation from other data sources:
   - **Tier 4** (watch list): 25% positions, 6% stops
 - **Email Badges:** Shows 🔥 TIER 1, ⚡ TIER 2, and 🏛️ POLITICIAN indicators in reports
 
+#### Capitol Trades Scraper
+**Robust politician trading data extraction:**
+- **Selenium-based:** Handles JavaScript-rendered React/Next.js content
+- **Targeted extraction:** Uses Capitol Trades-specific CSS selectors (`h2.politician-name`, `span.issuer-ticker`, `span.tx-type--buy/sell`)
+- **Smart parsing:** Handles ticker formats like "MCK:US" → "MCK"
+- **Relative dates:** Parses "Today", "Yesterday" into actual dates
+- **Buy-only filtering:** Focuses on purchases for bullish signals
+- **Fallback search:** Searches entire row HTML for transaction indicators if cell-level extraction fails
+
+**Tracked politicians** (weighted by performance):
+- Nancy Pelosi (2.0x), Paul Pelosi (2.0x), Josh Gottheimer (1.8x), Mark Green (1.6x), Dan Crenshaw (1.5x), and 10+ more
+
+#### SEC 13F Parser
+**Production-ready institutional holdings validator:**
+- **30-second timeout:** Extended from 10s to handle slow SEC servers
+- **Exponential backoff:** Retry logic with 2s, 4s, 8s delays
+- **24-hour caching:** Avoids repeated API calls to SEC EDGAR
+- **XML error handling:** Gracefully handles malformed SEC responses with content cleaning
+- **Priority funds:** Tracks 15 top institutional investors (Berkshire Hathaway, Bridgewater, Renaissance Technologies, etc.)
+
 ---
 
 ## 📁 Project Layout
@@ -139,6 +159,8 @@ insider-cluster-watch/
 - **Python 3.10+** (3.8+ may work but 3.10 recommended)
 - **Git & GitHub account** (for automated workflows)
 - **Gmail account** with app password for SMTP sending
+- **Chrome/Chromium browser** (required for Capitol Trades scraping with Selenium)
+- **ChromeDriver** (Selenium will attempt to auto-install if missing)
 - **(Optional)** Local setup for testing before deploying to GitHub Actions
 
 ---
@@ -158,7 +180,25 @@ cd insider-cluster-watch
 pip install -r requirements.txt
 ```
 
-### 3. Set up environment variables
+### 3. Install Chrome/Chromium (for Capitol Trades scraping)
+
+**Ubuntu/Debian:**
+```bash
+sudo apt-get update
+sudo apt-get install chromium-browser
+```
+
+**macOS:**
+```bash
+brew install chromium
+```
+
+**Windows:**
+Download and install [Chrome](https://www.google.com/chrome/) or [Chromium](https://www.chromium.org/getting-involved/download-chromium/)
+
+**Note:** Selenium will attempt to auto-download ChromeDriver if not found in PATH.
+
+### 4. Set up environment variables
 
 Create a `.env` file in the root directory:
 
@@ -170,7 +210,7 @@ RECIPIENT_EMAIL=your-email@gmail.com
 
 **Note:** You need a [Gmail app password](https://support.google.com/accounts/answer/185833) (not your regular password).
 
-### 4. Test the script locally
+### 5. Test the script locally
 
 ```bash
 cd jobs
@@ -179,7 +219,7 @@ python main.py --test
 
 This sends a test email and exits without saving to history.
 
-### 5. Generate a fake urgent alert (optional)
+### 6. Generate a fake urgent alert (optional)
 
 ```bash
 python main.py --urgent-test
