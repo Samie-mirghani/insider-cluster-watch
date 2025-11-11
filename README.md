@@ -23,7 +23,7 @@ Automated pipeline to detect and score insider open-market buys (Form 4), genera
 - **Simulates** paper trading with tiered position sizing (25%-100% based on signal strength) and dynamic stop losses (6%-12%)
 - **Backtests** signals automatically every Sunday to measure hit rate and alpha vs SPY
 - **Reports** weekly performance summaries with advanced metrics (Sharpe ratio, max drawdown, win rate)
-- **Runs** automatically on a nightly schedule via GitHub Actions (weekdays at 7PM ET)
+- **Runs** automatically on a daily schedule via GitHub Actions (weekdays at 7AM ET)
 
 ---
 
@@ -137,9 +137,8 @@ insider-cluster-watch/
 │   └── weekly_performance.html   # Weekly summary template
 ├── .github/
 │   └── workflows/
-│       ├── nightly.yml           # Daily signal generation (Mon-Fri 7PM ET)
-│       ├── weekly_backtest.yml   # Weekly backtest (Sun 8AM ET)
-│       └── weekly_summary.yml    # Weekly performance report
+│       ├── daily_job.yml         # Daily signal generation (Mon-Fri 7AM ET)
+│       └── weekly_backtest.yml   # Weekly backtest (Sun 8AM ET)
 ├── data/
 │   ├── signals_history.csv       # Historical signal tracking
 │   ├── backtest_results.csv      # Backtest performance data
@@ -317,9 +316,9 @@ MULTI_SIGNAL_STOP_LOSS = {
    - `GMAIL_APP_PASSWORD`
    - `RECIPIENT_EMAIL`
 
-### Daily Signal Generation (Mon-Fri 7PM ET)
+### Daily Signal Generation (Mon-Fri 7AM ET)
 
-**File:** `.github/workflows/nightly.yml`
+**File:** `.github/workflows/daily_job.yml`
 
 - Scrapes insider data from OpenInsider and SEC EDGAR
 - Deduplicates transactions

@@ -5,11 +5,15 @@ Enhanced paper trading that considers politician and institutional signals
 
 import pandas as pd
 import json
+import os
 from datetime import datetime
 from typing import Dict, List
 import logging
 
 logger = logging.getLogger(__name__)
+
+# Data directory
+DATA_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data')
 
 
 class MultiSignalPaperTrader:
@@ -200,8 +204,11 @@ class MultiSignalPaperTrader:
 
         return entries
 
-    def save_positions(self, filename: str = 'data/paper_trades.json'):
+    def save_positions(self, filename: str = None):
         """Save positions to file"""
+        if filename is None:
+            filename = os.path.join(DATA_DIR, 'paper_trades.json')
+
         # Convert datetime objects to strings
         positions_serializable = []
         for pos in self.positions:

@@ -55,7 +55,7 @@ TIER_1_MIN_SIGNALS = 3  # Tier 1: 3+ signals (highest conviction)
 TIER_2_MIN_SIGNALS = 2  # Tier 2: 2 signals (high conviction)
 
 # SEC EDGAR Settings
-SEC_USER_AGENT = "InsiderClusterWatch admin@example.com"  # Required by SEC
+SEC_USER_AGENT = "InsiderClusterWatch samie.mirghani@gmail.com"  # Required by SEC
 
 # Multi-Signal Position Sizing (overrides standard sizing for multi-signal trades)
 MULTI_SIGNAL_POSITION_SIZES = {
