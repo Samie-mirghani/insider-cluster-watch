@@ -42,8 +42,8 @@ LOG_FILE = 'data/paper_trading.log'
 
 # Multi-Signal Detection Settings
 ENABLE_MULTI_SIGNAL = True  # Enable politician and institutional detection
-ENABLE_POLITICIAN_SCRAPING = True  # Scrape Capitol Trades
-ENABLE_13F_CHECKING = True  # Check 13F filings (optional, slower)
+ENABLE_POLITICIAN_SCRAPING = False  # Scrape Capitol Trades - TODO: Requires Selenium for JavaScript rendering
+ENABLE_13F_CHECKING = False  # Check 13F filings (optional, slower) - TODO: Fix XML parsing errors and timeouts
 
 # Politician Trading
 POLITICIAN_LOOKBACK_DAYS = 30  # Days to look back for politician trades
