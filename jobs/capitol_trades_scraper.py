@@ -14,6 +14,10 @@ from typing import List, Dict, Optional
 import json
 from urllib.parse import urlencode
 
+# Setup logging first
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
 # Selenium imports
 try:
     from selenium import webdriver
@@ -27,9 +31,6 @@ try:
 except ImportError:
     SELENIUM_AVAILABLE = False
     logger.warning("Selenium not installed. Capitol Trades scraping will be limited.")
-
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
 
 
 class CapitolTradesScraper:
@@ -70,21 +71,23 @@ class CapitolTradesScraper:
         self.use_selenium = use_selenium and SELENIUM_AVAILABLE
         self.driver = None
 
-        if not self.use_selenium:
-            logger.info("Using basic HTTP requests (may not work with Capitol Trades)")
-            self.session = requests.Session()
-            self.session.headers.update({
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-                'Accept-Language': 'en-US,en;q=0.5',
-                'Accept-Encoding': 'gzip, deflate, br',
-                'DNT': '1',
-                'Connection': 'keep-alive',
-                'Upgrade-Insecure-Requests': '1'
-            })
-        else:
+        # Always create session as fallback
+        self.session = requests.Session()
+        self.session.headers.update({
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+            'Accept-Language': 'en-US,en;q=0.5',
+            'Accept-Encoding': 'gzip, deflate, br',
+            'DNT': '1',
+            'Connection': 'keep-alive',
+            'Upgrade-Insecure-Requests': '1'
+        })
+
+        if self.use_selenium:
             logger.info("Using Selenium for JavaScript rendering")
             self._setup_selenium()
+        else:
+            logger.info("Using basic HTTP requests (may not work with Capitol Trades)")
 
     def _setup_selenium(self):
         """Setup Selenium WebDriver with Chrome headless"""
@@ -330,30 +333,40 @@ class CapitolTradesScraper:
 
                 # Log first few rows for debugging
                 if idx < 3:
-                    logger.debug(f"Row {idx}: {len(cells)} cells")
+                    logger.info(f"Row {idx}: {len(cells)} cells")
                     for i, cell in enumerate(cells[:6]):
-                        logger.debug(f"  Cell {i}: {self._extract_text(cell)[:50]}")
+                        logger.info(f"  Cell {i}: {self._extract_text(cell)[:50]}")
 
-                # Capitol Trades typical structure (adjust based on actual HTML):
-                # Cell 0: Politician name
-                # Cell 1: Ticker/Asset
-                # Cell 2: Transaction type
-                # Cell 3: Trade date or disclosure date
-                # Cell 4: Another date field
-                # Cell 5: Amount
+                # Capitol Trades structure (based on actual HTML):
+                # Cell 0: Politician name (h2.politician-name > a)
+                # Cell 1: Ticker/Asset (span.issuer-ticker format "MCK:US")
+                # Cell 2: Transaction type (span.tx-type.tx-type--buy or tx-type--sell)
+                # Cell 3: Trade date (nested divs)
+                # Cell 4: Disclosure date (nested divs)
+                # Cell 5: Amount range
+
+                # Extract politician name using Capitol Trades-specific method
+                politician = self._extract_politician_name(cells[0]) if len(cells) > 0 else ""
 
                 # Try to extract ticker - it might be in different cells
                 ticker = None
-                for i in range(min(3, len(cells))):
+                for i in range(min(4, len(cells))):
                     ticker = self._extract_ticker(cells[i])
                     if ticker:
                         break
 
+                # Extract transaction type using Capitol Trades-specific method
+                transaction_type = ""
+                for i in range(min(4, len(cells))):
+                    transaction_type = self._extract_transaction_type(cells[i])
+                    if transaction_type:
+                        break
+
                 trade = {
-                    'politician': self._extract_text(cells[0]) if len(cells) > 0 else "",
+                    'politician': politician,
                     'ticker': ticker or "",
                     'asset_name': self._extract_text(cells[1]) if len(cells) > 1 else "",
-                    'transaction_type': self._extract_text(cells[2]) if len(cells) > 2 else "",
+                    'transaction_type': transaction_type,
                     'trade_date': self._parse_date(self._extract_text(cells[3])) if len(cells) > 3 else None,
                     'disclosure_date': self._parse_date(self._extract_text(cells[4])) if len(cells) > 4 else None,
                     'amount_range': self._extract_text(cells[5]) if len(cells) > 5 else "",
@@ -365,7 +378,11 @@ class CapitolTradesScraper:
                 if trade['politician'] and trade['ticker']:
                     if 'purchase' in trade['transaction_type'].lower() or 'buy' in trade['transaction_type'].lower():
                         trades.append(trade)
-                        logger.debug(f"✓ Added trade: {trade['politician']} - {trade['ticker']}")
+                        logger.info(f"✓ Added trade: {trade['politician']} - {trade['ticker']}")
+                    else:
+                        logger.info(f"✗ Skipped (not purchase/buy): {trade['politician']} - {trade['ticker']} ({trade['transaction_type']})")
+                else:
+                    logger.info(f"✗ Skipped (missing fields): politician={trade['politician']}, ticker={trade['ticker']}")
 
             except Exception as e:
                 logger.debug(f"Error parsing row {idx}: {e}")
@@ -380,21 +397,61 @@ class CapitolTradesScraper:
             return ""
         return cell.get_text(strip=True)
 
-    def _extract_ticker(self, cell) -> str:
-        """Extract ticker symbol from cell"""
-        text = self._extract_text(cell)
+    def _extract_politician_name(self, cell) -> str:
+        """Extract politician name from Capitol Trades cell structure"""
+        if not cell:
+            return ""
 
-        # Look for ticker in parentheses or brackets
+        # Capitol Trades uses: h2.politician-name > a
+        politician_elem = cell.find('h2', class_='politician-name')
+        if politician_elem:
+            link = politician_elem.find('a')
+            if link:
+                return link.get_text(strip=True)
+
+        # Fallback to generic text extraction
+        return self._extract_text(cell)
+
+    def _extract_ticker(self, cell) -> str:
+        """Extract ticker symbol from Capitol Trades cell structure"""
+        if not cell:
+            return ""
+
+        # Capitol Trades uses: span.issuer-ticker with format "MCK:US"
+        ticker_elem = cell.find('span', class_='issuer-ticker')
+        if ticker_elem:
+            ticker_text = ticker_elem.get_text(strip=True)
+            # Parse format like "MCK:US" to get just "MCK"
+            if ':' in ticker_text:
+                return ticker_text.split(':')[0].strip()
+            return ticker_text
+
+        # Fallback: Look for ticker in parentheses or brackets
         import re
+        text = self._extract_text(cell)
         match = re.search(r'[\(\[]([A-Z]{1,5})[\)\]]', text)
         if match:
             return match.group(1)
 
-        # Sometimes ticker is in a span or link
+        # Fallback: Sometimes ticker is in a span or link
         ticker_elem = cell.find('span', class_='ticker') or cell.find('a', class_='ticker')
         if ticker_elem:
             return ticker_elem.get_text(strip=True)
 
+        return ""
+
+    def _extract_transaction_type(self, cell) -> str:
+        """Extract transaction type from Capitol Trades cell structure"""
+        if not cell:
+            return ""
+
+        # Capitol Trades uses: span.tx-type.tx-type--buy or span.tx-type.tx-type--sell
+        import re
+        tx_elem = cell.find('span', class_=re.compile(r'tx-type'))
+        if tx_elem:
+            return tx_elem.get_text(strip=True)
+
+        # Don't fallback - only return if we found the specific element
         return ""
 
     def _parse_date(self, date_str: str) -> Optional[datetime]:
@@ -402,13 +459,23 @@ class CapitolTradesScraper:
         if not date_str:
             return None
 
+        date_str = date_str.strip().lower()
+
+        # Handle relative dates (Capitol Trades format)
+        if 'today' in date_str:
+            return datetime.now()
+        elif 'yesterday' in date_str:
+            return datetime.now() - timedelta(days=1)
+
         # Try multiple date formats
         formats = [
             '%Y-%m-%d',
             '%m/%d/%Y',
             '%m/%d/%y',
             '%B %d, %Y',
-            '%b %d, %Y'
+            '%b %d, %Y',
+            '%m-%d-%Y',
+            '%m-%d-%y'
         ]
 
         for fmt in formats:
