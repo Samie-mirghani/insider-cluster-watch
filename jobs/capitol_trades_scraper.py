@@ -250,7 +250,7 @@ class CapitolTradesScraper:
                 self.save_debug_html(str(soup), page)
 
             # Find trade table
-            trades = self._parse_trades_page(soup)
+            trades = self._parse_trades_page(soup, debug=debug)
 
             if not trades:
                 logger.info(f"No trades found on page {page}, stopping")
@@ -282,12 +282,13 @@ class CapitolTradesScraper:
         logger.info(f"✓ Scraped {len(df)} trades total")
         return df
 
-    def _parse_trades_page(self, soup: BeautifulSoup) -> List[Dict]:
+    def _parse_trades_page(self, soup: BeautifulSoup, debug: bool = False) -> List[Dict]:
         """
         Parse trades from a Capitol Trades page
 
         Args:
             soup: BeautifulSoup object
+            debug: Enable verbose debug logging
 
         Returns:
             List of trade dictionaries
@@ -332,9 +333,9 @@ class CapitolTradesScraper:
                     continue
 
                 # Log first few rows for debugging
-                if idx < 3:
+                if debug and idx < 3:
                     logger.info(f"Row {idx}: {len(cells)} cells")
-                    for i, cell in enumerate(cells[:6]):
+                    for i, cell in enumerate(cells):
                         logger.info(f"  Cell {i}: {self._extract_text(cell)[:50]}")
 
                 # Capitol Trades structure (based on actual HTML):
@@ -357,10 +358,20 @@ class CapitolTradesScraper:
 
                 # Extract transaction type using Capitol Trades-specific method
                 transaction_type = ""
-                for i in range(min(4, len(cells))):
+                for i in range(len(cells)):  # Check all cells
                     transaction_type = self._extract_transaction_type(cells[i])
                     if transaction_type:
                         break
+
+                # Fallback: Search entire row HTML for transaction indicators
+                if not transaction_type:
+                    row_html = str(row).lower()
+                    if 'tx-type--buy' in row_html or 'purchase' in row_html:
+                        transaction_type = 'buy'
+                    elif 'tx-type--sell' in row_html or 'sale' in row_html:
+                        transaction_type = 'sell'
+                    elif 'tx-type--exchange' in row_html:
+                        transaction_type = 'exchange'
 
                 trade = {
                     'politician': politician,
@@ -378,10 +389,11 @@ class CapitolTradesScraper:
                 if trade['politician'] and trade['ticker']:
                     if 'purchase' in trade['transaction_type'].lower() or 'buy' in trade['transaction_type'].lower():
                         trades.append(trade)
-                        logger.info(f"✓ Added trade: {trade['politician']} - {trade['ticker']}")
-                    else:
+                        if debug:
+                            logger.info(f"✓ Added trade: {trade['politician']} - {trade['ticker']}")
+                    elif debug:
                         logger.info(f"✗ Skipped (not purchase/buy): {trade['politician']} - {trade['ticker']} ({trade['transaction_type']})")
-                else:
+                elif debug:
                     logger.info(f"✗ Skipped (missing fields): politician={trade['politician']}, ticker={trade['ticker']}")
 
             except Exception as e:
@@ -445,13 +457,23 @@ class CapitolTradesScraper:
         if not cell:
             return ""
 
-        # Capitol Trades uses: span.tx-type.tx-type--buy or span.tx-type.tx-type--sell
+        # Method 1: Capitol Trades uses: span.tx-type.tx-type--buy or span.tx-type.tx-type--sell
         import re
         tx_elem = cell.find('span', class_=re.compile(r'tx-type'))
         if tx_elem:
             return tx_elem.get_text(strip=True)
 
-        # Don't fallback - only return if we found the specific element
+        # Method 2: Look for div with tx-type class
+        tx_elem = cell.find('div', class_=re.compile(r'tx-type'))
+        if tx_elem:
+            return tx_elem.get_text(strip=True)
+
+        # Method 3: Search for common transaction keywords in text
+        text = self._extract_text(cell).lower()
+        if text in ['buy', 'purchase', 'sell', 'sale', 'exchange']:
+            return text
+
+        # Don't fallback beyond this - only return if we found transaction indicators
         return ""
 
     def _parse_date(self, date_str: str) -> Optional[datetime]:
