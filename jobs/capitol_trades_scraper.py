@@ -209,7 +209,16 @@ class CapitolTradesScraper:
 
         return None
 
-    def scrape_recent_trades(self, days_back: int = 30, max_pages: int = 5) -> pd.DataFrame:
+    def save_debug_html(self, html_content: str, page_num: int = 1):
+        """Save HTML for debugging purposes"""
+        import os
+        os.makedirs('data/debug', exist_ok=True)
+        filepath = f'data/debug/capitol_trades_page{page_num}.html'
+        with open(filepath, 'w', encoding='utf-8') as f:
+            f.write(html_content)
+        logger.info(f"💾 Saved debug HTML to {filepath}")
+
+    def scrape_recent_trades(self, days_back: int = 30, max_pages: int = 5, debug: bool = False) -> pd.DataFrame:
         """
         Scrape recent politician trades
 
@@ -232,6 +241,10 @@ class CapitolTradesScraper:
             soup = self._make_request(url)
             if not soup:
                 break
+
+            # Save HTML for debugging if requested
+            if debug:
+                self.save_debug_html(str(soup), page)
 
             # Find trade table
             trades = self._parse_trades_page(soup)
@@ -292,37 +305,73 @@ class CapitolTradesScraper:
             logger.warning("Could not find trades table on page")
             return trades
 
-        # Parse table rows
-        rows = table.find_all('tr')[1:]  # Skip header
+        # Parse table rows - try both tbody and direct tr
+        tbody = table.find('tbody')
+        if tbody:
+            rows = tbody.find_all('tr')
+            logger.debug(f"Found {len(rows)} rows in tbody")
+        else:
+            rows = table.find_all('tr')[1:]  # Skip header if no tbody
+            logger.debug(f"Found {len(rows)} rows in table (no tbody)")
 
-        for row in rows:
+        if not rows:
+            logger.warning("No table rows found")
+            return trades
+
+        logger.info(f"Parsing {len(rows)} table rows...")
+
+        for idx, row in enumerate(rows):
             try:
                 cells = row.find_all('td')
 
-                if len(cells) < 6:
+                if len(cells) < 4:
+                    logger.debug(f"Row {idx}: Skipping - only {len(cells)} cells")
                     continue
 
-                # Extract data (adjust indices based on actual table structure)
+                # Log first few rows for debugging
+                if idx < 3:
+                    logger.debug(f"Row {idx}: {len(cells)} cells")
+                    for i, cell in enumerate(cells[:6]):
+                        logger.debug(f"  Cell {i}: {self._extract_text(cell)[:50]}")
+
+                # Capitol Trades typical structure (adjust based on actual HTML):
+                # Cell 0: Politician name
+                # Cell 1: Ticker/Asset
+                # Cell 2: Transaction type
+                # Cell 3: Trade date or disclosure date
+                # Cell 4: Another date field
+                # Cell 5: Amount
+
+                # Try to extract ticker - it might be in different cells
+                ticker = None
+                for i in range(min(3, len(cells))):
+                    ticker = self._extract_ticker(cells[i])
+                    if ticker:
+                        break
+
                 trade = {
-                    'politician': self._extract_text(cells[0]),
-                    'ticker': self._extract_ticker(cells[1]),
-                    'asset_name': self._extract_text(cells[1]),
-                    'transaction_type': self._extract_text(cells[2]),
-                    'trade_date': self._parse_date(self._extract_text(cells[3])),
-                    'disclosure_date': self._parse_date(self._extract_text(cells[4])),
-                    'amount_range': self._extract_text(cells[5]),
-                    'chamber': self._detect_chamber(cells[0]),
-                    'party': self._detect_party(cells[0])
+                    'politician': self._extract_text(cells[0]) if len(cells) > 0 else "",
+                    'ticker': ticker or "",
+                    'asset_name': self._extract_text(cells[1]) if len(cells) > 1 else "",
+                    'transaction_type': self._extract_text(cells[2]) if len(cells) > 2 else "",
+                    'trade_date': self._parse_date(self._extract_text(cells[3])) if len(cells) > 3 else None,
+                    'disclosure_date': self._parse_date(self._extract_text(cells[4])) if len(cells) > 4 else None,
+                    'amount_range': self._extract_text(cells[5]) if len(cells) > 5 else "",
+                    'chamber': self._detect_chamber(cells[0]) if len(cells) > 0 else "",
+                    'party': self._detect_party(cells[0]) if len(cells) > 0 else ""
                 }
 
-                # Only add if it's a purchase
-                if 'purchase' in trade['transaction_type'].lower():
-                    trades.append(trade)
+                # Only add if we have minimum required fields and it's a purchase
+                if trade['politician'] and trade['ticker']:
+                    if 'purchase' in trade['transaction_type'].lower() or 'buy' in trade['transaction_type'].lower():
+                        trades.append(trade)
+                        logger.debug(f"✓ Added trade: {trade['politician']} - {trade['ticker']}")
 
             except Exception as e:
-                logger.debug(f"Error parsing row: {e}")
+                logger.debug(f"Error parsing row {idx}: {e}")
                 continue
 
+        logger.info(f"Successfully parsed {len(trades)} trades from {len(rows)} rows")
         return trades
 
     def _extract_text(self, cell) -> str:
