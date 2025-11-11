@@ -14,11 +14,13 @@ Automated pipeline to detect and score insider open-market buys (Form 4), genera
 - **Clusters** multiple insider buys within a time window to identify conviction
 - **Scores** signals based on cluster size, dollar amounts, and insider roles (CEO/CFO weighted higher)
 - **Enriches** with market data via yfinance (current price, 52-week low distance)
+- **Multi-Signal Detection** - Combines insider trades with politician trades (Capitol Trades) and institutional holdings (SEC 13F) for confirmation
+- **Tiered Signals** - Classifies signals into 4 tiers based on confirmation count (Tier 1 = 3+ signals, Tier 2 = 2 signals)
 - **Detects** concerning insider selling patterns and adds warning banners to reports
-- **Generates** daily HTML + plain-text email reports with ranked buy signals
+- **Generates** daily HTML + plain-text email reports with ranked buy signals and multi-signal badges
 - **Sends** urgent alerts when high-conviction clusters are detected (3+ insiders, $250k+)
 - **Tracks** all signals in CSV for historical backtesting
-- **Simulates** paper trading with automatic position sizing, stop losses, and take profits
+- **Simulates** paper trading with tiered position sizing (25%-100% based on signal strength) and dynamic stop losses (6%-12%)
 - **Backtests** signals automatically every Sunday to measure hit rate and alpha vs SPY
 - **Reports** weekly performance summaries with advanced metrics (Sharpe ratio, max drawdown, win rate)
 - **Runs** automatically on a nightly schedule via GitHub Actions (weekdays at 7PM ET)
@@ -73,6 +75,17 @@ Checks recent news for each signal to identify potential catalysts or red flags.
 ### 9. No-Activity Reports
 When no significant signals are detected, sends a summary explaining why and showing transaction statistics.
 
+### 10. Multi-Signal Detection
+Enhances insider signals by checking for confirmation from other data sources:
+- **Politician Trades:** Scrapes Capitol Trades for congressional trading activity (tracks 15+ high-performing politicians)
+- **Institutional Holdings:** Validates with SEC 13F filings from 15 priority funds (Berkshire, Bridgewater, etc.)
+- **Tiered Classification:** Assigns signals to tiers based on confirmation count
+  - **Tier 1** (3+ signals): Largest positions (100%), widest stops (12%)
+  - **Tier 2** (2 signals): 75% positions, 10% stops
+  - **Tier 3** (1 signal): 50% positions, 8% stops
+  - **Tier 4** (watch list): 25% positions, 6% stops
+- **Email Badges:** Shows 🔥 TIER 1, ⚡ TIER 2, and 🏛️ POLITICIAN indicators in reports
+
 ---
 
 ## 📁 Project Layout
@@ -80,19 +93,23 @@ When no significant signals are detected, sends a summary explaining why and sho
 ```
 insider-cluster-watch/
 ├── jobs/
-│   ├── main.py                   # Main orchestration script
-│   ├── fetch_openinsider.py      # Scrapes OpenInsider data
-│   ├── fetch_sec_edgar.py        # SEC EDGAR backup data source
-│   ├── process_signals.py        # Clustering, scoring, deduplication logic
-│   ├── generate_report.py        # Jinja2 template rendering
-│   ├── send_email.py             # Gmail SMTP email sender
-│   ├── paper_trade.py            # Paper trading portfolio simulation
-│   ├── paper_trade_monitor.py    # Portfolio monitoring and metrics
-│   ├── news_sentiment.py         # News analysis for signals
-│   ├── backtest.py               # Performance backtesting (1w & 1m horizons)
-│   ├── weekly_summary.py         # Weekly performance report generation
-│   ├── visualize.py              # Generate performance charts
-│   └── config.py                 # Configuration settings
+│   ├── main.py                        # Main orchestration script
+│   ├── fetch_openinsider.py           # Scrapes OpenInsider data
+│   ├── fetch_sec_edgar.py             # SEC EDGAR backup data source
+│   ├── process_signals.py             # Clustering, scoring, deduplication logic
+│   ├── capitol_trades_scraper.py      # Politician trading scraper (Capitol Trades)
+│   ├── sec_13f_parser.py              # Institutional holdings parser (SEC 13F)
+│   ├── multi_signal_detector.py       # Multi-signal detection engine
+│   ├── paper_trading_multi_signal.py  # Enhanced paper trading with tiers
+│   ├── generate_report.py             # Jinja2 template rendering
+│   ├── send_email.py                  # Gmail SMTP email sender
+│   ├── paper_trade.py                 # Paper trading portfolio simulation
+│   ├── paper_trade_monitor.py         # Portfolio monitoring and metrics
+│   ├── news_sentiment.py              # News analysis for signals
+│   ├── backtest.py                    # Performance backtesting (1w & 1m horizons)
+│   ├── weekly_summary.py              # Weekly performance report generation
+│   ├── visualize.py                   # Generate performance charts
+│   └── config.py                      # Configuration settings
 ├── templates/
 │   ├── daily_report.html         # Daily email template
 │   ├── urgent_alert.html         # Urgent alert template
@@ -214,13 +231,37 @@ concerning = sells[
 
 **Paper trading settings:**
 ```python
-# In jobs/paper_trade.py
+# In jobs/config.py
 PORTFOLIO_CONFIG = {
     'starting_capital': 10000,        # Initial capital
-    'position_size': 0.02,            # 2% per position
-    'max_positions': 10,              # Max concurrent
-    'stop_loss': 0.05,                # -5% stop
+    'position_size': 0.05,            # 5% base per position
+    'max_positions': 5,               # Max concurrent
+    'stop_loss': 0.05,                # -5% default stop
     'take_profit': 0.08,              # +8% target
+}
+```
+
+**Multi-signal settings:**
+```python
+# In jobs/config.py
+ENABLE_MULTI_SIGNAL = True           # Enable multi-signal detection
+ENABLE_POLITICIAN_SCRAPING = True    # Scrape Capitol Trades
+ENABLE_13F_CHECKING = True           # Check 13F filings (slower)
+
+# Tiered position sizing (multiplier × base position)
+MULTI_SIGNAL_POSITION_SIZES = {
+    'tier1': 1.0,   # 100% - 3+ signals
+    'tier2': 0.75,  # 75% - 2 signals
+    'tier3': 0.50,  # 50% - 1 signal
+    'tier4': 0.25   # 25% - watch list
+}
+
+# Tiered stop losses (wider for higher conviction)
+MULTI_SIGNAL_STOP_LOSS = {
+    'tier1': 0.12,  # 12% stop
+    'tier2': 0.10,  # 10% stop
+    'tier3': 0.08,  # 8% stop
+    'tier4': 0.06   # 6% stop
 }
 ```
 
@@ -442,18 +483,20 @@ python test_paper_trading.py
 - ✅ Daily signal generation with deduplication
 - ✅ Email reports with sell warnings
 - ✅ Urgent alerts with dynamic counts
-- ✅ Paper trading simulation
+- ✅ Paper trading simulation with tiered position sizing
+- ✅ Multi-signal detection (politician trades + institutional holdings)
+- ✅ Tiered signal classification (Tier 1-4)
 - ✅ Weekly backtesting
 - ✅ Weekly performance summaries
 - ✅ News sentiment analysis
 - ✅ Performance tracking and visualization
 
 ### Near-Term Improvements
+- [ ] Short interest tracking (FINRA data)
+- [ ] Options flow data integration
 - [ ] Enhanced pattern detection (CEO clusters, C-suite coordination)
 - [ ] Sector-specific scoring adjustments
-- [ ] Improved news sentiment integration
 - [ ] Mobile push notifications (Pushover, Telegram)
-- [ ] Advanced technical indicators
 
 ### Long-Term Vision
 - [ ] Machine learning scoring model (vs. rule-based)
@@ -547,17 +590,23 @@ Based on insider trading research and backtesting:
    ↓
 7. Enrich with yfinance market data
    ↓
-8. Check news sentiment
+8. Multi-Signal Detection (if enabled)
+   ├─ Scrape Capitol Trades for politician activity
+   ├─ Check SEC 13F for institutional holdings
+   ├─ Assign tier based on confirmation count
+   └─ Boost rank score for multi-signal stocks
    ↓
-9. Rank by composite score
+9. Check news sentiment
    ↓
-10. Simulate paper trading execution
+10. Rank by composite score
    ↓
-11. Generate HTML/text reports
+11. Simulate paper trading execution (tier-based sizing)
    ↓
-12. Send emails via Gmail SMTP
+12. Generate HTML/text reports (with tier badges)
    ↓
-13. Save to signals_history.csv
+13. Send emails via Gmail SMTP
+   ↓
+14. Save to signals_history.csv (with tier data)
 ```
 
 ### Scoring Algorithm
