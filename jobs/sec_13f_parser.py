@@ -11,6 +11,9 @@ import time
 import logging
 from typing import Dict, List, Optional
 import xml.etree.ElementTree as ET
+import json
+import os
+from pathlib import Path
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -43,21 +46,69 @@ class SEC13FParser:
         'ValueAct': ['0001105158']
     }
 
-    def __init__(self, user_agent: str):
+    def __init__(self, user_agent: str, cache_dir: str = "data/13f_cache"):
         """
         Initialize parser
 
         Args:
             user_agent: User-Agent for SEC requests (required by SEC)
                        Format: "CompanyName AdminContact@example.com"
+            cache_dir: Directory for caching 13F results (24-hour cache)
         """
         self.user_agent = user_agent
+        self.cache_dir = Path(cache_dir)
+        self.cache_dir.mkdir(parents=True, exist_ok=True)
+
         self.session = requests.Session()
         self.session.headers.update({
             'User-Agent': user_agent,
             'Accept-Encoding': 'gzip, deflate',
             'Host': 'www.sec.gov'
         })
+
+        # Retry settings
+        self.max_retries = 3
+        self.retry_delays = [2, 4, 8]  # Exponential backoff
+        self.timeout = 30  # Increased from 10s
+
+    def _get_cache_path(self, ticker: str) -> Path:
+        """Get cache file path for a ticker"""
+        return self.cache_dir / f"{ticker}_13f.json"
+
+    def _is_cache_valid(self, cache_path: Path) -> bool:
+        """Check if cache file is valid (less than 24 hours old)"""
+        if not cache_path.exists():
+            return False
+
+        cache_age = time.time() - cache_path.stat().st_mtime
+        return cache_age < (24 * 60 * 60)  # 24 hours
+
+    def _read_cache(self, ticker: str) -> Optional[pd.DataFrame]:
+        """Read cached 13F results"""
+        cache_path = self._get_cache_path(ticker)
+
+        if self._is_cache_valid(cache_path):
+            try:
+                with open(cache_path, 'r') as f:
+                    data = json.load(f)
+                logger.info(f"📦 Using cached 13F data for {ticker}")
+                return pd.DataFrame(data)
+            except Exception as e:
+                logger.debug(f"Cache read error: {e}")
+                return None
+
+        return None
+
+    def _write_cache(self, ticker: str, df: pd.DataFrame):
+        """Write 13F results to cache"""
+        cache_path = self._get_cache_path(ticker)
+
+        try:
+            with open(cache_path, 'w') as f:
+                json.dump(df.to_dict('records'), f)
+            logger.debug(f"Cached 13F data for {ticker}")
+        except Exception as e:
+            logger.debug(f"Cache write error: {e}")
 
     def get_latest_13f_filings(self, cik: str, count: int = 5) -> List[Dict]:
         """
@@ -84,32 +135,66 @@ class SEC13FParser:
             'output': 'atom'
         }
 
-        try:
-            logger.info(f"Fetching 13F filings for CIK {cik}...")
+        logger.info(f"Fetching 13F filings for CIK {cik}...")
 
-            response = self.session.get(url, params=params, timeout=10)
-            response.raise_for_status()
+        # Retry logic with exponential backoff
+        for attempt in range(self.max_retries):
+            try:
+                response = self.session.get(url, params=params, timeout=self.timeout)
+                response.raise_for_status()
 
-            # Parse XML feed
-            root = ET.fromstring(response.content)
+                # Parse XML feed with better error handling
+                try:
+                    root = ET.fromstring(response.content)
+                except ET.ParseError as xml_error:
+                    logger.warning(f"XML parsing error for CIK {cik}: {xml_error}")
+                    # Try cleaning the content
+                    content = response.content.decode('utf-8', errors='ignore')
+                    # Remove problematic characters
+                    content = content.replace('\x00', '')
+                    try:
+                        root = ET.fromstring(content.encode('utf-8'))
+                    except ET.ParseError:
+                        logger.warning(f"Unable to parse XML for CIK {cik} even after cleaning")
+                        return []
 
-            filings = []
-            for entry in root.findall('{http://www.w3.org/2005/Atom}entry'):
-                filing_date = entry.find('{http://www.w3.org/2005/Atom}updated')
-                filing_url = entry.find('{http://www.w3.org/2005/Atom}link[@type="text/html"]')
+                filings = []
+                for entry in root.findall('{http://www.w3.org/2005/Atom}entry'):
+                    filing_date = entry.find('{http://www.w3.org/2005/Atom}updated')
+                    filing_url = entry.find('{http://www.w3.org/2005/Atom}link[@type="text/html"]')
 
-                if filing_date is not None and filing_url is not None:
-                    filings.append({
-                        'date': datetime.strptime(filing_date.text[:10], '%Y-%m-%d'),
-                        'url': filing_url.attrib['href']
-                    })
+                    if filing_date is not None and filing_url is not None:
+                        filings.append({
+                            'date': datetime.strptime(filing_date.text[:10], '%Y-%m-%d'),
+                            'url': filing_url.attrib['href']
+                        })
 
-            time.sleep(0.1)  # Rate limiting
-            return filings
+                time.sleep(0.5)  # Increased rate limiting from 0.1s to 0.5s
+                return filings
 
-        except Exception as e:
-            logger.warning(f"Error fetching 13F for CIK {cik}: {e}")
-            return []
+            except requests.exceptions.Timeout:
+                if attempt < self.max_retries - 1:
+                    delay = self.retry_delays[attempt]
+                    logger.warning(f"Timeout for CIK {cik}, retrying in {delay}s... (attempt {attempt + 1}/{self.max_retries})")
+                    time.sleep(delay)
+                else:
+                    logger.warning(f"Timeout for CIK {cik} after {self.max_retries} attempts")
+                    return []
+
+            except requests.exceptions.RequestException as e:
+                if attempt < self.max_retries - 1:
+                    delay = self.retry_delays[attempt]
+                    logger.warning(f"Request error for CIK {cik}: {e}, retrying in {delay}s...")
+                    time.sleep(delay)
+                else:
+                    logger.warning(f"Request failed for CIK {cik} after {self.max_retries} attempts: {e}")
+                    return []
+
+            except Exception as e:
+                logger.warning(f"Unexpected error fetching 13F for CIK {cik}: {e}")
+                return []
+
+        return []
 
     def parse_13f_holdings(self, filing_url: str) -> pd.DataFrame:
         """
@@ -123,7 +208,7 @@ class SEC13FParser:
         """
         try:
             # Get filing page
-            response = self.session.get(filing_url, timeout=10)
+            response = self.session.get(filing_url, timeout=self.timeout)
             response.raise_for_status()
 
             # Look for XML or text file with holdings
@@ -136,6 +221,7 @@ class SEC13FParser:
 
             holdings = []
 
+            time.sleep(0.5)  # Rate limiting
             return pd.DataFrame(holdings)
 
         except Exception as e:
@@ -154,6 +240,11 @@ class SEC13FParser:
         Returns:
             DataFrame of funds that hold this ticker
         """
+        # Check cache first
+        cached_data = self._read_cache(ticker)
+        if cached_data is not None:
+            return cached_data
+
         logger.info(f"Checking institutional interest for {ticker} ({quarter_year} Q{quarter})")
 
         results = []
@@ -183,8 +274,6 @@ class SEC13FParser:
                         'shares': 0   # Would come from parsed holdings
                     })
 
-                    time.sleep(0.1)  # Rate limiting
-
                 except Exception as e:
                     logger.debug(f"Error checking {fund_name}: {e}")
                     continue
@@ -193,6 +282,11 @@ class SEC13FParser:
 
         if not df.empty:
             logger.info(f"✓ Found {len(df)} priority funds with potential interest")
+            # Cache the results
+            self._write_cache(ticker, df)
+        else:
+            # Cache empty result too (avoid repeated failed lookups)
+            self._write_cache(ticker, df)
 
         return df
 

@@ -14,6 +14,20 @@ from typing import List, Dict, Optional
 import json
 from urllib.parse import urlencode
 
+# Selenium imports
+try:
+    from selenium import webdriver
+    from selenium.webdriver.chrome.service import Service
+    from selenium.webdriver.chrome.options import Options
+    from selenium.webdriver.common.by import By
+    from selenium.webdriver.support.ui import WebDriverWait
+    from selenium.webdriver.support import expected_conditions as EC
+    from selenium.common.exceptions import TimeoutException, WebDriverException
+    SELENIUM_AVAILABLE = True
+except ImportError:
+    SELENIUM_AVAILABLE = False
+    logger.warning("Selenium not installed. Capitol Trades scraping will be limited.")
+
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
@@ -42,26 +56,63 @@ class CapitolTradesScraper:
         'Default': 1.0
     }
 
-    def __init__(self, max_retries: int = 3, delay: float = 2.0):
+    def __init__(self, max_retries: int = 3, delay: float = 2.0, use_selenium: bool = True):
         """
         Initialize scraper
 
         Args:
             max_retries: Maximum retry attempts
             delay: Delay between requests (seconds)
+            use_selenium: Use Selenium for JavaScript rendering (required for Capitol Trades)
         """
         self.max_retries = max_retries
         self.delay = delay
-        self.session = requests.Session()
-        self.session.headers.update({
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-            'Accept-Language': 'en-US,en;q=0.5',
-            'Accept-Encoding': 'gzip, deflate, br',
-            'DNT': '1',
-            'Connection': 'keep-alive',
-            'Upgrade-Insecure-Requests': '1'
-        })
+        self.use_selenium = use_selenium and SELENIUM_AVAILABLE
+        self.driver = None
+
+        if not self.use_selenium:
+            logger.info("Using basic HTTP requests (may not work with Capitol Trades)")
+            self.session = requests.Session()
+            self.session.headers.update({
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+                'Accept-Language': 'en-US,en;q=0.5',
+                'Accept-Encoding': 'gzip, deflate, br',
+                'DNT': '1',
+                'Connection': 'keep-alive',
+                'Upgrade-Insecure-Requests': '1'
+            })
+        else:
+            logger.info("Using Selenium for JavaScript rendering")
+            self._setup_selenium()
+
+    def _setup_selenium(self):
+        """Setup Selenium WebDriver with Chrome headless"""
+        try:
+            chrome_options = Options()
+            chrome_options.add_argument('--headless')
+            chrome_options.add_argument('--no-sandbox')
+            chrome_options.add_argument('--disable-dev-shm-usage')
+            chrome_options.add_argument('--disable-gpu')
+            chrome_options.add_argument('--window-size=1920,1080')
+            chrome_options.add_argument('--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36')
+
+            self.driver = webdriver.Chrome(options=chrome_options)
+            logger.info("✓ Selenium WebDriver initialized")
+        except WebDriverException as e:
+            logger.error(f"Failed to initialize Selenium: {e}")
+            logger.error("Falling back to basic HTTP requests")
+            self.use_selenium = False
+            self.driver = None
+
+    def __del__(self):
+        """Cleanup Selenium driver on deletion"""
+        if self.driver:
+            try:
+                self.driver.quit()
+                logger.debug("Selenium driver closed")
+            except:
+                pass
 
     def _make_request(self, url: str) -> Optional[BeautifulSoup]:
         """
@@ -73,6 +124,64 @@ class CapitolTradesScraper:
         Returns:
             BeautifulSoup object or None on failure
         """
+        if self.use_selenium and self.driver:
+            return self._make_selenium_request(url)
+        else:
+            return self._make_http_request(url)
+
+    def _make_selenium_request(self, url: str) -> Optional[BeautifulSoup]:
+        """Make request using Selenium to handle JavaScript"""
+        for attempt in range(self.max_retries):
+            try:
+                logger.info(f"Requesting with Selenium: {url} (attempt {attempt + 1}/{self.max_retries})")
+
+                self.driver.get(url)
+
+                # Wait for the table to load (Capitol Trades uses JavaScript)
+                try:
+                    # Wait for table element to be present
+                    WebDriverWait(self.driver, 15).until(
+                        EC.presence_of_element_located((By.CSS_SELECTOR, "table.q-table"))
+                    )
+                    logger.info("✓ Table loaded successfully")
+                except TimeoutException:
+                    # Try alternative selector
+                    try:
+                        WebDriverWait(self.driver, 5).until(
+                            EC.presence_of_element_located((By.TAG_NAME, "table"))
+                        )
+                        logger.info("✓ Table loaded (alternative selector)")
+                    except TimeoutException:
+                        logger.warning("Timeout waiting for table to load")
+                        if attempt < self.max_retries - 1:
+                            time.sleep((attempt + 1) * 3)
+                            continue
+                        return None
+
+                # Get page source and parse with BeautifulSoup
+                html = self.driver.page_source
+                soup = BeautifulSoup(html, 'html.parser')
+
+                # Rate limiting
+                time.sleep(self.delay)
+
+                return soup
+
+            except WebDriverException as e:
+                logger.warning(f"Selenium request failed (attempt {attempt + 1}): {e}")
+
+                if attempt < self.max_retries - 1:
+                    wait_time = (attempt + 1) * 5
+                    logger.info(f"Waiting {wait_time}s before retry...")
+                    time.sleep(wait_time)
+                else:
+                    logger.error(f"All Selenium retry attempts failed for {url}")
+                    return None
+
+        return None
+
+    def _make_http_request(self, url: str) -> Optional[BeautifulSoup]:
+        """Make basic HTTP request (fallback method)"""
         for attempt in range(self.max_retries):
             try:
                 logger.info(f"Requesting: {url} (attempt {attempt + 1}/{self.max_retries})")
@@ -97,6 +206,8 @@ class CapitolTradesScraper:
                 else:
                     logger.error(f"All retry attempts failed for {url}")
                     return None
+
+        return None
 
     def scrape_recent_trades(self, days_back: int = 30, max_pages: int = 5) -> pd.DataFrame:
         """
