@@ -19,10 +19,11 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: Install Chrome for Selenium
+      - name: Verify Chrome installation
         run: |
-          sudo apt-get update
-          sudo apt-get install -y chromium-browser chromium-chromedriver
+          # GitHub Actions ubuntu-latest comes with Chrome and ChromeDriver pre-installed
+          google-chrome --version
+          chromedriver --version
 
       - name: Install dependencies
         run: |
