@@ -1747,3 +1747,138 @@
 2025-11-10 11:27:46,198 - INFO -    Signal Score: 5.77
 2025-11-10 11:27:46,199 - WARNING -    ⚠️  REJECTED: Daily trade limit reached (3)
 2025-11-10 11:27:46,414 - INFO - 💾 Portfolio saved to disk
+2025-11-11 11:23:39,841 - INFO - 📊 Paper Trading Portfolio Initialized
+2025-11-11 11:23:39,841 - INFO -    Starting Capital: $10,000.00
+2025-11-11 11:23:39,841 - INFO -    Max Position Size: 5.0%
+2025-11-11 11:23:39,842 - INFO -    Scaling Enabled: True
+2025-11-11 11:23:39,847 - INFO - 📂 Portfolio loaded from disk
+2025-11-11 11:23:39,847 - INFO -    Positions: 3
+2025-11-11 11:23:39,847 - INFO -    Pending Entries: 3
+2025-11-11 11:23:39,847 - INFO -    Total Trades: 3
+2025-11-11 11:28:09,606 - INFO - 
+============================================================
+2025-11-11 11:28:09,606 - INFO - 🔍 CHECKING EXITS FOR 3 POSITION(S)
+2025-11-11 11:28:09,606 - INFO - ============================================================
+2025-11-11 11:28:09,606 - INFO - 
+📊 Checking 3 pending entries...
+2025-11-11 11:28:09,635 - INFO - 
+📊 Updating trailing stops...
+2025-11-11 11:28:09,654 - INFO -    📈 BETA: Trailing stop ENABLED at +6.4%
+2025-11-11 11:28:09,654 - INFO -    🔼 BETA: Stop raised $30.41 → $32.37 (trailing)
+2025-11-11 11:28:09,678 - INFO - 
+📊 XZO:
+2025-11-11 11:28:09,678 - INFO -    Entry: $19.38 | Current: $19.37
+2025-11-11 11:28:09,678 - INFO -    P&L: -0.05% | Days: 1
+2025-11-11 11:28:09,679 - INFO -    Stop: $18.41 | Target: $20.93
+2025-11-11 11:28:09,679 - INFO -    ✅ Position OK - holding
+2025-11-11 11:28:09,688 - INFO - 
+📊 BETA:
+2025-11-11 11:28:09,688 - INFO -    Entry: $32.01 | Current: $34.07
+2025-11-11 11:28:09,688 - INFO -    P&L: +6.44% | Days: 1
+2025-11-11 11:28:09,688 - INFO -    Stop: $32.37 | Target: $34.57
+2025-11-11 11:28:09,688 - INFO -    ✅ Position OK - holding
+2025-11-11 11:28:09,697 - INFO - 
+📊 YCY:
+2025-11-11 11:28:09,698 - INFO -    Entry: $10.03 | Current: $10.02
+2025-11-11 11:28:09,698 - INFO -    P&L: -0.10% | Days: 1
+2025-11-11 11:28:09,698 - INFO -    Stop: $9.53 | Target: $10.83
+2025-11-11 11:28:09,698 - INFO -    ✅ Position OK - holding
+2025-11-11 11:28:09,698 - INFO - 
+============================================================
+2025-11-11 11:28:09,698 - INFO - 📊 NO EXITS - ALL POSITIONS HOLDING
+2025-11-11 11:28:09,698 - INFO - ============================================================
+
+2025-11-11 11:28:09,698 - INFO - 
+============================================================
+2025-11-11 11:28:09,698 - INFO - 📊 SIGNAL EVALUATION: VRSK
+2025-11-11 11:28:09,699 - INFO -    Entry Price: $212.94
+2025-11-11 11:28:09,699 - INFO -    Signal Score: 8.41
+2025-11-11 11:28:09,783 - INFO -    ✅ VALIDATION PASSED
+2025-11-11 11:28:09,783 - INFO -    📈 EXECUTING BUY ORDER
+2025-11-11 11:28:09,783 - INFO -    Shares: 1 @ $212.94
+2025-11-11 11:28:09,783 - INFO -    Cost: $212.94
+2025-11-11 11:28:09,811 - INFO -    Position Size: 2.13%
+2025-11-11 11:28:09,981 - INFO -    💰 Cash Remaining: $8,917.40
+2025-11-11 11:28:09,981 - INFO -    🎯 Stop Loss: $202.29 (-5.0%)
+2025-11-11 11:28:09,981 - INFO -    🎯 Take Profit: $229.98 (+8.0%)
+2025-11-11 11:28:09,981 - INFO - ============================================================
+
+2025-11-11 11:28:09,981 - INFO - 
+============================================================
+2025-11-11 11:28:09,981 - INFO - 📊 SIGNAL EVALUATION: IRDM
+2025-11-11 11:28:09,981 - INFO -    Entry Price: $16.49
+2025-11-11 11:28:09,981 - INFO -    Signal Score: 7.07
+2025-11-11 11:28:10,291 - INFO -    ✅ VALIDATION PASSED
+2025-11-11 11:28:10,291 - INFO -    📈 EXECUTING BUY ORDER
+2025-11-11 11:28:10,291 - INFO -    Shares: 18 @ $16.49
+2025-11-11 11:28:10,291 - INFO -    Cost: $296.82
+2025-11-11 11:28:10,332 - INFO -    Position Size: 2.96%
+2025-11-11 11:28:10,521 - INFO -    💰 Cash Remaining: $8,620.58
+2025-11-11 11:28:10,521 - INFO -    🎯 Stop Loss: $15.67 (-5.0%)
+2025-11-11 11:28:10,521 - INFO -    🎯 Take Profit: $17.81 (+8.0%)
+2025-11-11 11:28:10,521 - INFO -    📊 Scaling Enabled: 12 shares pending
+2025-11-11 11:28:10,521 - INFO -    📍 Trigger Price: $16.16 (-2.0%)
+2025-11-11 11:28:10,521 - INFO -    ⏰ Expires: 2025-11-16
+2025-11-11 11:28:10,521 - INFO - ============================================================
+
+2025-11-11 11:28:10,521 - INFO - 
+============================================================
+2025-11-11 11:28:10,521 - INFO - 📊 SIGNAL EVALUATION: NEWT
+2025-11-11 11:28:10,522 - INFO -    Entry Price: $10.13
+2025-11-11 11:28:10,522 - INFO -    Signal Score: 6.69
+2025-11-11 11:28:10,617 - WARNING -    ❌ REJECTED: Already at max positions limit (5)
+2025-11-11 11:28:10,617 - INFO - 
+============================================================
+2025-11-11 11:28:10,617 - INFO - 📊 SIGNAL EVALUATION: FCN
+2025-11-11 11:28:10,617 - INFO -    Entry Price: $162.90
+2025-11-11 11:28:10,617 - INFO -    Signal Score: 6.18
+2025-11-11 11:28:10,713 - WARNING -    ❌ REJECTED: Already at max positions limit (5)
+2025-11-11 11:28:10,713 - INFO - 
+============================================================
+2025-11-11 11:28:10,713 - INFO - 📊 SIGNAL EVALUATION: CI
+2025-11-11 11:28:10,713 - INFO -    Entry Price: $258.16
+2025-11-11 11:28:10,714 - INFO -    Signal Score: 6.14
+2025-11-11 11:28:10,812 - WARNING -    ❌ REJECTED: Already at max positions limit (5)
+2025-11-11 11:28:10,813 - INFO - 
+============================================================
+2025-11-11 11:28:10,813 - INFO - 📊 SIGNAL EVALUATION: CLVT
+2025-11-11 11:28:10,813 - INFO -    Entry Price: $3.48
+2025-11-11 11:28:10,813 - INFO -    Signal Score: 6.01
+2025-11-11 11:28:10,912 - WARNING -    ❌ REJECTED: Already at max positions limit (5)
+2025-11-11 11:28:10,913 - INFO - 
+============================================================
+2025-11-11 11:28:10,913 - INFO - 📊 SIGNAL EVALUATION: KMI
+2025-11-11 11:28:10,913 - INFO -    Entry Price: $27.06
+2025-11-11 11:28:10,913 - INFO -    Signal Score: 5.94
+2025-11-11 11:28:11,009 - WARNING -    ❌ REJECTED: Already at max positions limit (5)
+2025-11-11 11:28:11,009 - INFO - 
+============================================================
+2025-11-11 11:28:11,009 - INFO - 📊 SIGNAL EVALUATION: MBIN
+2025-11-11 11:28:11,009 - INFO -    Entry Price: $31.75
+2025-11-11 11:28:11,009 - INFO -    Signal Score: 5.93
+2025-11-11 11:28:11,471 - WARNING -    ❌ REJECTED: Already at max positions limit (5)
+2025-11-11 11:28:11,471 - INFO - 
+============================================================
+2025-11-11 11:28:11,471 - INFO - 📊 SIGNAL EVALUATION: ENPH
+2025-11-11 11:28:11,471 - INFO -    Entry Price: $32.84
+2025-11-11 11:28:11,472 - INFO -    Signal Score: 5.79
+2025-11-11 11:28:11,570 - WARNING -    ❌ REJECTED: Already at max positions limit (5)
+2025-11-11 11:28:11,570 - INFO - 
+============================================================
+2025-11-11 11:28:11,570 - INFO - 📊 SIGNAL EVALUATION: SLGN
+2025-11-11 11:28:11,570 - INFO -    Entry Price: $38.12
+2025-11-11 11:28:11,570 - INFO -    Signal Score: 5.75
+2025-11-11 11:28:11,666 - WARNING -    ❌ REJECTED: Already at max positions limit (5)
+2025-11-11 11:28:11,666 - INFO - 
+============================================================
+2025-11-11 11:28:11,666 - INFO - 📊 SIGNAL EVALUATION: ARCC
+2025-11-11 11:28:11,666 - INFO -    Entry Price: $20.29
+2025-11-11 11:28:11,666 - INFO -    Signal Score: 5.75
+2025-11-11 11:28:11,762 - WARNING -    ❌ REJECTED: Already at max positions limit (5)
+2025-11-11 11:28:11,762 - INFO - 
+============================================================
+2025-11-11 11:28:11,762 - INFO - 📊 SIGNAL EVALUATION: MAA
+2025-11-11 11:28:11,763 - INFO -    Entry Price: $129.55
+2025-11-11 11:28:11,763 - INFO -    Signal Score: 5.37
+2025-11-11 11:28:11,858 - WARNING -    ❌ REJECTED: Already at max positions limit (5)
+2025-11-11 11:28:12,068 - INFO - 💾 Portfolio saved to disk

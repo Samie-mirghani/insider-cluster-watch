@@ -1,6 +1,6 @@
 {
   "starting_capital": 10000,
-  "cash": 9130.339999999998,
+  "cash": 8620.579999999998,
   "positions": {
     "XZO": {
       "entry_date": "2025-11-10T11:27:45.477006",
@@ -28,10 +28,10 @@
       "shares": 9,
       "cost_basis": 288.09,
       "initial_stop_loss": 30.409499999999998,
-      "stop_loss": 30.409499999999998,
+      "stop_loss": 32.3665,
       "take_profit": 34.5708,
-      "highest_price": 32.01,
-      "trailing_enabled": false,
+      "highest_price": 34.07,
+      "trailing_enabled": true,
       "signal_score": 17.241516327141355,
       "sector": "Industrials",
       "tranches": [
@@ -61,6 +61,46 @@
           "date": "2025-11-10T11:27:45.955289"
         }
       ]
+    },
+    "VRSK": {
+      "entry_date": "2025-11-11T11:28:09.811544",
+      "entry_price": 212.94,
+      "shares": 1,
+      "cost_basis": 212.94,
+      "initial_stop_loss": 202.29299999999998,
+      "stop_loss": 202.29299999999998,
+      "take_profit": 229.9752,
+      "highest_price": 212.94,
+      "trailing_enabled": false,
+      "signal_score": 8.405957505313472,
+      "sector": "Industrials",
+      "tranches": [
+        {
+          "shares": 1,
+          "price": 212.94,
+          "date": "2025-11-11T11:28:09.811547"
+        }
+      ]
+    },
+    "IRDM": {
+      "entry_date": "2025-11-11T11:28:10.332157",
+      "entry_price": 16.49,
+      "shares": 18,
+      "cost_basis": 296.82,
+      "initial_stop_loss": 15.665499999999998,
+      "stop_loss": 15.665499999999998,
+      "take_profit": 17.8092,
+      "highest_price": 16.49,
+      "trailing_enabled": false,
+      "signal_score": 7.071918623990653,
+      "sector": "Communication Services",
+      "tranches": [
+        {
+          "shares": 18,
+          "price": 16.49,
+          "date": "2025-11-11T11:28:10.332159"
+        }
+      ]
     }
   },
   "pending_entries": {
@@ -84,13 +124,20 @@
       "original_entry": 10.03,
       "expires": "2025-11-15T11:27:46.197352",
       "signal_score": 6.995602034106074
+    },
+    "IRDM": {
+      "shares": 12,
+      "trigger_price": 16.1602,
+      "original_entry": 16.49,
+      "expires": "2025-11-16T11:28:10.521472",
+      "signal_score": 7.071918623990653
     }
   },
-  "total_trades": 3,
+  "total_trades": 5,
   "winning_trades": 0,
   "losing_trades": 0,
   "total_profit": 0.0,
-  "max_portfolio_value": 10000,
+  "max_portfolio_value": 10018.099999999999,
   "max_drawdown": -1.8189894035458565e-14,
-  "last_updated": "2025-11-10T11:27:46.411942"
+  "last_updated": "2025-11-11T11:28:12.066238"
 }
