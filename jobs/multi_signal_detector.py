@@ -98,15 +98,18 @@ class MultiSignalDetector:
             logger.info(f"\nAnalyzing {ticker}...")
 
             # Check politician activity
-            has_politician = ticker in politician_clusters['ticker'].values
+            has_politician = False
             politician_score = 0
             politician_data = None
 
-            if has_politician:
-                politician_data = politician_clusters[
-                    politician_clusters['ticker'] == ticker
-                ].iloc[0]
-                politician_score = politician_data['conviction_score']
+            if not politician_clusters.empty and 'ticker' in politician_clusters.columns:
+                has_politician = ticker in politician_clusters['ticker'].values
+
+                if has_politician:
+                    politician_data = politician_clusters[
+                        politician_clusters['ticker'] == ticker
+                    ].iloc[0]
+                    politician_score = politician_data['conviction_score']
                 logger.info(f"  ✓ Politician signal: {politician_data['num_politicians']} politicians")
 
             # Check institutional (if quarterly check enabled)
