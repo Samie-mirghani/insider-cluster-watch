@@ -16,6 +16,19 @@ from paper_trade import PaperTradingPortfolio
 from news_sentiment import check_news_for_signals
 from paper_trade_monitor import PaperTradingMonitor
 
+# Multi-signal detection imports
+try:
+    from multi_signal_detector import MultiSignalDetector, combine_insider_and_politician_signals
+    from config import (
+        ENABLE_MULTI_SIGNAL, ENABLE_POLITICIAN_SCRAPING, ENABLE_13F_CHECKING,
+        SEC_USER_AGENT, POLITICIAN_LOOKBACK_DAYS, POLITICIAN_MAX_PAGES
+    )
+    MULTI_SIGNAL_AVAILABLE = True
+except ImportError as e:
+    print(f"⚠️  Multi-signal detection not available: {e}")
+    MULTI_SIGNAL_AVAILABLE = False
+    ENABLE_MULTI_SIGNAL = False
+
 DATA_DIR = os.path.join(os.path.dirname(__file__), '..', 'data')
 if not os.path.exists(DATA_DIR):
     os.makedirs(DATA_DIR)
@@ -307,7 +320,75 @@ def main(test=False, urgent_test=False, enable_paper_trading=True):
         patterns = cluster_df[cluster_df['pattern_detected'] != 'None']['pattern_detected'].value_counts()
         if not patterns.empty:
             print(f"   • Patterns: {dict(patterns)}")
-    
+
+    # 3.5) Multi-signal detection (politician + institutional)
+    multi_signal_data = None
+    if MULTI_SIGNAL_AVAILABLE and ENABLE_MULTI_SIGNAL and ENABLE_POLITICIAN_SCRAPING:
+        print("\n🔍 Running multi-signal detection...")
+        print("   • Scanning politician trades")
+        if ENABLE_13F_CHECKING:
+            print("   • Checking 13F institutional holdings")
+
+        try:
+            detector = MultiSignalDetector(SEC_USER_AGENT)
+
+            # Get current quarter for 13F checks
+            now = datetime.utcnow()
+            quarter = (now.month - 1) // 3 + 1
+            year = now.year
+            if quarter == 1:
+                quarter = 4
+                year -= 1
+            else:
+                quarter -= 1
+
+            # Run full scan
+            multi_signal_results = detector.run_full_scan(
+                cluster_df,
+                check_13f=ENABLE_13F_CHECKING,
+                quarter_year=year,
+                quarter=quarter
+            )
+
+            # Enrich cluster_df with multi-signal data
+            tier1_tickers = [s['ticker'] for s in multi_signal_results['tier1']]
+            tier2_tickers = [s['ticker'] for s in multi_signal_results['tier2']]
+
+            cluster_df['multi_signal_tier'] = cluster_df['ticker'].apply(
+                lambda t: 'tier1' if t in tier1_tickers else ('tier2' if t in tier2_tickers else 'none')
+            )
+
+            # Add politician signal flag
+            politician_tickers = [s['ticker'] for s in multi_signal_results['tier1'] + multi_signal_results['tier2']
+                                 if s['has_politician']]
+            cluster_df['has_politician_signal'] = cluster_df['ticker'].isin(politician_tickers)
+
+            # Boost rank_score for multi-signal stocks
+            cluster_df.loc[cluster_df['multi_signal_tier'] == 'tier1', 'rank_score'] *= 1.5
+            cluster_df.loc[cluster_df['multi_signal_tier'] == 'tier2', 'rank_score'] *= 1.25
+
+            # Re-sort by updated rank score
+            cluster_df = cluster_df.sort_values('rank_score', ascending=False)
+
+            # Log results
+            total_multi = len(tier1_tickers) + len(tier2_tickers)
+            if total_multi > 0:
+                print(f"   ✅ Found {total_multi} stocks with multiple signals!")
+                print(f"      • Tier 1 (3+ signals): {len(tier1_tickers)}")
+                print(f"      • Tier 2 (2 signals): {len(tier2_tickers)}")
+
+                if tier1_tickers:
+                    print(f"      • Tier 1 tickers: {', '.join(tier1_tickers[:5])}")
+            else:
+                print(f"   ℹ️  No multi-signal overlaps detected")
+
+            multi_signal_data = multi_signal_results
+
+        except Exception as e:
+            print(f"   ⚠️  Multi-signal detection failed: {e}")
+            import traceback
+            traceback.print_exc()
+
     # 4) Check news sentiment for signals
     print("\n📰 Checking news sentiment...")
     cluster_df = check_news_for_signals(cluster_df)
@@ -361,7 +442,17 @@ def main(test=False, urgent_test=False, enable_paper_trading=True):
         quality = f", Quality={row.get('quality_score', 0):.1f}" if 'quality_score' in row else ""
         sector = f", {row.get('sector', 'N/A')}" if 'sector' in row else ""
         pattern = f", Pattern: {row.get('pattern_detected', 'None')}" if 'pattern_detected' in row and row.get('pattern_detected') != 'None' else ""
-        print(f"   {row['ticker']}: Cluster={row['cluster_count']}, Score={row['rank_score']:.2f}{quality}{sector}{pattern}, ${int(row['total_value']):,}")
+
+        # Add multi-signal tier indicator
+        multi_tier = ""
+        if 'multi_signal_tier' in row and row.get('multi_signal_tier') != 'none':
+            tier = row['multi_signal_tier'].upper()
+            emoji = "🔥" if tier == "TIER1" else "⚡"
+            multi_tier = f" {emoji} {tier}"
+
+        politician_flag = " 🏛️ POLITICIAN" if row.get('has_politician_signal', False) else ""
+
+        print(f"   {row['ticker']}: Cluster={row['cluster_count']}, Score={row['rank_score']:.2f}{quality}{sector}{pattern}, ${int(row['total_value']):,}{multi_tier}{politician_flag}")
     print()
 
     
