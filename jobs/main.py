@@ -193,11 +193,11 @@ def format_sell_warning(sell_df):
 def append_to_history(cluster_df):
     """
     Append new signals to the historical tracking CSV.
-    Now includes sector and quality_score.
+    Now includes sector, quality_score, and multi-signal fields.
     """
     if cluster_df is None or cluster_df.empty:
         return
-    
+
     rows = []
     for _, r in cluster_df.iterrows():
         rows.append({
@@ -209,9 +209,11 @@ def append_to_history(cluster_df):
             'total_value': float(r.get('total_value', 0)),
             'sector': r.get('sector', 'Unknown'),
             'quality_score': float(r.get('quality_score', 0)),
-            'pattern_detected': r.get('pattern_detected', 'None')
+            'pattern_detected': r.get('pattern_detected', 'None'),
+            'multi_signal_tier': r.get('multi_signal_tier', 'none'),
+            'has_politician_signal': bool(r.get('has_politician_signal', False))
         })
-    
+
     new_df = pd.DataFrame(rows)
     
     if os.path.exists(HISTORY_CSV):
