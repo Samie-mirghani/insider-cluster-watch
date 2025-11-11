@@ -152,18 +152,37 @@ class PaperTradingPortfolio:
     def calculate_position_size(self, signal):
         """
         Calculate appropriate position size based on portfolio value and risk params
-        
+        Enhanced with multi-signal tier support
+
         Returns: (full_position_size, initial_size, second_tranche_size)
         """
         portfolio_value = self.get_portfolio_value()
         entry_price = signal.get('entry_price')
-        
-        # Calculate full position size
-        full_position_size = portfolio_value * self.max_position_pct
-        
+
+        # Import multi-signal config if available
+        try:
+            from config import MULTI_SIGNAL_POSITION_SIZES
+            multi_signal_available = True
+        except ImportError:
+            multi_signal_available = False
+
+        # Check if this is a multi-signal trade
+        multi_signal_tier = signal.get('multi_signal_tier', 'none')
+        tier_multiplier = 1.0
+
+        if multi_signal_available and multi_signal_tier in MULTI_SIGNAL_POSITION_SIZES:
+            tier_multiplier = MULTI_SIGNAL_POSITION_SIZES[multi_signal_tier]
+            logger.info(f"   📊 Multi-Signal Tier: {multi_signal_tier.upper()} (multiplier: {tier_multiplier}x)")
+
+        # Calculate base position size
+        base_position_size = portfolio_value * self.max_position_pct
+
+        # Apply tier multiplier for multi-signal trades
+        full_position_size = base_position_size * tier_multiplier
+
         # Don't exceed 90% of available cash (keep buffer)
         full_position_size = min(full_position_size, self.cash * 0.9)
-        
+
         if self.enable_scaling:
             # Split into 2 tranches: 60% initial, 40% on pullback
             initial_size = full_position_size * 0.6
@@ -172,7 +191,7 @@ class PaperTradingPortfolio:
             # No scaling - use full size
             initial_size = full_position_size
             second_tranche_size = 0
-        
+
         return full_position_size, initial_size, second_tranche_size
     
     def execute_signal(self, signal):
@@ -227,27 +246,47 @@ class PaperTradingPortfolio:
         
         # Calculate actual cost
         actual_cost = initial_shares * entry_price
-        
+
+        # Get tier-specific stop loss if multi-signal
+        try:
+            from config import MULTI_SIGNAL_STOP_LOSS
+            multi_signal_tier = signal.get('multi_signal_tier', 'none')
+            if multi_signal_tier in MULTI_SIGNAL_STOP_LOSS:
+                stop_loss_pct = MULTI_SIGNAL_STOP_LOSS[multi_signal_tier]
+                logger.info(f"   🎯 Using {multi_signal_tier.upper()} stop loss: {stop_loss_pct*100:.0f}%")
+            else:
+                stop_loss_pct = self.stop_loss_pct
+        except ImportError:
+            stop_loss_pct = self.stop_loss_pct
+
         # Execute first tranche
         logger.info(f"   ✅ VALIDATION PASSED")
         logger.info(f"   📈 EXECUTING BUY ORDER")
         logger.info(f"   Shares: {initial_shares} @ ${entry_price:.2f}")
         logger.info(f"   Cost: ${actual_cost:.2f}")
         logger.info(f"   Position Size: {(actual_cost/self.get_portfolio_value())*100:.2f}%")
-        
+
+        # Log multi-signal info if applicable
+        if signal.get('multi_signal_tier', 'none') != 'none':
+            logger.info(f"   🔥 Multi-Signal Trade: {signal.get('multi_signal_tier', '').upper()}")
+        if signal.get('has_politician_signal'):
+            logger.info(f"   🏛️ Politician Activity Detected")
+
         # Create position
         self.positions[ticker] = {
             'entry_date': datetime.now(),
             'entry_price': entry_price,
             'shares': initial_shares,
             'cost_basis': actual_cost,
-            'initial_stop_loss': entry_price * (1 - self.stop_loss_pct),
-            'stop_loss': entry_price * (1 - self.stop_loss_pct),
+            'initial_stop_loss': entry_price * (1 - stop_loss_pct),
+            'stop_loss': entry_price * (1 - stop_loss_pct),
             'take_profit': entry_price * (1 + self.take_profit_pct),
             'highest_price': entry_price,  # For trailing stop
             'trailing_enabled': False,  # Enable after +3%
             'signal_score': signal_score,
             'sector': signal.get('sector') if isinstance(signal, dict) else signal.get('sector', 'Unknown'),
+            'multi_signal_tier': signal.get('multi_signal_tier', 'none'),
+            'has_politician_signal': signal.get('has_politician_signal', False),
             'tranches': [{'shares': initial_shares, 'price': entry_price, 'date': datetime.now()}]
         }
         
