@@ -292,18 +292,28 @@
                 <tr>
                   <td>
                     <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                      {% if item.multi_signal_tier and item.multi_signal_tier == 'tier1' %}
+                      <span style="background: #dc2626; color: white; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 600; display: inline-block;">🔥 TIER 1 (3+ SIGNALS)</span>
+                      {% elif item.multi_signal_tier and item.multi_signal_tier == 'tier2' %}
+                      <span style="background: #f59e0b; color: white; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 600; display: inline-block;">⚡ TIER 2 (2 SIGNALS)</span>
+                      {% endif %}
+
+                      {% if item.has_politician_signal %}
+                      <span style="background: #8b5cf6; color: white; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 600; display: inline-block;">🏛️ POLITICIAN</span>
+                      {% endif %}
+
                       {% if item.sector and item.sector != 'Unknown' %}
                       <span style="background: #e3f2fd; color: #1976d2; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 600; display: inline-block;">🏢 {{ item.sector }}</span>
                       {% endif %}
-                      
+
                       {% if item.quality_score and item.quality_score > 0 %}
                       <span style="background: #f3e5f5; color: #7b1fa2; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 600; display: inline-block;">⭐ Quality: {{ item.quality_score|round(1) }}/10</span>
                       {% endif %}
-                      
+
                       {% if item.pattern_detected and item.pattern_detected not in ['None', '', none] %}
                       <span style="background: #fff3e0; color: #e65100; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 600; display: inline-block;">🔍 {{ item.pattern_detected }}</span>
                       {% endif %}
-                      
+
                       {% if item.sentiment_display and item.sentiment_display != '' and item.news_sentiment not in ['UNKNOWN', 'none', '', none] %}
                       <span style="background: #e8f5e9; color: #2e7d32; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 600; display: inline-block;">📰 {{ item.sentiment_display }} News</span>
                       {% endif %}

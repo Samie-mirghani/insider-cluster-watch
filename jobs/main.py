@@ -501,7 +501,9 @@ def main(test=False, urgent_test=False, enable_paper_trading=True):
                 'signal_date': datetime.utcnow().strftime('%Y-%m-%d'),
                 'signal_score': signal_row.get('rank_score', 0),
                 'cluster_count': signal_row.get('cluster_count', 0),
-                'sector': signal_row.get('sector', 'Unknown')
+                'sector': signal_row.get('sector', 'Unknown'),
+                'multi_signal_tier': signal_row.get('multi_signal_tier', 'none'),
+                'has_politician_signal': signal_row.get('has_politician_signal', False)
             }
             
             if paper_trader.execute_signal(signal):
