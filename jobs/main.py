@@ -356,14 +356,95 @@ def main(test=False, urgent_test=False, enable_paper_trading=True):
             tier1_tickers = [s['ticker'] for s in multi_signal_results['tier1']]
             tier2_tickers = [s['ticker'] for s in multi_signal_results['tier2']]
 
-            cluster_df['multi_signal_tier'] = cluster_df['ticker'].apply(
-                lambda t: 'tier1' if t in tier1_tickers else ('tier2' if t in tier2_tickers else 'none')
-            )
+            # Create lookup dictionary for detailed multi-signal data
+            multi_signal_lookup = {}
+            for signal in multi_signal_results['tier1'] + multi_signal_results['tier2']:
+                ticker = signal['ticker']
 
-            # Add politician signal flag
-            politician_tickers = [s['ticker'] for s in multi_signal_results['tier1'] + multi_signal_results['tier2']
-                                 if s['has_politician']]
-            cluster_df['has_politician_signal'] = cluster_df['ticker'].isin(politician_tickers)
+                # Extract politician details
+                politician_names = []
+                politician_details = []
+                if signal['has_politician'] and signal['politician_data']:
+                    pol_data = signal['politician_data']
+                    if 'trades' in pol_data:
+                        for trade in pol_data['trades'][:5]:  # Top 5 politicians
+                            name = trade.get('politician', 'Unknown')
+                            trade_type = trade.get('transaction_type', 'trade').upper()
+                            amount = trade.get('amount', 0)
+                            politician_names.append(name)
+                            if amount > 0:
+                                politician_details.append(f"{name} ({trade_type}, ${amount:,})")
+                            else:
+                                politician_details.append(f"{name} ({trade_type})")
+
+                # Extract institutional details
+                institutional_names = []
+                institutional_details = []
+                if signal['has_institutional'] and signal['institutional_data'] is not None:
+                    inst_data = signal['institutional_data']
+                    if hasattr(inst_data, 'iterrows'):  # DataFrame
+                        for idx, row in inst_data.head(10).iterrows():  # Top 10 institutions
+                            name = row.get('name', 'Unknown Fund')
+                            value = row.get('value', 0)
+                            institutional_names.append(name)
+                            if value > 1_000_000_000:
+                                institutional_details.append(f"{name} (${value/1_000_000_000:.1f}B)")
+                            elif value > 1_000_000:
+                                institutional_details.append(f"{name} (${value/1_000_000:.1f}M)")
+                            else:
+                                institutional_details.append(f"{name} (${value:,.0f})")
+
+                # Create explanation text
+                signals = []
+                if signal['has_politician']:
+                    signals.append("Politician Trading")
+                if signal['has_institutional']:
+                    signals.append("Institutional Holdings (13F)")
+                if signal['has_high_short']:
+                    signals.append("High Short Interest")
+
+                explanation = f"Insider Buying + {' + '.join(signals)}" if signals else "Insider Buying"
+
+                multi_signal_lookup[ticker] = {
+                    'tier': 'tier1' if ticker in tier1_tickers else 'tier2',
+                    'politician_names': politician_names,
+                    'politician_details': politician_details,
+                    'institutional_names': institutional_names,
+                    'institutional_details': institutional_details,
+                    'explanation': explanation,
+                    'has_politician': signal['has_politician'],
+                    'has_institutional': signal['has_institutional'],
+                    'politician_count': signal['politician_count'],
+                    'institutional_count': signal['institutional_count']
+                }
+
+            # Apply multi-signal data to cluster_df
+            def enrich_with_multi_signal(row):
+                ticker = row['ticker']
+                if ticker in multi_signal_lookup:
+                    ms_data = multi_signal_lookup[ticker]
+                    row['multi_signal_tier'] = ms_data['tier']
+                    row['has_politician_signal'] = ms_data['has_politician']
+                    row['politician_names'] = ms_data['politician_names']
+                    row['politician_details'] = ms_data['politician_details']
+                    row['institutional_names'] = ms_data['institutional_names']
+                    row['institutional_details'] = ms_data['institutional_details']
+                    row['multi_signal_explanation'] = ms_data['explanation']
+                    row['politician_count'] = ms_data['politician_count']
+                    row['institutional_count'] = ms_data['institutional_count']
+                else:
+                    row['multi_signal_tier'] = 'none'
+                    row['has_politician_signal'] = False
+                    row['politician_names'] = []
+                    row['politician_details'] = []
+                    row['institutional_names'] = []
+                    row['institutional_details'] = []
+                    row['multi_signal_explanation'] = ''
+                    row['politician_count'] = 0
+                    row['institutional_count'] = 0
+                return row
+
+            cluster_df = cluster_df.apply(enrich_with_multi_signal, axis=1)
 
             # Boost rank_score for multi-signal stocks
             cluster_df.loc[cluster_df['multi_signal_tier'] == 'tier1', 'rank_score'] *= 1.5
