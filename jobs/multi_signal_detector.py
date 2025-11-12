@@ -192,9 +192,17 @@ class MultiSignalDetector:
                 results['tier1'].append(signal)
                 logger.info(f"  🔥 TIER 1: {signal_count} signals!")
 
-            elif signal_count == 2 and has_politician:
+            elif signal_count == 2:
                 results['tier2'].append(signal)
-                logger.info(f"  ⚡ TIER 2: Insider + Politician")
+                # More descriptive logging for different 2-signal combinations
+                if has_politician and has_institutional:
+                    logger.info(f"  ⚡ TIER 2: Insider + Politician + Institutional")
+                elif has_politician:
+                    logger.info(f"  ⚡ TIER 2: Insider + Politician")
+                elif has_institutional:
+                    logger.info(f"  ⚡ TIER 2: Insider + Institutional (13F)")
+                else:
+                    logger.info(f"  ⚡ TIER 2: Two signals")
 
             elif signal_count >= 1:
                 results['tier3'].append(signal)
