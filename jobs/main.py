@@ -384,7 +384,7 @@ def main(test=False, urgent_test=False, enable_paper_trading=True):
                     inst_data = signal['institutional_data']
                     if hasattr(inst_data, 'iterrows'):  # DataFrame
                         for idx, row in inst_data.head(10).iterrows():  # Top 10 institutions
-                            name = row.get('name', 'Unknown Fund')
+                            name = row.get('fund', 'Unknown Fund')  # Column is 'fund' not 'name'
                             value = row.get('value', 0)
                             institutional_names.append(name)
                             if value > 1_000_000_000:

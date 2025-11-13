@@ -196,41 +196,137 @@ class SEC13FParser:
 
         return []
 
-    def parse_13f_holdings(self, filing_url: str) -> pd.DataFrame:
+    def parse_13f_holdings(self, filing_url: str, target_ticker: str = None) -> pd.DataFrame:
         """
         Parse holdings from a 13F filing
 
         Args:
-            filing_url: URL to the filing
+            filing_url: URL to the filing (e.g., https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=...)
+            target_ticker: Optional ticker to search for (returns faster if specified)
 
         Returns:
-            DataFrame with holdings
+            DataFrame with holdings (or single holding if target_ticker specified)
         """
         try:
-            # Get filing page
+            # Get the filing index page
             response = self.session.get(filing_url, timeout=self.timeout)
             response.raise_for_status()
 
-            # Look for XML or text file with holdings
-            # This is a simplified parser - full implementation would need to handle
-            # different filing formats
+            # Parse HTML to find the information table XML file
+            from bs4 import BeautifulSoup
+            soup = BeautifulSoup(response.content, 'html.parser')
 
-            # For now, return empty DataFrame
-            # Full implementation would parse the actual holdings table
-            logger.info(f"Parsing 13F from {filing_url}")
+            # Look for information table XML link
+            xml_link = None
+            for link in soup.find_all('a'):
+                href = link.get('href', '')
+                text = link.get_text().lower()
+                # Common patterns for 13F information table files
+                if ('infotable' in href.lower() or 'form13f' in href.lower()) and \
+                   ('.xml' in href.lower() or 'informationtable' in text):
+                    xml_link = href
+                    break
 
+            if not xml_link:
+                logger.debug(f"No information table XML found at {filing_url}")
+                return pd.DataFrame()
+
+            # Make URL absolute
+            if not xml_link.startswith('http'):
+                xml_link = f"{self.BASE_URL}{xml_link}"
+
+            # Fetch the XML file
+            time.sleep(0.5)  # Rate limiting
+            xml_response = self.session.get(xml_link, timeout=self.timeout)
+            xml_response.raise_for_status()
+
+            # Parse XML
+            try:
+                root = ET.fromstring(xml_response.content)
+            except ET.ParseError as xml_error:
+                logger.debug(f"XML parsing error: {xml_error}")
+                # Try cleaning the content
+                content = xml_response.content.decode('utf-8', errors='ignore')
+                content = content.replace('\x00', '')
+                try:
+                    root = ET.fromstring(content.encode('utf-8'))
+                except ET.ParseError:
+                    return pd.DataFrame()
+
+            # Parse holdings from XML
             holdings = []
 
-            time.sleep(0.5)  # Rate limiting
+            # XML namespace handling
+            namespaces = {}
+            if root.tag.startswith('{'):
+                ns = root.tag[1:root.tag.index('}')]
+                namespaces['ns'] = ns
+
+            # Find all infoTable entries
+            info_tables = root.findall('.//ns:infoTable', namespaces) if namespaces else root.findall('.//infoTable')
+            if not info_tables:
+                # Try without namespace
+                info_tables = root.findall('.//infoTable')
+
+            for entry in info_tables:
+                try:
+                    # Extract ticker/name
+                    name_elem = entry.find('.//ns:nameOfIssuer', namespaces) if namespaces else entry.find('.//nameOfIssuer')
+                    if name_elem is None:
+                        name_elem = entry.find('.//nameOfIssuer')
+
+                    ticker_elem = entry.find('.//ns:titleOfClass', namespaces) if namespaces else entry.find('.//titleOfClass')
+                    if ticker_elem is None:
+                        ticker_elem = entry.find('.//titleOfClass')
+
+                    # Extract shares
+                    shares_elem = entry.find('.//ns:sshPrnamt', namespaces) if namespaces else entry.find('.//sshPrnamt')
+                    if shares_elem is None:
+                        shares_elem = entry.find('.//sshPrnamt')
+
+                    # Extract value (in thousands)
+                    value_elem = entry.find('.//ns:value', namespaces) if namespaces else entry.find('.//value')
+                    if value_elem is None:
+                        value_elem = entry.find('.//value')
+
+                    if name_elem is not None:
+                        name = name_elem.text.strip() if name_elem.text else ""
+                        ticker = ticker_elem.text.strip() if ticker_elem is not None and ticker_elem.text else ""
+                        shares = int(shares_elem.text) if shares_elem is not None and shares_elem.text else 0
+                        # Value is in thousands of dollars per SEC format
+                        value = int(value_elem.text) * 1000 if value_elem is not None and value_elem.text else 0
+
+                        # If target ticker specified, only return matching holdings
+                        if target_ticker:
+                            if target_ticker.upper() in name.upper() or target_ticker.upper() in ticker.upper():
+                                holdings.append({
+                                    'name': name,
+                                    'ticker_class': ticker,
+                                    'shares': shares,
+                                    'value': value
+                                })
+                                break  # Found it, no need to continue
+                        else:
+                            holdings.append({
+                                'name': name,
+                                'ticker_class': ticker,
+                                'shares': shares,
+                                'value': value
+                            })
+
+                except Exception as entry_error:
+                    logger.debug(f"Error parsing entry: {entry_error}")
+                    continue
+
             return pd.DataFrame(holdings)
 
         except Exception as e:
-            logger.warning(f"Error parsing 13F: {e}")
+            logger.debug(f"Error parsing 13F from {filing_url}: {e}")
             return pd.DataFrame()
 
     def check_institutional_interest(self, ticker: str, quarter_year: int, quarter: int) -> pd.DataFrame:
         """
-        Check which priority funds hold a given ticker
+        Check which priority funds hold a given ticker and extract actual position sizes
 
         Args:
             ticker: Stock ticker symbol
@@ -238,7 +334,7 @@ class SEC13FParser:
             quarter: Quarter (1-4)
 
         Returns:
-            DataFrame of funds that hold this ticker
+            DataFrame of funds that hold this ticker with shares and values
         """
         # Check cache first
         cached_data = self._read_cache(ticker)
@@ -261,18 +357,21 @@ class SEC13FParser:
                     # Check most recent filing
                     latest = filings[0]
 
-                    # Parse holdings (simplified - actual implementation needed)
-                    # holdings = self.parse_13f_holdings(latest['url'])
+                    # Parse holdings to find this ticker
+                    holdings = self.parse_13f_holdings(latest['url'], target_ticker=ticker)
 
-                    # For now, just track that we found the filing
-                    results.append({
-                        'fund': fund_name,
-                        'cik': cik,
-                        'filing_date': latest['date'],
-                        'ticker': ticker,
-                        'value': 0,  # Would come from parsed holdings
-                        'shares': 0   # Would come from parsed holdings
-                    })
+                    if not holdings.empty:
+                        # Found the ticker in this fund's holdings
+                        holding = holdings.iloc[0]  # Should only be one match
+                        results.append({
+                            'fund': fund_name,
+                            'cik': cik,
+                            'filing_date': latest['date'],
+                            'ticker': ticker,
+                            'value': holding['value'],
+                            'shares': holding['shares']
+                        })
+                        logger.debug(f"✓ {fund_name}: {holding['shares']:,} shares (${holding['value']:,.0f})")
 
                 except Exception as e:
                     logger.debug(f"Error checking {fund_name}: {e}")
@@ -281,10 +380,11 @@ class SEC13FParser:
         df = pd.DataFrame(results)
 
         if not df.empty:
-            logger.info(f"✓ Found {len(df)} priority funds with potential interest")
+            logger.info(f"✓ Found {len(df)} priority funds holding {ticker}")
             # Cache the results
             self._write_cache(ticker, df)
         else:
+            logger.debug(f"No priority funds found holding {ticker}")
             # Cache empty result too (avoid repeated failed lookups)
             self._write_cache(ticker, df)
 

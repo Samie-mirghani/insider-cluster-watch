@@ -622,18 +622,19 @@ class CapitolTradesScraper:
         clusters = df.groupby('ticker').agg({
             'politician': ['count', lambda x: list(x)],
             'trade_date': ['min', 'max'],
-            'amount_mid': 'sum',
+            'amount_mid': ['sum', lambda x: list(x)],
             'weighted_amount': 'sum',
             'asset_name': 'first',
             'chamber': lambda x: list(x),
-            'party': lambda x: list(x)
+            'party': lambda x: list(x),
+            'transaction_type': lambda x: list(x)
         }).reset_index()
 
         # Flatten column names
         clusters.columns = [
             'ticker', 'num_politicians', 'politician_list',
-            'first_trade', 'last_trade', 'total_amount',
-            'weighted_total', 'company', 'chambers', 'parties'
+            'first_trade', 'last_trade', 'total_amount', 'amount_list',
+            'weighted_total', 'company', 'chambers', 'parties', 'transaction_types'
         ]
 
         # Calculate time span
@@ -655,6 +656,19 @@ class CapitolTradesScraper:
         if clusters.empty:
             logger.info(f"No clusters with {min_politicians}+ politicians found")
             return clusters
+
+        # Create detailed trades list for each cluster (for email display)
+        def create_trades_list(row):
+            trades = []
+            for pol, amt, tx_type in zip(row['politician_list'], row['amount_list'], row['transaction_types']):
+                trades.append({
+                    'politician': pol,
+                    'amount': amt,
+                    'transaction_type': tx_type
+                })
+            return trades
+
+        clusters['trades'] = clusters.apply(create_trades_list, axis=1)
 
         # Calculate conviction score
         clusters['conviction_score'] = (
