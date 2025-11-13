@@ -1,15 +1,15 @@
 {
   "starting_capital": 10000,
-  "cash": 8649.489999999998,
+  "cash": 8460.489999999998,
   "positions": {
     "XZO": {
       "entry_date": "2025-11-10T11:27:45.477006",
-      "entry_price": 19.38,
-      "shares": 15,
-      "cost_basis": 290.7,
+      "entry_price": 19.188,
+      "shares": 25,
+      "cost_basis": 479.7,
       "initial_stop_loss": 18.410999999999998,
-      "stop_loss": 18.410999999999998,
-      "take_profit": 20.9304,
+      "stop_loss": 18.228599999999997,
+      "take_profit": 20.72304,
       "highest_price": 19.38,
       "trailing_enabled": false,
       "signal_score": 20.543970087447175,
@@ -19,6 +19,11 @@
           "shares": 15,
           "price": 19.38,
           "date": "2025-11-10T11:27:45.477008"
+        },
+        {
+          "shares": 10,
+          "price": 18.9,
+          "date": "2025-11-13T11:36:09.452814"
         }
       ],
       "multi_signal_tier": "none",
@@ -76,7 +81,7 @@
       "initial_stop_loss": 15.665499999999998,
       "stop_loss": 15.665499999999998,
       "take_profit": 17.8092,
-      "highest_price": 16.74,
+      "highest_price": 16.85,
       "trailing_enabled": false,
       "signal_score": 7.071918623990653,
       "sector": "Communication Services",
@@ -114,13 +119,6 @@
     }
   },
   "pending_entries": {
-    "XZO": {
-      "shares": 10,
-      "trigger_price": 18.9924,
-      "original_entry": 19.38,
-      "expires": "2025-11-15T11:27:45.617910",
-      "signal_score": 20.543970087447175
-    },
     "YCY": {
       "shares": 19,
       "trigger_price": 9.8294,
@@ -148,6 +146,6 @@
   "losing_trades": 0,
   "total_profit": 25.379999999999995,
   "max_portfolio_value": 10339.689999999997,
-  "max_drawdown": -3.0317156510494945,
-  "last_updated": "2025-11-12T11:35:47.708651"
+  "max_drawdown": -3.086649599746218,
+  "last_updated": "2025-11-13T11:36:11.888573"
 }
