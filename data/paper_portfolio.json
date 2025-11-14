@@ -1,34 +1,7 @@
 {
   "starting_capital": 10000,
-  "cash": 8460.489999999998,
+  "cash": 8619.889999999998,
   "positions": {
-    "XZO": {
-      "entry_date": "2025-11-10T11:27:45.477006",
-      "entry_price": 19.188,
-      "shares": 25,
-      "cost_basis": 479.7,
-      "initial_stop_loss": 18.410999999999998,
-      "stop_loss": 18.228599999999997,
-      "take_profit": 20.72304,
-      "highest_price": 19.38,
-      "trailing_enabled": false,
-      "signal_score": 20.543970087447175,
-      "sector": "Financial Services",
-      "tranches": [
-        {
-          "shares": 15,
-          "price": 19.38,
-          "date": "2025-11-10T11:27:45.477008"
-        },
-        {
-          "shares": 10,
-          "price": 18.9,
-          "date": "2025-11-13T11:36:09.452814"
-        }
-      ],
-      "multi_signal_tier": "none",
-      "has_politician_signal": false
-    },
     "YCY": {
       "entry_date": "2025-11-10T11:27:45.955285",
       "entry_price": 10.03,
@@ -59,7 +32,7 @@
       "initial_stop_loss": 202.29299999999998,
       "stop_loss": 202.29299999999998,
       "take_profit": 229.9752,
-      "highest_price": 215.27,
+      "highest_price": 217.68,
       "trailing_enabled": false,
       "signal_score": 8.405957505313472,
       "sector": "Industrials",
@@ -116,6 +89,28 @@
           "date": "2025-11-12T11:35:46.594594"
         }
       ]
+    },
+    "MTDR": {
+      "entry_date": "2025-11-14T11:42:08.802040",
+      "entry_price": 40.8,
+      "shares": 7,
+      "cost_basis": 285.59999999999997,
+      "initial_stop_loss": 38.76,
+      "stop_loss": 38.76,
+      "take_profit": 44.064,
+      "highest_price": 40.8,
+      "trailing_enabled": false,
+      "signal_score": 30.966849687421814,
+      "sector": "Energy",
+      "multi_signal_tier": "none",
+      "has_politician_signal": false,
+      "tranches": [
+        {
+          "shares": 7,
+          "price": 40.8,
+          "date": "2025-11-14T11:42:08.802044"
+        }
+      ]
     }
   },
   "pending_entries": {
@@ -139,13 +134,20 @@
       "original_entry": 35.57,
       "expires": "2025-11-17T11:35:46.801770",
       "signal_score": 23.020917205035236
+    },
+    "MTDR": {
+      "shares": 4,
+      "trigger_price": 39.983999999999995,
+      "original_entry": 40.8,
+      "expires": "2025-11-19T11:42:09.412966",
+      "signal_score": 30.966849687421814
     }
   },
-  "total_trades": 6,
+  "total_trades": 7,
   "winning_trades": 1,
-  "losing_trades": 0,
-  "total_profit": 25.379999999999995,
-  "max_portfolio_value": 10339.689999999997,
-  "max_drawdown": -3.086649599746218,
-  "last_updated": "2025-11-13T11:36:11.888573"
+  "losing_trades": 1,
+  "total_profit": -9.319999999999993,
+  "max_portfolio_value": 10437.869999999999,
+  "max_drawdown": -4.2633219229593955,
+  "last_updated": "2025-11-14T11:42:29.327626"
 }
