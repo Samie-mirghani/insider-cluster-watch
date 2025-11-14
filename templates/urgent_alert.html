@@ -61,7 +61,9 @@
               <table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-bottom: 3px solid #fee2e2; padding-bottom: 20px; margin-bottom: 25px;">
                 <tr>
                   <td align="left" valign="middle" width="60%">
-                    <h2 style="margin: 0; font-size: 36px; font-weight: 900; color: #dc2626; letter-spacing: 2px;">{{ item.ticker }}</h2>
+                    <h2 style="margin: 0; font-size: 36px; font-weight: 900; color: #dc2626; letter-spacing: 2px;">
+                      {{ item.ticker }}{% if item.company and item.company != item.ticker %} - <span style="font-weight: 600; color: #991b1b; font-size: 20px; letter-spacing: normal;">{{ item.company }}</span>{% endif %}
+                    </h2>
                   </td>
                   <td align="right" valign="middle" width="40%">
                     <span style="background: #dc2626; color: white; padding: 12px 24px; border-radius: 25px; font-size: 13px; font-weight: 700; text-transform: uppercase; white-space: nowrap; display: inline-block;">⚡ URGENT</span>
