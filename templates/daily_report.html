@@ -279,7 +279,10 @@
               <table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-bottom: 2px solid #f0f0f0; padding-bottom: 15px; margin-bottom: 15px;">
                 <tr>
                   <td align="left" width="60%">
-                    <h2 style="margin: 0; font-size: 24px; font-weight: 700; color: #667eea;">{{ item.ticker }}</h2>
+                    <h2 style="margin: 0 0 5px 0; font-size: 24px; font-weight: 700; color: #667eea;">{{ item.ticker }}</h2>
+                    {% if item.company and item.company != item.ticker %}
+                    <div style="font-size: 14px; color: #666; font-weight: 500;">{{ item.company }}</div>
+                    {% endif %}
                   </td>
                   <td align="right" width="40%">
                     <span style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 8px 16px; border-radius: 20px; font-size: 14px; font-weight: 600; white-space: nowrap; display: inline-block;">Score: {{ item.rank_score|round(2) }}</span>
