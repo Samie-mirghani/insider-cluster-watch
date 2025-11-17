@@ -98,7 +98,7 @@
       "initial_stop_loss": 38.76,
       "stop_loss": 38.76,
       "take_profit": 44.064,
-      "highest_price": 40.8,
+      "highest_price": 41.43,
       "trailing_enabled": false,
       "signal_score": 30.966849687421814,
       "sector": "Energy",
@@ -114,27 +114,6 @@
     }
   },
   "pending_entries": {
-    "YCY": {
-      "shares": 19,
-      "trigger_price": 9.8294,
-      "original_entry": 10.03,
-      "expires": "2025-11-15T11:27:46.197352",
-      "signal_score": 6.995602034106074
-    },
-    "IRDM": {
-      "shares": 12,
-      "trigger_price": 16.1602,
-      "original_entry": 16.49,
-      "expires": "2025-11-16T11:28:10.521472",
-      "signal_score": 7.071918623990653
-    },
-    "OBK": {
-      "shares": 5,
-      "trigger_price": 34.8586,
-      "original_entry": 35.57,
-      "expires": "2025-11-17T11:35:46.801770",
-      "signal_score": 23.020917205035236
-    },
     "MTDR": {
       "shares": 4,
       "trigger_price": 39.983999999999995,
@@ -148,6 +127,6 @@
   "losing_trades": 1,
   "total_profit": -9.319999999999993,
   "max_portfolio_value": 10437.869999999999,
-  "max_drawdown": -4.2633219229593955,
-  "last_updated": "2025-11-14T11:42:29.327626"
+  "max_drawdown": -4.269453442129489,
+  "last_updated": "2025-11-17T11:45:28.836097"
 }
