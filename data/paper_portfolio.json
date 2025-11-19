@@ -1,6 +1,6 @@
 {
   "starting_capital": 10000,
-  "cash": 8590.489999999998,
+  "cash": 8658.929999999998,
   "positions": {
     "YCY": {
       "entry_date": "2025-11-10T11:27:45.955285",
@@ -30,10 +30,10 @@
       "shares": 1,
       "cost_basis": 212.94,
       "initial_stop_loss": 202.29299999999998,
-      "stop_loss": 202.29299999999998,
+      "stop_loss": 211.812,
       "take_profit": 229.9752,
-      "highest_price": 219.1,
-      "trailing_enabled": false,
+      "highest_price": 222.96,
+      "trailing_enabled": true,
       "signal_score": 8.405957505313472,
       "sector": "Industrials",
       "tranches": [
@@ -90,50 +90,43 @@
         }
       ]
     },
-    "BHVN": {
-      "entry_date": "2025-11-18T11:46:51.560437",
-      "entry_price": 8.27,
-      "shares": 36,
-      "cost_basis": 297.71999999999997,
-      "initial_stop_loss": 7.8565,
-      "stop_loss": 7.8565,
-      "take_profit": 8.9316,
-      "highest_price": 8.27,
+    "OBK": {
+      "entry_date": "2025-11-19T11:43:49.200240",
+      "entry_price": 33.97,
+      "shares": 8,
+      "cost_basis": 271.76,
+      "initial_stop_loss": 32.271499999999996,
+      "stop_loss": 32.271499999999996,
+      "take_profit": 36.6876,
+      "highest_price": 33.97,
       "trailing_enabled": false,
-      "signal_score": 9.85744508446641,
-      "sector": "Healthcare",
+      "signal_score": 23.520917205035236,
+      "sector": "Financial Services",
       "multi_signal_tier": "none",
       "has_politician_signal": false,
       "tranches": [
         {
-          "shares": 36,
-          "price": 8.27,
-          "date": "2025-11-18T11:46:51.560440"
+          "shares": 8,
+          "price": 33.97,
+          "date": "2025-11-19T11:43:49.200244"
         }
       ]
     }
   },
   "pending_entries": {
-    "MTDR": {
-      "shares": 4,
-      "trigger_price": 39.983999999999995,
-      "original_entry": 40.8,
-      "expires": "2025-11-19T11:42:09.412966",
-      "signal_score": 30.966849687421814
-    },
-    "BHVN": {
-      "shares": 24,
-      "trigger_price": 8.1046,
-      "original_entry": 8.27,
-      "expires": "2025-11-23T11:46:51.809135",
-      "signal_score": 9.85744508446641
+    "OBK": {
+      "shares": 5,
+      "trigger_price": 33.2906,
+      "original_entry": 33.97,
+      "expires": "2025-11-24T11:43:49.411213",
+      "signal_score": 23.520917205035236
     }
   },
-  "total_trades": 8,
-  "winning_trades": 1,
+  "total_trades": 9,
+  "winning_trades": 2,
   "losing_trades": 2,
-  "total_profit": -25.560000000000002,
+  "total_profit": 16.920000000000016,
   "max_portfolio_value": 10437.869999999999,
   "max_drawdown": -4.476406584868387,
-  "last_updated": "2025-11-18T11:46:53.382228"
+  "last_updated": "2025-11-19T11:43:50.062999"
 }
