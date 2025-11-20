@@ -412,6 +412,7 @@ def apply_insider_scoring(buys_df, cluster_df, tracker=None):
     cluster_df['insider_multiplier'] = 1.0
     cluster_df['top_insider_name'] = ''
     cluster_df['top_insider_score'] = 50.0
+    cluster_df['insiders_with_track_record'] = ''  # Enhanced insider list with track records
 
     insiders_scored = 0
 
@@ -425,14 +426,38 @@ def apply_insider_scoring(buys_df, cluster_df, tracker=None):
         # Get scores for all insiders in this cluster
         insider_scores = []
         insider_names = []
+        insider_details = []  # For formatted display with track records
 
         for _, buy in ticker_buys.iterrows():
             insider_name = buy.get('insider', '')
+            insider_title = buy.get('title', '')
             if insider_name:
                 profile = tracker.get_insider_score(insider_name)
                 score = profile.get('overall_score', 50.0)
                 insider_scores.append(score)
                 insider_names.append((insider_name, score))
+
+                # Format insider with track record if they're a notable performer
+                win_rate_90d = profile.get('win_rate_90d')
+                avg_return_90d = profile.get('avg_return_90d')
+                total_trades = profile.get('total_trades', 0)
+
+                # Only show track record for notable performers with sufficient data
+                if total_trades >= 3 and win_rate_90d is not None and avg_return_90d is not None:
+                    # Top performers: ≥75% win rate
+                    if win_rate_90d >= 75:
+                        track_record = f" (Track Record: {win_rate_90d:.0f}% win rate, {avg_return_90d:+.1f}% avg return)"
+                        insider_details.append(f"{insider_title} {insider_name}{track_record}")
+                    # Poor performers: <30% win rate
+                    elif win_rate_90d < 30:
+                        track_record = f" (Track Record: {win_rate_90d:.0f}% win rate, {avg_return_90d:+.1f}% avg return)"
+                        insider_details.append(f"{insider_title} {insider_name}{track_record}")
+                    else:
+                        # Average performers - no track record shown
+                        insider_details.append(f"{insider_title} {insider_name}")
+                else:
+                    # Insufficient data - no track record shown
+                    insider_details.append(f"{insider_title} {insider_name}")
 
         if insider_scores:
             # Calculate average score for this cluster
@@ -453,6 +478,10 @@ def apply_insider_scoring(buys_df, cluster_df, tracker=None):
                 top_insider = max(insider_names, key=lambda x: x[1])
                 cluster_df.at[idx, 'top_insider_name'] = top_insider[0]
                 cluster_df.at[idx, 'top_insider_score'] = round(top_insider[1], 2)
+
+            # Store formatted insider list with track records
+            if insider_details:
+                cluster_df.at[idx, 'insiders_with_track_record'] = ", ".join(insider_details)
 
             insiders_scored += 1
 

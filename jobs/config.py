@@ -87,3 +87,8 @@ INSIDER_SCORE_WEIGHT = 0.15  # Weight of insider score in overall ranking (0-1)
 # Poor performers (score 0) get 0.5x reduction
 INSIDER_SCORE_MULTIPLIER_MIN = 0.5
 INSIDER_SCORE_MULTIPLIER_MAX = 2.0
+
+# 13F Data Settings
+SEC_13F_CACHE_HOURS = 168  # Cache duration in hours (168 hours = 7 days)
+# 13F filings are quarterly, so weekly refresh is sufficient
+# Set to lower value if you want more frequent checks (minimum 24 hours recommended)
