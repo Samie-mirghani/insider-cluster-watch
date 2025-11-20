@@ -180,11 +180,11 @@ def format_sell_warning(sell_df):
 def append_to_history(cluster_df):
     """
     Append new signals to the historical tracking CSV.
-    Now includes sector and quality_score.
+    Now includes sector, quality_score, and float analysis metrics.
     """
     if cluster_df is None or cluster_df.empty:
         return
-    
+
     rows = []
     for _, r in cluster_df.iterrows():
         rows.append({
@@ -196,7 +196,12 @@ def append_to_history(cluster_df):
             'total_value': float(r.get('total_value', 0)),
             'sector': r.get('sector', 'Unknown'),
             'quality_score': float(r.get('quality_score', 0)),
-            'pattern_detected': r.get('pattern_detected', 'None')
+            'pattern_detected': r.get('pattern_detected', 'None'),
+            # Float analysis metrics
+            'pct_of_float': float(r.get('pct_of_float')) if r.get('pct_of_float') is not None else None,
+            'float_impact_score': float(r.get('float_impact_score', 0)),
+            'marketCap': float(r.get('marketCap')) if r.get('marketCap') is not None else None,
+            'shares_purchased': float(r.get('shares_purchased')) if r.get('shares_purchased') is not None else None
         })
     
     new_df = pd.DataFrame(rows)

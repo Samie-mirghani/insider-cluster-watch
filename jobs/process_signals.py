@@ -42,8 +42,9 @@ def compute_conviction_score(value, role_weight):
 def enrich_with_market_data(cluster_df):
     """
     Uses yfinance (free) to add currentPrice, marketCap, fiftyTwoWeekLow to cluster_df.
-    
+
     NEW: Also adds sector, industry, and volume data for quality filtering
+    NEW: Float analysis - adds sharesOutstanding, floatShares for impact calculation
     """
     import warnings
     import logging
@@ -76,6 +77,9 @@ def enrich_with_market_data(cluster_df):
                     # NEW: Liquidity data
                     'averageVolume': q.get('averageVolume', 0),
                     'averageVolume10days': q.get('averageVolume10days', 0),
+                    # NEW: Float analysis data
+                    'sharesOutstanding': q.get('sharesOutstanding'),
+                    'floatShares': q.get('floatShares'),
                 }
                 successful += 1
             else:
@@ -94,13 +98,17 @@ def enrich_with_market_data(cluster_df):
     cluster_df['marketCap'] = cluster_df['ticker'].map(lambda x: info.get(x, {}).get('marketCap'))
     cluster_df['fiftyTwoWeekLow'] = cluster_df['ticker'].map(lambda x: info.get(x, {}).get('fiftyTwoWeekLow'))
     cluster_df['fiftyTwoWeekHigh'] = cluster_df['ticker'].map(lambda x: info.get(x, {}).get('fiftyTwoWeekHigh'))
-    
+
     # NEW: Add sector and industry
     cluster_df['sector'] = cluster_df['ticker'].map(lambda x: info.get(x, {}).get('sector', 'Unknown'))
     cluster_df['industry'] = cluster_df['ticker'].map(lambda x: info.get(x, {}).get('industry', 'Unknown'))
-    
+
     # NEW: Add volume data
     cluster_df['averageVolume'] = cluster_df['ticker'].map(lambda x: info.get(x, {}).get('averageVolume', 0))
+
+    # NEW: Add float analysis data
+    cluster_df['sharesOutstanding'] = cluster_df['ticker'].map(lambda x: info.get(x, {}).get('sharesOutstanding'))
+    cluster_df['floatShares'] = cluster_df['ticker'].map(lambda x: info.get(x, {}).get('floatShares'))
     
     cluster_df['pct_from_52wk_low'] = None
     
@@ -115,10 +123,74 @@ def enrich_with_market_data(cluster_df):
         return None
     
     cluster_df['pct_from_52wk_low'] = cluster_df.apply(pct_from_low, axis=1)
-    
+
+    # NEW: Calculate float impact - what % of float are insiders buying?
+    def calculate_float_impact(row):
+        """
+        Calculate what % of tradeable shares insiders are purchasing.
+
+        Returns: {
+            'pct_of_float': Percentage of float being purchased,
+            'pct_of_shares_outstanding': Percentage of total shares,
+            'shares_purchased': Estimated number of shares purchased,
+            'float_impact_score': Score from 0-10 based on significance
+        }
+        """
+        result = {
+            'pct_of_float': None,
+            'pct_of_shares_outstanding': None,
+            'shares_purchased': None,
+            'float_impact_score': 0.0
+        }
+
+        # Need price, total value, and float data
+        price = row.get('currentPrice')
+        total_value = row.get('total_value', 0)
+        float_shares = row.get('floatShares')
+        shares_outstanding = row.get('sharesOutstanding')
+
+        # Calculate shares purchased (estimate from dollar value)
+        if price and price > 0 and total_value > 0:
+            shares_purchased = total_value / price
+            result['shares_purchased'] = shares_purchased
+
+            # Calculate % of float
+            if float_shares and float_shares > 0:
+                pct_of_float = (shares_purchased / float_shares) * 100
+                result['pct_of_float'] = pct_of_float
+
+                # Calculate float impact score (0-10 scale)
+                # 0.01% of float = score 1
+                # 0.1% of float = score 5
+                # 1% of float = score 10 (very significant)
+                if pct_of_float >= 1.0:
+                    result['float_impact_score'] = 10.0
+                elif pct_of_float >= 0.5:
+                    result['float_impact_score'] = 8.0
+                elif pct_of_float >= 0.1:
+                    result['float_impact_score'] = 5.0
+                elif pct_of_float >= 0.05:
+                    result['float_impact_score'] = 3.0
+                elif pct_of_float >= 0.01:
+                    result['float_impact_score'] = 1.0
+
+            # Calculate % of shares outstanding
+            if shares_outstanding and shares_outstanding > 0:
+                pct_of_outstanding = (shares_purchased / shares_outstanding) * 100
+                result['pct_of_shares_outstanding'] = pct_of_outstanding
+
+        return pd.Series(result)
+
+    # Apply float impact calculation
+    float_impact_df = cluster_df.apply(calculate_float_impact, axis=1)
+    cluster_df['pct_of_float'] = float_impact_df['pct_of_float']
+    cluster_df['pct_of_shares_outstanding'] = float_impact_df['pct_of_shares_outstanding']
+    cluster_df['shares_purchased'] = float_impact_df['shares_purchased']
+    cluster_df['float_impact_score'] = float_impact_df['float_impact_score']
+
     # Re-enable warnings
     warnings.filterwarnings('default')
-    
+
     return cluster_df
 
 def apply_quality_filters(cluster_df):
@@ -371,10 +443,12 @@ def cluster_and_score(df, window_days=5, top_n=50):
 
     # rank score: simple combination (you can tune)
     # NEW: Include pattern score in ranking
+    # NEW: Include float impact score in ranking (bonus for buying significant % of float)
     cluster_df['rank_score'] = (
-        cluster_df['cluster_count'] * 2.0 + 
+        cluster_df['cluster_count'] * 2.0 +
         cluster_df['avg_conviction'] / 10.0 +
-        cluster_df['pattern_score'] * 0.5  # Bonus for patterns
+        cluster_df['pattern_score'] * 0.5 +  # Bonus for patterns
+        cluster_df['float_impact_score'] * 0.3  # Bonus for float impact
     )
     # sanitize pattern_detected column
     if 'pattern_detected' in cluster_df.columns:
@@ -469,17 +543,27 @@ def build_rationale(r):
         parts.append(f"Current Price: ${r.get('currentPrice')}")
     if r.get('pct_from_52wk_low') is not None:
         parts.append(f"{r.get('pct_from_52wk_low'):.1f}% above 52-week low")
-    
+
     # NEW: Add sector info
     if r.get('sector') and r.get('sector') != 'Unknown':
         parts.append(f"Sector: {r.get('sector')}")
-    
+
+    # NEW: Add float impact if significant
+    pct_of_float = r.get('pct_of_float')
+    if pct_of_float is not None and pct_of_float > 0:
+        if pct_of_float >= 1.0:
+            parts.append(f"🔥 MAJOR: {pct_of_float:.2f}% of float")
+        elif pct_of_float >= 0.1:
+            parts.append(f"⚡ Significant: {pct_of_float:.3f}% of float")
+        elif pct_of_float >= 0.01:
+            parts.append(f"Float impact: {pct_of_float:.4f}%")
+
     parts.append(f"Rank Score: {r.get('rank_score'):.2f}")
-    
+
     # NEW: Add pattern info if present
     if r.get('patterns'):
         parts.append(f"Patterns: {r.get('patterns')}")
-    
+
     return " | ".join(parts)
 
 if __name__ == "__main__":
