@@ -231,13 +231,17 @@ def append_to_history(cluster_df):
         })
 
     new_df = pd.DataFrame(rows)
-    
+
     if os.path.exists(HISTORY_CSV):
         old = pd.read_csv(HISTORY_CSV)
-        combined = pd.concat([old, new_df], ignore_index=True)
+        # Fix for pandas FutureWarning: handle empty DataFrame properly
+        if old.empty:
+            combined = new_df
+        else:
+            combined = pd.concat([old, new_df], ignore_index=True)
     else:
         combined = new_df
-    
+
     combined.to_csv(HISTORY_CSV, index=False)
     print(f"✅ Saved {len(new_df)} signal(s) to history (total: {len(combined)} signals tracked)")
 

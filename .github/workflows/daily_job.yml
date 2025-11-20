@@ -60,9 +60,16 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
 
-          # Explicitly add ignored files and public performance JSON
+          # Explicitly add ignored files
           git add -f data/paper_portfolio.json data/paper_trading.log data/signals_history.csv
-          git add -f public_performance.json
+
+          # Add public performance JSON only if it exists
+          if [ -f "public_performance.json" ]; then
+            git add -f public_performance.json
+            echo "✅ Added public_performance.json"
+          else
+            echo "ℹ️ public_performance.json not found, skipping"
+          fi
 
           # Commit any changes (ignore if none)
           git diff --staged --quiet || git commit -m "Daily data update: $(date +'%Y-%m-%d %H:%M:%S')"
@@ -78,7 +85,11 @@ jobs:
 
           # Add any reapplied files again
           git add -f data/paper_portfolio.json data/paper_trading.log data/signals_history.csv
-          git add -f public_performance.json
+
+          # Add public performance JSON again if it exists
+          if [ -f "public_performance.json" ]; then
+            git add -f public_performance.json
+          fi
 
           # Recommit after rebase if necessary
           git diff --staged --quiet || git commit -m "Daily data rebase sync: $(date +'%Y-%m-%d %H:%M:%S')"
