@@ -136,7 +136,11 @@ class InsiderPerformanceTracker:
 
         if new_trades:
             new_df = pd.DataFrame(new_trades)
-            self.trades_history = pd.concat([self.trades_history, new_df], ignore_index=True)
+            # Fix for pandas FutureWarning: handle empty DataFrame properly
+            if self.trades_history.empty:
+                self.trades_history = new_df
+            else:
+                self.trades_history = pd.concat([self.trades_history, new_df], ignore_index=True)
             print(f"Added {len(new_trades)} new insider trades to tracking system")
 
     def update_outcomes(self, batch_size: int = 50, rate_limit_delay: float = 0.3):
