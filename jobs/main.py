@@ -193,6 +193,7 @@ def format_sell_warning(sell_df):
 def append_to_history(cluster_df):
     """
     Append new signals to the historical tracking CSV.
+    Now includes sector, quality_score, and float analysis metrics.
     Now includes sector, quality_score, and multi-signal fields.
     """
     if cluster_df is None or cluster_df.empty:
@@ -210,6 +211,11 @@ def append_to_history(cluster_df):
             'sector': r.get('sector', 'Unknown'),
             'quality_score': float(r.get('quality_score', 0)),
             'pattern_detected': r.get('pattern_detected', 'None'),
+            # Float analysis metrics
+            'pct_of_float': float(r.get('pct_of_float')) if r.get('pct_of_float') is not None else None,
+            'float_impact_score': float(r.get('float_impact_score', 0)),
+            'marketCap': float(r.get('marketCap')) if r.get('marketCap') is not None else None,
+            'shares_purchased': float(r.get('shares_purchased')) if r.get('shares_purchased') is not None else None
             'multi_signal_tier': r.get('multi_signal_tier', 'none'),
             'has_politician_signal': bool(r.get('has_politician_signal', False))
         })

@@ -319,6 +319,14 @@
                       {% if item.sentiment_display and item.sentiment_display != '' and item.news_sentiment not in ['UNKNOWN', 'none', '', none] %}
                       <span style="background: #e8f5e9; color: #2e7d32; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 600; display: inline-block;">📰 {{ item.sentiment_display }} News</span>
                       {% endif %}
+
+                      {% if item.pct_of_float and item.pct_of_float >= 0.01 %}
+                        {% if item.pct_of_float >= 1.0 %}
+                      <span style="background: #ffebee; color: #c62828; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 600; display: inline-block;">🔥 {{ "{:.2f}".format(item.pct_of_float) }}% of Float!</span>
+                        {% elif item.pct_of_float >= 0.1 %}
+                      <span style="background: #fff3e0; color: #e65100; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 600; display: inline-block;">⚡ {{ "{:.3f}".format(item.pct_of_float) }}% of Float</span>
+                        {% endif %}
+                      {% endif %}
                     </div>
                   </td>
                 </tr>
@@ -472,6 +480,56 @@
                   </td>
                   {% endif %}
                 </tr>
+                {% if item.pct_of_float or item.marketCap %}
+                <tr>
+                  {% if item.marketCap %}
+                  <td width="50%" style="padding: 5px;">
+                    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                      <tr>
+                        <td>
+                          <span style="font-size: 16px;">🏢</span>
+                          <span style="font-size: 13px; color: #666; margin: 0 5px;">Market Cap:</span>
+                          <span style="font-weight: 600; color: #333; font-size: 13px;">
+                            {% if item.marketCap >= 1_000_000_000 %}
+                              ${{ "{:.1f}".format(item.marketCap/1_000_000_000) }}B
+                            {% elif item.marketCap >= 1_000_000 %}
+                              ${{ "{:.0f}".format(item.marketCap/1_000_000) }}M
+                            {% else %}
+                              ${{ "{:,.0f}".format(item.marketCap) }}
+                            {% endif %}
+                          </span>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                  {% endif %}
+                  {% if item.pct_of_float %}
+                  <td width="50%" style="padding: 5px;">
+                    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                      <tr>
+                        <td>
+                          <span style="font-size: 16px;">
+                            {% if item.pct_of_float >= 1.0 %}🔥{% elif item.pct_of_float >= 0.1 %}⚡{% else %}💎{% endif %}
+                          </span>
+                          <span style="font-size: 13px; color: #666; margin: 0 5px;">% of Float:</span>
+                          <span style="font-weight: 600;
+                            {% if item.pct_of_float >= 1.0 %}color: #c62828;
+                            {% elif item.pct_of_float >= 0.1 %}color: #e65100;
+                            {% else %}color: #333;{% endif %}
+                            font-size: 13px;">
+                            {% if item.pct_of_float >= 0.01 %}
+                              {{ "{:.3f}".format(item.pct_of_float) }}%
+                            {% else %}
+                              {{ "{:.4f}".format(item.pct_of_float) }}%
+                            {% endif %}
+                          </span>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                  {% endif %}
+                </tr>
+                {% endif %}
               </table>
               {% endif %}
 
