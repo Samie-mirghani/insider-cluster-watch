@@ -16,6 +16,19 @@ from paper_trade import PaperTradingPortfolio
 from news_sentiment import check_news_for_signals
 from paper_trade_monitor import PaperTradingMonitor
 
+# Multi-signal detection imports
+try:
+    from multi_signal_detector import MultiSignalDetector, combine_insider_and_politician_signals
+    from config import (
+        ENABLE_MULTI_SIGNAL, ENABLE_POLITICIAN_SCRAPING, ENABLE_13F_CHECKING,
+        SEC_USER_AGENT, POLITICIAN_LOOKBACK_DAYS, POLITICIAN_MAX_PAGES
+    )
+    MULTI_SIGNAL_AVAILABLE = True
+except ImportError as e:
+    print(f"⚠️  Multi-signal detection not available: {e}")
+    MULTI_SIGNAL_AVAILABLE = False
+    ENABLE_MULTI_SIGNAL = False
+
 DATA_DIR = os.path.join(os.path.dirname(__file__), '..', 'data')
 if not os.path.exists(DATA_DIR):
     os.makedirs(DATA_DIR)
@@ -181,6 +194,7 @@ def append_to_history(cluster_df):
     """
     Append new signals to the historical tracking CSV.
     Now includes sector, quality_score, and float analysis metrics.
+    Now includes sector, quality_score, and multi-signal fields.
     """
     if cluster_df is None or cluster_df.empty:
         return
@@ -202,8 +216,10 @@ def append_to_history(cluster_df):
             'float_impact_score': float(r.get('float_impact_score', 0)),
             'marketCap': float(r.get('marketCap')) if r.get('marketCap') is not None else None,
             'shares_purchased': float(r.get('shares_purchased')) if r.get('shares_purchased') is not None else None
+            'multi_signal_tier': r.get('multi_signal_tier', 'none'),
+            'has_politician_signal': bool(r.get('has_politician_signal', False))
         })
-    
+
     new_df = pd.DataFrame(rows)
     
     if os.path.exists(HISTORY_CSV):
@@ -312,7 +328,156 @@ def main(test=False, urgent_test=False, enable_paper_trading=True):
         patterns = cluster_df[cluster_df['pattern_detected'] != 'None']['pattern_detected'].value_counts()
         if not patterns.empty:
             print(f"   • Patterns: {dict(patterns)}")
-    
+
+    # 3.5) Multi-signal detection (politician + institutional)
+    multi_signal_data = None
+    if MULTI_SIGNAL_AVAILABLE and ENABLE_MULTI_SIGNAL and ENABLE_POLITICIAN_SCRAPING:
+        print("\n🔍 Running multi-signal detection...")
+        print("   • Scanning politician trades")
+        if ENABLE_13F_CHECKING:
+            print("   • Checking 13F institutional holdings")
+
+        try:
+            detector = MultiSignalDetector(SEC_USER_AGENT)
+
+            # Get current quarter for 13F checks
+            now = datetime.utcnow()
+            quarter = (now.month - 1) // 3 + 1
+            year = now.year
+            if quarter == 1:
+                quarter = 4
+                year -= 1
+            else:
+                quarter -= 1
+
+            # Run full scan
+            multi_signal_results = detector.run_full_scan(
+                cluster_df,
+                check_13f=ENABLE_13F_CHECKING,
+                quarter_year=year,
+                quarter=quarter
+            )
+
+            # Enrich cluster_df with multi-signal data
+            tier1_tickers = [s['ticker'] for s in multi_signal_results['tier1']]
+            tier2_tickers = [s['ticker'] for s in multi_signal_results['tier2']]
+
+            # Create lookup dictionary for detailed multi-signal data
+            multi_signal_lookup = {}
+            for signal in multi_signal_results['tier1'] + multi_signal_results['tier2']:
+                ticker = signal['ticker']
+
+                # Extract politician details
+                politician_names = []
+                politician_details = []
+                if signal['has_politician'] and signal['politician_data']:
+                    pol_data = signal['politician_data']
+                    if 'trades' in pol_data:
+                        for trade in pol_data['trades'][:5]:  # Top 5 politicians
+                            name = trade.get('politician', 'Unknown')
+                            trade_type = trade.get('transaction_type', 'trade').upper()
+                            amount = trade.get('amount', 0)
+                            politician_names.append(name)
+                            if amount > 0:
+                                politician_details.append(f"{name} ({trade_type}, ${amount:,})")
+                            else:
+                                politician_details.append(f"{name} ({trade_type})")
+
+                # Extract institutional details
+                institutional_names = []
+                institutional_details = []
+                if signal['has_institutional'] and signal['institutional_data'] is not None:
+                    inst_data = signal['institutional_data']
+                    if hasattr(inst_data, 'iterrows'):  # DataFrame
+                        for idx, row in inst_data.head(10).iterrows():  # Top 10 institutions
+                            name = row.get('fund', 'Unknown Fund')  # Column is 'fund' not 'name'
+                            value = row.get('value', 0)
+                            institutional_names.append(name)
+                            if value > 1_000_000_000:
+                                institutional_details.append(f"{name} (${value/1_000_000_000:.1f}B)")
+                            elif value > 1_000_000:
+                                institutional_details.append(f"{name} (${value/1_000_000:.1f}M)")
+                            else:
+                                institutional_details.append(f"{name} (${value:,.0f})")
+
+                # Create explanation text
+                signals = []
+                if signal['has_politician']:
+                    signals.append("Politician Trading")
+                if signal['has_institutional']:
+                    signals.append("Institutional Holdings (13F)")
+                if signal['has_high_short']:
+                    signals.append("High Short Interest")
+
+                explanation = f"Insider Buying + {' + '.join(signals)}" if signals else "Insider Buying"
+
+                multi_signal_lookup[ticker] = {
+                    'tier': 'tier1' if ticker in tier1_tickers else 'tier2',
+                    'politician_names': politician_names,
+                    'politician_details': politician_details,
+                    'institutional_names': institutional_names,
+                    'institutional_details': institutional_details,
+                    'explanation': explanation,
+                    'has_politician': signal['has_politician'],
+                    'has_institutional': signal['has_institutional'],
+                    'politician_count': signal['politician_count'],
+                    'institutional_count': signal['institutional_count']
+                }
+
+            # Apply multi-signal data to cluster_df
+            def enrich_with_multi_signal(row):
+                ticker = row['ticker']
+                if ticker in multi_signal_lookup:
+                    ms_data = multi_signal_lookup[ticker]
+                    row['multi_signal_tier'] = ms_data['tier']
+                    row['has_politician_signal'] = ms_data['has_politician']
+                    row['politician_names'] = ms_data['politician_names']
+                    row['politician_details'] = ms_data['politician_details']
+                    row['institutional_names'] = ms_data['institutional_names']
+                    row['institutional_details'] = ms_data['institutional_details']
+                    row['multi_signal_explanation'] = ms_data['explanation']
+                    row['politician_count'] = ms_data['politician_count']
+                    row['institutional_count'] = ms_data['institutional_count']
+                else:
+                    row['multi_signal_tier'] = 'none'
+                    row['has_politician_signal'] = False
+                    row['politician_names'] = []
+                    row['politician_details'] = []
+                    row['institutional_names'] = []
+                    row['institutional_details'] = []
+                    row['multi_signal_explanation'] = ''
+                    row['politician_count'] = 0
+                    row['institutional_count'] = 0
+                return row
+
+            cluster_df = cluster_df.apply(enrich_with_multi_signal, axis=1)
+
+            # Boost rank_score for multi-signal stocks
+            cluster_df.loc[cluster_df['multi_signal_tier'] == 'tier1', 'rank_score'] *= 1.5
+            cluster_df.loc[cluster_df['multi_signal_tier'] == 'tier2', 'rank_score'] *= 1.25
+
+            # Re-sort by updated rank score
+            cluster_df = cluster_df.sort_values('rank_score', ascending=False)
+
+            # Log results
+            total_multi = len(tier1_tickers) + len(tier2_tickers)
+            if total_multi > 0:
+                print(f"   ✅ Found {total_multi} stocks with multiple signals!")
+                print(f"      • Tier 1 (3+ signals): {len(tier1_tickers)}")
+                print(f"      • Tier 2 (2 signals): {len(tier2_tickers)}")
+
+                if tier1_tickers:
+                    print(f"      • Tier 1 tickers: {', '.join(tier1_tickers[:5])}")
+            else:
+                print(f"   ℹ️  No multi-signal overlaps detected")
+
+            multi_signal_data = multi_signal_results
+
+        except Exception as e:
+            print(f"   ⚠️  Multi-signal detection failed: {e}")
+            import traceback
+            traceback.print_exc()
+
     # 4) Check news sentiment for signals
     print("\n📰 Checking news sentiment...")
     cluster_df = check_news_for_signals(cluster_df)
@@ -366,7 +531,17 @@ def main(test=False, urgent_test=False, enable_paper_trading=True):
         quality = f", Quality={row.get('quality_score', 0):.1f}" if 'quality_score' in row else ""
         sector = f", {row.get('sector', 'N/A')}" if 'sector' in row else ""
         pattern = f", Pattern: {row.get('pattern_detected', 'None')}" if 'pattern_detected' in row and row.get('pattern_detected') != 'None' else ""
-        print(f"   {row['ticker']}: Cluster={row['cluster_count']}, Score={row['rank_score']:.2f}{quality}{sector}{pattern}, ${int(row['total_value']):,}")
+
+        # Add multi-signal tier indicator
+        multi_tier = ""
+        if 'multi_signal_tier' in row and row.get('multi_signal_tier') != 'none':
+            tier = row['multi_signal_tier'].upper()
+            emoji = "🔥" if tier == "TIER1" else "⚡"
+            multi_tier = f" {emoji} {tier}"
+
+        politician_flag = " 🏛️ POLITICIAN" if row.get('has_politician_signal', False) else ""
+
+        print(f"   {row['ticker']}: Cluster={row['cluster_count']}, Score={row['rank_score']:.2f}{quality}{sector}{pattern}, ${int(row['total_value']):,}{multi_tier}{politician_flag}")
     print()
 
     
@@ -415,7 +590,9 @@ def main(test=False, urgent_test=False, enable_paper_trading=True):
                 'signal_date': datetime.utcnow().strftime('%Y-%m-%d'),
                 'signal_score': signal_row.get('rank_score', 0),
                 'cluster_count': signal_row.get('cluster_count', 0),
-                'sector': signal_row.get('sector', 'Unknown')
+                'sector': signal_row.get('sector', 'Unknown'),
+                'multi_signal_tier': signal_row.get('multi_signal_tier', 'none'),
+                'has_politician_signal': signal_row.get('has_politician_signal', False)
             }
             
             if paper_trader.execute_signal(signal):

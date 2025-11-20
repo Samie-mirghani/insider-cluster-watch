@@ -1,47 +1,7 @@
 {
   "starting_capital": 10000,
-  "cash": 9130.339999999998,
+  "cash": 8658.929999999998,
   "positions": {
-    "XZO": {
-      "entry_date": "2025-11-10T11:27:45.477006",
-      "entry_price": 19.38,
-      "shares": 15,
-      "cost_basis": 290.7,
-      "initial_stop_loss": 18.410999999999998,
-      "stop_loss": 18.410999999999998,
-      "take_profit": 20.9304,
-      "highest_price": 19.38,
-      "trailing_enabled": false,
-      "signal_score": 20.543970087447175,
-      "sector": "Financial Services",
-      "tranches": [
-        {
-          "shares": 15,
-          "price": 19.38,
-          "date": "2025-11-10T11:27:45.477008"
-        }
-      ]
-    },
-    "BETA": {
-      "entry_date": "2025-11-10T11:27:45.690166",
-      "entry_price": 32.01,
-      "shares": 9,
-      "cost_basis": 288.09,
-      "initial_stop_loss": 30.409499999999998,
-      "stop_loss": 30.409499999999998,
-      "take_profit": 34.5708,
-      "highest_price": 32.01,
-      "trailing_enabled": false,
-      "signal_score": 17.241516327141355,
-      "sector": "Industrials",
-      "tranches": [
-        {
-          "shares": 9,
-          "price": 32.01,
-          "date": "2025-11-10T11:27:45.690171"
-        }
-      ]
-    },
     "YCY": {
       "entry_date": "2025-11-10T11:27:45.955285",
       "entry_price": 10.03,
@@ -60,37 +20,113 @@
           "price": 10.03,
           "date": "2025-11-10T11:27:45.955289"
         }
+      ],
+      "multi_signal_tier": "none",
+      "has_politician_signal": false
+    },
+    "VRSK": {
+      "entry_date": "2025-11-11T11:28:09.811544",
+      "entry_price": 212.94,
+      "shares": 1,
+      "cost_basis": 212.94,
+      "initial_stop_loss": 202.29299999999998,
+      "stop_loss": 211.812,
+      "take_profit": 229.9752,
+      "highest_price": 222.96,
+      "trailing_enabled": true,
+      "signal_score": 8.405957505313472,
+      "sector": "Industrials",
+      "tranches": [
+        {
+          "shares": 1,
+          "price": 212.94,
+          "date": "2025-11-11T11:28:09.811547"
+        }
+      ],
+      "multi_signal_tier": "none",
+      "has_politician_signal": false
+    },
+    "IRDM": {
+      "entry_date": "2025-11-11T11:28:10.332157",
+      "entry_price": 16.49,
+      "shares": 18,
+      "cost_basis": 296.82,
+      "initial_stop_loss": 15.665499999999998,
+      "stop_loss": 15.665499999999998,
+      "take_profit": 17.8092,
+      "highest_price": 16.85,
+      "trailing_enabled": false,
+      "signal_score": 7.071918623990653,
+      "sector": "Communication Services",
+      "tranches": [
+        {
+          "shares": 18,
+          "price": 16.49,
+          "date": "2025-11-11T11:28:10.332159"
+        }
+      ],
+      "multi_signal_tier": "none",
+      "has_politician_signal": false
+    },
+    "MTDR": {
+      "entry_date": "2025-11-14T11:42:08.802040",
+      "entry_price": 40.8,
+      "shares": 7,
+      "cost_basis": 285.59999999999997,
+      "initial_stop_loss": 38.76,
+      "stop_loss": 38.76,
+      "take_profit": 44.064,
+      "highest_price": 41.43,
+      "trailing_enabled": false,
+      "signal_score": 30.966849687421814,
+      "sector": "Energy",
+      "multi_signal_tier": "none",
+      "has_politician_signal": false,
+      "tranches": [
+        {
+          "shares": 7,
+          "price": 40.8,
+          "date": "2025-11-14T11:42:08.802044"
+        }
+      ]
+    },
+    "OBK": {
+      "entry_date": "2025-11-19T11:43:49.200240",
+      "entry_price": 33.97,
+      "shares": 8,
+      "cost_basis": 271.76,
+      "initial_stop_loss": 32.271499999999996,
+      "stop_loss": 32.271499999999996,
+      "take_profit": 36.6876,
+      "highest_price": 33.97,
+      "trailing_enabled": false,
+      "signal_score": 23.520917205035236,
+      "sector": "Financial Services",
+      "multi_signal_tier": "none",
+      "has_politician_signal": false,
+      "tranches": [
+        {
+          "shares": 8,
+          "price": 33.97,
+          "date": "2025-11-19T11:43:49.200244"
+        }
       ]
     }
   },
   "pending_entries": {
-    "XZO": {
-      "shares": 10,
-      "trigger_price": 18.9924,
-      "original_entry": 19.38,
-      "expires": "2025-11-15T11:27:45.617910",
-      "signal_score": 20.543970087447175
-    },
-    "BETA": {
-      "shares": 6,
-      "trigger_price": 31.369799999999998,
-      "original_entry": 32.01,
-      "expires": "2025-11-15T11:27:45.814261",
-      "signal_score": 17.241516327141355
-    },
-    "YCY": {
-      "shares": 19,
-      "trigger_price": 9.8294,
-      "original_entry": 10.03,
-      "expires": "2025-11-15T11:27:46.197352",
-      "signal_score": 6.995602034106074
+    "OBK": {
+      "shares": 5,
+      "trigger_price": 33.2906,
+      "original_entry": 33.97,
+      "expires": "2025-11-24T11:43:49.411213",
+      "signal_score": 23.520917205035236
     }
   },
-  "total_trades": 3,
-  "winning_trades": 0,
-  "losing_trades": 0,
-  "total_profit": 0.0,
-  "max_portfolio_value": 10000,
-  "max_drawdown": -1.8189894035458565e-14,
-  "last_updated": "2025-11-10T11:27:46.411942"
+  "total_trades": 9,
+  "winning_trades": 2,
+  "losing_trades": 2,
+  "total_profit": 16.920000000000016,
+  "max_portfolio_value": 10437.869999999999,
+  "max_drawdown": -4.476406584868387,
+  "last_updated": "2025-11-19T11:43:50.062999"
 }

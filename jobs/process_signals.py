@@ -71,6 +71,8 @@ def enrich_with_market_data(cluster_df):
                     'marketCap': q.get('marketCap'),
                     'fiftyTwoWeekLow': q.get('fiftyTwoWeekLow'),
                     'fiftyTwoWeekHigh': q.get('fiftyTwoWeekHigh'),
+                    # Company name
+                    'company': q.get('longName') or q.get('shortName') or t,
                     # NEW: Sector and industry info
                     'sector': q.get('sector', 'Unknown'),
                     'industry': q.get('industry', 'Unknown'),
@@ -84,20 +86,23 @@ def enrich_with_market_data(cluster_df):
                 successful += 1
             else:
                 # No data available, use empty dict
-                info[t] = {'sector': 'Unknown', 'industry': 'Unknown'}
+                info[t] = {'sector': 'Unknown', 'industry': 'Unknown', 'company': t}
                 failed += 1
             time.sleep(0.5)
         except Exception as e:
             # Silently skip tickers that fail (404, invalid, etc)
-            info[t] = {'sector': 'Unknown', 'industry': 'Unknown'}
+            info[t] = {'sector': 'Unknown', 'industry': 'Unknown', 'company': t}
             failed += 1
     
     print(f"   Market data: {successful} successful, {failed} failed/unavailable")
-    
+
     cluster_df['currentPrice'] = cluster_df['ticker'].map(lambda x: info.get(x, {}).get('currentPrice'))
     cluster_df['marketCap'] = cluster_df['ticker'].map(lambda x: info.get(x, {}).get('marketCap'))
     cluster_df['fiftyTwoWeekLow'] = cluster_df['ticker'].map(lambda x: info.get(x, {}).get('fiftyTwoWeekLow'))
     cluster_df['fiftyTwoWeekHigh'] = cluster_df['ticker'].map(lambda x: info.get(x, {}).get('fiftyTwoWeekHigh'))
+
+    # Add company name
+    cluster_df['company'] = cluster_df['ticker'].map(lambda x: info.get(x, {}).get('company', x))
 
     # NEW: Add sector and industry
     cluster_df['sector'] = cluster_df['ticker'].map(lambda x: info.get(x, {}).get('sector', 'Unknown'))

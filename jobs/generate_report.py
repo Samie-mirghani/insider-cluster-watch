@@ -67,7 +67,20 @@ def build_plain_text(rows):
     lines = []
     lines.append(f"Insider Cluster Report — {datetime.now().strftime('%Y-%m-%d')}\n")
     for r in rows:
-        lines.append(f"{r.get('ticker')}: cluster={r.get('cluster_count')} | total=${int(r.get('total_value',0)):,} | score={r.get('rank_score'):.2f}")
+        # Build ticker line with multi-signal indicators
+        ticker_line = f"{r.get('ticker')}: cluster={r.get('cluster_count')} | total=${int(r.get('total_value',0)):,} | score={r.get('rank_score'):.2f}"
+
+        # Add multi-signal tier indicator
+        if r.get('multi_signal_tier') == 'tier1':
+            ticker_line += " 🔥 TIER 1 (3+ SIGNALS)"
+        elif r.get('multi_signal_tier') == 'tier2':
+            ticker_line += " ⚡ TIER 2 (2 SIGNALS)"
+
+        # Add politician flag
+        if r.get('has_politician_signal'):
+            ticker_line += " 🏛️ POLITICIAN"
+
+        lines.append(ticker_line)
         lines.append(f"Action: {r.get('suggested_action')}")
         lines.append(f"Rationale: {r.get('rationale')}")
         lines.append("-"*40)
