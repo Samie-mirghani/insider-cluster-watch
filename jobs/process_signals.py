@@ -554,7 +554,7 @@ def cluster_and_score(df, window_days=5, top_n=50, insider_tracker=None):
         (cluster_df['avg_conviction'] * cluster_df['insider_multiplier']) / 10.0 +  # Apply insider multiplier
         cluster_df['pattern_score'] * 0.5 +  # Bonus for patterns
         cluster_df['float_impact_score'] * 0.3 +  # Bonus for float impact
-        cluster_df['avg_insider_score'] * config.INSIDER_SCORE_WEIGHT  # Direct insider score contribution
+        (cluster_df['avg_insider_score'] - 50.0) * config.INSIDER_SCORE_WEIGHT  # Insider score bonus/penalty (neutral=50 gives 0 impact)
     )
     # sanitize pattern_detected column
     if 'pattern_detected' in cluster_df.columns:
