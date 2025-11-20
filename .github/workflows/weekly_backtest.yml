@@ -23,6 +23,12 @@ jobs:
         run: |
           pip install -r requirements.txt
 
+      - name: Clear 13F cache for fresh weekly pull
+        run: |
+          echo "🗑️  Clearing 13F cache to force fresh data pull..."
+          rm -rf data/13f_cache/*.json 2>/dev/null || true
+          echo "✅ 13F cache cleared"
+
       - name: Run backtest
         run: |
           python jobs/backtest.py || echo "Backtest completed with warnings"

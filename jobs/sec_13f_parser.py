@@ -15,6 +15,11 @@ import json
 import os
 from pathlib import Path
 
+try:
+    from config import SEC_13F_CACHE_HOURS
+except ImportError:
+    SEC_13F_CACHE_HOURS = 168  # Default to 7 days if config not available
+
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
@@ -76,12 +81,13 @@ class SEC13FParser:
         return self.cache_dir / f"{ticker}_13f.json"
 
     def _is_cache_valid(self, cache_path: Path) -> bool:
-        """Check if cache file is valid (less than 24 hours old)"""
+        """Check if cache file is valid based on configured cache duration"""
         if not cache_path.exists():
             return False
 
         cache_age = time.time() - cache_path.stat().st_mtime
-        return cache_age < (24 * 60 * 60)  # 24 hours
+        cache_duration_seconds = SEC_13F_CACHE_HOURS * 60 * 60
+        return cache_age < cache_duration_seconds
 
     def _read_cache(self, ticker: str) -> Optional[pd.DataFrame]:
         """Read cached 13F results"""

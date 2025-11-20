@@ -72,3 +72,36 @@ MULTI_SIGNAL_STOP_LOSS = {
     'tier3': 0.08,  # -8% stop
     'tier4': 0.06   # -6% stop (tighter for lower conviction)
 }
+
+# Follow-the-Smart-Money Scoring Settings
+ENABLE_INSIDER_SCORING = True  # Enable tracking of individual insider performance
+INSIDER_LOOKBACK_YEARS = 3  # Years of history to analyze for insider performance
+MIN_TRADES_FOR_INSIDER_SCORE = 3  # Minimum trades needed to calculate reliable score
+INSIDER_OUTCOME_UPDATE_BATCH_SIZE = 50  # Max trades to update per run (rate limit protection)
+INSIDER_API_RATE_LIMIT_DELAY = 0.3  # Delay between API calls in seconds
+INSIDER_SCORE_WEIGHT = 0.15  # Weight of insider score in overall ranking (0-1)
+
+# Insider Score Multiplier Range
+# Top performers (score 100) get 2.0x conviction boost
+# Average performers (score 50) get 1.0x (no change)
+# Poor performers (score 0) get 0.5x reduction
+INSIDER_SCORE_MULTIPLIER_MIN = 0.5
+INSIDER_SCORE_MULTIPLIER_MAX = 2.0
+
+# 13F Data Settings
+SEC_13F_CACHE_HOURS = 168  # Cache duration in hours (168 hours = 7 days)
+# 13F filings are quarterly, so weekly refresh is sufficient
+# Set to lower value if you want more frequent checks (minimum 24 hours recommended)
+
+# Realistic Paper Trading Settings
+REALISTIC_TRADING_MODE = True  # Enable realistic trading constraints
+MARKET_OPEN_HOUR = 9  # 9:30 AM ET
+MARKET_OPEN_MINUTE = 30
+MARKET_CLOSE_HOUR = 16  # 4:00 PM ET
+MARKET_CLOSE_MINUTE = 0
+TRADING_COMMISSION_PER_SHARE = 0.0  # Most brokers are $0, but can set to 0.005 for realism
+TRADING_SLIPPAGE_PCT = 0.15  # 0.15% slippage on entry/exit (realistic for mid-cap stocks)
+MIN_ENTRY_SLIPPAGE_PCT = 0.10  # Minimum slippage even with good liquidity
+MAX_ENTRY_SLIPPAGE_PCT = 0.30  # Maximum slippage for low liquidity
+USE_OPENING_PRICE_FOR_ENTRY = True  # Use next day's open instead of current close
+TRAIL_STOP_EXECUTION_SLIPPAGE_PCT = 0.20  # Slippage when hitting trailing stops

@@ -81,6 +81,15 @@ def build_plain_text(rows):
             ticker_line += " 🏛️ POLITICIAN"
 
         lines.append(ticker_line)
+
+        # Show insiders with track records if available
+        if r.get('insiders_with_track_record') and r.get('insiders_with_track_record') != '':
+            lines.append(f"Insiders: {r.get('insiders_with_track_record')}")
+        elif r.get('insiders') and r.get('insiders') != '':
+            lines.append(f"Insiders: {r.get('insiders')}")
+        else:
+            lines.append("Insiders: N/A")
+
         lines.append(f"Action: {r.get('suggested_action')}")
         lines.append(f"Rationale: {r.get('rationale')}")
         lines.append("-"*40)

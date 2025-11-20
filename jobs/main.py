@@ -15,6 +15,11 @@ from send_email import send_email
 from paper_trade import PaperTradingPortfolio
 from news_sentiment import check_news_for_signals
 from paper_trade_monitor import PaperTradingMonitor
+from insider_performance_tracker import InsiderPerformanceTracker
+from config import (
+    ENABLE_INSIDER_SCORING, INSIDER_LOOKBACK_YEARS, MIN_TRADES_FOR_INSIDER_SCORE,
+    INSIDER_OUTCOME_UPDATE_BATCH_SIZE, INSIDER_API_RATE_LIMIT_DELAY
+)
 
 # Multi-signal detection imports
 try:
@@ -215,9 +220,14 @@ def append_to_history(cluster_df):
             'pct_of_float': float(r.get('pct_of_float')) if r.get('pct_of_float') is not None else None,
             'float_impact_score': float(r.get('float_impact_score', 0)),
             'marketCap': float(r.get('marketCap')) if r.get('marketCap') is not None else None,
-            'shares_purchased': float(r.get('shares_purchased')) if r.get('shares_purchased') is not None else None
+            'shares_purchased': float(r.get('shares_purchased')) if r.get('shares_purchased') is not None else None,
             'multi_signal_tier': r.get('multi_signal_tier', 'none'),
-            'has_politician_signal': bool(r.get('has_politician_signal', False))
+            'has_politician_signal': bool(r.get('has_politician_signal', False)),
+            # Insider performance scoring
+            'avg_insider_score': float(r.get('avg_insider_score', 50.0)),
+            'insider_multiplier': float(r.get('insider_multiplier', 1.0)),
+            'top_insider_name': r.get('top_insider_name', ''),
+            'top_insider_score': float(r.get('top_insider_score', 50.0))
         })
 
     new_df = pd.DataFrame(rows)
@@ -247,7 +257,18 @@ def main(test=False, urgent_test=False, enable_paper_trading=True):
         print(f"   Portfolio Value: ${portfolio_value:,.2f}")
         print(f"   Cash: ${paper_trader.cash:,.2f}")
         print(f"   Open Positions: {len(paper_trader.positions)}\n")
-    
+
+    # Initialize Follow-the-Smart-Money tracker
+    insider_tracker = None
+    if ENABLE_INSIDER_SCORING:
+        print(f"🧠 Follow-the-Smart-Money: Enabled")
+        insider_tracker = InsiderPerformanceTracker(
+            lookback_years=INSIDER_LOOKBACK_YEARS,
+            min_trades_for_score=MIN_TRADES_FOR_INSIDER_SCORE
+        )
+        print(f"   Tracked Insiders: {len(insider_tracker.profiles)}")
+        print(f"   Historical Trades: {len(insider_tracker.trades_history)}\n")
+
     # 1) Fetch insider trading data
     print("📥 Fetching recent insider transactions from OpenInsider...")
     df = fetch_openinsider_recent()
@@ -290,12 +311,36 @@ def main(test=False, urgent_test=False, enable_paper_trading=True):
     else:
         print("✅ No concerning selling activity detected\n")
 
+    # 2.5) Update insider performance tracking (if enabled)
+    if ENABLE_INSIDER_SCORING and insider_tracker is not None:
+        print("🧠 Updating insider performance tracking...")
+
+        # Add new trades to tracking system
+        buys = df[df['trade_type'].str.upper().str.contains('BUY|PURCHASE|P -', na=False)].copy()
+        if not buys.empty:
+            insider_tracker.add_trades(buys)
+            print(f"   ✅ Added {len(buys)} new transactions to tracking system")
+
+        # Update outcomes for historical trades (batch processing)
+        print(f"   📊 Updating trade outcomes (batch size: {INSIDER_OUTCOME_UPDATE_BATCH_SIZE})...")
+        insider_tracker.update_outcomes(
+            batch_size=INSIDER_OUTCOME_UPDATE_BATCH_SIZE,
+            rate_limit_delay=INSIDER_API_RATE_LIMIT_DELAY
+        )
+
+        # Recalculate insider profiles with latest data
+        print("   🎯 Calculating insider performance profiles...")
+        insider_tracker.calculate_insider_profiles()
+        print(f"   ✅ Profiles updated for {len(insider_tracker.profiles)} insiders\n")
+
     # 3) Process buy signals and compute cluster scores (with enhanced features)
     print("🔎 Processing buy signals with enhanced features...")
     print("   • Quality filtering (penny stocks, small buys)")
     print("   • Sector analysis")
     print("   • Pattern detection (accelerating buys, CEO clusters)")
-    cluster_df = cluster_and_score(df, window_days=5, top_n=50)
+    if ENABLE_INSIDER_SCORING:
+        print("   • Follow-the-Smart-Money scoring (insider track records)")
+    cluster_df = cluster_and_score(df, window_days=5, top_n=50, insider_tracker=insider_tracker)
 
     if cluster_df is None or cluster_df.empty:
         print("ℹ️  No significant insider buying clusters detected")
