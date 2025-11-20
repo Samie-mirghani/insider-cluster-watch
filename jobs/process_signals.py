@@ -547,7 +547,13 @@ def cluster_and_score(df, window_days=5, top_n=50, insider_tracker=None):
                 max_cluster_count = cluster_count
                 max_total_value = total_value
                 best_avg_conviction = avg_conviction
-                window_insiders = ", ".join(window['insider'].unique().tolist())
+                # Create formatted insider list with titles and names
+                insider_list = []
+                for _, insider_row in window.drop_duplicates(subset=['insider']).iterrows():
+                    title = insider_row.get('title', 'Insider')
+                    name = insider_row.get('insider', 'Unknown')
+                    insider_list.append(f"{title} {name}")
+                window_insiders = ", ".join(insider_list)
         clusters.append({
             'ticker': t,
             'last_trade_date': last_trade,
