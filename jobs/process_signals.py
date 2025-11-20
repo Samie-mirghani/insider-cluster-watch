@@ -392,17 +392,20 @@ def apply_insider_scoring(buys_df, cluster_df, tracker=None):
         # Add placeholder columns
         cluster_df['avg_insider_score'] = 50.0  # Neutral
         cluster_df['insider_multiplier'] = 1.0
+        cluster_df['insiders_with_track_record'] = ''  # Empty - will use fallback in template
         return cluster_df
 
     if buys_df.empty or cluster_df.empty:
         cluster_df['avg_insider_score'] = 50.0
         cluster_df['insider_multiplier'] = 1.0
+        cluster_df['insiders_with_track_record'] = ''
         return cluster_df
 
     if tracker is None:
         # Tracker not provided, use neutral scores
         cluster_df['avg_insider_score'] = 50.0
         cluster_df['insider_multiplier'] = 1.0
+        cluster_df['insiders_with_track_record'] = ''
         return cluster_df
 
     print(f"\n📊 Applying Follow-the-Smart-Money scoring...")
