@@ -216,7 +216,13 @@
                 <tr>
                   <td style="padding: 20px;">
                     <div style="font-size: 12px; color: #92400e; font-weight: 700; text-transform: uppercase; margin-bottom: 10px;">👥 INSIDERS BUYING ({{ item.cluster_count }} TOTAL)</div>
-                    <div style="color: #78350f; font-size: 15px; font-weight: 600; line-height: 1.6;">{{ item.insiders }}</div>
+                    <div style="color: #78350f; font-size: 15px; font-weight: 600; line-height: 1.6;">
+                      {% if item.insiders_with_track_record and item.insiders_with_track_record != '' %}
+                        {{ item.insiders_with_track_record }}
+                      {% else %}
+                        {{ item.insiders }}
+                      {% endif %}
+                    </div>
                   </td>
                 </tr>
               </table>
