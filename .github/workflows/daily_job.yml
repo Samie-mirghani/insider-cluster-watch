@@ -55,20 +55,29 @@ jobs:
           fi
 
       - name: Commit and push data updates to main
-        if: steps.check_history.outputs.history_exists == 'true'
+        # Always run to commit public_performance.json, even if no new signals
+        if: always()
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
 
-          # Explicitly add ignored files
-          git add -f data/paper_portfolio.json data/paper_trading.log data/signals_history.csv
+          # Add paper trading data files (always exist)
+          git add -f data/paper_portfolio.json data/paper_trading.log
 
-          # Add public performance JSON only if it exists
+          # Add signals history only if it exists (might not exist if no signals)
+          if [ -f "data/signals_history.csv" ]; then
+            git add -f data/signals_history.csv
+            echo "✅ Added signals_history.csv"
+          else
+            echo "ℹ️ No signals_history.csv to commit"
+          fi
+
+          # Add public performance JSON (should always exist after generation)
           if [ -f "public_performance.json" ]; then
             git add -f public_performance.json
             echo "✅ Added public_performance.json"
           else
-            echo "ℹ️ public_performance.json not found, skipping"
+            echo "⚠️ public_performance.json not found!"
           fi
 
           # Commit any changes (ignore if none)
@@ -84,9 +93,14 @@ jobs:
           git stash pop || true
 
           # Add any reapplied files again
-          git add -f data/paper_portfolio.json data/paper_trading.log data/signals_history.csv
+          git add -f data/paper_portfolio.json data/paper_trading.log
 
-          # Add public performance JSON again if it exists
+          # Add signals history if it exists
+          if [ -f "data/signals_history.csv" ]; then
+            git add -f data/signals_history.csv
+          fi
+
+          # Add public performance JSON if it exists
           if [ -f "public_performance.json" ]; then
             git add -f public_performance.json
           fi
