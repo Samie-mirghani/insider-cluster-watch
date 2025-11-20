@@ -14,6 +14,7 @@ import math
 import time
 from datetime import timedelta, datetime
 import yfinance as yf
+from jobs import config
 
 ROLE_WEIGHT = {
     'CEO': 3.0,
@@ -374,7 +375,102 @@ def detect_patterns(buys_df, cluster_df):
     
     return cluster_df
 
-def cluster_and_score(df, window_days=5, top_n=50):
+def apply_insider_scoring(buys_df, cluster_df, tracker=None):
+    """
+    Apply Follow-the-Smart-Money scoring to adjust conviction based on individual
+    insider track records.
+
+    Args:
+        buys_df: DataFrame of all buy transactions
+        cluster_df: DataFrame of clustered signals
+        tracker: InsiderPerformanceTracker instance (optional)
+
+    Returns:
+        Updated cluster_df with insider_score columns
+    """
+    if not config.ENABLE_INSIDER_SCORING:
+        # Add placeholder columns
+        cluster_df['avg_insider_score'] = 50.0  # Neutral
+        cluster_df['insider_multiplier'] = 1.0
+        return cluster_df
+
+    if buys_df.empty or cluster_df.empty:
+        cluster_df['avg_insider_score'] = 50.0
+        cluster_df['insider_multiplier'] = 1.0
+        return cluster_df
+
+    if tracker is None:
+        # Tracker not provided, use neutral scores
+        cluster_df['avg_insider_score'] = 50.0
+        cluster_df['insider_multiplier'] = 1.0
+        return cluster_df
+
+    print(f"\n📊 Applying Follow-the-Smart-Money scoring...")
+
+    # For each cluster, calculate average insider score
+    cluster_df['avg_insider_score'] = 50.0  # Default neutral
+    cluster_df['insider_multiplier'] = 1.0
+    cluster_df['top_insider_name'] = ''
+    cluster_df['top_insider_score'] = 50.0
+
+    insiders_scored = 0
+
+    for idx, row in cluster_df.iterrows():
+        ticker = row['ticker']
+        ticker_buys = buys_df[buys_df['ticker'] == ticker]
+
+        if ticker_buys.empty:
+            continue
+
+        # Get scores for all insiders in this cluster
+        insider_scores = []
+        insider_names = []
+
+        for _, buy in ticker_buys.iterrows():
+            insider_name = buy.get('insider', '')
+            if insider_name:
+                profile = tracker.get_insider_score(insider_name)
+                score = profile.get('overall_score', 50.0)
+                insider_scores.append(score)
+                insider_names.append((insider_name, score))
+
+        if insider_scores:
+            # Calculate average score for this cluster
+            avg_score = sum(insider_scores) / len(insider_scores)
+            cluster_df.at[idx, 'avg_insider_score'] = round(avg_score, 2)
+
+            # Calculate multiplier (0.5x to 2.0x based on score)
+            # Score 50 (neutral) = 1.0x
+            # Score 100 (excellent) = 2.0x
+            # Score 0 (poor) = 0.5x
+            multiplier = config.INSIDER_SCORE_MULTIPLIER_MIN + (
+                (avg_score / 100) * (config.INSIDER_SCORE_MULTIPLIER_MAX - config.INSIDER_SCORE_MULTIPLIER_MIN)
+            )
+            cluster_df.at[idx, 'insider_multiplier'] = round(multiplier, 2)
+
+            # Track top insider
+            if insider_names:
+                top_insider = max(insider_names, key=lambda x: x[1])
+                cluster_df.at[idx, 'top_insider_name'] = top_insider[0]
+                cluster_df.at[idx, 'top_insider_score'] = round(top_insider[1], 2)
+
+            insiders_scored += 1
+
+    if insiders_scored > 0:
+        print(f"   ✅ Applied insider scoring to {insiders_scored} signals")
+
+        # Show some statistics
+        high_performers = len(cluster_df[cluster_df['avg_insider_score'] >= 65])
+        low_performers = len(cluster_df[cluster_df['avg_insider_score'] <= 35])
+
+        if high_performers > 0:
+            print(f"   🌟 {high_performers} signals from high-performing insiders (score ≥65)")
+        if low_performers > 0:
+            print(f"   ⚠️  {low_performers} signals from low-performing insiders (score ≤35)")
+
+    return cluster_df
+
+def cluster_and_score(df, window_days=5, top_n=50, insider_tracker=None):
     """
     df: raw DataFrame from fetch_openinsider_recent
     returns: DataFrame with per-ticker aggregated cluster info and suggested action/rationale
@@ -446,14 +542,19 @@ def cluster_and_score(df, window_days=5, top_n=50):
     # NEW: Detect patterns
     cluster_df = detect_patterns(buys, cluster_df)
 
+    # NEW: Apply insider performance scoring
+    cluster_df = apply_insider_scoring(buys, cluster_df, insider_tracker)
+
     # rank score: simple combination (you can tune)
     # NEW: Include pattern score in ranking
     # NEW: Include float impact score in ranking (bonus for buying significant % of float)
+    # NEW: Include insider performance multiplier in ranking
     cluster_df['rank_score'] = (
         cluster_df['cluster_count'] * 2.0 +
-        cluster_df['avg_conviction'] / 10.0 +
+        (cluster_df['avg_conviction'] * cluster_df['insider_multiplier']) / 10.0 +  # Apply insider multiplier
         cluster_df['pattern_score'] * 0.5 +  # Bonus for patterns
-        cluster_df['float_impact_score'] * 0.3  # Bonus for float impact
+        cluster_df['float_impact_score'] * 0.3 +  # Bonus for float impact
+        cluster_df['avg_insider_score'] * config.INSIDER_SCORE_WEIGHT  # Direct insider score contribution
     )
     # sanitize pattern_detected column
     if 'pattern_detected' in cluster_df.columns:
@@ -568,6 +669,18 @@ def build_rationale(r):
     # NEW: Add pattern info if present
     if r.get('patterns'):
         parts.append(f"Patterns: {r.get('patterns')}")
+
+    # NEW: Add insider performance score if available
+    if config.ENABLE_INSIDER_SCORING and r.get('avg_insider_score') is not None:
+        insider_score = r.get('avg_insider_score', 50.0)
+        multiplier = r.get('insider_multiplier', 1.0)
+
+        if insider_score >= 65:
+            parts.append(f"🌟 Smart Money: {insider_score:.0f}/100 ({multiplier:.2f}x)")
+        elif insider_score <= 35:
+            parts.append(f"⚠️ Insider Score: {insider_score:.0f}/100 ({multiplier:.2f}x)")
+        elif insider_score != 50.0:  # Not neutral
+            parts.append(f"Insider Score: {insider_score:.0f}/100 ({multiplier:.2f}x)")
 
     return " | ".join(parts)
 

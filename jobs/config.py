@@ -72,3 +72,18 @@ MULTI_SIGNAL_STOP_LOSS = {
     'tier3': 0.08,  # -8% stop
     'tier4': 0.06   # -6% stop (tighter for lower conviction)
 }
+
+# Follow-the-Smart-Money Scoring Settings
+ENABLE_INSIDER_SCORING = True  # Enable tracking of individual insider performance
+INSIDER_LOOKBACK_YEARS = 3  # Years of history to analyze for insider performance
+MIN_TRADES_FOR_INSIDER_SCORE = 3  # Minimum trades needed to calculate reliable score
+INSIDER_OUTCOME_UPDATE_BATCH_SIZE = 50  # Max trades to update per run (rate limit protection)
+INSIDER_API_RATE_LIMIT_DELAY = 0.3  # Delay between API calls in seconds
+INSIDER_SCORE_WEIGHT = 0.15  # Weight of insider score in overall ranking (0-1)
+
+# Insider Score Multiplier Range
+# Top performers (score 100) get 2.0x conviction boost
+# Average performers (score 50) get 1.0x (no change)
+# Poor performers (score 0) get 0.5x reduction
+INSIDER_SCORE_MULTIPLIER_MIN = 0.5
+INSIDER_SCORE_MULTIPLIER_MAX = 2.0
