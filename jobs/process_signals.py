@@ -14,7 +14,7 @@ import math
 import time
 from datetime import timedelta, datetime
 import yfinance as yf
-from jobs import config
+import config
 
 ROLE_WEIGHT = {
     'CEO': 3.0,
@@ -718,7 +718,7 @@ def build_rationale(r):
 
 if __name__ == "__main__":
     # quick smoke test - requires fetch_openinsider.py
-    import jobs.fetch_openinsider as fio
+    import fetch_openinsider as fio
     df = fio.fetch_openinsider_recent()
     out = cluster_and_score(df)
     print(out.head())
