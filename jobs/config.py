@@ -92,3 +92,16 @@ INSIDER_SCORE_MULTIPLIER_MAX = 2.0
 SEC_13F_CACHE_HOURS = 168  # Cache duration in hours (168 hours = 7 days)
 # 13F filings are quarterly, so weekly refresh is sufficient
 # Set to lower value if you want more frequent checks (minimum 24 hours recommended)
+
+# Realistic Paper Trading Settings
+REALISTIC_TRADING_MODE = True  # Enable realistic trading constraints
+MARKET_OPEN_HOUR = 9  # 9:30 AM ET
+MARKET_OPEN_MINUTE = 30
+MARKET_CLOSE_HOUR = 16  # 4:00 PM ET
+MARKET_CLOSE_MINUTE = 0
+TRADING_COMMISSION_PER_SHARE = 0.0  # Most brokers are $0, but can set to 0.005 for realism
+TRADING_SLIPPAGE_PCT = 0.15  # 0.15% slippage on entry/exit (realistic for mid-cap stocks)
+MIN_ENTRY_SLIPPAGE_PCT = 0.10  # Minimum slippage even with good liquidity
+MAX_ENTRY_SLIPPAGE_PCT = 0.30  # Maximum slippage for low liquidity
+USE_OPENING_PRICE_FOR_ENTRY = True  # Use next day's open instead of current close
+TRAIL_STOP_EXECUTION_SLIPPAGE_PCT = 0.20  # Slippage when hitting trailing stops

@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Automated insider trading cluster detection with proven performance. Track corporate insider buying signals with our AI-powered system.">
+    <title>Insider Cluster Watch - Automated Insider Trading Detection | Live Performance</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #667eea;
+            --primary-dark: #5568d3;
+            --secondary: #764ba2;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --dark: #1f2937;
+            --light: #f9fafb;
+            --gray: #6b7280;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background: var(--light);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Section */
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 80px 20px 100px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        header .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        header h1 {
+            font-size: 3.5em;
+            font-weight: 800;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            letter-spacing: -1px;
+        }
+
+        header .subtitle {
+            font-size: 1.4em;
+            margin-bottom: 10px;
+            font-weight: 300;
+            opacity: 0.95;
+        }
+
+        header .tagline {
+            font-size: 1em;
+            opacity: 0.85;
+            font-weight: 400;
+        }
+
+        .badge-live {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 0.9em;
+            margin-top: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .badge-live::before {
+            content: '●';
+            color: #10b981;
+            margin-right: 8px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Performance Stats Hero */
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin: -60px 20px 60px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 35px 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-top: 4px solid var(--primary);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .stat-value {
+            font-size: 3em;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 10px;
+            line-height: 1;
+        }
+
+        .stat-value.positive {
+            color: var(--success);
+        }
+
+        .stat-value.negative {
+            color: var(--danger);
+        }
+
+        .stat-label {
+            color: var(--gray);
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 600;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 60px 40px;
+            border-radius: 20px;
+            text-align: center;
+            margin: 60px 20px;
+            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.3);
+        }
+
+        .cta-section h2 {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .cta-section p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+
+        .signup-form {
+            display: flex;
+            gap: 15px;
+            max-width: 550px;
+            margin: 0 auto;
+        }
+
+        .signup-form input {
+            flex: 1;
+            padding: 18px 25px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.05em;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .signup-form button {
+            padding: 18px 40px;
+            background: var(--success);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.05em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+        }
+
+        .signup-form button:hover {
+            background: #059669;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5);
+        }
+
+        /* Section Styling */
+        .section {
+            background: white;
+            padding: 50px 40px;
+            margin: 30px 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .section h2 {
+            font-size: 2em;
+            margin-bottom: 25px;
+            color: var(--primary);
+            font-weight: 700;
+            border-left: 5px solid var(--primary);
+            padding-left: 20px;
+        }
+
+        /* Features Grid */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 35px;
+            margin-top: 40px;
+        }
+
+        .feature {
+            text-align: center;
+            padding: 30px 20px;
+            border-radius: 12px;
+            transition: all 0.3s;
+        }
+
+        .feature:hover {
+            background: var(--light);
+            transform: scale(1.05);
+        }
+
+        .feature-icon {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+        }
+
+        .feature h3 {
+            font-size: 1.3em;
+            margin-bottom: 12px;
+            color: var(--dark);
+            font-weight: 700;
+        }
+
+        .feature p {
+            color: var(--gray);
+            line-height: 1.7;
+        }
+
+        /* Table Styling */
+        .trades-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-top: 25px;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .trades-table thead {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+        }
+
+        .trades-table th {
+            padding: 18px 15px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.95em;
+            letter-spacing: 0.5px;
+        }
+
+        .trades-table td {
+            padding: 18px 15px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .trades-table tbody tr {
+            transition: background 0.2s;
+        }
+
+        .trades-table tbody tr:hover {
+            background: #f9fafb;
+        }
+
+        .positive-return {
+            color: var(--success);
+            font-weight: 700;
+            font-size: 1.1em;
+        }
+
+        .negative-return {
+            color: var(--danger);
+            font-weight: 700;
+            font-size: 1.1em;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-high {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .badge-medium {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge-low {
+            background: #f3f4f6;
+            color: #374151;
+        }
+
+        /* Disclaimer */
+        .disclaimer {
+            background: #fef3c7;
+            border-left: 5px solid var(--warning);
+            padding: 25px 30px;
+            margin: 40px 20px;
+            border-radius: 10px;
+        }
+
+        .disclaimer strong {
+            color: #92400e;
+            font-size: 1.1em;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 50px 20px;
+            color: var(--gray);
+            background: white;
+            margin-top: 60px;
+        }
+
+        .last-updated {
+            text-align: center;
+            color: var(--gray);
+            margin: 25px 0;
+            font-size: 0.95em;
+            font-weight: 500;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.2em;
+            }
+
+            header .subtitle {
+                font-size: 1.1em;
+            }
+
+            .signup-form {
+                flex-direction: column;
+            }
+
+            .stat-card {
+                padding: 25px 20px;
+            }
+
+            .stat-value {
+                font-size: 2.5em;
+            }
+
+            .section {
+                padding: 30px 20px;
+            }
+
+            .trades-table {
+                font-size: 0.9em;
+            }
+
+            .trades-table th,
+            .trades-table td {
+                padding: 12px 8px;
+            }
+        }
+
+        /* Loading State */
+        .loading {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--gray);
+        }
+
+        .loading::after {
+            content: '...';
+            animation: dots 1.5s steps(4, end) infinite;
+        }
+
+        @keyframes dots {
+            0%, 20% { content: '.'; }
+            40% { content: '..'; }
+            60%, 100% { content: '...'; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>📊 Insider Cluster Watch</h1>
+            <p class="subtitle">Automated Corporate Insider Buying Detection</p>
+            <p class="tagline">AI-Powered Signal Generation • 100% Open Source • Real Performance Tracking</p>
+            <div class="badge-live">LIVE PAPER TRADING</div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Performance Statistics -->
+        <div class="hero-stats" id="hero-stats">
+            <div class="loading">Loading performance data</div>
+        </div>
+
+        <div class="last-updated" id="last-updated"></div>
+
+        <!-- CTA Section -->
+        <div class="cta-section">
+            <h2>🔔 Get Free Weekly Insider Signals</h2>
+            <p>Join traders receiving our top-performing insider buying clusters every week</p>
+            <form class="signup-form" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
+                <input type="email" name="email" placeholder="Enter your email address" required>
+                <input type="hidden" name="_subject" value="New Insider Cluster Watch Subscriber">
+                <button type="submit">Subscribe Free →</button>
+            </form>
+            <p style="font-size: 0.95em; margin-top: 20px; opacity: 0.9;">
+                ✓ No credit card required  ✓ Unsubscribe anytime  ✓ 100% Free Forever
+            </p>
+        </div>
+
+        <!-- What You Get Section -->
+        <div class="section">
+            <h2>What Makes Us Different</h2>
+            <div class="features">
+                <div class="feature">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Multi-Insider Clusters</h3>
+                    <p>Detects when 3+ corporate insiders buy the same stock within days - a powerful bullish signal</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🧠</div>
+                    <h3>Smart Money Tracking</h3>
+                    <p>Tracks individual insider performance over time to identify consistently profitable insiders</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">📈</div>
+                    <h3>CEO & CFO Buys</h3>
+                    <p>Prioritizes high-conviction purchases from C-suite executives with material dollar amounts</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Daily Automation</h3>
+                    <p>Scans 500+ SEC Form 4 filings daily at 7 AM ET via GitHub Actions - fully automated</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🔍</div>
+                    <h3>Quality Filters</h3>
+                    <p>Advanced filters remove penny stocks, low liquidity, and distressed situations automatically</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">📊</div>
+                    <h3>Pattern Detection</h3>
+                    <p>Identifies accelerating buys, CEO+CFO coordination, and breaking silence patterns</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Trades Section -->
+        <div class="section">
+            <h2>Recent Closed Trades</h2>
+            <p style="color: var(--gray); margin-bottom: 20px;">
+                All trades are executed via realistic paper trading with slippage, commissions, and market hours constraints
+            </p>
+            <table class="trades-table">
+                <thead>
+                    <tr>
+                        <th>Ticker</th>
+                        <th>Entry Date</th>
+                        <th>Exit Date</th>
+                        <th>Hold Days</th>
+                        <th>Return</th>
+                        <th>Conviction</th>
+                        <th>Exit Reason</th>
+                    </tr>
+                </thead>
+                <tbody id="recent-trades">
+                    <tr>
+                        <td colspan="7" class="loading">Loading trade history</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Open Positions Section -->
+        <div class="section">
+            <h2>Current Open Positions</h2>
+            <table class="trades-table">
+                <thead>
+                    <tr>
+                        <th>Ticker</th>
+                        <th>Entry Date</th>
+                        <th>Days Held</th>
+                        <th>Unrealized Return</th>
+                        <th>Conviction</th>
+                    </tr>
+                </thead>
+                <tbody id="open-positions">
+                    <tr>
+                        <td colspan="5" class="loading">Loading open positions</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- How It Works -->
+        <div class="section">
+            <h2>How the System Works</h2>
+
+            <h3 style="margin-top: 30px; color: var(--dark); font-size: 1.3em;">🤖 Automated Pipeline</h3>
+            <p style="margin: 15px 0; line-height: 1.8;">
+                Our system processes SEC Form 4 filings daily at 7 AM ET using GitHub Actions. It scans 500+ filings,
+                detects insider buying patterns, applies quality filters, and generates high-conviction signals automatically.
+            </p>
+
+            <h3 style="margin-top: 30px; color: var(--dark); font-size: 1.3em;">📡 Signal Types</h3>
+            <ul style="margin: 15px 0 15px 40px; line-height: 2;">
+                <li><strong>Multi-Insider Clusters:</strong> When 3+ insiders buy within a 5-day window</li>
+                <li><strong>CEO/CFO High-Conviction:</strong> C-suite purchases exceeding $500K</li>
+                <li><strong>Smart Money Plays:</strong> Buys from insiders with proven 75%+ win rates</li>
+                <li><strong>Float Impact:</strong> Purchases representing 0.1%+ of tradeable shares</li>
+            </ul>
+
+            <h3 style="margin-top: 30px; color: var(--dark); font-size: 1.3em;">🛡️ Risk Management</h3>
+            <ul style="margin: 15px 0 15px 40px; line-height: 2;">
+                <li>5-15% trailing stops on all positions (tier-based)</li>
+                <li>Maximum 5% position sizing per trade</li>
+                <li>Maximum 25% total portfolio exposure</li>
+                <li>Market hours only (9:30 AM - 4:00 PM ET)</li>
+                <li>Realistic slippage (0.15%) and execution modeling</li>
+            </ul>
+        </div>
+
+        <!-- Disclaimer -->
+        <div class="disclaimer">
+            <p><strong>⚠️ Important Disclaimer:</strong></p>
+            <p style="margin-top: 10px; line-height: 1.7;">
+                This is for informational and educational purposes only and NOT investment advice.
+                Past performance does not guarantee future results. All data shown is from paper trading (simulated)
+                and not real money trading. Securities trading involves substantial risk of loss.
+                Always conduct your own research and consult with a licensed financial advisor before making any investment decisions.
+            </p>
+        </div>
+    </div>
+
+    <footer>
+        <p style="font-size: 1.1em; font-weight: 600; margin-bottom: 10px;">
+            Insider Cluster Watch © 2025
+        </p>
+        <p>100% Open Source Project  |  MIT License</p>
+        <p style="margin-top: 15px;">
+            Data sourced from SEC EDGAR  |  Updated daily via GitHub Actions
+        </p>
+        <p style="margin-top: 20px;">
+            <a href="https://github.com/Samie-mirghani/insider-cluster-watch" style="color: var(--primary); text-decoration: none; font-weight: 600;">
+                View Source Code on GitHub →
+            </a>
+        </p>
+    </footer>
+
+    <script>
+        // Load and display performance data
+        async function loadPerformanceData() {
+            try {
+                const response = await fetch('public_performance.json');
+                const data = await response.json();
+
+                // Update last updated timestamp
+                document.getElementById('last-updated').textContent =
+                    `📅 Last Updated: ${data.last_updated}`;
+
+                // Populate hero stats
+                const heroStats = document.getElementById('hero-stats');
+                const returnClass = data.total_return_pct >= 0 ? 'positive' : 'negative';
+
+                heroStats.innerHTML = `
+                    <div class="stat-card">
+                        <div class="stat-value ${returnClass}">
+                            ${data.total_return_pct >= 0 ? '+' : ''}${data.total_return_pct}%
+                        </div>
+                        <div class="stat-label">Total Return</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">${data.win_rate}%</div>
+                        <div class="stat-label">Win Rate</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">${data.completed_trades}</div>
+                        <div class="stat-label">Completed Trades</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">${data.active_trades}</div>
+                        <div class="stat-label">Active Positions</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value ${data.avg_return_per_trade >= 0 ? 'positive' : 'negative'}">
+                            ${data.avg_return_per_trade >= 0 ? '+' : ''}${data.avg_return_per_trade}%
+                        </div>
+                        <div class="stat-label">Avg Return/Trade</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">${data.sharpe_ratio}</div>
+                        <div class="stat-label">Sharpe Ratio</div>
+                    </div>
+                `;
+
+                // Populate recent trades
+                const tradesTable = document.getElementById('recent-trades');
+                if (data.recent_trades && data.recent_trades.length > 0) {
+                    tradesTable.innerHTML = data.recent_trades.map(trade => {
+                        const returnClass = trade.return_pct >= 0 ? 'positive-return' : 'negative-return';
+                        const badgeClass = ['VERY HIGH', 'HIGH'].includes(trade.conviction)
+                            ? 'badge-high'
+                            : trade.conviction === 'MEDIUM' ? 'badge-medium' : 'badge-low';
+
+                        return `
+                            <tr>
+                                <td><strong>${trade.ticker}</strong></td>
+                                <td>${trade.entry_date}</td>
+                                <td>${trade.exit_date}</td>
+                                <td>${trade.hold_days}d</td>
+                                <td class="${returnClass}">
+                                    ${trade.return_pct >= 0 ? '+' : ''}${trade.return_pct}%
+                                </td>
+                                <td><span class="badge ${badgeClass}">${trade.conviction}</span></td>
+                                <td>${trade.exit_reason}</td>
+                            </tr>
+                        `;
+                    }).join('');
+                } else {
+                    tradesTable.innerHTML = `
+                        <tr>
+                            <td colspan="7" style="text-align: center; padding: 30px; color: var(--gray);">
+                                No completed trades yet - system is warming up!
+                            </td>
+                        </tr>
+                    `;
+                }
+
+                // Populate open positions
+                const positionsTable = document.getElementById('open-positions');
+                if (data.open_positions && data.open_positions.length > 0) {
+                    positionsTable.innerHTML = data.open_positions.map(pos => {
+                        const returnClass = pos.unrealized_return >= 0 ? 'positive-return' : 'negative-return';
+                        const badgeClass = ['VERY HIGH', 'HIGH'].includes(pos.conviction)
+                            ? 'badge-high'
+                            : pos.conviction === 'MEDIUM' ? 'badge-medium' : 'badge-low';
+
+                        return `
+                            <tr>
+                                <td><strong>${pos.ticker}</strong></td>
+                                <td>${pos.entry_date}</td>
+                                <td>${pos.days_held}d</td>
+                                <td class="${returnClass}">
+                                    ${pos.unrealized_return >= 0 ? '+' : ''}${pos.unrealized_return}%
+                                </td>
+                                <td><span class="badge ${badgeClass}">${pos.conviction}</span></td>
+                            </tr>
+                        `;
+                    }).join('');
+                } else {
+                    positionsTable.innerHTML = `
+                        <tr>
+                            <td colspan="5" style="text-align: center; padding: 30px; color: var(--gray);">
+                                No open positions - waiting for high-conviction signals
+                            </td>
+                        </tr>
+                    `;
+                }
+
+            } catch (error) {
+                console.error('Error loading performance data:', error);
+                document.getElementById('hero-stats').innerHTML = `
+                    <div class="stat-card">
+                        <div class="stat-value" style="font-size: 1.5em; color: var(--danger);">
+                            Error Loading Data
+                        </div>
+                        <div class="stat-label">Please refresh the page</div>
+                    </div>
+                `;
+            }
+        }
+
+        // Load data when page loads
+        document.addEventListener('DOMContentLoaded', loadPerformanceData);
+    </script>
+</body>
+</html>
