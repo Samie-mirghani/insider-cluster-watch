@@ -12,6 +12,11 @@ import pandas as pd
 from datetime import datetime
 from pathlib import Path
 import numpy as np
+import yfinance as yf
+import logging
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 # Paths
 DATA_DIR = Path(__file__).parent.parent / 'data'
@@ -25,16 +30,91 @@ def load_portfolio():
     if not PAPER_PORTFOLIO_FILE.exists():
         return None
 
-    with open(PAPER_PORTFOLIO_FILE, 'r') as f:
-        return json.load(f)
+    try:
+        with open(PAPER_PORTFOLIO_FILE, 'r') as f:
+            return json.load(f)
+    except Exception as e:
+        logger.error(f"Error loading portfolio: {e}")
+        return None
 
 
 def load_trades():
-    """Load trade history"""
+    """
+    Load trade history
+
+    Handles both old format (date, action, ticker...) and new format (entry_date, exit_date, pnl_pct...)
+    """
     if not PAPER_TRADES_CSV.exists():
         return pd.DataFrame()
 
-    return pd.read_csv(PAPER_TRADES_CSV, parse_dates=['entry_date', 'exit_date'])
+    try:
+        # Read without parsing dates first to detect schema
+        df = pd.read_csv(PAPER_TRADES_CSV)
+
+        # Check which format we have
+        if 'entry_date' in df.columns and 'exit_date' in df.columns:
+            # New format - parse dates
+            df = pd.read_csv(PAPER_TRADES_CSV, parse_dates=['entry_date', 'exit_date'])
+        elif 'date' in df.columns:
+            # Old format - parse date column
+            df = pd.read_csv(PAPER_TRADES_CSV, parse_dates=['date'])
+
+        return df
+    except Exception as e:
+        logger.error(f"Error loading trades CSV: {e}")
+        return pd.DataFrame()
+
+
+def get_current_price(ticker, fallback_price):
+    """
+    Fetch current price for a ticker using yfinance
+
+    Args:
+        ticker: Stock ticker symbol
+        fallback_price: Fallback price if fetch fails
+
+    Returns:
+        Current price or fallback
+    """
+    try:
+        logger.info(f"  Fetching current price for {ticker}...")
+        ticker_obj = yf.Ticker(ticker)
+
+        # Try multiple price sources in order of preference
+        price = None
+
+        # Method 1: currentPrice from info
+        try:
+            info = ticker_obj.info
+            if info and isinstance(info, dict):
+                if 'currentPrice' in info:
+                    price = info.get('currentPrice')
+
+                # Method 2: regularMarketPrice from info
+                if not price or price <= 0:
+                    price = info.get('regularMarketPrice')
+        except Exception as e:
+            logger.warning(f"    ⚠ Error accessing info for {ticker}: {e}")
+
+        # Method 3: Get latest from history
+        if not price or price <= 0:
+            try:
+                hist = ticker_obj.history(period='1d')
+                if not hist.empty and 'Close' in hist.columns:
+                    price = hist['Close'].iloc[-1]
+            except Exception as e:
+                logger.warning(f"    ⚠ Error accessing history for {ticker}: {e}")
+
+        if price and price > 0:
+            logger.info(f"    ✓ {ticker}: ${price:.2f}")
+            return float(price)
+        else:
+            logger.warning(f"    ⚠ {ticker}: Using fallback ${fallback_price:.2f}")
+            return fallback_price
+
+    except Exception as e:
+        logger.warning(f"    ⚠ Error fetching {ticker}: {str(e)}, using fallback ${fallback_price:.2f}")
+        return fallback_price
 
 
 def calculate_sharpe_ratio(returns, risk_free_rate=0.0):
@@ -72,8 +152,10 @@ def generate_public_performance():
     trades_df = load_trades()
 
     # Initialize default data
+    # Note: GitHub Actions runs in UTC, so we display UTC time
+    now = datetime.utcnow()
     public_data = {
-        "last_updated": datetime.now().strftime("%B %d, %Y at %I:%M %p ET"),
+        "last_updated": now.strftime("%B %d, %Y at %H:%M UTC"),
         "total_return_pct": 0.0,
         "win_rate": 0.0,
         "completed_trades": 0,
@@ -90,111 +172,210 @@ def generate_public_performance():
 
     # Calculate metrics from portfolio
     if portfolio:
+        logger.info("📊 Calculating portfolio metrics...")
         starting_capital = portfolio.get('starting_capital', 10000)
         cash = portfolio.get('cash', starting_capital)
         positions = portfolio.get('positions', {})
 
-        # Calculate total return
-        current_value = cash
-        for ticker, pos in positions.items():
-            # For public display, we'll just show the positions without calculating current value
-            current_value += pos.get('cost_basis', 0)
+        # Calculate total return with REAL current prices
+        logger.info(f"  Cash: ${cash:,.2f}")
+        logger.info(f"  Fetching current prices for {len(positions)} positions...")
 
-        total_return_pct = ((current_value - starting_capital) / starting_capital) * 100
+        # Cache prices to avoid duplicate fetches (Bug #7 fix)
+        price_cache = {}
+        positions_value = 0.0
+
+        for ticker, pos in positions.items():
+            entry_price = pos.get('entry_price', 0)
+            shares = pos.get('shares', 0)
+
+            # Fetch price once and cache it
+            current_price = get_current_price(ticker, entry_price)
+            price_cache[ticker] = current_price
+
+            position_value = shares * current_price
+            positions_value += position_value
+
+        current_value = cash + positions_value
+
+        logger.info(f"  Total positions value: ${positions_value:,.2f}")
+        logger.info(f"  Total portfolio value: ${current_value:,.2f}")
+
+        # Bug #3 fix: Protect against division by zero
+        if starting_capital > 0:
+            total_return_pct = ((current_value - starting_capital) / starting_capital) * 100
+        else:
+            total_return_pct = 0.0
+
         public_data['total_return_pct'] = round(total_return_pct, 2)
         public_data['active_trades'] = len(positions)
 
-        # Open positions for display
+        logger.info(f"  Total return: {total_return_pct:.2f}%")
+
+        # Open positions for display with REAL unrealized returns
+        logger.info("  Calculating unrealized returns for open positions...")
         for ticker, pos in positions.items():
             entry_date = pos.get('entry_date', '')
+
+            # Bug #5 fix: Use naive datetime consistently
             if isinstance(entry_date, str):
-                entry_dt = pd.to_datetime(entry_date)
+                try:
+                    entry_dt = pd.to_datetime(entry_date)
+                    # Strip timezone if present to avoid mismatch
+                    if entry_dt.tzinfo is not None:
+                        entry_dt = entry_dt.replace(tzinfo=None)
+                except:
+                    entry_dt = datetime.utcnow()
             else:
                 entry_dt = entry_date
+                if hasattr(entry_dt, 'tzinfo') and entry_dt.tzinfo is not None:
+                    entry_dt = entry_dt.replace(tzinfo=None)
 
-            days_held = (datetime.now() - entry_dt).days
+            # Use naive datetime for comparison
+            days_held = (datetime.utcnow() - entry_dt).days
 
-            # Calculate unrealized return (from cost basis)
+            # Calculate REAL unrealized return
             entry_price = pos.get('entry_price', 0)
-            shares = pos.get('shares', 0)
-            cost_basis = pos.get('cost_basis', 0)
 
-            # Simple unrealized calc - in reality would fetch current price
-            # For public display, we use stored data
-            unrealized_pct = 0.0  # Placeholder
+            # Use cached price (Bug #7 fix)
+            current_price = price_cache.get(ticker, entry_price)
+
+            # Bug #3 fix: Protect against division by zero
+            if entry_price > 0:
+                unrealized_pct = ((current_price - entry_price) / entry_price) * 100
+            else:
+                unrealized_pct = 0.0
 
             conviction = get_conviction_level(pos.get('signal_score', 5))
+
+            logger.info(f"    {ticker}: Entry ${entry_price:.2f} -> Current ${current_price:.2f} = {unrealized_pct:+.2f}%")
 
             public_data['open_positions'].append({
                 "ticker": ticker,
                 "entry_date": entry_dt.strftime("%b %d, %Y"),
                 "days_held": days_held,
-                "unrealized_return": unrealized_pct,
+                "unrealized_return": round(unrealized_pct, 2),
                 "conviction": conviction
             })
 
     # Calculate metrics from completed trades
+    # Bug #4 fix: Handle both old and new CSV formats
     if not trades_df.empty:
-        completed_trades = len(trades_df)
-        public_data['completed_trades'] = completed_trades
+        logger.info("📊 Processing trade history...")
 
-        # Win rate
-        winning_trades = len(trades_df[trades_df['pnl_pct'] > 0])
-        public_data['win_rate'] = round((winning_trades / completed_trades) * 100, 1) if completed_trades > 0 else 0.0
+        # Detect format and calculate metrics accordingly
+        if 'pnl_pct' in trades_df.columns:
+            # New format with pnl_pct column
+            logger.info("  Detected new trade history format")
 
-        # Average return per trade
-        public_data['avg_return_per_trade'] = round(trades_df['pnl_pct'].mean(), 2)
-
-        # Sharpe ratio
-        if len(trades_df) >= 2:
-            public_data['sharpe_ratio'] = calculate_sharpe_ratio(trades_df['pnl_pct'].values / 100)
-
-        # Average hold days
-        if 'entry_date' in trades_df.columns and 'exit_date' in trades_df.columns:
-            trades_df['hold_days'] = (trades_df['exit_date'] - trades_df['entry_date']).dt.days
-            public_data['avg_hold_days'] = int(trades_df['hold_days'].mean())
-
-        # Best and worst trades
-        public_data['best_trade_pct'] = round(trades_df['pnl_pct'].max(), 2)
-        public_data['worst_trade_pct'] = round(trades_df['pnl_pct'].min(), 2)
-
-        # Recent trades (last 20)
-        recent = trades_df.sort_values('exit_date', ascending=False).head(20)
-
-        for _, trade in recent.iterrows():
-            conviction = get_conviction_level(trade.get('signal_score', 5))
-
-            # Determine exit reason
-            exit_reason = "Unknown"
-            if trade.get('pnl_pct', 0) >= 8:
-                exit_reason = "Take Profit"
-            elif trade.get('pnl_pct', 0) <= -5:
-                exit_reason = "Stop Loss"
-            elif trade.get('hold_days', 0) >= 21:
-                exit_reason = "Time Stop"
+            # Filter for SELL actions only (completed trades)
+            if 'action' in trades_df.columns:
+                completed = trades_df[trades_df['action'] == 'SELL']
             else:
-                exit_reason = "Trailing Stop"
+                completed = trades_df
 
-            public_data['recent_trades'].append({
-                "ticker": trade['ticker'],
-                "entry_date": trade['entry_date'].strftime("%b %d, %Y") if pd.notna(trade['entry_date']) else "N/A",
-                "exit_date": trade['exit_date'].strftime("%b %d, %Y") if pd.notna(trade['exit_date']) else "N/A",
-                "hold_days": int(trade.get('hold_days', 0)),
-                "return_pct": round(trade['pnl_pct'], 2),
-                "conviction": conviction,
-                "exit_reason": exit_reason
-            })
+            if not completed.empty:
+                completed_trades = len(completed)
+                public_data['completed_trades'] = completed_trades
+
+                # Win rate
+                winning_trades = len(completed[completed['pnl_pct'] > 0])
+                public_data['win_rate'] = round((winning_trades / completed_trades) * 100, 1) if completed_trades > 0 else 0.0
+
+                # Average return per trade
+                public_data['avg_return_per_trade'] = round(completed['pnl_pct'].mean(), 2)
+
+                # Sharpe ratio
+                if len(completed) >= 2:
+                    public_data['sharpe_ratio'] = calculate_sharpe_ratio(completed['pnl_pct'].values / 100)
+
+                # Average hold days
+                if 'hold_days' in completed.columns:
+                    # Bug #6 fix: Handle NaN values
+                    mean_days = completed['hold_days'].mean()
+                    if pd.notna(mean_days):
+                        public_data['avg_hold_days'] = int(mean_days)
+                    else:
+                        public_data['avg_hold_days'] = 0
+                elif 'entry_date' in completed.columns and 'exit_date' in completed.columns:
+                    completed['hold_days'] = (completed['exit_date'] - completed['entry_date']).dt.days
+                    mean_days = completed['hold_days'].mean()
+                    if pd.notna(mean_days):
+                        public_data['avg_hold_days'] = int(mean_days)
+                    else:
+                        public_data['avg_hold_days'] = 0
+
+                # Best and worst trades
+                public_data['best_trade_pct'] = round(completed['pnl_pct'].max(), 2)
+                public_data['worst_trade_pct'] = round(completed['pnl_pct'].min(), 2)
+
+                # Recent trades (last 20)
+                if 'exit_date' in completed.columns:
+                    recent = completed.sort_values('exit_date', ascending=False).head(20)
+                else:
+                    recent = completed.tail(20)
+
+                for _, trade in recent.iterrows():
+                    conviction = get_conviction_level(trade.get('signal_score', 5))
+
+                    # Determine exit reason
+                    exit_reason = "Unknown"
+                    pnl = trade.get('pnl_pct', 0)
+                    hold_days = trade.get('hold_days', 0)
+
+                    if pnl >= 8:
+                        exit_reason = "Take Profit"
+                    elif pnl <= -5:
+                        exit_reason = "Stop Loss"
+                    elif hold_days >= 21:
+                        exit_reason = "Time Stop"
+                    else:
+                        exit_reason = "Trailing Stop"
+
+                    # Format dates safely
+                    entry_date_str = "N/A"
+                    exit_date_str = "N/A"
+
+                    if 'entry_date' in trade.index and pd.notna(trade['entry_date']):
+                        try:
+                            entry_date_str = pd.to_datetime(trade['entry_date']).strftime("%b %d, %Y")
+                        except:
+                            entry_date_str = str(trade['entry_date'])[:10]
+
+                    if 'exit_date' in trade.index and pd.notna(trade['exit_date']):
+                        try:
+                            exit_date_str = pd.to_datetime(trade['exit_date']).strftime("%b %d, %Y")
+                        except:
+                            exit_date_str = str(trade['exit_date'])[:10]
+
+                    public_data['recent_trades'].append({
+                        "ticker": trade['ticker'],
+                        "entry_date": entry_date_str,
+                        "exit_date": exit_date_str,
+                        "hold_days": int(hold_days) if pd.notna(hold_days) else 0,
+                        "return_pct": round(trade['pnl_pct'], 2),
+                        "conviction": conviction,
+                        "exit_reason": exit_reason
+                    })
+        else:
+            # Old format - just log BUY/SELL actions, no completed trade data yet
+            logger.info("  Detected old trade history format (no completed trades yet)")
+            public_data['completed_trades'] = 0
 
     # Write to file
     with open(OUTPUT_FILE, 'w') as f:
         json.dump(public_data, f, indent=2)
 
-    print(f"✅ Generated public_performance.json")
-    print(f"   Total Return: {public_data['total_return_pct']}%")
-    print(f"   Win Rate: {public_data['win_rate']}%")
-    print(f"   Completed Trades: {public_data['completed_trades']}")
-    print(f"   Active Positions: {public_data['active_trades']}")
-    print(f"   Sharpe Ratio: {public_data['sharpe_ratio']}")
+    logger.info("")
+    logger.info("="*60)
+    logger.info("✅ Generated public_performance.json")
+    logger.info(f"   Last Updated: {public_data['last_updated']}")
+    logger.info(f"   Total Return: {public_data['total_return_pct']:+.2f}%")
+    logger.info(f"   Win Rate: {public_data['win_rate']:.1f}%")
+    logger.info(f"   Completed Trades: {public_data['completed_trades']}")
+    logger.info(f"   Active Positions: {public_data['active_trades']}")
+    logger.info(f"   Sharpe Ratio: {public_data['sharpe_ratio']}")
+    logger.info("="*60)
 
     return public_data
 
