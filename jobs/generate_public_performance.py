@@ -12,6 +12,11 @@ import pandas as pd
 from datetime import datetime
 from pathlib import Path
 import numpy as np
+import yfinance as yf
+import logging
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 # Paths
 DATA_DIR = Path(__file__).parent.parent / 'data'
@@ -35,6 +40,51 @@ def load_trades():
         return pd.DataFrame()
 
     return pd.read_csv(PAPER_TRADES_CSV, parse_dates=['entry_date', 'exit_date'])
+
+
+def get_current_price(ticker, fallback_price):
+    """
+    Fetch current price for a ticker using yfinance
+
+    Args:
+        ticker: Stock ticker symbol
+        fallback_price: Fallback price if fetch fails
+
+    Returns:
+        Current price or fallback
+    """
+    try:
+        logger.info(f"  Fetching current price for {ticker}...")
+        ticker_obj = yf.Ticker(ticker)
+
+        # Try multiple price sources in order of preference
+        price = None
+
+        # Method 1: currentPrice from info
+        info = ticker_obj.info
+        if info and 'currentPrice' in info:
+            price = info.get('currentPrice')
+
+        # Method 2: regularMarketPrice from info
+        if not price or price <= 0:
+            price = info.get('regularMarketPrice')
+
+        # Method 3: Get latest from history
+        if not price or price <= 0:
+            hist = ticker_obj.history(period='1d')
+            if not hist.empty and 'Close' in hist.columns:
+                price = hist['Close'].iloc[-1]
+
+        if price and price > 0:
+            logger.info(f"    ✓ {ticker}: ${price:.2f}")
+            return float(price)
+        else:
+            logger.warning(f"    ⚠ {ticker}: Using fallback ${fallback_price:.2f}")
+            return fallback_price
+
+    except Exception as e:
+        logger.warning(f"    ⚠ Error fetching {ticker}: {str(e)}, using fallback ${fallback_price:.2f}")
+        return fallback_price
 
 
 def calculate_sharpe_ratio(returns, risk_free_rate=0.0):
@@ -72,8 +122,10 @@ def generate_public_performance():
     trades_df = load_trades()
 
     # Initialize default data
+    # Note: GitHub Actions runs in UTC, so we display UTC time
+    now = datetime.utcnow()
     public_data = {
-        "last_updated": datetime.now().strftime("%B %d, %Y at %I:%M %p ET"),
+        "last_updated": now.strftime("%B %d, %Y at %H:%M UTC"),
         "total_return_pct": 0.0,
         "win_rate": 0.0,
         "completed_trades": 0,
@@ -90,21 +142,41 @@ def generate_public_performance():
 
     # Calculate metrics from portfolio
     if portfolio:
+        logger.info("📊 Calculating portfolio metrics...")
         starting_capital = portfolio.get('starting_capital', 10000)
         cash = portfolio.get('cash', starting_capital)
         positions = portfolio.get('positions', {})
 
-        # Calculate total return
+        # Calculate total return with REAL current prices
+        logger.info(f"  Cash: ${cash:,.2f}")
+        logger.info(f"  Fetching current prices for {len(positions)} positions...")
+
         current_value = cash
+        positions_value = 0.0
+
         for ticker, pos in positions.items():
-            # For public display, we'll just show the positions without calculating current value
-            current_value += pos.get('cost_basis', 0)
+            # Fetch REAL current price
+            entry_price = pos.get('entry_price', 0)
+            shares = pos.get('shares', 0)
+            cost_basis = pos.get('cost_basis', 0)
+
+            current_price = get_current_price(ticker, entry_price)
+            position_value = shares * current_price
+            positions_value += position_value
+
+        current_value = cash + positions_value
+
+        logger.info(f"  Total positions value: ${positions_value:,.2f}")
+        logger.info(f"  Total portfolio value: ${current_value:,.2f}")
 
         total_return_pct = ((current_value - starting_capital) / starting_capital) * 100
         public_data['total_return_pct'] = round(total_return_pct, 2)
         public_data['active_trades'] = len(positions)
 
-        # Open positions for display
+        logger.info(f"  Total return: {total_return_pct:.2f}%")
+
+        # Open positions for display with REAL unrealized returns
+        logger.info("  Calculating unrealized returns for open positions...")
         for ticker, pos in positions.items():
             entry_date = pos.get('entry_date', '')
             if isinstance(entry_date, str):
@@ -114,22 +186,25 @@ def generate_public_performance():
 
             days_held = (datetime.now() - entry_dt).days
 
-            # Calculate unrealized return (from cost basis)
+            # Calculate REAL unrealized return
             entry_price = pos.get('entry_price', 0)
             shares = pos.get('shares', 0)
-            cost_basis = pos.get('cost_basis', 0)
 
-            # Simple unrealized calc - in reality would fetch current price
-            # For public display, we use stored data
-            unrealized_pct = 0.0  # Placeholder
+            # Fetch current price
+            current_price = get_current_price(ticker, entry_price)
+
+            # Calculate unrealized return percentage
+            unrealized_pct = ((current_price - entry_price) / entry_price) * 100
 
             conviction = get_conviction_level(pos.get('signal_score', 5))
+
+            logger.info(f"    {ticker}: Entry ${entry_price:.2f} -> Current ${current_price:.2f} = {unrealized_pct:+.2f}%")
 
             public_data['open_positions'].append({
                 "ticker": ticker,
                 "entry_date": entry_dt.strftime("%b %d, %Y"),
                 "days_held": days_held,
-                "unrealized_return": unrealized_pct,
+                "unrealized_return": round(unrealized_pct, 2),
                 "conviction": conviction
             })
 
@@ -189,12 +264,16 @@ def generate_public_performance():
     with open(OUTPUT_FILE, 'w') as f:
         json.dump(public_data, f, indent=2)
 
-    print(f"✅ Generated public_performance.json")
-    print(f"   Total Return: {public_data['total_return_pct']}%")
-    print(f"   Win Rate: {public_data['win_rate']}%")
-    print(f"   Completed Trades: {public_data['completed_trades']}")
-    print(f"   Active Positions: {public_data['active_trades']}")
-    print(f"   Sharpe Ratio: {public_data['sharpe_ratio']}")
+    logger.info("")
+    logger.info("="*60)
+    logger.info("✅ Generated public_performance.json")
+    logger.info(f"   Last Updated: {public_data['last_updated']}")
+    logger.info(f"   Total Return: {public_data['total_return_pct']:+.2f}%")
+    logger.info(f"   Win Rate: {public_data['win_rate']:.1f}%")
+    logger.info(f"   Completed Trades: {public_data['completed_trades']}")
+    logger.info(f"   Active Positions: {public_data['active_trades']}")
+    logger.info(f"   Sharpe Ratio: {public_data['sharpe_ratio']}")
+    logger.info("="*60)
 
     return public_data
 
