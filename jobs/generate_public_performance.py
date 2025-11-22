@@ -9,11 +9,12 @@ Shows percentages and statistics, but NOT dollar amounts.
 import json
 import os
 import pandas as pd
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
 import numpy as np
 import yfinance as yf
 import logging
+from collections import defaultdict
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -117,6 +118,53 @@ def get_current_price(ticker, fallback_price):
         return fallback_price
 
 
+def get_sp500_return(start_date, end_date=None):
+    """
+    Calculate S&P 500 return for comparison (Alpha calculation)
+
+    Args:
+        start_date: Start date for calculation
+        end_date: End date (defaults to today)
+
+    Returns:
+        S&P 500 return percentage, or 0.0 if unable to fetch
+    """
+    try:
+        logger.info("  Fetching S&P 500 data for Alpha calculation...")
+
+        if end_date is None:
+            end_date = datetime.utcnow()
+
+        # Ensure dates are datetime objects
+        if isinstance(start_date, str):
+            start_date = pd.to_datetime(start_date)
+        if isinstance(end_date, str):
+            end_date = pd.to_datetime(end_date)
+
+        # Fetch SPY data
+        spy = yf.Ticker("SPY")
+        hist = spy.history(start=start_date, end=end_date)
+
+        if hist.empty or len(hist) < 2:
+            logger.warning("    ⚠ Insufficient S&P 500 data")
+            return 0.0
+
+        start_price = hist['Close'].iloc[0]
+        end_price = hist['Close'].iloc[-1]
+
+        if start_price <= 0:
+            return 0.0
+
+        sp500_return = ((end_price - start_price) / start_price) * 100
+        logger.info(f"    ✓ S&P 500 Return: {sp500_return:+.2f}%")
+
+        return round(sp500_return, 2)
+
+    except Exception as e:
+        logger.warning(f"    ⚠ Error fetching S&P 500 data: {e}")
+        return 0.0
+
+
 def calculate_sharpe_ratio(returns, risk_free_rate=0.0):
     """Calculate Sharpe ratio from returns"""
     if len(returns) < 2:
@@ -166,9 +214,29 @@ def generate_public_performance():
         "avg_hold_days": 0,
         "best_trade_pct": 0.0,
         "worst_trade_pct": 0.0,
+
+        # NEW: Advanced metrics
+        "alpha_vs_sp500": 0.0,
+        "avg_winner": 0.0,
+        "avg_loser": 0.0,
+        "win_loss_ratio": 0.0,
+        "profit_factor": 0.0,
+        "last_30_days_return": 0.0,
+        "last_10_trades_win_rate": 0.0,
+        "current_streak": 0,
+        "current_streak_type": "none",  # "wins", "losses", or "none"
+
+        # NEW: Performance breakdowns
+        "conviction_performance": [],  # Performance by conviction level
+        "monthly_returns": [],  # For heatmap
+
+        # Existing
         "recent_trades": [],
         "open_positions": []
     }
+
+    # Track portfolio start date for Alpha calculation
+    portfolio_start_date = None
 
     # Calculate metrics from portfolio
     if portfolio:
@@ -177,11 +245,15 @@ def generate_public_performance():
         cash = portfolio.get('cash', starting_capital)
         positions = portfolio.get('positions', {})
 
+        # Get max_drawdown from portfolio data
+        max_drawdown = portfolio.get('max_drawdown', 0.0)
+        public_data['max_drawdown'] = round(max_drawdown, 2)
+
         # Calculate total return with REAL current prices
         logger.info(f"  Cash: ${cash:,.2f}")
         logger.info(f"  Fetching current prices for {len(positions)} positions...")
 
-        # Cache prices to avoid duplicate fetches (Bug #7 fix)
+        # Cache prices to avoid duplicate fetches
         price_cache = {}
         positions_value = 0.0
 
@@ -196,12 +268,22 @@ def generate_public_performance():
             position_value = shares * current_price
             positions_value += position_value
 
+            # Track earliest entry date for Alpha calculation
+            entry_date = pos.get('entry_date')
+            if entry_date:
+                try:
+                    entry_dt = pd.to_datetime(entry_date)
+                    if portfolio_start_date is None or entry_dt < portfolio_start_date:
+                        portfolio_start_date = entry_dt
+                except:
+                    pass
+
         current_value = cash + positions_value
 
         logger.info(f"  Total positions value: ${positions_value:,.2f}")
         logger.info(f"  Total portfolio value: ${current_value:,.2f}")
 
-        # Bug #3 fix: Protect against division by zero
+        # Protect against division by zero
         if starting_capital > 0:
             total_return_pct = ((current_value - starting_capital) / starting_capital) * 100
         else:
@@ -217,7 +299,7 @@ def generate_public_performance():
         for ticker, pos in positions.items():
             entry_date = pos.get('entry_date', '')
 
-            # Bug #5 fix: Use naive datetime consistently
+            # Use naive datetime consistently
             if isinstance(entry_date, str):
                 try:
                     entry_dt = pd.to_datetime(entry_date)
@@ -237,10 +319,10 @@ def generate_public_performance():
             # Calculate REAL unrealized return
             entry_price = pos.get('entry_price', 0)
 
-            # Use cached price (Bug #7 fix)
+            # Use cached price
             current_price = price_cache.get(ticker, entry_price)
 
-            # Bug #3 fix: Protect against division by zero
+            # Protect against division by zero
             if entry_price > 0:
                 unrealized_pct = ((current_price - entry_price) / entry_price) * 100
             else:
@@ -259,7 +341,6 @@ def generate_public_performance():
             })
 
     # Calculate metrics from completed trades
-    # Bug #4 fix: Handle both old and new CSV formats
     if not trades_df.empty:
         logger.info("📊 Processing trade history...")
 
@@ -270,20 +351,52 @@ def generate_public_performance():
 
             # Filter for SELL actions only (completed trades)
             if 'action' in trades_df.columns:
-                completed = trades_df[trades_df['action'] == 'SELL']
+                completed = trades_df[trades_df['action'] == 'SELL'].copy()
             else:
-                completed = trades_df
+                completed = trades_df.copy()
 
             if not completed.empty:
                 completed_trades = len(completed)
                 public_data['completed_trades'] = completed_trades
 
+                # Calculate wins and losses
+                winners = completed[completed['pnl_pct'] > 0]
+                losers = completed[completed['pnl_pct'] < 0]
+                num_winners = len(winners)
+                num_losers = len(losers)
+
                 # Win rate
-                winning_trades = len(completed[completed['pnl_pct'] > 0])
-                public_data['win_rate'] = round((winning_trades / completed_trades) * 100, 1) if completed_trades > 0 else 0.0
+                public_data['win_rate'] = round((num_winners / completed_trades) * 100, 1) if completed_trades > 0 else 0.0
 
                 # Average return per trade
                 public_data['avg_return_per_trade'] = round(completed['pnl_pct'].mean(), 2)
+
+                # NEW: Avg Winner and Avg Loser
+                if not winners.empty:
+                    public_data['avg_winner'] = round(winners['pnl_pct'].mean(), 2)
+                else:
+                    public_data['avg_winner'] = 0.0
+
+                if not losers.empty:
+                    public_data['avg_loser'] = round(losers['pnl_pct'].mean(), 2)
+                else:
+                    public_data['avg_loser'] = 0.0
+
+                # NEW: Win/Loss Ratio
+                if public_data['avg_loser'] != 0:
+                    # Win/Loss ratio = Avg Win / Abs(Avg Loss)
+                    public_data['win_loss_ratio'] = round(abs(public_data['avg_winner'] / public_data['avg_loser']), 2)
+                else:
+                    public_data['win_loss_ratio'] = 0.0
+
+                # NEW: Profit Factor (Total Gains / Total Losses)
+                total_gains = winners['pnl_pct'].sum() if not winners.empty else 0.0
+                total_losses = abs(losers['pnl_pct'].sum()) if not losers.empty else 0.0
+
+                if total_losses > 0:
+                    public_data['profit_factor'] = round(total_gains / total_losses, 2)
+                else:
+                    public_data['profit_factor'] = 0.0
 
                 # Sharpe ratio
                 if len(completed) >= 2:
@@ -291,7 +404,6 @@ def generate_public_performance():
 
                 # Average hold days
                 if 'hold_days' in completed.columns:
-                    # Bug #6 fix: Handle NaN values
                     mean_days = completed['hold_days'].mean()
                     if pd.notna(mean_days):
                         public_data['avg_hold_days'] = int(mean_days)
@@ -308,6 +420,115 @@ def generate_public_performance():
                 # Best and worst trades
                 public_data['best_trade_pct'] = round(completed['pnl_pct'].max(), 2)
                 public_data['worst_trade_pct'] = round(completed['pnl_pct'].min(), 2)
+
+                # NEW: Last 10 Trades Win Rate
+                if len(completed) >= 10:
+                    if 'exit_date' in completed.columns:
+                        last_10 = completed.sort_values('exit_date', ascending=False).head(10)
+                    else:
+                        last_10 = completed.tail(10)
+
+                    last_10_winners = len(last_10[last_10['pnl_pct'] > 0])
+                    public_data['last_10_trades_win_rate'] = round((last_10_winners / 10) * 100, 1)
+                else:
+                    public_data['last_10_trades_win_rate'] = public_data['win_rate']
+
+                # NEW: Current Streak
+                if 'exit_date' in completed.columns:
+                    sorted_trades = completed.sort_values('exit_date', ascending=True)
+                else:
+                    sorted_trades = completed
+
+                current_streak = 0
+                streak_type = "none"
+
+                if len(sorted_trades) > 0:
+                    # Start from most recent trade and count backwards
+                    last_result = None
+                    for _, trade in sorted_trades.iloc[::-1].iterrows():
+                        is_winner = trade['pnl_pct'] > 0
+
+                        if last_result is None:
+                            last_result = is_winner
+                            current_streak = 1
+                            streak_type = "wins" if is_winner else "losses"
+                        elif is_winner == last_result:
+                            current_streak += 1
+                        else:
+                            break
+
+                public_data['current_streak'] = current_streak
+                public_data['current_streak_type'] = streak_type
+
+                # NEW: Last 30 Days Return
+                if 'exit_date' in completed.columns:
+                    thirty_days_ago = datetime.utcnow() - timedelta(days=30)
+                    recent_trades = completed[completed['exit_date'] >= thirty_days_ago]
+
+                    if not recent_trades.empty:
+                        # Calculate cumulative return for last 30 days
+                        last_30_returns = recent_trades['pnl_pct'].values
+                        # Assuming each trade is independent, sum the returns
+                        public_data['last_30_days_return'] = round(last_30_returns.sum(), 2)
+                    else:
+                        public_data['last_30_days_return'] = 0.0
+                else:
+                    public_data['last_30_days_return'] = 0.0
+
+                # NEW: Conviction Performance Breakdown
+                logger.info("  Calculating conviction performance breakdown...")
+                conviction_stats = defaultdict(lambda: {'trades': 0, 'wins': 0, 'total_return': 0.0})
+
+                for _, trade in completed.iterrows():
+                    signal_score = trade.get('signal_score', 5)
+                    conviction = get_conviction_level(signal_score)
+                    pnl = trade['pnl_pct']
+
+                    conviction_stats[conviction]['trades'] += 1
+                    conviction_stats[conviction]['total_return'] += pnl
+                    if pnl > 0:
+                        conviction_stats[conviction]['wins'] += 1
+
+                for conviction in ['VERY HIGH', 'HIGH', 'MEDIUM', 'LOW', 'WATCH']:
+                    stats = conviction_stats[conviction]
+                    if stats['trades'] > 0:
+                        win_rate = (stats['wins'] / stats['trades']) * 100
+                        avg_return = stats['total_return'] / stats['trades']
+
+                        public_data['conviction_performance'].append({
+                            'conviction': conviction,
+                            'trades': stats['trades'],
+                            'win_rate': round(win_rate, 1),
+                            'avg_return': round(avg_return, 2)
+                        })
+
+                # NEW: Monthly Returns for Heatmap
+                logger.info("  Calculating monthly returns...")
+                if 'exit_date' in completed.columns:
+                    # Group by year-month
+                    completed['year_month'] = completed['exit_date'].dt.to_period('M')
+                    monthly_groups = completed.groupby('year_month')['pnl_pct'].sum()
+
+                    for period, total_return in monthly_groups.items():
+                        public_data['monthly_returns'].append({
+                            'month': str(period),  # Format: '2025-11'
+                            'return': round(total_return, 2)
+                        })
+
+                # NEW: Alpha vs S&P 500
+                logger.info("  Calculating Alpha vs S&P 500...")
+                if portfolio_start_date:
+                    sp500_return = get_sp500_return(portfolio_start_date)
+                    alpha = public_data['total_return_pct'] - sp500_return
+                    public_data['alpha_vs_sp500'] = round(alpha, 2)
+                elif 'entry_date' in completed.columns and not completed.empty:
+                    # Use first trade date as start
+                    first_trade_date = completed['entry_date'].min()
+                    sp500_return = get_sp500_return(first_trade_date)
+                    alpha = public_data['total_return_pct'] - sp500_return
+                    public_data['alpha_vs_sp500'] = round(alpha, 2)
+                else:
+                    public_data['alpha_vs_sp500'] = 0.0
 
                 # Recent trades (last 20)
                 if 'exit_date' in completed.columns:
@@ -371,10 +592,12 @@ def generate_public_performance():
     logger.info("✅ Generated public_performance.json")
     logger.info(f"   Last Updated: {public_data['last_updated']}")
     logger.info(f"   Total Return: {public_data['total_return_pct']:+.2f}%")
+    logger.info(f"   Alpha vs S&P 500: {public_data['alpha_vs_sp500']:+.2f}%")
     logger.info(f"   Win Rate: {public_data['win_rate']:.1f}%")
     logger.info(f"   Completed Trades: {public_data['completed_trades']}")
     logger.info(f"   Active Positions: {public_data['active_trades']}")
     logger.info(f"   Sharpe Ratio: {public_data['sharpe_ratio']}")
+    logger.info(f"   Profit Factor: {public_data['profit_factor']}")
     logger.info("="*60)
 
     return public_data
