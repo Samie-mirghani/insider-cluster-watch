@@ -1,50 +1,61 @@
 {
-  "last_updated": "November 21, 2025 at 11:43 UTC",
-  "total_return_pct": 0.12,
+  "last_updated": "November 22, 2025 at 23:08 UTC",
+  "total_return_pct": 0.3,
   "win_rate": 0.0,
   "completed_trades": 0,
   "active_trades": 5,
   "avg_return_per_trade": 0.0,
   "sharpe_ratio": 0.0,
-  "max_drawdown": 0.0,
+  "max_drawdown": -4.48,
   "avg_hold_days": 0,
   "best_trade_pct": 0.0,
   "worst_trade_pct": 0.0,
+  "alpha_vs_sp500": 0.0,
+  "avg_winner": 0.0,
+  "avg_loser": 0.0,
+  "win_loss_ratio": 0.0,
+  "profit_factor": 0.0,
+  "last_30_days_return": 0.0,
+  "last_10_trades_win_rate": 0.0,
+  "current_streak": 0,
+  "current_streak_type": "none",
+  "conviction_performance": [],
+  "monthly_returns": [],
   "recent_trades": [],
   "open_positions": [
     {
       "ticker": "YCY",
       "entry_date": "Nov 10, 2025",
-      "days_held": 11,
-      "unrealized_return": -0.85,
+      "days_held": 12,
+      "unrealized_return": -1.1,
       "conviction": "LOW"
     },
     {
       "ticker": "VRSK",
       "entry_date": "Nov 11, 2025",
-      "days_held": 10,
-      "unrealized_return": 4.2,
+      "days_held": 11,
+      "unrealized_return": 4.8,
       "conviction": "MEDIUM"
     },
     {
       "ticker": "IRDM",
       "entry_date": "Nov 11, 2025",
-      "days_held": 10,
-      "unrealized_return": -3.94,
+      "days_held": 11,
+      "unrealized_return": -2.67,
       "conviction": "MEDIUM"
     },
     {
       "ticker": "MTDR",
       "entry_date": "Nov 14, 2025",
-      "days_held": 7,
-      "unrealized_return": -0.83,
+      "days_held": 8,
+      "unrealized_return": 0.66,
       "conviction": "VERY HIGH"
     },
     {
       "ticker": "OBK",
       "entry_date": "Nov 19, 2025",
-      "days_held": 1,
-      "unrealized_return": 0.94,
+      "days_held": 3,
+      "unrealized_return": 4.56,
       "conviction": "VERY HIGH"
     }
   ]
