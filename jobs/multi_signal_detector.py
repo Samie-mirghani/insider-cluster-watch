@@ -13,6 +13,15 @@ import logging
 from capitol_trades_scraper import CapitolTradesScraper
 from sec_13f_parser import SEC13FParser
 
+# Import politician tracker for time-decay weighting
+try:
+    from politician_tracker import PoliticianTracker
+    POLITICIAN_TRACKER_AVAILABLE = True
+except ImportError:
+    POLITICIAN_TRACKER_AVAILABLE = False
+    logger = logging.getLogger(__name__)
+    logger.warning("PoliticianTracker not available. Using static weights.")
+
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
@@ -39,18 +48,25 @@ class MultiSignalDetector:
         'short_interest': 0.15
     }
 
-    def __init__(self, sec_user_agent: str):
+    def __init__(self, sec_user_agent: str, politician_tracker: Optional['PoliticianTracker'] = None):
         """
         Initialize detector
 
         Args:
             sec_user_agent: User-Agent for SEC requests
+            politician_tracker: Optional PoliticianTracker instance for time-decay weighting
         """
-        self.politician_scraper = CapitolTradesScraper()
+        self.politician_tracker = politician_tracker
+        self.politician_scraper = CapitolTradesScraper(politician_tracker=politician_tracker)
         self.sec_parser = SEC13FParser(sec_user_agent)
 
         # Priority funds for institutional tracking
         self.priority_funds = self.sec_parser.PRIORITY_FUNDS
+
+        if self.politician_tracker:
+            logger.info("MultiSignalDetector initialized with PoliticianTracker (time-decay enabled)")
+        else:
+            logger.info("MultiSignalDetector initialized with static politician weights")
 
     def run_full_scan(self,
                      insider_clusters: pd.DataFrame,

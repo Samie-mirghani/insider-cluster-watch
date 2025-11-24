@@ -24,15 +24,19 @@ from config import (
 # Multi-signal detection imports
 try:
     from multi_signal_detector import MultiSignalDetector, combine_insider_and_politician_signals
+    from politician_tracker import create_politician_tracker
     from config import (
         ENABLE_MULTI_SIGNAL, ENABLE_POLITICIAN_SCRAPING, ENABLE_13F_CHECKING,
-        SEC_USER_AGENT, POLITICIAN_LOOKBACK_DAYS, POLITICIAN_MAX_PAGES
+        SEC_USER_AGENT, POLITICIAN_LOOKBACK_DAYS, POLITICIAN_MAX_PAGES,
+        ENABLE_POLITICIAN_TIME_DECAY, POLITICIAN_DECAY_HALF_LIFE_DAYS,
+        POLITICIAN_MIN_WEIGHT_FRACTION, POLITICIAN_RETIRING_BOOST
     )
     MULTI_SIGNAL_AVAILABLE = True
 except ImportError as e:
     print(f"⚠️  Multi-signal detection not available: {e}")
     MULTI_SIGNAL_AVAILABLE = False
     ENABLE_MULTI_SIGNAL = False
+    ENABLE_POLITICIAN_TIME_DECAY = False
 
 DATA_DIR = os.path.join(os.path.dirname(__file__), '..', 'data')
 if not os.path.exists(DATA_DIR):
@@ -386,8 +390,21 @@ def main(test=False, urgent_test=False, enable_paper_trading=True):
         if ENABLE_13F_CHECKING:
             print("   • Checking 13F institutional holdings")
 
+        # Initialize politician tracker for time-decay weighting
+        politician_tracker = None
+        if ENABLE_POLITICIAN_TIME_DECAY:
+            print("   • Initializing politician tracker with time-decay...")
+            politician_tracker = create_politician_tracker(
+                decay_half_life_days=POLITICIAN_DECAY_HALF_LIFE_DAYS,
+                min_weight_fraction=POLITICIAN_MIN_WEIGHT_FRACTION,
+                retiring_boost=POLITICIAN_RETIRING_BOOST
+            )
+            stats = politician_tracker.get_summary_stats()
+            print(f"     - Tracking {stats['total_politicians']} politicians")
+            print(f"     - Active: {stats['active']}, Retiring: {stats['retiring']}, Retired: {stats['retired']}")
+
         try:
-            detector = MultiSignalDetector(SEC_USER_AGENT)
+            detector = MultiSignalDetector(SEC_USER_AGENT, politician_tracker=politician_tracker)
 
             # Get current quarter for 13F checks
             now = datetime.utcnow()

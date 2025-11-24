@@ -18,6 +18,14 @@ from urllib.parse import urlencode
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+# Import politician tracker for time-decay weighting
+try:
+    from politician_tracker import PoliticianTracker
+    POLITICIAN_TRACKER_AVAILABLE = True
+except ImportError:
+    POLITICIAN_TRACKER_AVAILABLE = False
+    logger.warning("PoliticianTracker not available. Using static weights.")
+
 # Selenium imports
 try:
     from selenium import webdriver
@@ -57,7 +65,8 @@ class CapitolTradesScraper:
         'Default': 1.0
     }
 
-    def __init__(self, max_retries: int = 3, delay: float = 2.0, use_selenium: bool = True):
+    def __init__(self, max_retries: int = 3, delay: float = 2.0, use_selenium: bool = True,
+                 politician_tracker: Optional['PoliticianTracker'] = None):
         """
         Initialize scraper
 
@@ -65,11 +74,19 @@ class CapitolTradesScraper:
             max_retries: Maximum retry attempts
             delay: Delay between requests (seconds)
             use_selenium: Use Selenium for JavaScript rendering (required for Capitol Trades)
+            politician_tracker: Optional PoliticianTracker instance for time-decay weighting
         """
         self.max_retries = max_retries
         self.delay = delay
         self.use_selenium = use_selenium and SELENIUM_AVAILABLE
         self.driver = None
+        self.politician_tracker = politician_tracker
+
+        # Log whether we're using time-decay or static weights
+        if self.politician_tracker:
+            logger.info("Using PoliticianTracker for dynamic time-decay weights")
+        else:
+            logger.info("Using static POLITICIAN_WEIGHTS (no time-decay)")
 
         # Always create session as fallback
         self.session = requests.Session()
@@ -551,10 +568,20 @@ class CapitolTradesScraper:
         df['amount_max'] = df['amount_range'].apply(self._parse_amount_max)
         df['amount_mid'] = (df['amount_min'] + df['amount_max']) / 2
 
-        # Apply politician weights
-        df['politician_weight'] = df['politician'].apply(
-            lambda p: self.POLITICIAN_WEIGHTS.get(p, self.POLITICIAN_WEIGHTS['Default'])
-        )
+        # Apply politician weights (time-decay if tracker available, otherwise static)
+        if self.politician_tracker:
+            # Get current weights from tracker (includes time-decay for retiring/retired politicians)
+            current_weights = self.politician_tracker.get_all_weights()
+            df['politician_weight'] = df['politician'].apply(
+                lambda p: current_weights.get(p, self.politician_tracker.default_weight)
+            )
+            logger.info("Applied time-decay weights from PoliticianTracker")
+        else:
+            # Fall back to static weights
+            df['politician_weight'] = df['politician'].apply(
+                lambda p: self.POLITICIAN_WEIGHTS.get(p, self.POLITICIAN_WEIGHTS['Default'])
+            )
+            logger.debug("Applied static weights (no time-decay)")
 
         # Calculate weighted amount
         df['weighted_amount'] = df['amount_mid'] * df['politician_weight']
