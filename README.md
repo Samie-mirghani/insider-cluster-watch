@@ -78,6 +78,11 @@ When no significant signals are detected, sends a summary explaining why and sho
 ### 10. Multi-Signal Detection
 Enhances insider signals by checking for confirmation from other data sources:
 - **Politician Trades:** Scrapes Capitol Trades for congressional trading activity (tracks 15+ high-performing politicians)
+- **Politician Time-Decay System:** Intelligently handles retiring/retired politicians
+  - **Active politicians:** Full base weight (e.g., Nancy Pelosi = 2.0x)
+  - **Retiring politicians:** 1.5x boost for "lame duck" trades (announced retirement, not yet left)
+  - **Retired politicians:** Exponential decay (90-day half-life, 20% floor) - never deleted!
+  - **Why?** Historical data valuable, may return to office, enables lame duck pattern analysis
 - **Institutional Holdings:** Validates with SEC 13F filings from 15 priority funds (Berkshire, Bridgewater, etc.)
 - **Tiered Classification:** Assigns signals to tiers based on confirmation count
   - **Tier 1** (3+ signals): Largest positions (100%), widest stops (12%)
@@ -85,6 +90,7 @@ Enhances insider signals by checking for confirmation from other data sources:
   - **Tier 3** (1 signal): 50% positions, 8% stops
   - **Tier 4** (watch list): 25% positions, 6% stops
 - **Email Badges:** Shows 🔥 TIER 1, ⚡ TIER 2, and 🏛️ POLITICIAN indicators in reports
+- **Semi-Automated Maintenance:** Quarterly update tools for politician status management
 
 #### Capitol Trades Scraper
 **Robust politician trading data extraction:**
@@ -118,6 +124,10 @@ insider-cluster-watch/
 │   ├── fetch_sec_edgar.py             # SEC EDGAR backup data source
 │   ├── process_signals.py             # Clustering, scoring, deduplication logic
 │   ├── capitol_trades_scraper.py      # Politician trading scraper (Capitol Trades)
+│   ├── politician_tracker.py          # 🆕 Politician time-decay tracker
+│   ├── update_politician_status.py    # 🆕 Quarterly maintenance script
+│   ├── view_politician_status.py      # 🆕 Status viewer and query tool
+│   ├── test_time_decay.py             # 🆕 Time-decay test suite
 │   ├── sec_13f_parser.py              # Institutional holdings parser (SEC 13F)
 │   ├── multi_signal_detector.py       # Multi-signal detection engine
 │   ├── paper_trading_multi_signal.py  # Enhanced paper trading with tiers
@@ -125,6 +135,7 @@ insider-cluster-watch/
 │   ├── send_email.py                  # Gmail SMTP email sender
 │   ├── paper_trade.py                 # Paper trading portfolio simulation
 │   ├── paper_trade_monitor.py         # Portfolio monitoring and metrics
+│   ├── insider_performance_tracker.py # Insider performance scoring
 │   ├── news_sentiment.py              # News analysis for signals
 │   ├── backtest.py                    # Performance backtesting (1w & 1m horizons)
 │   ├── weekly_summary.py              # Weekly performance report generation
@@ -137,14 +148,21 @@ insider-cluster-watch/
 │   └── weekly_performance.html   # Weekly summary template
 ├── .github/
 │   └── workflows/
-│       ├── daily_job.yml         # Daily signal generation (Mon-Fri 7AM ET)
-│       └── weekly_backtest.yml   # Weekly backtest (Sun 8AM ET)
+│       ├── daily_job.yml                      # Daily signal generation (Mon-Fri 7AM ET)
+│       ├── weekly_backtest.yml                # Weekly backtest (Sun 8AM ET)
+│       └── quarterly_politician_maintenance.yml  # 🆕 Quarterly reminder (Jan/Apr/Jul/Oct 15th)
 ├── data/
-│   ├── signals_history.csv       # Historical signal tracking
-│   ├── backtest_results.csv      # Backtest performance data
-│   ├── paper_portfolio.json      # Paper trading portfolio state
-│   ├── paper_trades.csv          # Paper trading execution log
-│   └── plots/                    # Performance visualizations
+│   ├── signals_history.csv            # Historical signal tracking
+│   ├── backtest_results.csv           # Backtest performance data
+│   ├── paper_portfolio.json           # Paper trading portfolio state
+│   ├── paper_trades.csv               # Paper trading execution log
+│   ├── politician_registry.json       # 🆕 Politician metadata & statuses
+│   ├── politician_trades_history.csv  # 🆕 Politician trade history (optional)
+│   ├── insider_profiles.json          # Insider performance profiles
+│   └── plots/                         # Performance visualizations
+├── docs/
+│   ├── POLITICIAN_MAINTENANCE_GUIDE.md  # 🆕 Comprehensive maintenance guide
+│   └── POLITICIAN_TOOLS_README.md       # 🆕 Quick reference for tools
 ├── requirements.txt
 ├── .gitignore
 ├── README.md
@@ -304,6 +322,20 @@ MULTI_SIGNAL_STOP_LOSS = {
 }
 ```
 
+**Politician time-decay settings:**
+```python
+# In jobs/config.py
+ENABLE_POLITICIAN_TIME_DECAY = True    # Enable time-decay weighting
+POLITICIAN_DECAY_HALF_LIFE_DAYS = 90   # Half-life for exponential decay
+POLITICIAN_MIN_WEIGHT_FRACTION = 0.2   # Minimum weight (20% floor)
+POLITICIAN_RETIRING_BOOST = 1.5        # Boost for "lame duck" trades
+
+# Status-based weight effects:
+# - Active: Full base weight (e.g., 2.0x stays 2.0x)
+# - Retiring: Boosted by 1.5x (e.g., 1.3x → 1.95x)
+# - Retired: Exponential decay over 90 days (never below 20%)
+```
+
 ---
 
 ## 🤖 GitHub Actions — Automated Workflows
@@ -353,6 +385,23 @@ MULTI_SIGNAL_STOP_LOSS = {
 - Sends comprehensive weekly email report
 
 **Manual trigger:** Actions tab → Weekly Performance Summary → Run workflow
+
+### Quarterly Politician Maintenance (Jan/Apr/Jul/Oct 15th, 9AM UTC)
+
+**File:** `.github/workflows/quarterly_politician_maintenance.yml`
+
+- 🆕 **Creates GitHub Issue** with maintenance checklist
+- Shows current politician statistics (active/retiring/retired)
+- Lists information sources to check (congress.gov, Capitol Trades)
+- Provides step-by-step update instructions
+- Links to maintenance guides and tools
+- Automatically schedules next quarter's reminder
+
+**This does NOT auto-update statuses** - you must review and manually update using the provided tools.
+
+**Why manual?** Requires human verification of retirement announcements, performance assessment for new politicians, and informed decisions about base weights.
+
+**Manual trigger:** Actions tab → Quarterly Politician Maintenance Reminder → Run workflow
 
 ---
 
@@ -475,6 +524,106 @@ python test_paper_trading.py
 2. **View logs:** Click on any workflow run to see detailed logs
 3. **Verify commits:** Check that data files are being updated daily
 4. **Review emails:** Confirm daily and urgent emails are arriving
+
+---
+
+## 🏛️ Politician Status Maintenance
+
+### Quarterly Maintenance (15 Minutes Per Quarter)
+
+The time-decay system requires periodic updates to politician statuses. A GitHub Actions workflow creates reminder issues quarterly.
+
+### Quick Start
+
+```bash
+# View current statuses
+python jobs/view_politician_status.py
+
+# View only retiring politicians
+python jobs/view_politician_status.py --status retiring
+
+# Sort by weight (highest first)
+python jobs/view_politician_status.py --sort weight
+```
+
+### When to Update
+
+**Quarterly Reviews** (Recommended):
+- **January 15:** Post-election, new Congress
+- **April 15:** Mid-quarter check
+- **July 15:** Pre-election review
+- **October 15:** Retirement announcements
+
+**As-Needed**:
+- When retirement announced → Update immediately (captures 1.5x boost!)
+- When politician leaves office → Update within 1 week
+- After elections → Within 1 month
+
+### Update Process
+
+1. **Check information sources:**
+   - [congress.gov/members](https://www.congress.gov/members) - Official member directory
+   - [Capitol Trades](https://www.capitoltrades.com) - Recent trading activity
+   - News outlets for retirement announcements
+
+2. **Edit update script:**
+   ```bash
+   nano jobs/update_politician_status.py
+   # Update the UPDATES dictionary
+   ```
+
+3. **Run update:**
+   ```bash
+   python jobs/update_politician_status.py
+   # Review changes and confirm
+   ```
+
+4. **Commit changes:**
+   ```bash
+   git add data/politician_registry.json
+   git commit -m "Update politician statuses - Q4 2024"
+   git push
+   ```
+
+### Common Update Scenarios
+
+**Politician announces retirement:**
+```python
+'Brian Higgins': {
+    'action': 'set_retiring',
+    'term_ended': '2025-02-01',
+    'retirement_announced': '2024-11-08',
+    'reason': 'Announced early retirement'
+}
+# Weight: 1.3x → 1.95x (1.5x boost!)
+```
+
+**Politician leaves office:**
+```python
+'Nancy Pelosi': {
+    'action': 'set_retired',
+    'term_ended': '2023-01-03',
+    'reason': 'Left Speaker position'
+}
+# Weight: 2.0x → Exponential decay (90-day half-life)
+```
+
+**Add new politician:**
+```python
+'New Politician': {
+    'action': 'add_new',
+    'party': 'D',
+    'office': 'House',
+    'state': 'CA',
+    'base_weight': 1.2,
+    'reason': 'High trading volume'
+}
+```
+
+### Documentation
+
+- **Quick Reference:** [`docs/POLITICIAN_TOOLS_README.md`](docs/POLITICIAN_TOOLS_README.md)
+- **Full Guide:** [`docs/POLITICIAN_MAINTENANCE_GUIDE.md`](docs/POLITICIAN_MAINTENANCE_GUIDE.md)
 
 ---
 
