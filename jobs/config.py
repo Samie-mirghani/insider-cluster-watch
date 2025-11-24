@@ -126,3 +126,9 @@ POLITICIAN_RETIRING_BOOST = 1.5  # Weight multiplier for "lame duck" trades (ann
 # - Politicians may return to office
 # - Helps analyze "lame duck" trading patterns
 # - Provides context for track record analysis
+
+# Automated Politician Status Checking (Option C - Fully Automated)
+ENABLE_AUTOMATED_POLITICIAN_STATUS_CHECK = True  # Auto-check politician statuses daily
+PROPUBLICA_CONGRESS_API_KEY = None  # Set via environment variable PROPUBLICA_API_KEY
+# Get free API key at: https://www.propublica.org/datastore/api/propublica-congress-api
+# 5,000 requests/day free tier (more than sufficient for daily checks)

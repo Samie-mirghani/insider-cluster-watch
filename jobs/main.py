@@ -25,11 +25,13 @@ from config import (
 try:
     from multi_signal_detector import MultiSignalDetector, combine_insider_and_politician_signals
     from politician_tracker import create_politician_tracker
+    from automated_politician_checker import create_automated_checker
     from config import (
         ENABLE_MULTI_SIGNAL, ENABLE_POLITICIAN_SCRAPING, ENABLE_13F_CHECKING,
         SEC_USER_AGENT, POLITICIAN_LOOKBACK_DAYS, POLITICIAN_MAX_PAGES,
         ENABLE_POLITICIAN_TIME_DECAY, POLITICIAN_DECAY_HALF_LIFE_DAYS,
-        POLITICIAN_MIN_WEIGHT_FRACTION, POLITICIAN_RETIRING_BOOST
+        POLITICIAN_MIN_WEIGHT_FRACTION, POLITICIAN_RETIRING_BOOST,
+        ENABLE_AUTOMATED_POLITICIAN_STATUS_CHECK, PROPUBLICA_CONGRESS_API_KEY
     )
     MULTI_SIGNAL_AVAILABLE = True
 except ImportError as e:
@@ -37,6 +39,7 @@ except ImportError as e:
     MULTI_SIGNAL_AVAILABLE = False
     ENABLE_MULTI_SIGNAL = False
     ENABLE_POLITICIAN_TIME_DECAY = False
+    ENABLE_AUTOMATED_POLITICIAN_STATUS_CHECK = False
 
 DATA_DIR = os.path.join(os.path.dirname(__file__), '..', 'data')
 if not os.path.exists(DATA_DIR):
@@ -389,6 +392,27 @@ def main(test=False, urgent_test=False, enable_paper_trading=True):
         print("   • Scanning politician trades")
         if ENABLE_13F_CHECKING:
             print("   • Checking 13F institutional holdings")
+
+        # Automated politician status check (Option C - Fully Automated)
+        if ENABLE_AUTOMATED_POLITICIAN_STATUS_CHECK:
+            try:
+                print("   • Running automated politician status check...")
+                api_key = os.getenv('PROPUBLICA_API_KEY') or PROPUBLICA_CONGRESS_API_KEY
+                if api_key:
+                    checker = create_automated_checker(api_key=api_key)
+                    result = checker.check_and_update_statuses()
+                    if result['status'] == 'success' and result['changes']:
+                        print(f"     - Auto-updated {len(result['changes'])} politician statuses")
+                        for change in result['changes']:
+                            print(f"       • {change['politician']}: {change['old_status']} → {change['new_status']}")
+                    elif result['status'] == 'success':
+                        print(f"     - All politician statuses up-to-date")
+                else:
+                    print(f"     ⚠️  No ProPublica API key - skipping auto-check")
+                    print(f"     ℹ️  Get free key at: https://www.propublica.org/datastore/api/propublica-congress-api")
+            except Exception as e:
+                print(f"   ⚠️  Automated status check failed: {e}")
+                print(f"   → Continuing with existing statuses")
 
         # Initialize politician tracker for time-decay weighting
         politician_tracker = None
