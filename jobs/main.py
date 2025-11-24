@@ -393,15 +393,20 @@ def main(test=False, urgent_test=False, enable_paper_trading=True):
         # Initialize politician tracker for time-decay weighting
         politician_tracker = None
         if ENABLE_POLITICIAN_TIME_DECAY:
-            print("   • Initializing politician tracker with time-decay...")
-            politician_tracker = create_politician_tracker(
-                decay_half_life_days=POLITICIAN_DECAY_HALF_LIFE_DAYS,
-                min_weight_fraction=POLITICIAN_MIN_WEIGHT_FRACTION,
-                retiring_boost=POLITICIAN_RETIRING_BOOST
-            )
-            stats = politician_tracker.get_summary_stats()
-            print(f"     - Tracking {stats['total_politicians']} politicians")
-            print(f"     - Active: {stats['active']}, Retiring: {stats['retiring']}, Retired: {stats['retired']}")
+            try:
+                print("   • Initializing politician tracker with time-decay...")
+                politician_tracker = create_politician_tracker(
+                    decay_half_life_days=POLITICIAN_DECAY_HALF_LIFE_DAYS,
+                    min_weight_fraction=POLITICIAN_MIN_WEIGHT_FRACTION,
+                    retiring_boost=POLITICIAN_RETIRING_BOOST
+                )
+                stats = politician_tracker.get_summary_stats()
+                print(f"     - Tracking {stats['total_politicians']} politicians")
+                print(f"     - Active: {stats['active']}, Retiring: {stats['retiring']}, Retired: {stats['retired']}")
+            except Exception as e:
+                print(f"   ⚠️  Failed to initialize politician tracker: {e}")
+                print(f"   → Falling back to static politician weights")
+                politician_tracker = None
 
         try:
             detector = MultiSignalDetector(SEC_USER_AGENT, politician_tracker=politician_tracker)

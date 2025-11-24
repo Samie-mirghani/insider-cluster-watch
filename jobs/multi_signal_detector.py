@@ -9,6 +9,10 @@ from datetime import datetime, timedelta
 from typing import Dict, List, Tuple, Optional
 import logging
 
+# Setup logging first
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
 # Import your existing modules
 from capitol_trades_scraper import CapitolTradesScraper
 from sec_13f_parser import SEC13FParser
@@ -19,11 +23,7 @@ try:
     POLITICIAN_TRACKER_AVAILABLE = True
 except ImportError:
     POLITICIAN_TRACKER_AVAILABLE = False
-    logger = logging.getLogger(__name__)
     logger.warning("PoliticianTracker not available. Using static weights.")
-
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
 
 
 class MultiSignalDetector:
