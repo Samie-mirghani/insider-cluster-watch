@@ -105,3 +105,30 @@ MIN_ENTRY_SLIPPAGE_PCT = 0.10  # Minimum slippage even with good liquidity
 MAX_ENTRY_SLIPPAGE_PCT = 0.30  # Maximum slippage for low liquidity
 USE_OPENING_PRICE_FOR_ENTRY = True  # Use next day's open instead of current close
 TRAIL_STOP_EXECUTION_SLIPPAGE_PCT = 0.20  # Slippage when hitting trailing stops
+
+# Politician Time-Decay Settings (for retiring/retired politicians)
+ENABLE_POLITICIAN_TIME_DECAY = True  # Enable time-decay weighting for retiring/retired politicians
+POLITICIAN_DECAY_HALF_LIFE_DAYS = 90  # Half-life for exponential decay (90 days = 50% weight remaining)
+POLITICIAN_MIN_WEIGHT_FRACTION = 0.2  # Minimum weight fraction for retired politicians (20% floor)
+POLITICIAN_RETIRING_BOOST = 1.5  # Weight multiplier for "lame duck" trades (announced retirement, not yet left)
+#
+# Time-Decay Strategy Explanation:
+# - Active politicians: Full base weight (e.g., Nancy Pelosi = 2.0x)
+# - Retiring politicians (announced but not yet left): BOOST weight by 1.5x (lame duck urgency!)
+# - Retired politicians: Exponential decay starting from retirement date
+#   * After 90 days: 50% of base weight
+#   * After 180 days: 25% of base weight
+#   * After 270 days: 12.5% of base weight
+#   * Floor at 20% (never goes to zero - preserves historical value)
+#
+# Why not delete immediately?
+# - Historical performance data remains valuable
+# - Politicians may return to office
+# - Helps analyze "lame duck" trading patterns
+# - Provides context for track record analysis
+
+# Automated Politician Status Checking (Option C - Fully Automated)
+ENABLE_AUTOMATED_POLITICIAN_STATUS_CHECK = True  # Auto-check politician statuses daily
+CONGRESS_GOV_API_KEY = None  # Set via environment variable CONGRESS_GOV_API_KEY
+# Get free API key at: https://api.congress.gov/sign-up/
+# 5,000 requests/hour free tier (more than sufficient for daily checks)
