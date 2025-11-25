@@ -9,9 +9,9 @@ Centralized configuration for all paper trading parameters.
 STARTING_CAPITAL = 10000  # $10k starting capital
 
 # Position Sizing
-MAX_POSITION_PCT = 0.05  # 5% max per position
-MAX_TOTAL_EXPOSURE = 0.25  # 25% max total exposure
-MAX_POSITIONS = 5  # Max 5 concurrent positions
+MAX_POSITION_PCT = 0.10  # 10% max per position
+MAX_TOTAL_EXPOSURE = 0.60  # 60% max total exposure
+MAX_POSITIONS = 15  # Max 15 concurrent positions
 
 # Risk Management
 STOP_LOSS_PCT = 0.05  # 5% initial stop loss
@@ -28,7 +28,7 @@ SCALING_EXPIRY_DAYS = 5  # Second tranche expires after 5 days
 
 # Time Limits
 TIME_STOP_DAYS = 21  # Exit after 21 days
-MAX_DAILY_TRADES = 3  # Limit new positions per day
+MAX_DAILY_TRADES = 5  # Limit new positions per day
 
 # Health Monitoring
 MAX_DAILY_LOSS_PCT = 5.0  # Alert if down >5% in one day
