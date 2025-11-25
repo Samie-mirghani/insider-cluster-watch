@@ -1,75 +1,258 @@
 """
-Automated Politician Status Checker (Option C)
+Automated Politician Status Checker using Congress.gov API
 
-Fully automated system that uses ProPublica Congress API to check politician
-statuses and automatically update the registry. Runs as part of daily pipeline.
+This module automatically checks politician statuses by comparing the politician
+registry against current members of Congress from the official Congress.gov API.
 
-Features:
-- Fetches current Congress members from ProPublica API
-- Detects politicians who have left office
-- Automatically updates statuses (active -> retired)
-- Discovers new high-volume traders from Capitol Trades
-- Zero manual maintenance required
+Option C: Fully automated - zero manual maintenance required.
 
-API: ProPublica Congress API
-Free tier: 5,000 requests/day (more than sufficient)
-Docs: https://projects.propublica.org/api-docs/congress-api/
+Congress.gov API Documentation:
+- https://api.congress.gov
+- https://github.com/LibraryOfCongress/api.congress.gov
+- Rate limit: 5,000 requests/hour (more than sufficient for daily checks)
+- Free API key signup: https://api.congress.gov/sign-up/
 """
 
-import requests
+import os
 import json
-from datetime import datetime, timedelta
-from typing import Dict, List, Optional, Tuple
-from pathlib import Path
 import logging
+from pathlib import Path
+from typing import Dict, List, Optional, Set
+from datetime import datetime
+import time
 
+try:
+    import requests
+    REQUESTS_AVAILABLE = True
+except ImportError:
+    REQUESTS_AVAILABLE = False
+
+# Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
-
-# Data paths
-DATA_DIR = Path(__file__).parent.parent / 'data'
-POLITICIAN_REGISTRY_PATH = DATA_DIR / 'politician_registry.json'
 
 
 class AutomatedPoliticianStatusChecker:
     """
-    Automated politician status checker using ProPublica Congress API.
-    Runs daily to keep politician registry up-to-date.
+    Automated politician status checker using Congress.gov API.
+
+    Fetches current House and Senate members from Congress.gov and compares
+    against the politician registry to automatically detect politicians who
+    have left office.
     """
 
-    PROPUBLICA_API_BASE = "https://api.propublica.org/congress/v1"
+    # Congress.gov API configuration
+    CONGRESS_GOV_API_BASE = "https://api.congress.gov/v3"
+    CURRENT_CONGRESS = 119  # 119th Congress: Jan 2025 - Jan 2027
 
-    # Current Congress number (update every 2 years)
-    # 118th Congress: Jan 2023 - Jan 2025
-    # 119th Congress: Jan 2025 - Jan 2027
-    CURRENT_CONGRESS = 118  # Will auto-detect if API key provided
+    # Name normalization mappings for common variations
+    NAME_MAPPINGS = {
+        'Nancy Pelosi': ['Nancy Pelosi', 'Nancy Patricia Pelosi', 'Pelosi, Nancy'],
+        'Paul Pelosi': ['Paul Pelosi', 'Paul F. Pelosi', 'Pelosi, Paul'],
+        'Josh Gottheimer': ['Josh Gottheimer', 'Joshua Gottheimer', 'Gottheimer, Josh', 'Gottheimer, Joshua'],
+        'Mark Green': ['Mark Green', 'Mark E. Green', 'Green, Mark'],
+        'Dan Crenshaw': ['Dan Crenshaw', 'Daniel Crenshaw', 'Crenshaw, Dan', 'Crenshaw, Daniel'],
+        'French Hill': ['French Hill', 'J. French Hill', 'Hill, French'],
+        'Michael McCaul': ['Michael McCaul', 'Michael T. McCaul', 'McCaul, Michael'],
+        'John Curtis': ['John Curtis', 'John R. Curtis', 'Curtis, John'],
+        'Brian Higgins': ['Brian Higgins', 'Brian M. Higgins', 'Higgins, Brian'],
+        'Tommy Tuberville': ['Tommy Tuberville', 'Thomas Tuberville', 'Tuberville, Tommy'],
+        'Shelley Moore Capito': ['Shelley Moore Capito', 'Shelley Capito', 'Capito, Shelley Moore'],
+    }
 
-    def __init__(self, api_key: Optional[str] = None, enable_auto_discovery: bool = True):
+    def __init__(self, api_key: Optional[str] = None, registry_path: Optional[Path] = None):
         """
-        Initialize automated status checker.
+        Initialize the automated status checker.
 
         Args:
-            api_key: ProPublica Congress API key (get free at propublica.org)
-            enable_auto_discovery: Auto-discover new politicians from Capitol Trades
+            api_key: Congress.gov API key (from https://api.congress.gov/sign-up/)
+            registry_path: Path to politician_registry.json
         """
         self.api_key = api_key
-        self.enable_auto_discovery = enable_auto_discovery
-        self.headers = {}
 
-        if api_key:
-            self.headers = {'X-API-Key': api_key}
-            logger.info("ProPublica Congress API configured")
-        else:
+        if not self.api_key:
             logger.warning("No API key provided - automated status checking disabled")
-            logger.warning("Get free API key at: https://www.propublica.org/datastore/api/propublica-congress-api")
+            logger.warning("Get free API key at: https://api.congress.gov/sign-up/")
 
-    def check_and_update_statuses(self, registry_path: Path = POLITICIAN_REGISTRY_PATH) -> Dict:
+        if registry_path is None:
+            data_dir = Path(__file__).parent.parent / 'data'
+            self.registry_path = data_dir / 'politician_registry.json'
+        else:
+            self.registry_path = Path(registry_path)
+
+        if not REQUESTS_AVAILABLE:
+            logger.warning("requests library not available - automated checking disabled")
+
+    def _make_api_request(self, endpoint: str, params: Optional[Dict] = None) -> Optional[Dict]:
         """
-        Main method: Check all politicians and update statuses automatically.
+        Make an API request to Congress.gov.
+
+        Args:
+            endpoint: API endpoint path (e.g., '/member/congress/119')
+            params: Additional query parameters
 
         Returns:
-            Dictionary with update summary
+            JSON response dict or None on failure
         """
+        if not REQUESTS_AVAILABLE:
+            logger.error("requests library not available")
+            return None
+
+        if not self.api_key:
+            logger.error("No API key provided")
+            return None
+
+        url = f"{self.CONGRESS_GOV_API_BASE}{endpoint}"
+
+        # Build query parameters
+        query_params = params or {}
+        query_params['api_key'] = self.api_key
+        query_params['format'] = 'json'
+
+        try:
+            logger.debug(f"Making request to: {url}")
+            response = requests.get(url, params=query_params, timeout=30)
+            response.raise_for_status()
+            return response.json()
+        except requests.exceptions.HTTPError as e:
+            if e.response.status_code == 403:
+                logger.error(f"Access denied (403) - check your Congress.gov API key")
+                logger.error(f"Sign up for free key at: https://api.congress.gov/sign-up/")
+            else:
+                logger.error(f"HTTP error: {e}")
+            return None
+        except requests.exceptions.RequestException as e:
+            logger.error(f"Request failed: {e}")
+            return None
+        except json.JSONDecodeError as e:
+            logger.error(f"Failed to parse JSON response: {e}")
+            return None
+
+    def fetch_current_congress_members(self) -> Set[str]:
+        """
+        Fetch all current members of the 119th Congress (House + Senate).
+
+        Returns:
+            Set of normalized politician names currently serving in Congress
+        """
+        current_members = set()
+
+        # Fetch current members from the current Congress
+        logger.info(f"Fetching members from {self.CURRENT_CONGRESS}th Congress...")
+
+        # Get all members with pagination
+        offset = 0
+        limit = 250  # Maximum allowed by API
+
+        while True:
+            params = {
+                'currentMember': 'true',
+                'limit': limit,
+                'offset': offset
+            }
+
+            data = self._make_api_request(f'/member/congress/{self.CURRENT_CONGRESS}', params)
+
+            if not data or 'members' not in data:
+                logger.warning(f"No member data returned (offset={offset})")
+                break
+
+            members = data.get('members', [])
+
+            if not members:
+                logger.debug(f"No more members at offset {offset}")
+                break
+
+            for member in members:
+                # Extract member name
+                name = member.get('name')
+                if name:
+                    normalized_name = self._normalize_name(name)
+                    current_members.add(normalized_name)
+                    logger.debug(f"Found active member: {normalized_name}")
+
+            logger.info(f"Fetched {len(members)} members (offset={offset})")
+
+            # Check if there are more results
+            pagination = data.get('pagination', {})
+            total_count = pagination.get('count', 0)
+
+            offset += len(members)
+
+            if offset >= total_count:
+                break
+
+            # Rate limiting: brief pause between requests
+            time.sleep(0.5)
+
+        logger.info(f"Total active Congress members found: {len(current_members)}")
+        return current_members
+
+    def _normalize_name(self, name: str) -> str:
+        """
+        Normalize a politician name for comparison.
+
+        Handles:
+        - "Last, First" -> "First Last"
+        - Middle names and initials
+        - Common variations
+
+        Args:
+            name: Raw name from API or registry
+
+        Returns:
+            Normalized name for comparison
+        """
+        if not name:
+            return ""
+
+        # Handle "Last, First" format from Congress.gov
+        if ',' in name:
+            parts = name.split(',', 1)
+            if len(parts) == 2:
+                last = parts[0].strip()
+                first = parts[1].strip()
+                # Remove middle names/initials - just use first name and last name
+                first_parts = first.split()
+                if first_parts:
+                    name = f"{first_parts[0]} {last}"
+
+        # Remove extra whitespace
+        name = ' '.join(name.split())
+
+        # Check if this name matches any known variations
+        for canonical, variations in self.NAME_MAPPINGS.items():
+            if name in variations:
+                return canonical
+
+        return name
+
+    def check_and_update_statuses(self, registry_path: Optional[Path] = None) -> Dict:
+        """
+        Check politician statuses and update registry automatically.
+
+        Compares politicians in the registry against current Congress members
+        and automatically updates statuses for politicians who left office.
+
+        Args:
+            registry_path: Optional override for registry path
+
+        Returns:
+            Dict with status and changes made:
+            {
+                'status': 'success' | 'error' | 'skipped',
+                'changes': [{'politician': str, 'old_status': str, 'new_status': str, 'date': str}],
+                'active_count': int,
+                'reason': str  # if skipped or error
+            }
+        """
+        if not REQUESTS_AVAILABLE:
+            return {
+                'status': 'skipped',
+                'reason': 'requests_library_not_available',
+                'changes': []
+            }
+
         if not self.api_key:
             logger.warning("Skipping automated status check (no API key)")
             return {
@@ -78,225 +261,98 @@ class AutomatedPoliticianStatusChecker:
                 'changes': []
             }
 
-        logger.info("=" * 70)
-        logger.info("AUTOMATED POLITICIAN STATUS CHECK")
-        logger.info("=" * 70)
+        path = registry_path or self.registry_path
 
-        # Load registry
-        registry = self._load_registry(registry_path)
-        if not registry:
-            return {'status': 'error', 'reason': 'registry_load_failed', 'changes': []}
+        if not path.exists():
+            logger.error(f"Registry not found: {path}")
+            return {
+                'status': 'error',
+                'reason': 'registry_not_found',
+                'changes': []
+            }
 
-        # Get current Congress members
-        current_members = self._get_current_members()
-        if not current_members:
-            return {'status': 'error', 'reason': 'api_fetch_failed', 'changes': []}
-
-        # Check each politician in registry
-        changes = []
-        for politician_name, info in registry.get('politicians', {}).items():
-            current_status = info.get('current_status', 'unknown')
-
-            # Skip if already retired
-            if current_status == 'retired':
-                continue
-
-            # Check if still in office
-            is_current_member = self._is_current_member(politician_name, current_members)
-
-            if not is_current_member and current_status in ['active', 'retiring']:
-                # Politician has left office - mark as retired
-                logger.info(f"🔄 {politician_name}: {current_status} → retired (left office)")
-
-                info['current_status'] = 'retired'
-                if not info.get('term_ended'):
-                    # Estimate term end date (first day of current Congress)
-                    info['term_ended'] = self._estimate_term_end_date()
-
-                changes.append({
-                    'politician': politician_name,
-                    'old_status': current_status,
-                    'new_status': 'retired',
-                    'reason': 'not_in_current_congress'
-                })
-
-        # Save updated registry if changes made
-        if changes:
-            registry['metadata']['last_updated'] = datetime.now().isoformat()
-            registry['metadata']['last_auto_check'] = datetime.now().isoformat()
-            self._save_registry(registry, registry_path)
-
-            logger.info(f"\n✅ Updated {len(changes)} politician statuses")
-            for change in changes:
-                logger.info(f"   • {change['politician']}: {change['old_status']} → {change['new_status']}")
-        else:
-            logger.info("\n✅ All politician statuses up-to-date")
-
-        return {
-            'status': 'success',
-            'changes': changes,
-            'total_checked': len(registry.get('politicians', {})),
-            'timestamp': datetime.now().isoformat()
-        }
-
-    def _get_current_members(self) -> Dict[str, Dict]:
-        """
-        Fetch current House and Senate members from ProPublica API.
-
-        Returns:
-            Dictionary mapping member names to their info
-        """
-        members = {}
-
-        # Fetch House members
-        house_members = self._fetch_chamber_members('house')
-        if house_members:
-            members.update(house_members)
-            logger.info(f"Fetched {len(house_members)} House members")
-
-        # Fetch Senate members
-        senate_members = self._fetch_chamber_members('senate')
-        if senate_members:
-            members.update(senate_members)
-            logger.info(f"Fetched {len(senate_members)} Senate members")
-
-        return members
-
-    def _fetch_chamber_members(self, chamber: str) -> Dict[str, Dict]:
-        """
-        Fetch members for a specific chamber (house or senate).
-
-        Args:
-            chamber: 'house' or 'senate'
-
-        Returns:
-            Dictionary mapping member names to their info
-        """
         try:
-            url = f"{self.PROPUBLICA_API_BASE}/{self.CURRENT_CONGRESS}/{chamber}/members.json"
+            # Load registry
+            with open(path, 'r') as f:
+                registry = json.load(f)
 
-            response = requests.get(url, headers=self.headers, timeout=10)
-            response.raise_for_status()
+            # Fetch current members from Congress.gov
+            current_members = self.fetch_current_congress_members()
 
-            data = response.json()
-            members = {}
-
-            for member in data['results'][0]['members']:
-                # Create full name variations for matching
-                full_name = f"{member['first_name']} {member['last_name']}"
-
-                members[full_name] = {
-                    'id': member.get('id'),
-                    'party': member.get('party'),
-                    'state': member.get('state'),
-                    'district': member.get('district'),
-                    'chamber': chamber,
-                    'in_office': member.get('in_office', True)
+            if not current_members:
+                logger.warning("No current members fetched - API may be unavailable")
+                return {
+                    'status': 'error',
+                    'reason': 'no_members_fetched',
+                    'changes': []
                 }
 
-            return members
+            # Check each politician in registry
+            changes = []
+            politicians = registry.get('politicians', {})
 
-        except requests.exceptions.RequestException as e:
-            logger.error(f"Failed to fetch {chamber} members: {e}")
-            return {}
-        except (KeyError, IndexError, json.JSONDecodeError) as e:
-            logger.error(f"Failed to parse {chamber} members data: {e}")
-            return {}
+            for politician_name, politician_data in politicians.items():
+                current_status = politician_data.get('current_status', 'active')
+                normalized_name = self._normalize_name(politician_name)
 
-    def _is_current_member(self, politician_name: str, current_members: Dict) -> bool:
-        """
-        Check if politician is in current Congress.
+                is_currently_serving = normalized_name in current_members
 
-        Args:
-            politician_name: Name to check
-            current_members: Dictionary of current members
+                # Auto-update: If politician is marked active/retiring but NOT in Congress -> retired
+                if current_status in ['active', 'retiring'] and not is_currently_serving:
+                    old_status = current_status
+                    new_status = 'retired'
 
-        Returns:
-            True if currently in office
-        """
-        # Direct name match
-        if politician_name in current_members:
-            return True
+                    # Update status
+                    politician_data['current_status'] = new_status
+                    politician_data['term_ended'] = datetime.utcnow().strftime('%Y-%m-%d')
+                    politician_data['last_updated'] = datetime.utcnow().strftime('%Y-%m-%d')
 
-        # Try variations (last name only, etc.)
-        politician_last = politician_name.split()[-1].lower()
-        for member_name in current_members.keys():
-            member_last = member_name.split()[-1].lower()
-            if politician_last == member_last:
-                # Last name match - check if same person
-                # (This is a simplification - could add more checks)
-                return True
+                    changes.append({
+                        'politician': politician_name,
+                        'old_status': old_status,
+                        'new_status': new_status,
+                        'date': politician_data['term_ended']
+                    })
 
-        return False
+                    logger.info(f"Auto-updated: {politician_name} ({old_status} → {new_status})")
 
-    def _estimate_term_end_date(self) -> str:
-        """
-        Estimate term end date based on current Congress start.
+            # Save updated registry if changes were made
+            if changes:
+                registry['last_automated_check'] = datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
 
-        Returns:
-            ISO format date string
-        """
-        # Congress starts January 3 of odd years
-        current_year = datetime.now().year
+                with open(path, 'w') as f:
+                    json.dump(registry, f, indent=2)
 
-        # Determine start of current Congress
-        if current_year % 2 == 1:  # Odd year
-            congress_start = datetime(current_year, 1, 3)
-        else:  # Even year
-            congress_start = datetime(current_year - 1, 1, 3)
+                logger.info(f"Registry updated with {len(changes)} status changes")
 
-        return congress_start.isoformat()[:10]  # YYYY-MM-DD
+            return {
+                'status': 'success',
+                'changes': changes,
+                'active_count': len(current_members),
+                'checked_politicians': len(politicians)
+            }
 
-    def _load_registry(self, registry_path: Path) -> Optional[Dict]:
-        """Load politician registry from JSON."""
-        if not registry_path.exists():
-            logger.error(f"Registry file not found: {registry_path}")
-            return None
-
-        try:
-            with open(registry_path, 'r') as f:
-                return json.load(f)
-        except json.JSONDecodeError as e:
-            logger.error(f"Failed to parse registry: {e}")
-            return None
-
-    def _save_registry(self, registry: Dict, registry_path: Path):
-        """Save updated registry to JSON."""
-        try:
-            registry_path.parent.mkdir(parents=True, exist_ok=True)
-            with open(registry_path, 'w') as f:
-                json.dump(registry, f, indent=2)
-            logger.info(f"Registry saved to {registry_path}")
         except Exception as e:
-            logger.error(f"Failed to save registry: {e}")
-
-    def discover_new_politicians(self, recent_trades_df) -> List[Dict]:
-        """
-        Discover new high-volume traders from Capitol Trades data.
-
-        Args:
-            recent_trades_df: DataFrame of recent politician trades
-
-        Returns:
-            List of new politicians to potentially add
-        """
-        if not self.enable_auto_discovery:
-            return []
-
-        # This is a placeholder - would analyze trading volume/frequency
-        # and suggest new politicians to track
-        # For now, just return empty list (manual addition still required)
-        return []
+            logger.error(f"Failed to check and update statuses: {e}")
+            return {
+                'status': 'error',
+                'reason': str(e),
+                'changes': []
+            }
 
 
-def create_automated_checker(api_key: Optional[str] = None) -> AutomatedPoliticianStatusChecker:
+def create_automated_checker(api_key: Optional[str] = None, registry_path: Optional[Path] = None) -> AutomatedPoliticianStatusChecker:
     """
-    Create automated status checker instance.
+    Factory function to create an automated politician status checker.
 
     Args:
-        api_key: ProPublica Congress API key (optional)
+        api_key: Congress.gov API key (or None to read from environment)
+        registry_path: Optional path to politician_registry.json
 
     Returns:
         AutomatedPoliticianStatusChecker instance
     """
-    return AutomatedPoliticianStatusChecker(api_key=api_key)
+    if api_key is None:
+        api_key = os.getenv('CONGRESS_GOV_API_KEY')
+
+    return AutomatedPoliticianStatusChecker(api_key=api_key, registry_path=registry_path)

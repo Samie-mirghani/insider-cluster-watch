@@ -31,7 +31,7 @@ try:
         SEC_USER_AGENT, POLITICIAN_LOOKBACK_DAYS, POLITICIAN_MAX_PAGES,
         ENABLE_POLITICIAN_TIME_DECAY, POLITICIAN_DECAY_HALF_LIFE_DAYS,
         POLITICIAN_MIN_WEIGHT_FRACTION, POLITICIAN_RETIRING_BOOST,
-        ENABLE_AUTOMATED_POLITICIAN_STATUS_CHECK, PROPUBLICA_CONGRESS_API_KEY
+        ENABLE_AUTOMATED_POLITICIAN_STATUS_CHECK, CONGRESS_GOV_API_KEY
     )
     MULTI_SIGNAL_AVAILABLE = True
 except ImportError as e:
@@ -397,7 +397,7 @@ def main(test=False, urgent_test=False, enable_paper_trading=True):
         if ENABLE_AUTOMATED_POLITICIAN_STATUS_CHECK:
             try:
                 print("   • Running automated politician status check...")
-                api_key = os.getenv('PROPUBLICA_API_KEY') or PROPUBLICA_CONGRESS_API_KEY
+                api_key = os.getenv('CONGRESS_GOV_API_KEY') or CONGRESS_GOV_API_KEY
                 if api_key:
                     checker = create_automated_checker(api_key=api_key)
                     result = checker.check_and_update_statuses()
@@ -408,8 +408,8 @@ def main(test=False, urgent_test=False, enable_paper_trading=True):
                     elif result['status'] == 'success':
                         print(f"     - All politician statuses up-to-date")
                 else:
-                    print(f"     ⚠️  No ProPublica API key - skipping auto-check")
-                    print(f"     ℹ️  Get free key at: https://www.propublica.org/datastore/api/propublica-congress-api")
+                    print(f"     ⚠️  No Congress.gov API key - skipping auto-check")
+                    print(f"     ℹ️  Get free key at: https://api.congress.gov/sign-up/")
             except Exception as e:
                 print(f"   ⚠️  Automated status check failed: {e}")
                 print(f"   → Continuing with existing statuses")

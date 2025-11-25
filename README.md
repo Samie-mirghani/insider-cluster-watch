@@ -79,7 +79,7 @@ When no significant signals are detected, sends a summary explaining why and sho
 Enhances insider signals by checking for confirmation from other data sources:
 - **Politician Trades:** Scrapes Capitol Trades for congressional trading activity (tracks 15+ high-performing politicians)
 - **Automated Time-Decay System:** Intelligently handles retiring/retired politicians
-  - Fully automated using ProPublica Congress API (zero manual work!)
+  - Fully automated using Congress.gov API (zero manual work!)
   - Active: Full weight | Retiring: 1.5x boost | Retired: Exponential decay (never deleted)
   - Preserves historical data for analysis
 - **Institutional Holdings:** Validates with SEC 13F filings from 15 priority funds (Berkshire, Bridgewater, etc.)
@@ -123,7 +123,7 @@ insider-cluster-watch/
 │   ├── process_signals.py             # Clustering, scoring, deduplication logic
 │   ├── capitol_trades_scraper.py      # Politician trading scraper (Capitol Trades)
 │   ├── politician_tracker.py          # Time-decay weighting for retiring politicians
-│   ├── automated_politician_checker.py # Automated status updates via ProPublica API
+│   ├── automated_politician_checker.py # Automated status updates via Congress.gov API
 │   ├── sec_13f_parser.py              # Institutional holdings parser (SEC 13F)
 │   ├── multi_signal_detector.py       # Multi-signal detection engine
 │   ├── paper_trading_multi_signal.py  # Enhanced paper trading with tiers
@@ -167,7 +167,7 @@ insider-cluster-watch/
 - **Gmail account** with app password for SMTP sending
 - **Chrome/Chromium browser** (required for Capitol Trades scraping with Selenium)
 - **ChromeDriver** (Selenium will attempt to auto-install if missing)
-- **(Optional)** ProPublica Congress API key for automated politician status updates (free, 5,000 requests/day)
+- **(Optional)** Congress.gov API key for automated politician status updates (free, 5,000 requests/hour)
 - **(Optional)** Local setup for testing before deploying to GitHub Actions
 
 ---
@@ -214,13 +214,13 @@ GMAIL_USER=your-email@gmail.com
 GMAIL_APP_PASSWORD=your-16-char-app-password
 RECIPIENT_EMAIL=your-email@gmail.com
 
-# Optional: ProPublica Congress API for automated politician status updates
-PROPUBLICA_API_KEY=your-api-key-here
+# Optional: Congress.gov API for automated politician status updates
+CONGRESS_GOV_API_KEY=your-api-key-here
 ```
 
 **Notes:**
 - You need a [Gmail app password](https://support.google.com/accounts/answer/185833) (not your regular password)
-- Get a free ProPublica API key at https://www.propublica.org/datastore/api/propublica-congress-api (optional but recommended for automated politician tracking)
+- Get a free Congress.gov API key at https://api.congress.gov/sign-up/ (optional but recommended for automated politician tracking)
 
 ### 5. Test the script locally
 
@@ -250,7 +250,7 @@ This creates a fake urgent signal with multiple insiders to test the urgent emai
 | `GMAIL_USER` | Yes | Your Gmail address |
 | `GMAIL_APP_PASSWORD` | Yes | Gmail app-specific password |
 | `RECIPIENT_EMAIL` | Yes | Email to receive reports |
-| `PROPUBLICA_API_KEY` | No | ProPublica Congress API key for automated politician status updates (free) |
+| `CONGRESS_GOV_API_KEY` | No | Congress.gov API key for automated politician status updates (free) |
 
 ### Tuning Signal Parameters
 
@@ -329,7 +329,7 @@ MULTI_SIGNAL_STOP_LOSS = {
    - `GMAIL_USER` (required)
    - `GMAIL_APP_PASSWORD` (required)
    - `RECIPIENT_EMAIL` (required)
-   - `PROPUBLICA_API_KEY` (optional - for automated politician status updates)
+   - `CONGRESS_GOV_API_KEY` (optional - for automated politician status updates)
 
 ### Daily Signal Generation (Mon-Fri 7AM ET)
 

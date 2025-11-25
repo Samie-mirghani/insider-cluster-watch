@@ -129,6 +129,6 @@ POLITICIAN_RETIRING_BOOST = 1.5  # Weight multiplier for "lame duck" trades (ann
 
 # Automated Politician Status Checking (Option C - Fully Automated)
 ENABLE_AUTOMATED_POLITICIAN_STATUS_CHECK = True  # Auto-check politician statuses daily
-PROPUBLICA_CONGRESS_API_KEY = None  # Set via environment variable PROPUBLICA_API_KEY
-# Get free API key at: https://www.propublica.org/datastore/api/propublica-congress-api
-# 5,000 requests/day free tier (more than sufficient for daily checks)
+CONGRESS_GOV_API_KEY = None  # Set via environment variable CONGRESS_GOV_API_KEY
+# Get free API key at: https://api.congress.gov/sign-up/
+# 5,000 requests/hour free tier (more than sufficient for daily checks)
