@@ -147,6 +147,9 @@ POLITICIAN_RETIRING_BOOST = 1.5  # Weight multiplier for "lame duck" trades (ann
 
 # Automated Politician Status Checking (Option C - Fully Automated)
 ENABLE_AUTOMATED_POLITICIAN_STATUS_CHECK = True  # Auto-check politician statuses daily
-CONGRESS_GOV_API_KEY = None  # Set via environment variable CONGRESS_GOV_API_KEY
+
+# Congress.gov API Key (reads from GitHub secrets via environment variable)
 # Get free API key at: https://api.congress.gov/sign-up/
 # 5,000 requests/hour free tier (more than sufficient for daily checks)
+import os
+CONGRESS_GOV_API_KEY = os.getenv('CONGRESS_GOV_API_KEY', None)
