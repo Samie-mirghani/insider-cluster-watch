@@ -243,7 +243,12 @@ class InsiderPerformanceTracker:
             # Find the actual trade date or closest after
             hist = hist.reset_index()
             hist['Date'] = pd.to_datetime(hist['Date']).dt.tz_localize(None)  # Remove timezone for comparison
-            trade_date_normalized = pd.to_datetime(trade_date).tz_localize(None) if hasattr(pd.to_datetime(trade_date), 'tz') else pd.to_datetime(trade_date)
+
+            # Normalize trade_date to timezone-naive for comparison
+            trade_date_normalized = pd.to_datetime(trade_date)
+            if trade_date_normalized.tz is not None:
+                trade_date_normalized = trade_date_normalized.tz_localize(None)
+
             trade_idx = hist[hist['Date'] >= trade_date_normalized].head(1)
 
             if trade_idx.empty:

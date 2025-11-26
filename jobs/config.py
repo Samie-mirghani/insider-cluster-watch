@@ -5,6 +5,8 @@ Configuration for Paper Trading System
 Centralized configuration for all paper trading parameters.
 """
 
+import os
+
 # Portfolio Settings
 STARTING_CAPITAL = 10000  # $10k starting capital
 
@@ -151,5 +153,4 @@ ENABLE_AUTOMATED_POLITICIAN_STATUS_CHECK = True  # Auto-check politician statuse
 # Congress.gov API Key (reads from GitHub secrets via environment variable)
 # Get free API key at: https://api.congress.gov/sign-up/
 # 5,000 requests/hour free tier (more than sufficient for daily checks)
-import os
 CONGRESS_GOV_API_KEY = os.getenv('CONGRESS_GOV_API_KEY', None)
