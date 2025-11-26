@@ -242,8 +242,9 @@ class InsiderPerformanceTracker:
 
             # Find the actual trade date or closest after
             hist = hist.reset_index()
-            hist['Date'] = pd.to_datetime(hist['Date'])
-            trade_idx = hist[hist['Date'] >= trade_date].head(1)
+            hist['Date'] = pd.to_datetime(hist['Date']).dt.tz_localize(None)  # Remove timezone for comparison
+            trade_date_normalized = pd.to_datetime(trade_date).tz_localize(None) if hasattr(pd.to_datetime(trade_date), 'tz') else pd.to_datetime(trade_date)
+            trade_idx = hist[hist['Date'] >= trade_date_normalized].head(1)
 
             if trade_idx.empty:
                 return None
@@ -254,7 +255,7 @@ class InsiderPerformanceTracker:
 
             # Calculate outcomes at different time horizons
             for days, key in [(30, '30d'), (90, '90d'), (180, '180d')]:
-                target_date = trade_date + timedelta(days=days)
+                target_date = trade_date_normalized + timedelta(days=days)
 
                 # Find price closest to target date (but after trade date)
                 future_data = hist[hist['Date'] >= target_date]

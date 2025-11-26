@@ -27,8 +27,15 @@ SCALING_TRIGGER_PCT = 0.02  # -2% pullback triggers second tranche
 SCALING_EXPIRY_DAYS = 5  # Second tranche expires after 5 days
 
 # Time Limits
-TIME_STOP_DAYS = 21  # Exit after 21 days
+TIME_STOP_DAYS = 21  # Exit after 21 days (deprecated - see PERFORMANCE_BASED_MAX_HOLD)
 MAX_DAILY_TRADES = 5  # Limit new positions per day
+
+# Performance-Based Max Hold (more sophisticated exit logic)
+PERFORMANCE_BASED_MAX_HOLD = True  # Enable performance-based time exits
+MAX_HOLD_LOSS_DAYS = 21  # Exit after 21 days if losing money
+MAX_HOLD_STAGNANT_DAYS = 30  # Exit after 30 days if barely positive
+MAX_HOLD_STAGNANT_THRESHOLD = 3.0  # "Barely positive" threshold (%)
+MAX_HOLD_EXTREME_DAYS = 45  # Maximum hold regardless of performance
 
 # Health Monitoring
 MAX_DAILY_LOSS_PCT = 5.0  # Alert if down >5% in one day

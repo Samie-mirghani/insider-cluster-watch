@@ -488,11 +488,28 @@ class PaperTradingPortfolio:
                 elif current_price >= pos['take_profit']:
                     exit_reason = 'TAKE_PROFIT'
                     logger.info(f"   🎯 TAKE PROFIT HIT")
-                
-                # Check time stop (21 days)
-                elif days_held >= 21:
+
+                # Performance-Based Max Hold (more sophisticated time-based exits)
+                elif PERFORMANCE_BASED_MAX_HOLD:
+                    # Exit condition 1: Held 21 days and negative
+                    if days_held >= MAX_HOLD_LOSS_DAYS and unrealized_pnl < 0:
+                        exit_reason = 'MAX_HOLD_LOSS'
+                        logger.info(f"   ⏰ MAX HOLD - LOSS ({days_held} days, {unrealized_pnl:.2f}%)")
+
+                    # Exit condition 2: Held 30 days and barely positive (not moving)
+                    elif days_held >= MAX_HOLD_STAGNANT_DAYS and unrealized_pnl < MAX_HOLD_STAGNANT_THRESHOLD:
+                        exit_reason = 'MAX_HOLD_STAGNANT'
+                        logger.info(f"   ⏰ MAX HOLD - STAGNANT ({days_held} days, only {unrealized_pnl:.2f}%)")
+
+                    # Exit condition 3: Held 45 days regardless (extreme case)
+                    elif days_held >= MAX_HOLD_EXTREME_DAYS:
+                        exit_reason = 'MAX_HOLD_EXTREME'
+                        logger.info(f"   ⏰ MAX HOLD - EXTREME ({days_held} days, {unrealized_pnl:.2f}%)")
+
+                # Fallback: Old simple time stop (if PERFORMANCE_BASED_MAX_HOLD is disabled)
+                elif days_held >= TIME_STOP_DAYS:
                     exit_reason = 'TIME_STOP'
-                    logger.info(f"   ⏰ TIME STOP (21 days)")
+                    logger.info(f"   ⏰ TIME STOP ({days_held} days)")
                 
                 # Execute exit if triggered
                 if exit_reason:

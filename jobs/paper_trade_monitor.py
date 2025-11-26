@@ -95,17 +95,65 @@ class PaperTradingMonitor:
                         'action': f'Consider trimming {ticker} position'
                     })
         
-        # Check 6: Stale positions (>21 days)
+        # Check 6: Stale positions (performance-based max hold monitoring)
         if portfolio.positions:
+            try:
+                from config import PERFORMANCE_BASED_MAX_HOLD, MAX_HOLD_LOSS_DAYS, MAX_HOLD_STAGNANT_DAYS, MAX_HOLD_EXTREME_DAYS, MAX_HOLD_STAGNANT_THRESHOLD
+                performance_based = PERFORMANCE_BASED_MAX_HOLD
+            except ImportError:
+                performance_based = False
+                MAX_HOLD_LOSS_DAYS = 21
+                MAX_HOLD_EXTREME_DAYS = 45
+
             for ticker, pos in portfolio.positions.items():
                 days_held = (datetime.now() - pos['entry_date']).days
-                if days_held > 21:
-                    self.alerts.append({
-                        'level': 'INFO',
-                        'type': 'STALE_POSITION',
-                        'message': f"{ticker} held for {days_held} days (time stop should trigger soon)",
-                        'action': 'Monitor for time-based exit'
-                    })
+
+                if performance_based:
+                    # Get current price and calculate P&L
+                    try:
+                        current_price = portfolio._get_current_price(ticker, pos['entry_price'])
+                        unrealized_pnl_pct = ((current_price - pos['entry_price']) / pos['entry_price']) * 100
+
+                        # Alert if approaching max hold limits
+                        if days_held >= MAX_HOLD_LOSS_DAYS and unrealized_pnl_pct < 0:
+                            self.alerts.append({
+                                'level': 'INFO',
+                                'type': 'MAX_HOLD_APPROACHING',
+                                'message': f"{ticker} held {days_held} days and losing {unrealized_pnl_pct:.2f}% (may exit soon)",
+                                'action': 'Position should exit via MAX_HOLD_LOSS'
+                            })
+                        elif days_held >= MAX_HOLD_STAGNANT_DAYS and unrealized_pnl_pct < MAX_HOLD_STAGNANT_THRESHOLD:
+                            self.alerts.append({
+                                'level': 'INFO',
+                                'type': 'MAX_HOLD_APPROACHING',
+                                'message': f"{ticker} held {days_held} days with minimal gain {unrealized_pnl_pct:.2f}% (may exit soon)",
+                                'action': 'Position should exit via MAX_HOLD_STAGNANT'
+                            })
+                        elif days_held >= MAX_HOLD_EXTREME_DAYS:
+                            self.alerts.append({
+                                'level': 'INFO',
+                                'type': 'MAX_HOLD_EXTREME',
+                                'message': f"{ticker} held {days_held} days, at maximum hold period",
+                                'action': 'Position should exit immediately via MAX_HOLD_EXTREME'
+                            })
+                    except:
+                        # Fallback if we can't get current price
+                        if days_held > MAX_HOLD_EXTREME_DAYS:
+                            self.alerts.append({
+                                'level': 'INFO',
+                                'type': 'STALE_POSITION',
+                                'message': f"{ticker} held for {days_held} days (exceeds max)",
+                                'action': 'Monitor for exit'
+                            })
+                else:
+                    # Old simple time-based monitoring
+                    if days_held > MAX_HOLD_LOSS_DAYS:
+                        self.alerts.append({
+                            'level': 'INFO',
+                            'type': 'STALE_POSITION',
+                            'message': f"{ticker} held for {days_held} days (time stop should trigger soon)",
+                            'action': 'Monitor for time-based exit'
+                        })
         
         # Check 7: Negative total return
         if stats['total_trades'] >= 5 and stats['total_return_pct'] < -5:
