@@ -1,6 +1,6 @@
 {
   "starting_capital": 10000,
-  "cash": 8658.929999999998,
+  "cash": 6879.229999999999,
   "positions": {
     "YCY": {
       "entry_date": "2025-11-10T11:27:45.955285",
@@ -96,9 +96,9 @@
       "shares": 8,
       "cost_basis": 271.76,
       "initial_stop_loss": 32.271499999999996,
-      "stop_loss": 33.744,
+      "stop_loss": 34.6085,
       "take_profit": 36.6876,
-      "highest_price": 35.52,
+      "highest_price": 36.43,
       "trailing_enabled": true,
       "signal_score": 23.520917205035236,
       "sector": "Financial Services",
@@ -111,14 +111,102 @@
           "date": "2025-11-19T11:43:49.200244"
         }
       ]
+    },
+    "CBC": {
+      "entry_date": "2025-11-26T11:43:44.081109",
+      "entry_price": 24.16,
+      "shares": 24,
+      "cost_basis": 579.84,
+      "initial_stop_loss": 22.951999999999998,
+      "stop_loss": 22.951999999999998,
+      "take_profit": 26.0928,
+      "highest_price": 24.16,
+      "trailing_enabled": false,
+      "signal_score": 39.61495352229534,
+      "sector": "Financial Services",
+      "multi_signal_tier": "none",
+      "has_politician_signal": false,
+      "tranches": [
+        {
+          "shares": 24,
+          "price": 24.16,
+          "date": "2025-11-26T11:43:44.081113"
+        }
+      ]
+    },
+    "VAC": {
+      "entry_date": "2025-11-26T11:43:44.391409",
+      "entry_price": 54.62,
+      "shares": 11,
+      "cost_basis": 600.8199999999999,
+      "initial_stop_loss": 51.888999999999996,
+      "stop_loss": 51.888999999999996,
+      "take_profit": 58.9896,
+      "highest_price": 54.62,
+      "trailing_enabled": false,
+      "signal_score": 20.32408382966457,
+      "sector": "Consumer Cyclical",
+      "multi_signal_tier": "none",
+      "has_politician_signal": false,
+      "tranches": [
+        {
+          "shares": 11,
+          "price": 54.62,
+          "date": "2025-11-26T11:43:44.391412"
+        }
+      ]
+    },
+    "VRCA": {
+      "entry_date": "2025-11-26T11:43:44.784768",
+      "entry_price": 5.12,
+      "shares": 117,
+      "cost_basis": 599.04,
+      "initial_stop_loss": 4.864,
+      "stop_loss": 4.864,
+      "take_profit": 5.5296,
+      "highest_price": 5.12,
+      "trailing_enabled": false,
+      "signal_score": 17.73205830079413,
+      "sector": "Healthcare",
+      "multi_signal_tier": "none",
+      "has_politician_signal": false,
+      "tranches": [
+        {
+          "shares": 117,
+          "price": 5.12,
+          "date": "2025-11-26T11:43:44.784772"
+        }
+      ]
     }
   },
-  "pending_entries": {},
-  "total_trades": 9,
+  "pending_entries": {
+    "CBC": {
+      "shares": 16,
+      "trigger_price": 23.6768,
+      "original_entry": 24.16,
+      "expires": "2025-12-01T11:43:44.201840",
+      "signal_score": 39.61495352229534
+    },
+    "VAC": {
+      "shares": 7,
+      "trigger_price": 53.5276,
+      "original_entry": 54.62,
+      "expires": "2025-12-01T11:43:44.568412",
+      "signal_score": 20.32408382966457
+    },
+    "VRCA": {
+      "shares": 78,
+      "trigger_price": 5.0176,
+      "original_entry": 5.12,
+      "expires": "2025-12-01T11:43:44.922545",
+      "signal_score": 17.73205830079413
+    }
+  },
+  "total_trades": 12,
   "winning_trades": 2,
   "losing_trades": 2,
   "total_profit": 16.920000000000016,
   "max_portfolio_value": 10437.869999999999,
   "max_drawdown": -4.476406584868387,
-  "last_updated": "2025-11-25T11:46:14.855434"
+  "last_updated": "2025-11-26T11:43:45.535018"
 }

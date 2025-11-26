@@ -1,9 +1,9 @@
 {
-  "last_updated": "November 25, 2025 at 11:46 UTC",
-  "total_return_pct": 0.33,
+  "last_updated": "November 26, 2025 at 11:43 UTC",
+  "total_return_pct": 0.46,
   "win_rate": 0.0,
   "completed_trades": 0,
-  "active_trades": 5,
+  "active_trades": 8,
   "avg_return_per_trade": 0.0,
   "sharpe_ratio": 0.0,
   "max_drawdown": -4.48,
@@ -26,36 +26,57 @@
     {
       "ticker": "YCY",
       "entry_date": "Nov 10, 2025",
-      "days_held": 15,
+      "days_held": 16,
       "unrealized_return": -1.1,
       "conviction": "LOW"
     },
     {
       "ticker": "VRSK",
       "entry_date": "Nov 11, 2025",
-      "days_held": 14,
-      "unrealized_return": 3.24,
+      "days_held": 15,
+      "unrealized_return": 4.73,
       "conviction": "MEDIUM"
     },
     {
       "ticker": "IRDM",
       "entry_date": "Nov 11, 2025",
-      "days_held": 14,
-      "unrealized_return": -1.03,
+      "days_held": 15,
+      "unrealized_return": -0.24,
       "conviction": "MEDIUM"
     },
     {
       "ticker": "MTDR",
       "entry_date": "Nov 14, 2025",
-      "days_held": 11,
-      "unrealized_return": 1.27,
+      "days_held": 12,
+      "unrealized_return": 1.05,
       "conviction": "VERY HIGH"
     },
     {
       "ticker": "OBK",
       "entry_date": "Nov 19, 2025",
-      "days_held": 6,
-      "unrealized_return": 4.3,
+      "days_held": 7,
+      "unrealized_return": 7.24,
+      "conviction": "VERY HIGH"
+    },
+    {
+      "ticker": "CBC",
+      "entry_date": "Nov 26, 2025",
+      "days_held": 0,
+      "unrealized_return": 0.0,
+      "conviction": "VERY HIGH"
+    },
+    {
+      "ticker": "VAC",
+      "entry_date": "Nov 26, 2025",
+      "days_held": 0,
+      "unrealized_return": 0.0,
+      "conviction": "VERY HIGH"
+    },
+    {
+      "ticker": "VRCA",
+      "entry_date": "Nov 26, 2025",
+      "days_held": 0,
+      "unrealized_return": 0.0,
       "conviction": "VERY HIGH"
     }
   ]
