@@ -413,32 +413,77 @@ class PaperTradingPortfolio:
                 logger.error(f"   ❌ Error checking {ticker} pending entry: {e}")
     
     def update_trailing_stops(self):
-        """Update trailing stops for profitable positions"""
+        """Update trailing stops for profitable positions with dynamic tightening"""
+        # Import dynamic stop config
+        try:
+            from config import (ENABLE_DYNAMIC_STOPS, BIG_WINNER_THRESHOLD, BIG_WINNER_STOP_PCT,
+                              HUGE_WINNER_THRESHOLD, HUGE_WINNER_STOP_PCT, MODEST_GAIN_THRESHOLD,
+                              OLD_POSITION_DAYS, OLD_POSITION_STOP_PCT)
+            dynamic_stops_enabled = ENABLE_DYNAMIC_STOPS
+        except ImportError:
+            dynamic_stops_enabled = False
+
         for ticker, pos in self.positions.items():
             try:
                 current_price = self._get_current_price(ticker, pos['entry_price'])
-                
+                unrealized_pnl_pct = ((current_price - pos['entry_price']) / pos['entry_price']) * 100
+                days_held = (datetime.now() - pos['entry_date']).days
+
                 # Track highest price
                 if current_price > pos['highest_price']:
                     pos['highest_price'] = current_price
-                    
+
                     # Enable trailing stop after +3% gain
                     if not pos['trailing_enabled']:
-                        gain_pct = ((current_price - pos['entry_price']) / pos['entry_price']) * 100
-                        if gain_pct >= 3.0:
+                        if unrealized_pnl_pct >= 3.0:
                             pos['trailing_enabled'] = True
-                            logger.info(f"   📈 {ticker}: Trailing stop ENABLED at +{gain_pct:.1f}%")
-                    
-                    # Update trailing stop if enabled
-                    if pos['trailing_enabled']:
-                        new_stop = current_price * (1 - self.trailing_stop_pct)
-                        
-                        # Only raise the stop, never lower it
+                            logger.info(f"   📈 {ticker}: Trailing stop ENABLED at +{unrealized_pnl_pct:.1f}%")
+
+                # === HYBRID: Dynamic Stop Tightening for Winners ===
+                if dynamic_stops_enabled and pos['trailing_enabled']:
+                    trailing_pct = self.trailing_stop_pct  # Default 5%
+                    stop_reason = "standard trailing"
+
+                    # 1. Huge winner: +30% → 7% trailing stop
+                    if unrealized_pnl_pct > HUGE_WINNER_THRESHOLD:
+                        trailing_pct = HUGE_WINNER_STOP_PCT
+                        stop_reason = f"HUGE WINNER (+{unrealized_pnl_pct:.1f}%) → 7% stop"
+
+                    # 2. Big winner: +20% → 10% trailing stop
+                    elif unrealized_pnl_pct > BIG_WINNER_THRESHOLD:
+                        trailing_pct = BIG_WINNER_STOP_PCT
+                        stop_reason = f"BIG WINNER (+{unrealized_pnl_pct:.1f}%) → 10% stop"
+
+                    # 3. Old position with modest gain: tighten from high
+                    elif days_held > OLD_POSITION_DAYS and 0 < unrealized_pnl_pct < MODEST_GAIN_THRESHOLD:
+                        # Use 10% from highest price instead of current price
+                        new_stop = pos['highest_price'] * (1 - OLD_POSITION_STOP_PCT)
                         if new_stop > pos['stop_loss']:
                             old_stop = pos['stop_loss']
                             pos['stop_loss'] = new_stop
+                            logger.info(f"   🔼 {ticker}: OLD+MODEST ({days_held}d, +{unrealized_pnl_pct:.1f}%) → stop ${old_stop:.2f} → ${new_stop:.2f}")
+                        continue  # Skip standard trailing update
+
+                    # Update trailing stop with dynamic percentage
+                    new_stop = current_price * (1 - trailing_pct)
+
+                    # Only raise the stop, never lower it
+                    if new_stop > pos['stop_loss']:
+                        old_stop = pos['stop_loss']
+                        pos['stop_loss'] = new_stop
+                        if stop_reason != "standard trailing":
+                            logger.info(f"   🔼 {ticker}: {stop_reason} → ${old_stop:.2f} → ${new_stop:.2f}")
+                        else:
                             logger.info(f"   🔼 {ticker}: Stop raised ${old_stop:.2f} → ${new_stop:.2f} (trailing)")
-                            
+
+                # Standard trailing stop (if dynamic stops disabled)
+                elif pos['trailing_enabled']:
+                    new_stop = current_price * (1 - self.trailing_stop_pct)
+                    if new_stop > pos['stop_loss']:
+                        old_stop = pos['stop_loss']
+                        pos['stop_loss'] = new_stop
+                        logger.info(f"   🔼 {ticker}: Stop raised ${old_stop:.2f} → ${new_stop:.2f} (trailing)")
+
             except Exception as e:
                 logger.error(f"   ❌ Error updating {ticker} trailing stop: {e}")
     
@@ -489,7 +534,7 @@ class PaperTradingPortfolio:
                     exit_reason = 'TAKE_PROFIT'
                     logger.info(f"   🎯 TAKE PROFIT HIT")
 
-                # Performance-Based Max Hold (more sophisticated time-based exits)
+                # Performance-Based Max Hold (HYBRID: time-based + dynamic stops)
                 elif PERFORMANCE_BASED_MAX_HOLD:
                     # Exit condition 1: Held 21 days and negative
                     if days_held >= MAX_HOLD_LOSS_DAYS and unrealized_pnl < 0:
@@ -501,10 +546,20 @@ class PaperTradingPortfolio:
                         exit_reason = 'MAX_HOLD_STAGNANT'
                         logger.info(f"   ⏰ MAX HOLD - STAGNANT ({days_held} days, only {unrealized_pnl:.2f}%)")
 
-                    # Exit condition 3: Held 45 days regardless (extreme case)
+                    # Exit condition 3: Held 45 days - with exception for big winners (HYBRID)
                     elif days_held >= MAX_HOLD_EXTREME_DAYS:
-                        exit_reason = 'MAX_HOLD_EXTREME'
-                        logger.info(f"   ⏰ MAX HOLD - EXTREME ({days_held} days, {unrealized_pnl:.2f}%)")
+                        try:
+                            from config import MAX_HOLD_EXTREME_EXCEPTION
+                            exception_threshold = MAX_HOLD_EXTREME_EXCEPTION
+                        except ImportError:
+                            exception_threshold = 15.0
+
+                        # Exception: Keep if gaining >15% at 45 days (let winners run!)
+                        if unrealized_pnl < exception_threshold:
+                            exit_reason = 'MAX_HOLD_EXTREME'
+                            logger.info(f"   ⏰ MAX HOLD - EXTREME ({days_held} days, {unrealized_pnl:.2f}%)")
+                        else:
+                            logger.info(f"   🚀 {ticker}: {days_held} days BUT +{unrealized_pnl:.1f}% → HOLDING (exception for big winners)")
 
                 # Fallback: Old simple time stop (if PERFORMANCE_BASED_MAX_HOLD is disabled)
                 elif days_held >= TIME_STOP_DAYS:
