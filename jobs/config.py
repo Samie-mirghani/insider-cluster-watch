@@ -147,6 +147,20 @@ POLITICIAN_RETIRING_BOOST = 1.5  # Weight multiplier for "lame duck" trades (ann
 
 # Automated Politician Status Checking (Option C - Fully Automated)
 ENABLE_AUTOMATED_POLITICIAN_STATUS_CHECK = True  # Auto-check politician statuses daily
-CONGRESS_GOV_API_KEY = None  # Set via environment variable CONGRESS_GOV_API_KEY
+
+# Congress.gov API Key Configuration
 # Get free API key at: https://api.congress.gov/sign-up/
 # 5,000 requests/hour free tier (more than sufficient for daily checks)
+#
+# To set the API key, use one of these methods:
+# Method 1 (Recommended): Set environment variable
+#   export CONGRESS_GOV_API_KEY="your-api-key-here"
+#
+# Method 2: Set directly in this config (NOT recommended for git repos)
+#   CONGRESS_GOV_API_KEY = "your-api-key-here"
+#
+# Method 3: Create a .env file in project root (if python-dotenv installed)
+#   CONGRESS_GOV_API_KEY=your-api-key-here
+
+import os
+CONGRESS_GOV_API_KEY = os.getenv('CONGRESS_GOV_API_KEY', None)
