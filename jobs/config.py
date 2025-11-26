@@ -5,6 +5,8 @@ Configuration for Paper Trading System
 Centralized configuration for all paper trading parameters.
 """
 
+import os
+
 # Portfolio Settings
 STARTING_CAPITAL = 10000  # $10k starting capital
 
@@ -27,8 +29,26 @@ SCALING_TRIGGER_PCT = 0.02  # -2% pullback triggers second tranche
 SCALING_EXPIRY_DAYS = 5  # Second tranche expires after 5 days
 
 # Time Limits
-TIME_STOP_DAYS = 21  # Exit after 21 days
+TIME_STOP_DAYS = 21  # Exit after 21 days (deprecated - see PERFORMANCE_BASED_MAX_HOLD)
 MAX_DAILY_TRADES = 5  # Limit new positions per day
+
+# Performance-Based Max Hold (Hybrid: time-based exits + dynamic stops)
+PERFORMANCE_BASED_MAX_HOLD = True  # Enable performance-based time exits
+MAX_HOLD_LOSS_DAYS = 21  # Exit after 21 days if losing money
+MAX_HOLD_STAGNANT_DAYS = 30  # Exit after 30 days if barely positive
+MAX_HOLD_STAGNANT_THRESHOLD = 3.0  # "Barely positive" threshold (%)
+MAX_HOLD_EXTREME_DAYS = 45  # Maximum hold regardless of performance
+MAX_HOLD_EXTREME_EXCEPTION = 15.0  # Exception: keep if gaining >15% at 45 days
+
+# Dynamic Stop Tightening (for winners)
+ENABLE_DYNAMIC_STOPS = True  # Tighten stops as gains increase
+BIG_WINNER_THRESHOLD = 20.0  # Tighten stop after +20% gain
+BIG_WINNER_STOP_PCT = 0.10  # 10% trailing stop for big winners
+HUGE_WINNER_THRESHOLD = 30.0  # Further tighten after +30% gain
+HUGE_WINNER_STOP_PCT = 0.07  # 7% trailing stop for huge winners
+MODEST_GAIN_THRESHOLD = 10.0  # "Modest gain" threshold
+OLD_POSITION_DAYS = 21  # Consider position "old" after 21 days
+OLD_POSITION_STOP_PCT = 0.10  # 10% stop from high for old modest positions
 
 # Health Monitoring
 MAX_DAILY_LOSS_PCT = 5.0  # Alert if down >5% in one day
@@ -129,6 +149,8 @@ POLITICIAN_RETIRING_BOOST = 1.5  # Weight multiplier for "lame duck" trades (ann
 
 # Automated Politician Status Checking (Option C - Fully Automated)
 ENABLE_AUTOMATED_POLITICIAN_STATUS_CHECK = True  # Auto-check politician statuses daily
-CONGRESS_GOV_API_KEY = None  # Set via environment variable CONGRESS_GOV_API_KEY
+
+# Congress.gov API Key (reads from GitHub secrets via environment variable)
 # Get free API key at: https://api.congress.gov/sign-up/
 # 5,000 requests/hour free tier (more than sufficient for daily checks)
+CONGRESS_GOV_API_KEY = os.getenv('CONGRESS_GOV_API_KEY', None)
