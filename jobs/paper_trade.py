@@ -617,18 +617,20 @@ class PaperTradingPortfolio:
         logger.info(f"   Portfolio: ${self.get_portfolio_value():,.2f}")
         logger.info(f"{'='*60}\n")
         
-        # Log trade
+        # Log trade in NEW format expected by generate_public_performance.py
         self.trade_history.append({
-            'date': datetime.now(),
+            'entry_date': pos['entry_date'],        # Entry date from position
+            'exit_date': datetime.now(),             # Exit date (now)
             'action': 'SELL',
             'ticker': ticker,
-            'price': exit_price,
+            'entry_price': pos['entry_price'],       # Entry price
+            'exit_price': exit_price,                # Exit price
             'shares': pos['shares'],
             'proceeds': proceeds,
-            'reason': reason,
+            'exit_reason': reason,                   # Renamed from 'reason' for clarity
             'profit': profit,
-            'profit_pct': profit_pct,
-            'days_held': days_held,
+            'pnl_pct': profit_pct,                   # Renamed from 'profit_pct' to match expected format
+            'hold_days': days_held,                  # Renamed from 'days_held' to match expected format
             'signal_score': pos.get('signal_score', 0),
             'cash_remaining': self.cash,
             'portfolio_value': self.get_portfolio_value()
@@ -656,12 +658,15 @@ class PaperTradingPortfolio:
             if not sells.empty:
                 wins = sells[sells['profit'] > 0]
                 losses = sells[sells['profit'] < 0]
-                
+
                 avg_win = wins['profit'].mean() if len(wins) > 0 else 0
                 avg_loss = losses['profit'].mean() if len(losses) > 0 else 0
-                avg_win_pct = wins['profit_pct'].mean() if len(wins) > 0 else 0
-                avg_loss_pct = losses['profit_pct'].mean() if len(losses) > 0 else 0
-                avg_hold_days = sells['days_held'].mean() if len(sells) > 0 else 0
+                # Handle both old and new field names for backwards compatibility
+                pct_field = 'pnl_pct' if 'pnl_pct' in sells.columns else 'profit_pct'
+                hold_field = 'hold_days' if 'hold_days' in sells.columns else 'days_held'
+                avg_win_pct = wins[pct_field].mean() if len(wins) > 0 else 0
+                avg_loss_pct = losses[pct_field].mean() if len(losses) > 0 else 0
+                avg_hold_days = sells[hold_field].mean() if len(sells) > 0 else 0
             else:
                 avg_win = avg_loss = avg_win_pct = avg_loss_pct = avg_hold_days = 0
         else:
