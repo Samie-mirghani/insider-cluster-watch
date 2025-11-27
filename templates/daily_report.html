@@ -327,6 +327,12 @@
                       <span style="background: #fff3e0; color: #e65100; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 600; display: inline-block;">⚡ {{ "{:.3f}".format(item.pct_of_float) }}% of Float</span>
                         {% endif %}
                       {% endif %}
+
+                      {% if item.squeeze_potential %}
+                      <span style="background: #ff5722; color: white; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 600; display: inline-block;" title="High squeeze potential detected">🚀 SQUEEZE SETUP ({{ item.squeeze_score|round(0) }}/100)</span>
+                      {% elif item.short_interest_available and item.short_percent_float and item.short_percent_float >= 0.20 %}
+                      <span style="background: #fce4ec; color: #c2185b; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 600; display: inline-block;" title="High short interest detected">📊 Short: {{ item.short_percent_float_display }}</span>
+                      {% endif %}
                     </div>
                   </td>
                 </tr>
@@ -400,6 +406,35 @@
                   </td>
                 </tr>
               </table>
+
+              <!-- Short Interest Section -->
+              {% if item.short_interest_available and (item.squeeze_potential or (item.short_percent_float and item.short_percent_float >= 0.15)) %}
+              <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background: {% if item.squeeze_potential %}#ffebee{% else %}#fce4ec{% endif %}; border-left: 4px solid {% if item.squeeze_potential %}#ff5722{% else %}#c2185b{% endif %}; border-radius: 5px; margin: 15px 0;">
+                <tr>
+                  <td style="padding: 12px;">
+                    <div style="font-size: 12px; color: {% if item.squeeze_potential %}#bf360c{% else %}#880e4f{% endif %}; font-weight: 600; margin-bottom: 8px;">
+                      {% if item.squeeze_potential %}
+                      🚀 SHORT SQUEEZE POTENTIAL
+                      {% else %}
+                      📊 HIGH SHORT INTEREST DETECTED
+                      {% endif %}
+                    </div>
+                    <div style="color: {% if item.squeeze_potential %}#bf360c{% else %}#880e4f{% endif %}; font-size: 13px; line-height: 1.6;">
+                      <strong>Short % of Float:</strong> {{ item.short_percent_float_display }}<br>
+                      {% if item.days_to_cover and item.days_to_cover > 0 %}
+                      <strong>Days to Cover:</strong> {{ item.days_to_cover_display }} days<br>
+                      {% endif %}
+                      {% if item.squeeze_potential %}
+                      <strong>Squeeze Score:</strong> {{ item.squeeze_score|round(1) }}/100 - High squeeze potential!<br>
+                      {% endif %}
+                      {% if item.conviction_adjustment_reason and item.conviction_adjustment_reason != 'No short interest data available' %}
+                      <em style="font-size: 12px;">{{ item.conviction_adjustment_reason }}</em>
+                      {% endif %}
+                    </div>
+                  </td>
+                </tr>
+              </table>
+              {% endif %}
 
               <!-- Signal Metrics -->
               <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin: 15px 0;">
