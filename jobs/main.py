@@ -442,6 +442,16 @@ def main(test=False, urgent_test=False, enable_paper_trading=True):
             cluster_df['squeeze_score'] = 0.0
             cluster_df['squeeze_potential'] = False
             cluster_df['short_interest_available'] = False
+    else:
+        # Short interest analysis disabled or not available - add neutral fields
+        if not cluster_df.empty:
+            cluster_df['short_percent_float'] = None
+            cluster_df['short_percent_float_display'] = "N/A"
+            cluster_df['days_to_cover'] = None
+            cluster_df['days_to_cover_display'] = "N/A"
+            cluster_df['squeeze_score'] = 0.0
+            cluster_df['squeeze_potential'] = False
+            cluster_df['short_interest_available'] = False
 
     # 3.6) Multi-signal detection (politician + institutional)
     multi_signal_data = None

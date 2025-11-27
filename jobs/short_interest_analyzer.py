@@ -211,12 +211,14 @@ class ShortInterestAnalyzer:
 
         # Component 2: Days to cover (0-30 points)
         # Linear scaling: 0 days = 0 points, 10+ days = 30 points
+        days_to_cover_points = 0.0
         if days_to_cover is not None:
             days_to_cover_points = min(30, (days_to_cover / 10.0) * 30)
             score += days_to_cover_points
 
         # Component 3: Insider purchase impact vs short position (0-30 points)
         # Compare insider buying to the short position size
+        impact_points = 0.0
         if market_cap is not None and market_cap > 0:
             # Estimate short position value
             short_position_value = market_cap * short_percent_float
@@ -232,8 +234,8 @@ class ShortInterestAnalyzer:
         squeeze_potential = score >= 70
 
         logger.debug(f"Squeeze score calculation: {score:.1f} (short_pct: {short_pct_points:.1f}, "
-                    f"days_to_cover: {days_to_cover_points if days_to_cover else 0:.1f}, "
-                    f"impact: {impact_points if market_cap else 0:.1f})")
+                    f"days_to_cover: {days_to_cover_points:.1f}, "
+                    f"impact: {impact_points:.1f})")
 
         return round(score, 1), squeeze_potential
 
