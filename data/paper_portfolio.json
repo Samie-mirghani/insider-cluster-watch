@@ -1,6 +1,6 @@
 {
   "starting_capital": 10000,
-  "cash": 6879.229999999999,
+  "cash": 5458.959999999999,
   "positions": {
     "YCY": {
       "entry_date": "2025-11-10T11:27:45.955285",
@@ -30,9 +30,9 @@
       "shares": 1,
       "cost_basis": 212.94,
       "initial_stop_loss": 202.29299999999998,
-      "stop_loss": 212.00199999999998,
+      "stop_loss": 212.69549999999998,
       "take_profit": 229.9752,
-      "highest_price": 223.16,
+      "highest_price": 223.89,
       "trailing_enabled": true,
       "signal_score": 8.405957505313472,
       "sector": "Industrials",
@@ -96,9 +96,9 @@
       "shares": 8,
       "cost_basis": 271.76,
       "initial_stop_loss": 32.271499999999996,
-      "stop_loss": 34.6085,
+      "stop_loss": 34.7035,
       "take_profit": 36.6876,
-      "highest_price": 36.43,
+      "highest_price": 36.53,
       "trailing_enabled": true,
       "signal_score": 23.520917205035236,
       "sector": "Financial Services",
@@ -114,12 +114,12 @@
     },
     "CBC": {
       "entry_date": "2025-11-26T11:43:44.081109",
-      "entry_price": 24.16,
-      "shares": 24,
-      "cost_basis": 579.84,
+      "entry_price": 23.896,
+      "shares": 40,
+      "cost_basis": 955.84,
       "initial_stop_loss": 22.951999999999998,
-      "stop_loss": 22.951999999999998,
-      "take_profit": 26.0928,
+      "stop_loss": 22.7012,
+      "take_profit": 25.80768,
       "highest_price": 24.16,
       "trailing_enabled": false,
       "signal_score": 39.61495352229534,
@@ -131,6 +131,11 @@
           "shares": 24,
           "price": 24.16,
           "date": "2025-11-26T11:43:44.081113"
+        },
+        {
+          "shares": 16,
+          "price": 23.5,
+          "date": "2025-11-27T11:44:41.954745"
         }
       ]
     },
@@ -142,7 +147,7 @@
       "initial_stop_loss": 51.888999999999996,
       "stop_loss": 51.888999999999996,
       "take_profit": 58.9896,
-      "highest_price": 54.62,
+      "highest_price": 54.87,
       "trailing_enabled": false,
       "signal_score": 20.32408382966457,
       "sector": "Consumer Cyclical",
@@ -156,37 +161,74 @@
         }
       ]
     },
-    "VRCA": {
-      "entry_date": "2025-11-26T11:43:44.784768",
-      "entry_price": 5.12,
-      "shares": 117,
-      "cost_basis": 599.04,
-      "initial_stop_loss": 4.864,
-      "stop_loss": 4.864,
-      "take_profit": 5.5296,
-      "highest_price": 5.12,
+    "SVCO": {
+      "entry_date": "2025-11-27T11:44:49.909417",
+      "entry_price": 4.41,
+      "shares": 139,
+      "cost_basis": 612.99,
+      "initial_stop_loss": 4.1895,
+      "stop_loss": 4.1895,
+      "take_profit": 4.7628,
+      "highest_price": 4.41,
       "trailing_enabled": false,
-      "signal_score": 17.73205830079413,
+      "signal_score": 14.8523373155581,
+      "sector": "Technology",
+      "multi_signal_tier": "none",
+      "has_politician_signal": false,
+      "tranches": [
+        {
+          "shares": 139,
+          "price": 4.41,
+          "date": "2025-11-27T11:44:49.909420"
+        }
+      ]
+    },
+    "CTEV": {
+      "entry_date": "2025-11-27T11:44:53.976684",
+      "entry_price": 54.87,
+      "shares": 11,
+      "cost_basis": 603.5699999999999,
+      "initial_stop_loss": 52.12649999999999,
+      "stop_loss": 52.12649999999999,
+      "take_profit": 59.2596,
+      "highest_price": 54.87,
+      "trailing_enabled": false,
+      "signal_score": 13.538029708583297,
       "sector": "Healthcare",
       "multi_signal_tier": "none",
       "has_politician_signal": false,
       "tranches": [
         {
-          "shares": 117,
-          "price": 5.12,
-          "date": "2025-11-26T11:43:44.784772"
+          "shares": 11,
+          "price": 54.87,
+          "date": "2025-11-27T11:44:53.976687"
+        }
+      ]
+    },
+    "ARX": {
+      "entry_date": "2025-11-27T11:44:59.664621",
+      "entry_price": 14.59,
+      "shares": 42,
+      "cost_basis": 612.78,
+      "initial_stop_loss": 13.8605,
+      "stop_loss": 13.8605,
+      "take_profit": 15.757200000000001,
+      "highest_price": 14.59,
+      "trailing_enabled": false,
+      "signal_score": 13.166323946945965,
+      "sector": "Financial Services",
+      "multi_signal_tier": "none",
+      "has_politician_signal": false,
+      "tranches": [
+        {
+          "shares": 42,
+          "price": 14.59,
+          "date": "2025-11-27T11:44:59.664624"
         }
       ]
     }
   },
   "pending_entries": {
-    "CBC": {
-      "shares": 16,
-      "trigger_price": 23.6768,
-      "original_entry": 24.16,
-      "expires": "2025-12-01T11:43:44.201840",
-      "signal_score": 39.61495352229534
-    },
     "VAC": {
       "shares": 7,
       "trigger_price": 53.5276,
@@ -194,19 +236,33 @@
       "expires": "2025-12-01T11:43:44.568412",
       "signal_score": 20.32408382966457
     },
-    "VRCA": {
-      "shares": 78,
-      "trigger_price": 5.0176,
-      "original_entry": 5.12,
-      "expires": "2025-12-01T11:43:44.922545",
-      "signal_score": 17.73205830079413
+    "SVCO": {
+      "shares": 92,
+      "trigger_price": 4.3218,
+      "original_entry": 4.41,
+      "expires": "2025-12-02T11:44:50.671280",
+      "signal_score": 14.8523373155581
+    },
+    "CTEV": {
+      "shares": 7,
+      "trigger_price": 53.7726,
+      "original_entry": 54.87,
+      "expires": "2025-12-02T11:44:55.163588",
+      "signal_score": 13.538029708583297
+    },
+    "ARX": {
+      "shares": 28,
+      "trigger_price": 14.2982,
+      "original_entry": 14.59,
+      "expires": "2025-12-02T11:45:00.571616",
+      "signal_score": 13.166323946945965
     }
   },
-  "total_trades": 12,
-  "winning_trades": 2,
+  "total_trades": 15,
+  "winning_trades": 3,
   "losing_trades": 2,
-  "total_profit": 16.920000000000016,
-  "max_portfolio_value": 10437.869999999999,
-  "max_drawdown": -4.476406584868387,
-  "last_updated": "2025-11-26T11:43:45.535018"
+  "total_profit": 202.9500000000001,
+  "max_portfolio_value": 11008.0729,
+  "max_drawdown": -7.131765996934847,
+  "last_updated": "2025-11-27T11:45:06.210533"
 }
