@@ -308,6 +308,18 @@
                       <span style="background: #e3f2fd; color: #1976d2; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 600; display: inline-block;">🏢 {{ item.sector }}</span>
                       {% endif %}
 
+                      {% if item.sector_signal %}
+                        {% if item.sector_signal == 'STRONG_UPGRADE' %}
+                      <span style="background: #10b981; color: white; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 600; display: inline-block;" title="{{ item.sector_context }}">🎯 STRONG CONTRARIAN</span>
+                        {% elif item.sector_signal == 'UPGRADE' %}
+                      <span style="background: #34d399; color: white; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 600; display: inline-block;" title="{{ item.sector_context }}">⬆️ CONTRARIAN</span>
+                        {% elif item.sector_signal == 'CAUTION' %}
+                      <span style="background: #f59e0b; color: white; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 600; display: inline-block;" title="{{ item.sector_context }}">⚠️ LATE MOMENTUM</span>
+                        {% elif item.sector_signal == 'NOTE' %}
+                      <span style="background: #fbbf24; color: #78350f; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 600; display: inline-block;" title="{{ item.sector_context }}">📈 MOMENTUM</span>
+                        {% endif %}
+                      {% endif %}
+
                       {% if item.quality_score and item.quality_score > 0 %}
                       <span style="background: #f3e5f5; color: #7b1fa2; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 600; display: inline-block;">⭐ Quality: {{ item.quality_score|round(1) }}/10</span>
                       {% endif %}
