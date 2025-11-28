@@ -35,6 +35,7 @@ jobs:
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
           RECIPIENT_EMAIL: ${{ secrets.RECIPIENT_EMAIL }}
           MARKET_DATA_API_KEY: ${{ secrets.MARKET_DATA_API_KEY }}
+          CONGRESS_GOV_API_KEY: ${{ secrets.CONGRESS_GOV_API_KEY }}
         run: python jobs/main.py
 
       - name: Generate public performance data
