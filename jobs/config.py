@@ -113,6 +113,22 @@ SEC_13F_CACHE_HOURS = 168  # Cache duration in hours (168 hours = 7 days)
 # 13F filings are quarterly, so weekly refresh is sufficient
 # Set to lower value if you want more frequent checks (minimum 24 hours recommended)
 
+# Short Interest Analysis Settings
+ENABLE_SHORT_INTEREST_ANALYSIS = True  # Enable short interest data fetching and analysis
+SHORT_INTEREST_CACHE_HOURS = 168  # Cache duration in hours (168 hours = 7 days)
+# Short interest data is typically updated bi-monthly, so weekly cache is sufficient
+
+# Short Interest Thresholds
+HIGH_SHORT_INTEREST_PCT = 20.0  # 20%+ = high short interest
+VERY_HIGH_SHORT_INTEREST_PCT = 30.0  # 30%+ = very high short interest
+LOW_SHORT_INTEREST_PCT = 10.0  # <10% = low short interest
+HIGH_DAYS_TO_COVER = 7.0  # 7+ days to cover = high
+
+# Short Interest Conviction Adjustments
+SHORT_INTEREST_CONVICTION_BOOST = 1.0  # Conviction points to add for high short interest (20%+)
+SQUEEZE_SETUP_CONVICTION_BOOST = 0.5  # Additional boost for very high SI + high days to cover
+SQUEEZE_SCORE_THRESHOLD = 70.0  # Score above this = high squeeze potential
+
 # Realistic Paper Trading Settings
 REALISTIC_TRADING_MODE = True  # Enable realistic trading constraints
 MARKET_OPEN_HOUR = 9  # 9:30 AM ET

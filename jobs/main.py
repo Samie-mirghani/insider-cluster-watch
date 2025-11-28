@@ -18,8 +18,18 @@ from paper_trade_monitor import PaperTradingMonitor
 from insider_performance_tracker import InsiderPerformanceTracker
 from config import (
     ENABLE_INSIDER_SCORING, INSIDER_LOOKBACK_YEARS, MIN_TRADES_FOR_INSIDER_SCORE,
-    INSIDER_OUTCOME_UPDATE_BATCH_SIZE, INSIDER_API_RATE_LIMIT_DELAY
+    INSIDER_OUTCOME_UPDATE_BATCH_SIZE, INSIDER_API_RATE_LIMIT_DELAY,
+    ENABLE_SHORT_INTEREST_ANALYSIS, SHORT_INTEREST_CACHE_HOURS
 )
+
+# Short interest analysis import
+try:
+    from short_interest_analyzer import ShortInterestAnalyzer
+    SHORT_INTEREST_AVAILABLE = True
+except ImportError as e:
+    print(f"⚠️  Short interest analysis not available: {e}")
+    SHORT_INTEREST_AVAILABLE = False
+    ENABLE_SHORT_INTEREST_ANALYSIS = False
 
 # Multi-signal detection imports
 try:
@@ -234,7 +244,13 @@ def append_to_history(cluster_df):
             'avg_insider_score': float(r.get('avg_insider_score', 50.0)),
             'insider_multiplier': float(r.get('insider_multiplier', 1.0)),
             'top_insider_name': r.get('top_insider_name', ''),
-            'top_insider_score': float(r.get('top_insider_score', 50.0))
+            'top_insider_score': float(r.get('top_insider_score', 50.0)),
+            # Short interest metrics
+            'short_percent_float': float(r.get('short_percent_float')) if r.get('short_percent_float') is not None else None,
+            'days_to_cover': float(r.get('days_to_cover')) if r.get('days_to_cover') is not None else None,
+            'squeeze_score': float(r.get('squeeze_score', 0)),
+            'squeeze_potential': bool(r.get('squeeze_potential', False)),
+            'short_interest_available': bool(r.get('short_interest_available', False))
         })
 
     new_df = pd.DataFrame(rows)
@@ -385,7 +401,59 @@ def main(test=False, urgent_test=False, enable_paper_trading=True):
         if not patterns.empty:
             print(f"   • Patterns: {dict(patterns)}")
 
-    # 3.5) Multi-signal detection (politician + institutional)
+    # 3.5) Short interest analysis
+    if SHORT_INTEREST_AVAILABLE and ENABLE_SHORT_INTEREST_ANALYSIS:
+        print("\n📊 Analyzing short interest data...")
+        print("   • Fetching short % of float")
+        print("   • Calculating squeeze scores")
+        print("   • Adjusting conviction based on short interest")
+
+        try:
+            si_analyzer = ShortInterestAnalyzer(
+                cache_dir=os.path.join(DATA_DIR, 'short_interest_cache'),
+                cache_hours=SHORT_INTEREST_CACHE_HOURS
+            )
+
+            # Analyze all signals
+            cluster_df = si_analyzer.analyze_signals(cluster_df)
+
+            # Show summary
+            high_squeeze_count = cluster_df['squeeze_potential'].sum() if 'squeeze_potential' in cluster_df.columns else 0
+            if high_squeeze_count > 0:
+                print(f"   🚀 Found {high_squeeze_count} signal(s) with high squeeze potential!")
+                squeeze_signals = cluster_df[cluster_df['squeeze_potential'] == True]
+                for _, row in squeeze_signals.iterrows():
+                    si_pct = row.get('short_percent_float_display', 'N/A')
+                    score = row.get('squeeze_score', 0)
+                    print(f"      • {row['ticker']}: {si_pct} short interest, squeeze score: {score:.1f}/100")
+
+            available_count = cluster_df['short_interest_available'].sum() if 'short_interest_available' in cluster_df.columns else 0
+            print(f"   ✅ Short interest data available for {available_count}/{len(cluster_df)} signals")
+
+        except Exception as e:
+            print(f"   ⚠️  Short interest analysis failed: {e}")
+            import traceback
+            traceback.print_exc()
+            # Add neutral short interest fields if analysis fails
+            cluster_df['short_percent_float'] = None
+            cluster_df['short_percent_float_display'] = "N/A"
+            cluster_df['days_to_cover'] = None
+            cluster_df['days_to_cover_display'] = "N/A"
+            cluster_df['squeeze_score'] = 0.0
+            cluster_df['squeeze_potential'] = False
+            cluster_df['short_interest_available'] = False
+    else:
+        # Short interest analysis disabled or not available - add neutral fields
+        if not cluster_df.empty:
+            cluster_df['short_percent_float'] = None
+            cluster_df['short_percent_float_display'] = "N/A"
+            cluster_df['days_to_cover'] = None
+            cluster_df['days_to_cover_display'] = "N/A"
+            cluster_df['squeeze_score'] = 0.0
+            cluster_df['squeeze_potential'] = False
+            cluster_df['short_interest_available'] = False
+
+    # 3.6) Multi-signal detection (politician + institutional)
     multi_signal_data = None
     if MULTI_SIGNAL_AVAILABLE and ENABLE_MULTI_SIGNAL and ENABLE_POLITICIAN_SCRAPING:
         print("\n🔍 Running multi-signal detection...")
@@ -636,7 +704,17 @@ def main(test=False, urgent_test=False, enable_paper_trading=True):
 
         politician_flag = " 🏛️ POLITICIAN" if row.get('has_politician_signal', False) else ""
 
-        print(f"   {row['ticker']}: Cluster={row['cluster_count']}, Score={row['rank_score']:.2f}{quality}{sector}{pattern}, ${int(row['total_value']):,}{multi_tier}{politician_flag}")
+        # Add short interest and squeeze potential flags
+        squeeze_flag = ""
+        if row.get('squeeze_potential', False):
+            squeeze_score = row.get('squeeze_score', 0)
+            squeeze_flag = f" 🚀 SQUEEZE ({squeeze_score:.0f}/100)"
+        elif row.get('short_interest_available', False) and row.get('short_percent_float') is not None:
+            si_pct = row.get('short_percent_float', 0) * 100
+            if si_pct >= 20:
+                squeeze_flag = f" 📊 SI:{si_pct:.0f}%"
+
+        print(f"   {row['ticker']}: Cluster={row['cluster_count']}, Score={row['rank_score']:.2f}{quality}{sector}{pattern}, ${int(row['total_value']):,}{multi_tier}{politician_flag}{squeeze_flag}")
     print()
 
     
