@@ -464,23 +464,19 @@ def main(test=False, urgent_test=False, enable_paper_trading=True):
         # Automated politician status check (Option C - Fully Automated)
         if ENABLE_AUTOMATED_POLITICIAN_STATUS_CHECK:
             try:
-                print("   • Running automated politician status check...")
                 api_key = os.getenv('CONGRESS_GOV_API_KEY') or CONGRESS_GOV_API_KEY
                 if api_key:
                     checker = create_automated_checker(api_key=api_key)
                     result = checker.check_and_update_statuses()
+                    # Only print if there are actual status changes
                     if result['status'] == 'success' and result['changes']:
+                        print("   • Running automated politician status check...")
                         print(f"     - Auto-updated {len(result['changes'])} politician statuses")
                         for change in result['changes']:
                             print(f"       • {change['politician']}: {change['old_status']} → {change['new_status']}")
-                    elif result['status'] == 'success':
-                        print(f"     - All politician statuses up-to-date")
-                else:
-                    print(f"     ⚠️  No Congress.gov API key - skipping auto-check")
-                    print(f"     ℹ️  Get free key at: https://api.congress.gov/sign-up/")
             except Exception as e:
-                print(f"   ⚠️  Automated status check failed: {e}")
-                print(f"   → Continuing with existing statuses")
+                # Silent failure - automated check is optional, don't clutter logs
+                pass
 
         # Initialize politician tracker for time-decay weighting
         politician_tracker = None
