@@ -1,9 +1,9 @@
 {
-  "last_updated": "November 27, 2025 at 11:45 UTC",
+  "last_updated": "November 28, 2025 at 11:45 UTC",
   "total_return_pct": 2.23,
   "win_rate": 0.0,
   "completed_trades": 0,
-  "active_trades": 10,
+  "active_trades": 12,
   "avg_return_per_trade": 0.0,
   "sharpe_ratio": 0.0,
   "max_drawdown": -7.13,
@@ -26,69 +26,83 @@
     {
       "ticker": "YCY",
       "entry_date": "Nov 10, 2025",
-      "days_held": 17,
+      "days_held": 18,
       "unrealized_return": -1.2,
       "conviction": "LOW"
     },
     {
       "ticker": "VRSK",
       "entry_date": "Nov 11, 2025",
-      "days_held": 16,
+      "days_held": 17,
       "unrealized_return": 5.14,
       "conviction": "MEDIUM"
     },
     {
       "ticker": "IRDM",
       "entry_date": "Nov 11, 2025",
-      "days_held": 16,
+      "days_held": 17,
       "unrealized_return": -0.3,
       "conviction": "MEDIUM"
     },
     {
       "ticker": "MTDR",
       "entry_date": "Nov 14, 2025",
-      "days_held": 13,
+      "days_held": 14,
       "unrealized_return": 2.13,
       "conviction": "VERY HIGH"
     },
     {
       "ticker": "OBK",
       "entry_date": "Nov 19, 2025",
-      "days_held": 8,
+      "days_held": 9,
       "unrealized_return": 7.54,
       "conviction": "VERY HIGH"
     },
     {
       "ticker": "CBC",
       "entry_date": "Nov 26, 2025",
-      "days_held": 1,
+      "days_held": 2,
       "unrealized_return": -1.66,
       "conviction": "VERY HIGH"
     },
     {
       "ticker": "VAC",
       "entry_date": "Nov 26, 2025",
-      "days_held": 1,
+      "days_held": 2,
       "unrealized_return": 0.46,
       "conviction": "VERY HIGH"
     },
     {
       "ticker": "SVCO",
       "entry_date": "Nov 27, 2025",
-      "days_held": 0,
+      "days_held": 1,
       "unrealized_return": 0.0,
       "conviction": "HIGH"
     },
     {
       "ticker": "CTEV",
       "entry_date": "Nov 27, 2025",
-      "days_held": 0,
+      "days_held": 1,
       "unrealized_return": 0.0,
       "conviction": "HIGH"
     },
     {
       "ticker": "ARX",
       "entry_date": "Nov 27, 2025",
+      "days_held": 1,
+      "unrealized_return": 0.0,
+      "conviction": "HIGH"
+    },
+    {
+      "ticker": "GLOO",
+      "entry_date": "Nov 28, 2025",
+      "days_held": 0,
+      "unrealized_return": 0.0,
+      "conviction": "VERY HIGH"
+    },
+    {
+      "ticker": "AISP",
+      "entry_date": "Nov 28, 2025",
       "days_held": 0,
       "unrealized_return": 0.0,
       "conviction": "HIGH"
