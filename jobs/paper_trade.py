@@ -148,7 +148,164 @@ class PaperTradingPortfolio:
             return price if price and price > 0 else fallback_price
         except:
             return fallback_price
-    
+
+    def get_sector_concentration(self):
+        """
+        Calculate current sector concentration across all positions.
+
+        Returns:
+            dict: Sector breakdown with counts, values, and percentages
+        """
+        if not self.positions:
+            return {
+                'total_positions': 0,
+                'total_value': 0,
+                'sectors': {},
+                'warnings': []
+            }
+
+        portfolio_value = self.get_portfolio_value()
+        sector_data = {}
+
+        # Calculate value per sector
+        for ticker, pos in self.positions.items():
+            sector = pos.get('sector', 'Unknown')
+            current_price = self._get_current_price(ticker, pos['entry_price'])
+            position_value = pos['shares'] * current_price
+
+            if sector not in sector_data:
+                sector_data[sector] = {
+                    'count': 0,
+                    'value': 0,
+                    'tickers': []
+                }
+
+            sector_data[sector]['count'] += 1
+            sector_data[sector]['value'] += position_value
+            sector_data[sector]['tickers'].append(ticker)
+
+        # Calculate percentages and check for warnings
+        total_positions_value = sum(s['value'] for s in sector_data.values())
+        warnings = []
+
+        for sector, data in sector_data.items():
+            if sector == 'Unknown':
+                continue
+
+            pct = data['value'] / portfolio_value if portfolio_value > 0 else 0
+            data['percentage'] = pct
+
+            # Check concentration thresholds
+            try:
+                from config import SECTOR_HIGH_CONCENTRATION_THRESHOLD, SECTOR_WARNING_CONCENTRATION_THRESHOLD
+                high_threshold = SECTOR_HIGH_CONCENTRATION_THRESHOLD
+                warning_threshold = SECTOR_WARNING_CONCENTRATION_THRESHOLD
+            except ImportError:
+                high_threshold = 0.40
+                warning_threshold = 0.30
+
+            if pct >= high_threshold:
+                warnings.append({
+                    'level': 'HIGH',
+                    'sector': sector,
+                    'percentage': pct,
+                    'message': f"⚠️ HIGH CONCENTRATION: {sector} ({data['count']} positions, "
+                              f"{pct*100:.1f}%) - Consider diversifying"
+                })
+            elif pct >= warning_threshold:
+                warnings.append({
+                    'level': 'ELEVATED',
+                    'sector': sector,
+                    'percentage': pct,
+                    'message': f"⚡ ELEVATED CONCENTRATION: {sector} ({data['count']} positions, "
+                              f"{pct*100:.1f}%) - Monitor diversification"
+                })
+
+        return {
+            'total_positions': len(self.positions),
+            'total_value': total_positions_value,
+            'sectors': sector_data,
+            'warnings': warnings
+        }
+
+    def check_sector_concentration_limit(self, sector, new_position_value):
+        """
+        Check if adding a position would violate sector concentration limits.
+
+        Args:
+            sector: Sector name
+            new_position_value: Value of the new position
+
+        Returns:
+            tuple: (is_ok, warning_message)
+        """
+        if not sector or sector == 'Unknown':
+            return True, None
+
+        concentration = self.get_sector_concentration()
+        portfolio_value = self.get_portfolio_value()
+
+        # Calculate what the concentration would be with the new position
+        current_sector_value = concentration['sectors'].get(sector, {}).get('value', 0)
+        new_sector_value = current_sector_value + new_position_value
+        new_sector_pct = new_sector_value / portfolio_value if portfolio_value > 0 else 0
+
+        try:
+            from config import SECTOR_HIGH_CONCENTRATION_THRESHOLD
+            high_threshold = SECTOR_HIGH_CONCENTRATION_THRESHOLD
+        except ImportError:
+            high_threshold = 0.40
+
+        if new_sector_pct >= high_threshold:
+            return False, (
+                f"Would create HIGH concentration in {sector} "
+                f"({new_sector_pct*100:.1f}%). Consider diversifying."
+            )
+
+        return True, None
+
+    def log_sector_concentration(self):
+        """
+        Log current sector concentration to console.
+        Useful for monitoring portfolio balance.
+        """
+        concentration = self.get_sector_concentration()
+
+        if concentration['total_positions'] == 0:
+            logger.info("   📊 No active positions")
+            return
+
+        logger.info(f"\n{'='*60}")
+        logger.info("📊 SECTOR CONCENTRATION ANALYSIS")
+        logger.info(f"{'='*60}")
+        logger.info(f"Total Positions: {concentration['total_positions']}")
+        logger.info(f"Total Value: ${concentration['total_value']:,.2f}")
+        logger.info("\nSector Breakdown:")
+
+        # Sort by value descending
+        sorted_sectors = sorted(
+            concentration['sectors'].items(),
+            key=lambda x: x[1]['value'],
+            reverse=True
+        )
+
+        for sector, data in sorted_sectors:
+            pct = data.get('percentage', 0) * 100
+            logger.info(
+                f"  {sector:25s}: {data['count']} positions | "
+                f"${data['value']:>10,.2f} | {pct:>5.1f}%"
+            )
+
+        # Log warnings
+        if concentration['warnings']:
+            logger.info("\n⚠️  CONCENTRATION WARNINGS:")
+            for warning in concentration['warnings']:
+                logger.info(f"  {warning['message']}")
+        else:
+            logger.info("\n✅ Sector diversification looks good")
+
+        logger.info(f"{'='*60}\n")
+
     def calculate_position_size(self, signal):
         """
         Calculate appropriate position size based on portfolio value and risk params
@@ -243,9 +400,17 @@ class PaperTradingPortfolio:
         if not is_valid:
             logger.warning(f"   ❌ REJECTED: {reason}")
             return False
-        
+
         # Calculate actual cost
         actual_cost = initial_shares * entry_price
+
+        # Validation 4: Check sector concentration
+        sector = signal.get('sector') if isinstance(signal, dict) else signal.get('sector', 'Unknown')
+        is_sector_ok, sector_warning = self.check_sector_concentration_limit(sector, actual_cost)
+        if not is_sector_ok:
+            logger.warning(f"   ⚠️  SECTOR WARNING: {sector_warning}")
+            logger.warning(f"   💡 Consider signals from underrepresented sectors for better diversification")
+            # Don't reject, just warn - allow trade to proceed but user is informed
 
         # Get tier-specific stop loss if multi-signal
         try:

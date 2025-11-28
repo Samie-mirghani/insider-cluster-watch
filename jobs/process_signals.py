@@ -15,6 +15,7 @@ import time
 from datetime import timedelta, datetime
 import yfinance as yf
 import config
+from sector_analyzer import SectorAnalyzer
 
 ROLE_WEIGHT = {
     'CEO': 3.0,
@@ -583,16 +584,40 @@ def cluster_and_score(df, window_days=5, top_n=50, insider_tracker=None):
     # NEW: Apply insider performance scoring
     cluster_df = apply_insider_scoring(buys, cluster_df, insider_tracker)
 
+    # NEW: Apply sector relative analysis
+    if config.ENABLE_SECTOR_ANALYSIS:
+        try:
+            sector_analyzer = SectorAnalyzer(cache_hours=config.SECTOR_CACHE_HOURS)
+            cluster_df = sector_analyzer.enhance_signals_with_sector_analysis(cluster_df)
+            print(f"   ✅ Added sector analysis to {len(cluster_df)} signals")
+        except Exception as e:
+            print(f"   ⚠️  Sector analysis failed: {e}")
+            # Add default values if sector analysis fails
+            for col in ['sector_etf', 'relative_performance_30d', 'relative_performance_60d',
+                       'relative_performance_90d', 'sector_signal', 'sector_context']:
+                if col not in cluster_df.columns:
+                    cluster_df[col] = None
+
     # rank score: simple combination (you can tune)
     # NEW: Include pattern score in ranking
     # NEW: Include float impact score in ranking (bonus for buying significant % of float)
     # NEW: Include insider performance multiplier in ranking
+    # NEW: Optionally adjust for sector timing
+    sector_adjustment = 0.0
+    if config.ENABLE_SECTOR_ANALYSIS and config.ENABLE_SECTOR_CONVICTION_ADJUSTMENT:
+        # Apply sector-based conviction adjustments
+        cluster_df['sector_adjustment'] = cluster_df.apply(lambda r: calculate_sector_adjustment(r), axis=1)
+        sector_adjustment = cluster_df['sector_adjustment']
+    else:
+        cluster_df['sector_adjustment'] = 0.0
+
     cluster_df['rank_score'] = (
         cluster_df['cluster_count'] * 2.0 +
         (cluster_df['avg_conviction'] * cluster_df['insider_multiplier']) / 10.0 +  # Apply insider multiplier
         cluster_df['pattern_score'] * 0.5 +  # Bonus for patterns
         cluster_df['float_impact_score'] * 0.3 +  # Bonus for float impact
-        (cluster_df['avg_insider_score'] - 50.0) * config.INSIDER_SCORE_WEIGHT  # Insider score bonus/penalty (neutral=50 gives 0 impact)
+        (cluster_df['avg_insider_score'] - 50.0) * config.INSIDER_SCORE_WEIGHT +  # Insider score bonus/penalty (neutral=50 gives 0 impact)
+        cluster_df['sector_adjustment']  # Sector timing adjustment
     )
     # sanitize pattern_detected column
     if 'pattern_detected' in cluster_df.columns:
@@ -624,6 +649,24 @@ def sanitize_pattern_value(value):
     if value in ['None', '', 'none', None]:
         return None
     return str(value)
+
+def calculate_sector_adjustment(r):
+    """
+    Calculate rank score adjustment based on sector timing.
+
+    Contrarian setups (sector weak + insider buying) get a boost.
+    Late momentum plays (sector strong + insider buying) get a slight reduction.
+    """
+    sector_signal = r.get('sector_signal')
+
+    if sector_signal == 'STRONG_UPGRADE':
+        return config.SECTOR_CONTRARIAN_BOOST * 1.5  # Extra boost for strong contrarian
+    elif sector_signal == 'UPGRADE':
+        return config.SECTOR_CONTRARIAN_BOOST
+    elif sector_signal == 'CAUTION':
+        return config.SECTOR_MOMENTUM_CAUTION  # Slight reduction for late momentum
+    else:
+        return 0.0  # Neutral or unknown
 
 def is_urgent(r, thresholds=URGENT_THRESHOLDS):
     # r: a row from cluster_df

@@ -170,3 +170,22 @@ ENABLE_AUTOMATED_POLITICIAN_STATUS_CHECK = True  # Auto-check politician statuse
 # Get free API key at: https://api.congress.gov/sign-up/
 # 5,000 requests/hour free tier (more than sufficient for daily checks)
 CONGRESS_GOV_API_KEY = os.getenv('CONGRESS_GOV_API_KEY', None)
+
+# Sector Relative Analysis Settings
+ENABLE_SECTOR_ANALYSIS = True  # Enable sector relative performance analysis
+SECTOR_CACHE_HOURS = 24  # Cache sector ETF performance for 24 hours (daily update)
+
+# Sector Performance Thresholds
+SECTOR_CONTRARIAN_THRESHOLD = -0.10  # Sector down 10%+ vs SPY = contrarian opportunity
+SECTOR_STRONG_CONTRARIAN_THRESHOLD = -0.15  # Sector down 15%+ vs SPY = strong contrarian
+SECTOR_MOMENTUM_THRESHOLD = 0.10  # Sector up 10%+ vs SPY = momentum play
+SECTOR_STRONG_MOMENTUM_THRESHOLD = 0.15  # Sector up 15%+ vs SPY = late momentum (caution)
+
+# Sector Concentration Limits
+SECTOR_HIGH_CONCENTRATION_THRESHOLD = 0.40  # 40% in one sector = high concentration warning
+SECTOR_WARNING_CONCENTRATION_THRESHOLD = 0.30  # 30% in one sector = elevated concentration
+
+# Sector Signal Adjustments (can be used to boost/reduce conviction based on sector timing)
+ENABLE_SECTOR_CONVICTION_ADJUSTMENT = True  # Adjust conviction based on sector performance
+SECTOR_CONTRARIAN_BOOST = 1.0  # Add conviction points for contrarian setup
+SECTOR_MOMENTUM_CAUTION = -0.5  # Reduce conviction for late momentum
