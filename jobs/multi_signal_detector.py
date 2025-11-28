@@ -108,7 +108,19 @@ class MultiSignalDetector:
             'tier4': []   # Watch list
         }
 
+        # Tracking for diagnostics
+        signal_distribution = {
+            'total_analyzed': 0,
+            '3_plus_signals': 0,
+            '2_signals': 0,
+            '1_signal': 0,
+            'politician_overlaps': 0,
+            'institutional_overlaps': 0,
+            'short_interest_flags': 0
+        }
+
         for _, stock in insider_clusters.iterrows():
+            signal_distribution['total_analyzed'] += 1
             ticker = stock['ticker']
 
             logger.info(f"\nAnalyzing {ticker}...")
@@ -171,6 +183,21 @@ class MultiSignalDetector:
                 has_high_short
             ])
 
+            # Track signal distribution
+            if has_politician:
+                signal_distribution['politician_overlaps'] += 1
+            if has_institutional:
+                signal_distribution['institutional_overlaps'] += 1
+            if has_high_short:
+                signal_distribution['short_interest_flags'] += 1
+
+            if signal_count >= 3:
+                signal_distribution['3_plus_signals'] += 1
+            elif signal_count == 2:
+                signal_distribution['2_signals'] += 1
+            elif signal_count == 1:
+                signal_distribution['1_signal'] += 1
+
             # Create signal package
             signal = {
                 'ticker': ticker,
@@ -220,21 +247,54 @@ class MultiSignalDetector:
                 else:
                     logger.info(f"  ⚡ TIER 2: Two signals")
 
-            elif signal_count >= 1:
-                results['tier3'].append(signal)
-                logger.info(f"  ✓ TIER 3: Single strong signal")
+            elif signal_count == 1:
+                # Single signal (insider only)
+                # Check if it's a strong cluster worthy of Tier 3, otherwise Tier 4
+                cluster_count = stock.get('cluster_count', 0)
 
-            elif stock.get('cluster_count', 0) >= 4:
-                results['tier4'].append(signal)
-                logger.info(f"  → TIER 4: Watch list")
+                if cluster_count >= 5:
+                    # Strong cluster: 5+ insiders buying
+                    results['tier3'].append(signal)
+                    logger.info(f"  ✓ TIER 3: Strong single signal ({cluster_count} insiders)")
+                else:
+                    # Weaker cluster: watch list
+                    results['tier4'].append(signal)
+                    logger.info(f"  → TIER 4: Watch list ({cluster_count} insiders)")
 
-        # Log summary
+        # Log summary with diagnostics
         logger.info("\n" + "="*60)
         logger.info("SCAN COMPLETE")
-        logger.info(f"Tier 1 (3+ signals): {len(results['tier1'])}")
-        logger.info(f"Tier 2 (2 signals):  {len(results['tier2'])}")
-        logger.info(f"Tier 3 (1 signal):   {len(results['tier3'])}")
-        logger.info(f"Tier 4 (watch list): {len(results['tier4'])}")
+        logger.info("="*60)
+        logger.info(f"📊 Signal Distribution:")
+        logger.info(f"   Total stocks analyzed: {signal_distribution['total_analyzed']}")
+        logger.info(f"   Politician overlaps found: {signal_distribution['politician_overlaps']}")
+        logger.info(f"   Institutional overlaps found: {signal_distribution['institutional_overlaps']}")
+        logger.info(f"   Short interest flags: {signal_distribution['short_interest_flags']}")
+        logger.info("")
+        logger.info(f"🎯 Tier Classification:")
+        logger.info(f"   Tier 1 (3+ signals): {len(results['tier1'])}")
+        logger.info(f"   Tier 2 (2 signals):  {len(results['tier2'])}")
+        logger.info(f"   Tier 3 (1 signal):   {len(results['tier3'])}")
+        logger.info(f"   Tier 4 (watch list): {len(results['tier4'])}")
+        logger.info("")
+
+        # Validation check
+        total_classified = sum([len(results['tier1']), len(results['tier2']),
+                               len(results['tier3']), len(results['tier4'])])
+        if total_classified != signal_distribution['total_analyzed']:
+            logger.warning(f"⚠️  Classification mismatch! Analyzed: {signal_distribution['total_analyzed']}, "
+                         f"Classified: {total_classified}")
+
+        # Show top signals from each tier
+        if results['tier1']:
+            logger.info(f"🔥 Tier 1 stocks: {', '.join([s['ticker'] for s in results['tier1'][:5]])}")
+        if results['tier2']:
+            logger.info(f"⚡ Tier 2 stocks: {', '.join([s['ticker'] for s in results['tier2'][:5]])}")
+        if results['tier3']:
+            logger.info(f"✓  Tier 3 stocks: {', '.join([s['ticker'] for s in results['tier3'][:5]])}")
+        if results['tier4']:
+            logger.info(f"→  Tier 4 stocks: {', '.join([s['ticker'] for s in results['tier4'][:5]])}")
+
         logger.info("="*60 + "\n")
 
         return results
