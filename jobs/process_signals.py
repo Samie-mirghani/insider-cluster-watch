@@ -26,6 +26,23 @@ ROLE_WEIGHT = {
     'OFFICER': 1.0,
 }
 
+# Title importance for sorting (higher = more important)
+TITLE_PRIORITY = {
+    'CEO': 100,
+    'CFO': 90,
+    'PRES': 80,
+    'COO': 75,
+    'CHAIRMAN': 70,
+    'VICE CHAIRMAN': 65,
+    'DIRECTOR': 50,
+    'VP': 40,
+    'SVP': 45,
+    'EVP': 48,
+    'OFFICER': 30,
+    'TREASURER': 35,
+    'SECRETARY': 32,
+}
+
 def normalize_title(title):
     if not title or not isinstance(title, str):
         return 'OFFICER'
@@ -36,6 +53,208 @@ def normalize_title(title):
     if 'DIRECT' in t: return 'DIRECTOR'
     if 'VP' in t and 'SVP' not in t: return 'VP'
     return 'OFFICER'
+
+def expand_title(title):
+    """
+    Expand abbreviated titles to full readable forms.
+
+    Examples:
+        "Exec COB" -> "Executive Chairman"
+        "Dir" -> "Director"
+        "Pres, CEO" -> "President, CEO"
+        "SVP & CFO" -> "Senior Vice President, CFO"
+    """
+    if not title or not isinstance(title, str):
+        return "Insider"
+
+    # Common abbreviation mappings
+    expansions = {
+        r'\bExec\b': 'Executive',
+        r'\bCOB\b': 'Chairman of the Board',
+        r'\bDir\b': 'Director',
+        r'\bPres\b': 'President',
+        r'\bVP\b': 'Vice President',
+        r'\bSVP\b': 'Senior Vice President',
+        r'\bEVP\b': 'Executive Vice President',
+        r'\bCEO\b': 'CEO',
+        r'\bCFO\b': 'CFO',
+        r'\bCOO\b': 'COO',
+        r'\bCTO\b': 'CTO',
+        r'\bCIO\b': 'CIO',
+        r'\bChm\b': 'Chairman',
+        r'\bChmn\b': 'Chairman',
+        r'\bTreas\b': 'Treasurer',
+        r'\bSec\b': 'Secretary',
+        r'\bGen\b': 'General',
+        r'\bMgr\b': 'Manager',
+        r'\bOp\b': 'Operating',
+        r'\bOps\b': 'Operations',
+        r'\bFin\b': 'Financial',
+        r'\bBus\b': 'Business',
+        r'\bDev\b': 'Development',
+    }
+
+    import re
+    expanded = title
+    for abbrev, full in expansions.items():
+        expanded = re.sub(abbrev, full, expanded, flags=re.IGNORECASE)
+
+    # Clean up punctuation
+    expanded = expanded.replace('&', ',').replace('  ', ' ').strip()
+
+    # Capitalize properly
+    words = expanded.split()
+    capitalized = []
+    for word in words:
+        if word.upper() in ['CEO', 'CFO', 'COO', 'CTO', 'CIO', 'VP', 'SVP', 'EVP']:
+            capitalized.append(word.upper())
+        elif word in [',', '/', '-']:
+            capitalized.append(word)
+        else:
+            capitalized.append(word.capitalize())
+
+    return ' '.join(capitalized)
+
+def normalize_name(name):
+    """
+    Normalize insider names from "Last First Middle" to "First Middle Last" format.
+
+    Examples:
+        "Brown Kyle Steven" -> "Kyle Steven Brown"
+        "Estes Ronald E." -> "Ronald E. Estes"
+        "Smith John" -> "John Smith"
+    """
+    if not name or not isinstance(name, str):
+        return "Unknown"
+
+    # Clean up the name
+    name = name.strip()
+
+    # Split by comma first (some names might be "Last, First")
+    if ',' in name:
+        parts = [p.strip() for p in name.split(',')]
+        if len(parts) == 2:
+            # "Last, First" -> "First Last"
+            return f"{parts[1]} {parts[0]}"
+
+    # Split by spaces
+    parts = name.split()
+
+    if len(parts) <= 1:
+        return name
+
+    # Heuristic: If last part looks like a last name (all caps or title case),
+    # and first part looks like last name (all caps or starts with capital),
+    # assume format is "Last First Middle..."
+
+    # Common pattern: "BROWN Kyle Steven" or "Brown Kyle Steven"
+    # We want: "Kyle Steven Brown"
+
+    # If first word is all caps or title case, and there are at least 2 words,
+    # assume it's "Last First [Middle]" format
+    if len(parts) >= 2:
+        first_word = parts[0]
+        # Check if first word looks like a last name (capitalized)
+        if first_word[0].isupper():
+            # Rearrange: move first word to end
+            return ' '.join(parts[1:] + [parts[0]])
+
+    # Default: return as-is
+    return name
+
+def get_title_priority(title):
+    """Get the priority score for a title for sorting purposes."""
+    title_upper = title.upper()
+
+    # Check for exact matches first
+    for key, priority in TITLE_PRIORITY.items():
+        if key in title_upper:
+            return priority
+
+    # Default priority
+    return 0
+
+def format_insiders_structured(window_df, limit=5):
+    """
+    Create a structured list of insiders with proper formatting.
+
+    Returns:
+        - insiders_display: HTML-formatted string for email display
+        - insiders_data: List of dicts with insider details
+        - insiders_plain: Plain text comma-separated list (for backward compatibility)
+    """
+    if window_df.empty:
+        return "", [], ""
+
+    # Deduplicate by insider name and collect all titles
+    insider_map = {}
+
+    for _, row in window_df.iterrows():
+        name = row.get('insider', 'Unknown')
+        title = row.get('title', '')
+        value = row.get('value_calc', 0)
+
+        if name not in insider_map:
+            insider_map[name] = {
+                'name': name,
+                'titles': set(),
+                'total_value': 0,
+                'max_priority': 0
+            }
+
+        insider_map[name]['titles'].add(title)
+        insider_map[name]['total_value'] += value
+        insider_map[name]['max_priority'] = max(
+            insider_map[name]['max_priority'],
+            get_title_priority(title)
+        )
+
+    # Convert to list and sort by title importance
+    insiders_list = []
+    for name, data in insider_map.items():
+        # Normalize name
+        normalized_name = normalize_name(name)
+
+        # Expand and combine titles
+        expanded_titles = [expand_title(t) for t in data['titles']]
+        # Remove duplicates while preserving order
+        unique_titles = []
+        seen = set()
+        for title in expanded_titles:
+            if title.lower() not in seen:
+                unique_titles.append(title)
+                seen.add(title.lower())
+
+        combined_titles = ', '.join(unique_titles)
+
+        insiders_list.append({
+            'name': normalized_name,
+            'title': combined_titles,
+            'value': data['total_value'],
+            'priority': data['max_priority']
+        })
+
+    # Sort by priority (highest first)
+    insiders_list.sort(key=lambda x: x['priority'], reverse=True)
+
+    # Limit to top N
+    display_insiders = insiders_list[:limit]
+    total_count = len(insiders_list)
+
+    # Create display strings
+    insiders_data = display_insiders
+
+    # Plain text version (backward compatibility)
+    plain_parts = [f"{i['name']} ({i['title']})" for i in display_insiders]
+    if total_count > limit:
+        plain_parts.append(f"...and {total_count - limit} more")
+    insiders_plain = ", ".join(plain_parts)
+
+    # HTML display version - will be used in template
+    # We'll pass the structured data to the template and let it handle formatting
+    insiders_display = ""  # Template will handle this
+
+    return insiders_display, insiders_data, insiders_plain
 
 def compute_conviction_score(value, role_weight):
     # log-scale dollar weight times role weight
@@ -430,7 +649,7 @@ def apply_insider_scoring(buys_df, cluster_df, tracker=None):
         # Get scores for all insiders in this cluster
         insider_scores = []
         insider_names = []
-        insider_details = []  # For formatted display with track records
+        insider_details_map = {}  # Map name -> track record info
 
         for _, buy in ticker_buys.iterrows():
             insider_name = buy.get('insider', '')
@@ -441,7 +660,7 @@ def apply_insider_scoring(buys_df, cluster_df, tracker=None):
                 insider_scores.append(score)
                 insider_names.append((insider_name, score))
 
-                # Format insider with track record if they're a notable performer
+                # Store track record for notable performers
                 win_rate_90d = profile.get('win_rate_90d')
                 avg_return_90d = profile.get('avg_return_90d')
                 total_trades = profile.get('total_trades', 0)
@@ -450,18 +669,16 @@ def apply_insider_scoring(buys_df, cluster_df, tracker=None):
                 if total_trades >= 3 and win_rate_90d is not None and avg_return_90d is not None:
                     # Top performers: ≥75% win rate
                     if win_rate_90d >= 75:
-                        track_record = f" (Track Record: {win_rate_90d:.0f}% win rate, {avg_return_90d:+.1f}% avg return)"
-                        insider_details.append(f"{insider_title} {insider_name}{track_record}")
+                        insider_details_map[insider_name] = {
+                            'track_record': f"{win_rate_90d:.0f}% win rate, {avg_return_90d:+.1f}% avg return",
+                            'is_notable': True
+                        }
                     # Poor performers: <30% win rate
                     elif win_rate_90d < 30:
-                        track_record = f" (Track Record: {win_rate_90d:.0f}% win rate, {avg_return_90d:+.1f}% avg return)"
-                        insider_details.append(f"{insider_title} {insider_name}{track_record}")
-                    else:
-                        # Average performers - no track record shown
-                        insider_details.append(f"{insider_title} {insider_name}")
-                else:
-                    # Insufficient data - no track record shown
-                    insider_details.append(f"{insider_title} {insider_name}")
+                        insider_details_map[insider_name] = {
+                            'track_record': f"{win_rate_90d:.0f}% win rate, {avg_return_90d:+.1f}% avg return",
+                            'is_notable': True
+                        }
 
         if insider_scores:
             # Calculate average score for this cluster
@@ -483,9 +700,30 @@ def apply_insider_scoring(buys_df, cluster_df, tracker=None):
                 cluster_df.at[idx, 'top_insider_name'] = top_insider[0]
                 cluster_df.at[idx, 'top_insider_score'] = round(top_insider[1], 2)
 
-            # Store formatted insider list with track records
-            if insider_details:
-                cluster_df.at[idx, 'insiders_with_track_record'] = ", ".join(insider_details)
+            # Add track record data to insiders_data
+            if 'insiders_data' in cluster_df.columns:
+                insiders_data = cluster_df.at[idx, 'insiders_data']
+                if insiders_data and isinstance(insiders_data, list):
+                    for insider in insiders_data:
+                        # Match by original name (before normalization)
+                        # This is a best-effort match
+                        for orig_name, track_data in insider_details_map.items():
+                            if orig_name in insider['name'] or insider['name'] in orig_name:
+                                insider['track_record'] = track_data['track_record']
+                                insider['is_notable'] = track_data['is_notable']
+                                break
+
+            # Create legacy format for backward compatibility
+            legacy_parts = []
+            for _, buy in ticker_buys.drop_duplicates(subset=['insider']).iterrows():
+                name = buy.get('insider', '')
+                title = buy.get('title', '')
+                if name in insider_details_map:
+                    legacy_parts.append(f"{title} {name} (Track Record: {insider_details_map[name]['track_record']})")
+                else:
+                    legacy_parts.append(f"{title} {name}")
+
+            cluster_df.at[idx, 'insiders_with_track_record'] = ", ".join(legacy_parts) if legacy_parts else ""
 
             insiders_scored += 1
 
@@ -548,20 +786,24 @@ def cluster_and_score(df, window_days=5, top_n=50, insider_tracker=None):
                 max_cluster_count = cluster_count
                 max_total_value = total_value
                 best_avg_conviction = avg_conviction
-                # Create formatted insider list with titles and names
-                insider_list = []
-                for _, insider_row in window.drop_duplicates(subset=['insider']).iterrows():
-                    title = insider_row.get('title', 'Insider')
-                    name = insider_row.get('insider', 'Unknown')
-                    insider_list.append(f"{title} {name}")
-                window_insiders = ", ".join(insider_list)
+                best_window = window
+
+        # Format insiders using new structured approach
+        if max_cluster_count > 0:
+            insiders_display, insiders_data, insiders_plain = format_insiders_structured(best_window, limit=5)
+        else:
+            insiders_display, insiders_data, insiders_plain = "", [], ""
+
         clusters.append({
             'ticker': t,
             'last_trade_date': last_trade,
             'cluster_count': int(max_cluster_count),
             'total_value': float(max_total_value),
             'avg_conviction': float(best_avg_conviction),
-            'insiders': window_insiders if max_cluster_count>0 else "",
+            'insiders': insiders_plain,  # Plain text for backward compatibility
+            'insiders_data': insiders_data,  # Structured data for template
+            'insiders_count': len(insiders_data) if insiders_data else 0,
+            'insiders_total_count': max_cluster_count,
         })
 
     cluster_df = pd.DataFrame(clusters)
