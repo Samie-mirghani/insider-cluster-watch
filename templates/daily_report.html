@@ -407,14 +407,79 @@
               <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background: #fff3cd; border-left: 4px solid #ffc107; border-radius: 5px; margin: 15px 0;">
                 <tr>
                   <td style="padding: 12px;">
-                    <div style="font-size: 12px; color: #856404; font-weight: 600; margin-bottom: 5px;">👥 INSIDERS BUYING</div>
-                    <div style="color: #856404; font-size: 14px;">
-                      {% if item.insiders_with_track_record and item.insiders_with_track_record != '' %}
-                        {{ item.insiders_with_track_record }}
-                      {% else %}
-                        {{ item.insiders }}
+                    <div style="font-size: 12px; color: #856404; font-weight: 600; margin-bottom: 8px;">
+                      👥 INSIDERS BUYING
+                      {% if item.insiders_total_count %}
+                        ({{ item.insiders_total_count }} total)
                       {% endif %}
                     </div>
+
+                    {% if item.insiders_data and item.insiders_data|length > 0 %}
+                      <!-- Structured insider list -->
+                      <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top: 5px;">
+                        {% for insider in item.insiders_data %}
+                        <tr>
+                          <td style="padding: 6px 0; vertical-align: top;">
+                            <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                              <tr>
+                                <td style="padding: 0;">
+                                  <div style="color: #856404; font-size: 14px; font-weight: 600; line-height: 1.4;">
+                                    {{ insider.name }}
+                                  </div>
+                                  <div style="color: #856404; font-size: 12px; line-height: 1.4; margin-top: 2px;">
+                                    {{ insider.title }}
+                                    {% if insider.value and insider.value > 0 %}
+                                      <span style="opacity: 0.85;">
+                                        •
+                                        {% if insider.value >= 1000000 %}
+                                          ${{ "{:.1f}".format(insider.value/1000000) }}M
+                                        {% elif insider.value >= 1000 %}
+                                          ${{ "{:.0f}".format(insider.value/1000) }}K
+                                        {% else %}
+                                          ${{ "{:,.0f}".format(insider.value) }}
+                                        {% endif %}
+                                      </span>
+                                    {% endif %}
+                                  </div>
+                                  {% if insider.track_record %}
+                                  <div style="color: #856404; font-size: 11px; font-style: italic; margin-top: 2px; opacity: 0.9;">
+                                    Track Record: {{ insider.track_record }}
+                                  </div>
+                                  {% endif %}
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+                        {% if not loop.last %}
+                        <tr>
+                          <td style="padding: 0;">
+                            <div style="height: 1px; background: #f0e5b9; margin: 4px 0;"></div>
+                          </td>
+                        </tr>
+                        {% endif %}
+                        {% endfor %}
+
+                        {% if item.insiders_total_count and item.insiders_total_count > item.insiders_data|length %}
+                        <tr>
+                          <td style="padding: 8px 0 0 0;">
+                            <div style="color: #856404; font-size: 11px; font-style: italic;">
+                              ...and {{ item.insiders_total_count - item.insiders_data|length }} more insider{{ 's' if (item.insiders_total_count - item.insiders_data|length) != 1 else '' }}
+                            </div>
+                          </td>
+                        </tr>
+                        {% endif %}
+                      </table>
+                    {% else %}
+                      <!-- Fallback to old format if structured data not available -->
+                      <div style="color: #856404; font-size: 14px;">
+                        {% if item.insiders_with_track_record and item.insiders_with_track_record != '' %}
+                          {{ item.insiders_with_track_record }}
+                        {% else %}
+                          {{ item.insiders }}
+                        {% endif %}
+                      </div>
+                    {% endif %}
                   </td>
                 </tr>
               </table>
@@ -621,7 +686,7 @@
     <!-- Footer -->
     <tr>
       <td style="background: #f8f9fa; padding: 20px; text-align: center; color: #666; font-size: 12px; border-top: 1px solid #e0e0e0;">
-        <p style="margin: 5px 0;"><strong>Insider Cluster Watch - Enhanced Edition</strong></p>
+        <p style="margin: 5px 0;"><strong>Insider Cluster Watch</strong></p>
         <p style="margin: 5px 0;">Data sourced from public SEC Form 4 filings via OpenInsider & SEC EDGAR</p>
         <p style="margin: 10px 0 5px 0;"><em>This report is for informational purposes only. Always conduct your own research before making investment decisions.</em></p>
       </td>
