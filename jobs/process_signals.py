@@ -174,7 +174,7 @@ def get_title_priority(title):
     # Default priority
     return 0
 
-def format_insiders_structured(window_df, limit=5):
+def format_insiders_structured(window_df, limit=3):
     """
     Create a structured list of insiders with proper formatting.
 
@@ -790,7 +790,7 @@ def cluster_and_score(df, window_days=5, top_n=50, insider_tracker=None):
 
         # Format insiders using new structured approach
         if max_cluster_count > 0:
-            insiders_display, insiders_data, insiders_plain = format_insiders_structured(best_window, limit=5)
+            insiders_display, insiders_data, insiders_plain = format_insiders_structured(best_window, limit=3)
         else:
             insiders_display, insiders_data, insiders_plain = "", [], ""
 
