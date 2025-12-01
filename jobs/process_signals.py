@@ -67,6 +67,10 @@ def expand_title(title):
     if not title or not isinstance(title, str):
         return "Insider"
 
+    # Handle "See Remarks" - a placeholder when actual title is in Form 4 remarks
+    if "see remarks" in title.lower():
+        return "Insider"
+
     # Common abbreviation mappings
     expansions = {
         r'\bExec\b': 'Executive',
