@@ -294,7 +294,18 @@ def main(test=False, urgent_test=False, enable_paper_trading=True):
             min_trades_for_score=MIN_TRADES_FOR_INSIDER_SCORE
         )
         print(f"   Tracked Insiders: {len(insider_tracker.profiles)}")
-        print(f"   Historical Trades: {len(insider_tracker.trades_history)}\n")
+        print(f"   Historical Trades: {len(insider_tracker.trades_history)}")
+
+        # Check data freshness
+        freshness_alert = insider_tracker.log_freshness_check()
+        if freshness_alert['alert']:
+            print(f"⚠️  WARNING: Insider performance data issue detected!")
+            print(f"   Status: {freshness_alert['status']}")
+            print(f"   {freshness_alert['message']}")
+            if freshness_alert['status'] == 'EMPTY':
+                print(f"\n💡 To populate data, run:")
+                print(f"   python bootstrap_insider_history.py --quick-test")
+            print()
 
     # 1) Fetch insider trading data
     print("📥 Fetching recent insider transactions from OpenInsider...")

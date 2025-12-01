@@ -21,6 +21,8 @@ from typing import Dict, List, Tuple, Optional
 import yfinance as yf
 import time
 from pathlib import Path
+import re
+from difflib import SequenceMatcher
 
 # Data paths
 DATA_DIR = Path(__file__).parent.parent / 'data'
@@ -43,6 +45,7 @@ class InsiderPerformanceTracker:
         """
         self.lookback_years = lookback_years
         self.min_trades_for_score = min_trades_for_score
+        self.name_mapping = self._load_name_mapping()  # Maps raw names to canonical names
         self.profiles = self._load_profiles()
         self.trades_history = self._load_trades_history()
 
@@ -63,6 +66,129 @@ class InsiderPerformanceTracker:
         with open(INSIDER_PROFILES_PATH, 'w') as f:
             json.dump(self.profiles, f, indent=2, default=str)
 
+    def _load_name_mapping(self) -> Dict:
+        """Load insider name mapping from JSON file."""
+        name_mapping_path = DATA_DIR / 'insider_name_mapping.json'
+        if name_mapping_path.exists():
+            try:
+                with open(name_mapping_path, 'r') as f:
+                    return json.load(f)
+            except json.JSONDecodeError:
+                print(f"Warning: Could not parse {name_mapping_path}, starting fresh")
+                return {}
+        return {}
+
+    def _save_name_mapping(self):
+        """Save insider name mapping to JSON file."""
+        name_mapping_path = DATA_DIR / 'insider_name_mapping.json'
+        name_mapping_path.parent.mkdir(parents=True, exist_ok=True)
+        with open(name_mapping_path, 'w') as f:
+            json.dump(self.name_mapping, f, indent=2)
+
+    def _normalize_insider_name(self, name: str, company: str = None) -> str:
+        """
+        Normalize insider name to canonical format with fuzzy matching.
+
+        Handles common variations:
+        - "Last, First Middle" → "First Middle Last"
+        - Removes punctuation and titles
+        - Fuzzy matches against existing names (>85% similarity)
+        - Uses company ticker to disambiguate common names
+
+        Args:
+            name: Raw insider name from Form 4
+            company: Company ticker (helps disambiguate common names)
+
+        Returns:
+            Canonical name format
+
+        Examples:
+            "Cook, Timothy D." → "Timothy D Cook"
+            "Tim Cook" → "Timothy D Cook" (fuzzy matched)
+            "T.D. Cook" → "Timothy D Cook" (fuzzy matched)
+        """
+        if not name or not isinstance(name, str):
+            return "UNKNOWN"
+
+        # Step 1: Clean the name
+        cleaned = name.strip()
+
+        # Step 2: Handle "Last, First" format
+        if ',' in cleaned:
+            parts = cleaned.split(',', 1)  # Only split on first comma
+            if len(parts) == 2:
+                last, first = parts
+                cleaned = f"{first.strip()} {last.strip()}"
+
+        # Step 3: Remove common titles and suffixes
+        titles_suffixes = [
+            r'\bMr\.?\b', r'\bMrs\.?\b', r'\bMs\.?\b', r'\bDr\.?\b',
+            r'\bJr\.?\b', r'\bSr\.?\b', r'\bIII\b', r'\bII\b', r'\bIV\b'
+        ]
+        for pattern in titles_suffixes:
+            cleaned = re.sub(pattern, '', cleaned, flags=re.IGNORECASE)
+
+        # Step 4: Normalize spaces and punctuation
+        cleaned = re.sub(r'[^\w\s]', '', cleaned)  # Remove punctuation
+        cleaned = re.sub(r'\s+', ' ', cleaned)      # Normalize spaces
+        cleaned = cleaned.strip().lower()
+
+        # Step 5: Create lookup key (with company if provided)
+        lookup_key = f"{cleaned}|{company}" if company else cleaned
+
+        # Step 6: Check if we've seen this exact name before
+        if lookup_key in self.name_mapping:
+            return self.name_mapping[lookup_key]
+
+        # Step 7: Fuzzy match against existing names
+        best_match = None
+        best_ratio = 0
+
+        for existing_key, canonical_name in self.name_mapping.items():
+            # Only compare same-company insiders if company specified
+            if company and '|' in existing_key:
+                existing_name, existing_company = existing_key.split('|', 1)
+                if existing_company != company:
+                    continue
+            else:
+                existing_name = existing_key.split('|')[0] if '|' in existing_key else existing_key
+
+            # Calculate similarity ratio
+            ratio = SequenceMatcher(None, cleaned.split('|')[0], existing_name).ratio()
+
+            # If very similar (>85% match), consider it the same person
+            if ratio > 0.85 and ratio > best_ratio:
+                best_ratio = ratio
+                best_match = canonical_name
+
+        # If found good match, use it
+        if best_match and best_ratio > 0.85:
+            self.name_mapping[lookup_key] = best_match
+            self._save_name_mapping()
+            # print(f"   Matched '{name}' → '{best_match}' (similarity: {best_ratio:.1%})")
+            return best_match
+
+        # Otherwise, this is a new unique person - create canonical name
+        canonical = self._format_canonical_name(cleaned.split('|')[0])
+        self.name_mapping[lookup_key] = canonical
+        self._save_name_mapping()
+        return canonical
+
+    def _format_canonical_name(self, normalized_name: str) -> str:
+        """
+        Format normalized name to Title Case canonical format.
+
+        Args:
+            normalized_name: Lowercase normalized name
+
+        Returns:
+            Title case formatted name
+
+        Example:
+            "timothy d cook" → "Timothy D Cook"
+        """
+        return ' '.join(word.capitalize() for word in normalized_name.split())
+
     def _load_trades_history(self) -> pd.DataFrame:
         """Load historical trades from CSV file."""
         if INSIDER_TRADES_HISTORY_PATH.exists():
@@ -77,7 +203,7 @@ class InsiderPerformanceTracker:
     def _create_empty_trades_df(self) -> pd.DataFrame:
         """Create an empty trades history DataFrame with the correct schema."""
         return pd.DataFrame(columns=[
-            'trade_date', 'ticker', 'insider_name', 'title', 'qty', 'price',
+            'trade_date', 'ticker', 'insider_name', 'insider_name_raw', 'title', 'qty', 'price',
             'value', 'entry_price', 'outcome_30d', 'outcome_90d', 'outcome_180d',
             'return_30d', 'return_90d', 'return_180d', 'last_updated'
         ])
@@ -115,10 +241,16 @@ class InsiderPerformanceTracker:
                 if not existing.empty:
                     continue
 
+            # Normalize insider name to handle variations
+            raw_name = row.get('insider_name', row.get('insider', 'UNKNOWN'))
+            ticker = row['ticker']
+            normalized_name = self._normalize_insider_name(raw_name, ticker)
+
             new_trade = {
                 'trade_date': pd.to_datetime(row['trade_date']),
-                'ticker': row['ticker'],
-                'insider_name': row.get('insider_name', row.get('insider')),
+                'ticker': ticker,
+                'insider_name': normalized_name,  # Use normalized name
+                'insider_name_raw': raw_name,      # Keep original for reference
                 'title': row.get('title', ''),
                 'qty': row.get('qty', 0),
                 'price': row.get('price', 0),
@@ -212,73 +344,87 @@ class InsiderPerformanceTracker:
             self._save_trades_history()
 
     def _calculate_trade_outcomes(self, ticker: str, trade_date: datetime,
-                                  entry_price: float) -> Optional[Dict]:
+                                  entry_price: float, max_retries: int = 3) -> Optional[Dict]:
         """
-        Calculate outcomes for a single trade at 30/90/180 day marks.
+        Calculate outcomes for a single trade at 30/90/180 day marks with retry logic.
 
         Args:
             ticker: Stock ticker symbol
             trade_date: Date of the trade
             entry_price: Purchase price
+            max_retries: Maximum number of retry attempts (default: 3)
 
         Returns:
             Dict with price and return outcomes, or None if data unavailable
         """
-        try:
-            # Convert to datetime if needed
-            if isinstance(trade_date, str):
-                trade_date = pd.to_datetime(trade_date)
+        delay = 1.0  # Initial delay in seconds
 
-            # Fetch historical data
-            # Start a few days before trade date to ensure we have data
-            start_date = trade_date - timedelta(days=5)
-            end_date = trade_date + timedelta(days=200)  # Give buffer beyond 180 days
+        for attempt in range(max_retries):
+            try:
+                # Convert to datetime if needed
+                if isinstance(trade_date, str):
+                    trade_date = pd.to_datetime(trade_date)
 
-            stock = yf.Ticker(ticker)
-            hist = stock.history(start=start_date, end=end_date)
+                # Fetch historical data
+                # Start a few days before trade date to ensure we have data
+                start_date = trade_date - timedelta(days=5)
+                end_date = trade_date + timedelta(days=200)  # Give buffer beyond 180 days
 
-            if hist.empty:
-                return None
+                stock = yf.Ticker(ticker)
+                hist = stock.history(start=start_date, end=end_date)
 
-            # Find the actual trade date or closest after
-            hist = hist.reset_index()
-            hist['Date'] = pd.to_datetime(hist['Date']).dt.tz_localize(None)  # Remove timezone for comparison
+                if hist.empty:
+                    return None
 
-            # Normalize trade_date to timezone-naive for comparison
-            trade_date_normalized = pd.to_datetime(trade_date)
-            if trade_date_normalized.tz is not None:
-                trade_date_normalized = trade_date_normalized.tz_localize(None)
+                # Find the actual trade date or closest after
+                hist = hist.reset_index()
+                hist['Date'] = pd.to_datetime(hist['Date']).dt.tz_localize(None)  # Remove timezone for comparison
 
-            trade_idx = hist[hist['Date'] >= trade_date_normalized].head(1)
+                # Normalize trade_date to timezone-naive for comparison
+                trade_date_normalized = pd.to_datetime(trade_date)
+                if trade_date_normalized.tz is not None:
+                    trade_date_normalized = trade_date_normalized.tz_localize(None)
 
-            if trade_idx.empty:
-                return None
+                trade_idx = hist[hist['Date'] >= trade_date_normalized].head(1)
 
-            trade_position = trade_idx.index[0]
+                if trade_idx.empty:
+                    return None
 
-            outcomes = {}
+                trade_position = trade_idx.index[0]
 
-            # Calculate outcomes at different time horizons
-            for days, key in [(30, '30d'), (90, '90d'), (180, '180d')]:
-                target_date = trade_date_normalized + timedelta(days=days)
+                outcomes = {}
 
-                # Find price closest to target date (but after trade date)
-                future_data = hist[hist['Date'] >= target_date]
+                # Calculate outcomes at different time horizons
+                for days, key in [(30, '30d'), (90, '90d'), (180, '180d')]:
+                    target_date = trade_date_normalized + timedelta(days=days)
 
-                if not future_data.empty:
-                    # Use the first available price on or after target date
-                    outcome_price = future_data.iloc[0]['Close']
-                    outcomes[f'price_{key}'] = outcome_price
-                    outcomes[f'return_{key}'] = ((outcome_price - entry_price) / entry_price) * 100
+                    # Find price closest to target date (but after trade date)
+                    future_data = hist[hist['Date'] >= target_date]
+
+                    if not future_data.empty:
+                        # Use the first available price on or after target date
+                        outcome_price = future_data.iloc[0]['Close']
+                        outcomes[f'price_{key}'] = outcome_price
+                        outcomes[f'return_{key}'] = ((outcome_price - entry_price) / entry_price) * 100
+                    else:
+                        outcomes[f'price_{key}'] = None
+                        outcomes[f'return_{key}'] = None
+
+                return outcomes
+
+            except Exception as e:
+                if attempt < max_retries - 1:
+                    # Retry with exponential backoff
+                    print(f"   Attempt {attempt + 1} failed for {ticker}: {e}. Retrying in {delay}s...")
+                    time.sleep(delay)
+                    delay *= 2  # Exponential backoff
+                    continue
                 else:
-                    outcomes[f'price_{key}'] = None
-                    outcomes[f'return_{key}'] = None
+                    # Final attempt failed
+                    print(f"   Error calculating outcomes for {ticker} after {max_retries} attempts: {e}")
+                    return None
 
-            return outcomes
-
-        except Exception as e:
-            print(f"Error calculating outcomes for {ticker}: {e}")
-            return None
+        return None
 
     def calculate_insider_profiles(self):
         """
@@ -431,22 +577,26 @@ class InsiderPerformanceTracker:
         # Save profiles
         self._save_profiles()
 
-    def get_insider_score(self, insider_name: str) -> Dict:
+    def get_insider_score(self, insider_name: str, company: str = None) -> Dict:
         """
         Get the performance score for a specific insider.
 
         Args:
-            insider_name: Name of the insider
+            insider_name: Name of the insider (will be normalized)
+            company: Company ticker (optional, helps with name disambiguation)
 
         Returns:
             Dict with score and profile info, or default score if insider not tracked
         """
-        if insider_name in self.profiles:
-            return self.profiles[insider_name]
+        # Normalize the name to match against profiles
+        normalized_name = self._normalize_insider_name(insider_name, company)
+
+        if normalized_name in self.profiles:
+            return self.profiles[normalized_name]
         else:
             # Return neutral score for unknown insiders
             return {
-                'name': insider_name,
+                'name': normalized_name,
                 'overall_score': 50,  # Neutral
                 'score_percentile': 50,
                 'total_trades': 0,
@@ -583,6 +733,126 @@ class InsiderPerformanceTracker:
         report.append(f"{'='*70}\n")
 
         return "\n".join(report)
+
+    def check_data_freshness(self) -> Dict:
+        """
+        Check if performance data is fresh and up-to-date.
+
+        Returns:
+            Dict with freshness status:
+            {
+                'is_fresh': bool,
+                'last_updated': datetime or None,
+                'age_days': float or None,
+                'status': 'OK' | 'WARNING' | 'STALE' | 'EMPTY' | 'UNKNOWN',
+                'message': str
+            }
+        """
+        if not self.profiles:
+            return {
+                'is_fresh': False,
+                'last_updated': None,
+                'age_days': None,
+                'status': 'EMPTY',
+                'message': '❌ No insider profiles loaded. Run bootstrap to populate data.'
+            }
+
+        # Find most recent update across all profiles and trades
+        most_recent_profile = None
+        most_recent_trade = None
+
+        # Check profiles for last update
+        for profile in self.profiles.values():
+            if profile.get('most_recent_trade'):
+                trade_date = pd.to_datetime(profile['most_recent_trade'])
+                if most_recent_profile is None or trade_date > most_recent_profile:
+                    most_recent_profile = trade_date
+
+        # Check trades history for last update
+        if not self.trades_history.empty and 'last_updated' in self.trades_history.columns:
+            updates = self.trades_history['last_updated'].dropna()
+            if not updates.empty:
+                most_recent_trade = pd.to_datetime(updates.max())
+
+        # Use the most recent timestamp
+        most_recent = most_recent_profile or most_recent_trade
+
+        if most_recent is None:
+            return {
+                'is_fresh': False,
+                'last_updated': None,
+                'age_days': None,
+                'status': 'UNKNOWN',
+                'message': '⚠️  Cannot determine data age - no timestamps found'
+            }
+
+        # Calculate age in days
+        now = datetime.now()
+        if most_recent.tzinfo is not None:
+            # Make timezone-aware for comparison
+            now = pd.Timestamp.now(tz=most_recent.tzinfo)
+
+        age_seconds = (now - most_recent).total_seconds()
+        age_days = age_seconds / 86400
+
+        # Determine freshness status
+        if age_days < 7:
+            status = 'OK'
+            is_fresh = True
+            message = f'✅ Data is fresh (last updated {age_days:.1f} days ago)'
+        elif age_days < 14:
+            status = 'WARNING'
+            is_fresh = True
+            message = f'⚠️  Data is aging (last updated {age_days:.1f} days ago). Consider updating soon.'
+        else:
+            status = 'STALE'
+            is_fresh = False
+            message = f'❌ Data is STALE (last updated {age_days:.1f} days ago). Update NOW!'
+
+        return {
+            'is_fresh': is_fresh,
+            'last_updated': most_recent,
+            'age_days': age_days,
+            'status': status,
+            'message': message
+        }
+
+    def log_freshness_check(self):
+        """
+        Log data freshness status with formatted output.
+        Call this at the start of your daily pipeline.
+
+        Returns:
+            Dict with alert info: {'alert': bool, 'message': str}
+        """
+        freshness = self.check_data_freshness()
+
+        print(f"\n{'='*70}")
+        print(f"INSIDER PERFORMANCE DATA FRESHNESS CHECK")
+        print(f"{'='*70}")
+        print(freshness['message'])
+
+        if freshness['last_updated']:
+            print(f"Last updated: {freshness['last_updated'].strftime('%Y-%m-%d %H:%M')}")
+
+        if freshness['status'] != 'EMPTY':
+            print(f"Total profiles: {len(self.profiles):,}")
+            print(f"Total trades: {len(self.trades_history):,}")
+
+        print(f"{'='*70}\n")
+
+        # Return alert if data is stale or empty
+        if freshness['status'] in ['STALE', 'EMPTY']:
+            return {
+                'alert': True,
+                'status': freshness['status'],
+                'message': freshness['message']
+            }
+
+        return {
+            'alert': False,
+            'status': freshness['status']
+        }
 
 
 def create_tracker(lookback_years: int = 3, min_trades: int = 3) -> InsiderPerformanceTracker:
