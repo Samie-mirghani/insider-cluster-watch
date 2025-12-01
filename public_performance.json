@@ -1,110 +1,125 @@
 {
-  "last_updated": "November 28, 2025 at 11:45 UTC",
-  "total_return_pct": 2.23,
+  "last_updated": "December 01, 2025 at 11:45 UTC",
+  "total_return_pct": 2.28,
   "win_rate": 0.0,
-  "completed_trades": 0,
-  "active_trades": 12,
-  "avg_return_per_trade": 0.0,
+  "completed_trades": 1,
+  "active_trades": 11,
+  "avg_return_per_trade": -1.2,
   "sharpe_ratio": 0.0,
   "max_drawdown": -7.13,
-  "avg_hold_days": 0,
-  "best_trade_pct": 0.0,
-  "worst_trade_pct": 0.0,
-  "alpha_vs_sp500": 0.0,
+  "avg_hold_days": 21,
+  "best_trade_pct": -1.2,
+  "worst_trade_pct": -1.2,
+  "alpha_vs_sp500": 2.22,
   "avg_winner": 0.0,
-  "avg_loser": 0.0,
+  "avg_loser": -1.2,
   "win_loss_ratio": 0.0,
   "profit_factor": 0.0,
-  "last_30_days_return": 0.0,
+  "last_30_days_return": -1.2,
   "last_10_trades_win_rate": 0.0,
-  "current_streak": 0,
-  "current_streak_type": "none",
-  "conviction_performance": [],
-  "monthly_returns": [],
-  "recent_trades": [],
-  "open_positions": [
+  "current_streak": 1,
+  "current_streak_type": "losses",
+  "conviction_performance": [
+    {
+      "conviction": "LOW",
+      "trades": 1,
+      "win_rate": 0.0,
+      "avg_return": -1.2
+    }
+  ],
+  "monthly_returns": [
+    {
+      "month": "2025-12",
+      "return": -1.2
+    }
+  ],
+  "recent_trades": [
     {
       "ticker": "YCY",
       "entry_date": "Nov 10, 2025",
-      "days_held": 18,
-      "unrealized_return": -1.2,
-      "conviction": "LOW"
-    },
+      "exit_date": "Dec 01, 2025",
+      "hold_days": 21,
+      "return_pct": -1.2,
+      "conviction": "LOW",
+      "exit_reason": "Time Stop"
+    }
+  ],
+  "open_positions": [
     {
       "ticker": "VRSK",
       "entry_date": "Nov 11, 2025",
-      "days_held": 17,
-      "unrealized_return": 5.14,
+      "days_held": 20,
+      "unrealized_return": 5.7,
       "conviction": "MEDIUM"
     },
     {
       "ticker": "IRDM",
       "entry_date": "Nov 11, 2025",
-      "days_held": 17,
-      "unrealized_return": -0.3,
+      "days_held": 20,
+      "unrealized_return": -0.55,
       "conviction": "MEDIUM"
     },
     {
       "ticker": "MTDR",
       "entry_date": "Nov 14, 2025",
-      "days_held": 14,
-      "unrealized_return": 2.13,
+      "days_held": 17,
+      "unrealized_return": 3.92,
       "conviction": "VERY HIGH"
     },
     {
       "ticker": "OBK",
       "entry_date": "Nov 19, 2025",
-      "days_held": 9,
-      "unrealized_return": 7.54,
+      "days_held": 12,
+      "unrealized_return": 7.12,
       "conviction": "VERY HIGH"
     },
     {
       "ticker": "CBC",
       "entry_date": "Nov 26, 2025",
-      "days_held": 2,
-      "unrealized_return": -1.66,
+      "days_held": 5,
+      "unrealized_return": -1.41,
       "conviction": "VERY HIGH"
     },
     {
       "ticker": "VAC",
       "entry_date": "Nov 26, 2025",
-      "days_held": 2,
-      "unrealized_return": 0.46,
+      "days_held": 5,
+      "unrealized_return": -0.04,
       "conviction": "VERY HIGH"
     },
     {
       "ticker": "SVCO",
       "entry_date": "Nov 27, 2025",
-      "days_held": 1,
-      "unrealized_return": 0.0,
+      "days_held": 4,
+      "unrealized_return": 3.17,
       "conviction": "HIGH"
     },
     {
       "ticker": "CTEV",
       "entry_date": "Nov 27, 2025",
-      "days_held": 1,
-      "unrealized_return": 0.0,
+      "days_held": 4,
+      "unrealized_return": -1.46,
       "conviction": "HIGH"
     },
     {
       "ticker": "ARX",
       "entry_date": "Nov 27, 2025",
-      "days_held": 1,
-      "unrealized_return": 0.0,
+      "days_held": 4,
+      "unrealized_return": -0.14,
       "conviction": "HIGH"
     },
     {
       "ticker": "GLOO",
       "entry_date": "Nov 28, 2025",
-      "days_held": 0,
-      "unrealized_return": 0.0,
+      "days_held": 3,
+      "unrealized_return": -1.4,
       "conviction": "VERY HIGH"
     },
     {
       "ticker": "AISP",
       "entry_date": "Nov 28, 2025",
-      "days_held": 0,
-      "unrealized_return": 0.0,
+      "days_held": 3,
+      "unrealized_return": 0.82,
       "conviction": "HIGH"
     }
   ]
