@@ -318,6 +318,33 @@ def bootstrap_with_progress(tracker: InsiderPerformanceTracker, trades_df: pd.Da
     print(f"Batch size: {batch_size}")
     print(f"Rate limit delay: {rate_limit_delay}s")
     print(f"Estimated time: {(len(trades_df) * rate_limit_delay / 3600):.1f} hours")
+
+    # DIAGNOSTIC: Analyze trade age distribution
+    print("\n" + "="*70)
+    print("TRADE AGE ANALYSIS")
+    print("="*70)
+    today = datetime.now()
+    trades_df_copy = trades_df.copy()
+    trades_df_copy['trade_date'] = pd.to_datetime(trades_df_copy['trade_date'])
+    trades_df_copy['days_old'] = (today - trades_df_copy['trade_date']).dt.days
+
+    print(f"Date range: {trades_df_copy['trade_date'].min().strftime('%Y-%m-%d')} to {trades_df_copy['trade_date'].max().strftime('%Y-%m-%d')}")
+    print(f"Age range: {trades_df_copy['days_old'].min()} to {trades_df_copy['days_old'].max()} days")
+    print(f"\nAge distribution:")
+    print(f"  < 30 days old:    {(trades_df_copy['days_old'] < 30).sum():4d} ({(trades_df_copy['days_old'] < 30).sum()/len(trades_df_copy)*100:5.1f}%) - too recent")
+    print(f"  30-59 days old:   {((trades_df_copy['days_old'] >= 30) & (trades_df_copy['days_old'] < 60)).sum():4d} ({((trades_df_copy['days_old'] >= 30) & (trades_df_copy['days_old'] < 60)).sum()/len(trades_df_copy)*100:5.1f}%) - can calc 30d")
+    print(f"  60-89 days old:   {((trades_df_copy['days_old'] >= 60) & (trades_df_copy['days_old'] < 90)).sum():4d} ({((trades_df_copy['days_old'] >= 60) & (trades_df_copy['days_old'] < 90)).sum()/len(trades_df_copy)*100:5.1f}%) - can calc 30d+60d")
+    print(f"  90-179 days old:  {((trades_df_copy['days_old'] >= 90) & (trades_df_copy['days_old'] < 180)).sum():4d} ({((trades_df_copy['days_old'] >= 90) & (trades_df_copy['days_old'] < 180)).sum()/len(trades_df_copy)*100:5.1f}%) - can calc 90d ✓")
+    print(f"  >= 180 days old:  {(trades_df_copy['days_old'] >= 180).sum():4d} ({(trades_df_copy['days_old'] >= 180).sum()/len(trades_df_copy)*100:5.1f}%) - can calc all ✓✓")
+
+    processable_90d = (trades_df_copy['days_old'] >= 90).sum()
+    processable_30d = (trades_df_copy['days_old'] >= 30).sum()
+    print(f"\n✅ Trades processable for 90d outcomes: {processable_90d} ({processable_90d/len(trades_df_copy)*100:.1f}%)")
+    print(f"✅ Trades processable for 30d outcomes: {processable_30d} ({processable_30d/len(trades_df_copy)*100:.1f}%)")
+
+    if processable_90d == 0:
+        print("\n⚠️  WARNING: NO trades are old enough for 90d outcome calculation!")
+        print("   The bootstrap will process partial outcomes (30d/60d) where possible.")
     print()
 
     progress.total_trades = len(trades_df)
@@ -341,22 +368,43 @@ def bootstrap_with_progress(tracker: InsiderPerformanceTracker, trades_df: pd.Da
         print(f"{'='*70}")
 
         for idx, row in batch.iterrows():
-            # Skip if already has outcome
-            if pd.notna(row['return_90d']):
-                progress.update(success=True)
-                continue
-
             ticker = row['ticker']
             trade_date = row['trade_date']
             entry_price = row['entry_price']
 
-            # Skip if too recent (less than 90 days old)
-            if pd.to_datetime(trade_date) > (datetime.now() - timedelta(days=90)):
+            # Calculate trade age
+            trade_dt = pd.to_datetime(trade_date)
+            days_old = (datetime.now() - trade_dt).days
+
+            # Skip if too recent (less than 30 days old - need at least 30d for any outcome)
+            if days_old < 30:
                 progress.update(success=False)
                 continue
 
-            print(f"\n  [{progress.processed_trades + 1}/{progress.total_trades}] {ticker} - {trade_date}")
-            print(f"    Entry: ${entry_price:.2f}", end=" ")
+            # Skip if already has appropriate outcome for its age
+            if days_old >= 90 and pd.notna(row['return_90d']):
+                progress.update(success=True)
+                continue
+            elif days_old >= 60 and days_old < 90 and pd.notna(row['return_60d']):
+                progress.update(success=True)
+                continue
+            elif days_old >= 30 and days_old < 60 and pd.notna(row['return_30d']):
+                progress.update(success=True)
+                continue
+
+            # Determine what outcomes we can calculate
+            can_calc = []
+            if days_old >= 30:
+                can_calc.append('30d')
+            if days_old >= 60:
+                can_calc.append('60d')
+            if days_old >= 90:
+                can_calc.append('90d')
+            if days_old >= 180:
+                can_calc.append('180d')
+
+            print(f"\n  [{progress.processed_trades + 1}/{progress.total_trades}] {ticker} - {trade_date} ({days_old}d old)")
+            print(f"    Entry: ${entry_price:.2f} | Can calculate: {', '.join(can_calc)}", end=" ")
 
             # Calculate outcomes with retry
             outcomes = calculate_trade_outcome_with_retry(
@@ -364,27 +412,47 @@ def bootstrap_with_progress(tracker: InsiderPerformanceTracker, trades_df: pd.Da
             )
 
             if outcomes:
-                # Update tracker
-                tracker.trades_history.loc[idx, 'outcome_30d'] = outcomes.get('price_30d')
-                tracker.trades_history.loc[idx, 'outcome_60d'] = outcomes.get('price_60d')
-                tracker.trades_history.loc[idx, 'outcome_90d'] = outcomes.get('price_90d')
-                tracker.trades_history.loc[idx, 'outcome_180d'] = outcomes.get('price_180d')
-                tracker.trades_history.loc[idx, 'return_30d'] = outcomes.get('return_30d')
-                tracker.trades_history.loc[idx, 'return_60d'] = outcomes.get('return_60d')
-                tracker.trades_history.loc[idx, 'return_90d'] = outcomes.get('return_90d')
-                tracker.trades_history.loc[idx, 'return_180d'] = outcomes.get('return_180d')
+                # Update tracker with available outcomes
+                if days_old >= 30:
+                    tracker.trades_history.loc[idx, 'outcome_30d'] = outcomes.get('price_30d')
+                    tracker.trades_history.loc[idx, 'return_30d'] = outcomes.get('return_30d')
+                if days_old >= 60:
+                    tracker.trades_history.loc[idx, 'outcome_60d'] = outcomes.get('price_60d')
+                    tracker.trades_history.loc[idx, 'return_60d'] = outcomes.get('return_60d')
+                if days_old >= 90:
+                    tracker.trades_history.loc[idx, 'outcome_90d'] = outcomes.get('price_90d')
+                    tracker.trades_history.loc[idx, 'return_90d'] = outcomes.get('return_90d')
+                if days_old >= 180:
+                    tracker.trades_history.loc[idx, 'outcome_180d'] = outcomes.get('price_180d')
+                    tracker.trades_history.loc[idx, 'return_180d'] = outcomes.get('return_180d')
+
                 tracker.trades_history.loc[idx, 'last_updated'] = datetime.now().isoformat()
 
-                ret_90d = outcomes.get('return_90d', 0)
-                if ret_90d:
-                    status = "✓ WIN" if ret_90d > 0 else "✗ LOSS"
-                    print(f"→ 90d: ${outcomes.get('price_90d', 0):.2f} ({ret_90d:+.1f}%) {status}")
+                # Show the most mature outcome available
+                best_return = None
+                best_label = None
+                if days_old >= 90 and outcomes.get('return_90d') is not None:
+                    best_return = outcomes.get('return_90d')
+                    best_label = '90d'
+                    best_price = outcomes.get('price_90d')
+                elif days_old >= 60 and outcomes.get('return_60d') is not None:
+                    best_return = outcomes.get('return_60d')
+                    best_label = '60d'
+                    best_price = outcomes.get('price_60d')
+                elif outcomes.get('return_30d') is not None:
+                    best_return = outcomes.get('return_30d')
+                    best_label = '30d'
+                    best_price = outcomes.get('price_30d')
+
+                if best_return is not None:
+                    status = "✓ WIN" if best_return > 0 else "✗ LOSS"
+                    print(f"→ {best_label}: ${best_price:.2f} ({best_return:+.1f}%) {status}")
                 else:
-                    print(f"→ No 90d data")
+                    print(f"→ ⚠️  No price data available")
 
                 progress.update(success=True)
             else:
-                print(f"→ ⚠️  Failed to fetch outcomes")
+                print(f"→ ⚠️  Failed to fetch price data")
                 progress.update(success=False)
 
             # Rate limiting
