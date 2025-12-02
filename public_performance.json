@@ -1,46 +1,76 @@
 {
-  "last_updated": "December 01, 2025 at 11:45 UTC",
-  "total_return_pct": 2.28,
-  "win_rate": 0.0,
-  "completed_trades": 1,
-  "active_trades": 11,
-  "avg_return_per_trade": -1.2,
-  "sharpe_ratio": 0.0,
-  "max_drawdown": -7.13,
-  "avg_hold_days": 21,
-  "best_trade_pct": -1.2,
-  "worst_trade_pct": -1.2,
-  "alpha_vs_sp500": 2.22,
-  "avg_winner": 0.0,
-  "avg_loser": -1.2,
-  "win_loss_ratio": 0.0,
-  "profit_factor": 0.0,
-  "last_30_days_return": -1.2,
-  "last_10_trades_win_rate": 0.0,
+  "last_updated": "December 02, 2025 at 11:47 UTC",
+  "total_return_pct": 1.21,
+  "win_rate": 33.3,
+  "completed_trades": 3,
+  "active_trades": 9,
+  "avg_return_per_trade": -2.15,
+  "sharpe_ratio": -3.56,
+  "max_drawdown": -8.06,
+  "avg_hold_days": 13,
+  "best_trade_pct": 8.57,
+  "worst_trade_pct": -14.71,
+  "alpha_vs_sp500": 1.61,
+  "avg_winner": 8.57,
+  "avg_loser": -7.51,
+  "win_loss_ratio": 1.14,
+  "profit_factor": 0.57,
+  "last_30_days_return": -6.44,
+  "last_10_trades_win_rate": 33.3,
   "current_streak": 1,
   "current_streak_type": "losses",
   "conviction_performance": [
     {
-      "conviction": "LOW",
+      "conviction": "VERY HIGH",
+      "trades": 1,
+      "win_rate": 100.0,
+      "avg_return": 8.57
+    },
+    {
+      "conviction": "HIGH",
       "trades": 1,
       "win_rate": 0.0,
-      "avg_return": -1.2
+      "avg_return": -14.71
+    },
+    {
+      "conviction": "MEDIUM",
+      "trades": 1,
+      "win_rate": 0.0,
+      "avg_return": -0.3
     }
   ],
   "monthly_returns": [
     {
       "month": "2025-12",
-      "return": -1.2
+      "return": -6.44
     }
   ],
   "recent_trades": [
     {
-      "ticker": "YCY",
-      "entry_date": "Nov 10, 2025",
-      "exit_date": "Dec 01, 2025",
+      "ticker": "CTEV",
+      "entry_date": "Nov 27, 2025",
+      "exit_date": "Dec 02, 2025",
+      "hold_days": 5,
+      "return_pct": -14.71,
+      "conviction": "HIGH",
+      "exit_reason": "Stop Loss"
+    },
+    {
+      "ticker": "OBK",
+      "entry_date": "Nov 19, 2025",
+      "exit_date": "Dec 02, 2025",
+      "hold_days": 13,
+      "return_pct": 8.57,
+      "conviction": "VERY HIGH",
+      "exit_reason": "Take Profit"
+    },
+    {
+      "ticker": "IRDM",
+      "entry_date": "Nov 11, 2025",
+      "exit_date": "Dec 02, 2025",
       "hold_days": 21,
-      "return_pct": -1.2,
-      "conviction": "LOW",
+      "return_pct": -0.3,
+      "conviction": "MEDIUM",
       "exit_reason": "Time Stop"
     }
   ],
@@ -48,79 +78,65 @@
     {
       "ticker": "VRSK",
       "entry_date": "Nov 11, 2025",
-      "days_held": 20,
-      "unrealized_return": 5.7,
-      "conviction": "MEDIUM"
-    },
-    {
-      "ticker": "IRDM",
-      "entry_date": "Nov 11, 2025",
-      "days_held": 20,
-      "unrealized_return": -0.55,
+      "days_held": 21,
+      "unrealized_return": 5.2,
       "conviction": "MEDIUM"
     },
     {
       "ticker": "MTDR",
       "entry_date": "Nov 14, 2025",
-      "days_held": 17,
-      "unrealized_return": 3.92,
-      "conviction": "VERY HIGH"
-    },
-    {
-      "ticker": "OBK",
-      "entry_date": "Nov 19, 2025",
-      "days_held": 12,
-      "unrealized_return": 7.12,
+      "days_held": 18,
+      "unrealized_return": 6.64,
       "conviction": "VERY HIGH"
     },
     {
       "ticker": "CBC",
       "entry_date": "Nov 26, 2025",
-      "days_held": 5,
-      "unrealized_return": -1.41,
+      "days_held": 6,
+      "unrealized_return": -2.33,
       "conviction": "VERY HIGH"
     },
     {
       "ticker": "VAC",
       "entry_date": "Nov 26, 2025",
-      "days_held": 5,
-      "unrealized_return": -0.04,
+      "days_held": 6,
+      "unrealized_return": 0.62,
       "conviction": "VERY HIGH"
     },
     {
       "ticker": "SVCO",
       "entry_date": "Nov 27, 2025",
-      "days_held": 4,
-      "unrealized_return": 3.17,
-      "conviction": "HIGH"
-    },
-    {
-      "ticker": "CTEV",
-      "entry_date": "Nov 27, 2025",
-      "days_held": 4,
-      "unrealized_return": -1.46,
+      "days_held": 5,
+      "unrealized_return": 1.13,
       "conviction": "HIGH"
     },
     {
       "ticker": "ARX",
       "entry_date": "Nov 27, 2025",
-      "days_held": 4,
-      "unrealized_return": -0.14,
+      "days_held": 5,
+      "unrealized_return": 0.89,
       "conviction": "HIGH"
     },
     {
       "ticker": "GLOO",
       "entry_date": "Nov 28, 2025",
-      "days_held": 3,
-      "unrealized_return": -1.4,
+      "days_held": 4,
+      "unrealized_return": -2.29,
       "conviction": "VERY HIGH"
     },
     {
       "ticker": "AISP",
       "entry_date": "Nov 28, 2025",
-      "days_held": 3,
-      "unrealized_return": 0.82,
+      "days_held": 4,
+      "unrealized_return": -1.33,
       "conviction": "HIGH"
+    },
+    {
+      "ticker": "FOSL",
+      "entry_date": "Dec 02, 2025",
+      "days_held": 0,
+      "unrealized_return": 0.0,
+      "conviction": "VERY HIGH"
     }
   ]
 }
