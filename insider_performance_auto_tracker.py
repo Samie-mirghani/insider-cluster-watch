@@ -168,9 +168,11 @@ class AutoInsiderTracker:
                 'value': value,
                 'entry_price': entry_price,
                 'outcome_30d': None,
+                'outcome_60d': None,  # BUG FIX: Added missing 60d field
                 'outcome_90d': None,
                 'outcome_180d': None,
                 'return_30d': None,
+                'return_60d': None,   # BUG FIX: Added missing 60d field
                 'return_90d': None,
                 'return_180d': None,
                 'last_updated': datetime.now().isoformat()

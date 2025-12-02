@@ -934,6 +934,15 @@ def main(test=False, urgent_test=False, enable_paper_trading=True):
         portfolio_value = paper_trader.get_portfolio_value()
         total_return = ((portfolio_value - paper_trader.starting_capital) / paper_trader.starting_capital) * 100
         print(f"📊 Paper Portfolio: ${portfolio_value:,.2f} ({total_return:+.2f}%)")
+
+    # Export public insider performance data for GitHub Pages
+    if ENABLE_INSIDER_SCORING:
+        try:
+            from export_public_insider_performance import export_public_data
+            export_public_data()
+        except Exception as e:
+            print(f"⚠️  Failed to export public insider data: {e}")
+
     print(f"{'='*60}\n")
 
 if __name__ == "__main__":

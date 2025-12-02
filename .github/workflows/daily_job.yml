@@ -81,6 +81,33 @@ jobs:
             echo "⚠️ public_performance.json not found!"
           fi
 
+          # Add insider performance data files (continuous tracking)
+          if [ -f "data/insider_tracking_queue.json" ]; then
+            git add -f data/insider_tracking_queue.json
+            echo "✅ Added insider_tracking_queue.json"
+          fi
+
+          if [ -f "data/insider_profiles.json" ]; then
+            git add -f data/insider_profiles.json
+            echo "✅ Added insider_profiles.json"
+          fi
+
+          if [ -f "data/insider_trades_history.csv" ]; then
+            git add -f data/insider_trades_history.csv
+            echo "✅ Added insider_trades_history.csv"
+          fi
+
+          if [ -f "data/insider_name_mapping.json" ]; then
+            git add -f data/insider_name_mapping.json
+            echo "✅ Added insider_name_mapping.json"
+          fi
+
+          # Add public insider performance for GitHub Pages
+          if [ -f "docs/insider_performance_public.json" ]; then
+            git add -f docs/insider_performance_public.json
+            echo "✅ Added docs/insider_performance_public.json"
+          fi
+
           # Commit any changes (ignore if none)
           git diff --staged --quiet || git commit -m "Daily data update: $(date +'%Y-%m-%d %H:%M:%S')"
 
@@ -104,6 +131,27 @@ jobs:
           # Add public performance JSON if it exists
           if [ -f "public_performance.json" ]; then
             git add -f public_performance.json
+          fi
+
+          # Add insider data files if they exist
+          if [ -f "data/insider_tracking_queue.json" ]; then
+            git add -f data/insider_tracking_queue.json
+          fi
+
+          if [ -f "data/insider_profiles.json" ]; then
+            git add -f data/insider_profiles.json
+          fi
+
+          if [ -f "data/insider_trades_history.csv" ]; then
+            git add -f data/insider_trades_history.csv
+          fi
+
+          if [ -f "data/insider_name_mapping.json" ]; then
+            git add -f data/insider_name_mapping.json
+          fi
+
+          if [ -f "docs/insider_performance_public.json" ]; then
+            git add -f docs/insider_performance_public.json
           fi
 
           # Recommit after rebase if necessary

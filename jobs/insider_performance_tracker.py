@@ -204,8 +204,8 @@ class InsiderPerformanceTracker:
         """Create an empty trades history DataFrame with the correct schema."""
         return pd.DataFrame(columns=[
             'trade_date', 'ticker', 'insider_name', 'insider_name_raw', 'title', 'qty', 'price',
-            'value', 'entry_price', 'outcome_30d', 'outcome_90d', 'outcome_180d',
-            'return_30d', 'return_90d', 'return_180d', 'last_updated'
+            'value', 'entry_price', 'outcome_30d', 'outcome_60d', 'outcome_90d', 'outcome_180d',
+            'return_30d', 'return_60d', 'return_90d', 'return_180d', 'last_updated'
         ])
 
     def _save_trades_history(self):
@@ -257,9 +257,11 @@ class InsiderPerformanceTracker:
                 'value': row.get('value', 0),
                 'entry_price': row.get('price', 0),  # Use purchase price as entry
                 'outcome_30d': None,
+                'outcome_60d': None,  # BUG FIX: Added missing 60d field
                 'outcome_90d': None,
                 'outcome_180d': None,
                 'return_30d': None,
+                'return_60d': None,   # BUG FIX: Added missing 60d field
                 'return_90d': None,
                 'return_180d': None,
                 'last_updated': datetime.now().isoformat()
@@ -274,6 +276,9 @@ class InsiderPerformanceTracker:
             else:
                 self.trades_history = pd.concat([self.trades_history, new_df], ignore_index=True)
             print(f"Added {len(new_trades)} new insider trades to tracking system")
+
+            # CRITICAL BUG FIX: Save to disk to persist changes
+            self._save_trades_history()
 
     def update_outcomes(self, batch_size: int = 50, rate_limit_delay: float = 0.3):
         """
@@ -298,6 +303,7 @@ class InsiderPerformanceTracker:
         # Prioritize trades with missing outcomes
         missing_outcomes = needs_update[
             needs_update['outcome_30d'].isna() |
+            needs_update['outcome_60d'].isna() |  # BUG FIX: Check 60d outcomes
             needs_update['outcome_90d'].isna() |
             needs_update['outcome_180d'].isna()
         ]
@@ -322,9 +328,11 @@ class InsiderPerformanceTracker:
                 if outcomes:
                     # Update the dataframe
                     self.trades_history.loc[idx, 'outcome_30d'] = outcomes.get('price_30d')
+                    self.trades_history.loc[idx, 'outcome_60d'] = outcomes.get('price_60d')  # BUG FIX: Update 60d
                     self.trades_history.loc[idx, 'outcome_90d'] = outcomes.get('price_90d')
                     self.trades_history.loc[idx, 'outcome_180d'] = outcomes.get('price_180d')
                     self.trades_history.loc[idx, 'return_30d'] = outcomes.get('return_30d')
+                    self.trades_history.loc[idx, 'return_60d'] = outcomes.get('return_60d')  # BUG FIX: Update 60d
                     self.trades_history.loc[idx, 'return_90d'] = outcomes.get('return_90d')
                     self.trades_history.loc[idx, 'return_180d'] = outcomes.get('return_180d')
                     self.trades_history.loc[idx, 'last_updated'] = datetime.now().isoformat()
@@ -395,7 +403,8 @@ class InsiderPerformanceTracker:
                 outcomes = {}
 
                 # Calculate outcomes at different time horizons
-                for days, key in [(30, '30d'), (90, '90d'), (180, '180d')]:
+                # BUG FIX: Added 60d to match schema
+                for days, key in [(30, '30d'), (60, '60d'), (90, '90d'), (180, '180d')]:
                     target_date = trade_date_normalized + timedelta(days=days)
 
                     # Find price closest to target date (but after trade date)
