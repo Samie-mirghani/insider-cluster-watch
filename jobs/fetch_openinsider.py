@@ -22,12 +22,12 @@ def fetch_openinsider_recent(max_retries=3):
     Returns:
         DataFrame with insider transaction data
     """
-    # Request last 30 days, focus on purchases
+    # Request last 180 days to ensure enough historical data for 90d outcomes
     params = {
-        'fd': '30',        # Last 30 days
+        'fd': '180',       # Last 180 days (increased from 30 to get older trades)
         'xp': '1',         # Exclude options (we want open market)
         'sortcol': '0',    # Sort by filing date
-        'cnt': '1000',     # Max results
+        'cnt': '5000',     # Max results (increased from 1000)
         'page': '1'        # First page
     }
     
@@ -113,7 +113,9 @@ def fetch_openinsider_recent(max_retries=3):
             
             # Filter out old data
             from datetime import datetime, timedelta
-            cutoff_date = datetime.now() - timedelta(days=60)
+            # Changed from 60 to 200 days to allow for 90d outcome calculation
+            # (180 days of trade age + some buffer for data processing)
+            cutoff_date = datetime.now() - timedelta(days=200)
             df = df[df['trade_date'] >= cutoff_date]
             
             # Map transaction codes to readable format
