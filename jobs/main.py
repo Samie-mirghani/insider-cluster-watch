@@ -16,6 +16,12 @@ from paper_trade import PaperTradingPortfolio
 from news_sentiment import check_news_for_signals
 from paper_trade_monitor import PaperTradingMonitor
 from insider_performance_tracker import InsiderPerformanceTracker
+
+# Continuous insider tracking
+import sys
+sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
+from insider_performance_auto_tracker import AutoInsiderTracker
+
 from config import (
     ENABLE_INSIDER_SCORING, INSIDER_LOOKBACK_YEARS, MIN_TRADES_FOR_INSIDER_SCORE,
     INSIDER_OUTCOME_UPDATE_BATCH_SIZE, INSIDER_API_RATE_LIMIT_DELAY,
@@ -307,6 +313,45 @@ def main(test=False, urgent_test=False, enable_paper_trading=True):
                 print(f"   python bootstrap_insider_history.py --quick-test")
             print()
 
+    # Initialize continuous auto-tracker
+    auto_tracker = None
+    if ENABLE_INSIDER_SCORING:
+        print(f"🔄 Continuous Tracking: Enabled")
+        auto_tracker = AutoInsiderTracker()
+
+        # Run daily update of maturing trades
+        print("\n" + "="*70)
+        print("DAILY BACKGROUND JOB: UPDATING MATURING TRADES")
+        print("="*70)
+        print("Checking for insider trades that have reached 30/60/90/180 day marks...")
+
+        try:
+            update_results = auto_tracker.update_maturing_trades()
+
+            # Update insider profiles if any trades were updated
+            if update_results['updated'] > 0:
+                print("\n📈 Recalculating insider profiles with new outcomes...")
+                auto_tracker.update_insider_profiles()
+
+            # Cleanup old matured trades
+            archived = auto_tracker.cleanup_old_matured_trades(days_old=365)
+
+            print(f"\n{'='*70}")
+            print(f"DAILY UPDATE SUMMARY")
+            print(f"{'='*70}")
+            print(f"  Trades updated: {update_results['updated']}")
+            print(f"  Newly matured: {update_results['matured']}")
+            print(f"  Update failures: {update_results['failed']}")
+            if archived > 0:
+                print(f"  Archived old trades: {archived}")
+            print(f"{'='*70}\n")
+
+        except Exception as e:
+            print(f"⚠️  Daily update job failed: {e}")
+            import traceback
+            traceback.print_exc()
+            print("Continuing with signal detection...\n")
+
     # 1) Fetch insider trading data
     print("📥 Fetching recent insider transactions from OpenInsider...")
     df = fetch_openinsider_recent()
@@ -411,6 +456,37 @@ def main(test=False, urgent_test=False, enable_paper_trading=True):
         patterns = cluster_df[cluster_df['pattern_detected'] != 'None']['pattern_detected'].value_counts()
         if not patterns.empty:
             print(f"   • Patterns: {dict(patterns)}")
+
+    # Track new insider purchases for continuous performance monitoring
+    if auto_tracker and not cluster_df.empty:
+        print("\n🔄 Auto-tracking new insider purchases...")
+
+        # Extract individual buy transactions from the raw data for tracking
+        buys = df[df['trade_type'].str.upper().str.contains('BUY|PURCHASE|P', na=False)].copy()
+
+        tracked_count = 0
+        for _, row in buys.iterrows():
+            # Create signal dict for tracking
+            signal = {
+                'ticker': row.get('ticker'),
+                'insider_name': row.get('insider'),
+                'trade_date': row.get('trade_date'),
+                'price': row.get('price'),
+                'entry_price': row.get('price'),
+                'title': row.get('title', ''),
+                'qty': row.get('qty', 0),
+                'value': row.get('value', 0)
+            }
+
+            # Track if we have the required fields
+            if all([signal['ticker'], signal['insider_name'], signal['trade_date'], signal['price']]):
+                if auto_tracker.track_new_purchase(signal, source="daily_signal_detection"):
+                    tracked_count += 1
+
+        if tracked_count > 0:
+            print(f"   ✅ Added {tracked_count} new purchases to continuous tracking")
+        else:
+            print(f"   ℹ️  No new purchases to track (may already be tracked)")
 
     # 3.5) Short interest analysis
     if SHORT_INTEREST_AVAILABLE and ENABLE_SHORT_INTEREST_ANALYSIS:

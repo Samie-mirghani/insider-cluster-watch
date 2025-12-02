@@ -1,15 +1,34 @@
 """
-Bootstrap Script for Insider Performance Tracking
+bootstrap_insider_history.py - ONE-TIME INITIALIZATION SCRIPT
 
-Populates the insider performance tracker with 2-3 years of historical data
-so that meaningful scores can be calculated immediately.
+⚠️  WARNING: This script should only be run ONCE to initialize
+    historical insider performance data.
 
-Usage:
+    After the initial bootstrap, the system uses CONTINUOUS TRACKING:
+    • New insider purchases are tracked automatically as signals are detected
+    • Daily background jobs update maturing trades (30/60/90 days)
+    • Insider profiles update incrementally without manual intervention
+
+    DO NOT re-run this script unless:
+    1. Starting with a fresh database (no existing data)
+    2. Rebuilding from scratch after data corruption
+    3. Major schema changes requiring full refresh
+
+PURPOSE: Populates the insider performance tracker with 2-3 years of historical
+data so that meaningful scores can be calculated immediately.
+
+USAGE:
+    # First-time initialization
     python bootstrap_insider_history.py --years 3 --batch-size 100
-    python bootstrap_insider_history.py --quick-test  # Test with 10 trades only
 
-WARNING: This will make thousands of API calls and may take 6-12 hours.
+    # Quick test (verify setup before full run)
+    python bootstrap_insider_history.py --quick-test
+
+TIME WARNING: This will make thousands of API calls and may take 6-12 hours.
 Run overnight or in a screen/tmux session.
+
+After bootstrap completes, the continuous tracking system takes over.
+No manual intervention required.
 """
 
 import sys
@@ -443,6 +462,93 @@ def generate_summary_report(tracker: InsiderPerformanceTracker):
     print("="*70 + "\n")
 
 
+def check_existing_data(force: bool = False) -> bool:
+    """
+    Check if data already exists and warn user.
+
+    Args:
+        force: If True, skip confirmation prompts
+
+    Returns:
+        True if should continue, False if should abort
+    """
+    profiles_file = 'data/insider_profiles.json'
+    trades_file = 'data/insider_trades_history.csv'
+
+    has_profiles = os.path.exists(profiles_file)
+    has_trades = os.path.exists(trades_file)
+
+    if not has_profiles and not has_trades:
+        # No existing data - safe to proceed
+        return True
+
+    # Load existing data to check size
+    profile_count = 0
+    trade_count = 0
+
+    if has_profiles:
+        try:
+            with open(profiles_file, 'r') as f:
+                profiles_data = json.load(f)
+                profile_count = len(profiles_data)
+        except Exception:
+            pass
+
+    if has_trades:
+        try:
+            trades_df = pd.read_csv(trades_file)
+            trade_count = len(trades_df)
+        except Exception:
+            pass
+
+    # If we have significant data, warn the user
+    if profile_count > 50 or trade_count > 100:
+        print("\n" + "="*70)
+        print("⚠️  WARNING: EXISTING DATA DETECTED!")
+        print("="*70)
+        print(f"\nFound existing insider performance data:")
+        print(f"  • Insider profiles: {profile_count:,}")
+        print(f"  • Historical trades: {trade_count:,}")
+        print()
+        print("This script is designed for ONE-TIME INITIALIZATION only.")
+        print()
+        print("Re-running will:")
+        print("  ❌ Duplicate existing data")
+        print("  ❌ Waste 6-12 hours re-processing historical trades")
+        print("  ❌ Make thousands of unnecessary API calls")
+        print()
+        print("The continuous tracking system is already active:")
+        print("  ✅ New signals are tracked automatically")
+        print("  ✅ Daily jobs update maturing trades")
+        print("  ✅ Profiles update incrementally")
+        print()
+        print("You should ONLY re-run this if:")
+        print("  1. Rebuilding from scratch after data corruption")
+        print("  2. Major schema changes requiring full refresh")
+        print("  3. Explicitly instructed to do so")
+        print()
+        print("="*70)
+
+        if force:
+            print("\n⚠️  --force flag detected, proceeding anyway...")
+            return True
+
+        print("\nAre you SURE you want to re-run bootstrap?")
+        response = input("Type 'yes I am sure' to continue: ").strip()
+
+        if response == "yes I am sure":
+            print("\n⚠️  Proceeding with re-bootstrap...")
+            return True
+        else:
+            print("\n✅ Bootstrap cancelled - existing data preserved")
+            print("\n💡 To check tracking status, run:")
+            print("   python check_tracking_status.py")
+            return False
+
+    # Small amount of data - might be a test run, proceed with normal confirmation
+    return True
+
+
 def main():
     """Main bootstrap function"""
     parser = argparse.ArgumentParser(
@@ -450,7 +556,7 @@ def main():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  # Full bootstrap (6-12 hours)
+  # Full bootstrap (6-12 hours) - FIRST TIME ONLY
   python bootstrap_insider_history.py --years 3 --batch-size 100
 
   # Quick test (5 minutes)
@@ -458,6 +564,9 @@ Examples:
 
   # Resume from checkpoint
   python bootstrap_insider_history.py --years 3 --resume
+
+  # Force re-run (not recommended)
+  python bootstrap_insider_history.py --force --years 3
         """
     )
     parser.add_argument('--years', type=int, default=3,
@@ -470,6 +579,8 @@ Examples:
                        help='Resume from last checkpoint')
     parser.add_argument('--rate-limit', type=float, default=0.3,
                        help='Delay between API calls in seconds (default: 0.3)')
+    parser.add_argument('--force', action='store_true',
+                       help='Force re-run even if data already exists (not recommended)')
 
     args = parser.parse_args()
 
@@ -477,6 +588,11 @@ Examples:
     print("\n" + "="*70)
     print("INSIDER PERFORMANCE TRACKER - BOOTSTRAP")
     print("="*70)
+
+    # Check for existing data (unless quick-test mode)
+    if not args.quick_test:
+        if not check_existing_data(force=args.force):
+            return
 
     if args.quick_test:
         print("\n🧪 QUICK TEST MODE")
