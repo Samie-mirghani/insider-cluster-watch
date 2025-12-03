@@ -136,9 +136,9 @@ def export_public_data():
                 'win_rate': round(profile.get('win_rate_90d', 0), 1),
                 'avg_return': round(profile.get('avg_return_90d', 0), 1),
                 'total_trades': profile.get('total_trades', 0),
-                'best_trade': round(profile.get('best_trade_90d', 0), 1) if profile.get('best_trade_90d') else None,
-                'worst_trade': round(profile.get('worst_trade_90d', 0), 1) if profile.get('worst_trade_90d') else None,
-                'sharpe_ratio': round(profile.get('sharpe_ratio_90d', 0), 2) if profile.get('sharpe_ratio_90d') else None
+                'best_trade': round(profile.get('best_return_90d', 0), 1) if profile.get('best_return_90d') else None,
+                'worst_trade': round(profile.get('worst_return_90d', 0), 1) if profile.get('worst_return_90d') else None,
+                'sharpe_ratio': round(profile.get('sharpe_90d', 0), 2) if profile.get('sharpe_90d') else None
             }
             public_data['top_performers'].append(performer)
 
