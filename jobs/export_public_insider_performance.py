@@ -115,12 +115,17 @@ def export_public_data():
             print(f"  • {name[:40]:<40} Score: {score:>5.1f} | WR: {win_rate:>5.1f}% | Avg: {avg_return:>+6.1f}% | Trades: {trades}")
 
         # Format for public display
+        # Get data freshness and convert Timestamps to strings
+        data_freshness = tracker.check_data_freshness()
+        if data_freshness.get('last_updated'):
+            data_freshness['last_updated'] = data_freshness['last_updated'].isoformat()
+
         public_data = {
             'last_updated': datetime.now().isoformat(),
             'status': 'OK',
             'total_insiders_tracked': len(tracker.profiles),
             'qualified_performers': len(qualified),
-            'data_freshness': tracker.check_data_freshness(),
+            'data_freshness': data_freshness,
             'top_performers': []
         }
 
@@ -142,7 +147,7 @@ def export_public_data():
         output_path.parent.mkdir(parents=True, exist_ok=True)
 
         with open(output_path, 'w') as f:
-            json.dump(public_data, f, indent=2)
+            json.dump(public_data, f, indent=2, default=str)
 
         print(f"\n✅ Exported {len(top_5)} top performers")
         print(f"   Output: {output_path}")
