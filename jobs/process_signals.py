@@ -43,9 +43,51 @@ TITLE_PRIORITY = {
     'SECRETARY': 32,
 }
 
+def _clean_title_artifacts(title):
+    """
+    Remove common artifacts from insider titles.
+
+    Cleans:
+    - Numeric suffixes: "Ceo(1)" -> "Ceo"
+    - Multiple spaces
+    - Leading/trailing whitespace
+    - Parenthetical numbers indicating multiple roles
+    """
+    import re
+    if not title or not isinstance(title, str):
+        return ''
+
+    # Remove numeric suffixes in parentheses: "Ceo(1)" -> "Ceo"
+    title = re.sub(r'\(\d+\)\s*$', '', title)
+    title = re.sub(r'\(\d+\)', '', title)  # Also remove from middle
+
+    # Remove multiple spaces
+    title = re.sub(r'\s+', ' ', title)
+
+    # Clean up whitespace
+    title = title.strip()
+
+    return title
+
 def normalize_title(title):
+    """
+    Normalize insider title to standard category.
+
+    Handles special cases:
+    - "10%" -> "10% Owner"
+    - "Ceo(1)" -> "CEO"
+    - Various title formats
+    """
     if not title or not isinstance(title, str):
         return 'OFFICER'
+
+    # Clean artifacts first
+    title = _clean_title_artifacts(title)
+
+    # Handle special case: "10%" or similar ownership percentages
+    if title.strip() == '10%' or title.strip().startswith('10%'):
+        return 'OFFICER'  # Categorize as officer for weighting
+
     t = title.upper()
     if 'CEO' in t: return 'CEO'
     if 'CFO' in t: return 'CFO'
@@ -59,13 +101,25 @@ def expand_title(title):
     Expand abbreviated titles to full readable forms.
 
     Examples:
-        "Exec COB" -> "Executive Chairman"
+        "Exec COB" -> "Executive Chairman of the Board"
         "Dir" -> "Director"
         "Pres, CEO" -> "President, CEO"
         "SVP & CFO" -> "Senior Vice President, CFO"
+        "Ceo(1)" -> "CEO"
+        "10%" -> "10% Owner"
     """
     if not title or not isinstance(title, str):
         return "Insider"
+
+    # Clean artifacts first (removes "(1)" suffixes, etc.)
+    title = _clean_title_artifacts(title)
+
+    if not title:
+        return "Insider"
+
+    # Handle special case: "10%" or similar ownership percentages
+    if title.strip() == '10%' or title.strip().startswith('10%'):
+        return "10% Owner"
 
     # Handle "See Remarks" - a placeholder when actual title is in Form 4 remarks
     if "see remarks" in title.lower():
@@ -178,9 +232,92 @@ def get_title_priority(title):
     # Default priority
     return 0
 
+def _extract_entity_base_name(name):
+    """
+    Extract the base entity name from variations like:
+    - "LLC Series U of Um Partners" -> "Um Partners LLC"
+    - "LLC Series R of Um Partners" -> "Um Partners LLC"
+    - "John Doe Trust" -> "John Doe Trust"
+
+    Returns: (base_name, series_info)
+    """
+    import re
+
+    if not name or not isinstance(name, str):
+        return name, None
+
+    # Pattern: "LLC Series X of [Base Name]"
+    # Pattern: "Series X LLC of [Base Name]"
+    # Pattern: "[Base Name] LLC Series X"
+    pattern_llc_series_of = re.compile(
+        r'(?:LLC|LP|L\.P\.|L\.L\.C\.)?\s*(?:Series|Class)\s+([A-Z0-9]+)\s+(?:of|Of|OF)\s+(.+)',
+        re.IGNORECASE
+    )
+
+    match = pattern_llc_series_of.search(name)
+    if match:
+        series = match.group(1)
+        base = match.group(2).strip()
+
+        # Normalize base name
+        # Add LLC/LP suffix if not present
+        if not re.search(r'\b(?:LLC|LP|L\.P\.|L\.L\.C\.|Trust|Partners)\b', base, re.IGNORECASE):
+            # Check what type it was originally
+            if 'LLC' in name.upper() or 'L.L.C' in name.upper():
+                base = f"{base} LLC"
+            elif 'LP' in name.upper() or 'L.P' in name.upper():
+                base = f"{base} LP"
+            elif 'PARTNERS' in name.upper():
+                base = f"{base} Partners"
+
+        return base, series
+
+    # Pattern: "[Base Name] Series X LLC"
+    pattern_base_series = re.compile(
+        r'(.+?)\s+(?:Series|Class)\s+([A-Z0-9]+)\s*(?:LLC|LP|L\.P\.|L\.L\.C\.)?',
+        re.IGNORECASE
+    )
+
+    match = pattern_base_series.search(name)
+    if match:
+        base = match.group(1).strip()
+        series = match.group(2)
+
+        # Add entity type suffix
+        if not re.search(r'\b(?:LLC|LP|L\.P\.|L\.L\.C\.|Trust|Partners)\b', base, re.IGNORECASE):
+            if 'LLC' in name.upper() or 'L.L.C' in name.upper():
+                base = f"{base} LLC"
+            elif 'LP' in name.upper() or 'L.P' in name.upper():
+                base = f"{base} LP"
+
+        return base, series
+
+    # No series detected
+    return name, None
+
+def _should_group_entities(name1, name2):
+    """
+    Check if two insider names should be grouped together.
+
+    Returns True if they appear to be the same entity with different series.
+    """
+    base1, series1 = _extract_entity_base_name(name1)
+    base2, series2 = _extract_entity_base_name(name2)
+
+    # If both have series info and same base name, they should be grouped
+    if series1 and series2 and base1 and base2:
+        # Normalize for comparison
+        base1_norm = base1.lower().strip()
+        base2_norm = base2.lower().strip()
+        return base1_norm == base2_norm
+
+    return False
+
 def format_insiders_structured(window_df, limit=3):
     """
     Create a structured list of insiders with proper formatting.
+
+    NEW: Groups related entities (e.g., multiple LLC series) together.
 
     Returns:
         - insiders_display: HTML-formatted string for email display
@@ -190,7 +327,7 @@ def format_insiders_structured(window_df, limit=3):
     if window_df.empty:
         return "", [], ""
 
-    # Deduplicate by insider name and collect all titles
+    # First pass: Deduplicate by insider name and collect all titles
     insider_map = {}
 
     for _, row in window_df.iterrows():
@@ -203,7 +340,8 @@ def format_insiders_structured(window_df, limit=3):
                 'name': name,
                 'titles': set(),
                 'total_value': 0,
-                'max_priority': 0
+                'max_priority': 0,
+                'series': []  # Track series information
             }
 
         insider_map[name]['titles'].add(title)
@@ -213,11 +351,71 @@ def format_insiders_structured(window_df, limit=3):
             get_title_priority(title)
         )
 
+    # Second pass: Group related entities (e.g., multiple LLC series)
+    grouped_map = {}
+    processed = set()
+
+    for name1 in insider_map.keys():
+        if name1 in processed:
+            continue
+
+        # Extract base name and series info
+        base_name, series_info = _extract_entity_base_name(name1)
+
+        # Find all related entities
+        related = [name1]
+        for name2 in insider_map.keys():
+            if name1 != name2 and name2 not in processed:
+                if _should_group_entities(name1, name2):
+                    related.append(name2)
+                    processed.add(name2)
+
+        # Create grouped entry
+        if len(related) > 1:
+            # Multiple series - group them
+            total_value = sum(insider_map[n]['total_value'] for n in related)
+            all_titles = set()
+            for n in related:
+                all_titles.update(insider_map[n]['titles'])
+
+            # Extract series info for display
+            series_list = []
+            for n in related:
+                _, s = _extract_entity_base_name(n)
+                if s:
+                    series_list.append({
+                        'series': s,
+                        'value': insider_map[n]['total_value']
+                    })
+
+            grouped_map[base_name] = {
+                'name': base_name,
+                'titles': all_titles,
+                'total_value': total_value,
+                'max_priority': max(insider_map[n]['max_priority'] for n in related),
+                'series': sorted(series_list, key=lambda x: x['value'], reverse=True),
+                'is_grouped': True
+            }
+            processed.add(name1)
+        else:
+            # Single entity - use as-is
+            grouped_map[name1] = insider_map[name1]
+            grouped_map[name1]['is_grouped'] = False
+            processed.add(name1)
+
+    # Use grouped map for further processing
+    insider_map = grouped_map
+
     # Convert to list and sort by title importance
     insiders_list = []
     for name, data in insider_map.items():
-        # Normalize name
-        normalized_name = normalize_name(name)
+        # Normalize name (but preserve for grouped entities)
+        if data.get('is_grouped'):
+            # For grouped entities, use the base name as-is
+            normalized_name = name
+        else:
+            # For individual insiders, normalize the name
+            normalized_name = normalize_name(name)
 
         # Expand and combine titles
         expanded_titles = [expand_title(t) for t in data['titles']]
@@ -231,12 +429,16 @@ def format_insiders_structured(window_df, limit=3):
 
         combined_titles = ', '.join(unique_titles)
 
-        insiders_list.append({
+        insider_entry = {
             'name': normalized_name,
             'title': combined_titles,
             'value': data['total_value'],
-            'priority': data['max_priority']
-        })
+            'priority': data['max_priority'],
+            'is_grouped': data.get('is_grouped', False),
+            'series': data.get('series', [])
+        }
+
+        insiders_list.append(insider_entry)
 
     # Sort by priority (highest first)
     insiders_list.sort(key=lambda x: x['priority'], reverse=True)
@@ -249,7 +451,15 @@ def format_insiders_structured(window_df, limit=3):
     insiders_data = display_insiders
 
     # Plain text version (backward compatibility)
-    plain_parts = [f"{i['name']} ({i['title']})" for i in display_insiders]
+    plain_parts = []
+    for i in display_insiders:
+        if i.get('is_grouped') and i.get('series'):
+            # Show grouped entity with series breakdown
+            series_count = len(i['series'])
+            plain_parts.append(f"{i['name']} ({i['title']}, {series_count} series)")
+        else:
+            plain_parts.append(f"{i['name']} ({i['title']})")
+
     if total_count > limit:
         plain_parts.append(f"...and {total_count - limit} more")
     insiders_plain = ", ".join(plain_parts)
@@ -264,61 +474,125 @@ def compute_conviction_score(value, role_weight):
     # log-scale dollar weight times role weight
     return math.log1p(max(value, 0)) * role_weight
 
+def _is_valid_field(value):
+    """
+    Check if a field value is valid (not None, NaN, or string 'nan'/'null').
+
+    Returns True if valid, False otherwise.
+    """
+    if value is None:
+        return False
+    if isinstance(value, str):
+        value_lower = value.lower().strip()
+        if value_lower in ['nan', 'null', 'none', '', 'n/a']:
+            return False
+    if pd.isna(value):
+        return False
+    return True
+
 def enrich_with_market_data(cluster_df):
     """
     Uses yfinance (free) to add currentPrice, marketCap, fiftyTwoWeekLow to cluster_df.
 
     NEW: Also adds sector, industry, and volume data for quality filtering
     NEW: Float analysis - adds sharesOutstanding, floatShares for impact calculation
+    NEW: Validates all fields to avoid 'nan' values in output
+    NEW: Retry logic for Yahoo Finance failures
     """
     import warnings
     import logging
-    
+
     # Suppress yfinance warnings and errors
     warnings.filterwarnings('ignore')
     logging.getLogger('yfinance').setLevel(logging.CRITICAL)
-    
+
     tickers = cluster_df['ticker'].unique().tolist()
     info = {}
-    
+
     print(f"   Fetching market data for {len(tickers)} tickers...")
     successful = 0
     failed = 0
-    
+
     for t in tickers:
-        try:
-            ticker_obj = yf.Ticker(t)
-            q = ticker_obj.info
-            
-            if q and 'currentPrice' in q:
-                info[t] = {
-                    'currentPrice': q.get('currentPrice'),
-                    'marketCap': q.get('marketCap'),
-                    'fiftyTwoWeekLow': q.get('fiftyTwoWeekLow'),
-                    'fiftyTwoWeekHigh': q.get('fiftyTwoWeekHigh'),
+        max_retries = 2
+        retry_count = 0
+        ticker_info = None
+
+        while retry_count <= max_retries and ticker_info is None:
+            try:
+                ticker_obj = yf.Ticker(t)
+                q = ticker_obj.info
+
+                if q and 'currentPrice' in q:
+                    # Build info dict with validated fields
+                    ticker_info = {}
+
+                    # Price and market data
+                    if _is_valid_field(q.get('currentPrice')):
+                        ticker_info['currentPrice'] = q.get('currentPrice')
+                    if _is_valid_field(q.get('marketCap')):
+                        ticker_info['marketCap'] = q.get('marketCap')
+                    if _is_valid_field(q.get('fiftyTwoWeekLow')):
+                        ticker_info['fiftyTwoWeekLow'] = q.get('fiftyTwoWeekLow')
+                    if _is_valid_field(q.get('fiftyTwoWeekHigh')):
+                        ticker_info['fiftyTwoWeekHigh'] = q.get('fiftyTwoWeekHigh')
+
                     # Company name
-                    'company': q.get('longName') or q.get('shortName') or t,
-                    # NEW: Sector and industry info
-                    'sector': q.get('sector', 'Unknown'),
-                    'industry': q.get('industry', 'Unknown'),
-                    # NEW: Liquidity data
-                    'averageVolume': q.get('averageVolume', 0),
-                    'averageVolume10days': q.get('averageVolume10days', 0),
-                    # NEW: Float analysis data
-                    'sharesOutstanding': q.get('sharesOutstanding'),
-                    'floatShares': q.get('floatShares'),
-                }
-                successful += 1
-            else:
-                # No data available, use empty dict
-                info[t] = {'sector': 'Unknown', 'industry': 'Unknown', 'company': t}
-                failed += 1
-            time.sleep(0.5)
-        except Exception as e:
-            # Silently skip tickers that fail (404, invalid, etc)
-            info[t] = {'sector': 'Unknown', 'industry': 'Unknown', 'company': t}
-            failed += 1
-    
+                    company = q.get('longName') or q.get('shortName')
+                    ticker_info['company'] = company if _is_valid_field(company) else t
+
+                    # Sector and industry - only include if valid
+                    sector = q.get('sector')
+                    if _is_valid_field(sector):
+                        ticker_info['sector'] = sector
+
+                    industry = q.get('industry')
+                    if _is_valid_field(industry):
+                        ticker_info['industry'] = industry
+
+                    # Liquidity data
+                    avg_vol = q.get('averageVolume', 0)
+                    ticker_info['averageVolume'] = avg_vol if _is_valid_field(avg_vol) else 0
+
+                    avg_vol_10d = q.get('averageVolume10days', 0)
+                    ticker_info['averageVolume10days'] = avg_vol_10d if _is_valid_field(avg_vol_10d) else 0
+
+                    # Float analysis data
+                    shares_out = q.get('sharesOutstanding')
+                    if _is_valid_field(shares_out):
+                        ticker_info['sharesOutstanding'] = shares_out
+
+                    float_shares = q.get('floatShares')
+                    if _is_valid_field(float_shares):
+                        ticker_info['floatShares'] = float_shares
+
+                    info[t] = ticker_info
+                    successful += 1
+                else:
+                    # No data available after retries
+                    if retry_count < max_retries:
+                        retry_count += 1
+                        time.sleep(1.0 * retry_count)  # Exponential backoff
+                        continue
+                    else:
+                        # Use minimal fallback
+                        info[t] = {'company': t}
+                        failed += 1
+                        break
+
+                time.sleep(0.5)
+                break  # Success, exit retry loop
+
+            except Exception as e:
+                if retry_count < max_retries:
+                    retry_count += 1
+                    time.sleep(1.0 * retry_count)  # Exponential backoff
+                else:
+                    # Silently skip tickers that fail (404, invalid, etc)
+                    info[t] = {'company': t}
+                    failed += 1
+                    break
+
     print(f"   Market data: {successful} successful, {failed} failed/unavailable")
 
     cluster_df['currentPrice'] = cluster_df['ticker'].map(lambda x: info.get(x, {}).get('currentPrice'))
@@ -329,9 +603,9 @@ def enrich_with_market_data(cluster_df):
     # Add company name
     cluster_df['company'] = cluster_df['ticker'].map(lambda x: info.get(x, {}).get('company', x))
 
-    # NEW: Add sector and industry
-    cluster_df['sector'] = cluster_df['ticker'].map(lambda x: info.get(x, {}).get('sector', 'Unknown'))
-    cluster_df['industry'] = cluster_df['ticker'].map(lambda x: info.get(x, {}).get('industry', 'Unknown'))
+    # NEW: Add sector and industry - only if valid (None if not available)
+    cluster_df['sector'] = cluster_df['ticker'].map(lambda x: info.get(x, {}).get('sector'))
+    cluster_df['industry'] = cluster_df['ticker'].map(lambda x: info.get(x, {}).get('industry'))
 
     # NEW: Add volume data
     cluster_df['averageVolume'] = cluster_df['ticker'].map(lambda x: info.get(x, {}).get('averageVolume', 0))
@@ -977,9 +1251,10 @@ def build_rationale(r):
     if r.get('pct_from_52wk_low') is not None:
         parts.append(f"{r.get('pct_from_52wk_low'):.1f}% above 52-week low")
 
-    # NEW: Add sector info
-    if r.get('sector') and r.get('sector') != 'Unknown':
-        parts.append(f"Sector: {r.get('sector')}")
+    # NEW: Add sector info (only if valid)
+    sector = r.get('sector')
+    if sector and _is_valid_field(sector):
+        parts.append(f"Sector: {sector}")
 
     # NEW: Add float impact if significant
     pct_of_float = r.get('pct_of_float')

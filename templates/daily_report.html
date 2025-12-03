@@ -304,7 +304,7 @@
                       <span style="background: #8b5cf6; color: white; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 600; display: inline-block;" title="Confirmed by recent politician trading activity">🏛️ POLITICIAN</span>
                       {% endif %}
 
-                      {% if item.sector and item.sector != 'Unknown' %}
+                      {% if item.sector and item.sector not in [none, None, 'Unknown', 'nan', 'N/A'] %}
                       <span style="background: #e3f2fd; color: #1976d2; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 600; display: inline-block;">🏢 {{ item.sector }}</span>
                       {% endif %}
 
@@ -424,7 +424,7 @@
                               <tr>
                                 <td style="padding: 0;">
                                   <div style="color: #856404; font-size: 14px; font-weight: 600; line-height: 1.4;">
-                                    {{ insider.name }}
+                                    {{ insider.name }}{% if insider.is_grouped and insider.series and insider.series|length > 1 %} <span style="font-size: 11px; opacity: 0.8;">({{ insider.series|length }} series)</span>{% endif %}
                                   </div>
                                   <div style="color: #856404; font-size: 12px; line-height: 1.4; margin-top: 2px;">
                                     {{ insider.title }}
@@ -438,9 +438,26 @@
                                         {% else %}
                                           ${{ "{:,.0f}".format(insider.value) }}
                                         {% endif %}
+                                        {% if insider.is_grouped and insider.series and insider.series|length > 1 %} total{% endif %}
                                       </span>
                                     {% endif %}
                                   </div>
+                                  {% if insider.is_grouped and insider.series and insider.series|length > 1 %}
+                                  <div style="color: #856404; font-size: 11px; margin-top: 4px; margin-left: 12px; opacity: 0.85;">
+                                    {% for s in insider.series %}
+                                    <div style="line-height: 1.5;">
+                                      ├─ Series {{ s.series }}:
+                                      {% if s.value >= 1000000 %}
+                                        ${{ "{:.1f}".format(s.value/1000000) }}M
+                                      {% elif s.value >= 1000 %}
+                                        ${{ "{:.0f}".format(s.value/1000) }}K
+                                      {% else %}
+                                        ${{ "{:,.0f}".format(s.value) }}
+                                      {% endif %}
+                                    </div>
+                                    {% endfor %}
+                                  </div>
+                                  {% endif %}
                                   {% if insider.track_record %}
                                   <div style="color: #856404; font-size: 11px; font-style: italic; margin-top: 2px; opacity: 0.9;">
                                     Track Record: {{ insider.track_record }}
