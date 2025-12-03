@@ -35,16 +35,18 @@ class InsiderPerformanceTracker:
     Tracks and analyzes individual insider trading performance over time.
     """
 
-    def __init__(self, lookback_years: int = 3, min_trades_for_score: int = 3):
+    def __init__(self, lookback_years: int = 3, min_trades_for_score: int = 3, verbose: bool = False):
         """
         Initialize the tracker.
 
         Args:
             lookback_years: How many years of history to analyze (default: 3)
             min_trades_for_score: Minimum trades needed to calculate a reliable score (default: 3)
+            verbose: Enable verbose logging (default: False)
         """
         self.lookback_years = lookback_years
         self.min_trades_for_score = min_trades_for_score
+        self.verbose = verbose
         self.name_mapping = self._load_name_mapping()  # Maps raw names to canonical names
         self.profiles = self._load_profiles()
         self.trades_history = self._load_trades_history()
@@ -275,7 +277,10 @@ class InsiderPerformanceTracker:
                 self.trades_history = new_df
             else:
                 self.trades_history = pd.concat([self.trades_history, new_df], ignore_index=True)
-            print(f"Added {len(new_trades)} new insider trades to tracking system")
+
+            # Only print summary when adding multiple trades or in verbose mode
+            if self.verbose or len(new_trades) > 5:
+                print(f"Added {len(new_trades)} new insider trades to tracking system")
 
             # CRITICAL BUG FIX: Save to disk to persist changes
             self._save_trades_history()
@@ -864,18 +869,19 @@ class InsiderPerformanceTracker:
         }
 
 
-def create_tracker(lookback_years: int = 3, min_trades: int = 3) -> InsiderPerformanceTracker:
+def create_tracker(lookback_years: int = 3, min_trades: int = 3, verbose: bool = False) -> InsiderPerformanceTracker:
     """
     Convenience function to create a tracker instance.
 
     Args:
         lookback_years: Years of history to analyze
         min_trades: Minimum trades for scoring
+        verbose: Enable verbose logging
 
     Returns:
         InsiderPerformanceTracker instance
     """
-    return InsiderPerformanceTracker(lookback_years, min_trades)
+    return InsiderPerformanceTracker(lookback_years, min_trades, verbose)
 
 
 if __name__ == '__main__':

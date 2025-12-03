@@ -46,15 +46,17 @@ class AutoInsiderTracker:
     without manual intervention.
     """
 
-    def __init__(self, data_dir: str = "data"):
+    def __init__(self, data_dir: str = "data", verbose: bool = False):
         """
         Initialize the auto-tracker.
 
         Args:
             data_dir: Directory for data storage
+            verbose: Enable verbose logging (default: False)
         """
         self.data_dir = Path(data_dir)
         self.data_dir.mkdir(parents=True, exist_ok=True)
+        self.verbose = verbose
 
         # Tracking database file
         self.tracking_db_file = self.data_dir / "insider_tracking_queue.json"
@@ -65,9 +67,10 @@ class AutoInsiderTracker:
         # Load tracking queue
         self.tracking_queue = self._load_tracking_queue()
 
-        print(f"🔄 Auto-Tracker initialized")
-        print(f"   Currently tracking: {len(self._get_active_tracks())} trades")
-        print(f"   Matured trades: {len(self._get_matured_tracks())}")
+        if self.verbose:
+            print(f"🔄 Auto-Tracker initialized")
+            print(f"   Currently tracking: {len(self._get_active_tracks())} trades")
+            print(f"   Matured trades: {len(self._get_matured_tracks())}")
 
     def _load_tracking_queue(self) -> List[Dict]:
         """Load the tracking queue from disk"""
@@ -128,7 +131,8 @@ class AutoInsiderTracker:
             trade_id = f"{ticker}_{insider_name}_{trade_date}"
             existing = [t for t in self.tracking_queue if t.get('trade_id') == trade_id]
             if existing:
-                print(f"   Already tracking {trade_id}")
+                if self.verbose:
+                    print(f"   Already tracking {trade_id}")
                 return True
 
             # Create tracking record
@@ -180,7 +184,8 @@ class AutoInsiderTracker:
 
             self.tracker.add_trades(trade_df)
 
-            print(f"✅ Now tracking: {ticker} - {insider_name} (${entry_price:.2f})")
+            if self.verbose:
+                print(f"✅ Now tracking: {ticker} - {insider_name} (${entry_price:.2f})")
             return True
 
         except Exception as e:

@@ -1,8 +1,65 @@
 {
-  "last_updated": "2025-12-03T12:05:44.855756",
-  "status": "ERROR",
-  "message": "Export failed: Object of type Timestamp is not JSON serializable",
-  "total_insiders_tracked": 0,
-  "qualified_performers": 0,
-  "top_performers": []
+  "last_updated": "2025-12-03T17:58:58.440970",
+  "status": "OK",
+  "total_insiders_tracked": 200,
+  "qualified_performers": 36,
+  "data_freshness": {
+    "is_fresh": true,
+    "last_updated": "2025-12-03T12:00:00",
+    "age_days": 0.5,
+    "status": "OK",
+    "message": "Data is fresh"
+  },
+  "top_performers": [
+    {
+      "name": "Billingsley Chester",
+      "score": 100.0,
+      "win_rate": 100.0,
+      "avg_return": 89.3,
+      "total_trades": 24,
+      "best_trade": 120.0,
+      "worst_trade": 66.7,
+      "sharpe_ratio": 4.54
+    },
+    {
+      "name": "Inc Ctt Pharmaceutical Holdings",
+      "score": 100.0,
+      "win_rate": 100.0,
+      "avg_return": 72.5,
+      "total_trades": 7,
+      "best_trade": 103.9,
+      "worst_trade": 27.3,
+      "sharpe_ratio": 2.58
+    },
+    {
+      "name": "Piconi Robert",
+      "score": 100.0,
+      "win_rate": 100.0,
+      "avg_return": 87.0,
+      "total_trades": 5,
+      "best_trade": 94.7,
+      "worst_trade": 79.2,
+      "sharpe_ratio": 7.9
+    },
+    {
+      "name": "Topper James N",
+      "score": 100.0,
+      "win_rate": 100.0,
+      "avg_return": 44.5,
+      "total_trades": 5,
+      "best_trade": 62.5,
+      "worst_trade": 23.7,
+      "sharpe_ratio": 2.27
+    },
+    {
+      "name": "Salvucci Joseph V",
+      "score": 100.0,
+      "win_rate": 100.0,
+      "avg_return": 27.8,
+      "total_trades": 7,
+      "best_trade": 36.9,
+      "worst_trade": 13.5,
+      "sharpe_ratio": 2.64
+    }
+  ]
 }

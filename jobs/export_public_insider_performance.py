@@ -115,12 +115,17 @@ def export_public_data():
             print(f"  • {name[:40]:<40} Score: {score:>5.1f} | WR: {win_rate:>5.1f}% | Avg: {avg_return:>+6.1f}% | Trades: {trades}")
 
         # Format for public display
+        # Get data freshness and convert Timestamps to strings
+        data_freshness = tracker.check_data_freshness()
+        if data_freshness.get('last_updated'):
+            data_freshness['last_updated'] = data_freshness['last_updated'].isoformat()
+
         public_data = {
             'last_updated': datetime.now().isoformat(),
             'status': 'OK',
             'total_insiders_tracked': len(tracker.profiles),
             'qualified_performers': len(qualified),
-            'data_freshness': tracker.check_data_freshness(),
+            'data_freshness': data_freshness,
             'top_performers': []
         }
 
@@ -131,9 +136,9 @@ def export_public_data():
                 'win_rate': round(profile.get('win_rate_90d', 0), 1),
                 'avg_return': round(profile.get('avg_return_90d', 0), 1),
                 'total_trades': profile.get('total_trades', 0),
-                'best_trade': round(profile.get('best_trade_90d', 0), 1) if profile.get('best_trade_90d') else None,
-                'worst_trade': round(profile.get('worst_trade_90d', 0), 1) if profile.get('worst_trade_90d') else None,
-                'sharpe_ratio': round(profile.get('sharpe_ratio_90d', 0), 2) if profile.get('sharpe_ratio_90d') else None
+                'best_trade': round(profile.get('best_return_90d', 0), 1) if profile.get('best_return_90d') else None,
+                'worst_trade': round(profile.get('worst_return_90d', 0), 1) if profile.get('worst_return_90d') else None,
+                'sharpe_ratio': round(profile.get('sharpe_90d', 0), 2) if profile.get('sharpe_90d') else None
             }
             public_data['top_performers'].append(performer)
 
@@ -142,7 +147,7 @@ def export_public_data():
         output_path.parent.mkdir(parents=True, exist_ok=True)
 
         with open(output_path, 'w') as f:
-            json.dump(public_data, f, indent=2)
+            json.dump(public_data, f, indent=2, default=str)
 
         print(f"\n✅ Exported {len(top_5)} top performers")
         print(f"   Output: {output_path}")
