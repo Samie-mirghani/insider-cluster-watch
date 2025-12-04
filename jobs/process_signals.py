@@ -1150,10 +1150,13 @@ def cluster_and_score(df, window_days=5, top_n=50, insider_tracker=None):
 
     # Sort by rank score and return top N
     result = cluster_df.sort_values('rank_score', ascending=False).head(top_n)
-        
+
     # Filter out very low quality signals
     result = result[result['rank_score'] >= 3.0]
-        
+
+    # CRITICAL: Sanitize NaN values before returning to prevent "nan" from appearing in email templates
+    result = sanitize_nan_values(result)
+
     return result
 
 # Default urgent thresholds (feel free to tune)
@@ -1241,6 +1244,26 @@ def suggest_action(r):
     
     # Default
     return "Monitor"
+
+def sanitize_nan_values(df):
+    """
+    Replace all NaN, inf, and invalid values with None to prevent 'nan' from appearing in templates.
+
+    This ensures that when DataFrames are converted to dicts and passed to Jinja2 templates,
+    NaN values appear as None/null rather than the string 'nan'.
+    """
+    if df.empty:
+        return df
+
+    # Replace NaN and inf with None
+    df = df.replace({pd.NA: None, pd.NaT: None, float('nan'): None, float('inf'): None, float('-inf'): None})
+
+    # Additionally clean specific problematic columns
+    for col in df.columns:
+        # Replace pandas NaN values with None
+        df[col] = df[col].apply(lambda x: None if pd.isna(x) else x)
+
+    return df
 
 def build_rationale(r):
     parts = []
