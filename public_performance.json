@@ -1,127 +1,111 @@
 {
-  "last_updated": "December 03, 2025 at 12:05 UTC",
-  "total_return_pct": 0.45,
-  "win_rate": 50.0,
-  "completed_trades": 2,
-  "active_trades": 10,
-  "avg_return_per_trade": -0.8,
-  "sharpe_ratio": -1.27,
+  "last_updated": "December 04, 2025 at 12:45 UTC",
+  "total_return_pct": 1.82,
+  "win_rate": 100.0,
+  "completed_trades": 1,
+  "active_trades": 9,
+  "avg_return_per_trade": 8.53,
+  "sharpe_ratio": 0.0,
   "max_drawdown": -8.75,
-  "avg_hold_days": 3,
-  "best_trade_pct": 9.27,
-  "worst_trade_pct": -10.87,
-  "alpha_vs_sp500": 0.67,
-  "avg_winner": 9.27,
-  "avg_loser": -10.87,
-  "win_loss_ratio": 0.85,
-  "profit_factor": 0.85,
-  "last_30_days_return": -1.6,
-  "last_10_trades_win_rate": 50.0,
+  "avg_hold_days": 20,
+  "best_trade_pct": 8.53,
+  "worst_trade_pct": 8.53,
+  "alpha_vs_sp500": 1.69,
+  "avg_winner": 8.53,
+  "avg_loser": 0.0,
+  "win_loss_ratio": 0.0,
+  "profit_factor": 0.0,
+  "last_30_days_return": 8.53,
+  "last_10_trades_win_rate": 100.0,
   "current_streak": 1,
   "current_streak_type": "wins",
   "conviction_performance": [
     {
       "conviction": "VERY HIGH",
-      "trades": 2,
-      "win_rate": 50.0,
-      "avg_return": -0.8
+      "trades": 1,
+      "win_rate": 100.0,
+      "avg_return": 8.53
     }
   ],
   "monthly_returns": [
     {
       "month": "2025-12",
-      "return": -1.6
+      "return": 8.53
     }
   ],
   "recent_trades": [
     {
-      "ticker": "FOSL",
-      "entry_date": "Dec 02, 2025",
-      "exit_date": "Dec 03, 2025",
-      "hold_days": 1,
-      "return_pct": 9.27,
+      "ticker": "MTDR",
+      "entry_date": "Nov 14, 2025",
+      "exit_date": "Dec 04, 2025",
+      "hold_days": 20,
+      "return_pct": 8.53,
       "conviction": "VERY HIGH",
       "exit_reason": "Take Profit"
-    },
-    {
-      "ticker": "GLOO",
-      "entry_date": "Nov 28, 2025",
-      "exit_date": "Dec 03, 2025",
-      "hold_days": 5,
-      "return_pct": -10.87,
-      "conviction": "VERY HIGH",
-      "exit_reason": "Stop Loss"
     }
   ],
   "open_positions": [
     {
       "ticker": "VRSK",
       "entry_date": "Nov 11, 2025",
-      "days_held": 22,
-      "unrealized_return": 5.59,
+      "days_held": 23,
+      "unrealized_return": 5.42,
       "conviction": "MEDIUM"
-    },
-    {
-      "ticker": "MTDR",
-      "entry_date": "Nov 14, 2025",
-      "days_held": 19,
-      "unrealized_return": 5.27,
-      "conviction": "VERY HIGH"
     },
     {
       "ticker": "CBC",
       "entry_date": "Nov 26, 2025",
-      "days_held": 7,
-      "unrealized_return": -3.69,
+      "days_held": 8,
+      "unrealized_return": -0.78,
       "conviction": "VERY HIGH"
     },
     {
       "ticker": "VAC",
       "entry_date": "Nov 26, 2025",
-      "days_held": 7,
-      "unrealized_return": 0.09,
+      "days_held": 8,
+      "unrealized_return": 1.23,
       "conviction": "VERY HIGH"
     },
     {
       "ticker": "SVCO",
       "entry_date": "Nov 27, 2025",
-      "days_held": 6,
-      "unrealized_return": -0.45,
+      "days_held": 7,
+      "unrealized_return": 4.54,
       "conviction": "HIGH"
     },
     {
       "ticker": "ARX",
       "entry_date": "Nov 27, 2025",
-      "days_held": 6,
-      "unrealized_return": -0.41,
+      "days_held": 7,
+      "unrealized_return": -3.02,
       "conviction": "HIGH"
     },
     {
       "ticker": "AISP",
       "entry_date": "Nov 28, 2025",
-      "days_held": 5,
-      "unrealized_return": -2.16,
+      "days_held": 6,
+      "unrealized_return": 4.48,
       "conviction": "HIGH"
     },
     {
       "ticker": "HPP",
       "entry_date": "Dec 03, 2025",
-      "days_held": 0,
-      "unrealized_return": 0.0,
+      "days_held": 1,
+      "unrealized_return": -1.9,
       "conviction": "VERY HIGH"
     },
     {
       "ticker": "WSBC",
       "entry_date": "Dec 03, 2025",
-      "days_held": 0,
-      "unrealized_return": 0.0,
+      "days_held": 1,
+      "unrealized_return": 2.94,
       "conviction": "VERY HIGH"
     },
     {
       "ticker": "EMN",
       "entry_date": "Dec 03, 2025",
-      "days_held": 0,
-      "unrealized_return": 0.0,
+      "days_held": 1,
+      "unrealized_return": 0.95,
       "conviction": "VERY HIGH"
     }
   ]

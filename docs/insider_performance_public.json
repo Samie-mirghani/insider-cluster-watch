@@ -1,14 +1,14 @@
 {
-  "last_updated": "2025-12-03T17:58:58.440970",
+  "last_updated": "2025-12-04T12:45:32.236018",
   "status": "OK",
   "total_insiders_tracked": 200,
   "qualified_performers": 36,
   "data_freshness": {
-    "is_fresh": true,
-    "last_updated": "2025-12-03T12:00:00",
-    "age_days": 0.5,
-    "status": "OK",
-    "message": "Data is fresh"
+    "is_fresh": false,
+    "last_updated": "2025-10-31T00:00:00",
+    "age_days": 34.531623101331014,
+    "status": "STALE",
+    "message": "\u274c Data is STALE (last updated 34.5 days ago). Update NOW!"
   },
   "top_performers": [
     {
