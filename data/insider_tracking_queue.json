@@ -6155,14 +6155,18 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:45:53.526723",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:26:27.860427",
+    "last_updated": "2025-12-08T11:26:38.651041",
     "outcomes": {
       "30d": {
         "price": 24.3799991607666,
         "return": 0.041030614553141435,
         "date": "2025-11-05"
       },
-      "60d": null,
+      "60d": {
+        "price": 24.600000381469727,
+        "return": 0.9437849054974378,
+        "date": "2025-12-05"
+      },
       "90d": null,
       "180d": null
     }
@@ -7339,9 +7343,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:45:54.198999",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:45:54.199002",
+    "last_updated": "2025-12-08T11:26:39.326387",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 1.2799999713897705,
+        "return": 14.285711731229501,
+        "date": "2025-12-05"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -23083,9 +23091,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:10.535038",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:10.535041",
+    "last_updated": "2025-12-08T11:27:46.761887",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 28.389999389648438,
+        "return": -13.917527623867676,
+        "date": "2025-12-05"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -23103,9 +23115,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:10.564208",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:10.564210",
+    "last_updated": "2025-12-08T11:27:47.369743",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 28.389999389648438,
+        "return": -16.500001795151654,
+        "date": "2025-12-05"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -23123,9 +23139,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:10.593389",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:10.593392",
+    "last_updated": "2025-12-08T11:27:47.938467",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 28.389999389648438,
+        "return": -16.500001795151654,
+        "date": "2025-12-05"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -23143,9 +23163,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:10.622472",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:10.622475",
+    "last_updated": "2025-12-08T11:27:48.547173",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 28.389999389648438,
+        "return": -16.500001795151654,
+        "date": "2025-12-05"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -23163,9 +23187,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:10.651992",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:10.651995",
+    "last_updated": "2025-12-08T11:27:49.109144",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 28.389999389648438,
+        "return": -16.500001795151654,
+        "date": "2025-12-05"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -23183,9 +23211,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:10.681289",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:10.681291",
+    "last_updated": "2025-12-08T11:27:49.677112",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 28.389999389648438,
+        "return": -16.500001795151654,
+        "date": "2025-12-05"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -23203,9 +23235,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:10.710444",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:10.710448",
+    "last_updated": "2025-12-08T11:27:50.281945",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 28.389999389648438,
+        "return": -16.500001795151654,
+        "date": "2025-12-05"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -23263,9 +23299,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:10.799025",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:10.799027",
+    "last_updated": "2025-12-08T11:27:52.171537",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 0.9010000228881836,
+        "return": -98.87374997138977,
+        "date": "2025-12-05"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -23283,9 +23323,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:10.829273",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:10.829275",
+    "last_updated": "2025-12-08T11:27:52.884454",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 19.40999984741211,
+        "return": 11.680091181887862,
+        "date": "2025-12-05"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -23343,9 +23387,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:10.918415",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:10.918418",
+    "last_updated": "2025-12-08T11:27:54.962053",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 177.5399932861328,
+        "return": 4.799004359915481,
+        "date": "2025-12-05"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -23363,9 +23411,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:10.948218",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:10.948221",
+    "last_updated": "2025-12-08T11:27:55.631425",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 3.140000104904175,
+        "return": -16.710872548960882,
+        "date": "2025-12-05"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -23423,9 +23475,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:11.037438",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:11.037440",
+    "last_updated": "2025-12-08T11:27:57.525167",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 222.08999633789062,
+        "return": 6.732985552619479,
+        "date": "2025-12-05"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -23643,9 +23699,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:11.366719",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:11.366721",
+    "last_updated": "2025-12-08T11:28:03.866222",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 5.909999847412109,
+        "return": -16.407357179460973,
+        "date": "2025-12-05"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -23723,9 +23783,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:11.484915",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:11.484918",
+    "last_updated": "2025-12-08T11:28:06.299107",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 16.639999389648438,
+        "return": 10.052906016193376,
+        "date": "2025-12-05"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -23847,9 +23911,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:11.664552",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:11.664556",
+    "last_updated": "2025-12-08T11:28:09.660438",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 9.630000114440918,
+        "return": 0.103951293564644,
+        "date": "2025-12-05"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -23867,9 +23935,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:11.694775",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:11.694777",
+    "last_updated": "2025-12-08T11:28:10.345261",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 26.530000686645508,
+        "return": 7.714172499575757,
+        "date": "2025-12-05"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -23887,9 +23959,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:11.724861",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:11.724864",
+    "last_updated": "2025-12-08T11:28:10.983490",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 19.3700008392334,
+        "return": 1.3075357700491497,
+        "date": "2025-12-05"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -23907,9 +23983,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:11.754738",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:11.754741",
+    "last_updated": "2025-12-08T11:28:11.734717",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 13.279999732971191,
+        "return": -2.352943139917708,
+        "date": "2025-12-05"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -23991,9 +24071,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:11.877190",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:11.877194",
+    "last_updated": "2025-12-08T11:28:13.502000",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 1.2799999713897705,
+        "return": 20.754714282053815,
+        "date": "2025-12-05"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -24107,9 +24191,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:12.030212",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:12.030214",
+    "last_updated": "2025-12-08T11:28:14.268533",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 45.130001068115234,
+        "return": 1.4841490175741747,
+        "date": "2025-12-05"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -24127,9 +24215,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:12.060574",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:12.060577",
+    "last_updated": "2025-12-08T11:28:14.836813",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 14.670000076293945,
+        "return": 5.200677940255916e-07,
+        "date": "2025-12-05"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -24147,9 +24239,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:12.091312",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:12.091315",
+    "last_updated": "2025-12-08T11:28:15.456538",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 14.270000457763672,
+        "return": -1.24567157256974,
+        "date": "2025-12-05"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -24227,9 +24323,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:12.212897",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:12.212900",
+    "last_updated": "2025-12-08T11:28:17.696590",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 45.220001220703125,
+        "return": 19.75635916499769,
+        "date": "2025-12-05"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -24247,9 +24347,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:12.243337",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:12.243340",
+    "last_updated": "2025-12-08T11:28:18.303534",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 16.639999389648438,
+        "return": 9.043246327971413,
+        "date": "2025-12-05"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -24267,9 +24371,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:12.274268",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:12.274271",
+    "last_updated": "2025-12-08T11:28:18.967323",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 59.18000030517578,
+        "return": 136.90952884377813,
+        "date": "2025-12-05"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -24447,9 +24555,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:12.520450",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:12.520453",
+    "last_updated": "2025-12-08T11:28:21.001725",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 45.72999954223633,
+        "return": 6.003707793779156,
+        "date": "2025-12-05"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -24467,9 +24579,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:12.551133",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:12.551135",
+    "last_updated": "2025-12-08T11:28:21.662429",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 13.239999771118164,
+        "return": 16.65198036227458,
+        "date": "2025-12-05"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -24535,9 +24651,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:12.643293",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:12.643296",
+    "last_updated": "2025-12-08T11:28:22.326301",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 1096.5999755859375,
+        "return": 5.139019711019895,
+        "date": "2025-12-05"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -24575,9 +24695,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:12.705414",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:12.705417",
+    "last_updated": "2025-12-08T11:28:23.770149",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 10.260000228881836,
+        "return": 11.886589191732126,
+        "date": "2025-12-05"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -24619,9 +24743,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:12.767430",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:12.767432",
+    "last_updated": "2025-12-08T11:28:24.477797",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 24.799999237060547,
+        "return": 0.5677179118432552,
+        "date": "2025-12-05"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -24683,9 +24811,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:12.861034",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:12.861037",
+    "last_updated": "2025-12-08T11:28:25.986688",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 294.19000244140625,
+        "return": 3.9650855007266568,
+        "date": "2025-12-05"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -24771,9 +24903,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:12.985729",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:12.985731",
+    "last_updated": "2025-12-08T11:28:27.214812",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 2.549999952316284,
+        "return": -2.298852401674931,
+        "date": "2025-12-05"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -24791,9 +24927,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:13.017237",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:13.017240",
+    "last_updated": "2025-12-08T11:28:27.884006",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 925.0800170898438,
+        "return": 1.214470457760972,
+        "date": "2025-12-05"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -24859,9 +24999,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:13.110604",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:13.110607",
+    "last_updated": "2025-12-08T11:28:28.484245",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 0.8199999928474426,
+        "return": -1.2048201388623292,
+        "date": "2025-12-05"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -24927,9 +25071,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:13.204623",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:13.204626",
+    "last_updated": "2025-12-08T11:28:29.158349",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 49.0,
+        "return": -3.9215686274509802,
+        "date": "2025-12-05"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -24971,9 +25119,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:13.266672",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:13.266674",
+    "last_updated": "2025-12-08T11:28:29.809087",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 8.720000267028809,
+        "return": 8.45771476403992,
+        "date": "2025-12-05"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -24991,9 +25143,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:13.297987",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:13.297989",
+    "last_updated": "2025-12-08T11:28:30.459383",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 6.710000038146973,
+        "return": 17.30769297459743,
+        "date": "2025-12-05"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -25011,9 +25167,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:13.329264",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:13.329267",
+    "last_updated": "2025-12-08T11:28:31.071262",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 6.710000038146973,
+        "return": 15.889465252970167,
+        "date": "2025-12-05"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -25031,9 +25191,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:13.360550",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:13.360552",
+    "last_updated": "2025-12-08T11:28:31.641918",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 6.710000038146973,
+        "return": 14.897260927174191,
+        "date": "2025-12-05"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -25075,9 +25239,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:13.424257",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:13.424260",
+    "last_updated": "2025-12-08T11:28:32.240014",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 4.239999771118164,
+        "return": 92.72726232355289,
+        "date": "2025-12-05"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -25095,9 +25263,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:13.456772",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:13.456775",
+    "last_updated": "2025-12-08T11:28:32.809670",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 4.239999771118164,
+        "return": 92.72726232355289,
+        "date": "2025-12-05"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -25115,9 +25287,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:13.489277",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:13.489280",
+    "last_updated": "2025-12-08T11:28:33.419640",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 4.239999771118164,
+        "return": 92.72726232355289,
+        "date": "2025-12-05"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -25135,9 +25311,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:13.521960",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:13.521962",
+    "last_updated": "2025-12-08T11:28:33.991469",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 4.239999771118164,
+        "return": 92.72726232355289,
+        "date": "2025-12-05"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -25155,9 +25335,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:13.553551",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:13.553553",
+    "last_updated": "2025-12-08T11:28:34.641388",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 10.25,
+        "return": 2.5,
+        "date": "2025-12-05"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -25219,9 +25403,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:13.649179",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:13.649182",
+    "last_updated": "2025-12-08T11:28:39.302100",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 12.220000267028809,
+        "return": 2.1739152761605998,
+        "date": "2025-12-05"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -25719,9 +25907,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:14.339641",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:14.339643",
+    "last_updated": "2025-12-08T11:28:39.954549",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 51.79999923706055,
+        "return": 2.81857728674185,
+        "date": "2025-12-05"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -25739,9 +25931,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:14.372228",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:14.372231",
+    "last_updated": "2025-12-08T11:28:40.634247",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 94.54000091552734,
+        "return": -3.8152396830528663,
+        "date": "2025-12-05"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -26187,9 +26383,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:14.983844",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:14.983847",
+    "last_updated": "2025-12-08T11:28:44.990310",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 42.290000915527344,
+        "return": 2.7204297195223273,
+        "date": "2025-12-05"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -26207,9 +26407,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:15.016968",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:15.016971",
+    "last_updated": "2025-12-08T11:28:45.654686",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 42.290000915527344,
+        "return": 3.3732606099421836,
+        "date": "2025-12-05"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -36483,14 +36687,18 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:30.970199",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:32:05.194973",
+    "last_updated": "2025-12-08T11:29:03.383322",
     "outcomes": {
       "30d": {
         "price": 120.0,
         "return": 570.0167504187605,
         "date": "2025-11-05"
       },
-      "60d": null,
+      "60d": {
+        "price": 79.98999786376953,
+        "return": 346.62198695572044,
+        "date": "2025-12-05"
+      },
       "90d": null,
       "180d": null
     }
@@ -37715,14 +37923,18 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:33.142920",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:32:35.984400",
+    "last_updated": "2025-12-08T11:29:15.476344",
     "outcomes": {
       "30d": {
         "price": 26.809999465942383,
         "return": -11.459711142858712,
         "date": "2025-11-05"
       },
-      "60d": null,
+      "60d": {
+        "price": 32.69499969482422,
+        "return": 7.975560418838235,
+        "date": "2025-12-05"
+      },
       "90d": null,
       "180d": null
     }
@@ -38407,14 +38619,18 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:34.355540",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:32:52.930357",
+    "last_updated": "2025-12-08T11:29:29.937751",
     "outcomes": {
       "30d": {
         "price": 260.1045227050781,
         "return": -5.5813406762457864,
         "date": "2025-11-05"
       },
-      "60d": null,
+      "60d": {
+        "price": 290.6300048828125,
+        "return": 5.499493568612053,
+        "date": "2025-12-05"
+      },
       "90d": null,
       "180d": null
     }
@@ -38431,14 +38647,18 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:34.399305",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:32:53.518946",
+    "last_updated": "2025-12-08T11:29:30.543851",
     "outcomes": {
       "30d": {
         "price": 16.850000381469727,
         "return": 1.262021523255565,
         "date": "2025-11-05"
       },
-      "60d": null,
+      "60d": {
+        "price": 17.540000915527344,
+        "return": 5.408659348121052,
+        "date": "2025-12-05"
+      },
       "90d": null,
       "180d": null
     }
@@ -38527,14 +38747,18 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:34.573082",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:32:55.911924",
+    "last_updated": "2025-12-08T11:29:32.992872",
     "outcomes": {
       "30d": {
         "price": 6.21999979019165,
         "return": 13.090905276211826,
         "date": "2025-11-05"
       },
-      "60d": null,
+      "60d": {
+        "price": 5.929999828338623,
+        "return": 7.818178697065874,
+        "date": "2025-12-05"
+      },
       "90d": null,
       "180d": null
     }
@@ -38627,14 +38851,18 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:34.749431",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:32:58.577209",
+    "last_updated": "2025-12-08T11:29:34.882746",
     "outcomes": {
       "30d": {
         "price": 26.139999389648438,
         "return": -1.8400323332766109,
         "date": "2025-11-05"
       },
-      "60d": null,
+      "60d": {
+        "price": 28.309999465942383,
+        "return": 6.308672421864002,
+        "date": "2025-12-05"
+      },
       "90d": null,
       "180d": null
     }
@@ -38819,14 +39047,18 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:35.058013",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:33:02.921970",
+    "last_updated": "2025-12-08T11:29:36.234901",
     "outcomes": {
       "30d": {
         "price": 2.569999933242798,
         "return": -1.9083994945497043,
         "date": "2025-11-05"
       },
-      "60d": null,
+      "60d": {
+        "price": 2.549999952316284,
+        "return": -2.671757545179997,
+        "date": "2025-12-05"
+      },
       "90d": null,
       "180d": null
     }
@@ -38843,14 +39075,18 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:35.101998",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:33:03.551305",
+    "last_updated": "2025-12-08T11:29:36.936353",
     "outcomes": {
       "30d": {
         "price": 917.3486328125,
         "return": -3.472548764928713,
         "date": "2025-11-05"
       },
-      "60d": null,
+      "60d": {
+        "price": 925.0800170898438,
+        "return": -2.6590185626512626,
+        "date": "2025-12-05"
+      },
       "90d": null,
       "180d": null
     }
@@ -38923,14 +39159,18 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:35.239986",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:33:05.423480",
+    "last_updated": "2025-12-08T11:29:37.536864",
     "outcomes": {
       "30d": {
         "price": 5.659999847412109,
         "return": -33.801171375296974,
         "date": "2025-11-05"
       },
-      "60d": null,
+      "60d": {
+        "price": 6.78000020980835,
+        "return": -20.70175193206609,
+        "date": "2025-12-05"
+      },
       "90d": null,
       "180d": null
     }
@@ -39115,14 +39355,18 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:35.551979",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:33:09.885568",
+    "last_updated": "2025-12-08T11:29:38.187521",
     "outcomes": {
       "30d": {
         "price": 9.098490715026855,
         "return": -1.2107414220754111,
         "date": "2025-11-05"
       },
-      "60d": null,
+      "60d": {
+        "price": 8.789999961853027,
+        "return": -4.560261000510027,
+        "date": "2025-12-05"
+      },
       "90d": null,
       "180d": null
     }
@@ -39139,14 +39383,18 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:35.595634",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:33:10.489197",
+    "last_updated": "2025-12-08T11:29:38.759542",
     "outcomes": {
       "30d": {
         "price": 9.098490715026855,
         "return": -1.2107414220754111,
         "date": "2025-11-05"
       },
-      "60d": null,
+      "60d": {
+        "price": 8.789999961853027,
+        "return": -4.560261000510027,
+        "date": "2025-12-05"
+      },
       "90d": null,
       "180d": null
     }
@@ -39163,14 +39411,18 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:35.640664",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:33:11.012319",
+    "last_updated": "2025-12-08T11:29:39.340117",
     "outcomes": {
       "30d": {
         "price": 9.098490715026855,
         "return": 1113.132095336914,
         "date": "2025-11-05"
       },
-      "60d": null,
+      "60d": {
+        "price": 8.789999961853027,
+        "return": 1071.9999949137368,
+        "date": "2025-12-05"
+      },
       "90d": null,
       "180d": null
     }
@@ -39187,14 +39439,18 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:35.685142",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:33:11.595489",
+    "last_updated": "2025-12-08T11:29:39.996577",
     "outcomes": {
       "30d": {
         "price": 1.690000057220459,
         "return": 9.032261756158642,
         "date": "2025-11-05"
       },
-      "60d": null,
+      "60d": {
+        "price": 1.659999966621399,
+        "return": 7.096772040090251,
+        "date": "2025-12-05"
+      },
       "90d": null,
       "180d": null
     }
@@ -39379,14 +39635,18 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:35.995875",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:33:15.965056",
+    "last_updated": "2025-12-08T11:29:40.661643",
     "outcomes": {
       "30d": {
         "price": 11.403145790100098,
         "return": -6.837044198528616,
         "date": "2025-11-05"
       },
-      "60d": null,
+      "60d": {
+        "price": 12.479999542236328,
+        "return": 1.9607805738262083,
+        "date": "2025-12-05"
+      },
       "90d": null,
       "180d": null
     }
@@ -39571,14 +39831,18 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:36.308893",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:33:20.056488",
+    "last_updated": "2025-12-08T11:29:41.315457",
     "outcomes": {
       "30d": {
         "price": 2.450000047683716,
         "return": 6.521741203639826,
         "date": "2025-11-05"
       },
-      "60d": null,
+      "60d": {
+        "price": 2.380000114440918,
+        "return": 3.478265845257311,
+        "date": "2025-12-05"
+      },
       "90d": null,
       "180d": null
     }
