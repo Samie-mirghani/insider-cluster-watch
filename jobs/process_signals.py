@@ -1255,13 +1255,42 @@ def sanitize_nan_values(df):
     if df.empty:
         return df
 
-    # Replace NaN and inf with None
-    df = df.replace({pd.NA: None, pd.NaT: None, float('nan'): None, float('inf'): None, float('-inf'): None})
+    # Define a safe NaN checker that handles both scalars and arrays
+    def safe_nan_check(x):
+        """Safely check for NaN in both scalars and arrays."""
+        if isinstance(x, (list, tuple, dict)):
+            # For arrays/lists/dicts, keep as-is (don't convert to None)
+            return x
+        try:
+            # For scalar NaN/inf, convert to None
+            if pd.isna(x) or (isinstance(x, float) and (math.isinf(x))):
+                return None
+            else:
+                return x
+        except (ValueError, TypeError):
+            # If pd.isna() fails (e.g., on complex objects), keep as-is
+            return x
 
-    # Additionally clean specific problematic columns
+    # Clean all columns - this handles both scalar NaN and avoids errors on array columns
     for col in df.columns:
-        # Replace pandas NaN values with None
-        df[col] = df[col].apply(lambda x: None if pd.isna(x) else x)
+        # Check if column contains arrays/lists - if so, skip NaN conversion for this column
+        # Arrays don't have NaN issues and checking them causes the ValueError
+        has_arrays = False
+        try:
+            # Sample first non-null value to check type
+            sample = df[col].dropna().iloc[0] if len(df[col].dropna()) > 0 else None
+            if sample is not None and isinstance(sample, (list, tuple, dict)):
+                has_arrays = True
+        except:
+            pass
+
+        if not has_arrays:
+            # For non-array columns, replace NaN with None using .where()
+            # Convert to object dtype first to allow None values
+            if pd.api.types.is_numeric_dtype(df[col]):
+                # Use mask to replace NaN/inf with None
+                mask = df[col].isna() | df[col].apply(lambda x: isinstance(x, float) and (math.isinf(x) if not pd.isna(x) else False))
+                df[col] = df[col].astype('object').where(~mask, None)
 
     return df
 
