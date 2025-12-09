@@ -12,6 +12,7 @@ from jinja2 import Environment, FileSystemLoader
 from send_email import send_email
 from paper_trade import PaperTradingPortfolio
 from dotenv import load_dotenv
+from generate_report import sanitize_dict_for_template, is_valid_value
 
 load_dotenv()
 
@@ -334,8 +335,13 @@ def render_weekly_performance_email(stats):
     Render the weekly performance email template with enhanced metrics.
     """
     env = Environment(loader=FileSystemLoader(TEMPLATE_DIR))
+    # Add custom filter for checking valid values
+    env.filters['is_valid'] = is_valid_value
     template = env.get_template('weekly_performance.html')
-    
+
+    # CRITICAL: Sanitize all dict values to prevent "nan" from appearing in emails
+    stats = sanitize_dict_for_template(stats)
+
     html = template.render(
         date=datetime.now().strftime("%B %d, %Y"),
         **stats
