@@ -595,24 +595,42 @@ def enrich_with_market_data(cluster_df):
 
     print(f"   Market data: {successful} successful, {failed} failed/unavailable")
 
-    cluster_df['currentPrice'] = cluster_df['ticker'].map(lambda x: info.get(x, {}).get('currentPrice'))
-    cluster_df['marketCap'] = cluster_df['ticker'].map(lambda x: info.get(x, {}).get('marketCap'))
-    cluster_df['fiftyTwoWeekLow'] = cluster_df['ticker'].map(lambda x: info.get(x, {}).get('fiftyTwoWeekLow'))
-    cluster_df['fiftyTwoWeekHigh'] = cluster_df['ticker'].map(lambda x: info.get(x, {}).get('fiftyTwoWeekHigh'))
+    # CRITICAL: Validate all fields to prevent NaN from appearing in emails
+    cluster_df['currentPrice'] = cluster_df['ticker'].map(
+        lambda x: info.get(x, {}).get('currentPrice') if _is_valid_field(info.get(x, {}).get('currentPrice')) else None
+    )
+    cluster_df['marketCap'] = cluster_df['ticker'].map(
+        lambda x: info.get(x, {}).get('marketCap') if _is_valid_field(info.get(x, {}).get('marketCap')) else None
+    )
+    cluster_df['fiftyTwoWeekLow'] = cluster_df['ticker'].map(
+        lambda x: info.get(x, {}).get('fiftyTwoWeekLow') if _is_valid_field(info.get(x, {}).get('fiftyTwoWeekLow')) else None
+    )
+    cluster_df['fiftyTwoWeekHigh'] = cluster_df['ticker'].map(
+        lambda x: info.get(x, {}).get('fiftyTwoWeekHigh') if _is_valid_field(info.get(x, {}).get('fiftyTwoWeekHigh')) else None
+    )
 
     # Add company name
     cluster_df['company'] = cluster_df['ticker'].map(lambda x: info.get(x, {}).get('company', x))
 
     # NEW: Add sector and industry - only if valid (None if not available)
-    cluster_df['sector'] = cluster_df['ticker'].map(lambda x: info.get(x, {}).get('sector'))
-    cluster_df['industry'] = cluster_df['ticker'].map(lambda x: info.get(x, {}).get('industry'))
+    # CRITICAL: Use _is_valid_field to prevent NaN from appearing in emails
+    cluster_df['sector'] = cluster_df['ticker'].map(
+        lambda x: info.get(x, {}).get('sector') if _is_valid_field(info.get(x, {}).get('sector')) else None
+    )
+    cluster_df['industry'] = cluster_df['ticker'].map(
+        lambda x: info.get(x, {}).get('industry') if _is_valid_field(info.get(x, {}).get('industry')) else None
+    )
 
     # NEW: Add volume data
     cluster_df['averageVolume'] = cluster_df['ticker'].map(lambda x: info.get(x, {}).get('averageVolume', 0))
 
-    # NEW: Add float analysis data
-    cluster_df['sharesOutstanding'] = cluster_df['ticker'].map(lambda x: info.get(x, {}).get('sharesOutstanding'))
-    cluster_df['floatShares'] = cluster_df['ticker'].map(lambda x: info.get(x, {}).get('floatShares'))
+    # NEW: Add float analysis data - validate to prevent NaN
+    cluster_df['sharesOutstanding'] = cluster_df['ticker'].map(
+        lambda x: info.get(x, {}).get('sharesOutstanding') if _is_valid_field(info.get(x, {}).get('sharesOutstanding')) else None
+    )
+    cluster_df['floatShares'] = cluster_df['ticker'].map(
+        lambda x: info.get(x, {}).get('floatShares') if _is_valid_field(info.get(x, {}).get('floatShares')) else None
+    )
     
     cluster_df['pct_from_52wk_low'] = None
     
@@ -1251,16 +1269,25 @@ def sanitize_nan_values(df):
 
     This ensures that when DataFrames are converted to dicts and passed to Jinja2 templates,
     NaN values appear as None/null rather than the string 'nan'.
+
+    CRITICAL FIX: Also converts string "nan", "null", "none", "N/A" to None.
     """
     if df.empty:
         return df
 
     # Define a safe NaN checker that handles both scalars and arrays
     def safe_nan_check(x):
-        """Safely check for NaN in both scalars and arrays."""
+        """Safely check for NaN in both scalars and arrays, including string 'nan'."""
         if isinstance(x, (list, tuple, dict)):
             # For arrays/lists/dicts, keep as-is (don't convert to None)
             return x
+
+        # Check for string 'nan', 'null', 'none', etc.
+        if isinstance(x, str):
+            if x.lower().strip() in ['nan', 'null', 'none', 'n/a', '']:
+                return None
+            return x
+
         try:
             # For scalar NaN/inf, convert to None
             if pd.isna(x) or (isinstance(x, float) and (math.isinf(x))):
@@ -1291,6 +1318,9 @@ def sanitize_nan_values(df):
                 # Use mask to replace NaN/inf with None
                 mask = df[col].isna() | df[col].apply(lambda x: isinstance(x, float) and (math.isinf(x) if not pd.isna(x) else False))
                 df[col] = df[col].astype('object').where(~mask, None)
+            else:
+                # For non-numeric columns (strings, etc.), also check for string "nan"
+                df[col] = df[col].apply(safe_nan_check)
 
     return df
 
