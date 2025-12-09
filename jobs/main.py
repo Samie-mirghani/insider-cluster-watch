@@ -62,28 +62,31 @@ if not os.path.exists(DATA_DIR):
     os.makedirs(DATA_DIR)
 HISTORY_CSV = os.path.join(DATA_DIR, 'signals_history.csv')
 
-def load_recent_signals(days_back=7):
+def load_recent_signals(days_back=30):
     """
     Load signals from the last N days to check for duplicates.
     Returns set of (ticker, date) tuples.
+
+    Note: Increased from 7 to 30 days to provide a safety net against
+    re-detecting old clusters. Primary fix is limiting scraper to recent filings.
     """
     if not os.path.exists(HISTORY_CSV):
         return set()
-    
+
     df = pd.read_csv(HISTORY_CSV, parse_dates=['date'])
     cutoff = datetime.utcnow() - timedelta(days=days_back)
     recent = df[df['date'] >= cutoff]
-    
+
     # Return set of (ticker, date_str) for quick lookup
     return set(zip(recent['ticker'], recent['date'].dt.strftime('%Y-%m-%d')))
 
 def filter_new_signals(cluster_df, recent_signals):
     """
-    Filter out signals that were already sent in the last 7 days,
+    Filter out signals that were already sent in the last 30 days,
     UNLESS there's been new insider activity.
-    
+
     Logic: A signal is "new" if:
-    1. Ticker hasn't been signaled in last 7 days, OR
+    1. Ticker hasn't been signaled in last 30 days, OR
     2. The last_trade_date is more recent than the last signal date
     """
     if cluster_df is None or cluster_df.empty:
@@ -744,8 +747,8 @@ def main(test=False, urgent_test=False, enable_paper_trading=True):
     
     # 5) Filter out duplicate signals
     print("\n🔍 Checking for duplicate signals...")
-    recent_signals = load_recent_signals(days_back=7)
-    print(f"   Loaded {len(recent_signals)} recent signals from last 7 days")
+    recent_signals = load_recent_signals(days_back=30)
+    print(f"   Loaded {len(recent_signals)} recent signals from last 30 days")
     
     new_cluster_df = filter_new_signals(cluster_df, recent_signals)
     

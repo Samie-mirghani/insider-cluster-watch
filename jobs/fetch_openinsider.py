@@ -22,9 +22,11 @@ def fetch_openinsider_recent(max_retries=3):
     Returns:
         DataFrame with insider transaction data
     """
-    # Request last 180 days to ensure enough historical data for 90d outcomes
+    # Request last 7 days to only get RECENT filings
+    # This prevents re-detecting old clusters from stale data
+    # Historical data for 90d outcomes is already saved in insider_trades_history.csv
     params = {
-        'fd': '180',       # Last 180 days (increased from 30 to get older trades)
+        'fd': '7',         # Last 7 days (reduced from 180 to prevent duplicate signals)
         'xp': '1',         # Exclude options (we want open market)
         'sortcol': '0',    # Sort by filing date
         'cnt': '5000',     # Max results (increased from 1000)
@@ -111,11 +113,10 @@ def fetch_openinsider_recent(max_retries=3):
             df['trade_date'] = pd.to_datetime(df['trade_date'], errors='coerce')
             df['filing_date'] = pd.to_datetime(df['filing_date'], errors='coerce')
             
-            # Filter out old data
+            # Filter to keep only recent trades (last 14 days)
+            # Historical data is already saved for outcome tracking
             from datetime import datetime, timedelta
-            # Changed from 60 to 200 days to allow for 90d outcome calculation
-            # (180 days of trade age + some buffer for data processing)
-            cutoff_date = datetime.now() - timedelta(days=200)
+            cutoff_date = datetime.now() - timedelta(days=14)
             df = df[df['trade_date'] >= cutoff_date]
             
             # Map transaction codes to readable format
