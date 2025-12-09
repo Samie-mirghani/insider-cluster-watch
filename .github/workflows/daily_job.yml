@@ -63,7 +63,7 @@ jobs:
           git config --local user.name "GitHub Action"
 
           # Add paper trading data files (always exist)
-          git add -f data/paper_portfolio.json data/paper_trading.log
+          git add -f data/paper_portfolio.json data/paper_trading.log data/paper_trades.csv
 
           # Add signals history only if it exists (might not exist if no signals)
           if [ -f "data/signals_history.csv" ]; then
@@ -121,7 +121,7 @@ jobs:
           git stash pop || true
 
           # Add any reapplied files again
-          git add -f data/paper_portfolio.json data/paper_trading.log
+          git add -f data/paper_portfolio.json data/paper_trading.log data/paper_trades.csv
 
           # Add signals history if it exists
           if [ -f "data/signals_history.csv" ]; then
