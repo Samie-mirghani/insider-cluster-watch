@@ -1,25 +1,25 @@
 {
-  "last_updated": "2025-12-09T12:10:29.653043",
+  "last_updated": "2025-12-09T16:25:11.588225",
   "status": "OK",
-  "total_insiders_tracked": 205,
+  "total_insiders_tracked": 207,
   "qualified_performers": 31,
   "data_freshness": {
     "is_fresh": false,
     "last_updated": "2025-11-07T00:00:00",
-    "age_days": 32.50728765021991,
+    "age_days": 32.684161899895834,
     "status": "STALE",
-    "message": "\u274c Data is STALE (last updated 32.5 days ago). Update NOW!"
+    "message": "\u274c Data is STALE (last updated 32.7 days ago). Update NOW!"
   },
   "top_performers": [
     {
       "name": "Billingsley Chester",
       "score": 100.0,
       "win_rate": 100.0,
-      "avg_return": 85.8,
-      "total_trades": 25,
+      "avg_return": 79.7,
+      "total_trades": 26,
       "best_trade": 120.0,
-      "worst_trade": 50.0,
-      "sharpe_ratio": 3.88
+      "worst_trade": 12.5,
+      "sharpe_ratio": 2.67
     },
     {
       "name": "Inc Ctt Pharmaceutical Holdings",
@@ -45,11 +45,11 @@
       "name": "Topper James N",
       "score": 100.0,
       "win_rate": 100.0,
-      "avg_return": 44.5,
+      "avg_return": 44.1,
       "total_trades": 5,
       "best_trade": 62.5,
       "worst_trade": 23.7,
-      "sharpe_ratio": 2.27
+      "sharpe_ratio": 2.76
     },
     {
       "name": "Salvucci Joseph V",

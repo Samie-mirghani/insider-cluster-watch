@@ -1,6 +1,6 @@
 {
   "starting_capital": 10000,
-  "cash": 4293.43,
+  "cash": 4095.81,
   "positions": {
     "VRSK": {
       "entry_date": "2025-11-11T11:28:09.811544",
@@ -95,33 +95,6 @@
         }
       ]
     },
-    "AISP": {
-      "entry_date": "2025-11-28T11:45:05.793357",
-      "entry_price": 3.618,
-      "shares": 280,
-      "cost_basis": 1013.04,
-      "initial_stop_loss": 3.4675,
-      "stop_loss": 3.5909999999999997,
-      "take_profit": 3.9074400000000002,
-      "highest_price": 3.78,
-      "trailing_enabled": true,
-      "signal_score": 10.938010421918927,
-      "sector": "Technology",
-      "multi_signal_tier": "none",
-      "has_politician_signal": false,
-      "tranches": [
-        {
-          "shares": 168,
-          "price": 3.65,
-          "date": "2025-11-28T11:45:05.793361"
-        },
-        {
-          "shares": 112,
-          "price": 3.57,
-          "date": "2025-12-02T11:46:48.694399"
-        }
-      ]
-    },
     "WSBC": {
       "entry_date": "2025-12-03T12:05:31.992038",
       "entry_price": 32.6,
@@ -130,7 +103,7 @@
       "initial_stop_loss": 30.97,
       "stop_loss": 30.97,
       "take_profit": 35.208000000000006,
-      "highest_price": 33.56,
+      "highest_price": 33.57,
       "trailing_enabled": false,
       "signal_score": 29.12962241773009,
       "sector": NaN,
@@ -194,10 +167,10 @@
       "shares": 160,
       "cost_basis": 601.5999999999999,
       "initial_stop_loss": 3.5719999999999996,
-      "stop_loss": 3.5719999999999996,
+      "stop_loss": 3.8142499999999995,
       "take_profit": 4.0608,
-      "highest_price": 3.76,
-      "trailing_enabled": false,
+      "highest_price": 4.015,
+      "trailing_enabled": true,
       "signal_score": 17.537975777269363,
       "sector": NaN,
       "multi_signal_tier": "none",
@@ -207,6 +180,50 @@
           "shares": 160,
           "price": 3.76,
           "date": "2025-12-08T14:17:58.546860"
+        }
+      ]
+    },
+    "UTI": {
+      "entry_date": "2025-12-09T16:22:36.613042",
+      "entry_price": 24.955,
+      "shares": 24,
+      "cost_basis": 598.92,
+      "initial_stop_loss": 23.70725,
+      "stop_loss": 23.70725,
+      "take_profit": 26.9514,
+      "highest_price": 24.955,
+      "trailing_enabled": false,
+      "signal_score": 14.491598628745699,
+      "sector": "Unknown",
+      "multi_signal_tier": "none",
+      "has_politician_signal": false,
+      "tranches": [
+        {
+          "shares": 24,
+          "price": 24.955,
+          "date": "2025-12-09T16:22:36.613048"
+        }
+      ]
+    },
+    "CBIO": {
+      "entry_date": "2025-12-09T16:22:41.580783",
+      "entry_price": 13.42,
+      "shares": 45,
+      "cost_basis": 603.9,
+      "initial_stop_loss": 12.748999999999999,
+      "stop_loss": 12.748999999999999,
+      "take_profit": 14.4936,
+      "highest_price": 13.42,
+      "trailing_enabled": false,
+      "signal_score": 14.093014261819956,
+      "sector": null,
+      "multi_signal_tier": "none",
+      "has_politician_signal": false,
+      "tranches": [
+        {
+          "shares": 45,
+          "price": 13.42,
+          "date": "2025-12-09T16:22:41.580789"
         }
       ]
     }
@@ -225,13 +242,27 @@
       "original_entry": 3.76,
       "expires": "2025-12-13T14:17:58.850653",
       "signal_score": 17.537975777269363
+    },
+    "UTI": {
+      "shares": 16,
+      "trigger_price": 24.455899999999996,
+      "original_entry": 24.955,
+      "expires": "2025-12-14T16:22:37.512781",
+      "signal_score": 14.491598628745699
+    },
+    "CBIO": {
+      "shares": 30,
+      "trigger_price": 13.1516,
+      "original_entry": 13.42,
+      "expires": "2025-12-14T16:22:42.906488",
+      "signal_score": 14.093014261819956
     }
   },
-  "total_trades": 23,
+  "total_trades": 25,
   "winning_trades": 6,
-  "losing_trades": 8,
-  "total_profit": 19.560000000000116,
-  "max_portfolio_value": 11008.0729,
-  "max_drawdown": -8.972986543357644,
-  "last_updated": "2025-12-09T12:10:24.102233"
+  "losing_trades": 9,
+  "total_profit": 11.720000000000084,
+  "max_portfolio_value": 11086.842,
+  "max_drawdown": -9.067703860125363,
+  "last_updated": "2025-12-09T16:25:05.508319"
 }
