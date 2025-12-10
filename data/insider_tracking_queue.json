@@ -20739,9 +20739,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:07.120585",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:07.120587",
+    "last_updated": "2025-12-10T11:26:29.856803",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 12.4399995803833,
+        "return": -0.8764973674637444,
+        "date": "2025-12-08"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -37475,14 +37479,18 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:31.348359",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:32:10.512408",
+    "last_updated": "2025-12-10T11:27:08.964362",
     "outcomes": {
       "30d": {
         "price": 11.899999618530273,
         "return": -1.2448164437321765,
         "date": "2025-11-10"
       },
-      "60d": null,
+      "60d": {
+        "price": 9.979999542236328,
+        "return": -17.178427035383173,
+        "date": "2025-12-09"
+      },
       "90d": null,
       "180d": null
     }
@@ -44839,7 +44847,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:43.410674",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:35:32.897137",
+    "last_updated": "2025-12-10T11:27:57.838340",
     "outcomes": {
       "30d": {
         "price": 1.2000000476837158,
@@ -44851,7 +44859,11 @@
         "return": 25.471702161824922,
         "date": "2025-11-10"
       },
-      "90d": null,
+      "90d": {
+        "price": 0.800000011920929,
+        "return": -24.528300762176517,
+        "date": "2025-12-09"
+      },
       "180d": null
     }
   },
@@ -55119,7 +55131,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:02.396099",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:39:27.746256",
+    "last_updated": "2025-12-10T11:28:40.114616",
     "outcomes": {
       "30d": {
         "price": 0.3197999894618988,
@@ -55131,7 +55143,11 @@
         "return": -40.00000032511625,
         "date": "2025-11-10"
       },
-      "90d": null,
+      "90d": {
+        "price": 0.20000000298023224,
+        "return": -9.090907736258073,
+        "date": "2025-12-09"
+      },
       "180d": null
     }
   },
@@ -55423,7 +55439,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:02.954178",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:39:36.712018",
+    "last_updated": "2025-12-10T11:28:44.272357",
     "outcomes": {
       "30d": {
         "price": 20.229999542236328,
@@ -55435,7 +55451,11 @@
         "return": 0.7964161274265811,
         "date": "2025-11-10"
       },
-      "90d": null,
+      "90d": {
+        "price": 20.200000762939453,
+        "return": 0.5475398852138041,
+        "date": "2025-12-09"
+      },
       "180d": null
     }
   },
@@ -129944,10 +129964,10 @@
     "title": "Dir, 10%",
     "qty": 100,
     "value": 305,
-    "status": "TRACKING",
+    "status": "MATURED",
     "tracked_since": "2025-12-03T11:50:18.015420",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:05:36.406425",
+    "last_updated": "2025-12-10T11:31:25.922615",
     "outcomes": {
       "30d": {
         "price": 2.9700000286102295,
@@ -129964,7 +129984,11 @@
         "return": 5.8360631348656895,
         "date": "2025-09-10"
       },
-      "180d": null
+      "180d": {
+        "price": 3.819999933242798,
+        "return": 25.245899450583543,
+        "date": "2025-12-09"
+      }
     }
   },
   {
@@ -131648,10 +131672,10 @@
     "title": "Exec. COB, Pres, CEO, 10%",
     "qty": 2500000,
     "value": 50000,
-    "status": "TRACKING",
+    "status": "MATURED",
     "tracked_since": "2025-12-03T11:50:23.629890",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:06:12.349783",
+    "last_updated": "2025-12-10T11:31:39.507723",
     "outcomes": {
       "30d": {
         "price": 0.06300000101327896,
@@ -131668,7 +131692,11 @@
         "return": 125.00000894069672,
         "date": "2025-09-10"
       },
-      "180d": null
+      "180d": {
+        "price": 0.028999999165534973,
+        "return": 44.99999582767486,
+        "date": "2025-12-09"
+      }
     }
   },
   {
@@ -132592,10 +132620,10 @@
     "title": "10%",
     "qty": 5900,
     "value": 4244,
-    "status": "TRACKING",
+    "status": "MATURED",
     "tracked_since": "2025-12-03T11:50:26.842976",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:06:30.807365",
+    "last_updated": "2025-12-10T11:31:52.384714",
     "outcomes": {
       "30d": {
         "price": 0.7599999904632568,
@@ -132612,7 +132640,11 @@
         "return": 1.388891537984216,
         "date": "2025-09-10"
       },
-      "180d": null
+      "180d": {
+        "price": 0.7200000286102295,
+        "return": 3.973642988726786e-06,
+        "date": "2025-12-09"
+      }
     }
   },
   {
@@ -137492,6 +137524,886 @@
     "tracked_since": "2025-12-09T16:04:17.629649",
     "source": "daily_signal_detection",
     "last_updated": "2025-12-09T16:04:17.629653",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "MIDD_Nerbonne Robert A_2025-12-09 00:00:00",
+    "ticker": "MIDD",
+    "insider_name": "Nerbonne Robert A",
+    "trade_date": "2025-12-09",
+    "entry_price": 128.52,
+    "title": "Dir",
+    "qty": 780,
+    "value": 100248,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-10T11:34:13.790913",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-10T11:34:13.790917",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "ALMS_Akkaraju Srinivas_2025-12-05 00:00:00",
+    "ticker": "ALMS",
+    "insider_name": "Akkaraju Srinivas",
+    "trade_date": "2025-12-05",
+    "entry_price": 9.84,
+    "title": "Dir",
+    "qty": 186377,
+    "value": 1833760,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-10T11:34:14.061049",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-10T11:34:14.061053",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "FIGR_Chao David K_2025-12-05 00:00:00",
+    "ticker": "FIGR",
+    "insider_name": "Chao David K",
+    "trade_date": "2025-12-05",
+    "entry_price": 38.26,
+    "title": "Dir",
+    "qty": 4000,
+    "value": 153056,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-10T11:34:14.270567",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-10T11:34:14.270571",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "GRND_Zage George Raymond III_2025-12-05 00:00:00",
+    "ticker": "GRND",
+    "insider_name": "Zage George Raymond III",
+    "trade_date": "2025-12-05",
+    "entry_price": 13.51,
+    "title": "Dir, 10%",
+    "qty": 50000,
+    "value": 675500,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-10T11:34:14.529824",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-10T11:34:14.529829",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "KVHI_Deckoff Stephen H_2025-12-05 00:00:00",
+    "ticker": "KVHI",
+    "insider_name": "Deckoff Stephen H",
+    "trade_date": "2025-12-05",
+    "entry_price": 6.01,
+    "title": "Dir, 10%",
+    "qty": 70618,
+    "value": 424674,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-10T11:34:14.740704",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-10T11:34:14.740708",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "LSAK_Smith Daniel Luke_2025-12-05 00:00:00",
+    "ticker": "LSAK",
+    "insider_name": "Smith Daniel Luke",
+    "trade_date": "2025-12-05",
+    "entry_price": 4.18,
+    "title": "Group CFO",
+    "qty": 13236,
+    "value": 55337,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-10T11:34:14.953830",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-10T11:34:14.953837",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "VSTS_Goetz William_2025-12-08 00:00:00",
+    "ticker": "VSTS",
+    "insider_name": "Goetz William",
+    "trade_date": "2025-12-08",
+    "entry_price": 7.42,
+    "title": "Dir",
+    "qty": 6746,
+    "value": 50082,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-10T11:34:15.217715",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-10T11:34:15.217719",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "SPRU_Steel Partners Holdings L.P._2025-12-05 00:00:00",
+    "ticker": "SPRU",
+    "insider_name": "Steel Partners Holdings L.P.",
+    "trade_date": "2025-12-05",
+    "entry_price": 5.1,
+    "title": "10%",
+    "qty": 68289,
+    "value": 348075,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-10T11:34:15.477121",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-10T11:34:15.477125",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "TPVG_Srivastava Sajal_2025-12-05 00:00:00",
+    "ticker": "TPVG",
+    "insider_name": "Srivastava Sajal",
+    "trade_date": "2025-12-05",
+    "entry_price": 6.81,
+    "title": "Pres, CIO",
+    "qty": 47741,
+    "value": 325002,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-10T11:34:15.689473",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-10T11:34:15.689477",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "TPVG_Labe James_2025-12-05 00:00:00",
+    "ticker": "TPVG",
+    "insider_name": "Labe James",
+    "trade_date": "2025-12-05",
+    "entry_price": 6.81,
+    "title": "CEO",
+    "qty": 47741,
+    "value": 325002,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-10T11:34:15.902319",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-10T11:34:15.902322",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "AVTR_Mehra Sanjeev K_2025-12-05 00:00:00",
+    "ticker": "AVTR",
+    "insider_name": "Mehra Sanjeev K",
+    "trade_date": "2025-12-05",
+    "entry_price": 11.09,
+    "title": "Dir",
+    "qty": 350000,
+    "value": 3881500,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-10T11:34:16.114338",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-10T11:34:16.114342",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "JFB_Basile Joseph Frank III_2025-12-08 00:00:00",
+    "ticker": "JFB",
+    "insider_name": "Basile Joseph Frank III",
+    "trade_date": "2025-12-08",
+    "entry_price": 16.79,
+    "title": "CEO, COB",
+    "qty": 5900,
+    "value": 99061,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-10T11:34:16.381224",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-10T11:34:16.381228",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "GAIA_Sutherland Paul Howard_2025-12-09 00:00:00",
+    "ticker": "GAIA",
+    "insider_name": "Sutherland Paul Howard",
+    "trade_date": "2025-12-09",
+    "entry_price": 3.53,
+    "title": "Dir",
+    "qty": 1950,
+    "value": 6884,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-10T11:34:16.655514",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-10T11:34:16.655518",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "GAM_Davidson Spencer_2025-12-08 00:00:00",
+    "ticker": "GAM",
+    "insider_name": "Davidson Spencer",
+    "trade_date": "2025-12-08",
+    "entry_price": 25.04,
+    "title": "Chairman",
+    "qty": 2000,
+    "value": 50074,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-10T11:34:16.868414",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-10T11:34:16.868425",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "MGM_Iac Inc._2025-12-05 00:00:00",
+    "ticker": "MGM",
+    "insider_name": "Iac Inc.",
+    "trade_date": "2025-12-05",
+    "entry_price": 36.3,
+    "title": "10%",
+    "qty": 1098748,
+    "value": 39884552,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-10T11:34:17.080953",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-10T11:34:17.080957",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "ECBK_Sullivan Maura Ellen_2025-12-08 00:00:00",
+    "ticker": "ECBK",
+    "insider_name": "Sullivan Maura Ellen",
+    "trade_date": "2025-12-08",
+    "entry_price": 16.85,
+    "title": "Dir",
+    "qty": 3500,
+    "value": 58977,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-10T11:34:17.331857",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-10T11:34:17.331861",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "MAIA_Smith Stan_2025-12-05 00:00:00",
+    "ticker": "MAIA",
+    "insider_name": "Smith Stan",
+    "trade_date": "2025-12-05",
+    "entry_price": 1.2,
+    "title": "Dir",
+    "qty": 13740,
+    "value": 16441,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-10T11:34:17.603084",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-10T11:34:17.603088",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "GLP_Global Gp LLC_2025-12-05 00:00:00",
+    "ticker": "GLP",
+    "insider_name": "Global Gp LLC",
+    "trade_date": "2025-12-05",
+    "entry_price": 45.08,
+    "title": "General Partner",
+    "qty": 3917,
+    "value": 176566,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-10T11:34:17.813647",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-10T11:34:17.813651",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "TBTC_Berger Andrew_2025-12-05 00:00:00",
+    "ticker": "TBTC",
+    "insider_name": "Berger Andrew",
+    "trade_date": "2025-12-05",
+    "entry_price": 3.85,
+    "title": "Dir",
+    "qty": 1100,
+    "value": 4235,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-10T11:34:18.023018",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-10T11:34:18.023021",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "GAM_Priest Jeffrey W_2025-12-08 00:00:00",
+    "ticker": "GAM",
+    "insider_name": "Priest Jeffrey W",
+    "trade_date": "2025-12-08",
+    "entry_price": 25.0,
+    "title": "Pres, CEO",
+    "qty": 60,
+    "value": 1500,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-10T11:34:18.234178",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-10T11:34:18.234182",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "JYNT_Jobson Charles E_2025-12-05 00:00:00",
+    "ticker": "JYNT",
+    "insider_name": "Jobson Charles E",
+    "trade_date": "2025-12-05",
+    "entry_price": 8.41,
+    "title": "10%",
+    "qty": 10000,
+    "value": 84100,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-10T11:34:18.447370",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-10T11:34:18.447375",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "SVCO_Rhines Walden C_2025-12-09 00:00:00",
+    "ticker": "SVCO",
+    "insider_name": "Rhines Walden C",
+    "trade_date": "2025-12-09",
+    "entry_price": 4.01,
+    "title": "CEO",
+    "qty": 13100,
+    "value": 52501,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-10T11:34:18.659596",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-10T11:34:18.659600",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "MRVI_Lucier Gregory T_2025-12-05 00:00:00",
+    "ticker": "MRVI",
+    "insider_name": "Lucier Gregory T",
+    "trade_date": "2025-12-05",
+    "entry_price": 3.69,
+    "title": "Dir",
+    "qty": 100000,
+    "value": 368544,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-10T11:34:18.872626",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-10T11:34:18.872630",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "LUCK_Lavan Robert M._2025-12-08 00:00:00",
+    "ticker": "LUCK",
+    "insider_name": "Lavan Robert M.",
+    "trade_date": "2025-12-08",
+    "entry_price": 8.53,
+    "title": "CFO",
+    "qty": 243,
+    "value": 2073,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-10T11:34:19.137058",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-10T11:34:19.137062",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "LUCK_Bass Robert J_2025-12-08 00:00:00",
+    "ticker": "LUCK",
+    "insider_name": "Bass Robert J",
+    "trade_date": "2025-12-08",
+    "entry_price": 8.47,
+    "title": "Dir",
+    "qty": 520,
+    "value": 4402,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-10T11:34:19.347202",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-10T11:34:19.347206",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "LUCK_Ekster Lev_2025-12-08 00:00:00",
+    "ticker": "LUCK",
+    "insider_name": "Ekster Lev",
+    "trade_date": "2025-12-08",
+    "entry_price": 8.75,
+    "title": "Pres",
+    "qty": 38,
+    "value": 332,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-10T11:34:19.607483",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-10T11:34:19.607488",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "GAM_Majmudar Anang K._2025-12-08 00:00:00",
+    "ticker": "GAM",
+    "insider_name": "Majmudar Anang K.",
+    "trade_date": "2025-12-08",
+    "entry_price": 24.98,
+    "title": "Senior Vice-Pres",
+    "qty": 36,
+    "value": 899,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-10T11:34:19.820564",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-10T11:34:19.820569",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "GLBZ_Mussog Julie M_2025-12-08 00:00:00",
+    "ticker": "GLBZ",
+    "insider_name": "Mussog Julie M",
+    "trade_date": "2025-12-08",
+    "entry_price": 4.28,
+    "title": "Dir",
+    "qty": 900,
+    "value": 3854,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-10T11:34:20.032673",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-10T11:34:20.032677",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "SLGL_Opaleye Management Inc._2025-12-05 00:00:00",
+    "ticker": "SLGL",
+    "insider_name": "Opaleye Management Inc.",
+    "trade_date": "2025-12-05",
+    "entry_price": 39.61,
+    "title": "10%",
+    "qty": 744,
+    "value": 29469,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-10T11:34:20.297014",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-10T11:34:20.297018",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "ARX_Meriwether Karen Sue_2025-12-08 00:00:00",
+    "ticker": "ARX",
+    "insider_name": "Meriwether Karen Sue",
+    "trade_date": "2025-12-08",
+    "entry_price": 14.67,
+    "title": "Dir",
+    "qty": 542,
+    "value": 7951,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-10T11:34:20.510134",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-10T11:34:20.510138",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "CCRN_Cash W Larry_2025-12-09 00:00:00",
+    "ticker": "CCRN",
+    "insider_name": "Cash W Larry",
+    "trade_date": "2025-12-09",
+    "entry_price": 8.17,
+    "title": "Dir",
+    "qty": 5000,
+    "value": 40829,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-10T11:34:20.783696",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-10T11:34:20.783701",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "ABSI_Van Houten Frans_2025-12-05 00:00:00",
+    "ticker": "ABSI",
+    "insider_name": "Van Houten Frans",
+    "trade_date": "2025-12-05",
+    "entry_price": 3.72,
+    "title": "Dir",
+    "qty": 40000,
+    "value": 148800,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-10T11:34:21.039329",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-10T11:34:21.039334",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "FSK_Hopkins Jerel A_2025-12-05 00:00:00",
+    "ticker": "FSK",
+    "insider_name": "Hopkins Jerel A",
+    "trade_date": "2025-12-05",
+    "entry_price": 15.5,
+    "title": "Dir",
+    "qty": 450,
+    "value": 6973,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-10T11:34:21.307003",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-10T11:34:21.307007",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "RDGL_Korenko Michael K_2025-12-02 00:00:00",
+    "ticker": "RDGL",
+    "insider_name": "Korenko Michael K",
+    "trade_date": "2025-12-02",
+    "entry_price": 0.07,
+    "title": "CEO, Pres",
+    "qty": 100000,
+    "value": 7220,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-10T11:34:21.518915",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-10T11:34:21.518919",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "NWBI_Tullio David M_2025-12-08 00:00:00",
+    "ticker": "NWBI",
+    "insider_name": "Tullio David M",
+    "trade_date": "2025-12-08",
+    "entry_price": 12.27,
+    "title": "Dir",
+    "qty": 1500,
+    "value": 18398,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-10T11:34:21.730481",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-10T11:34:21.730485",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "THFF_Jensen Susan M_2025-12-04 00:00:00",
+    "ticker": "THFF",
+    "insider_name": "Jensen Susan M",
+    "trade_date": "2025-12-04",
+    "entry_price": 60.23,
+    "title": "Dir",
+    "qty": 28,
+    "value": 1686,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-10T11:34:21.988716",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-10T11:34:21.988719",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "GRNT_McCartney John_2025-12-08 00:00:00",
+    "ticker": "GRNT",
+    "insider_name": "McCartney John",
+    "trade_date": "2025-12-08",
+    "entry_price": 5.26,
+    "title": "Dir",
+    "qty": 5000,
+    "value": 26300,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-10T11:34:22.200410",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-10T11:34:22.200414",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "BSBK_Masterson John J._2025-12-05 00:00:00",
+    "ticker": "BSBK",
+    "insider_name": "Masterson John J.",
+    "trade_date": "2025-12-05",
+    "entry_price": 8.33,
+    "title": "Dir",
+    "qty": 1600,
+    "value": 13332,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-10T11:34:22.413438",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-10T11:34:22.413442",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "TPL_Horizon Kinetics Asset Management LLC_2025-12-08 00:00:00",
+    "ticker": "TPL",
+    "insider_name": "Horizon Kinetics Asset Management LLC",
+    "trade_date": "2025-12-08",
+    "entry_price": 914.15,
+    "title": "10%",
+    "qty": 1,
+    "value": 914,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-10T11:34:22.625280",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-10T11:34:22.625284",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "HKHC_Stahl Murray_2025-12-08 00:00:00",
+    "ticker": "HKHC",
+    "insider_name": "Stahl Murray",
+    "trade_date": "2025-12-08",
+    "entry_price": 26.73,
+    "title": "CEO, CIO, 10%",
+    "qty": 22,
+    "value": 588,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-10T11:34:22.838172",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-10T11:34:22.838176",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "RCG_Stahl Murray_2025-12-08 00:00:00",
+    "ticker": "RCG",
+    "insider_name": "Stahl Murray",
+    "trade_date": "2025-12-08",
+    "entry_price": 2.63,
+    "title": "Pres, Co-Portfolio Manager, 10%",
+    "qty": 1134,
+    "value": 2982,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-10T11:34:23.049766",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-10T11:34:23.049771",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "QNTO_Gonzalez William R_2025-12-05 00:00:00",
+    "ticker": "QNTO",
+    "insider_name": "Gonzalez William R",
+    "trade_date": "2025-12-05",
+    "entry_price": 10.26,
+    "title": "Pres",
+    "qty": 528,
+    "value": 5417,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-10T11:34:23.260662",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-10T11:34:23.260666",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "NGS_Holley Jean K_2025-12-08 00:00:00",
+    "ticker": "NGS",
+    "insider_name": "Holley Jean K",
+    "trade_date": "2025-12-08",
+    "entry_price": 32.0,
+    "title": "Dir",
+    "qty": 935,
+    "value": 29920,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-10T11:34:23.531608",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-10T11:34:23.531613",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "OPHC_Blisko Michael_2025-12-04 00:00:00",
+    "ticker": "OPHC",
+    "insider_name": "Blisko Michael",
+    "trade_date": "2025-12-04",
+    "entry_price": 4.09,
+    "title": "Dir",
+    "qty": 7600,
+    "value": 31084,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-10T11:34:23.744584",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-10T11:34:23.744587",
     "outcomes": {
       "30d": null,
       "60d": null,
