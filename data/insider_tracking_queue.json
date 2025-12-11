@@ -10127,7 +10127,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:45:56.115039",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:26:29.763389",
+    "last_updated": "2025-12-11T11:26:54.127541",
     "outcomes": {
       "30d": {
         "price": 0.4300000071525574,
@@ -10139,7 +10139,11 @@
         "return": 45.83333084980647,
         "date": "2025-11-10"
       },
-      "90d": null,
+      "90d": {
+        "price": 0.30000001192092896,
+        "return": 25.000004967053734,
+        "date": "2025-12-10"
+      },
       "180d": null
     }
   },
@@ -12655,9 +12659,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:45:58.256866",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:45:58.256869",
+    "last_updated": "2025-12-11T11:26:55.446049",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 4.289999961853027,
+        "return": -8.892068226521477e-07,
+        "date": "2025-12-10"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -17523,9 +17531,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:03.166229",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:03.166233",
+    "last_updated": "2025-12-11T11:26:59.280902",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 12.260000228881836,
+        "return": -1.6051345996642448,
+        "date": "2025-12-10"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -17683,9 +17695,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:03.351765",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:03.351768",
+    "last_updated": "2025-12-11T11:27:00.542281",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 35.349998474121094,
+        "return": 12.75916578667015,
+        "date": "2025-12-10"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -17723,9 +17739,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:03.399034",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:03.399037",
+    "last_updated": "2025-12-11T11:27:01.784060",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 83.8499984741211,
+        "return": -1.3529429716222425,
+        "date": "2025-12-10"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -17903,9 +17923,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:03.614571",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:03.614574",
+    "last_updated": "2025-12-11T11:27:04.915717",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 156.60000610351562,
+        "return": 7.084249250215819,
+        "date": "2025-12-10"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -17923,9 +17947,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:03.637848",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:03.637850",
+    "last_updated": "2025-12-11T11:27:05.575453",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 31.200000762939453,
+        "return": 7.40103532853512,
+        "date": "2025-12-10"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -18043,9 +18071,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:03.779257",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:03.779260",
+    "last_updated": "2025-12-11T11:27:07.639559",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 7.03000020980835,
+        "return": 7.328247477990073,
+        "date": "2025-12-10"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -18403,9 +18435,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:04.212065",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:04.212068",
+    "last_updated": "2025-12-11T11:27:12.689025",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 42.65999984741211,
+        "return": 1.5956176408957068,
+        "date": "2025-12-10"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -18843,9 +18879,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:04.751128",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:04.751131",
+    "last_updated": "2025-12-11T11:27:17.479188",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 3.559999942779541,
+        "return": 3.188404138537415,
+        "date": "2025-12-10"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -18863,9 +18903,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:04.775206",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:04.775209",
+    "last_updated": "2025-12-11T11:27:18.086286",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 3.6600000858306885,
+        "return": 2.3451007741654084e-06,
+        "date": "2025-12-10"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -18923,9 +18967,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:04.849819",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:04.849821",
+    "last_updated": "2025-12-11T11:27:20.016955",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 3.309999942779541,
+        "return": 9.60264711190533,
+        "date": "2025-12-10"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -18943,9 +18991,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:04.874458",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:04.874461",
+    "last_updated": "2025-12-11T11:27:20.616389",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 8.260000228881836,
+        "return": 47.23708072873147,
+        "date": "2025-12-10"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -19055,9 +19107,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:04.998620",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:04.998622",
+    "last_updated": "2025-12-11T11:27:21.909942",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 6.960000038146973,
+        "return": 9.090909688824024,
+        "date": "2025-12-10"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -19075,9 +19131,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:05.023954",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:05.023957",
+    "last_updated": "2025-12-11T11:27:22.528003",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 13.4399995803833,
+        "return": 18.832887536545538,
+        "date": "2025-12-10"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -19335,9 +19395,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:05.339964",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:05.339967",
+    "last_updated": "2025-12-11T11:27:24.418165",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 37.029998779296875,
+        "return": 9.459056397566885,
+        "date": "2025-12-10"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -19395,9 +19459,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:05.415939",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:05.415942",
+    "last_updated": "2025-12-11T11:27:25.001178",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 37.029998779296875,
+        "return": 9.81612923872146,
+        "date": "2025-12-10"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -19455,9 +19523,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:05.491858",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:05.491862",
+    "last_updated": "2025-12-11T11:27:26.916843",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 10.59000015258789,
+        "return": 39.34210727089331,
+        "date": "2025-12-10"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -19499,9 +19571,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:05.547209",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:05.547211",
+    "last_updated": "2025-12-11T11:27:27.521607",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 17.790000915527344,
+        "return": 8.4095119776194,
+        "date": "2025-12-10"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -19583,9 +19659,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:05.649260",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:05.649265",
+    "last_updated": "2025-12-11T11:27:29.378761",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 2.7300000190734863,
+        "return": -85.89147276964607,
+        "date": "2025-12-10"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -19667,9 +19747,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:05.750445",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:05.750449",
+    "last_updated": "2025-12-11T11:27:31.280326",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 35.150001525878906,
+        "return": 2.20994918836553,
+        "date": "2025-12-10"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -19831,9 +19915,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:05.955820",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:05.955822",
+    "last_updated": "2025-12-11T11:27:35.034549",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 1.0199999809265137,
+        "return": -22.727274172233816,
+        "date": "2025-12-10"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -19851,9 +19939,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:05.981895",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:05.981897",
+    "last_updated": "2025-12-11T11:27:35.752427",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 1.2000000476837158,
+        "return": -19.463084048072762,
+        "date": "2025-12-10"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -19915,9 +20007,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:06.059654",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:06.059656",
+    "last_updated": "2025-12-11T11:27:37.124662",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 9.979999542236328,
+        "return": 2.9927713337082418,
+        "date": "2025-12-10"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -20047,9 +20143,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:06.216718",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:06.216721",
+    "last_updated": "2025-12-11T11:27:38.393558",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 87.16000366210938,
+        "return": 23.52608228756997,
+        "date": "2025-12-10"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -20067,9 +20167,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:06.242741",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:06.242744",
+    "last_updated": "2025-12-11T11:27:39.099814",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 35.560001373291016,
+        "return": 4.58823933320887,
+        "date": "2025-12-10"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -20087,9 +20191,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:06.268849",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:06.268853",
+    "last_updated": "2025-12-11T11:27:39.734970",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 35.560001373291016,
+        "return": 6.722693197151906,
+        "date": "2025-12-10"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -20107,9 +20215,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:06.295499",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:06.295501",
+    "last_updated": "2025-12-11T11:27:40.414483",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 13.380000114440918,
+        "return": 11.592995116271206,
+        "date": "2025-12-10"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -20127,9 +20239,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:06.321632",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:06.321635",
+    "last_updated": "2025-12-11T11:27:41.077406",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 23.479999542236328,
+        "return": -0.9282719736863763,
+        "date": "2025-12-10"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -20147,9 +20263,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:06.347433",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:06.347436",
+    "last_updated": "2025-12-11T11:27:41.705264",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 8.199999809265137,
+        "return": -1.6786593613292944,
+        "date": "2025-12-10"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -20167,9 +20287,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:06.373282",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:06.373285",
+    "last_updated": "2025-12-11T11:27:42.274597",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 8.199999809265137,
+        "return": -1.796409469878598,
+        "date": "2025-12-10"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -20187,9 +20311,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:06.399563",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:06.399566",
+    "last_updated": "2025-12-11T11:27:42.854127",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 8.199999809265137,
+        "return": -2.4970296163479597,
+        "date": "2025-12-10"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -20207,9 +20335,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:06.425751",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:06.425753",
+    "last_updated": "2025-12-11T11:27:43.570306",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 10.65999984741211,
+        "return": 30.63725303201114,
+        "date": "2025-12-10"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -20247,9 +20379,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:06.477632",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:06.477636",
+    "last_updated": "2025-12-11T11:27:44.811808",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 13.130000114440918,
+        "return": 10.895271236832079,
+        "date": "2025-12-10"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -20267,9 +20403,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:06.504169",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:06.504172",
+    "last_updated": "2025-12-11T11:27:45.491253",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 0.5809999704360962,
+        "return": -9.218754619359972,
+        "date": "2025-12-10"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -20287,9 +20427,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:06.530689",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:06.530692",
+    "last_updated": "2025-12-11T11:27:46.149944",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 8.789999961853027,
+        "return": 31.58682577624293,
+        "date": "2025-12-10"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -20307,9 +20451,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:06.557358",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:06.557362",
+    "last_updated": "2025-12-11T11:27:46.934680",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 40.33000183105469,
+        "return": 9.532867547677043,
+        "date": "2025-12-10"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -20327,9 +20475,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:06.583878",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:06.583881",
+    "last_updated": "2025-12-11T11:27:47.492341",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 23.479999542236328,
+        "return": -0.08510833090924202,
+        "date": "2025-12-10"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -20371,9 +20523,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:06.636740",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:06.636743",
+    "last_updated": "2025-12-11T11:27:48.091666",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 0.09000000357627869,
+        "return": -9.999996423721319,
+        "date": "2025-12-10"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -20431,9 +20587,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:06.714984",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:06.714987",
+    "last_updated": "2025-12-11T11:27:48.779897",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 14.640000343322754,
+        "return": 0.27397495426544016,
+        "date": "2025-12-10"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -20451,9 +20611,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:06.741701",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:06.741703",
+    "last_updated": "2025-12-11T11:27:49.463822",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 3.0199999809265137,
+        "return": -10.650888138268822,
+        "date": "2025-12-10"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -20471,9 +20635,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:06.767866",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:06.767869",
+    "last_updated": "2025-12-11T11:27:50.134274",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 16.979999542236328,
+        "return": 10.045363203087028,
+        "date": "2025-12-10"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -20515,9 +20683,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:06.821646",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:06.821649",
+    "last_updated": "2025-12-11T11:27:50.815764",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 14.279999732971191,
+        "return": -0.4184119039665862,
+        "date": "2025-12-10"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -20639,9 +20811,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:06.986122",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:06.986125",
+    "last_updated": "2025-12-11T11:27:52.694905",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 10.050000190734863,
+        "return": -2.8985488817887575,
+        "date": "2025-12-10"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -20659,9 +20835,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:07.013082",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:07.013084",
+    "last_updated": "2025-12-11T11:27:53.453490",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 31.639999389648438,
+        "return": 4.976773024712797,
+        "date": "2025-12-10"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -20679,9 +20859,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:07.039611",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:07.039614",
+    "last_updated": "2025-12-11T11:27:54.197248",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 2.5899999141693115,
+        "return": -1.5209158110527898,
+        "date": "2025-12-10"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -20699,9 +20883,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:07.066745",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:07.066748",
+    "last_updated": "2025-12-11T11:27:54.955484",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 892.5,
+        "return": -9.296015122412271,
+        "date": "2025-12-10"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -20803,9 +20991,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:07.199922",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:07.199925",
+    "last_updated": "2025-12-11T11:27:57.621692",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 11.109999656677246,
+        "return": 5.208330082170886,
+        "date": "2025-12-10"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -20867,9 +21059,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:07.279932",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:07.279935",
+    "last_updated": "2025-12-11T11:27:58.993591",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 54.91999816894531,
+        "return": 14.79932727622347,
+        "date": "2025-12-10"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -20983,9 +21179,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:07.416550",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:07.416553",
+    "last_updated": "2025-12-11T11:27:59.778744",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 46.849998474121094,
+        "return": 0.12822926719618422,
+        "date": "2025-12-10"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -21003,9 +21203,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:07.443579",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:07.443583",
+    "last_updated": "2025-12-11T11:28:00.400210",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 3.6600000858306885,
+        "return": -3.430076891010859,
+        "date": "2025-12-10"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -21067,9 +21271,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:07.525497",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:07.525500",
+    "last_updated": "2025-12-11T11:28:01.602745",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 20.450000762939453,
+        "return": -4.972115413850123,
+        "date": "2025-12-10"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -21111,9 +21319,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:07.580945",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:07.580947",
+    "last_updated": "2025-12-11T11:28:02.315221",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 49.88999938964844,
+        "return": 1.8786999992820883,
+        "date": "2025-12-10"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -21151,9 +21363,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:07.635607",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:07.635609",
+    "last_updated": "2025-12-11T11:28:03.584442",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 15.720000267028809,
+        "return": -0.06357109326886098,
+        "date": "2025-12-10"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -21307,9 +21523,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:07.835670",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:07.835673",
+    "last_updated": "2025-12-11T11:28:05.366217",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 0.10599999874830246,
+        "return": 5.999998748302454,
+        "date": "2025-12-10"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -21351,9 +21571,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:07.890839",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:07.890844",
+    "last_updated": "2025-12-11T11:28:06.088113",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 9.460000038146973,
+        "return": 5.698324448569536,
+        "date": "2025-12-10"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -21391,9 +21615,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:07.946314",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:07.946316",
+    "last_updated": "2025-12-11T11:28:07.313380",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 35.349998474121094,
+        "return": 15.221637790485964,
+        "date": "2025-12-10"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -21579,9 +21807,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:08.169299",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:08.169301",
+    "last_updated": "2025-12-11T11:28:07.977423",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 67.55999755859375,
+        "return": 22.747088587561322,
+        "date": "2025-12-10"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -21599,9 +21831,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:08.198100",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:08.198103",
+    "last_updated": "2025-12-11T11:28:08.635824",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 15.130000114440918,
+        "return": 17.743191552069405,
+        "date": "2025-12-10"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -21619,9 +21855,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:08.226328",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:08.226331",
+    "last_updated": "2025-12-11T11:28:09.242472",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 38.31999969482422,
+        "return": 10.847554801342836,
+        "date": "2025-12-10"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -21639,9 +21879,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:08.255378",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:08.255381",
+    "last_updated": "2025-12-11T11:28:10.046740",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 96.80000305175781,
+        "return": 11.675130424270657,
+        "date": "2025-12-10"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -21659,9 +21903,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:08.283676",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:08.283680",
+    "last_updated": "2025-12-11T11:28:10.600279",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 7.480000019073486,
+        "return": 20.45088597541846,
+        "date": "2025-12-10"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -21847,9 +22095,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:08.503500",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:08.503503",
+    "last_updated": "2025-12-11T11:28:11.199016",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 1.5700000524520874,
+        "return": -1.2578583363467093,
+        "date": "2025-12-10"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -21987,9 +22239,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:08.669948",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:08.669950",
+    "last_updated": "2025-12-11T11:28:11.849301",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 32.790000915527344,
+        "return": 6.842622728991015,
+        "date": "2025-12-10"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -22511,9 +22767,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:09.285451",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:09.285453",
+    "last_updated": "2025-12-11T11:28:12.595044",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 45.779998779296875,
+        "return": 2.8764017512289324,
+        "date": "2025-12-10"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -22531,9 +22791,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:09.314612",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:09.314614",
+    "last_updated": "2025-12-11T11:28:13.180433",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 45.779998779296875,
+        "return": 2.8764017512289324,
+        "date": "2025-12-10"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -22551,9 +22815,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:09.343087",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:09.343090",
+    "last_updated": "2025-12-11T11:28:13.761698",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 45.779998779296875,
+        "return": 2.8764017512289324,
+        "date": "2025-12-10"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -22571,9 +22839,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:09.371297",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:09.371300",
+    "last_updated": "2025-12-11T11:28:14.435838",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 46.459999084472656,
+        "return": 11.763288632361453,
+        "date": "2025-12-10"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -22663,9 +22935,13 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:09.486538",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:46:09.486541",
+    "last_updated": "2025-12-11T11:28:15.173253",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 34.849998474121094,
+        "return": 16.907073043009376,
+        "date": "2025-12-10"
+      },
       "60d": null,
       "90d": null,
       "180d": null
@@ -41759,7 +42035,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:38.119836",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:33:53.496584",
+    "last_updated": "2025-12-11T11:28:51.984547",
     "outcomes": {
       "30d": {
         "price": 13.224635124206543,
@@ -41771,7 +42047,11 @@
         "return": -2.9782106742746395,
         "date": "2025-11-10"
       },
-      "90d": null,
+      "90d": {
+        "price": 13.6899995803833,
+        "return": 0.9586989703783206,
+        "date": "2025-12-10"
+      },
       "180d": null
     }
   },
@@ -41787,7 +42067,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:38.165875",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:33:54.164655",
+    "last_updated": "2025-12-11T11:28:52.721076",
     "outcomes": {
       "30d": {
         "price": 4.977740287780762,
@@ -41799,7 +42079,11 @@
         "return": -9.432916574075184,
         "date": "2025-11-10"
       },
-      "90d": null,
+      "90d": {
+        "price": 5.210000038146973,
+        "return": -8.274647215722307,
+        "date": "2025-12-10"
+      },
       "180d": null
     }
   },
@@ -46947,7 +47231,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:47.083233",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:36:21.767303",
+    "last_updated": "2025-12-11T11:29:33.736608",
     "outcomes": {
       "30d": {
         "price": 6.670000076293945,
@@ -46959,7 +47243,11 @@
         "return": -67.90193777399705,
         "date": "2025-11-10"
       },
-      "90d": null,
+      "90d": {
+        "price": 5.28000020980835,
+        "return": -69.89737622686232,
+        "date": "2025-12-10"
+      },
       "180d": null
     }
   },
@@ -50919,7 +51207,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:54.384660",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:37:54.992557",
+    "last_updated": "2025-12-11T11:29:44.847783",
     "outcomes": {
       "30d": {
         "price": 15.680000305175781,
@@ -50931,7 +51219,11 @@
         "return": 5.677652417230671,
         "date": "2025-11-10"
       },
-      "90d": null,
+      "90d": {
+        "price": 18.18000030517578,
+        "return": 10.989012852111003,
+        "date": "2025-12-10"
+      },
       "180d": null
     }
   },
@@ -51903,7 +52195,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:56.247869",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:38:17.053747",
+    "last_updated": "2025-12-11T11:29:53.344468",
     "outcomes": {
       "30d": {
         "price": 3.619999885559082,
@@ -51915,7 +52207,11 @@
         "return": 171.89541486353653,
         "date": "2025-11-10"
       },
-      "90d": null,
+      "90d": {
+        "price": 5.71999979019165,
+        "return": 273.85619543736277,
+        "date": "2025-12-10"
+      },
       "180d": null
     }
   },
@@ -51931,7 +52227,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:56.301727",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:38:17.670883",
+    "last_updated": "2025-12-11T11:29:53.943147",
     "outcomes": {
       "30d": {
         "price": 8.6899995803833,
@@ -51943,7 +52239,11 @@
         "return": -4.077254310356874,
         "date": "2025-11-10"
       },
-      "90d": null,
+      "90d": {
+        "price": 10.404999732971191,
+        "return": 48.855504048228774,
+        "date": "2025-12-10"
+      },
       "180d": null
     }
   },
@@ -51959,7 +52259,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:56.355317",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:38:18.258467",
+    "last_updated": "2025-12-11T11:29:54.540768",
     "outcomes": {
       "30d": {
         "price": 448.0,
@@ -51971,7 +52271,11 @@
         "return": -5.79870510208916,
         "date": "2025-11-10"
       },
-      "90d": null,
+      "90d": {
+        "price": 475.8299865722656,
+        "return": 11.844205192804068,
+        "date": "2025-12-10"
+      },
       "180d": null
     }
   },
@@ -52019,7 +52323,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:56.462700",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:38:19.439519",
+    "last_updated": "2025-12-11T11:29:55.216816",
     "outcomes": {
       "30d": {
         "price": 47.939998626708984,
@@ -52031,7 +52335,11 @@
         "return": -9.527768507454136,
         "date": "2025-11-10"
       },
-      "90d": null,
+      "90d": {
+        "price": 41.65999984741211,
+        "return": -13.33472051713728,
+        "date": "2025-12-10"
+      },
       "180d": null
     }
   },
@@ -52047,7 +52355,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:56.515528",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:38:20.021300",
+    "last_updated": "2025-12-11T11:29:55.833957",
     "outcomes": {
       "30d": {
         "price": 7.269999980926514,
@@ -52059,7 +52367,11 @@
         "return": 19.849620905137595,
         "date": "2025-11-10"
       },
-      "90d": null,
+      "90d": {
+        "price": 7.0,
+        "return": 5.263157894736836,
+        "date": "2025-12-10"
+      },
       "180d": null
     }
   },
@@ -52107,7 +52419,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:56.624291",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:38:21.156023",
+    "last_updated": "2025-12-11T11:29:56.489669",
     "outcomes": {
       "30d": {
         "price": 9.149999618530273,
@@ -52119,7 +52431,11 @@
         "return": -1.060446196118187,
         "date": "2025-11-10"
       },
-      "90d": null,
+      "90d": {
+        "price": 9.65999984741211,
+        "return": 2.4390227721326583,
+        "date": "2025-12-10"
+      },
       "180d": null
     }
   },
@@ -52135,7 +52451,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:56.677859",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:38:21.745142",
+    "last_updated": "2025-12-11T11:29:57.099012",
     "outcomes": {
       "30d": {
         "price": 10.539999961853027,
@@ -52147,7 +52463,11 @@
         "return": -1.023252620253452,
         "date": "2025-11-10"
       },
-      "90d": null,
+      "90d": {
+        "price": 10.5600004196167,
+        "return": -1.767437957053961,
+        "date": "2025-12-10"
+      },
       "180d": null
     }
   },
@@ -52163,7 +52483,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:56.732819",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:38:22.394442",
+    "last_updated": "2025-12-11T11:29:57.784553",
     "outcomes": {
       "30d": {
         "price": 48.95931625366211,
@@ -52175,7 +52495,11 @@
         "return": 15.491915370546275,
         "date": "2025-11-10"
       },
-      "90d": null,
+      "90d": {
+        "price": 54.91999816894531,
+        "return": 35.03810712796978,
+        "date": "2025-12-10"
+      },
       "180d": null
     }
   },
@@ -52247,7 +52571,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:56.892914",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:38:24.201995",
+    "last_updated": "2025-12-11T11:29:58.380370",
     "outcomes": {
       "30d": {
         "price": 1.5199999809265137,
@@ -52259,7 +52583,11 @@
         "return": -39.3788813063817,
         "date": "2025-11-10"
       },
-      "90d": null,
+      "90d": {
+        "price": 0.7260000109672546,
+        "return": -54.90683161694071,
+        "date": "2025-12-10"
+      },
       "180d": null
     }
   },
@@ -52555,7 +52883,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:57.483722",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:38:30.972522",
+    "last_updated": "2025-12-11T11:30:04.985181",
     "outcomes": {
       "30d": {
         "price": 12.15999984741211,
@@ -52567,7 +52895,11 @@
         "return": -28.22685639581593,
         "date": "2025-11-10"
       },
-      "90d": null,
+      "90d": {
+        "price": 14.8100004196167,
+        "return": -3.4550168212731465,
+        "date": "2025-12-10"
+      },
       "180d": null
     }
   },
@@ -52695,7 +53027,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:57.754904",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:38:34.013881",
+    "last_updated": "2025-12-11T11:30:06.930948",
     "outcomes": {
       "30d": {
         "price": 8.579999923706055,
@@ -52707,7 +53039,11 @@
         "return": -27.804877118366516,
         "date": "2025-11-10"
       },
-      "90d": null,
+      "90d": {
+        "price": 4.489999771118164,
+        "return": -45.243905230266286,
+        "date": "2025-12-10"
+      },
       "180d": null
     }
   },
@@ -52779,7 +53115,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:57.916737",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:38:35.895821",
+    "last_updated": "2025-12-11T11:30:08.785685",
     "outcomes": {
       "30d": {
         "price": 1.4500000476837158,
@@ -52791,7 +53127,11 @@
         "return": 31.690141180871244,
         "date": "2025-11-10"
       },
-      "90d": null,
+      "90d": {
+        "price": 1.5,
+        "return": 5.633802816901413,
+        "date": "2025-12-10"
+      },
       "180d": null
     }
   },
@@ -52835,7 +53175,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:58.023898",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:38:37.155987",
+    "last_updated": "2025-12-11T11:30:10.045153",
     "outcomes": {
       "30d": {
         "price": 14.729999542236328,
@@ -52847,7 +53187,11 @@
         "return": -1.9987117391029212,
         "date": "2025-11-10"
       },
-      "90d": null,
+      "90d": {
+        "price": 16.979999542236328,
+        "return": 9.477753334857049,
+        "date": "2025-12-10"
+      },
       "180d": null
     }
   },
@@ -53003,7 +53347,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:58.348962",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:38:40.788069",
+    "last_updated": "2025-12-11T11:30:13.729593",
     "outcomes": {
       "30d": {
         "price": 42.959999084472656,
@@ -53015,7 +53359,11 @@
         "return": 21.878791577888258,
         "date": "2025-11-10"
       },
-      "90d": null,
+      "90d": {
+        "price": 41.7400016784668,
+        "return": 26.484853571111504,
+        "date": "2025-12-10"
+      },
       "180d": null
     }
   },
@@ -53143,7 +53491,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:58.622784",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:38:43.834525",
+    "last_updated": "2025-12-11T11:30:16.792346",
     "outcomes": {
       "30d": {
         "price": 43.07554626464844,
@@ -53155,7 +53503,11 @@
         "return": -18.36565956811594,
         "date": "2025-11-10"
       },
-      "90d": null,
+      "90d": {
+        "price": 45.75,
+        "return": -5.592241023524558,
+        "date": "2025-12-10"
+      },
       "180d": null
     }
   },
@@ -53407,7 +53759,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:59.114748",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:38:49.402990",
+    "last_updated": "2025-12-11T11:30:20.530603",
     "outcomes": {
       "30d": {
         "price": 13.520000457763672,
@@ -53419,7 +53771,11 @@
         "return": -13.686965912404837,
         "date": "2025-11-10"
       },
-      "90d": null,
+      "90d": {
+        "price": 14.5,
+        "return": -5.042567125081857,
+        "date": "2025-12-10"
+      },
       "180d": null
     }
   },
@@ -53435,7 +53791,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:59.169573",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:38:50.034447",
+    "last_updated": "2025-12-11T11:30:21.221269",
     "outcomes": {
       "30d": {
         "price": 26.420000076293945,
@@ -53447,7 +53803,11 @@
         "return": -5.6699139067049575,
         "date": "2025-11-10"
       },
-      "90d": null,
+      "90d": {
+        "price": 29.530000686645508,
+        "return": 6.645000674053833,
+        "date": "2025-12-10"
+      },
       "180d": null
     }
   },
@@ -53463,7 +53823,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:59.225621",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:38:50.724859",
+    "last_updated": "2025-12-11T11:30:21.954021",
     "outcomes": {
       "30d": {
         "price": 12.365516662597656,
@@ -53475,7 +53835,11 @@
         "return": 7.3985680190930765,
         "date": "2025-11-10"
       },
-      "90d": null,
+      "90d": {
+        "price": 14.600000381469727,
+        "return": 16.149565485041578,
+        "date": "2025-12-10"
+      },
       "180d": null
     }
   },
@@ -53523,7 +53887,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:59.337075",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:38:51.832935",
+    "last_updated": "2025-12-11T11:30:22.513848",
     "outcomes": {
       "30d": {
         "price": 0.11999999731779099,
@@ -53535,7 +53899,11 @@
         "return": 12.500004470348355,
         "date": "2025-11-10"
       },
-      "90d": null,
+      "90d": {
+        "price": 0.09000000357627869,
+        "return": 12.500004470348355,
+        "date": "2025-12-10"
+      },
       "180d": null
     }
   },
@@ -53643,7 +54011,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:59.553838",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:38:54.286794",
+    "last_updated": "2025-12-11T11:30:23.863408",
     "outcomes": {
       "30d": {
         "price": 5.559999942779541,
@@ -53655,7 +54023,11 @@
         "return": 7.272729006680575,
         "date": "2025-11-10"
       },
-      "90d": null,
+      "90d": {
+        "price": 5.869999885559082,
+        "return": 6.727270646528765,
+        "date": "2025-12-10"
+      },
       "180d": null
     }
   },
@@ -53823,7 +54195,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:59.882583",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:38:57.972939",
+    "last_updated": "2025-12-11T11:30:25.666580",
     "outcomes": {
       "30d": {
         "price": 10.5,
@@ -53835,7 +54207,11 @@
         "return": 85.83850979064562,
         "date": "2025-11-10"
       },
-      "90d": null,
+      "90d": {
+        "price": 14.260000228881836,
+        "return": 77.14285998610974,
+        "date": "2025-12-10"
+      },
       "180d": null
     }
   },
@@ -53903,7 +54279,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:00.050786",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:39:02.815511",
+    "last_updated": "2025-12-11T11:30:29.835038",
     "outcomes": {
       "30d": {
         "price": 42.74982452392578,
@@ -53915,7 +54291,11 @@
         "return": -26.139922330493988,
         "date": "2025-11-10"
       },
-      "90d": null,
+      "90d": {
+        "price": 35.150001525878906,
+        "return": -25.30811405465596,
+        "date": "2025-12-10"
+      },
       "180d": null
     }
   },
@@ -53963,7 +54343,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:00.168743",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:39:04.081509",
+    "last_updated": "2025-12-11T11:30:30.532419",
     "outcomes": {
       "30d": {
         "price": 10.791932106018066,
@@ -53975,7 +54355,11 @@
         "return": -0.2656830877561472,
         "date": "2025-11-10"
       },
-      "90d": null,
+      "90d": {
+        "price": 10.680000305175781,
+        "return": -1.2938973643643163,
+        "date": "2025-12-10"
+      },
       "180d": null
     }
   },
@@ -53991,7 +54375,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:00.224878",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:39:04.632158",
+    "last_updated": "2025-12-11T11:30:31.092076",
     "outcomes": {
       "30d": {
         "price": 10.5,
@@ -54003,7 +54387,11 @@
         "return": 74.35897480357777,
         "date": "2025-11-10"
       },
-      "90d": null,
+      "90d": {
+        "price": 14.260000228881836,
+        "return": 66.20046886808666,
+        "date": "2025-12-10"
+      },
       "180d": null
     }
   },
@@ -54019,7 +54407,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:00.280833",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:39:05.385699",
+    "last_updated": "2025-12-11T11:30:31.856862",
     "outcomes": {
       "30d": {
         "price": 2.8813769817352295,
@@ -54031,7 +54419,11 @@
         "return": 6.993004992291649,
         "date": "2025-11-10"
       },
-      "90d": null,
+      "90d": {
+        "price": 3.109999895095825,
+        "return": 8.741255073280605,
+        "date": "2025-12-10"
+      },
       "180d": null
     }
   },
@@ -54047,7 +54439,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:00.336163",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:39:05.969094",
+    "last_updated": "2025-12-11T11:30:32.520607",
     "outcomes": {
       "30d": {
         "price": 3.75,
@@ -54059,7 +54451,11 @@
         "return": 73.17072938128217,
         "date": "2025-11-10"
       },
-      "90d": null,
+      "90d": {
+        "price": 4.659999847412109,
+        "return": 127.31706572741999,
+        "date": "2025-12-10"
+      },
       "180d": null
     }
   },
@@ -54075,7 +54471,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:00.390851",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:39:06.614308",
+    "last_updated": "2025-12-11T11:30:33.171556",
     "outcomes": {
       "30d": {
         "price": 2.5999999046325684,
@@ -54087,7 +54483,11 @@
         "return": -1.1320797902233162,
         "date": "2025-11-10"
       },
-      "90d": null,
+      "90d": {
+        "price": 2.5899999141693115,
+        "return": -2.264154182290128,
+        "date": "2025-12-10"
+      },
       "180d": null
     }
   },
@@ -54103,7 +54503,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:00.445638",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:39:07.251166",
+    "last_updated": "2025-12-11T11:30:33.859833",
     "outcomes": {
       "30d": {
         "price": 890.5783081054688,
@@ -54115,7 +54515,11 @@
         "return": 6.9874941062694775,
         "date": "2025-11-10"
       },
-      "90d": null,
+      "90d": {
+        "price": 892.5,
+        "return": -3.7455647466108752,
+        "date": "2025-12-10"
+      },
       "180d": null
     }
   },
@@ -54131,7 +54535,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:00.500927",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:39:07.806134",
+    "last_updated": "2025-12-11T11:30:34.420960",
     "outcomes": {
       "30d": {
         "price": 1.0499999523162842,
@@ -54143,7 +54547,11 @@
         "return": -18.518516752454975,
         "date": "2025-11-10"
       },
-      "90d": null,
+      "90d": {
+        "price": 0.9399999976158142,
+        "return": -30.370370546976726,
+        "date": "2025-12-10"
+      },
       "180d": null
     }
   },
@@ -54191,7 +54599,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:00.610496",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:39:09.052582",
+    "last_updated": "2025-12-11T11:30:35.084695",
     "outcomes": {
       "30d": {
         "price": 20.229999542236328,
@@ -54203,7 +54611,11 @@
         "return": 0.24752475247525105,
         "date": "2025-11-10"
       },
-      "90d": null,
+      "90d": {
+        "price": 20.209999084472656,
+        "return": 0.04950041818147011,
+        "date": "2025-12-10"
+      },
       "180d": null
     }
   },
@@ -54251,7 +54663,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:00.720804",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:39:10.357253",
+    "last_updated": "2025-12-11T11:30:35.716715",
     "outcomes": {
       "30d": {
         "price": 41.96731185913086,
@@ -54263,7 +54675,11 @@
         "return": -0.602951492779808,
         "date": "2025-11-10"
       },
-      "90d": null,
+      "90d": {
+        "price": 48.22999954223633,
+        "return": 7.7043312689511545,
+        "date": "2025-12-10"
+      },
       "180d": null
     }
   },
@@ -54695,7 +55111,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:01.517399",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:39:18.721815",
+    "last_updated": "2025-12-11T11:30:36.340807",
     "outcomes": {
       "30d": {
         "price": 26.190000534057617,
@@ -54707,7 +55123,11 @@
         "return": 10.243366882864347,
         "date": "2025-11-10"
       },
-      "90d": null,
+      "90d": {
+        "price": 28.670000076293945,
+        "return": 26.85840741722984,
+        "date": "2025-12-10"
+      },
       "180d": null
     }
   },
@@ -54723,7 +55143,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:01.577404",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:39:19.331131",
+    "last_updated": "2025-12-11T11:30:36.962264",
     "outcomes": {
       "30d": {
         "price": 13.520000457763672,
@@ -54735,7 +55155,11 @@
         "return": 4.905911671218046,
         "date": "2025-11-10"
       },
-      "90d": null,
+      "90d": {
+        "price": 17.540000915527344,
+        "return": 17.876350238759027,
+        "date": "2025-12-10"
+      },
       "180d": null
     }
   },
@@ -54751,7 +55175,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:01.634726",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:39:19.962116",
+    "last_updated": "2025-12-11T11:30:37.626571",
     "outcomes": {
       "30d": {
         "price": 15.680000305175781,
@@ -54763,7 +55187,11 @@
         "return": 4.214325502362333,
         "date": "2025-11-10"
       },
-      "90d": null,
+      "90d": {
+        "price": 18.18000030517578,
+        "return": 9.45213910400832,
+        "date": "2025-12-10"
+      },
       "180d": null
     }
   },
@@ -54779,7 +55207,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:01.689782",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:39:20.606099",
+    "last_updated": "2025-12-11T11:30:38.292538",
     "outcomes": {
       "30d": {
         "price": 15.680000305175781,
@@ -54791,7 +55219,11 @@
         "return": 4.909087672378078,
         "date": "2025-11-10"
       },
-      "90d": null,
+      "90d": {
+        "price": 18.18000030517578,
+        "return": 10.181820031368371,
+        "date": "2025-12-10"
+      },
       "180d": null
     }
   },
@@ -54807,7 +55239,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:01.746183",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:39:21.242714",
+    "last_updated": "2025-12-11T11:30:38.955943",
     "outcomes": {
       "30d": {
         "price": 29.729999542236328,
@@ -54819,7 +55251,11 @@
         "return": -2.2925404298293928,
         "date": "2025-11-10"
       },
-      "90d": null,
+      "90d": {
+        "price": 27.670000076293945,
+        "return": -10.655472792076376,
+        "date": "2025-12-10"
+      },
       "180d": null
     }
   },
@@ -54899,7 +55335,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:01.948620",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:39:23.009996",
+    "last_updated": "2025-12-11T11:30:39.563142",
     "outcomes": {
       "30d": {
         "price": 3.619999885559082,
@@ -54911,7 +55347,11 @@
         "return": 171.89541486353653,
         "date": "2025-11-10"
       },
-      "90d": null,
+      "90d": {
+        "price": 5.71999979019165,
+        "return": 273.85619543736277,
+        "date": "2025-12-10"
+      },
       "180d": null
     }
   },
@@ -54927,7 +55367,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:02.003783",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:39:23.562913",
+    "last_updated": "2025-12-11T11:30:40.138620",
     "outcomes": {
       "30d": {
         "price": 3.619999885559082,
@@ -54939,7 +55379,11 @@
         "return": 171.89541486353653,
         "date": "2025-11-10"
       },
-      "90d": null,
+      "90d": {
+        "price": 5.71999979019165,
+        "return": 273.85619543736277,
+        "date": "2025-12-10"
+      },
       "180d": null
     }
   },
@@ -55019,7 +55463,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:02.173247",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:39:25.426410",
+    "last_updated": "2025-12-11T11:30:40.719655",
     "outcomes": {
       "30d": {
         "price": 3.619999885559082,
@@ -55031,7 +55475,11 @@
         "return": 152.1212028734612,
         "date": "2025-11-10"
       },
-      "90d": null,
+      "90d": {
+        "price": 5.71999979019165,
+        "return": 246.6666539510091,
+        "date": "2025-12-10"
+      },
       "180d": null
     }
   },
@@ -55047,7 +55495,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:02.228868",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:39:25.980416",
+    "last_updated": "2025-12-11T11:30:41.343406",
     "outcomes": {
       "30d": {
         "price": 3.619999885559082,
@@ -55059,7 +55507,11 @@
         "return": 152.1212028734612,
         "date": "2025-11-10"
       },
-      "90d": null,
+      "90d": {
+        "price": 5.71999979019165,
+        "return": 246.6666539510091,
+        "date": "2025-12-10"
+      },
       "180d": null
     }
   },
@@ -55075,7 +55527,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:02.284972",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:39:26.566318",
+    "last_updated": "2025-12-11T11:30:41.923492",
     "outcomes": {
       "30d": {
         "price": 3.619999885559082,
@@ -55087,7 +55539,11 @@
         "return": 152.1212028734612,
         "date": "2025-11-10"
       },
-      "90d": null,
+      "90d": {
+        "price": 5.71999979019165,
+        "return": 246.6666539510091,
+        "date": "2025-12-10"
+      },
       "180d": null
     }
   },
@@ -55103,7 +55559,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:02.340893",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:39:27.120872",
+    "last_updated": "2025-12-11T11:30:42.480454",
     "outcomes": {
       "30d": {
         "price": 3.619999885559082,
@@ -55115,7 +55571,11 @@
         "return": 152.1212028734612,
         "date": "2025-11-10"
       },
-      "90d": null,
+      "90d": {
+        "price": 5.71999979019165,
+        "return": 246.6666539510091,
+        "date": "2025-12-10"
+      },
       "180d": null
     }
   },
@@ -109748,10 +110208,10 @@
     "title": "CEO, 10%",
     "qty": 113500,
     "value": 74914,
-    "status": "TRACKING",
+    "status": "MATURED",
     "tracked_since": "2025-12-03T11:49:12.796857",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:58:22.513467",
+    "last_updated": "2025-12-11T11:32:16.546755",
     "outcomes": {
       "30d": {
         "price": 1.3200000524520874,
@@ -109768,7 +110228,11 @@
         "return": 266.6666782263553,
         "date": "2025-09-11"
       },
-      "180d": null
+      "180d": {
+        "price": 2.1700000762939453,
+        "return": 228.78789034756744,
+        "date": "2025-12-10"
+      }
     }
   },
   {
@@ -123780,10 +124244,10 @@
     "title": "Dir",
     "qty": 1821,
     "value": 55814,
-    "status": "TRACKING",
+    "status": "MATURED",
     "tracked_since": "2025-12-03T11:49:57.105989",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:03:23.778684",
+    "last_updated": "2025-12-11T11:32:53.528118",
     "outcomes": {
       "30d": {
         "price": 33.85136413574219,
@@ -123800,7 +124264,11 @@
         "return": 4.06388971972816,
         "date": "2025-09-11"
       },
-      "180d": null
+      "180d": {
+        "price": 34.4900016784668,
+        "return": 12.52855360021794,
+        "date": "2025-12-10"
+      }
     }
   },
   {
@@ -125488,10 +125956,10 @@
     "title": "Pres, CEO",
     "qty": 3000,
     "value": 14280,
-    "status": "TRACKING",
+    "status": "MATURED",
     "tracked_since": "2025-12-03T11:50:02.836345",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:04:03.094434",
+    "last_updated": "2025-12-11T11:33:01.429953",
     "outcomes": {
       "30d": {
         "price": 5.71999979019165,
@@ -125508,7 +125976,11 @@
         "return": -8.193279715145332,
         "date": "2025-09-11"
       },
-      "180d": null
+      "180d": {
+        "price": 4.349999904632568,
+        "return": -8.613447381668728,
+        "date": "2025-12-10"
+      }
     }
   },
   {
@@ -125648,10 +126120,10 @@
     "title": "Dir",
     "qty": 1230769,
     "value": 3999999,
-    "status": "TRACKING",
+    "status": "MATURED",
     "tracked_since": "2025-12-03T11:50:03.367416",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:04:06.137126",
+    "last_updated": "2025-12-11T11:33:02.094969",
     "outcomes": {
       "30d": {
         "price": 5.320000171661377,
@@ -125668,7 +126140,11 @@
         "return": 145.2307627751277,
         "date": "2025-09-11"
       },
-      "180d": null
+      "180d": {
+        "price": 10.9399995803833,
+        "return": 236.61537170410156,
+        "date": "2025-12-10"
+      }
     }
   },
   {
@@ -125680,10 +126156,10 @@
     "title": "Dir",
     "qty": 3076,
     "value": 9997,
-    "status": "TRACKING",
+    "status": "MATURED",
     "tracked_since": "2025-12-03T11:50:03.474495",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:04:06.660662",
+    "last_updated": "2025-12-11T11:33:02.652633",
     "outcomes": {
       "30d": {
         "price": 5.320000171661377,
@@ -125700,7 +126176,11 @@
         "return": 145.2307627751277,
         "date": "2025-09-11"
       },
-      "180d": null
+      "180d": {
+        "price": 10.9399995803833,
+        "return": 236.61537170410156,
+        "date": "2025-12-10"
+      }
     }
   },
   {
@@ -126380,10 +126860,10 @@
     "title": "COB, CEO, Pres, 10%",
     "qty": 4,
     "value": 47,
-    "status": "TRACKING",
+    "status": "MATURED",
     "tracked_since": "2025-12-03T11:50:05.830829",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:04:23.226168",
+    "last_updated": "2025-12-11T11:33:06.984929",
     "outcomes": {
       "30d": {
         "price": 11.412246704101562,
@@ -126400,7 +126880,11 @@
         "return": 14.738496820977392,
         "date": "2025-09-11"
       },
-      "180d": null
+      "180d": {
+        "price": 13.199999809265137,
+        "return": 12.340423908639462,
+        "date": "2025-12-10"
+      }
     }
   },
   {
@@ -126828,10 +127312,10 @@
     "title": "Dir",
     "qty": 5000,
     "value": 19950,
-    "status": "TRACKING",
+    "status": "MATURED",
     "tracked_since": "2025-12-03T11:50:07.327609",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:04:31.614224",
+    "last_updated": "2025-12-11T11:33:07.656976",
     "outcomes": {
       "30d": {
         "price": 3.490000009536743,
@@ -126848,7 +127332,11 @@
         "return": -42.85714357419122,
         "date": "2025-09-11"
       },
-      "180d": null
+      "180d": {
+        "price": 1.7799999713897705,
+        "return": -55.388471894993216,
+        "date": "2025-12-10"
+      }
     }
   },
   {
@@ -127372,10 +127860,10 @@
     "title": "10%",
     "qty": 416000,
     "value": 249600,
-    "status": "TRACKING",
+    "status": "MATURED",
     "tracked_since": "2025-12-03T11:50:09.179019",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:04:41.751605",
+    "last_updated": "2025-12-11T11:33:08.262566",
     "outcomes": {
       "30d": {
         "price": 0.6899999976158142,
@@ -127392,7 +127880,11 @@
         "return": 71.66666189829509,
         "date": "2025-09-11"
       },
-      "180d": null
+      "180d": {
+        "price": 1.159999966621399,
+        "return": 93.33332777023317,
+        "date": "2025-12-10"
+      }
     }
   },
   {
@@ -128396,10 +128888,10 @@
     "title": "10%",
     "qty": 1925,
     "value": 19216,
-    "status": "TRACKING",
+    "status": "MATURED",
     "tracked_since": "2025-12-03T11:50:12.659050",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:05:02.565403",
+    "last_updated": "2025-12-11T11:33:08.830523",
     "outcomes": {
       "30d": {
         "price": 15.510000228881836,
@@ -128416,7 +128908,11 @@
         "return": -0.1001977251622428,
         "date": "2025-09-11"
       },
-      "180d": null
+      "180d": {
+        "price": 7.539999961853027,
+        "return": -24.44889817782538,
+        "date": "2025-12-10"
+      }
     }
   },
   {
@@ -128448,10 +128944,10 @@
     "title": "VP, GM Global Aftermarket",
     "qty": 23,
     "value": 975,
-    "status": "TRACKING",
+    "status": "MATURED",
     "tracked_since": "2025-12-03T11:50:12.873943",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:05:07.018092",
+    "last_updated": "2025-12-11T11:33:13.135912",
     "outcomes": {
       "30d": {
         "price": 48.46924591064453,
@@ -128468,7 +128964,11 @@
         "return": 39.72453166640403,
         "date": "2025-09-11"
       },
-      "180d": null
+      "180d": {
+        "price": 57.720001220703125,
+        "return": 36.16419254707036,
+        "date": "2025-12-10"
+      }
     }
   },
   {
@@ -128480,10 +128980,10 @@
     "title": "Dir",
     "qty": 6158,
     "value": 24694,
-    "status": "TRACKING",
+    "status": "MATURED",
     "tracked_since": "2025-12-03T11:50:12.982352",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:05:07.619123",
+    "last_updated": "2025-12-11T11:33:13.801058",
     "outcomes": {
       "30d": {
         "price": 6.329999923706055,
@@ -128500,7 +129000,11 @@
         "return": 118.20448877805487,
         "date": "2025-09-11"
       },
-      "180d": null
+      "180d": {
+        "price": 4.150000095367432,
+        "return": 3.491274198689074,
+        "date": "2025-12-10"
+      }
     }
   },
   {
@@ -128512,10 +129016,10 @@
     "title": "10%",
     "qty": 6350000,
     "value": 22225000,
-    "status": "TRACKING",
+    "status": "MATURED",
     "tracked_since": "2025-12-03T11:50:13.090349",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:05:08.220355",
+    "last_updated": "2025-12-11T11:33:14.424706",
     "outcomes": {
       "30d": {
         "price": 3.9200000762939453,
@@ -128532,7 +129036,11 @@
         "return": 69.14285932268415,
         "date": "2025-09-11"
       },
-      "180d": null
+      "180d": {
+        "price": 11.65999984741211,
+        "return": 233.14285278320312,
+        "date": "2025-12-10"
+      }
     }
   },
   {
@@ -128544,10 +129052,10 @@
     "title": "COB, CEO",
     "qty": 381,
     "value": 5003,
-    "status": "TRACKING",
+    "status": "MATURED",
     "tracked_since": "2025-12-03T11:50:13.199463",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:05:08.880368",
+    "last_updated": "2025-12-11T11:33:15.109824",
     "outcomes": {
       "30d": {
         "price": 14.34000015258789,
@@ -128564,7 +129072,11 @@
         "return": 6.016756102771854,
         "date": "2025-09-11"
       },
-      "180d": null
+      "180d": {
+        "price": 11.65999984741211,
+        "return": -11.195736120242888,
+        "date": "2025-12-10"
+      }
     }
   },
   {
@@ -128672,10 +129184,10 @@
     "title": "Dir",
     "qty": 2646,
     "value": 34610,
-    "status": "TRACKING",
+    "status": "MATURED",
     "tracked_since": "2025-12-03T11:50:13.632591",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:05:11.323681",
+    "last_updated": "2025-12-11T11:33:15.824565",
     "outcomes": {
       "30d": {
         "price": 15.899999618530273,
@@ -128692,7 +129204,11 @@
         "return": 35.244652401052114,
         "date": "2025-09-11"
       },
-      "180d": null
+      "180d": {
+        "price": 29.770000457763672,
+        "return": 127.59939187892716,
+        "date": "2025-12-10"
+      }
     }
   },
   {
@@ -128704,10 +129220,10 @@
     "title": "Dir",
     "qty": 26500,
     "value": 1965995,
-    "status": "TRACKING",
+    "status": "MATURED",
     "tracked_since": "2025-12-03T11:50:13.745071",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:05:11.984524",
+    "last_updated": "2025-12-11T11:33:16.483052",
     "outcomes": {
       "30d": {
         "price": 99.95999908447266,
@@ -128724,7 +129240,11 @@
         "return": 58.714112414071984,
         "date": "2025-09-11"
       },
-      "180d": null
+      "180d": {
+        "price": 135.66000366210938,
+        "return": 82.854837123749,
+        "date": "2025-12-10"
+      }
     }
   },
   {
@@ -128736,10 +129256,10 @@
     "title": "Dir, 10%",
     "qty": 3339,
     "value": 58199,
-    "status": "TRACKING",
+    "status": "MATURED",
     "tracked_since": "2025-12-03T11:50:13.855140",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:05:12.588858",
+    "last_updated": "2025-12-11T11:33:17.151820",
     "outcomes": {
       "30d": {
         "price": 17.350000381469727,
@@ -128756,7 +129276,11 @@
         "return": 7.458402422468895,
         "date": "2025-09-11"
       },
-      "180d": null
+      "180d": {
+        "price": 16.709999084472656,
+        "return": -4.130814202681259,
+        "date": "2025-12-10"
+      }
     }
   },
   {
@@ -128832,10 +129356,10 @@
     "title": "See Remarks, 10%",
     "qty": 280400,
     "value": 4162264,
-    "status": "TRACKING",
+    "status": "MATURED",
     "tracked_since": "2025-12-03T11:50:14.179508",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:05:14.538689",
+    "last_updated": "2025-12-11T11:33:17.821662",
     "outcomes": {
       "30d": {
         "price": 14.372285842895508,
@@ -128852,7 +129376,11 @@
         "return": -10.123746671445286,
         "date": "2025-09-11"
       },
-      "180d": null
+      "180d": {
+        "price": 12.09000015258789,
+        "return": -18.530996276361922,
+        "date": "2025-12-10"
+      }
     }
   },
   {
@@ -128864,10 +129392,10 @@
     "title": "10%",
     "qty": 38937,
     "value": 211763,
-    "status": "TRACKING",
+    "status": "MATURED",
     "tracked_since": "2025-12-03T11:50:14.290717",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:05:15.089769",
+    "last_updated": "2025-12-11T11:33:18.377378",
     "outcomes": {
       "30d": {
         "price": 5.650000095367432,
@@ -128884,7 +129412,11 @@
         "return": 1.102941176470581,
         "date": "2025-09-11"
       },
-      "180d": null
+      "180d": {
+        "price": 5.869999885559082,
+        "return": 7.904409661012529,
+        "date": "2025-12-10"
+      }
     }
   },
   {
@@ -128896,10 +129428,10 @@
     "title": "Pres of DHCM",
     "qty": 2750,
     "value": 396028,
-    "status": "TRACKING",
+    "status": "MATURED",
     "tracked_since": "2025-12-03T11:50:14.399446",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:05:15.723619",
+    "last_updated": "2025-12-11T11:33:19.027300",
     "outcomes": {
       "30d": {
         "price": 147.7494659423828,
@@ -128916,7 +129448,11 @@
         "return": -3.4324949561336826,
         "date": "2025-09-11"
       },
-      "180d": null
+      "180d": {
+        "price": 117.4800033569336,
+        "return": -18.42232945147309,
+        "date": "2025-12-10"
+      }
     }
   },
   {
@@ -128928,10 +129464,10 @@
     "title": "Dir",
     "qty": 544,
     "value": 3253,
-    "status": "TRACKING",
+    "status": "MATURED",
     "tracked_since": "2025-12-03T11:50:14.509762",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:05:16.328350",
+    "last_updated": "2025-12-11T11:33:19.653174",
     "outcomes": {
       "30d": {
         "price": 5.404026031494141,
@@ -128948,7 +129484,11 @@
         "return": -11.441850821708762,
         "date": "2025-09-11"
       },
-      "180d": null
+      "180d": {
+        "price": 5.369999885559082,
+        "return": -10.200670810048802,
+        "date": "2025-12-10"
+      }
     }
   },
   {
@@ -128960,10 +129500,10 @@
     "title": "Dir",
     "qty": 3564059,
     "value": 21170510,
-    "status": "TRACKING",
+    "status": "MATURED",
     "tracked_since": "2025-12-03T11:50:14.617539",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:05:16.927073",
+    "last_updated": "2025-12-11T11:33:20.331785",
     "outcomes": {
       "30d": {
         "price": 6.340000152587891,
@@ -128980,7 +129520,11 @@
         "return": 22.053872053872045,
         "date": "2025-09-11"
       },
-      "180d": null
+      "180d": {
+        "price": 6.820000171661377,
+        "return": 14.81481770473698,
+        "date": "2025-12-10"
+      }
     }
   },
   {
@@ -128992,10 +129536,10 @@
     "title": "10%",
     "qty": 40000,
     "value": 198948,
-    "status": "TRACKING",
+    "status": "MATURED",
     "tracked_since": "2025-12-03T11:50:14.726941",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:05:17.527247",
+    "last_updated": "2025-12-11T11:33:20.996591",
     "outcomes": {
       "30d": {
         "price": 5.619999885559082,
@@ -129012,7 +129556,11 @@
         "return": 5.835014665630507,
         "date": "2025-09-11"
       },
-      "180d": null
+      "180d": {
+        "price": 4.769999980926514,
+        "return": -4.024145252987648,
+        "date": "2025-12-10"
+      }
     }
   },
   {
@@ -129024,10 +129572,10 @@
     "title": "EVP, CFO, COO",
     "qty": 1500,
     "value": 225000000,
-    "status": "TRACKING",
+    "status": "MATURED",
     "tracked_since": "2025-12-03T11:50:14.833823",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:05:18.137690",
+    "last_updated": "2025-12-11T11:33:21.599949",
     "outcomes": {
       "30d": {
         "price": 6.5,
@@ -129044,7 +129592,11 @@
         "return": -99.9942733332316,
         "date": "2025-09-11"
       },
-      "180d": null
+      "180d": {
+        "price": 25.6200008392334,
+        "return": -99.98291999944051,
+        "date": "2025-12-10"
+      }
     }
   },
   {
@@ -129056,10 +129608,10 @@
     "title": "Pres, CEO",
     "qty": 1500,
     "value": 225000000,
-    "status": "TRACKING",
+    "status": "MATURED",
     "tracked_since": "2025-12-03T11:50:14.941873",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:05:18.714884",
+    "last_updated": "2025-12-11T11:33:22.221028",
     "outcomes": {
       "30d": {
         "price": 6.5,
@@ -129076,7 +129628,11 @@
         "return": -99.9942733332316,
         "date": "2025-09-11"
       },
-      "180d": null
+      "180d": {
+        "price": 25.6200008392334,
+        "return": -99.98291999944051,
+        "date": "2025-12-10"
+      }
     }
   },
   {
@@ -129088,10 +129644,10 @@
     "title": "Dir",
     "qty": 200,
     "value": 4000000,
-    "status": "TRACKING",
+    "status": "MATURED",
     "tracked_since": "2025-12-03T11:50:15.050363",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:05:19.329240",
+    "last_updated": "2025-12-11T11:33:22.806820",
     "outcomes": {
       "30d": {
         "price": 6.5,
@@ -129108,7 +129664,11 @@
         "return": -99.95704999923706,
         "date": "2025-09-11"
       },
-      "180d": null
+      "180d": {
+        "price": 25.6200008392334,
+        "return": -99.87189999580383,
+        "date": "2025-12-10"
+      }
     }
   },
   {
@@ -129152,10 +129712,10 @@
     "title": "10%",
     "qty": 32383,
     "value": 924841,
-    "status": "TRACKING",
+    "status": "MATURED",
     "tracked_since": "2025-12-03T11:50:15.269915",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:05:20.666858",
+    "last_updated": "2025-12-11T11:33:23.478750",
     "outcomes": {
       "30d": {
         "price": 32.08000946044922,
@@ -129172,7 +129732,11 @@
         "return": 49.231317664394865,
         "date": "2025-09-11"
       },
-      "180d": null
+      "180d": {
+        "price": 37.599998474121094,
+        "return": 31.65265572171252,
+        "date": "2025-12-10"
+      }
     }
   },
   {
@@ -129256,10 +129820,10 @@
     "title": "CEO",
     "qty": 276300,
     "value": 1312425,
-    "status": "TRACKING",
+    "status": "MATURED",
     "tracked_since": "2025-12-03T11:50:15.597219",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:05:22.448134",
+    "last_updated": "2025-12-11T11:33:24.079306",
     "outcomes": {
       "30d": {
         "price": 4.679999828338623,
@@ -129276,7 +129840,11 @@
         "return": -26.94736781873201,
         "date": "2025-09-11"
       },
-      "180d": null
+      "180d": {
+        "price": 2.8299999237060547,
+        "return": -40.421054237767265,
+        "date": "2025-12-10"
+      }
     }
   },
   {
@@ -129288,10 +129856,10 @@
     "title": "Dir",
     "qty": 379,
     "value": 4873,
-    "status": "TRACKING",
+    "status": "MATURED",
     "tracked_since": "2025-12-03T11:50:15.708080",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:05:23.051225",
+    "last_updated": "2025-12-11T11:33:24.753492",
     "outcomes": {
       "30d": {
         "price": 12.253206253051758,
@@ -129308,7 +129876,11 @@
         "return": -9.46164583529506,
         "date": "2025-09-11"
       },
-      "180d": null
+      "180d": {
+        "price": 6.650000095367432,
+        "return": -48.28926830974003,
+        "date": "2025-12-10"
+      }
     }
   },
   {
@@ -129352,10 +129924,10 @@
     "title": "Dir",
     "qty": 5000,
     "value": 112500,
-    "status": "TRACKING",
+    "status": "MATURED",
     "tracked_since": "2025-12-03T11:50:15.923676",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:05:24.293949",
+    "last_updated": "2025-12-11T11:33:25.461723",
     "outcomes": {
       "30d": {
         "price": 23.909221649169922,
@@ -129372,7 +129944,11 @@
         "return": 8.286048041449654,
         "date": "2025-09-11"
       },
-      "180d": null
+      "180d": {
+        "price": 24.8799991607666,
+        "return": 10.577774047851562,
+        "date": "2025-12-10"
+      }
     }
   },
   {
@@ -129576,10 +130152,10 @@
     "title": "Dir",
     "qty": 6,
     "value": 250,
-    "status": "TRACKING",
+    "status": "MATURED",
     "tracked_since": "2025-12-03T11:50:16.701252",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:05:28.716009",
+    "last_updated": "2025-12-11T11:33:26.221953",
     "outcomes": {
       "30d": {
         "price": 43.027076721191406,
@@ -129596,7 +130172,11 @@
         "return": 9.434223244880975,
         "date": "2025-09-11"
       },
-      "180d": null
+      "180d": {
+        "price": 51.099998474121094,
+        "return": 24.72540511135244,
+        "date": "2025-12-10"
+      }
     }
   },
   {
@@ -129704,10 +130284,10 @@
     "title": "Dir",
     "qty": 500,
     "value": 5475,
-    "status": "TRACKING",
+    "status": "MATURED",
     "tracked_since": "2025-12-03T11:50:17.139998",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:05:31.310490",
+    "last_updated": "2025-12-11T11:33:26.885407",
     "outcomes": {
       "30d": {
         "price": 10.864834785461426,
@@ -129724,7 +130304,11 @@
         "return": -8.135235581768152,
         "date": "2025-09-11"
       },
-      "180d": null
+      "180d": {
+        "price": 10.399999618530273,
+        "return": -5.0228345339701,
+        "date": "2025-12-10"
+      }
     }
   },
   {
@@ -129800,10 +130384,10 @@
     "title": "CFO",
     "qty": 500,
     "value": 14493,
-    "status": "TRACKING",
+    "status": "MATURED",
     "tracked_since": "2025-12-03T11:50:17.472193",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:05:33.353051",
+    "last_updated": "2025-12-11T11:33:27.549418",
     "outcomes": {
       "30d": {
         "price": 27.45632553100586,
@@ -129820,7 +130404,11 @@
         "return": 9.555019761579295,
         "date": "2025-09-11"
       },
-      "180d": null
+      "180d": {
+        "price": 38.540000915527344,
+        "return": 32.94239708702085,
+        "date": "2025-12-10"
+      }
     }
   },
   {
@@ -129900,10 +130488,10 @@
     "title": "CEO, Pres",
     "qty": 43,
     "value": 606,
-    "status": "TRACKING",
+    "status": "MATURED",
     "tracked_since": "2025-12-03T11:50:17.798345",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:05:35.175054",
+    "last_updated": "2025-12-11T11:33:28.222921",
     "outcomes": {
       "30d": {
         "price": 14.304304122924805,
@@ -129920,7 +130508,11 @@
         "return": 4.272387567524204,
         "date": "2025-09-11"
       },
-      "180d": null
+      "180d": {
+        "price": 14.619999885559082,
+        "return": 3.7615321899154166,
+        "date": "2025-12-10"
+      }
     }
   },
   {
@@ -129932,10 +130524,10 @@
     "title": "Dir",
     "qty": 7205,
     "value": 8275,
-    "status": "TRACKING",
+    "status": "MATURED",
     "tracked_since": "2025-12-03T11:50:17.907355",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:05:35.818954",
+    "last_updated": "2025-12-11T11:33:28.883301",
     "outcomes": {
       "30d": {
         "price": 1.4900000095367432,
@@ -129952,7 +130544,11 @@
         "return": 33.91304016113283,
         "date": "2025-09-11"
       },
-      "180d": null
+      "180d": {
+        "price": 1.2799999713897705,
+        "return": 11.304345338240921,
+        "date": "2025-12-10"
+      }
     }
   },
   {
@@ -130752,10 +131348,10 @@
     "title": "CFO",
     "qty": 15000,
     "value": 57083,
-    "status": "TRACKING",
+    "status": "MATURED",
     "tracked_since": "2025-12-03T11:50:20.450673",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:05:49.528008",
+    "last_updated": "2025-12-11T11:33:29.491889",
     "outcomes": {
       "30d": {
         "price": 5.110000133514404,
@@ -130772,7 +131368,11 @@
         "return": 95.27559205303042,
         "date": "2025-09-11"
       },
-      "180d": null
+      "180d": {
+        "price": 44.61000061035156,
+        "return": 1070.8661577520095,
+        "date": "2025-12-10"
+      }
     }
   },
   {
@@ -130804,10 +131404,10 @@
     "title": "Pres, CEO",
     "qty": 4344,
     "value": 4982,
-    "status": "TRACKING",
+    "status": "MATURED",
     "tracked_since": "2025-12-03T11:50:20.671316",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:05:53.633118",
+    "last_updated": "2025-12-11T11:33:33.621956",
     "outcomes": {
       "30d": {
         "price": 1.4900000095367432,
@@ -130824,7 +131424,11 @@
         "return": 33.91304016113283,
         "date": "2025-09-11"
       },
-      "180d": null
+      "180d": {
+        "price": 1.2799999713897705,
+        "return": 11.304345338240921,
+        "date": "2025-12-10"
+      }
     }
   },
   {
@@ -130900,10 +131504,10 @@
     "title": "Dir, 10%",
     "qty": 3488,
     "value": 49983,
-    "status": "TRACKING",
+    "status": "MATURED",
     "tracked_since": "2025-12-03T11:50:21.000127",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:05:55.491930",
+    "last_updated": "2025-12-11T11:33:34.285846",
     "outcomes": {
       "30d": {
         "price": 13.5,
@@ -130920,7 +131524,11 @@
         "return": -9.281228192602931,
         "date": "2025-09-11"
       },
-      "180d": null
+      "180d": {
+        "price": 9.960000038146973,
+        "return": -30.495463795206053,
+        "date": "2025-12-10"
+      }
     }
   },
   {
@@ -130932,10 +131540,10 @@
     "title": "Exec COB",
     "qty": 20000,
     "value": 16694,
-    "status": "TRACKING",
+    "status": "MATURED",
     "tracked_since": "2025-12-03T11:50:21.109701",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:05:56.098956",
+    "last_updated": "2025-12-11T11:33:34.966282",
     "outcomes": {
       "30d": {
         "price": 0.8399999737739563,
@@ -130952,7 +131560,11 @@
         "return": 2.6506021798375192,
         "date": "2025-09-11"
       },
-      "180d": null
+      "180d": {
+        "price": 0.6830000281333923,
+        "return": -17.71083998392863,
+        "date": "2025-12-10"
+      }
     }
   },
   {
@@ -131196,10 +131808,10 @@
     "title": "Dir",
     "qty": 10000,
     "value": 31700,
-    "status": "TRACKING",
+    "status": "MATURED",
     "tracked_since": "2025-12-03T11:50:22.088579",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:06:03.898317",
+    "last_updated": "2025-12-11T11:33:39.141190",
     "outcomes": {
       "30d": {
         "price": 2.4700000286102295,
@@ -131216,7 +131828,11 @@
         "return": -29.968453356144174,
         "date": "2025-09-11"
       },
-      "180d": null
+      "180d": {
+        "price": 2.5399999618530273,
+        "return": -19.873818238074843,
+        "date": "2025-12-10"
+      }
     }
   },
   {
@@ -131228,10 +131844,10 @@
     "title": "Dir",
     "qty": 8300,
     "value": 251490,
-    "status": "TRACKING",
+    "status": "MATURED",
     "tracked_since": "2025-12-03T11:50:22.198273",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:06:04.507151",
+    "last_updated": "2025-12-11T11:33:39.854705",
     "outcomes": {
       "30d": {
         "price": 36.970001220703125,
@@ -131248,7 +131864,11 @@
         "return": 31.518146779277533,
         "date": "2025-09-11"
       },
-      "180d": null
+      "180d": {
+        "price": 39.91999816894531,
+        "return": 31.74916887440697,
+        "date": "2025-12-10"
+      }
     }
   },
   {
@@ -131332,10 +131952,10 @@
     "title": "CFO",
     "qty": 58823,
     "value": 50523,
-    "status": "TRACKING",
+    "status": "MATURED",
     "tracked_since": "2025-12-03T11:50:22.529343",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:06:06.257017",
+    "last_updated": "2025-12-11T11:33:40.522404",
     "outcomes": {
       "30d": {
         "price": 0.890999972820282,
@@ -131352,7 +131972,11 @@
         "return": 3.8372100785721197,
         "date": "2025-09-11"
       },
-      "180d": null
+      "180d": {
+        "price": 0.6579999923706055,
+        "return": -23.488372980162154,
+        "date": "2025-12-10"
+      }
     }
   },
   {
@@ -131364,10 +131988,10 @@
     "title": "See Remarks",
     "qty": 25000,
     "value": 109475,
-    "status": "TRACKING",
+    "status": "MATURED",
     "tracked_since": "2025-12-03T11:50:22.637423",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:06:06.889932",
+    "last_updated": "2025-12-11T11:33:41.181158",
     "outcomes": {
       "30d": {
         "price": 5.440000057220459,
@@ -131384,7 +132008,11 @@
         "return": 75.34246183421514,
         "date": "2025-09-11"
       },
-      "180d": null
+      "180d": {
+        "price": 6.940000057220459,
+        "return": 58.44748989087807,
+        "date": "2025-12-10"
+      }
     }
   },
   {
@@ -131608,10 +132236,10 @@
     "title": "Dir",
     "qty": 50000,
     "value": 62335,
-    "status": "TRACKING",
+    "status": "MATURED",
     "tracked_since": "2025-12-03T11:50:23.410637",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:06:11.066734",
+    "last_updated": "2025-12-11T11:33:41.786746",
     "outcomes": {
       "30d": {
         "price": 1.3600000143051147,
@@ -131628,7 +132256,11 @@
         "return": 27.200002670288086,
         "date": "2025-09-11"
       },
-      "180d": null
+      "180d": {
+        "price": 1.0800000429153442,
+        "return": -13.59999656677246,
+        "date": "2025-12-10"
+      }
     }
   },
   {
@@ -131640,10 +132272,10 @@
     "title": "CFO, EVP",
     "qty": 114,
     "value": 1570,
-    "status": "TRACKING",
+    "status": "MATURED",
     "tracked_since": "2025-12-03T11:50:23.521868",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:06:11.703028",
+    "last_updated": "2025-12-11T11:33:42.460508",
     "outcomes": {
       "30d": {
         "price": 14.380000114440918,
@@ -131660,7 +132292,11 @@
         "return": 4.57516062839705,
         "date": "2025-09-11"
       },
-      "180d": null
+      "180d": {
+        "price": 12.600000381469727,
+        "return": -8.496729255848026,
+        "date": "2025-12-10"
+      }
     }
   },
   {
@@ -131708,10 +132344,10 @@
     "title": "Pres, CEO",
     "qty": 181,
     "value": 2492,
-    "status": "TRACKING",
+    "status": "MATURED",
     "tracked_since": "2025-12-03T11:50:23.740288",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:06:12.950454",
+    "last_updated": "2025-12-11T11:33:43.084159",
     "outcomes": {
       "30d": {
         "price": 14.380000114440918,
@@ -131728,7 +132364,11 @@
         "return": 4.57516062839705,
         "date": "2025-09-11"
       },
-      "180d": null
+      "180d": {
+        "price": 12.600000381469727,
+        "return": -8.496729255848026,
+        "date": "2025-12-10"
+      }
     }
   },
   {
@@ -131740,10 +132380,10 @@
     "title": "Dir",
     "qty": 209,
     "value": 4168,
-    "status": "TRACKING",
+    "status": "MATURED",
     "tracked_since": "2025-12-03T11:50:23.851444",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:06:13.574401",
+    "last_updated": "2025-12-11T11:33:43.825165",
     "outcomes": {
       "30d": {
         "price": 19.87406349182129,
@@ -131760,7 +132400,11 @@
         "return": 5.58670849057299,
         "date": "2025-09-11"
       },
-      "180d": null
+      "180d": {
+        "price": 23.31999969482422,
+        "return": 17.185928114694573,
+        "date": "2025-12-10"
+      }
     }
   },
   {
@@ -131804,10 +132448,10 @@
     "title": "Dir",
     "qty": 1000,
     "value": 22400,
-    "status": "TRACKING",
+    "status": "MATURED",
     "tracked_since": "2025-12-03T11:50:24.075774",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:06:14.851227",
+    "last_updated": "2025-12-11T11:33:44.483947",
     "outcomes": {
       "30d": {
         "price": 23.909223556518555,
@@ -131824,7 +132468,11 @@
         "return": 8.76946789877756,
         "date": "2025-09-11"
       },
-      "180d": null
+      "180d": {
+        "price": 24.8799991607666,
+        "return": 11.071424824850908,
+        "date": "2025-12-10"
+      }
     }
   },
   {
@@ -131904,10 +132552,10 @@
     "title": "Pres, CEO",
     "qty": 500,
     "value": 4995,
-    "status": "TRACKING",
+    "status": "MATURED",
     "tracked_since": "2025-12-03T11:50:24.405183",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:06:16.817891",
+    "last_updated": "2025-12-11T11:33:45.149610",
     "outcomes": {
       "30d": {
         "price": 10.029999732971191,
@@ -131924,7 +132572,11 @@
         "return": 2.102100192844209,
         "date": "2025-09-11"
       },
-      "180d": null
+      "180d": {
+        "price": 11.140000343322754,
+        "return": 11.511514948175712,
+        "date": "2025-12-10"
+      }
     }
   },
   {
@@ -131936,10 +132588,10 @@
     "title": "Dir",
     "qty": 431,
     "value": 9375,
-    "status": "TRACKING",
+    "status": "MATURED",
     "tracked_since": "2025-12-03T11:50:24.517833",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:06:17.478948",
+    "last_updated": "2025-12-11T11:33:45.838292",
     "outcomes": {
       "30d": {
         "price": 21.601900100708008,
@@ -131956,7 +132608,11 @@
         "return": -0.8268252063027512,
         "date": "2025-09-11"
       },
-      "180d": null
+      "180d": {
+        "price": 21.68000030517578,
+        "return": -0.41341155178786554,
+        "date": "2025-12-10"
+      }
     }
   },
   {
@@ -132000,10 +132656,10 @@
     "title": "Dir",
     "qty": 3000,
     "value": 33900,
-    "status": "TRACKING",
+    "status": "MATURED",
     "tracked_since": "2025-12-03T11:50:24.736371",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:06:18.642623",
+    "last_updated": "2025-12-11T11:33:46.441695",
     "outcomes": {
       "30d": {
         "price": 11.300000190734863,
@@ -132020,7 +132676,11 @@
         "return": 0.8849523763740949,
         "date": "2025-09-11"
       },
-      "180d": null
+      "180d": {
+        "price": 11.574999809265137,
+        "return": 2.43362663066492,
+        "date": "2025-12-10"
+      }
     }
   },
   {
@@ -132032,10 +132692,10 @@
     "title": "Dir",
     "qty": 20000,
     "value": 19372,
-    "status": "TRACKING",
+    "status": "MATURED",
     "tracked_since": "2025-12-03T11:50:24.848320",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:06:19.238101",
+    "last_updated": "2025-12-11T11:33:47.064263",
     "outcomes": {
       "30d": {
         "price": 1.0199999809265137,
@@ -132052,7 +132712,11 @@
         "return": 41.23711389364656,
         "date": "2025-09-11"
       },
-      "180d": null
+      "180d": {
+        "price": 0.9399999976158142,
+        "return": -3.092783750946986,
+        "date": "2025-12-10"
+      }
     }
   },
   {
@@ -132064,10 +132728,10 @@
     "title": "Corporate Controller",
     "qty": 620,
     "value": 8969,
-    "status": "TRACKING",
+    "status": "MATURED",
     "tracked_since": "2025-12-03T11:50:24.958319",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:06:19.896256",
+    "last_updated": "2025-12-11T11:33:47.865288",
     "outcomes": {
       "30d": {
         "price": 19.219999313354492,
@@ -132084,7 +132748,11 @@
         "return": 20.52522829341822,
         "date": "2025-09-11"
       },
-      "180d": null
+      "180d": {
+        "price": 15.029999732971191,
+        "return": 3.8700741739543245,
+        "date": "2025-12-10"
+      }
     }
   },
   {
@@ -132132,10 +132800,10 @@
     "title": "Pres, CEO, 10%",
     "qty": 19769,
     "value": 13014,
-    "status": "TRACKING",
+    "status": "MATURED",
     "tracked_since": "2025-12-03T11:50:25.180210",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:06:21.087559",
+    "last_updated": "2025-12-11T11:33:48.484126",
     "outcomes": {
       "30d": {
         "price": 0.6700000166893005,
@@ -132152,7 +132820,11 @@
         "return": 22.72727308851299,
         "date": "2025-09-11"
       },
-      "180d": null
+      "180d": {
+        "price": 0.8199999928474426,
+        "return": 24.24242315870342,
+        "date": "2025-12-10"
+      }
     }
   },
   {
@@ -132164,10 +132836,10 @@
     "title": "10%",
     "qty": 3850,
     "value": 45840,
-    "status": "TRACKING",
+    "status": "MATURED",
     "tracked_since": "2025-12-03T11:50:25.291138",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:06:21.703322",
+    "last_updated": "2025-12-11T11:33:49.191074",
     "outcomes": {
       "30d": {
         "price": 11.891138076782227,
@@ -132184,7 +132856,11 @@
         "return": -2.6028515409762685,
         "date": "2025-09-11"
       },
-      "180d": null
+      "180d": {
+        "price": 14.579999923706055,
+        "return": 22.41813537956385,
+        "date": "2025-12-10"
+      }
     }
   },
   {
@@ -132196,10 +132872,10 @@
     "title": "Dir",
     "qty": 10,
     "value": 11168,
-    "status": "TRACKING",
+    "status": "MATURED",
     "tracked_since": "2025-12-03T11:50:25.400504",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:06:22.361362",
+    "last_updated": "2025-12-11T11:33:49.887812",
     "outcomes": {
       "30d": {
         "price": 1033.953857421875,
@@ -132216,7 +132892,11 @@
         "return": -16.074025844015274,
         "date": "2025-09-11"
       },
-      "180d": null
+      "180d": {
+        "price": 892.5,
+        "return": -20.0813066370572,
+        "date": "2025-12-10"
+      }
     }
   },
   {
@@ -132260,10 +132940,10 @@
     "title": "CEO, Pres",
     "qty": 107,
     "value": 824,
-    "status": "TRACKING",
+    "status": "MATURED",
     "tracked_since": "2025-12-03T11:50:25.628846",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:06:23.621419",
+    "last_updated": "2025-12-11T11:33:51.233722",
     "outcomes": {
       "30d": {
         "price": 9.149999618530273,
@@ -132280,7 +132960,11 @@
         "return": -66.23376747230431,
         "date": "2025-09-11"
       },
-      "180d": null
+      "180d": {
+        "price": 1.4500000476837158,
+        "return": -81.16883054956213,
+        "date": "2025-12-10"
+      }
     }
   },
   {
@@ -132356,10 +133040,10 @@
     "title": "Dir, 10%",
     "qty": 2400,
     "value": 2440,
-    "status": "TRACKING",
+    "status": "MATURED",
     "tracked_since": "2025-12-03T11:50:25.958207",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:06:25.476572",
+    "last_updated": "2025-12-11T11:33:52.621216",
     "outcomes": {
       "30d": {
         "price": 0.9900000095367432,
@@ -132376,7 +133060,11 @@
         "return": 56.86274743547626,
         "date": "2025-09-11"
       },
-      "180d": null
+      "180d": {
+        "price": 0.75,
+        "return": -26.47058823529412,
+        "date": "2025-12-10"
+      }
     }
   },
   {
@@ -132388,10 +133076,10 @@
     "title": "Pres, 10%",
     "qty": 1108,
     "value": 2936,
-    "status": "TRACKING",
+    "status": "MATURED",
     "tracked_since": "2025-12-03T11:50:26.070111",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:06:26.479189",
+    "last_updated": "2025-12-11T11:33:53.271554",
     "outcomes": {
       "30d": {
         "price": 2.630000114440918,
@@ -132408,7 +133096,11 @@
         "return": 3.5987710086582204e-06,
         "date": "2025-09-11"
       },
-      "180d": null
+      "180d": {
+        "price": 2.5899999141693115,
+        "return": -2.264154182290128,
+        "date": "2025-12-10"
+      }
     }
   },
   {
@@ -132420,10 +133112,10 @@
     "title": "Dir",
     "qty": 10000,
     "value": 77441,
-    "status": "TRACKING",
+    "status": "MATURED",
     "tracked_since": "2025-12-03T11:50:26.180456",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:06:27.177830",
+    "last_updated": "2025-12-11T11:33:53.985078",
     "outcomes": {
       "30d": {
         "price": 8.639487266540527,
@@ -132440,7 +133132,11 @@
         "return": 12.110071404035699,
         "date": "2025-09-11"
       },
-      "180d": null
+      "180d": {
+        "price": 8.369999885559082,
+        "return": 8.139533405156095,
+        "date": "2025-12-10"
+      }
     }
   },
   {
@@ -132488,10 +133184,10 @@
     "title": "CEO",
     "qty": 5000,
     "value": 3900,
-    "status": "TRACKING",
+    "status": "MATURED",
     "tracked_since": "2025-12-03T11:50:26.400652",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:06:28.372968",
+    "last_updated": "2025-12-11T11:33:54.644928",
     "outcomes": {
       "30d": {
         "price": 0.8100000023841858,
@@ -132508,7 +133204,11 @@
         "return": -2.5641037867619474,
         "date": "2025-09-11"
       },
-      "180d": null
+      "180d": {
+        "price": 0.7300000190734863,
+        "return": -6.410253964937654,
+        "date": "2025-12-10"
+      }
     }
   },
   {
@@ -132520,10 +133220,10 @@
     "title": "Dir",
     "qty": 380,
     "value": 2926,
-    "status": "TRACKING",
+    "status": "MATURED",
     "tracked_since": "2025-12-03T11:50:26.513056",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:06:28.996784",
+    "last_updated": "2025-12-11T11:33:55.291129",
     "outcomes": {
       "30d": {
         "price": 8.639487266540527,
@@ -132540,7 +133240,11 @@
         "return": 12.692461385355363,
         "date": "2025-09-11"
       },
-      "180d": null
+      "180d": {
+        "price": 8.369999885559082,
+        "return": 8.70129721505301,
+        "date": "2025-12-10"
+      }
     }
   },
   {
@@ -132552,10 +133256,10 @@
     "title": "Dir",
     "qty": 2000,
     "value": 15400,
-    "status": "TRACKING",
+    "status": "MATURED",
     "tracked_since": "2025-12-03T11:50:26.622005",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:06:29.622609",
+    "last_updated": "2025-12-11T11:33:55.874925",
     "outcomes": {
       "30d": {
         "price": 8.639487266540527,
@@ -132572,7 +133276,11 @@
         "return": 12.692461385355363,
         "date": "2025-09-11"
       },
-      "180d": null
+      "180d": {
+        "price": 8.369999885559082,
+        "return": 8.70129721505301,
+        "date": "2025-12-10"
+      }
     }
   },
   {
@@ -132692,10 +133400,10 @@
     "title": "Dir",
     "qty": 2250,
     "value": 60750,
-    "status": "TRACKING",
+    "status": "MATURED",
     "tracked_since": "2025-12-03T11:50:27.066732",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:06:31.967521",
+    "last_updated": "2025-12-11T11:33:56.473420",
     "outcomes": {
       "30d": {
         "price": 30.149999618530273,
@@ -132712,7 +133420,11 @@
         "return": -11.333331355342159,
         "date": "2025-09-11"
       },
-      "180d": null
+      "180d": {
+        "price": 26.5,
+        "return": -1.8518518518518516,
+        "date": "2025-12-10"
+      }
     }
   },
   {
@@ -138404,6 +139116,1086 @@
     "tracked_since": "2025-12-10T11:34:23.744584",
     "source": "daily_signal_detection",
     "last_updated": "2025-12-10T11:34:23.744587",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "UUU_Ault Milton C III_2025-12-05 00:00:00",
+    "ticker": "UUU",
+    "insider_name": "Ault Milton C III",
+    "trade_date": "2025-12-05",
+    "entry_price": 4.47,
+    "title": "Dir",
+    "qty": 29100,
+    "value": 130082,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-11T11:36:09.262106",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-11T11:36:09.262110",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "DOMH_Hayes Anthony_2025-12-08 00:00:00",
+    "ticker": "DOMH",
+    "insider_name": "Hayes Anthony",
+    "trade_date": "2025-12-08",
+    "entry_price": 3.87,
+    "title": "CEO",
+    "qty": 23000,
+    "value": 89054,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-11T11:36:09.479475",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-11T11:36:09.479480",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "DOMH_Wool Kyle Michael_2025-12-08 00:00:00",
+    "ticker": "DOMH",
+    "insider_name": "Wool Kyle Michael",
+    "trade_date": "2025-12-08",
+    "entry_price": 3.87,
+    "title": "Pres",
+    "qty": 25000,
+    "value": 96798,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-11T11:36:09.744508",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-11T11:36:09.744513",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "NYC_Schorsch Nicholas S_2025-12-08 00:00:00",
+    "ticker": "NYC",
+    "insider_name": "Schorsch Nicholas S",
+    "trade_date": "2025-12-08",
+    "entry_price": 8.0,
+    "title": "10%",
+    "qty": 3240,
+    "value": 25931,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-11T11:36:10.014608",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-11T11:36:10.014612",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "AIRJ_Pang Stephen S._2025-12-10 00:00:00",
+    "ticker": "AIRJ",
+    "insider_name": "Pang Stephen S.",
+    "trade_date": "2025-12-10",
+    "entry_price": 2.95,
+    "title": "CFO",
+    "qty": 2169,
+    "value": 6399,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-11T11:36:10.229340",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-11T11:36:10.229344",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "AIRJ_Jore Matthew B_2025-12-08 00:00:00",
+    "ticker": "AIRJ",
+    "insider_name": "Jore Matthew B",
+    "trade_date": "2025-12-08",
+    "entry_price": 2.84,
+    "title": "CEO, 10%",
+    "qty": 10500,
+    "value": 29769,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-11T11:36:10.494725",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-11T11:36:10.494729",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "CJMB_Duke Liberty Smith_2025-12-08 00:00:00",
+    "ticker": "CJMB",
+    "insider_name": "Duke Liberty Smith",
+    "trade_date": "2025-12-08",
+    "entry_price": 1.54,
+    "title": "Dir",
+    "qty": 1512,
+    "value": 2334,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-11T11:36:10.759181",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-11T11:36:10.759185",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "NEXT_Hanwha Aerospace Co., Ltd._2025-12-08 00:00:00",
+    "ticker": "NEXT",
+    "insider_name": "Hanwha Aerospace Co., Ltd.",
+    "trade_date": "2025-12-08",
+    "entry_price": 6.16,
+    "title": "10%",
+    "qty": 932598,
+    "value": 5742414,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-11T11:36:11.032030",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-11T11:36:11.032035",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "AIRJ_Porter Stuart D_2025-12-08 00:00:00",
+    "ticker": "AIRJ",
+    "insider_name": "Porter Stuart D",
+    "trade_date": "2025-12-08",
+    "entry_price": 2.92,
+    "title": "Dir, 10%",
+    "qty": 342645,
+    "value": 999950,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-11T11:36:11.249837",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-11T11:36:11.249842",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "AMR_Courtis Kenneth S._2025-12-08 00:00:00",
+    "ticker": "AMR",
+    "insider_name": "Courtis Kenneth S.",
+    "trade_date": "2025-12-08",
+    "entry_price": 175.26,
+    "title": "Dir",
+    "qty": 36000,
+    "value": 6309390,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-11T11:36:11.521445",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-11T11:36:11.521450",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "BH_Biglari, Sardar_2025-12-08 00:00:00",
+    "ticker": "BH",
+    "insider_name": "Biglari, Sardar",
+    "trade_date": "2025-12-08",
+    "entry_price": 317.73,
+    "title": "COB, CEO, 10%",
+    "qty": 2221,
+    "value": 705671,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-11T11:36:11.737576",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-11T11:36:11.737580",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "PML_Rappaport Alan_2025-12-08 00:00:00",
+    "ticker": "PML",
+    "insider_name": "Rappaport Alan",
+    "trade_date": "2025-12-08",
+    "entry_price": 7.66,
+    "title": "Dir",
+    "qty": 2819,
+    "value": 21580,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-11T11:36:11.953119",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-11T11:36:11.953123",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "IMMX_Rachman Ilya M_2025-12-10 00:00:00",
+    "ticker": "IMMX",
+    "insider_name": "Rachman Ilya M",
+    "trade_date": "2025-12-10",
+    "entry_price": 6.67,
+    "title": "CEO, COB",
+    "qty": 746,
+    "value": 4976,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-11T11:36:12.218785",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-11T11:36:12.218804",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "TENX_Rich Stuart_2025-12-08 00:00:00",
+    "ticker": "TENX",
+    "insider_name": "Rich Stuart",
+    "trade_date": "2025-12-08",
+    "entry_price": 10.16,
+    "title": "Chief Medical Officer",
+    "qty": 5000,
+    "value": 50793,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-11T11:36:12.440261",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-11T11:36:12.440266",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "IMMX_Morris Gabriel S_2025-12-10 00:00:00",
+    "ticker": "IMMX",
+    "insider_name": "Morris Gabriel S",
+    "trade_date": "2025-12-10",
+    "entry_price": 6.58,
+    "title": "CFO",
+    "qty": 770,
+    "value": 5067,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-11T11:36:12.655085",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-11T11:36:12.655089",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "QDEL_Rhoads Ann D_2025-12-10 00:00:00",
+    "ticker": "QDEL",
+    "insider_name": "Rhoads Ann D",
+    "trade_date": "2025-12-10",
+    "entry_price": 28.28,
+    "title": "Dir",
+    "qty": 750,
+    "value": 21206,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-11T11:36:12.870928",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-11T11:36:12.870932",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "GAM_Priest Jeffrey W_2025-12-10 00:00:00",
+    "ticker": "GAM",
+    "insider_name": "Priest Jeffrey W",
+    "trade_date": "2025-12-10",
+    "entry_price": 25.0,
+    "title": "Pres, CEO",
+    "qty": 16608,
+    "value": 415261,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-11T11:36:13.136478",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-11T11:36:13.136482",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "ASTS_Larson Keith R_2025-12-10 00:00:00",
+    "ticker": "ASTS",
+    "insider_name": "Larson Keith R",
+    "trade_date": "2025-12-10",
+    "entry_price": 72.71,
+    "title": "Dir",
+    "qty": 675,
+    "value": 49079,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-11T11:36:13.353292",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-11T11:36:13.353297",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "TBTC_Berger Andrew_2025-12-08 00:00:00",
+    "ticker": "TBTC",
+    "insider_name": "Berger Andrew",
+    "trade_date": "2025-12-08",
+    "entry_price": 3.85,
+    "title": "Dir",
+    "qty": 1,
+    "value": 4,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-11T11:36:13.621131",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-11T11:36:13.621135",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "SVCO_Ngai-Pesic Katherine S._2025-12-10 00:00:00",
+    "ticker": "SVCO",
+    "insider_name": "Ngai-Pesic Katherine S.",
+    "trade_date": "2025-12-10",
+    "entry_price": 4.13,
+    "title": "Member of 10% owner group, 10%",
+    "qty": 25000,
+    "value": 103305,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-11T11:36:13.837186",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-11T11:36:13.837190",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "EML_Disanto Frederick D._2025-12-08 00:00:00",
+    "ticker": "EML",
+    "insider_name": "Disanto Frederick D.",
+    "trade_date": "2025-12-08",
+    "entry_price": 19.0,
+    "title": "Dir",
+    "qty": 111,
+    "value": 2109,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-11T11:36:14.115638",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-11T11:36:14.115643",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "ROLR_Francis John Milton IV_2025-12-08 00:00:00",
+    "ticker": "ROLR",
+    "insider_name": "Francis John Milton IV",
+    "trade_date": "2025-12-08",
+    "entry_price": 1.82,
+    "title": "COO",
+    "qty": 2745,
+    "value": 5003,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-11T11:36:14.331579",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-11T11:36:14.331583",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "AFCG_Tannenbaum Leonard M_2025-12-09 00:00:00",
+    "ticker": "AFCG",
+    "insider_name": "Tannenbaum Leonard M",
+    "trade_date": "2025-12-09",
+    "entry_price": 2.92,
+    "title": "Dir, 10%",
+    "qty": 44000,
+    "value": 128520,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-11T11:36:14.602855",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-11T11:36:14.602858",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "ALTG_Shribman Daniel_2025-12-08 00:00:00",
+    "ticker": "ALTG",
+    "insider_name": "Shribman Daniel",
+    "trade_date": "2025-12-08",
+    "entry_price": 5.07,
+    "title": "Dir",
+    "qty": 40000,
+    "value": 202940,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-11T11:36:14.820370",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-11T11:36:14.820374",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "GAIA_Sutherland Paul Howard_2025-12-10 00:00:00",
+    "ticker": "GAIA",
+    "insider_name": "Sutherland Paul Howard",
+    "trade_date": "2025-12-10",
+    "entry_price": 3.71,
+    "title": "Dir",
+    "qty": 5775,
+    "value": 21425,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-11T11:36:15.091142",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-11T11:36:15.091147",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "MLP_Case Stephen M_2025-12-08 00:00:00",
+    "ticker": "MLP",
+    "insider_name": "Case Stephen M",
+    "trade_date": "2025-12-08",
+    "entry_price": 16.37,
+    "title": "Dir, 10%",
+    "qty": 3450,
+    "value": 56471,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-11T11:36:15.311473",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-11T11:36:15.311477",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "ATLO_Trost Scot A._2025-12-10 00:00:00",
+    "ticker": "ATLO",
+    "insider_name": "Trost Scot A.",
+    "trade_date": "2025-12-10",
+    "entry_price": 22.88,
+    "title": "Dir",
+    "qty": 200,
+    "value": 4576,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-11T11:36:15.530602",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-11T11:36:15.530607",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "ATEX_Lang Scott A._2025-12-08 00:00:00",
+    "ticker": "ATEX",
+    "insider_name": "Lang Scott A.",
+    "trade_date": "2025-12-08",
+    "entry_price": 20.41,
+    "title": "Pres, CEO",
+    "qty": 2450,
+    "value": 50005,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-11T11:36:15.795758",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-11T11:36:15.795762",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "CBKM_Goris Bradley_2025-12-10 00:00:00",
+    "ticker": "CBKM",
+    "insider_name": "Goris Bradley",
+    "trade_date": "2025-12-10",
+    "entry_price": 23.3,
+    "title": "Dir",
+    "qty": 300,
+    "value": 6990,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-11T11:36:16.013443",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-11T11:36:16.013447",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "SRTA_Heyburn William A._2025-12-09 00:00:00",
+    "ticker": "SRTA",
+    "insider_name": "Heyburn William A.",
+    "trade_date": "2025-12-09",
+    "entry_price": 4.47,
+    "title": "Co-CEO, CFO",
+    "qty": 17000,
+    "value": 76044,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-11T11:36:16.230729",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-11T11:36:16.230734",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "SMRT_Martell Frank_2025-12-09 00:00:00",
+    "ticker": "SMRT",
+    "insider_name": "Martell Frank",
+    "trade_date": "2025-12-09",
+    "entry_price": 2.01,
+    "title": "CEO",
+    "qty": 60000,
+    "value": 120540,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-11T11:36:16.506355",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-11T11:36:16.506360",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "CBKM_Bickerton David R_2025-12-10 00:00:00",
+    "ticker": "CBKM",
+    "insider_name": "Bickerton David R",
+    "trade_date": "2025-12-10",
+    "entry_price": 23.32,
+    "title": "Dir",
+    "qty": 200,
+    "value": 4665,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-11T11:36:16.723170",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-11T11:36:16.723174",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "MNR_McMullen William Wallace_2025-12-08 00:00:00",
+    "ticker": "MNR",
+    "insider_name": "McMullen William Wallace",
+    "trade_date": "2025-12-08",
+    "entry_price": 12.41,
+    "title": "See Remarks, 10%",
+    "qty": 30000,
+    "value": 372225,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-11T11:36:16.942506",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-11T11:36:16.942510",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "ZEUS_Scott Peter Jennings_2025-12-09 00:00:00",
+    "ticker": "ZEUS",
+    "insider_name": "Scott Peter Jennings",
+    "trade_date": "2025-12-09",
+    "entry_price": 39.89,
+    "title": "Dir",
+    "qty": 5030,
+    "value": 200647,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-11T11:36:17.160163",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-11T11:36:17.160167",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "STRR_Eberwein Jeffrey E._2025-12-08 00:00:00",
+    "ticker": "STRR",
+    "insider_name": "Eberwein Jeffrey E.",
+    "trade_date": "2025-12-08",
+    "entry_price": 10.43,
+    "title": "CEO, 10%",
+    "qty": 287631,
+    "value": 2999991,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-11T11:36:17.437069",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-11T11:36:17.437073",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "TPVG_Labe James_2025-12-08 00:00:00",
+    "ticker": "TPVG",
+    "insider_name": "Labe James",
+    "trade_date": "2025-12-08",
+    "entry_price": 6.69,
+    "title": "CEO",
+    "qty": 54105,
+    "value": 361811,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-11T11:36:17.655352",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-11T11:36:17.655356",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "TPVG_Srivastava Sajal_2025-12-08 00:00:00",
+    "ticker": "TPVG",
+    "insider_name": "Srivastava Sajal",
+    "trade_date": "2025-12-08",
+    "entry_price": 6.69,
+    "title": "Pres, CIO",
+    "qty": 54105,
+    "value": 361811,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-11T11:36:17.874881",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-11T11:36:17.874886",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "LFAC_Leapfrog Partners LLC_2025-12-08 00:00:00",
+    "ticker": "LFAC",
+    "insider_name": "Leapfrog Partners LLC",
+    "trade_date": "2025-12-08",
+    "entry_price": 10.0,
+    "title": "10%",
+    "qty": 328750,
+    "value": 3287500,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-11T11:36:18.094489",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-11T11:36:18.094493",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "BBDC_Byers Stephen R_2025-12-09 00:00:00",
+    "ticker": "BBDC",
+    "insider_name": "Byers Stephen R",
+    "trade_date": "2025-12-09",
+    "entry_price": 8.97,
+    "title": "Dir",
+    "qty": 6761,
+    "value": 60644,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-11T11:36:18.375525",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-11T11:36:18.375529",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "NRIM_Thomas Linda C_2025-12-10 00:00:00",
+    "ticker": "NRIM",
+    "insider_name": "Thomas Linda C",
+    "trade_date": "2025-12-10",
+    "entry_price": 24.95,
+    "title": "Dir",
+    "qty": 800,
+    "value": 19960,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-11T11:36:18.643921",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-11T11:36:18.643925",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "JFB_Calderon Ruben_2025-12-10 00:00:00",
+    "ticker": "JFB",
+    "insider_name": "Calderon Ruben",
+    "trade_date": "2025-12-10",
+    "entry_price": 18.72,
+    "title": "CFO",
+    "qty": 1550,
+    "value": 29016,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-11T11:36:18.912917",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-11T11:36:18.912922",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "NRIM_Hegna Shauna_2025-12-09 00:00:00",
+    "ticker": "NRIM",
+    "insider_name": "Hegna Shauna",
+    "trade_date": "2025-12-09",
+    "entry_price": 25.25,
+    "title": "Dir",
+    "qty": 1186,
+    "value": 29942,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-11T11:36:19.182586",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-11T11:36:19.182591",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "ABCB_Stern William H_2025-12-08 00:00:00",
+    "ticker": "ABCB",
+    "insider_name": "Stern William H",
+    "trade_date": "2025-12-08",
+    "entry_price": 77.22,
+    "title": "Dir",
+    "qty": 308,
+    "value": 23750,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-11T11:36:19.445008",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-11T11:36:19.445012",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "FSEA_Donovan Richard M_2025-12-09 00:00:00",
+    "ticker": "FSEA",
+    "insider_name": "Donovan Richard M",
+    "trade_date": "2025-12-09",
+    "entry_price": 12.23,
+    "title": "Pres, CFO",
+    "qty": 2322,
+    "value": 28396,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-11T11:36:19.663102",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-11T11:36:19.663106",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "EMBY_Lesavoy Bernard M_2025-12-08 00:00:00",
+    "ticker": "EMBY",
+    "insider_name": "Lesavoy Bernard M",
+    "trade_date": "2025-12-08",
+    "entry_price": 17.89,
+    "title": "Dir",
+    "qty": 300,
+    "value": 5367,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-11T11:36:19.935806",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-11T11:36:19.935810",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "RCG_Stahl Murray_2025-12-09 00:00:00",
+    "ticker": "RCG",
+    "insider_name": "Stahl Murray",
+    "trade_date": "2025-12-09",
+    "entry_price": 2.65,
+    "title": "Pres, Co-Portfolio Manager, 10%",
+    "qty": 1134,
+    "value": 3005,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-11T11:36:20.155400",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-11T11:36:20.155404",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "HKHC_Stahl Murray_2025-12-09 00:00:00",
+    "ticker": "HKHC",
+    "insider_name": "Stahl Murray",
+    "trade_date": "2025-12-09",
+    "entry_price": 27.0,
+    "title": "CEO, CIO, 10%",
+    "qty": 22,
+    "value": 594,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-11T11:36:20.371251",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-11T11:36:20.371255",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "TPL_Horizon Kinetics Asset Management LLC_2025-12-09 00:00:00",
+    "ticker": "TPL",
+    "insider_name": "Horizon Kinetics Asset Management LLC",
+    "trade_date": "2025-12-09",
+    "entry_price": 896.25,
+    "title": "10%",
+    "qty": 1,
+    "value": 896,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-11T11:36:20.588575",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-11T11:36:20.588579",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "NRIM_McCambridge David J_2025-12-09 00:00:00",
+    "ticker": "NRIM",
+    "insider_name": "McCambridge David J",
+    "trade_date": "2025-12-09",
+    "entry_price": 24.87,
+    "title": "Dir",
+    "qty": 1150,
+    "value": 28601,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-11T11:36:20.807191",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-11T11:36:20.807195",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "PFBX_Stilwell Joseph_2025-12-08 00:00:00",
+    "ticker": "PFBX",
+    "insider_name": "Stilwell Joseph",
+    "trade_date": "2025-12-08",
+    "entry_price": 20.2,
+    "title": "10%",
+    "qty": 100,
+    "value": 2020,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-11T11:36:21.081359",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-11T11:36:21.081364",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "DGICA_Donegal Mutual Insurance Co_2025-12-08 00:00:00",
+    "ticker": "DGICA",
+    "insider_name": "Donegal Mutual Insurance Co",
+    "trade_date": "2025-12-08",
+    "entry_price": 19.67,
+    "title": "10%",
+    "qty": 55524,
+    "value": 1092362,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-11T11:36:21.299393",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-11T11:36:21.299398",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "NAN_Bank of America Corp /de/_2025-12-08 00:00:00",
+    "ticker": "NAN",
+    "insider_name": "Bank of America Corp /de/",
+    "trade_date": "2025-12-08",
+    "entry_price": 11.53,
+    "title": "10%",
+    "qty": 1000,
+    "value": 11530,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-11T11:36:21.516877",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-11T11:36:21.516882",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "RVSB_Sherman Nicole_2025-12-05 00:00:00",
+    "ticker": "RVSB",
+    "insider_name": "Sherman Nicole",
+    "trade_date": "2025-12-05",
+    "entry_price": 5.12,
+    "title": "Pres, CEO",
+    "qty": 975,
+    "value": 4992,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-11T11:36:21.800397",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-11T11:36:21.800401",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
+  },
+  {
+    "trade_id": "NRDY_Cohn Charles K._2025-12-08 00:00:00",
+    "ticker": "NRDY",
+    "insider_name": "Cohn Charles K.",
+    "trade_date": "2025-12-08",
+    "entry_price": 1.33,
+    "title": "CEO, 10%",
+    "qty": 184491,
+    "value": 245373,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-11T11:36:22.018111",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-11T11:36:22.018116",
     "outcomes": {
       "30d": null,
       "60d": null,

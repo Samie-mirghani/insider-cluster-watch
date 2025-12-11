@@ -1,29 +1,7 @@
 {
   "starting_capital": 10000,
-  "cash": 4095.81,
+  "cash": 4310.285,
   "positions": {
-    "VRSK": {
-      "entry_date": "2025-11-11T11:28:09.811544",
-      "entry_price": 212.94,
-      "shares": 1,
-      "cost_basis": 212.94,
-      "initial_stop_loss": 202.29299999999998,
-      "stop_loss": 213.8165,
-      "take_profit": 229.9752,
-      "highest_price": 225.07,
-      "trailing_enabled": true,
-      "signal_score": 8.405957505313472,
-      "sector": "Industrials",
-      "tranches": [
-        {
-          "shares": 1,
-          "price": 212.94,
-          "date": "2025-11-11T11:28:09.811547"
-        }
-      ],
-      "multi_signal_tier": "none",
-      "has_politician_signal": false
-    },
     "CBC": {
       "entry_date": "2025-11-26T11:43:44.081109",
       "entry_price": 23.896,
@@ -79,9 +57,9 @@
       "shares": 42,
       "cost_basis": 612.78,
       "initial_stop_loss": 13.8605,
-      "stop_loss": 14.601499999999998,
+      "stop_loss": 14.6395,
       "take_profit": 15.757200000000001,
-      "highest_price": 15.37,
+      "highest_price": 15.41,
       "trailing_enabled": true,
       "signal_score": 13.166323946945965,
       "sector": "Financial Services",
@@ -101,10 +79,10 @@
       "shares": 18,
       "cost_basis": 586.8000000000001,
       "initial_stop_loss": 30.97,
-      "stop_loss": 30.97,
+      "stop_loss": 32.584999999999994,
       "take_profit": 35.208000000000006,
-      "highest_price": 33.57,
-      "trailing_enabled": false,
+      "highest_price": 34.3,
+      "trailing_enabled": true,
       "signal_score": 29.12962241773009,
       "sector": NaN,
       "multi_signal_tier": "none",
@@ -123,10 +101,10 @@
       "shares": 9,
       "cost_basis": 548.91,
       "initial_stop_loss": 57.9405,
-      "stop_loss": 57.9405,
+      "stop_loss": 61.71199999999999,
       "take_profit": 65.8692,
-      "highest_price": 61.57,
-      "trailing_enabled": false,
+      "highest_price": 64.96,
+      "trailing_enabled": true,
       "signal_score": 25.856280654900846,
       "sector": NaN,
       "multi_signal_tier": "none",
@@ -211,9 +189,9 @@
       "shares": 45,
       "cost_basis": 603.9,
       "initial_stop_loss": 12.748999999999999,
-      "stop_loss": 13.2715,
+      "stop_loss": 13.7655,
       "take_profit": 14.4936,
-      "highest_price": 13.97,
+      "highest_price": 14.49,
       "trailing_enabled": true,
       "signal_score": 14.093014261819956,
       "sector": null,
@@ -259,10 +237,10 @@
     }
   },
   "total_trades": 25,
-  "winning_trades": 6,
+  "winning_trades": 7,
   "losing_trades": 9,
-  "total_profit": 11.720000000000084,
+  "total_profit": 13.25500000000008,
   "max_portfolio_value": 11086.842,
   "max_drawdown": -9.109194484777545,
-  "last_updated": "2025-12-10T11:47:55.689791"
+  "last_updated": "2025-12-11T11:50:01.860463"
 }
