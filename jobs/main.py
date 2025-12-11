@@ -304,17 +304,7 @@ def main(test=False, urgent_test=False, enable_paper_trading=True):
         )
         print(f"   Tracked Insiders: {len(insider_tracker.profiles)}")
         print(f"   Historical Trades: {len(insider_tracker.trades_history)}")
-
-        # Check data freshness
-        freshness_alert = insider_tracker.log_freshness_check()
-        if freshness_alert['alert']:
-            print(f"⚠️  WARNING: Insider performance data issue detected!")
-            print(f"   Status: {freshness_alert['status']}")
-            print(f"   {freshness_alert['message']}")
-            if freshness_alert['status'] == 'EMPTY':
-                print(f"\n💡 To populate data, run:")
-                print(f"   python bootstrap_insider_history.py --quick-test")
-            print()
+        print()
 
     # Initialize continuous auto-tracker
     auto_tracker = None
