@@ -8,6 +8,20 @@ Key Features:
 • Daily background job to update maturing trades (30/60/90 day outcomes)
 • Incremental profile updates (no need to re-process entire history)
 • Self-maintaining system after initial bootstrap
+• Intelligent failure handling with categorization and retry logic
+
+Failure Handling:
+• DELISTED: Stock no longer trades (marked as FAILED, no retry)
+• INVALID_TICKER: Bad ticker format or non-stock (marked as FAILED, no retry)
+• RATE_LIMIT: API rate limiting (retries tomorrow)
+• NETWORK_ERROR: Temporary network issues (retries tomorrow)
+
+Impact on Profiles:
+• Failed trades do NOT affect insider performance profiles
+• Profiles are calculated ONLY from trades with successful outcomes
+• Insiders need minimum 3 successful trades for profile calculation
+• This ensures profile quality is not degraded by data availability issues
+• Failed trades are excluded entirely (conservative approach)
 
 Usage:
     from insider_performance_auto_tracker import AutoInsiderTracker
@@ -92,12 +106,16 @@ class AutoInsiderTracker:
             print(f"❌ Error saving tracking queue: {e}")
 
     def _get_active_tracks(self) -> List[Dict]:
-        """Get all actively tracked trades"""
+        """Get all actively tracked trades (excluding failed)"""
         return [t for t in self.tracking_queue if t.get('status') == 'TRACKING']
 
     def _get_matured_tracks(self) -> List[Dict]:
         """Get all matured trades"""
         return [t for t in self.tracking_queue if t.get('status') == 'MATURED']
+
+    def _get_failed_tracks(self) -> List[Dict]:
+        """Get all permanently failed trades"""
+        return [t for t in self.tracking_queue if t.get('status') == 'FAILED']
 
     def track_new_purchase(self, signal: Dict, source: str = "signal_detection") -> bool:
         """
@@ -213,16 +231,22 @@ class AutoInsiderTracker:
 
         if not active_tracks:
             print("✅ No active tracks to update")
-            return {'updated': 0, 'matured': 0, 'failed': 0}
+            return {'updated': 0, 'matured': 0, 'failed': 0, 'permanently_failed': 0}
 
         today = datetime.now()
         updated_count = 0
         matured_count = 0
         failed_count = 0
+        permanently_failed_count = 0
+        failure_details = []  # Collect failure info for summary logging
 
         for track in active_tracks:
             trade_date = pd.to_datetime(track['trade_date'])
             days_elapsed = (today - trade_date).days
+
+            # Skip permanently failed trades (no point retrying)
+            if track.get('failure_type') in ['DELISTED', 'INVALID_TICKER']:
+                continue
 
             # Check which time horizons need updating
             horizons_to_check = []
@@ -241,22 +265,29 @@ class AutoInsiderTracker:
             ticker = track['ticker']
             entry_price = track['entry_price']
 
-            print(f"\n📊 {ticker} - {days_elapsed} days elapsed")
-            print(f"   Checking horizons: {[h[0] for h in horizons_to_check]}")
+            if self.verbose:
+                print(f"\n📊 {ticker} - {days_elapsed} days elapsed")
+                print(f"   Checking horizons: {[h[0] for h in horizons_to_check]}")
 
             # Fetch price data with retry
-            outcomes = self._fetch_outcomes_with_retry(
+            result = self._fetch_outcomes_with_retry(
                 ticker, trade_date, entry_price, horizons_to_check, max_retries
             )
 
-            if outcomes:
+            if result and result.get('outcomes'):
+                outcomes = result['outcomes']
                 # Update tracking record
                 for horizon, _ in horizons_to_check:
                     if outcomes.get(horizon):
                         track['outcomes'][horizon] = outcomes[horizon]
-                        print(f"   ✅ {horizon}: ${outcomes[horizon]['price']:.2f} ({outcomes[horizon]['return']:+.1f}%)")
+                        if self.verbose:
+                            print(f"   ✅ {horizon}: ${outcomes[horizon]['price']:.2f} ({outcomes[horizon]['return']:+.1f}%)")
 
                 track['last_updated'] = datetime.now().isoformat()
+                # Clear any previous failure info on success
+                track.pop('failure_type', None)
+                track.pop('failure_reason', None)
+                track.pop('failure_count', None)
                 updated_count += 1
 
                 # Update main tracker's database
@@ -266,10 +297,57 @@ class AutoInsiderTracker:
                 if all(track['outcomes'][h] is not None for h in ['30d', '90d', '180d']):
                     track['status'] = 'MATURED'
                     matured_count += 1
-                    print(f"   🎯 Trade MATURED - all outcomes complete")
+                    if self.verbose:
+                        print(f"   🎯 Trade MATURED - all outcomes complete")
 
             else:
-                print(f"   ⚠️  Failed to fetch outcomes after {max_retries} retries")
+                # Handle failure - categorize and track
+                failure_type = result.get('failure_type', 'UNKNOWN') if result else 'UNKNOWN'
+                failure_reason = result.get('failure_reason', 'Unknown error') if result else 'Unknown error'
+
+                # Track failure count
+                failure_count = track.get('failure_count', 0) + 1
+                track['failure_count'] = failure_count
+
+                # Categorize permanent vs temporary failures
+                if failure_type in ['DELISTED', 'INVALID_TICKER']:
+                    track['status'] = 'FAILED'
+                    track['failure_type'] = failure_type
+                    track['failure_reason'] = failure_reason
+                    track['last_updated'] = datetime.now().isoformat()
+                    permanently_failed_count += 1
+
+                    failure_details.append({
+                        'ticker': ticker,
+                        'type': failure_type,
+                        'reason': failure_reason,
+                        'permanent': True
+                    })
+                elif failure_type == 'RATE_LIMIT':
+                    # Temporary - will retry tomorrow
+                    track['failure_type'] = failure_type
+                    track['failure_reason'] = failure_reason
+                    track['last_updated'] = datetime.now().isoformat()
+
+                    failure_details.append({
+                        'ticker': ticker,
+                        'type': failure_type,
+                        'reason': failure_reason,
+                        'permanent': False
+                    })
+                else:
+                    # Network or unknown error - will retry tomorrow
+                    track['failure_type'] = 'NETWORK_ERROR'
+                    track['failure_reason'] = failure_reason
+                    track['last_updated'] = datetime.now().isoformat()
+
+                    failure_details.append({
+                        'ticker': ticker,
+                        'type': 'NETWORK_ERROR',
+                        'reason': failure_reason,
+                        'permanent': False
+                    })
+
                 failed_count += 1
 
             # Rate limiting
@@ -278,25 +356,52 @@ class AutoInsiderTracker:
         # Save updated queue
         self._save_tracking_queue()
 
+        # Summary logging - reduced noise
         print(f"\n{'='*70}")
         print(f"UPDATE COMPLETE")
         print(f"{'='*70}")
         print(f"  Updated: {updated_count}")
         print(f"  Matured: {matured_count}")
-        print(f"  Failed: {failed_count}")
+
+        if failed_count > 0:
+            print(f"  Failed: {failed_count}")
+
+            # Group by failure type
+            from collections import Counter
+            permanent_failures = [f for f in failure_details if f['permanent']]
+            temporary_failures = [f for f in failure_details if not f['permanent']]
+
+            if permanent_failures:
+                print(f"\n  ⚠️  Permanent failures (will not retry): {len(permanent_failures)}")
+                type_counts = Counter(f['type'] for f in permanent_failures)
+                for ftype, count in type_counts.items():
+                    print(f"     • {ftype}: {count}")
+                    # Show first few examples
+                    examples = [f['ticker'] for f in permanent_failures if f['type'] == ftype][:3]
+                    print(f"       Examples: {', '.join(examples)}")
+
+            if temporary_failures:
+                print(f"\n  ⚠️  Temporary failures (will retry tomorrow): {len(temporary_failures)}")
+                type_counts = Counter(f['type'] for f in temporary_failures)
+                for ftype, count in type_counts.items():
+                    print(f"     • {ftype}: {count}")
+        else:
+            print(f"  Failed: 0")
+
         print(f"{'='*70}\n")
 
         return {
             'updated': updated_count,
             'matured': matured_count,
-            'failed': failed_count
+            'failed': failed_count,
+            'permanently_failed': permanently_failed_count
         }
 
     def _fetch_outcomes_with_retry(self, ticker: str, trade_date: datetime,
                                    entry_price: float, horizons: List[tuple],
                                    max_retries: int = 3) -> Optional[Dict]:
         """
-        Fetch price outcomes with retry logic.
+        Fetch price outcomes with retry logic and failure categorization.
 
         Args:
             ticker: Stock ticker
@@ -306,9 +411,10 @@ class AutoInsiderTracker:
             max_retries: Max retry attempts
 
         Returns:
-            Dict with outcomes or None if failed
+            Dict with 'outcomes' key on success, or 'failure_type'/'failure_reason' on failure
         """
         delay = 1.0
+        last_error = None
 
         for attempt in range(max_retries):
             try:
@@ -320,11 +426,42 @@ class AutoInsiderTracker:
                 hist = stock.history(start=start_date, end=end_date)
 
                 if hist.empty:
+                    # Try to get more context from ticker info
+                    try:
+                        info = stock.info
+                        # Check for invalid ticker patterns
+                        if not info or len(info) < 5:
+                            # Likely invalid ticker
+                            if self._is_invalid_ticker_format(ticker):
+                                return {
+                                    'failure_type': 'INVALID_TICKER',
+                                    'failure_reason': f'Invalid ticker format: {ticker}'
+                                }
+                            # Empty history could mean delisted
+                            return {
+                                'failure_type': 'DELISTED',
+                                'failure_reason': 'No trading history available (possibly delisted)'
+                            }
+                        # Check quote type - mutual funds/ETFs may have different data availability
+                        quote_type = info.get('quoteType', '').upper()
+                        if quote_type in ['MUTUALFUND', 'INDEX']:
+                            return {
+                                'failure_type': 'INVALID_TICKER',
+                                'failure_reason': f'Ticker is {quote_type}, not a stock'
+                            }
+                    except:
+                        pass  # Continue to retry logic below
+
                     if attempt < max_retries - 1:
                         time.sleep(delay)
                         delay *= 2
                         continue
-                    return None
+
+                    # After all retries, classify as delisted
+                    return {
+                        'failure_type': 'DELISTED',
+                        'failure_reason': 'No trading history after multiple retries (possibly delisted)'
+                    }
 
                 # Remove timezone
                 hist = hist.reset_index()
@@ -347,19 +484,87 @@ class AutoInsiderTracker:
                             'date': str(future_data.iloc[0]['Date'])[:10]
                         }
 
-                return outcomes if outcomes else None
+                if outcomes:
+                    return {'outcomes': outcomes}
+                else:
+                    # No data for the required horizons (trade too recent)
+                    return {
+                        'failure_type': 'DELISTED',
+                        'failure_reason': 'No trading data for required time horizon'
+                    }
 
             except Exception as e:
+                last_error = str(e)
+
+                # Check for rate limiting
+                if 'rate limit' in last_error.lower() or '429' in last_error:
+                    if attempt < max_retries - 1:
+                        if self.verbose:
+                            print(f"   Rate limit hit, retry {attempt + 1}/{max_retries}")
+                        time.sleep(delay * 2)  # Longer delay for rate limits
+                        delay *= 2
+                        continue
+                    return {
+                        'failure_type': 'RATE_LIMIT',
+                        'failure_reason': f'Rate limited: {last_error}'
+                    }
+
+                # Check for network errors
+                if any(err in last_error.lower() for err in ['timeout', 'connection', 'network']):
+                    if attempt < max_retries - 1:
+                        if self.verbose:
+                            print(f"   Network error, retry {attempt + 1}/{max_retries}: {last_error}")
+                        time.sleep(delay)
+                        delay *= 2
+                        continue
+                    return {
+                        'failure_type': 'NETWORK_ERROR',
+                        'failure_reason': f'Network error: {last_error}'
+                    }
+
+                # Other exceptions
                 if attempt < max_retries - 1:
-                    print(f"   Retry {attempt + 1}/{max_retries}: {e}")
+                    if self.verbose:
+                        print(f"   Retry {attempt + 1}/{max_retries}: {last_error}")
                     time.sleep(delay)
                     delay *= 2
                     continue
                 else:
-                    print(f"   Error after {max_retries} attempts: {e}")
-                    return None
+                    if self.verbose:
+                        print(f"   Error after {max_retries} attempts: {last_error}")
+                    return {
+                        'failure_type': 'NETWORK_ERROR',
+                        'failure_reason': f'Failed after {max_retries} attempts: {last_error}'
+                    }
 
-        return None
+        return {
+            'failure_type': 'UNKNOWN',
+            'failure_reason': f'Unknown failure: {last_error}'
+        }
+
+    def _is_invalid_ticker_format(self, ticker: str) -> bool:
+        """
+        Check if ticker has obviously invalid format.
+
+        Returns:
+            True if ticker format is invalid
+        """
+        if not ticker or len(ticker) > 10:
+            return True
+        # Check for common invalid patterns
+        invalid_patterns = [
+            'N.A.', 'N/A', 'NA', 'NONE', 'NULL',  # Placeholder values
+            '.',  # Just a period
+        ]
+        if ticker.upper() in invalid_patterns:
+            return True
+        # Check for trailing periods (bad format)
+        if ticker.endswith('.') and len(ticker) > 1:
+            return True
+        # Check for spaces
+        if ' ' in ticker:
+            return True
+        return False
 
     def _update_tracker_outcomes(self, track: Dict):
         """Update the main tracker's database with new outcomes"""
@@ -423,6 +628,7 @@ class AutoInsiderTracker:
         """
         active = self._get_active_tracks()
         matured = self._get_matured_tracks()
+        failed = self._get_failed_tracks()
 
         # Count by time horizon
         with_30d = len([t for t in self.tracking_queue if t['outcomes'].get('30d') is not None])
@@ -430,10 +636,16 @@ class AutoInsiderTracker:
         with_90d = len([t for t in self.tracking_queue if t['outcomes'].get('90d') is not None])
         with_180d = len([t for t in self.tracking_queue if t['outcomes'].get('180d') is not None])
 
+        # Count failure types
+        from collections import Counter
+        failure_types = Counter(t.get('failure_type', 'UNKNOWN') for t in failed)
+
         return {
             'total_tracks': len(self.tracking_queue),
             'active': len(active),
             'matured': len(matured),
+            'failed': len(failed),
+            'failure_types': dict(failure_types),
             'outcomes': {
                 '30d': with_30d,
                 '60d': with_60d,
@@ -474,6 +686,34 @@ class AutoInsiderTracker:
 
         return archived
 
+    def cleanup_old_failed_trades(self, days_old: int = 90):
+        """
+        Archive permanently failed trades older than specified days.
+
+        Args:
+            days_old: Archive failed trades this many days old
+        """
+        cutoff_date = datetime.now() - timedelta(days=days_old)
+        before_count = len(self.tracking_queue)
+
+        # Filter out old failed trades
+        self.tracking_queue = [
+            t for t in self.tracking_queue
+            if not (
+                t.get('status') == 'FAILED' and
+                pd.to_datetime(t.get('last_updated', datetime.now())) < cutoff_date
+            )
+        ]
+
+        after_count = len(self.tracking_queue)
+        archived = before_count - after_count
+
+        if archived > 0:
+            self._save_tracking_queue()
+            print(f"🧹 Archived {archived} old failed trades (>{days_old} days old)")
+
+        return archived
+
 
 # Convenience function for daily pipeline
 def run_daily_update():
@@ -497,6 +737,9 @@ def run_daily_update():
     print(f"\n📊 Current Stats:")
     print(f"   Active tracks: {stats_before['active']}")
     print(f"   Matured trades: {stats_before['matured']}")
+    print(f"   Failed trades: {stats_before.get('failed', 0)}")
+    if stats_before.get('failure_types'):
+        print(f"   Failure types: {stats_before['failure_types']}")
     print(f"   Insider profiles: {stats_before['insider_profiles']}")
 
     # Update maturing trades
@@ -509,12 +752,18 @@ def run_daily_update():
     # Cleanup old matured trades (keep last year only)
     auto_tracker.cleanup_old_matured_trades(days_old=365)
 
+    # Cleanup old failed trades (keep last 90 days for analysis)
+    auto_tracker.cleanup_old_failed_trades(days_old=90)
+
     # Final stats
     stats_after = auto_tracker.get_tracking_stats()
 
     print(f"\n📊 Final Stats:")
     print(f"   Active tracks: {stats_after['active']}")
     print(f"   Matured trades: {stats_after['matured']}")
+    print(f"   Failed trades: {stats_after.get('failed', 0)}")
+    if stats_after.get('failure_types'):
+        print(f"   Failure types: {stats_after['failure_types']}")
     print(f"   Insider profiles: {stats_after['insider_profiles']}")
 
     print(f"\n✅ Daily update complete!")
