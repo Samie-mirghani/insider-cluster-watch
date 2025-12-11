@@ -115,17 +115,11 @@ def export_public_data():
             print(f"  • {name[:40]:<40} Score: {score:>5.1f} | WR: {win_rate:>5.1f}% | Avg: {avg_return:>+6.1f}% | Trades: {trades}")
 
         # Format for public display
-        # Get data freshness and convert Timestamps to strings
-        data_freshness = tracker.check_data_freshness()
-        if data_freshness.get('last_updated'):
-            data_freshness['last_updated'] = data_freshness['last_updated'].isoformat()
-
         public_data = {
             'last_updated': datetime.now().isoformat(),
             'status': 'OK',
             'total_insiders_tracked': len(tracker.profiles),
             'qualified_performers': len(qualified),
-            'data_freshness': data_freshness,
             'top_performers': []
         }
 

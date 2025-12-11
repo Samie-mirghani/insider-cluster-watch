@@ -353,21 +353,6 @@
             color: var(--success);
         }
 
-        .data-freshness {
-            margin-top: 20px;
-            padding: 15px;
-            background: #f3f4f6;
-            border-radius: 8px;
-            font-size: 0.9em;
-            color: var(--gray);
-            text-align: center;
-        }
-
-        .data-freshness.stale {
-            background: #fef3c7;
-            color: #92400e;
-        }
-
         /* Section Styling */
         .section {
             background: white;
@@ -817,7 +802,6 @@
             <div class="insider-performers-grid" id="insider-performers-grid">
                 <div class="loading">Loading top performers</div>
             </div>
-            <div class="data-freshness" id="insider-data-freshness"></div>
         </div>
 
         <!-- Conviction Performance Breakdown -->
@@ -1329,24 +1313,6 @@
                 }).join('');
 
                 grid.innerHTML = performersHTML;
-
-                // Add data freshness info
-                const freshnessDiv = document.getElementById('insider-data-freshness');
-                if (data.data_freshness) {
-                    const freshness = data.data_freshness;
-                    const freshnessClass = freshness.status === 'STALE' ? 'stale' : '';
-                    const lastUpdated = new Date(data.last_updated).toLocaleDateString('en-US', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric'
-                    });
-
-                    freshnessDiv.className = `data-freshness ${freshnessClass}`;
-                    freshnessDiv.innerHTML = `
-                        📊 Tracking ${data.total_insiders_tracked} insiders (${data.qualified_performers} qualified)
-                        • Last updated: ${lastUpdated}
-                    `;
-                }
 
             } catch (error) {
                 console.log('Insider performance data not available yet:', error);

@@ -189,32 +189,6 @@ def print_insider_performance(tracker: InsiderPerformanceTracker, top_n: int = 1
         print(f"{idx:<6} {name:<35} {score:>5.1f}    {win_rate:>5.1f}%     {avg_return:>+6.1f}%    {trades:>5}")
 
 
-def print_data_freshness(tracker: InsiderPerformanceTracker):
-    """Print data freshness status"""
-    freshness = tracker.check_data_freshness()
-
-    print_header("DATA FRESHNESS")
-
-    print(f"\n{freshness['message']}")
-
-    if freshness.get('last_updated'):
-        print(f"\nLast updated: {freshness['last_updated'].strftime('%Y-%m-%d %H:%M:%S')}")
-        age_days = freshness.get('age_days', 0)
-        print(f"Age: {format_age(age_days)}")
-
-    print(f"\nTotal insider profiles: {len(tracker.profiles):,}")
-    print(f"Total historical trades: {len(tracker.trades_history):,}")
-
-    if freshness['status'] in ['STALE', 'EMPTY']:
-        print(f"\n⚠️  ACTION REQUIRED:")
-        if freshness['status'] == 'EMPTY':
-            print("   Run initial bootstrap:")
-            print("   $ python bootstrap_insider_history.py --quick-test")
-        else:
-            print("   Data is stale. The daily background job should update automatically.")
-            print("   If issues persist, check the daily pipeline logs.")
-
-
 def print_system_health():
     """Print overall system health summary"""
     print_header("CONTINUOUS TRACKING SYSTEM HEALTH")
@@ -292,9 +266,6 @@ def main():
 
         # Tracking stats
         print_tracking_stats(auto_tracker)
-
-        # Data freshness
-        print_data_freshness(insider_tracker)
 
         # Top/bottom performers
         print_insider_performance(insider_tracker, top_n=args.top)
