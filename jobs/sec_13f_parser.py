@@ -141,7 +141,7 @@ class SEC13FParser:
             'output': 'atom'
         }
 
-        logger.info(f"Fetching 13F filings for CIK {cik}...")
+        logger.debug(f"Fetching 13F filings for CIK {cik}...")
 
         # Retry logic with exponential backoff
         for attempt in range(self.max_retries):
@@ -153,7 +153,7 @@ class SEC13FParser:
                 try:
                     root = ET.fromstring(response.content)
                 except ET.ParseError as xml_error:
-                    logger.warning(f"XML parsing error for CIK {cik}: {xml_error}")
+                    logger.debug(f"XML parsing error for CIK {cik}: {xml_error}")
                     # Try cleaning the content
                     content = response.content.decode('utf-8', errors='ignore')
                     # Remove problematic characters
@@ -161,7 +161,7 @@ class SEC13FParser:
                     try:
                         root = ET.fromstring(content.encode('utf-8'))
                     except ET.ParseError:
-                        logger.warning(f"Unable to parse XML for CIK {cik} even after cleaning")
+                        logger.debug(f"Unable to parse XML for CIK {cik} even after cleaning")
                         return []
 
                 filings = []
@@ -385,12 +385,16 @@ class SEC13FParser:
 
         df = pd.DataFrame(results)
 
+        # Log summary with institutions checked and holdings found
+        total_institutions = len(self.PRIORITY_FUNDS)
+        holdings_found = len(df)
+
         if not df.empty:
-            logger.info(f"✓ Found {len(df)} priority funds holding {ticker}")
+            logger.info(f"✓ {ticker}: Checked {total_institutions} institutions, {holdings_found} have positions")
             # Cache the results
             self._write_cache(ticker, df)
         else:
-            logger.debug(f"No priority funds found holding {ticker}")
+            logger.info(f"✓ {ticker}: Checked {total_institutions} institutions, {holdings_found} have positions")
             # Cache empty result too (avoid repeated failed lookups)
             self._write_cache(ticker, df)
 
