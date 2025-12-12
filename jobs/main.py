@@ -269,8 +269,10 @@ def append_to_history(cluster_df):
         # Fix for pandas FutureWarning: handle empty DataFrame properly
         if old.empty:
             combined = new_df
-        else:
+        elif not new_df.empty:
             combined = pd.concat([old, new_df], ignore_index=True)
+        else:
+            combined = old
     else:
         combined = new_df
 

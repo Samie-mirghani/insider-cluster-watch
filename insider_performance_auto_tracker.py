@@ -48,6 +48,12 @@ from pathlib import Path
 from typing import Dict, List, Optional
 import yfinance as yf
 import time
+import logging
+
+# Suppress yfinance error spam for delisted stocks
+# yfinance logs ERROR for every delisted ticker, which clutters logs
+# These are expected failures and don't break the pipeline
+logging.getLogger('yfinance').setLevel(logging.WARNING)
 
 from insider_performance_tracker import InsiderPerformanceTracker
 

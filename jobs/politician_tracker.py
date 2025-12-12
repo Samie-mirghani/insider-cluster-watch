@@ -373,7 +373,7 @@ class PoliticianTracker:
             new_df = pd.DataFrame(new_trades)
             if self.trades_history.empty:
                 self.trades_history = new_df
-            else:
+            elif not new_df.empty:
                 self.trades_history = pd.concat([self.trades_history, new_df], ignore_index=True)
 
             self._save_trades_history()

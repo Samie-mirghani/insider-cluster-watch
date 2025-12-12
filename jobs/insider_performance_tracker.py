@@ -23,6 +23,12 @@ import time
 from pathlib import Path
 import re
 from difflib import SequenceMatcher
+import logging
+
+# Suppress yfinance error spam for delisted stocks
+# yfinance logs ERROR for every delisted ticker, which clutters logs
+# These are expected failures and don't break the pipeline
+logging.getLogger('yfinance').setLevel(logging.WARNING)
 
 # Data paths
 DATA_DIR = Path(__file__).parent.parent / 'data'
@@ -272,10 +278,11 @@ class InsiderPerformanceTracker:
 
         if new_trades:
             new_df = pd.DataFrame(new_trades)
-            # Fix for pandas FutureWarning: handle empty DataFrame properly
+            # Fix for pandas FutureWarning: handle empty DataFrame properly and use explicit dtype inference
             if self.trades_history.empty:
                 self.trades_history = new_df
-            else:
+            elif not new_df.empty:
+                # Only concat non-empty dataframes to avoid FutureWarning
                 self.trades_history = pd.concat([self.trades_history, new_df], ignore_index=True)
 
             # Only print summary when adding multiple trades or in verbose mode
