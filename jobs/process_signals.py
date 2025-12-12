@@ -16,6 +16,10 @@ from datetime import timedelta, datetime
 import yfinance as yf
 import config
 from sector_analyzer import SectorAnalyzer
+import logging
+
+# Suppress yfinance error spam for delisted stocks
+logging.getLogger('yfinance').setLevel(logging.WARNING)
 
 ROLE_WEIGHT = {
     'CEO': 3.0,

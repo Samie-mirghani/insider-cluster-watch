@@ -44,6 +44,10 @@ import time
 import yfinance as yf
 from typing import Optional, Dict, List
 import traceback
+import logging
+
+# Suppress yfinance error spam for delisted stocks
+logging.getLogger('yfinance').setLevel(logging.WARNING)
 
 from insider_performance_tracker import InsiderPerformanceTracker
 
