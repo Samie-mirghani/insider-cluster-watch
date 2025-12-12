@@ -1,6 +1,6 @@
 {
   "starting_capital": 10000,
-  "cash": 4310.285,
+  "cash": 4472.375,
   "positions": {
     "CBC": {
       "entry_date": "2025-11-26T11:43:44.081109",
@@ -35,10 +35,10 @@
       "shares": 11,
       "cost_basis": 600.8199999999999,
       "initial_stop_loss": 51.888999999999996,
-      "stop_loss": 51.888999999999996,
+      "stop_loss": 54.7865,
       "take_profit": 58.9896,
-      "highest_price": 55.29,
-      "trailing_enabled": false,
+      "highest_price": 57.67,
+      "trailing_enabled": true,
       "signal_score": 20.32408382966457,
       "sector": "Consumer Cyclical",
       "multi_signal_tier": "none",
@@ -57,9 +57,9 @@
       "shares": 42,
       "cost_basis": 612.78,
       "initial_stop_loss": 13.8605,
-      "stop_loss": 14.6395,
+      "stop_loss": 14.9435,
       "take_profit": 15.757200000000001,
-      "highest_price": 15.41,
+      "highest_price": 15.73,
       "trailing_enabled": true,
       "signal_score": 13.166323946945965,
       "sector": "Financial Services",
@@ -79,9 +79,9 @@
       "shares": 18,
       "cost_basis": 586.8000000000001,
       "initial_stop_loss": 30.97,
-      "stop_loss": 32.584999999999994,
+      "stop_loss": 32.946,
       "take_profit": 35.208000000000006,
-      "highest_price": 34.3,
+      "highest_price": 34.68,
       "trailing_enabled": true,
       "signal_score": 29.12962241773009,
       "sector": NaN,
@@ -101,9 +101,9 @@
       "shares": 9,
       "cost_basis": 548.91,
       "initial_stop_loss": 57.9405,
-      "stop_loss": 61.71199999999999,
+      "stop_loss": 62.548,
       "take_profit": 65.8692,
-      "highest_price": 64.96,
+      "highest_price": 65.84,
       "trailing_enabled": true,
       "signal_score": 25.856280654900846,
       "sector": NaN,
@@ -169,7 +169,7 @@
       "initial_stop_loss": 23.70725,
       "stop_loss": 23.70725,
       "take_profit": 26.9514,
-      "highest_price": 24.955,
+      "highest_price": 24.99,
       "trailing_enabled": false,
       "signal_score": 14.491598628745699,
       "sector": "Unknown",
@@ -183,25 +183,25 @@
         }
       ]
     },
-    "CBIO": {
-      "entry_date": "2025-12-09T16:22:41.580783",
-      "entry_price": 13.42,
-      "shares": 45,
-      "cost_basis": 603.9,
-      "initial_stop_loss": 12.748999999999999,
-      "stop_loss": 13.7655,
-      "take_profit": 14.4936,
-      "highest_price": 14.49,
-      "trailing_enabled": true,
-      "signal_score": 14.093014261819956,
+    "KYMR": {
+      "entry_date": "2025-12-12T11:47:20.645393",
+      "entry_price": 87.81,
+      "shares": 6,
+      "cost_basis": 526.86,
+      "initial_stop_loss": 83.4195,
+      "stop_loss": 83.4195,
+      "take_profit": 94.83480000000002,
+      "highest_price": 87.81,
+      "trailing_enabled": false,
+      "signal_score": 16.293181464974072,
       "sector": null,
       "multi_signal_tier": "none",
       "has_politician_signal": false,
       "tranches": [
         {
-          "shares": 45,
-          "price": 13.42,
-          "date": "2025-12-09T16:22:41.580789"
+          "shares": 6,
+          "price": 87.81,
+          "date": "2025-12-12T11:47:20.645399"
         }
       ]
     }
@@ -228,19 +228,19 @@
       "expires": "2025-12-14T16:22:37.512781",
       "signal_score": 14.491598628745699
     },
-    "CBIO": {
-      "shares": 30,
-      "trigger_price": 13.1516,
-      "original_entry": 13.42,
-      "expires": "2025-12-14T16:22:42.906488",
-      "signal_score": 14.093014261819956
+    "KYMR": {
+      "shares": 4,
+      "trigger_price": 86.0538,
+      "original_entry": 87.81,
+      "expires": "2025-12-17T11:47:20.826692",
+      "signal_score": 16.293181464974072
     }
   },
-  "total_trades": 25,
-  "winning_trades": 7,
+  "total_trades": 26,
+  "winning_trades": 8,
   "losing_trades": 9,
-  "total_profit": 13.25500000000008,
+  "total_profit": 98.30500000000015,
   "max_portfolio_value": 11086.842,
   "max_drawdown": -9.109194484777545,
-  "last_updated": "2025-12-11T11:50:01.860463"
+  "last_updated": "2025-12-12T11:47:28.901791"
 }

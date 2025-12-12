@@ -1,25 +1,18 @@
 {
-  "last_updated": "2025-12-11T11:50:06.111414",
+  "last_updated": "2025-12-12T11:47:33.984999",
   "status": "OK",
-  "total_insiders_tracked": 209,
-  "qualified_performers": 32,
-  "data_freshness": {
-    "is_fresh": false,
-    "last_updated": "2025-11-10T00:00:00",
-    "age_days": 31.493126288784723,
-    "status": "STALE",
-    "message": "\u274c Data is STALE (last updated 31.5 days ago). Update NOW!"
-  },
+  "total_insiders_tracked": 212,
+  "qualified_performers": 33,
   "top_performers": [
     {
       "name": "Billingsley Chester",
       "score": 100.0,
       "win_rate": 100.0,
-      "avg_return": 79.7,
-      "total_trades": 26,
+      "avg_return": 74.5,
+      "total_trades": 27,
       "best_trade": 120.0,
       "worst_trade": 12.5,
-      "sharpe_ratio": 2.67
+      "sharpe_ratio": 2.18
     },
     {
       "name": "Inc Ctt Pharmaceutical Holdings",
