@@ -498,28 +498,29 @@ class CapitolTradesScraper:
         if not date_str:
             return None
 
-        date_str = date_str.strip().lower()
+        date_str_stripped = date_str.strip()
+        date_str_lower = date_str_stripped.lower()
 
-        # Handle relative dates (Capitol Trades format)
-        if 'today' in date_str:
+        # Handle relative dates (Capitol Trades format) - use lowercase for comparison
+        if 'today' in date_str_lower:
             return datetime.now()
-        elif 'yesterday' in date_str:
+        elif 'yesterday' in date_str_lower:
             return datetime.now() - timedelta(days=1)
 
-        # Try multiple date formats
+        # Try multiple date formats - use original case for month names
         formats = [
             '%Y-%m-%d',
             '%m/%d/%Y',
             '%m/%d/%y',
-            '%B %d, %Y',
-            '%b %d, %Y',
+            '%B %d, %Y',  # December 14, 2025
+            '%b %d, %Y',  # Dec 14, 2025
             '%m-%d-%Y',
             '%m-%d-%y'
         ]
 
         for fmt in formats:
             try:
-                return datetime.strptime(date_str.strip(), fmt)
+                return datetime.strptime(date_str_stripped, fmt)
             except ValueError:
                 continue
 
@@ -586,10 +587,14 @@ class CapitolTradesScraper:
         # Calculate weighted amount
         df['weighted_amount'] = df['amount_mid'] * df['politician_weight']
 
-        # Add disclosure lag
-        df['disclosure_lag_days'] = (
-            df['disclosure_date'] - df['trade_date']
-        ).dt.days
+        # Add disclosure lag (handle None dates gracefully)
+        try:
+            df['disclosure_lag_days'] = (
+                df['disclosure_date'] - df['trade_date']
+            ).dt.days
+        except (TypeError, AttributeError):
+            # If date subtraction fails due to None values, set to NaN
+            df['disclosure_lag_days'] = pd.NA
 
         # Remove invalid tickers
         df = df[df['ticker'].str.len() > 0]

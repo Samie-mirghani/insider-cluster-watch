@@ -16,6 +16,13 @@ import os
 from pathlib import Path
 
 try:
+    import yfinance as yf
+    YFINANCE_AVAILABLE = True
+except ImportError:
+    YFINANCE_AVAILABLE = False
+    logging.warning("yfinance not available - ticker to company name lookup will be limited")
+
+try:
     from config import SEC_13F_CACHE_HOURS
 except ImportError:
     SEC_13F_CACHE_HOURS = 168  # Default to 7 days if config not available
@@ -31,6 +38,9 @@ class SEC13FParser:
     """
 
     BASE_URL = "https://www.sec.gov"
+
+    # Class-level flag to warn about missing yfinance only once
+    _yfinance_warning_logged = False
 
     # Priority funds to track (top performers)
     PRIORITY_FUNDS = {
@@ -115,6 +125,53 @@ class SEC13FParser:
             logger.debug(f"Cached 13F data for {ticker}")
         except Exception as e:
             logger.debug(f"Cache write error: {e}")
+
+    def _get_company_name(self, ticker: str) -> Optional[str]:
+        """Get company name for a ticker using yfinance with retry logic"""
+        if not YFINANCE_AVAILABLE:
+            # Only log error once per class instance to avoid log pollution
+            if not SEC13FParser._yfinance_warning_logged:
+                logger.error("yfinance not installed - 13F matching disabled. Install with: pip install yfinance")
+                SEC13FParser._yfinance_warning_logged = True
+            return None
+
+        max_attempts = 2
+        last_error = None
+
+        for attempt in range(max_attempts):
+            try:
+                stock = yf.Ticker(ticker)
+                info = stock.info
+
+                # Check if we got valid data (yfinance returns empty dict for invalid tickers)
+                if not info or len(info) < 3:
+                    if attempt < max_attempts - 1:
+                        time.sleep(1)
+                        continue
+                    # Only log on final attempt
+                    logger.warning(f"Ticker {ticker} not found or invalid")
+                    return None
+
+                # Try multiple fields for company name
+                company_name = info.get('longName') or info.get('shortName') or info.get('name')
+                if company_name:
+                    logger.debug(f"✓ Resolved {ticker} -> {company_name}")
+                    return company_name
+                else:
+                    logger.warning(f"Ticker {ticker} found but missing company name field")
+                    return None
+
+            except Exception as e:
+                last_error = e
+                if attempt < max_attempts - 1:
+                    time.sleep(1)
+                    continue
+
+        # Only log error once after all retries exhausted
+        if last_error:
+            logger.warning(f"Failed to lookup {ticker}: {last_error}")
+
+        return None
 
     def get_latest_13f_filings(self, cik: str, count: int = 5) -> List[Dict]:
         """
@@ -202,16 +259,16 @@ class SEC13FParser:
 
         return []
 
-    def parse_13f_holdings(self, filing_url: str, target_ticker: str = None) -> pd.DataFrame:
+    def parse_13f_holdings(self, filing_url: str, target_company_name: str = None) -> pd.DataFrame:
         """
         Parse holdings from a 13F filing
 
         Args:
             filing_url: URL to the filing (e.g., https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=...)
-            target_ticker: Optional ticker to search for (returns faster if specified)
+            target_company_name: Optional company name to search for (returns faster if specified)
 
         Returns:
-            DataFrame with holdings (or single holding if target_ticker specified)
+            DataFrame with holdings (or single holding if target_company_name specified)
         """
         try:
             # Get the filing index page
@@ -302,9 +359,51 @@ class SEC13FParser:
                         # Value is in thousands of dollars per SEC format
                         value = int(value_elem.text) * 1000 if value_elem is not None and value_elem.text else 0
 
-                        # If target ticker specified, only return matching holdings
-                        if target_ticker:
-                            if target_ticker.upper() in name.upper() or target_ticker.upper() in ticker.upper():
+                        # If target company name specified, only return matching holdings
+                        if target_company_name:
+                            # Fuzzy match: check if key parts of company name are in the 13F name
+                            # Remove common suffixes/punctuation for better matching
+                            target_clean = target_company_name.upper().strip()
+                            name_clean = name.upper().strip()
+
+                            # Remove trailing suffixes only (not in middle of words)
+                            # Order matters - remove longer suffixes first
+                            for suffix in [' CORPORATION', ' INCORPORATED', ' INC.', ' INC',
+                                          ' CORP.', ' CORP', ' LTD.', ' LTD', ' LLC',
+                                          ' CO.', ' CO']:
+                                if target_clean.endswith(suffix):
+                                    target_clean = target_clean[:-len(suffix)].strip()
+                                if name_clean.endswith(suffix):
+                                    name_clean = name_clean[:-len(suffix)].strip()
+
+                            # Handle .COM domains specially (normalize "AMAZON.COM" to "AMAZON COM")
+                            target_clean = target_clean.replace('.COM', ' COM')
+                            name_clean = name_clean.replace('.COM', ' COM')
+
+                            # Remove other punctuation and normalize whitespace
+                            for char in [',', '.', '-', '&']:
+                                target_clean = target_clean.replace(char, ' ')
+                                name_clean = name_clean.replace(char, ' ')
+
+                            # Normalize multiple spaces to single space
+                            target_clean = ' '.join(target_clean.split())
+                            name_clean = ' '.join(name_clean.split())
+
+                            # Match logic: require exact match or high similarity to avoid false positives
+                            matched = False
+                            if target_clean == name_clean:
+                                # Exact match after cleaning
+                                matched = True
+                            elif len(target_clean) >= 8 and target_clean in name_clean and \
+                                 len(target_clean) / len(name_clean) > 0.7:
+                                # Target is substantial substring with high overlap ratio
+                                matched = True
+                            elif len(name_clean) >= 8 and name_clean in target_clean and \
+                                 len(name_clean) / len(target_clean) > 0.7:
+                                # 13F name is substantial substring with high overlap ratio
+                                matched = True
+
+                            if matched:
                                 holdings.append({
                                     'name': name,
                                     'ticker_class': ticker,
@@ -349,6 +448,15 @@ class SEC13FParser:
 
         logger.info(f"Checking institutional interest for {ticker} ({quarter_year} Q{quarter})")
 
+        # Get company name for ticker to match against 13F filings
+        company_name = self._get_company_name(ticker)
+        if not company_name:
+            # Already logged in _get_company_name, just return empty
+            # Cache empty result to avoid repeated failed lookups
+            empty_df = pd.DataFrame()
+            self._write_cache(ticker, empty_df)
+            return empty_df
+
         results = []
 
         for fund_name, ciks in self.PRIORITY_FUNDS.items():
@@ -363,11 +471,12 @@ class SEC13FParser:
                     # Check most recent filing
                     latest = filings[0]
 
-                    # Parse holdings to find this ticker
-                    holdings = self.parse_13f_holdings(latest['url'], target_ticker=ticker)
+                    # Parse holdings to find this company
+                    # Use company name for matching (more reliable than ticker)
+                    holdings = self.parse_13f_holdings(latest['url'], target_company_name=company_name)
 
                     if not holdings.empty:
-                        # Found the ticker in this fund's holdings
+                        # Found the company in this fund's holdings
                         holding = holdings.iloc[0]  # Should only be one match
                         results.append({
                             'fund': fund_name,
