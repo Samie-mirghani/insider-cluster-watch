@@ -124,21 +124,40 @@ class SEC13FParser:
             logger.debug(f"Cache write error: {e}")
 
     def _get_company_name(self, ticker: str) -> Optional[str]:
-        """Get company name for a ticker using yfinance"""
+        """Get company name for a ticker using yfinance with retry logic"""
         if not YFINANCE_AVAILABLE:
-            logger.warning("yfinance not available - cannot lookup company name")
+            logger.error("yfinance not installed - cannot lookup company names for 13F matching")
+            logger.error("Install with: pip install yfinance")
             return None
 
-        try:
-            stock = yf.Ticker(ticker)
-            info = stock.info
-            # Try multiple fields for company name
-            company_name = info.get('longName') or info.get('shortName') or info.get('name')
-            if company_name:
-                logger.debug(f"Resolved {ticker} -> {company_name}")
-                return company_name
-        except Exception as e:
-            logger.debug(f"Error getting company name for {ticker}: {e}")
+        max_attempts = 2
+        for attempt in range(max_attempts):
+            try:
+                stock = yf.Ticker(ticker)
+                info = stock.info
+
+                # Check if we got valid data (yfinance returns empty dict for invalid tickers)
+                if not info or len(info) < 3:
+                    logger.warning(f"Ticker {ticker} not found in yfinance (attempt {attempt + 1}/{max_attempts})")
+                    if attempt < max_attempts - 1:
+                        time.sleep(1)
+                        continue
+                    return None
+
+                # Try multiple fields for company name
+                company_name = info.get('longName') or info.get('shortName') or info.get('name')
+                if company_name:
+                    logger.debug(f"✓ Resolved {ticker} -> {company_name}")
+                    return company_name
+                else:
+                    logger.warning(f"Ticker {ticker} found but no company name in yfinance data")
+                    return None
+
+            except Exception as e:
+                logger.warning(f"Error getting company name for {ticker} (attempt {attempt + 1}/{max_attempts}): {e}")
+                if attempt < max_attempts - 1:
+                    time.sleep(1)
+                    continue
 
         return None
 
@@ -384,7 +403,11 @@ class SEC13FParser:
         # Get company name for ticker to match against 13F filings
         company_name = self._get_company_name(ticker)
         if not company_name:
-            logger.warning(f"Could not resolve company name for {ticker} - results may be incomplete")
+            logger.error(f"Could not resolve company name for {ticker} - cannot check institutional holdings without it")
+            # Return empty DataFrame and cache it to avoid repeated failed lookups
+            empty_df = pd.DataFrame()
+            self._write_cache(ticker, empty_df)
+            return empty_df
 
         results = []
 
