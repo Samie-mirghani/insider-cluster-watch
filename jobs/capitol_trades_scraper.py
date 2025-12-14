@@ -498,28 +498,29 @@ class CapitolTradesScraper:
         if not date_str:
             return None
 
-        date_str = date_str.strip().lower()
+        date_str_stripped = date_str.strip()
+        date_str_lower = date_str_stripped.lower()
 
-        # Handle relative dates (Capitol Trades format)
-        if 'today' in date_str:
+        # Handle relative dates (Capitol Trades format) - use lowercase for comparison
+        if 'today' in date_str_lower:
             return datetime.now()
-        elif 'yesterday' in date_str:
+        elif 'yesterday' in date_str_lower:
             return datetime.now() - timedelta(days=1)
 
-        # Try multiple date formats
+        # Try multiple date formats - use original case for month names
         formats = [
             '%Y-%m-%d',
             '%m/%d/%Y',
             '%m/%d/%y',
-            '%B %d, %Y',
-            '%b %d, %Y',
+            '%B %d, %Y',  # December 14, 2025
+            '%b %d, %Y',  # Dec 14, 2025
             '%m-%d-%Y',
             '%m-%d-%y'
         ]
 
         for fmt in formats:
             try:
-                return datetime.strptime(date_str.strip(), fmt)
+                return datetime.strptime(date_str_stripped, fmt)
             except ValueError:
                 continue
 
