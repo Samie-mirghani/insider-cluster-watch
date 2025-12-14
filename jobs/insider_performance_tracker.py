@@ -283,7 +283,9 @@ class InsiderPerformanceTracker:
                 self.trades_history = new_df
             elif not new_df.empty:
                 # Only concat non-empty dataframes to avoid FutureWarning
-                self.trades_history = pd.concat([self.trades_history, new_df], ignore_index=True)
+                # Check if new_df has data before concatenating
+                if not new_df.empty:
+                    self.trades_history = pd.concat([self.trades_history, new_df], ignore_index=True)
 
             # Only print summary when adding multiple trades or in verbose mode
             if self.verbose or len(new_trades) > 5:
