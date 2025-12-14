@@ -587,10 +587,14 @@ class CapitolTradesScraper:
         # Calculate weighted amount
         df['weighted_amount'] = df['amount_mid'] * df['politician_weight']
 
-        # Add disclosure lag
-        df['disclosure_lag_days'] = (
-            df['disclosure_date'] - df['trade_date']
-        ).dt.days
+        # Add disclosure lag (handle None dates gracefully)
+        try:
+            df['disclosure_lag_days'] = (
+                df['disclosure_date'] - df['trade_date']
+            ).dt.days
+        except (TypeError, AttributeError):
+            # If date subtraction fails due to None values, set to NaN
+            df['disclosure_lag_days'] = pd.NA
 
         # Remove invalid tickers
         df = df[df['ticker'].str.len() > 0]
