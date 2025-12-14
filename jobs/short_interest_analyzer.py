@@ -384,7 +384,13 @@ class ShortInterestAnalyzer:
 
         # Merge results into DataFrame
         results_df = pd.DataFrame(results)
-        enhanced_df = pd.concat([signals_df.reset_index(drop=True), results_df], axis=1)
+        # Fix for pandas FutureWarning: check for empty DataFrames before concat
+        if not signals_df.empty and not results_df.empty:
+            enhanced_df = pd.concat([signals_df.reset_index(drop=True), results_df], axis=1)
+        elif not signals_df.empty:
+            enhanced_df = signals_df.reset_index(drop=True)
+        else:
+            enhanced_df = results_df
 
         # Update avg_conviction with adjusted values
         if 'conviction_adjusted' in enhanced_df.columns:
