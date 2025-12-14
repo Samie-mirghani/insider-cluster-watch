@@ -444,9 +444,12 @@ class PoliticianTracker:
                 continue
 
         if lame_duck_trades:
-            result = pd.concat(lame_duck_trades, ignore_index=True)
-            logger.info(f"Found {len(result)} lame duck trades from {len(lame_duck_trades)} politicians")
-            return result
+            # Fix for pandas FutureWarning: filter out empty DataFrames before concat
+            non_empty_trades = [df for df in lame_duck_trades if not df.empty]
+            if non_empty_trades:
+                result = pd.concat(non_empty_trades, ignore_index=True)
+                logger.info(f"Found {len(result)} lame duck trades from {len(non_empty_trades)} politicians")
+                return result
 
         return pd.DataFrame()
 

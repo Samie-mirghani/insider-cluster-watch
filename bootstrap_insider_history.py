@@ -215,12 +215,15 @@ def fetch_historical_trades(years_back: int, quick_test: bool = False) -> pd.Dat
         all_trades.append(buys)
 
     if all_trades:
-        combined = pd.concat(all_trades, ignore_index=True)
-        print(f"\n✅ Total historical trades fetched: {len(combined):,}")
-        return combined
-    else:
-        print("\n❌ No historical trades found")
-        return pd.DataFrame()
+        # Fix for pandas FutureWarning: filter out empty DataFrames before concat
+        non_empty_trades = [df for df in all_trades if not df.empty]
+        if non_empty_trades:
+            combined = pd.concat(non_empty_trades, ignore_index=True)
+            print(f"\n✅ Total historical trades fetched: {len(combined):,}")
+            return combined
+
+    print("\n❌ No historical trades found")
+    return pd.DataFrame()
 
 
 def calculate_trade_outcome_with_retry(ticker: str, trade_date: str, entry_price: float,
