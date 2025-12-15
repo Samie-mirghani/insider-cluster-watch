@@ -278,12 +278,13 @@ class InsiderPerformanceTracker:
 
         if new_trades:
             new_df = pd.DataFrame(new_trades)
-            # Fix for pandas FutureWarning: handle empty DataFrame properly and use explicit dtype inference
+            # Fix for pandas FutureWarning: handle empty DataFrame properly
             if self.trades_history.empty:
                 self.trades_history = new_df
-            elif not new_df.empty:
-                # Only concat non-empty dataframes to avoid FutureWarning
-                self.trades_history = pd.concat([self.trades_history, new_df], ignore_index=True)
+            else:
+                # Check if new_df is not empty before concatenating to avoid FutureWarning
+                if not new_df.empty:
+                    self.trades_history = pd.concat([self.trades_history, new_df], ignore_index=True)
 
             # Only print summary when adding multiple trades or in verbose mode
             if self.verbose or len(new_trades) > 5:
