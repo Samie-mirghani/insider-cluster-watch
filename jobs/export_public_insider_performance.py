@@ -96,18 +96,21 @@ def export_public_data():
             print(f"✅ Exported (no qualified): {output_path}")
             return {'status': 'no_qualified', 'count': 0}
 
-        # Sort by score (descending)
+        # Sort by score (primary), then by avg_return_90d (tiebreaker)
         sorted_performers = sorted(
             qualified.items(),
-            key=lambda x: x[1].get('overall_score', 0),
+            key=lambda x: (
+                x[1].get('overall_score', 0),
+                x[1].get('avg_return_90d', 0)
+            ),
             reverse=True
         )
 
-        # Take top 5
-        top_5 = sorted_performers[:5]
+        # Take top 15 instead of top 5
+        top_performers = sorted_performers[:15]
 
-        print(f"\nTop 5 performers:")
-        for name, profile in top_5:
+        print(f"\nTop 15 performers:")
+        for name, profile in top_performers:
             score = profile.get('overall_score', 0)
             win_rate = profile.get('win_rate_90d', 0)
             avg_return = profile.get('avg_return_90d', 0)
@@ -123,7 +126,7 @@ def export_public_data():
             'top_performers': []
         }
 
-        for name, profile in top_5:
+        for name, profile in top_performers:
             performer = {
                 'name': name,
                 'score': round(profile.get('overall_score', 0), 1),
@@ -143,13 +146,13 @@ def export_public_data():
         with open(output_path, 'w') as f:
             json.dump(public_data, f, indent=2, default=str)
 
-        print(f"\n✅ Exported {len(top_5)} top performers")
+        print(f"\n✅ Exported {len(top_performers)} top performers")
         print(f"   Output: {output_path}")
         print("="*70 + "\n")
 
         return {
             'status': 'success',
-            'count': len(top_5),
+            'count': len(top_performers),
             'qualified': len(qualified),
             'total': len(tracker.profiles)
         }
