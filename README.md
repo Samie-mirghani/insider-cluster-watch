@@ -90,14 +90,15 @@ Enhances insider signals by checking for confirmation from other data sources:
   - **Tier 4** (watch list): 25% positions, 6% stops
 - **Email Badges:** Shows 🔥 TIER 1, ⚡ TIER 2, and 🏛️ POLITICIAN indicators in reports
 
-#### Capitol Trades Scraper
-**Robust politician trading data extraction:**
-- **Selenium-based:** Handles JavaScript-rendered React/Next.js content
-- **Targeted extraction:** Uses Capitol Trades-specific CSS selectors (`h2.politician-name`, `span.issuer-ticker`, `span.tx-type--buy/sell`)
-- **Smart parsing:** Handles ticker formats like "MCK:US" → "MCK"
-- **Relative dates:** Parses "Today", "Yesterday" into actual dates
+#### Politician Trade Tracking
+**API-based data extraction via PoliticianTradeTracker:**
+- **Source:** RapidAPI PoliticianTradeTracker (free tier: 100 calls/month)
+- **Reliable:** Clean API integration replacing broken web scraper
+- **Smart parsing:** Automatically strips exchange suffixes (":US" → ticker only)
 - **Buy-only filtering:** Focuses on purchases for bullish signals
-- **Fallback search:** Searches entire row HTML for transaction indicators if cell-level extraction fails
+- **Rate limiting:** Built-in monthly call tracking (100/month = ~3 calls/day)
+- **Caching:** 24-hour fallback cache for resilience
+- **Data mapping:** Converts API format to internal format seamlessly
 
 **Tracked politicians** (weighted by performance):
 - Nancy Pelosi (2.0x), Paul Pelosi (2.0x), Josh Gottheimer (1.8x), Mark Green (1.6x), Dan Crenshaw (1.5x), and 10+ more
@@ -121,7 +122,7 @@ insider-cluster-watch/
 │   ├── fetch_openinsider.py           # Scrapes OpenInsider data
 │   ├── fetch_sec_edgar.py             # SEC EDGAR backup data source
 │   ├── process_signals.py             # Clustering, scoring, deduplication logic
-│   ├── capitol_trades_scraper.py      # Politician trading scraper (Capitol Trades)
+│   ├── capitol_trades_scraper.py      # Politician trading API client (PoliticianTradeTracker)
 │   ├── politician_tracker.py          # Time-decay weighting for retiring politicians
 │   ├── automated_politician_checker.py # Automated status updates via Congress.gov API
 │   ├── sec_13f_parser.py              # Institutional holdings parser (SEC 13F)
@@ -165,8 +166,7 @@ insider-cluster-watch/
 - **Python 3.10+** (3.8+ may work but 3.10 recommended)
 - **Git & GitHub account** (for automated workflows)
 - **Gmail account** with app password for SMTP sending
-- **Chrome/Chromium browser** (required for Capitol Trades scraping with Selenium)
-- **ChromeDriver** (Selenium will attempt to auto-install if missing)
+- **RapidAPI key** for PoliticianTradeTracker (free tier: 100 calls/month)
 - **(Optional)** Congress.gov API key for automated politician status updates (free, 5,000 requests/hour)
 - **(Optional)** Local setup for testing before deploying to GitHub Actions
 
@@ -187,25 +187,7 @@ cd insider-cluster-watch
 pip install -r requirements.txt
 ```
 
-### 3. Install Chrome/Chromium (for Capitol Trades scraping)
-
-**Ubuntu/Debian:**
-```bash
-sudo apt-get update
-sudo apt-get install chromium-browser
-```
-
-**macOS:**
-```bash
-brew install chromium
-```
-
-**Windows:**
-Download and install [Chrome](https://www.google.com/chrome/) or [Chromium](https://www.chromium.org/getting-involved/download-chromium/)
-
-**Note:** Selenium will attempt to auto-download ChromeDriver if not found in PATH.
-
-### 4. Set up environment variables
+### 3. Set up environment variables
 
 Create a `.env` file in the root directory:
 
@@ -214,15 +196,19 @@ GMAIL_USER=your-email@gmail.com
 GMAIL_APP_PASSWORD=your-16-char-app-password
 RECIPIENT_EMAIL=your-email@gmail.com
 
+# Required: RapidAPI key for politician trade data
+RAPIDAPI_KEY=your-rapidapi-key-here
+
 # Optional: Congress.gov API for automated politician status updates
 CONGRESS_GOV_API_KEY=your-api-key-here
 ```
 
 **Notes:**
 - You need a [Gmail app password](https://support.google.com/accounts/answer/185833) (not your regular password)
+- Get a free RapidAPI key at https://rapidapi.com/politician-trade-tracker1 (100 calls/month free)
 - Get a free Congress.gov API key at https://api.congress.gov/sign-up/ (optional but recommended for automated politician tracking)
 
-### 5. Test the script locally
+### 4. Test the script locally
 
 ```bash
 cd jobs
@@ -231,7 +217,7 @@ python main.py --test
 
 This sends a test email and exits without saving to history.
 
-### 6. Generate a fake urgent alert (optional)
+### 5. Generate a fake urgent alert (optional)
 
 ```bash
 python main.py --urgent-test
@@ -250,6 +236,7 @@ This creates a fake urgent signal with multiple insiders to test the urgent emai
 | `GMAIL_USER` | Yes | Your Gmail address |
 | `GMAIL_APP_PASSWORD` | Yes | Gmail app-specific password |
 | `RECIPIENT_EMAIL` | Yes | Email to receive reports |
+| `RAPIDAPI_KEY` | Yes | RapidAPI key for politician trade data (100 calls/month free) |
 | `CONGRESS_GOV_API_KEY` | No | Congress.gov API key for automated politician status updates (free) |
 
 ### Tuning Signal Parameters
@@ -329,6 +316,7 @@ MULTI_SIGNAL_STOP_LOSS = {
    - `GMAIL_USER` (required)
    - `GMAIL_APP_PASSWORD` (required)
    - `RECIPIENT_EMAIL` (required)
+   - `RAPIDAPI_KEY` (required - for politician trade data)
    - `CONGRESS_GOV_API_KEY` (optional - for automated politician status updates)
 
 ### Daily Signal Generation (Mon-Fri 7AM ET)
@@ -505,6 +493,12 @@ python test_paper_trading.py
 
 ### Rate Limiting
 
+**PoliticianTradeTracker API (RapidAPI):**
+- Free tier: 100 calls/month (~3 calls/day)
+- Built-in rate limiting and caching
+- Auto-resets monthly
+- Automatic fallback to 24-hour cache
+
 **yfinance (Yahoo Finance):**
 - Free but rate-limited
 - Code includes 0.5-second delays between requests
@@ -645,7 +639,7 @@ Based on insider trading research and backtesting:
 7. Enrich with yfinance market data
    ↓
 8. Multi-Signal Detection (if enabled)
-   ├─ Scrape Capitol Trades for politician activity
+   ├─ Fetch politician trades via PoliticianTradeTracker API
    ├─ Check SEC 13F for institutional holdings
    ├─ Assign tier based on confirmation count
    └─ Boost rank score for multi-signal stocks
