@@ -373,8 +373,10 @@ class PoliticianTracker:
             new_df = pd.DataFrame(new_trades)
             if self.trades_history.empty:
                 self.trades_history = new_df
-            elif not new_df.empty:
-                self.trades_history = pd.concat([self.trades_history, new_df], ignore_index=True)
+            else:
+                # Check if new_df is not empty before concatenating to avoid FutureWarning
+                if not new_df.empty:
+                    self.trades_history = pd.concat([self.trades_history, new_df], ignore_index=True)
 
             self._save_trades_history()
             logger.info(f"Added {len(new_trades)} new politician trades to tracking system")
