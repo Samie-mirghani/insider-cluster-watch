@@ -217,6 +217,31 @@
             margin: 30px 0;
         }
 
+        /* Responsive grid for different screen sizes */
+        @media (min-width: 1400px) {
+            .insider-performers-grid {
+                grid-template-columns: repeat(5, 1fr);
+            }
+        }
+
+        @media (min-width: 1000px) and (max-width: 1399px) {
+            .insider-performers-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (min-width: 600px) and (max-width: 999px) {
+            .insider-performers-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 599px) {
+            .insider-performers-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
         .insider-card {
             background: white;
             border: 2px solid #e5e7eb;
@@ -249,14 +274,37 @@
             opacity: 1;
         }
 
+        /* Gold for #1 */
         .insider-card.rank-1 {
-            border-color: var(--primary);
-            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.15);
+            border-color: #fbbf24;
+            box-shadow: 0 4px 20px rgba(251, 191, 36, 0.15);
         }
 
         .insider-card.rank-1::before {
             opacity: 1;
             background: linear-gradient(90deg, #fbbf24 0%, #f59e0b 100%);
+        }
+
+        /* Silver for #2 */
+        .insider-card.rank-2 {
+            border-color: #9ca3af;
+            box-shadow: 0 4px 15px rgba(156, 163, 175, 0.15);
+        }
+
+        .insider-card.rank-2::before {
+            opacity: 1;
+            background: linear-gradient(90deg, #d1d5db 0%, #9ca3af 100%);
+        }
+
+        /* Bronze for #3 */
+        .insider-card.rank-3 {
+            border-color: #d97706;
+            box-shadow: 0 4px 15px rgba(217, 119, 6, 0.15);
+        }
+
+        .insider-card.rank-3::before {
+            opacity: 1;
+            background: linear-gradient(90deg, #f59e0b 0%, #d97706 100%);
         }
 
         .insider-rank {
@@ -279,6 +327,18 @@
             background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
             color: white;
             box-shadow: 0 2px 10px rgba(251, 191, 36, 0.4);
+        }
+
+        .insider-card.rank-2 .insider-rank {
+            background: linear-gradient(135deg, #d1d5db 0%, #9ca3af 100%);
+            color: white;
+            box-shadow: 0 2px 8px rgba(156, 163, 175, 0.4);
+        }
+
+        .insider-card.rank-3 .insider-rank {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+            box-shadow: 0 2px 8px rgba(217, 119, 6, 0.4);
         }
 
         .insider-name {
@@ -797,7 +857,9 @@
         <div class="section" id="top-insiders-section" style="display: none;">
             <h2>🌟 Top Performing Insiders</h2>
             <p class="section-intro">
-                💡 These insiders have the best historical track records. Current signals from these individuals receive higher conviction scores.
+                💡 These are the top 15 insiders with the best historical track records.
+                Current signals from these individuals receive higher conviction scores.
+                Ranked by performance score, with returns as tiebreaker.
             </p>
             <div class="insider-performers-grid" id="insider-performers-grid">
                 <div class="loading">Loading top performers</div>
@@ -1274,7 +1336,9 @@
                 const grid = document.getElementById('insider-performers-grid');
                 const performersHTML = data.top_performers.map((performer, index) => {
                     const rank = index + 1;
-                    const rankClass = rank === 1 ? 'rank-1' : '';
+                    const rankClass = rank === 1 ? 'rank-1' :
+                                     rank === 2 ? 'rank-2' :
+                                     rank === 3 ? 'rank-3' : '';
 
                     // Determine score class
                     let scoreClass = 'good';
