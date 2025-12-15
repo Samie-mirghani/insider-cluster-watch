@@ -1,18 +1,17 @@
 """
 capitol_trades_scraper.py
-Robust web scraper for Capitol Trades (FREE politician trading data)
-Handles errors, retries, and rate limiting
+API-based politician trading data fetcher using PoliticianTradeTracker API
+Replaces broken Selenium scraper with reliable API integration
 """
 
 import requests
-from bs4 import BeautifulSoup
 import pandas as pd
 from datetime import datetime, timedelta
 import time
 import logging
 from typing import List, Dict, Optional
 import json
-from urllib.parse import urlencode
+import os
 
 # Setup logging first
 logging.basicConfig(level=logging.INFO)
@@ -26,28 +25,14 @@ except ImportError:
     POLITICIAN_TRACKER_AVAILABLE = False
     logger.warning("PoliticianTracker not available. Using static weights.")
 
-# Selenium imports
-try:
-    from selenium import webdriver
-    from selenium.webdriver.chrome.service import Service
-    from selenium.webdriver.chrome.options import Options
-    from selenium.webdriver.common.by import By
-    from selenium.webdriver.support.ui import WebDriverWait
-    from selenium.webdriver.support import expected_conditions as EC
-    from selenium.common.exceptions import TimeoutException, WebDriverException
-    SELENIUM_AVAILABLE = True
-except ImportError:
-    SELENIUM_AVAILABLE = False
-    logger.warning("Selenium not installed. Capitol Trades scraping will be limited.")
-
 
 class CapitolTradesScraper:
     """
-    Scrape politician trading data from Capitol Trades
-    FREE alternative to paid APIs
+    Fetch politician trading data via PoliticianTradeTracker API
+    FREE tier: 100 calls/month (~3 per day)
     """
 
-    BASE_URL = "https://www.capitoltrades.com"
+    API_BASE_URL = "https://politician-trade-tracker1.p.rapidapi.com"
 
     # Track politician performance (update based on your research)
     POLITICIAN_WEIGHTS = {
@@ -65,491 +50,361 @@ class CapitolTradesScraper:
         'Default': 1.0
     }
 
-    def __init__(self, max_retries: int = 3, delay: float = 2.0, use_selenium: bool = True,
+    def __init__(self, max_retries: int = 3, delay: float = 2.0, use_selenium: bool = False,
                  politician_tracker: Optional['PoliticianTracker'] = None):
         """
-        Initialize scraper
+        Initialize API-based scraper
 
         Args:
-            max_retries: Maximum retry attempts
-            delay: Delay between requests (seconds)
-            use_selenium: Use Selenium for JavaScript rendering (required for Capitol Trades)
+            max_retries: Maximum retry attempts for API calls
+            delay: Delay between requests (seconds) - not critical for API
+            use_selenium: DEPRECATED - kept for compatibility, ignored
             politician_tracker: Optional PoliticianTracker instance for time-decay weighting
         """
         self.max_retries = max_retries
         self.delay = delay
-        self.use_selenium = use_selenium and SELENIUM_AVAILABLE
-        self.driver = None
         self.politician_tracker = politician_tracker
 
-        # Log whether we're using time-decay or static weights
+        # API configuration
+        self.api_key = os.getenv('RAPIDAPI_KEY', '59830176c3mshfac6f973142e69cp19567ejsn91aff23fd15d')
+        self.headers = {
+            'x-rapidapi-host': 'politician-trade-tracker1.p.rapidapi.com',
+            'x-rapidapi-key': self.api_key
+        }
+
+        # Rate limiting
+        self.rate_limit_file = os.path.join(
+            os.path.dirname(os.path.dirname(__file__)),
+            'data', 'api_rate_limit.json'
+        )
+        self.cache_file = os.path.join(
+            os.path.dirname(os.path.dirname(__file__)),
+            'data', 'politician_trades_cache.json'
+        )
+
+        # Ensure data directory exists
+        os.makedirs(os.path.dirname(self.rate_limit_file), exist_ok=True)
+
+        # Log configuration
         if self.politician_tracker:
-            logger.info("Using PoliticianTracker for dynamic time-decay weights")
+            logger.info("✓ Using PoliticianTracker for dynamic time-decay weights")
         else:
-            logger.info("Using static POLITICIAN_WEIGHTS (no time-decay)")
+            logger.info("✓ Using static POLITICIAN_WEIGHTS (no time-decay)")
 
-        # Always create session as fallback
-        self.session = requests.Session()
-        self.session.headers.update({
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-            'Accept-Language': 'en-US,en;q=0.5',
-            'Accept-Encoding': 'gzip, deflate, br',
-            'DNT': '1',
-            'Connection': 'keep-alive',
-            'Upgrade-Insecure-Requests': '1'
-        })
+        logger.info("✓ API-based politician trade fetcher initialized")
 
-        if self.use_selenium:
-            logger.info("Using Selenium for JavaScript rendering")
-            self._setup_selenium()
-        else:
-            logger.info("Using basic HTTP requests (may not work with Capitol Trades)")
+    def _check_rate_limit(self) -> bool:
+        """
+        Ensure we don't exceed 100 calls/month (free tier)
 
-    def _setup_selenium(self):
-        """Setup Selenium WebDriver with Chrome headless"""
+        Returns:
+            True if we can make a call, False if limit reached
+        """
         try:
-            chrome_options = Options()
-            chrome_options.add_argument('--headless')
-            chrome_options.add_argument('--no-sandbox')
-            chrome_options.add_argument('--disable-dev-shm-usage')
-            chrome_options.add_argument('--disable-gpu')
-            chrome_options.add_argument('--window-size=1920,1080')
-            chrome_options.add_argument('--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36')
+            # Load rate limit data
+            if os.path.exists(self.rate_limit_file):
+                with open(self.rate_limit_file, 'r') as f:
+                    data = json.load(f)
+            else:
+                data = {'month': datetime.now().month, 'year': datetime.now().year, 'calls': 0}
 
-            self.driver = webdriver.Chrome(options=chrome_options)
-            logger.info("✓ Selenium WebDriver initialized")
-        except WebDriverException as e:
-            logger.error(f"Failed to initialize Selenium: {e}")
-            logger.error("Falling back to basic HTTP requests")
-            self.use_selenium = False
-            self.driver = None
+            current_month = datetime.now().month
+            current_year = datetime.now().year
 
-    def __del__(self):
-        """Cleanup Selenium driver on deletion"""
-        if self.driver:
-            try:
-                self.driver.quit()
-                logger.debug("Selenium driver closed")
-            except:
-                pass
+            # Reset counter if new month
+            if data['month'] != current_month or data['year'] != current_year:
+                data = {'month': current_month, 'year': current_year, 'calls': 0}
+                logger.info(f"📅 New month detected - rate limit counter reset")
 
-    def _make_request(self, url: str) -> Optional[BeautifulSoup]:
+            # Check limit (100 calls/month)
+            if data['calls'] >= 100:
+                logger.warning(f"⚠️ API rate limit reached ({data['calls']}/100 calls this month)")
+                return False
+
+            # We're good to make a call
+            logger.debug(f"API calls this month: {data['calls']}/100")
+            return True
+
+        except Exception as e:
+            logger.error(f"Error checking rate limit: {e}")
+            # If we can't check, be conservative and allow the call
+            return True
+
+    def _increment_rate_limit(self):
+        """Increment the API call counter"""
+        try:
+            # Load current data
+            if os.path.exists(self.rate_limit_file):
+                with open(self.rate_limit_file, 'r') as f:
+                    data = json.load(f)
+            else:
+                data = {'month': datetime.now().month, 'year': datetime.now().year, 'calls': 0}
+
+            # Increment
+            data['calls'] += 1
+
+            # Save
+            with open(self.rate_limit_file, 'w') as f:
+                json.dump(data, f, indent=2)
+
+            logger.info(f"📊 API usage: {data['calls']}/100 calls this month")
+
+        except Exception as e:
+            logger.error(f"Error incrementing rate limit: {e}")
+
+    def _load_cached_trades(self) -> pd.DataFrame:
         """
-        Make HTTP request with retries and error handling
-
-        Args:
-            url: URL to request
+        Load cached politician trades
 
         Returns:
-            BeautifulSoup object or None on failure
+            DataFrame with cached trades, or empty DataFrame
         """
-        if self.use_selenium and self.driver:
-            return self._make_selenium_request(url)
-        else:
-            return self._make_http_request(url)
+        try:
+            if os.path.exists(self.cache_file):
+                with open(self.cache_file, 'r') as f:
+                    cache_data = json.load(f)
 
-    def _make_selenium_request(self, url: str) -> Optional[BeautifulSoup]:
-        """Make request using Selenium to handle JavaScript"""
-        for attempt in range(self.max_retries):
-            try:
-                logger.info(f"Requesting with Selenium: {url} (attempt {attempt + 1}/{self.max_retries})")
+                # Check cache age
+                cache_time = datetime.fromisoformat(cache_data['cached_at'])
+                age_hours = (datetime.now() - cache_time).total_seconds() / 3600
 
-                self.driver.get(url)
+                if age_hours < 24:
+                    logger.info(f"✓ Using cached data (age: {age_hours:.1f} hours)")
+                    df = pd.DataFrame(cache_data['trades'])
 
-                # Wait for the table to load (Capitol Trades uses JavaScript)
-                try:
-                    # Wait for table element to be present
-                    WebDriverWait(self.driver, 15).until(
-                        EC.presence_of_element_located((By.CSS_SELECTOR, "table.q-table"))
-                    )
-                    logger.info("✓ Table loaded successfully")
-                except TimeoutException:
-                    # Try alternative selector
-                    try:
-                        WebDriverWait(self.driver, 5).until(
-                            EC.presence_of_element_located((By.TAG_NAME, "table"))
-                        )
-                        logger.info("✓ Table loaded (alternative selector)")
-                    except TimeoutException:
-                        logger.warning("Timeout waiting for table to load")
-                        if attempt < self.max_retries - 1:
-                            time.sleep((attempt + 1) * 3)
-                            continue
-                        return None
+                    # Convert date strings back to datetime
+                    if not df.empty and 'trade_date' in df.columns:
+                        df['trade_date'] = pd.to_datetime(df['trade_date'])
 
-                # Get page source and parse with BeautifulSoup
-                html = self.driver.page_source
-                soup = BeautifulSoup(html, 'html.parser')
-
-                # Rate limiting
-                time.sleep(self.delay)
-
-                return soup
-
-            except WebDriverException as e:
-                logger.warning(f"Selenium request failed (attempt {attempt + 1}): {e}")
-
-                if attempt < self.max_retries - 1:
-                    wait_time = (attempt + 1) * 5
-                    logger.info(f"Waiting {wait_time}s before retry...")
-                    time.sleep(wait_time)
+                    return df
                 else:
-                    logger.error(f"All Selenium retry attempts failed for {url}")
-                    return None
+                    logger.info(f"Cache expired (age: {age_hours:.1f} hours)")
 
-        return None
-
-    def _make_http_request(self, url: str) -> Optional[BeautifulSoup]:
-        """Make basic HTTP request (fallback method)"""
-        for attempt in range(self.max_retries):
-            try:
-                logger.info(f"Requesting: {url} (attempt {attempt + 1}/{self.max_retries})")
-
-                response = self.session.get(url, timeout=30)
-                response.raise_for_status()
-
-                soup = BeautifulSoup(response.content, 'html.parser')
-
-                # Rate limiting
-                time.sleep(self.delay)
-
-                return soup
-
-            except requests.exceptions.RequestException as e:
-                logger.warning(f"Request failed (attempt {attempt + 1}): {e}")
-
-                if attempt < self.max_retries - 1:
-                    wait_time = (attempt + 1) * 5
-                    logger.info(f"Waiting {wait_time}s before retry...")
-                    time.sleep(wait_time)
-                else:
-                    logger.error(f"All retry attempts failed for {url}")
-                    return None
-
-        return None
-
-    def save_debug_html(self, html_content: str, page_num: int = 1):
-        """Save HTML for debugging purposes"""
-        import os
-        os.makedirs('data/debug', exist_ok=True)
-        filepath = f'data/debug/capitol_trades_page{page_num}.html'
-        with open(filepath, 'w', encoding='utf-8') as f:
-            f.write(html_content)
-        logger.info(f"💾 Saved debug HTML to {filepath}")
-
-    def scrape_recent_trades(self, days_back: int = 30, max_pages: int = 5, debug: bool = False) -> pd.DataFrame:
-        """
-        Scrape recent politician trades
-
-        Args:
-            days_back: Days to look back
-            max_pages: Maximum pages to scrape
-
-        Returns:
-            DataFrame with trades
-        """
-        logger.info(f"Scraping politician trades from last {days_back} days")
-        logger.info(f"Max pages: {max_pages}")
-
-        all_trades = []
-        cutoff_date = datetime.now() - timedelta(days=days_back)
-
-        for page in range(1, max_pages + 1):
-            url = f"{self.BASE_URL}/trades?page={page}"
-
-            soup = self._make_request(url)
-            if not soup:
-                break
-
-            # Save HTML for debugging if requested
-            if debug:
-                self.save_debug_html(str(soup), page)
-
-            # Find trade table
-            trades = self._parse_trades_page(soup, debug=debug)
-
-            if not trades:
-                logger.info(f"No trades found on page {page}, stopping")
-                break
-
-            # Filter by date
-            recent_trades = [
-                t for t in trades
-                if t.get('trade_date') and t['trade_date'] >= cutoff_date
-            ]
-
-            all_trades.extend(recent_trades)
-            logger.info(f"Page {page}: Found {len(recent_trades)} recent trades")
-
-            # Stop if we've gone past our date range
-            if len(recent_trades) < len(trades):
-                logger.info("Reached trades outside date range, stopping")
-                break
-
-        if not all_trades:
-            logger.warning("No trades scraped")
             return pd.DataFrame()
 
-        df = pd.DataFrame(all_trades)
+        except Exception as e:
+            logger.error(f"Error loading cache: {e}")
+            return pd.DataFrame()
 
-        # Clean and enrich data
-        df = self._clean_trades_data(df)
+    def _save_to_cache(self, df: pd.DataFrame):
+        """Save trades to cache"""
+        try:
+            # Convert DataFrame to dict for JSON serialization
+            trades_dict = df.to_dict('records')
 
-        logger.info(f"✓ Scraped {len(df)} trades total")
-        return df
+            # Convert datetime objects to strings
+            for trade in trades_dict:
+                if 'trade_date' in trade and isinstance(trade['trade_date'], (pd.Timestamp, datetime)):
+                    trade['trade_date'] = trade['trade_date'].strftime('%Y-%m-%d')
 
-    def _parse_trades_page(self, soup: BeautifulSoup, debug: bool = False) -> List[Dict]:
+            cache_data = {
+                'cached_at': datetime.now().isoformat(),
+                'trades': trades_dict
+            }
+
+            with open(self.cache_file, 'w') as f:
+                json.dump(cache_data, f, indent=2)
+
+            logger.info(f"✓ Cached {len(df)} trades for future use")
+
+        except Exception as e:
+            logger.error(f"Error saving cache: {e}")
+
+    def _fetch_trades_from_api(self, days_back: int = 30) -> List[Dict]:
         """
-        Parse trades from a Capitol Trades page
+        Fetch trades from PoliticianTradeTracker API
 
         Args:
-            soup: BeautifulSoup object
-            debug: Enable verbose debug logging
+            days_back: Only return trades from last N days
 
         Returns:
             List of trade dictionaries
         """
-        trades = []
+        try:
+            logger.info(f"📡 Fetching politician trades via API (last {days_back} days)")
 
-        # Find the trades table - structure may vary
-        # This is a robust approach that tries multiple methods
+            # Make API request
+            url = f"{self.API_BASE_URL}/get_latest_trades"
 
-        # Method 1: Look for table with class
-        table = soup.find('table', class_='q-table')
+            for attempt in range(self.max_retries):
+                try:
+                    response = requests.get(
+                        url,
+                        headers=self.headers,
+                        timeout=30
+                    )
 
-        if not table:
-            # Method 2: Look for any table with trade data
-            table = soup.find('table')
+                    response.raise_for_status()
+                    trades_data = response.json()
 
-        if not table:
-            logger.warning("Could not find trades table on page")
-            return trades
+                    logger.info(f"✓ API returned {len(trades_data)} total trades")
 
-        # Parse table rows - try both tbody and direct tr
-        tbody = table.find('tbody')
-        if tbody:
-            rows = tbody.find_all('tr')
-            logger.debug(f"Found {len(rows)} rows in tbody")
-        else:
-            rows = table.find_all('tr')[1:]  # Skip header if no tbody
-            logger.debug(f"Found {len(rows)} rows in table (no tbody)")
+                    # Increment rate limit counter
+                    self._increment_rate_limit()
 
-        if not rows:
-            logger.warning("No table rows found")
-            return trades
+                    return trades_data
 
-        logger.info(f"Parsing {len(rows)} table rows...")
+                except requests.exceptions.RequestException as e:
+                    logger.warning(f"API request failed (attempt {attempt + 1}/{self.max_retries}): {e}")
 
-        for idx, row in enumerate(rows):
+                    if attempt < self.max_retries - 1:
+                        wait_time = (attempt + 1) * 2
+                        logger.info(f"Waiting {wait_time}s before retry...")
+                        time.sleep(wait_time)
+                    else:
+                        logger.error(f"All API retry attempts failed")
+                        raise
+
+            return []
+
+        except Exception as e:
+            logger.error(f"Error fetching from API: {e}")
+            return []
+
+    def _parse_and_filter_trades(self, trades_data: List[Dict], days_back: int = 30) -> List[Dict]:
+        """
+        Parse API response and filter to recent buy trades
+
+        Args:
+            trades_data: Raw API response
+            days_back: Only keep trades from last N days
+
+        Returns:
+            List of clean trade dictionaries
+        """
+        cutoff_date = datetime.now() - timedelta(days=days_back)
+        recent_trades = []
+
+        for trade in trades_data:
             try:
-                cells = row.find_all('td')
-
-                if len(cells) < 4:
-                    logger.debug(f"Row {idx}: Skipping - only {len(cells)} cells")
+                # Skip if not a buy
+                trade_type = trade.get('trade_type', '').lower()
+                if trade_type != 'buy' and trade_type != 'purchase':
                     continue
 
-                # Log first few rows for debugging
-                if debug and idx < 3:
-                    logger.info(f"Row {idx}: {len(cells)} cells")
-                    for i, cell in enumerate(cells):
-                        logger.info(f"  Cell {i}: {self._extract_text(cell)[:50]}")
+                # Skip if no valid ticker
+                ticker_raw = trade.get('ticker', '')
+                if ticker_raw == 'N/A' or not ticker_raw or ticker_raw == '':
+                    continue
 
-                # Capitol Trades structure (based on actual HTML):
-                # Cell 0: Politician name (h2.politician-name > a)
-                # Cell 1: Ticker/Asset (span.issuer-ticker format "MCK:US")
-                # Cell 2: Transaction type (span.tx-type.tx-type--buy or tx-type--sell)
-                # Cell 3: Trade date (nested divs)
-                # Cell 4: Disclosure date (nested divs)
-                # Cell 5: Amount range
+                # Clean ticker (remove :US suffix and other exchange indicators)
+                ticker = ticker_raw.split(':')[0].strip()
 
-                # Extract politician name using Capitol Trades-specific method
-                politician = self._extract_politician_name(cells[0]) if len(cells) > 0 else ""
+                # Skip if ticker is invalid
+                if len(ticker) == 0 or len(ticker) > 5:
+                    continue
 
-                # Try to extract ticker - it might be in different cells
-                ticker = None
-                for i in range(min(4, len(cells))):
-                    ticker = self._extract_ticker(cells[i])
-                    if ticker:
-                        break
+                # Parse date
+                date_str = trade.get('trade_date', '')
+                if not date_str:
+                    continue
 
-                # Extract transaction type using Capitol Trades-specific method
-                transaction_type = ""
-                for i in range(len(cells)):  # Check all cells
-                    transaction_type = self._extract_transaction_type(cells[i])
-                    if transaction_type:
-                        break
+                try:
+                    # API returns format: "November 18, 2025"
+                    trade_date = datetime.strptime(date_str, '%B %d, %Y')
+                except ValueError:
+                    # Try alternative formats
+                    try:
+                        trade_date = datetime.strptime(date_str, '%b %d, %Y')
+                    except ValueError:
+                        logger.warning(f"Could not parse date: {date_str}")
+                        continue
 
-                # Fallback: Search entire row HTML for transaction indicators
-                if not transaction_type:
-                    row_html = str(row).lower()
-                    if 'tx-type--buy' in row_html or 'purchase' in row_html:
-                        transaction_type = 'buy'
-                    elif 'tx-type--sell' in row_html or 'sale' in row_html:
-                        transaction_type = 'sell'
-                    elif 'tx-type--exchange' in row_html:
-                        transaction_type = 'exchange'
+                # Check if recent
+                if trade_date < cutoff_date:
+                    continue
 
-                trade = {
-                    'politician': politician,
-                    'ticker': ticker or "",
-                    'asset_name': self._extract_text(cells[1]) if len(cells) > 1 else "",
-                    'transaction_type': transaction_type,
-                    'trade_date': self._parse_date(self._extract_text(cells[3])) if len(cells) > 3 else None,
-                    'disclosure_date': self._parse_date(self._extract_text(cells[4])) if len(cells) > 4 else None,
-                    'amount_range': self._extract_text(cells[5]) if len(cells) > 5 else "",
-                    'chamber': self._detect_chamber(cells[0]) if len(cells) > 0 else "",
-                    'party': self._detect_party(cells[0]) if len(cells) > 0 else ""
+                # Build clean trade object
+                clean_trade = {
+                    'ticker': ticker,
+                    'politician': trade.get('name', ''),
+                    'party': trade.get('party', ''),
+                    'trade_date': trade_date,
+                    'amount_range': trade.get('trade_amount', ''),
+                    'asset_name': trade.get('company', ''),
+                    'chamber': trade.get('chamber', ''),
+                    'transaction_type': 'buy',  # We filtered for buys only
+                    'disclosure_date': None,  # Not provided by API
                 }
 
-                # Only add if we have minimum required fields and it's a purchase
-                if trade['politician'] and trade['ticker']:
-                    if 'purchase' in trade['transaction_type'].lower() or 'buy' in trade['transaction_type'].lower():
-                        trades.append(trade)
-                        if debug:
-                            logger.info(f"✓ Added trade: {trade['politician']} - {trade['ticker']}")
-                    elif debug:
-                        logger.info(f"✗ Skipped (not purchase/buy): {trade['politician']} - {trade['ticker']} ({trade['transaction_type']})")
-                elif debug:
-                    logger.info(f"✗ Skipped (missing fields): politician={trade['politician']}, ticker={trade['ticker']}")
+                # Add state if available
+                if 'state_abbreviation' in trade:
+                    clean_trade['state'] = trade['state_abbreviation']
+
+                recent_trades.append(clean_trade)
 
             except Exception as e:
-                logger.debug(f"Error parsing row {idx}: {e}")
+                logger.debug(f"Error parsing trade: {e}")
                 continue
 
-        logger.info(f"Successfully parsed {len(trades)} trades from {len(rows)} rows")
-        return trades
+        logger.info(f"✓ Filtered to {len(recent_trades)} recent buy trades")
+        return recent_trades
 
-    def _extract_text(self, cell) -> str:
-        """Extract clean text from cell"""
-        if not cell:
-            return ""
-        return cell.get_text(strip=True)
+    def scrape_recent_trades(self, days_back: int = 30, max_pages: int = 5, debug: bool = False) -> pd.DataFrame:
+        """
+        Fetch recent politician trades via API
 
-    def _extract_politician_name(self, cell) -> str:
-        """Extract politician name from Capitol Trades cell structure"""
-        if not cell:
-            return ""
+        NOTE: max_pages parameter is kept for compatibility but ignored (API returns all trades)
 
-        # Capitol Trades uses: h2.politician-name > a
-        politician_elem = cell.find('h2', class_='politician-name')
-        if politician_elem:
-            link = politician_elem.find('a')
-            if link:
-                return link.get_text(strip=True)
+        Args:
+            days_back: Days to look back
+            max_pages: IGNORED - kept for compatibility
+            debug: Enable debug logging
 
-        # Fallback to generic text extraction
-        return self._extract_text(cell)
+        Returns:
+            DataFrame with trades
+        """
+        logger.info(f"Fetching politician trades from last {days_back} days")
 
-    def _extract_ticker(self, cell) -> str:
-        """Extract ticker symbol from Capitol Trades cell structure"""
-        if not cell:
-            return ""
+        # Check rate limit first
+        if not self._check_rate_limit():
+            logger.warning("⚠️ API rate limit reached - using cached data")
+            cached_df = self._load_cached_trades()
 
-        # Capitol Trades uses: span.issuer-ticker with format "MCK:US"
-        ticker_elem = cell.find('span', class_='issuer-ticker')
-        if ticker_elem:
-            ticker_text = ticker_elem.get_text(strip=True)
-            # Parse format like "MCK:US" to get just "MCK"
-            if ':' in ticker_text:
-                return ticker_text.split(':')[0].strip()
-            return ticker_text
+            if not cached_df.empty:
+                # Filter cached data to requested time range
+                cutoff_date = datetime.now() - timedelta(days=days_back)
+                cached_df = cached_df[cached_df['trade_date'] >= cutoff_date]
+                logger.info(f"✓ Returning {len(cached_df)} cached trades")
+                return cached_df
+            else:
+                logger.error("❌ No cached data available and rate limit reached")
+                return pd.DataFrame()
 
-        # Fallback: Look for ticker in parentheses or brackets
-        import re
-        text = self._extract_text(cell)
-        match = re.search(r'[\(\[]([A-Z]{1,5})[\)\]]', text)
-        if match:
-            return match.group(1)
+        # Fetch from API
+        trades_data = self._fetch_trades_from_api(days_back)
 
-        # Fallback: Sometimes ticker is in a span or link
-        ticker_elem = cell.find('span', class_='ticker') or cell.find('a', class_='ticker')
-        if ticker_elem:
-            return ticker_elem.get_text(strip=True)
+        if not trades_data:
+            logger.warning("No trades returned from API - checking cache")
+            cached_df = self._load_cached_trades()
 
-        return ""
+            if not cached_df.empty:
+                cutoff_date = datetime.now() - timedelta(days=days_back)
+                cached_df = cached_df[cached_df['trade_date'] >= cutoff_date]
+                logger.info(f"✓ Returning {len(cached_df)} cached trades (API failed)")
+                return cached_df
+            else:
+                logger.warning("No cached data available")
+                return pd.DataFrame()
 
-    def _extract_transaction_type(self, cell) -> str:
-        """Extract transaction type from Capitol Trades cell structure"""
-        if not cell:
-            return ""
+        # Parse and filter
+        clean_trades = self._parse_and_filter_trades(trades_data, days_back)
 
-        # Method 1: Capitol Trades uses: span.tx-type.tx-type--buy or span.tx-type.tx-type--sell
-        import re
-        tx_elem = cell.find('span', class_=re.compile(r'tx-type'))
-        if tx_elem:
-            return tx_elem.get_text(strip=True)
+        if not clean_trades:
+            logger.warning("No trades after filtering")
+            return pd.DataFrame()
 
-        # Method 2: Look for div with tx-type class
-        tx_elem = cell.find('div', class_=re.compile(r'tx-type'))
-        if tx_elem:
-            return tx_elem.get_text(strip=True)
+        # Convert to DataFrame
+        df = pd.DataFrame(clean_trades)
 
-        # Method 3: Search for common transaction keywords in text
-        text = self._extract_text(cell).lower()
-        if text in ['buy', 'purchase', 'sell', 'sale', 'exchange']:
-            return text
+        # Clean and enrich data
+        df = self._clean_trades_data(df)
 
-        # Don't fallback beyond this - only return if we found transaction indicators
-        return ""
+        # Save to cache
+        self._save_to_cache(df)
 
-    def _parse_date(self, date_str: str) -> Optional[datetime]:
-        """Parse date string to datetime"""
-        if not date_str:
-            return None
-
-        date_str_stripped = date_str.strip()
-        date_str_lower = date_str_stripped.lower()
-
-        # Handle relative dates (Capitol Trades format) - use lowercase for comparison
-        if 'today' in date_str_lower:
-            return datetime.now()
-        elif 'yesterday' in date_str_lower:
-            return datetime.now() - timedelta(days=1)
-
-        # Try multiple date formats - use original case for month names
-        formats = [
-            '%Y-%m-%d',
-            '%m/%d/%Y',
-            '%m/%d/%y',
-            '%B %d, %Y',  # December 14, 2025
-            '%b %d, %Y',  # Dec 14, 2025
-            '%m-%d-%Y',
-            '%m-%d-%y'
-        ]
-
-        for fmt in formats:
-            try:
-                return datetime.strptime(date_str_stripped, fmt)
-            except ValueError:
-                continue
-
-        logger.debug(f"Could not parse date: {date_str}")
-        return None
-
-    def _detect_chamber(self, cell) -> str:
-        """Detect if Senate or House"""
-        text = self._extract_text(cell).lower()
-
-        if 'senator' in text or 'sen.' in text:
-            return 'Senate'
-        elif 'representative' in text or 'rep.' in text:
-            return 'House'
-
-        return 'Unknown'
-
-    def _detect_party(self, cell) -> str:
-        """Detect political party"""
-        text = self._extract_text(cell).lower()
-
-        if '(d)' in text or 'democrat' in text:
-            return 'Democrat'
-        elif '(r)' in text or 'republican' in text:
-            return 'Republican'
-        elif '(i)' in text or 'independent' in text:
-            return 'Independent'
-
-        return 'Unknown'
+        logger.info(f"✓ Fetched {len(df)} politician trades")
+        return df
 
     def _clean_trades_data(self, df: pd.DataFrame) -> pd.DataFrame:
         """
@@ -576,25 +431,25 @@ class CapitolTradesScraper:
             df['politician_weight'] = df['politician'].apply(
                 lambda p: current_weights.get(p, self.politician_tracker.default_weight)
             )
-            logger.info("Applied time-decay weights from PoliticianTracker")
+            logger.info("✓ Applied time-decay weights from PoliticianTracker")
         else:
             # Fall back to static weights
             df['politician_weight'] = df['politician'].apply(
                 lambda p: self.POLITICIAN_WEIGHTS.get(p, self.POLITICIAN_WEIGHTS['Default'])
             )
-            logger.debug("Applied static weights (no time-decay)")
+            logger.debug("✓ Applied static weights (no time-decay)")
 
         # Calculate weighted amount
         df['weighted_amount'] = df['amount_mid'] * df['politician_weight']
 
-        # Add disclosure lag (handle None dates gracefully)
-        try:
-            df['disclosure_lag_days'] = (
-                df['disclosure_date'] - df['trade_date']
-            ).dt.days
-        except (TypeError, AttributeError):
-            # If date subtraction fails due to None values, set to NaN
-            df['disclosure_lag_days'] = pd.NA
+        # Add disclosure lag (if disclosure_date is available)
+        if 'disclosure_date' in df.columns:
+            try:
+                df['disclosure_lag_days'] = (
+                    pd.to_datetime(df['disclosure_date']) - pd.to_datetime(df['trade_date'])
+                ).dt.days
+            except (TypeError, AttributeError):
+                df['disclosure_lag_days'] = pd.NA
 
         # Remove invalid tickers
         df = df[df['ticker'].str.len() > 0]
@@ -603,32 +458,71 @@ class CapitolTradesScraper:
         return df
 
     def _parse_amount_min(self, amount_str: str) -> float:
-        """Parse minimum amount from range string"""
-        if not amount_str or amount_str == '':
+        """Parse minimum amount from range string like '1K-15K' or '$1,000-$15,000'"""
+        if not amount_str or amount_str == '' or amount_str == 'N/A':
             return 1000  # Default minimum
 
-        # Extract first number
         import re
-        numbers = re.findall(r'\$?([\d,]+)', str(amount_str))
 
-        if numbers:
-            return float(numbers[0].replace(',', ''))
+        # Handle formats like "1K-15K" or "$1K-$15K"
+        # Extract first number with K/M multiplier
+        match = re.search(r'\$?([\d,]+\.?\d*)\s*([KMB])?', str(amount_str), re.IGNORECASE)
+
+        if match:
+            num_str = match.group(1).replace(',', '')
+            multiplier = match.group(2)
+
+            try:
+                value = float(num_str)
+
+                if multiplier:
+                    multiplier = multiplier.upper()
+                    if multiplier == 'K':
+                        value *= 1000
+                    elif multiplier == 'M':
+                        value *= 1000000
+                    elif multiplier == 'B':
+                        value *= 1000000000
+
+                return value
+            except ValueError:
+                pass
 
         return 1000
 
     def _parse_amount_max(self, amount_str: str) -> float:
         """Parse maximum amount from range string"""
-        if not amount_str or amount_str == '':
+        if not amount_str or amount_str == '' or amount_str == 'N/A':
             return 15000  # Default maximum
 
-        # Extract all numbers
         import re
-        numbers = re.findall(r'\$?([\d,]+)', str(amount_str))
 
-        if len(numbers) >= 2:
-            return float(numbers[1].replace(',', ''))
-        elif len(numbers) == 1:
-            return float(numbers[0].replace(',', ''))
+        # Find all numbers with K/M multipliers
+        matches = re.findall(r'\$?([\d,]+\.?\d*)\s*([KMB])?', str(amount_str), re.IGNORECASE)
+
+        if len(matches) >= 2:
+            # Take the second number (max of range)
+            num_str = matches[1][0].replace(',', '')
+            multiplier = matches[1][1]
+
+            try:
+                value = float(num_str)
+
+                if multiplier:
+                    multiplier = multiplier.upper()
+                    if multiplier == 'K':
+                        value *= 1000
+                    elif multiplier == 'M':
+                        value *= 1000000
+                    elif multiplier == 'B':
+                        value *= 1000000000
+
+                return value
+            except ValueError:
+                pass
+        elif len(matches) == 1:
+            # Only one number - use it as max
+            return self._parse_amount_min(amount_str)
 
         return 15000
 
@@ -728,7 +622,7 @@ class CapitolTradesScraper:
         Returns:
             DataFrame with trades for this ticker
         """
-        # Scrape recent trades
+        # Fetch recent trades
         all_trades = self.scrape_recent_trades(days_back, max_pages=10)
 
         if all_trades.empty:
@@ -742,24 +636,50 @@ class CapitolTradesScraper:
         return ticker_trades.sort_values('trade_date', ascending=False)
 
 
+# Backward compatibility: Keep old method names
+class PoliticianTradeAPI(CapitolTradesScraper):
+    """
+    Alias for CapitolTradesScraper
+    Maintains backward compatibility
+    """
+    pass
+
+
 # Usage example and test
 if __name__ == "__main__":
+    print("\n" + "="*60)
+    print("🏛️ POLITICIAN TRADE API TEST")
+    print("="*60 + "\n")
+
     scraper = CapitolTradesScraper()
 
-    # Test scraping
-    trades = scraper.scrape_recent_trades(days_back=30, max_pages=3)
+    # Test API fetch
+    print("Testing API fetch...")
+    trades = scraper.scrape_recent_trades(days_back=30)
 
     if not trades.empty:
         print(f"\n{'='*60}")
-        print(f"Scraped {len(trades)} politician trades")
+        print(f"✓ Fetched {len(trades)} politician trades")
         print(f"{'='*60}\n")
-        print(trades[['politician', 'ticker', 'trade_date', 'amount_mid']].head(10))
+        print("Sample trades:")
+        print(trades[['politician', 'ticker', 'trade_date', 'amount_mid', 'party']].head(10))
 
         # Detect clusters
+        print(f"\n{'='*60}")
+        print("Testing cluster detection...")
+        print(f"{'='*60}\n")
+
         clusters = scraper.detect_politician_clusters(trades)
 
         if not clusters.empty:
-            print(f"\n{'='*60}")
-            print(f"Found {len(clusters)} politician clusters")
-            print(f"{'='*60}\n")
-            print(clusters[['ticker', 'num_politicians', 'conviction_score']].head())
+            print(f"✓ Found {len(clusters)} politician clusters\n")
+            print("Top clusters:")
+            print(clusters[['ticker', 'num_politicians', 'conviction_score', 'company']].head())
+        else:
+            print("No clusters detected (need 2+ politicians)")
+    else:
+        print("❌ No trades fetched - check API key and rate limit")
+
+    print("\n" + "="*60)
+    print("Test complete!")
+    print("="*60 + "\n")

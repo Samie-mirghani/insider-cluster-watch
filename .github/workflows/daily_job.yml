@@ -19,12 +19,6 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: Verify Chrome installation
-        run: |
-          # GitHub Actions ubuntu-latest comes with Chrome and ChromeDriver pre-installed
-          google-chrome --version
-          chromedriver --version
-
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
@@ -36,6 +30,7 @@ jobs:
           RECIPIENT_EMAIL: ${{ secrets.RECIPIENT_EMAIL }}
           MARKET_DATA_API_KEY: ${{ secrets.MARKET_DATA_API_KEY }}
           CONGRESS_GOV_API_KEY: ${{ secrets.CONGRESS_GOV_API_KEY }}
+          RAPIDAPI_KEY: ${{ secrets.RAPIDAPI_KEY }}
         run: python jobs/main.py
 
       - name: Generate public performance data
@@ -79,6 +74,17 @@ jobs:
             echo "✅ Added public_performance.json"
           else
             echo "⚠️ public_performance.json not found!"
+          fi
+
+          # Add politician API rate limit and cache files
+          if [ -f "data/api_rate_limit.json" ]; then
+            git add -f data/api_rate_limit.json
+            echo "✅ Added api_rate_limit.json"
+          fi
+
+          if [ -f "data/politician_trades_cache.json" ]; then
+            git add -f data/politician_trades_cache.json
+            echo "✅ Added politician_trades_cache.json"
           fi
 
           # Add insider performance data files (continuous tracking)
@@ -131,6 +137,15 @@ jobs:
           # Add public performance JSON if it exists
           if [ -f "public_performance.json" ]; then
             git add -f public_performance.json
+          fi
+
+          # Add politician API files if they exist
+          if [ -f "data/api_rate_limit.json" ]; then
+            git add -f data/api_rate_limit.json
+          fi
+
+          if [ -f "data/politician_trades_cache.json" ]; then
+            git add -f data/politician_trades_cache.json
           fi
 
           # Add insider data files if they exist
