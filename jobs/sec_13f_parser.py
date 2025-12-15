@@ -64,8 +64,12 @@ class InstitutionalHoldingsAPI:
         if not os.path.exists(self.calls_file):
             data = {'date': datetime.now().date().isoformat(), 'calls': 0}
         else:
-            with open(self.calls_file) as f:
-                data = json.load(f)
+            try:
+                with open(self.calls_file) as f:
+                    data = json.load(f)
+            except (json.JSONDecodeError, IOError) as e:
+                logger.warning(f"Rate limit file corrupted, resetting: {e}")
+                data = {'date': datetime.now().date().isoformat(), 'calls': 0}
 
         today = datetime.now().date().isoformat()
 
@@ -80,8 +84,11 @@ class InstitutionalHoldingsAPI:
 
         # Increment
         data['calls'] += 1
-        with open(self.calls_file, 'w') as f:
-            json.dump(data, f)
+        try:
+            with open(self.calls_file, 'w') as f:
+                json.dump(data, f)
+        except IOError as e:
+            logger.warning(f"Failed to update rate limit file: {e}")
 
         logger.debug(f"FMP API calls today: {data['calls']}/250")
         return True
@@ -124,6 +131,11 @@ class InstitutionalHoldingsAPI:
 
             response.raise_for_status()
             holders = response.json()
+
+            # Ensure we got a list, not an error dict
+            if not isinstance(holders, list):
+                logger.warning(f"Unexpected response format for {ticker}: {type(holders)}")
+                return []
 
             if not holders:
                 logger.debug(f"No institutional holders found for {ticker}")

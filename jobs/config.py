@@ -119,7 +119,7 @@ SEC_13F_CACHE_HOURS = 168  # Cache duration in hours (168 hours = 7 days)
 # Set to lower value if you want more frequent checks (minimum 24 hours recommended)
 
 # FMP API Settings (for institutional holdings)
-FMP_API_KEY = None  # Set via environment variable FMP_API_KEY
+# API key should be set via FMP_API_KEY environment variable
 FMP_API_RATE_LIMIT_PER_DAY = 250  # Free tier allows 250 calls/day
 
 # Short Interest Analysis Settings

@@ -25,7 +25,8 @@ from insider_performance_auto_tracker import AutoInsiderTracker
 from config import (
     ENABLE_INSIDER_SCORING, INSIDER_LOOKBACK_YEARS, MIN_TRADES_FOR_INSIDER_SCORE,
     INSIDER_OUTCOME_UPDATE_BATCH_SIZE, INSIDER_API_RATE_LIMIT_DELAY,
-    ENABLE_SHORT_INTEREST_ANALYSIS, SHORT_INTEREST_CACHE_HOURS
+    ENABLE_SHORT_INTEREST_ANALYSIS, SHORT_INTEREST_CACHE_HOURS,
+    MAX_SIGNALS_TO_ANALYZE
 )
 
 # Short interest analysis import
@@ -418,7 +419,7 @@ def main(test=False, urgent_test=False, enable_paper_trading=True):
     print("   • Pattern detection (accelerating buys, CEO clusters)")
     if ENABLE_INSIDER_SCORING:
         print("   • Follow-the-Smart-Money scoring (insider track records)")
-    cluster_df = cluster_and_score(df, window_days=5, top_n=config.MAX_SIGNALS_TO_ANALYZE, insider_tracker=insider_tracker)
+    cluster_df = cluster_and_score(df, window_days=5, top_n=MAX_SIGNALS_TO_ANALYZE, insider_tracker=insider_tracker)
 
     if cluster_df is None or cluster_df.empty:
         print("ℹ️  No significant insider buying clusters detected")
