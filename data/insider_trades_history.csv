@@ -1,5 +1,5 @@
 trade_date,ticker,insider_name,insider_name_raw,title,qty,price,value,entry_price,outcome_30d,outcome_60d,outcome_90d,outcome_180d,return_30d,return_60d,return_90d,return_180d,last_updated
-2025-11-13,SRZN,Kutzkey Tim,Kutzkey Tim,"Dir, 10%",315457,12.65,3990531,12.65,,,,,,,,,2025-12-14T13:54:48.277959
+2025-11-13,SRZN,Kutzkey Tim,Kutzkey Tim,"Dir, 10%",315457,12.65,3990531,12.65,,,,,,,,,2025-12-15T11:28:25.909959
 2025-11-28,MMS,Rajan Gayathri,Rajan Gayathri,Dir,42,86.11,3643,86.11,,,,,,,,,2025-12-03T11:45:51.243566
 2025-11-28,MMS,Warren Michael J,Warren Michael J.,Dir,14,86.11,1240,86.11,,,,,,,,,2025-12-03T11:45:51.247400
 2025-11-28,NEXT,Ltd Hanwha Aerospace Co,"Hanwha Aerospace Co., Ltd.",10%,627208,6.0,3766336,6.0,,,,,,,,,2025-12-03T11:45:51.251209
@@ -23,7 +23,7 @@ trade_date,ticker,insider_name,insider_name_raw,title,qty,price,value,entry_pric
 2025-12-02,SMRT,Bohjalian Thomas N,Bohjalian Thomas N,Dir,50000,1.68,84165,1.68,,,,,,,,,2025-12-03T11:45:51.344432
 2025-12-02,SELF,Klimoski Donald,Klimoski Donald II,GC,446,5.05,2252,5.05,,,,,,,,,2025-12-03T11:45:51.351568
 2025-11-28,UUU,Ault Milton C,Ault Milton C III,Dir,100,4.4,440,4.4,,,,,,,,,2025-12-03T11:45:51.355881
-2025-08-21,SHIM,Yoder Todd Wilbur,Yoder Todd Wilbur,CFO,2000,2.8,5600,2.8,2.809999942779541,2.430000066757202,2.0999999046325684,,0.3571408135550426,-13.214283330099919,-25.000003405979697,,2025-12-14T13:54:48.702379
+2025-08-21,SHIM,Yoder Todd Wilbur,Yoder Todd Wilbur,CFO,2000,2.8,5600,2.8,2.809999942779541,2.430000066757202,2.0999999046325684,,0.3571408135550426,-13.214283330099919,-25.000003405979697,,2025-12-15T11:28:26.414936
 2025-11-28,OSUR,Gagliano Nancy J,Gagliano Nancy J,Dir,2100,2.37,4982,2.37,,,,,,,,,2025-12-03T11:45:51.370373
 2025-12-01,TEAM,Belsky Scott,Belsky Scott,Dir,1672,148.03,247506,148.03,,,,,,,,,2025-12-03T11:45:51.374798
 2025-11-28,BMEA,Erdtmann Rainer M,Erdtmann Rainer M,See Remarks,50000,1.09,54552,1.09,,,,,,,,,2025-12-03T11:45:51.381901
@@ -139,7 +139,7 @@ trade_date,ticker,insider_name,insider_name_raw,title,qty,price,value,entry_pric
 2025-11-25,MAIA,Luput Cristian,Luput Cristian,Dir,10000,0.98,9785,0.98,,,,,,,,,2025-12-03T11:45:52.037412
 2025-11-25,MAIA,Vitoc Vlad,Vitoc Vlad,"CEO, 10%",10500,0.97,10144,0.97,,,,,,,,,2025-12-03T11:45:52.044382
 2025-11-25,GLSI,Patel Snehal,Patel Snehal,"CEO, CFO, 10%",4600,8.37,38502,8.37,,,,,,,,,2025-12-03T11:45:52.051292
-2025-06-20,ONMD,Yu Jeffrey,Yu Jeffrey,Chief Medical Officer,2010479,0.48,959586,0.48,0.5350000262260437,0.7609999775886536,0.8899999856948853,,11.458338797092441,58.54166199763616,85.41666368643443,,2025-12-14T13:54:49.129800
+2025-06-20,ONMD,Yu Jeffrey,Yu Jeffrey,Chief Medical Officer,2010479,0.48,959586,0.48,0.5350000262260437,0.7609999775886536,0.8899999856948853,,11.458338797092441,58.54166199763616,85.41666368643443,,2025-12-15T11:28:26.919625
 2025-11-26,INV,Haskell Gregory W,Haskell Gregory W,CEO,10000,5.14,51400,5.14,,,,,,,,,2025-12-03T11:45:52.065383
 2025-11-24,NEXT,Ltd Hanwha Aerospace Co,"Hanwha Aerospace Co., Ltd.",10%,905753,5.71,5167887,5.71,,,,,,,,,2025-12-03T11:45:52.072495
 2025-11-24,PROP,Narrogal Nominees Pty Ltd Atf Gregory K Oneill Family Trust,Narrogal Nominees Pty Ltd Atf Gregory K O'Neill Family Trust,10%,3831,1.7,6513,1.7,,,,,,,,,2025-12-03T11:45:52.079542
@@ -305,7 +305,7 @@ trade_date,ticker,insider_name,insider_name_raw,title,qty,price,value,entry_pric
 2025-11-24,PGIWX,Turpin Thomas M,Turpin Thomas M.,Dir,1007,24.82,25000,24.82,,,,,,,,,2025-12-03T11:45:53.502035
 2025-11-21,TPVG,Srivastava Sajal,Srivastava Sajal,"Pres, CIO",89760,6.31,566030,6.31,,,,,,,,,2025-12-03T11:45:53.512757
 2025-11-21,TPVG,Labe James,Labe James,CEO,89760,6.31,566030,6.31,,,,,,,,,2025-12-03T11:45:53.523419
-2025-10-06,CBK,Robertson Dennis Michael,Robertson Dennis Michael,Dir,100,24.37,2437,24.37,24.3799991607666,24.600000381469727,,,0.041030614553141435,0.9437849054974378,,,2025-12-14T13:54:49.533612
+2025-10-06,CBK,Robertson Dennis Michael,Robertson Dennis Michael,Dir,100,24.37,2437,24.37,24.3799991607666,24.600000381469727,,,0.041030614553141435,0.9437849054974378,,,2025-12-15T11:28:27.407086
 2025-11-21,CBK,Metheny Philip J,Metheny Philip J.,"EVP, CFO",4147,24.12,100018,24.12,,,,,,,,,2025-12-03T11:45:53.545081
 2025-11-21,RDZN,Malhotra Rohan,Malhotra Rohan,"See Remarks, 10%",12000,1.43,17160,1.43,,,,,,,,,2025-12-03T11:45:53.555903
 2025-11-21,NRDY,Cohn Charles K,Cohn Charles K.,"CEO, 10%",257210,1.06,273343,1.06,,,,,,,,,2025-12-03T11:45:53.566732
@@ -364,7 +364,7 @@ trade_date,ticker,insider_name,insider_name_raw,title,qty,price,value,entry_pric
 2025-11-21,IKT,Lp Sands Capital Life Sciences Pulse Fund,"Sands Capital Life Sciences Pulse Fund Ii, L.P.",10%,2068965,1.45,2999999,1.45,,,,,,,,,2025-12-03T11:45:54.169435
 2025-11-24,OFLX,Moran Edwin B,Moran Edwin B.,Pres,500,27.29,13645,27.29,,,,,,,,,2025-12-03T11:45:54.182361
 2025-11-21,COSM,Siokas Grigorios,Siokas Grigorios,"CEO, 10%",56080,0.68,38000,0.68,,,,,,,,,2025-12-03T11:45:54.195133
-2025-11-05,SCKT,Lazarev Ivan,Lazarev Ivan,Dir,50096,1.12,56024,1.12,1.2799999713897705,,,,14.285711731229501,,,,2025-12-14T13:54:49.914745
+2025-11-05,SCKT,Lazarev Ivan,Lazarev Ivan,Dir,50096,1.12,56024,1.12,1.2799999713897705,,,,14.285711731229501,,,,2025-12-15T11:28:27.808744
 2025-11-21,HKHC,Stahl Murray,Stahl Murray,"CEO, CIO, 10%",25,28.25,706,28.25,,,,,,,,,2025-12-03T11:45:54.220743
 2025-11-20,SGC,Mellini Paul V,Mellini Paul V,Dir,1000,8.49,8485,8.49,,,,,,,,,2025-12-03T11:45:54.233135
 2025-11-24,UMH,Mitchell William Edward,Mitchell William Edward,Dir,2000,14.92,29840,14.92,,,,,,,,,2025-12-03T11:45:54.246645
@@ -389,7 +389,7 @@ trade_date,ticker,insider_name,insider_name_raw,title,qty,price,value,entry_pric
 2025-11-20,ASA,Lp Saba Capital Management,"Saba Capital Management, L.P.",10%,37280,47.29,1762846,47.29,,,,,,,,,2025-12-03T11:45:54.486276
 2025-11-19,EGBN,Mathews Louis P,Mathews Louis P. Jr.,Dir,3000,17.02,51060,17.02,,,,,,,,,2025-12-03T11:45:54.499041
 2025-11-21,ATLO,Swartz Kevin L,Swartz Kevin L,Dir,200,20.8,4160,20.8,,,,,,,,,2025-12-03T11:45:54.511804
-2025-11-14,PROP,Narrogal Nominees Pty Ltd Atf Gregory K Oneill Family Trust,Narrogal Nominees Pty Ltd Atf Gregory K O'Neill Family Trust,10%,1736422,1.72,2978424,1.72,,,,,,,,,2025-12-14T13:54:50.287115
+2025-11-14,PROP,Narrogal Nominees Pty Ltd Atf Gregory K Oneill Family Trust,Narrogal Nominees Pty Ltd Atf Gregory K O'Neill Family Trust,10%,1736422,1.72,2978424,1.72,,,,,,,,,2025-12-15T11:28:28.294477
 2025-11-20,FF,Polet Roeland,Polet Roeland,CEO,15000,3.2,48000,3.2,,,,,,,,,2025-12-03T11:45:54.537276
 2025-11-21,PENN,Hendrix Felicia,Hendrix Felicia,"EVP, CFO",7315,13.79,100874,13.79,,,,,,,,,2025-12-03T11:45:54.549895
 2025-11-20,DGICA,Donegal Mutual Insurance Co,Donegal Mutual Insurance Co,10%,59404,18.08,1073845,18.08,,,,,,,,,2025-12-03T11:45:54.562467
@@ -471,7 +471,7 @@ trade_date,ticker,insider_name,insider_name_raw,title,qty,price,value,entry_pric
 2025-11-20,UPXI,Salkind Gene,Salkind Gene,Dir,50000,2.55,127500,2.55,,,,,,,,,2025-12-03T11:45:55.598401
 2025-11-18,RHLD,Schoen Kurt,Schoen Kurt,CFO,900,149.23,134307,149.23,,,,,,,,,2025-12-03T11:45:55.612836
 2025-11-18,RHLD,Mahoney Timothy O,Mahoney Timothy O.,Dir,3268,152.98,499985,152.98,,,,,,,,,2025-12-03T11:45:55.627482
-2025-11-12,WHF,Volpe John Paul,Volpe John Paul,Dir,1000,6.95,6950,6.95,7.570000171661377,,,,8.920865779300385,,,,2025-12-14T13:54:50.706433
+2025-11-12,WHF,Volpe John Paul,Volpe John Paul,Dir,1000,6.95,6950,6.95,7.570000171661377,,,,8.920865779300385,,,,2025-12-15T11:28:28.741685
 2025-11-18,HLF,Cloud Lynda,Cloud Lynda,Dir,17000,8.97,152490,8.97,,,,,,,,,2025-12-03T11:45:55.657893
 2025-11-18,BLND,Lp Haveli Investments,"Haveli Investments, L.P.","Dir, 10%",1382197,3.03,4193929,3.03,,,,,,,,,2025-12-03T11:45:55.672607
 2025-11-18,NRDE,Zyngier Alexandre,Zyngier Alexandre,Dir,57252,1.36,77761,1.36,,,,,,,,,2025-12-03T11:45:55.687937
@@ -480,9 +480,9 @@ trade_date,ticker,insider_name,insider_name_raw,title,qty,price,value,entry_pric
 2025-11-18,SUNS,Tannenbaum Leonard M,Tannenbaum Leonard M,"Exec COB, 10%",42790,9.42,403189,9.42,,,,,,,,,2025-12-03T11:45:55.734007
 2025-11-20,RDGL,Korenko Michael K,Korenko Michael K,"CEO, Pres",100000,0.06,6220,0.06,,,,,,,,,2025-12-03T11:45:55.749550
 2025-11-18,SVCO,Ngai Anthony Kk,Ngai Anthony K.K.,Dir,10000,4.26,42559,4.26,,,,,,,,,2025-12-03T11:45:55.764946
-2025-10-01,PRPO,Sabet Ahmed Zaki,Sabet Ahmed Zaki,COO,25,19.5,488,19.5,20.5,22.56999969482422,,,5.128205128205128,15.743588178585737,,,2025-12-14T13:54:51.110988
+2025-10-01,PRPO,Sabet Ahmed Zaki,Sabet Ahmed Zaki,COO,25,19.5,488,19.5,20.5,22.56999969482422,,,5.128205128205128,15.743588178585737,,,2025-12-15T11:28:29.221590
 2025-11-18,MSM,Jacobson Mitchell,Jacobson Mitchell,"Dir, 10%",22870,84.96,1943037,84.96,,,,,,,,,2025-12-03T11:45:55.795229
-2025-07-08,PRPO,Sabet Ahmed Zaki,Sabet Ahmed Zaki,COO,31,16.3,505,16.3,14.196000099182129,20.989999771118164,20.209999084472656,,-12.907974851643383,28.773004730786276,23.987724444617516,,2025-12-14T13:54:51.465821
+2025-07-08,PRPO,Sabet Ahmed Zaki,Sabet Ahmed Zaki,COO,31,16.3,505,16.3,14.196000099182129,20.989999771118164,20.209999084472656,,-12.907974851643383,28.773004730786276,23.987724444617516,,2025-12-15T11:28:29.663193
 2025-11-18,TRIN,Brown Steve Louis,Brown Steve Louis,Exec COB,2137,14.52,31029,14.52,,,,,,,,,2025-12-03T11:45:55.826033
 2025-11-18,TRIN,Estes Ronald E,Estes Ronald E.,Dir,1500,14.44,21655,14.44,,,,,,,,,2025-12-03T11:45:55.841283
 2025-11-19,SCKT,Bass Charlie,Bass Charlie,"Dir, 10%",10000,1.23,12264,1.23,,,,,,,,,2025-12-03T11:45:55.856664
@@ -502,10 +502,10 @@ trade_date,ticker,insider_name,insider_name_raw,title,qty,price,value,entry_pric
 2025-11-20,CTEV,Dalton Travis,Dalton Travis,"Pres, CEO, Exec Chair",5290,47.23,249842,47.23,,,,,,,,,2025-12-03T11:45:56.078538
 2025-11-19,CNS,Steers Robert Hamilton,Steers Robert Hamilton,"Exec COB, 10%",25000,59.88,1496880,59.88,,,,,,,,,2025-12-03T11:45:56.094468
 2025-11-18,CNS,Cohen Martin,Cohen Martin,"Dir, 10%",100000,59.82,5982412,59.82,,,,,,,,,2025-12-03T11:45:56.110573
-2025-09-11,GPUS,Ault Milton C,Ault Milton C III,"Exec COB, 10%",259956,0.24,61315,0.24,0.4300000071525574,0.3499999940395355,0.30000001192092896,,79.16666964689891,45.83333084980647,25.000004967053734,,2025-12-14T13:54:51.845723
+2025-09-11,GPUS,Ault Milton C,Ault Milton C III,"Exec COB, 10%",259956,0.24,61315,0.24,0.4300000071525574,0.3499999940395355,0.30000001192092896,,79.16666964689891,45.83333084980647,25.000004967053734,,2025-12-15T11:28:30.117017
 2025-11-19,SAVA,Barry Richard,Barry Richard,"Pres, CEO",73385,2.75,201809,2.75,,,,,,,,,2025-12-03T11:45:56.141756
 2025-11-19,PDYN,Wolff Benjamin G,Wolff Benjamin G,"Pres, CEO",8000,5.4,43232,5.4,,,,,,,,,2025-12-03T11:45:56.157524
-2025-11-12,TYG,Iseman Andrew J,Iseman Andrew J,Dir,3000,46.83,140490,46.83,41.75,,,,-10.847747170617122,,,,2025-12-14T13:54:52.481020
+2025-11-12,TYG,Iseman Andrew J,Iseman Andrew J,Dir,3000,46.83,140490,46.83,41.75,,,,-10.847747170617122,,,,2025-12-15T11:28:30.660022
 2025-11-19,ET,Warren Kelcy L,Warren Kelcy L,Dir,2000000,16.88,33760000,16.88,,,,,,,,,2025-12-03T11:45:56.188965
 2025-11-18,MXF,Lp Saba Capital Management,"Saba Capital Management, L.P.",10%,47273,19.15,905278,19.15,,,,,,,,,2025-12-03T11:45:56.204522
 2025-11-20,AISP,Huang Victor,Huang Victor,"CEO, COB of the BOD, 10%",51000,3.18,161986,3.18,,,,,,,,,2025-12-03T11:45:56.220076
@@ -533,12 +533,12 @@ trade_date,ticker,insider_name,insider_name_raw,title,qty,price,value,entry_pric
 2025-11-18,GOGO,Townsend Charles C,Townsend Charles C,Dir,89991,6.97,627527,6.97,,,,,,,,,2025-12-03T11:45:56.568016
 2025-11-18,SILO,Weisblum Eric,Weisblum Eric,CEO,12000,0.4,4847,0.4,,,,,,,,,2025-12-03T11:45:56.584696
 2025-11-19,LITS,Flynn James P,Flynn James P,Dir,12100,1.88,22777,1.88,,,,,,,,,2025-12-03T11:45:56.600803
-2025-11-11,GLGI,Kruger Warren F,Kruger Warren F,"CEO, CFO, 10%",5000,0.71,3531,0.71,0.5299999713897705,,,,-25.352116705666123,,,,2025-12-14T13:54:52.887317
+2025-11-11,GLGI,Kruger Warren F,Kruger Warren F,"CEO, CFO, 10%",5000,0.71,3531,0.71,0.5299999713897705,,,,-25.352116705666123,,,,2025-12-15T11:28:31.059707
 2025-11-18,GRNT,Mccartney John,McCartney John,Dir,8000,5.06,40480,5.06,,,,,,,,,2025-12-03T11:45:56.633073
 2025-11-19,AMRZ,Gangestad Nicholas C,Gangestad Nicholas C,Dir,2000,47.34,94680,47.34,,,,,,,,,2025-12-03T11:45:56.649558
 2025-11-20,BFS,Heard Carlos Lawrence,Heard Carlos Lawrence,"SVP, CFO",300,20.55,6165,20.55,,,,,,,,,2025-12-03T11:45:56.665892
 2025-11-19,TPC,Smalley Gary G,Smalley Gary G.,"CEO, Pres",5000,61.08,305389,61.08,,,,,,,,,2025-12-03T11:45:56.682186
-2025-11-13,SRTS,Sachetta Eric,Sachetta Eric,Dir,2500,4.5,11250,4.5,,,,,,,,,2025-12-14T13:54:53.282447
+2025-11-13,SRTS,Sachetta Eric,Sachetta Eric,Dir,2500,4.5,11250,4.5,,,,,,,,,2025-12-15T11:28:31.523972
 2025-11-19,LCNB,Meilstrup Eric J,Meilstrup Eric J,CEO,500,15.32,7658,15.32,,,,,,,,,2025-12-03T11:45:56.714437
 2025-11-19,RCG,Stahl Murray,Stahl Murray,"Pres, Co-Portfolio Manager, 10%",1134,2.66,3016,2.66,,,,,,,,,2025-12-03T11:45:56.730807
 2025-11-18,GDV,Gabelli Mario J,Gabelli Mario J,Control Person of Adviser,5000,26.49,132447,26.49,,,,,,,,,2025-12-03T11:45:56.747109
@@ -628,10 +628,10 @@ trade_date,ticker,insider_name,insider_name_raw,title,qty,price,value,entry_pric
 2025-11-17,ATLO,Putzier Jeffrey K,Putzier Jeffrey K,President of Subsidiary Bank,200,21.25,4250,21.25,,,,,,,,,2025-12-03T11:45:58.211505
 2025-11-17,TPVG,Srivastava Sajal,Srivastava Sajal,"Pres, CIO",72087,6.06,436951,6.06,,,,,,,,,2025-12-03T11:45:58.234240
 2025-11-17,TPVG,Labe James,Labe James,CEO,72087,6.06,436951,6.06,,,,,,,,,2025-12-03T11:45:58.252009
-2025-11-10,GCV,Gabelli Mario J,Gabelli Mario J,Control Person of Adviser,50000,4.29,214300,4.29,4.289999961853027,,,,-8.892068226521477e-07,,,,2025-12-14T13:54:53.875194
+2025-11-10,GCV,Gabelli Mario J,Gabelli Mario J,Control Person of Adviser,50000,4.29,214300,4.29,4.289999961853027,,,,-8.892068226521477e-07,,,,2025-12-15T11:28:32.102686
 2025-11-18,CIVB,Weaks Nathan E,Weaks Nathan E,Subsidiary Director,1000,21.49,21490,21.49,,,,,,,,,2025-12-03T11:45:58.288252
 2025-11-17,IAUX,Savarie David Roger,Savarie David Roger,"SVP, GC",5000,1.05,5250,1.05,,,,,,,,,2025-12-03T11:45:58.306416
-2025-08-13,ATMU,Donoso Diego,Donoso Diego,Dir,40,45.3,1812,45.3,46.31752014160156,43.11115646362305,49.93342590332031,,2.2461813280387757,-4.831884186262584,10.228313252362728,,2025-12-14T13:54:54.330634
+2025-08-13,ATMU,Donoso Diego,Donoso Diego,Dir,40,45.3,1812,45.3,46.31752014160156,43.11115646362305,49.93342590332031,,2.2461813280387757,-4.831884186262584,10.228313252362728,,2025-12-15T11:28:32.566074
 2025-11-18,TPL,Horizon Kinetics Asset Management Llc,Horizon Kinetics Asset Management LLC,10%,1,914.17,914,914.17,,,,,,,,,2025-12-03T11:45:58.343032
 2025-11-18,PHIO,Bitterman Robert J,Bitterman Robert J,"COB, Pres, CEO",5000,1.27,6350,1.27,,,,,,,,,2025-12-03T11:45:58.361317
 2025-11-18,GCBC,Antalek John,Antalek John,"EVP, CLO",1500,22.0,33000,22.0,,,,,,,,,2025-12-03T11:45:58.379537
@@ -645,8 +645,8 @@ trade_date,ticker,insider_name,insider_name_raw,title,qty,price,value,entry_pric
 2025-11-18,SRTS,Sardano Michael,Sardano Michael,"Pres, GC",1000,3.8,3800,3.8,,,,,,,,,2025-12-03T11:45:58.525859
 2025-11-18,IRIX,Dizon Romeo R,Dizon Romeo R,CFO,2133,0.94,2005,0.94,,,,,,,,,2025-12-03T11:45:58.544484
 2025-11-17,FUSB,Pierce Staci,Pierce Staci,Dir,300,13.4,4020,13.4,,,,,,,,,2025-12-03T11:45:58.563377
-2025-08-29,SXI,Nemeth Andy L,Nemeth Andy L,Dir,1500,205.0,307500,205.0,207.4402313232422,242.27987670898438,245.16000366210938,,1.1903567430449695,18.185305711699694,19.59024568883384,,2025-12-14T13:54:54.873200
-2025-08-25,SXI,Nemeth Andy L,Nemeth Andy L,Dir,2000,209.5,418992,209.5,202.17782592773438,244.5166473388672,235.1999969482422,,-3.495071156212709,16.7143901378841,12.267301645938991,,2025-12-14T13:54:55.263669
+2025-08-29,SXI,Nemeth Andy L,Nemeth Andy L,Dir,1500,205.0,307500,205.0,207.4402313232422,242.27987670898438,245.16000366210938,,1.1903567430449695,18.185305711699694,19.59024568883384,,2025-12-15T11:28:33.158014
+2025-08-25,SXI,Nemeth Andy L,Nemeth Andy L,Dir,2000,209.5,418992,209.5,202.17782592773438,244.5166473388672,235.1999969482422,,-3.495071156212709,16.7143901378841,12.267301645938991,,2025-12-15T11:28:33.629077
 2025-11-18,STRZ,Hirsch Jeffrey,Hirsch Jeffrey,"Pres, CEO",30000,11.21,336442,11.21,,,,,,,,,2025-12-03T11:45:58.619832
 2025-11-17,BOTJ,Addison Lewis C,Addison Lewis C,Dir,113,16.75,1893,16.75,,,,,,,,,2025-12-03T11:45:58.638610
 2025-11-17,CRVO,Winton Matthew,Winton Matthew,"Chief Commercial, Business",5000,8.29,41430,8.29,,,,,,,,,2025-12-03T11:45:58.657471
@@ -655,7 +655,7 @@ trade_date,ticker,insider_name,insider_name_raw,title,qty,price,value,entry_pric
 2025-11-17,CRVO,Alam John J,Alam John J,"CEO, Pres, 10%",21600,8.46,182736,8.46,,,,,,,,,2025-12-03T11:45:58.714430
 2025-11-17,UPXI,Salkind Gene,Salkind Gene,Dir,200000,2.73,546000,2.73,,,,,,,,,2025-12-03T11:45:58.733555
 2025-11-18,AFCG,Neville Daniel,Neville Daniel,CEO,17000,2.81,47770,2.81,,,,,,,,,2025-12-03T11:45:58.752636
-2025-11-14,SUNS,Tannenbaum Leonard M,Tannenbaum Leonard M,"Exec COB, 10%",32210,9.5,306155,9.5,,,,,,,,,2025-12-14T13:54:55.682801
+2025-11-14,SUNS,Tannenbaum Leonard M,Tannenbaum Leonard M,"Exec COB, 10%",32210,9.5,306155,9.5,,,,,,,,,2025-12-15T11:28:34.038224
 2025-11-17,MXF,Lp Saba Capital Management,"Saba Capital Management, L.P.",10%,13451,18.94,254762,18.94,,,,,,,,,2025-12-03T11:45:58.791453
 2025-11-17,GF,Lp Saba Capital Management,"Saba Capital Management, L.P.",10%,17717,10.64,188509,10.64,,,,,,,,,2025-12-03T11:45:58.810651
 2025-11-18,PDYN,Wolff Benjamin G,Wolff Benjamin G,"Pres, CEO",7000,5.49,38396,5.49,,,,,,,,,2025-12-03T11:45:58.829631
@@ -663,31 +663,31 @@ trade_date,ticker,insider_name,insider_name_raw,title,qty,price,value,entry_pric
 2025-11-18,QBTS,West Steven M,West Steven M,Dir,82,21.89,1795,21.89,,,,,,,,,2025-12-03T11:45:58.867196
 2025-11-18,BOTJ,Jamerson Phillip C,Jamerson Phillip C,Dir,589,16.75,9866,16.75,,,,,,,,,2025-12-03T11:45:58.885906
 2025-11-17,RMI,Llc Rivernorth Financial Holdings,"Rivernorth Financial Holdings, LLC",Affiliate of the Adviser,6642,14.54,96553,14.54,,,,,,,,,2025-12-03T11:45:58.904647
-2025-11-14,VTSI,Givens John F,Givens John F. II,CEO,4978,4.77,23743,4.77,,,,,,,,,2025-12-14T13:54:56.157361
+2025-11-14,VTSI,Givens John F,Givens John F. II,CEO,4978,4.77,23743,4.77,,,,,,,,,2025-12-15T11:28:34.549941
 2025-11-18,PRKR,Titterton Lewis H,Titterton Lewis H Jr,Dir,4761905,0.21,1000000,0.21,,,,,,,,,2025-12-03T11:45:58.942109
-2025-11-14,BMN,Bank Of America Corp De,Bank of America Corp /de/,10%,1164,24.76,28821,24.76,,,,,,,,,2025-12-14T13:54:56.660894
+2025-11-14,BMN,Bank Of America Corp De,Bank of America Corp /de/,10%,1164,24.76,28821,24.76,,,,,,,,,2025-12-15T11:28:34.961648
 2025-11-17,SCKT,Bass Charlie,Bass Charlie,"Dir, 10%",10000,1.25,12465,1.25,,,,,,,,,2025-12-03T11:45:58.979843
 2025-11-17,PMT,Spector David,Spector David,"COB, CEO",10000,12.4,124000,12.4,,,,,,,,,2025-12-03T11:45:58.998789
-2025-11-14,RNTX,Lp Voss Capital,"Voss Capital, LP",10%,104183,1.22,127593,1.22,,,,,,,,,2025-12-14T13:54:57.079465
-2025-11-14,MH,Reinemund Steven,Reinemund Steven,Dir,15710,15.03,236121,15.03,,,,,,,,,2025-12-14T13:54:57.546056
+2025-11-14,RNTX,Lp Voss Capital,"Voss Capital, LP",10%,104183,1.22,127593,1.22,,,,,,,,,2025-12-15T11:28:35.362284
+2025-11-14,MH,Reinemund Steven,Reinemund Steven,Dir,15710,15.03,236121,15.03,,,,,,,,,2025-12-15T11:28:35.818148
 2025-11-17,PEW,Nemati Marc A,Nemati Marc A.,"Pres, CEO",100000,3.89,388770,3.89,,,,,,,,,2025-12-03T11:45:59.055386
 2025-11-17,GLIBK,Gould Jedd,Gould Jedd,Dir,15000,34.11,511683,34.11,,,,,,,,,2025-12-03T11:45:59.074754
 2025-11-18,OPK,Frost Phillip Md Et Al,Frost Phillip Md Et Al,"CEO, COB, 10%",533300,1.27,678906,1.27,,,,,,,,,2025-12-03T11:45:59.094018
 2025-11-17,NML,Rachlin Douglas A,Rachlin Douglas A.,Portfolio Manager,40000,8.55,341940,8.55,,,,,,,,,2025-12-03T11:45:59.112704
-2025-11-14,MYE,Rutty Samantha,Rutty Samantha,"EVP, CFO",3000,17.5,52500,17.5,,,,,,,,,2025-12-14T13:54:58.172709
+2025-11-14,MYE,Rutty Samantha,Rutty Samantha,"EVP, CFO",3000,17.5,52500,17.5,,,,,,,,,2025-12-15T11:28:36.325007
 2025-11-17,SMA,Schwartz H Michael,Schwartz H. Michael,CEO,6250,31.71,198188,31.71,,,,,,,,,2025-12-03T11:45:59.150550
 2025-11-17,PENN,Handler David A,Handler David A,Dir,20000,14.25,285000,14.25,,,,,,,,,2025-12-03T11:45:59.169631
 2025-11-18,VAC,Galbreath Lizanne,Galbreath Lizanne,Dir,5500,46.51,255805,46.51,,,,,,,,,2025-12-03T11:45:59.188337
 2025-11-18,SSKN,Rubinstein Samuel,Rubinstein Samuel,Dir,5000,1.41,7028,1.41,,,,,,,,,2025-12-03T11:45:59.207114
 2025-11-17,SELF,Winmill Co Inc,Winmill & Co. Inc,"See ""Explanation of Responses""",11844,5.14,60882,5.14,,,,,,,,,2025-12-03T11:45:59.225845
-2025-11-14,F,Thornton John L,Thornton John L,Dir,7520,13.19,99189,13.19,,,,,,,,,2025-12-14T13:54:58.888105
-2025-11-11,SRTS,Sardano Michael,Sardano Michael,"Pres, GC",2000,4.27,8546,4.27,3.890000104904175,,,,-8.899294967115337,,,,2025-12-14T13:54:59.256358
+2025-11-14,F,Thornton John L,Thornton John L,Dir,7520,13.19,99189,13.19,,,,,,,,,2025-12-15T11:28:36.922929
+2025-11-11,SRTS,Sardano Michael,Sardano Michael,"Pres, GC",2000,4.27,8546,4.27,3.890000104904175,,,,-8.899294967115337,,,,2025-12-15T11:28:37.284168
 2025-11-17,KODK,Katz Philippe D,Katz Philippe D,"Dir, 10%",5000,7.35,36750,7.35,,,,,,,,,2025-12-03T11:45:59.283805
 2025-11-17,TMDX,Hassanein Waleed H,Hassanein Waleed H,"Pres, CEO",8775,114.0,1000350,114.0,,,,,,,,,2025-12-03T11:45:59.304863
 2025-11-17,CTEV,Kim Michael,Kim Michael,"EVP, Chief Digital Officer",9600,38.25,367199,38.25,,,,,,,,,2025-12-03T11:45:59.325392
 2025-11-17,CTEV,Oneil Tara,O'Neil Tara,"SVP, GC",625,38.84,24273,38.84,,,,,,,,,2025-12-03T11:45:59.345347
 2025-11-17,BSRR,Dutto Laurence S,Dutto Laurence S,Dir,400,28.78,11511,28.78,,,,,,,,,2025-12-03T11:45:59.364833
-2025-11-14,ACVA,Castillo Kirsten,Castillo Kirsten,Dir,20000,6.26,125250,6.26,,,,,,,,,2025-12-14T13:54:59.669035
+2025-11-14,ACVA,Castillo Kirsten,Castillo Kirsten,Dir,20000,6.26,125250,6.26,,,,,,,,,2025-12-15T11:28:37.692997
 2025-11-18,BIXT,Hoberman Alan M,Hoberman Alan M,Dir,210000,0.6,126000,0.6,,,,,,,,,2025-12-03T11:45:59.403372
 2025-11-17,ABR,Friedman David Erwin,Friedman David Erwin,"CCO, Head of Non-Agcy Prod",2508,8.3,20816,8.3,,,,,,,,,2025-12-03T11:45:59.422542
 2025-11-17,CCAP,Lombard Gerhard,Lombard Gerhard,CFO,2000,13.34,26683,13.34,,,,,,,,,2025-12-03T11:45:59.441574
@@ -695,21 +695,21 @@ trade_date,ticker,insider_name,insider_name_raw,title,qty,price,value,entry_pric
 2025-11-17,AEBI,Schenkirsch Thomas,Schenkirsch Thomas,Chief Group Services,6500,10.9,70850,10.9,,,,,,,,,2025-12-03T11:45:59.480169
 2025-11-17,SVCO,Zegarelli Christopher John,Zegarelli Christopher John,CFO,5000,3.91,19550,3.91,,,,,,,,,2025-12-03T11:45:59.499490
 2025-11-17,SVCO,Rhines Walden C,Rhines Walden C,CEO,11272,3.9,43981,3.9,,,,,,,,,2025-12-03T11:45:59.518675
-2025-11-14,MNR,Mcmullen William Wallace,McMullen William Wallace,"See Remarks, 10%",4608,11.85,54605,11.85,,,,,,,,,2025-12-14T13:55:00.153463
-2025-11-14,MNR,Ward Tom L,Ward Tom L.,"See Remarks, 10%",83370,12.0,1000022,12.0,,,,,,,,,2025-12-14T13:55:00.473941
-2025-11-14,GOGO,Townsend Charles C,Townsend Charles C,Dir,110009,7.08,778672,7.08,,,,,,,,,2025-12-14T13:55:00.988763
+2025-11-14,MNR,Mcmullen William Wallace,McMullen William Wallace,"See Remarks, 10%",4608,11.85,54605,11.85,,,,,,,,,2025-12-15T11:28:38.109109
+2025-11-14,MNR,Ward Tom L,Ward Tom L.,"See Remarks, 10%",83370,12.0,1000022,12.0,,,,,,,,,2025-12-15T11:28:38.442437
+2025-11-14,GOGO,Townsend Charles C,Townsend Charles C,Dir,110009,7.08,778672,7.08,,,,,,,,,2025-12-15T11:28:38.850878
 2025-11-17,LUCK,Young John Alan,Young John Alan,Dir,4685,7.62,35700,7.62,,,,,,,,,2025-12-03T11:45:59.596142
-2025-11-14,DEI,Aronson Michele L,Aronson Michele L,"EVP, GC, SECRETARY",42126,11.69,492557,11.69,,,,,,,,,2025-12-14T13:55:01.563981
+2025-11-14,DEI,Aronson Michele L,Aronson Michele L,"EVP, GC, SECRETARY",42126,11.69,492557,11.69,,,,,,,,,2025-12-15T11:28:39.296791
 2025-11-17,AP,Mcnair Darrell L,McNair Darrell L,Dir,10000,2.68,26800,2.68,,,,,,,,,2025-12-03T11:45:59.635425
-2025-11-14,BFS,Heard Carlos Lawrence,Heard Carlos Lawrence,"SVP, CFO",1650,20.46,33759,20.46,,,,,,,,,2025-12-14T13:55:02.037746
+2025-11-14,BFS,Heard Carlos Lawrence,Heard Carlos Lawrence,"SVP, CFO",1650,20.46,33759,20.46,,,,,,,,,2025-12-15T11:28:39.793479
 2025-11-18,SPG,Lewis Randall J,Lewis Randall J,Dir,588,180.8,106310,180.8,,,,,,,,,2025-12-03T11:45:59.674080
 2025-11-18,AUBN,Housel David E,Housel David E,Dir,200,25.39,5078,25.39,,,,,,,,,2025-12-03T11:45:59.693730
 2025-11-17,CSBB,Baker Robert K,Baker Robert K,Dir,250,49.71,12428,49.71,,,,,,,,,2025-12-03T11:45:59.712916
-2025-11-14,STXS,Isaac Paul J,Isaac Paul J,See Remarks,30000,2.22,66600,2.22,,,,,,,,,2025-12-14T13:55:02.413603
-2025-11-12,HFFG,Lin Xi,Lin Xi,"Pres, CEO",4494,2.24,10057,2.24,2.569999933242798,,,,14.732139876910608,,,,2025-12-14T13:55:02.883651
-2025-11-14,IRIX,Moore William M,Moore William M,Dir,50000,0.97,48332,0.97,,,,,,,,,2025-12-14T13:55:03.261845
+2025-11-14,STXS,Isaac Paul J,Isaac Paul J,See Remarks,30000,2.22,66600,2.22,,,,,,,,,2025-12-15T11:28:40.309424
+2025-11-12,HFFG,Lin Xi,Lin Xi,"Pres, CEO",4494,2.24,10057,2.24,2.569999933242798,,,,14.732139876910608,,,,2025-12-15T11:28:40.716175
+2025-11-14,IRIX,Moore William M,Moore William M,Dir,50000,0.97,48332,0.97,,,,,,,,,2025-12-15T11:28:41.250293
 2025-11-18,AVBC,Jensen Barry H,Jensen Barry H,"EVP, Chief Admin Officer",2500,14.93,37321,14.93,,,,,,,,,2025-12-03T11:45:59.790986
-2025-11-14,CWBC,Stovesand Kirk,Stovesand Kirk,Dir,402,21.37,8591,21.37,,,,,,,,,2025-12-14T13:55:03.713408
+2025-11-14,CWBC,Stovesand Kirk,Stovesand Kirk,Dir,402,21.37,8591,21.37,,,,,,,,,2025-12-15T11:28:41.818653
 2025-06-10,THFF,Jensen Susan M,Jensen Susan M,Dir,148,56.89,8420,56.89,56.19755935668945,52.9273796081543,58.14976119995117,61.15999984741211,-1.2171570457207723,-6.965407614423806,2.2143807346654443,7.50571251083162,2025-12-09T11:26:32.035223
 2025-11-17,TPL,Horizon Kinetics Asset Management Llc,Horizon Kinetics Asset Management LLC,10%,1,1008.18,1008,1008.18,,,,,,,,,2025-12-03T11:45:59.854993
 2025-11-17,LOAN,Ran Assaf,Ran Assaf,"Pres, CEO, 10%",4000,4.65,18600,4.65,,,,,,,,,2025-12-03T11:45:59.874851
@@ -720,27 +720,27 @@ trade_date,ticker,insider_name,insider_name_raw,title,qty,price,value,entry_pric
 2025-11-17,AP,German Michael I,German Michael I,Dir,40000,2.65,106000,2.65,,,,,,,,,2025-12-03T11:45:59.973822
 2025-11-17,HDSN,Abbatecola Vincent P,Abbatecola Vincent P,Dir,3500,6.79,23748,6.79,,,,,,,,,2025-12-03T11:45:59.993594
 2025-11-17,INBK,Lorch Nicole S,Lorch Nicole S.,"Pres, COO",2000,17.96,35920,17.96,,,,,,,,,2025-12-03T11:46:00.014068
-2025-11-15,GABC,Seger Andrew M,Seger Andrew M,Dir,26,39.05,1000,39.05,,,,,,,,,2025-12-03T11:46:00.035527
+2025-11-15,GABC,Seger Andrew M,Seger Andrew M,Dir,26,39.05,1000,39.05,,,,,,,,,2025-12-15T11:28:42.270618
 2025-11-17,IRIX,Dizon Romeo R,Dizon Romeo R,CFO,3124,0.96,2999,0.96,,,,,,,,,2025-12-03T11:46:00.056335
-2025-11-11,TBRG,Daughton Michael,Daughton Michael,Chief Business Officer,50000,19.98,999171,19.98,22.829999923706055,,,,14.264263882412683,,,,2025-12-14T13:55:04.150364
+2025-11-11,TBRG,Daughton Michael,Daughton Michael,Chief Business Officer,50000,19.98,999171,19.98,22.829999923706055,,,,14.264263882412683,,,,2025-12-15T11:28:42.737297
 2025-11-17,SUNC,Jennings Michael,Jennings Michael,Dir,3000,49.68,149037,49.68,,,,,,,,,2025-12-03T11:46:00.097353
 2025-11-17,SONO,Conrad Thomas,Conrad Thomas,CEO,62325,16.17,1008045,16.17,,,,,,,,,2025-12-03T11:46:00.117749
-2025-11-14,DGICA,Donegal Mutual Insurance Co,Donegal Mutual Insurance Co,10%,16000,19.91,318618,19.91,,,,,,,,,2025-12-14T13:55:04.595347
-2025-11-14,ARX,Radke Jeffrey L,Radke Jeffrey L,"Co-Founder, CEO, 10%",74110,13.48,999366,13.48,,,,,,,,,2025-12-14T13:55:04.972907
-2025-11-14,ANVS,Hoffman Michael B,Hoffman Michael B,Dir,15000,2.11,31650,2.11,,,,,,,,,2025-12-14T13:55:05.358345
+2025-11-14,DGICA,Donegal Mutual Insurance Co,Donegal Mutual Insurance Co,10%,16000,19.91,318618,19.91,,,,,,,,,2025-12-15T11:28:43.215880
+2025-11-14,ARX,Radke Jeffrey L,Radke Jeffrey L,"Co-Founder, CEO, 10%",74110,13.48,999366,13.48,,,,,,,,,2025-12-15T11:28:43.722280
+2025-11-14,ANVS,Hoffman Michael B,Hoffman Michael B,Dir,15000,2.11,31650,2.11,,,,,,,,,2025-12-15T11:28:44.224810
 2025-11-17,BHVN,Clark George C,Clark George C.,"VP, Chief Accounting Officer",17000,8.52,144770,8.52,,,,,,,,,2025-12-03T11:46:00.197986
-2025-11-13,BLND,Lp Haveli Investments,"Haveli Investments, L.P.","Dir, 10%",2154948,3.03,6520685,3.03,,,,,,,,,2025-12-14T13:55:05.802023
+2025-11-13,BLND,Lp Haveli Investments,"Haveli Investments, L.P.","Dir, 10%",2154948,3.03,6520685,3.03,,,,,,,,,2025-12-15T11:28:44.625371
 2025-11-17,TTRX,Chaudhary Zuraiz,Chaudhary Zuraiz,See Remarks,2500,3.62,9050,3.62,,,,,,,,,2025-12-03T11:46:00.238360
-2025-11-14,EGBN,Newell Eric R,Newell Eric R,"Senior EVP, CFO",3050,16.55,50474,16.55,,,,,,,,,2025-12-14T13:55:06.276205
-2025-11-13,CRWS,Ratajczak Donald R,Ratajczak Donald R,Dir,30000,2.75,82350,2.75,,,,,,,,,2025-12-14T13:55:06.691719
-2025-11-14,GMRE,Kiernan Robert J,Kiernan Robert J,"CFO, Treasurer",3000,31.91,95730,31.91,,,,,,,,,2025-12-14T13:55:07.201184
-2025-11-14,GMRE,Decker Mark Okey,Decker Mark Okey Jr,"CEO, Pres",10000,32.58,325813,32.58,,,,,,,,,2025-12-14T13:55:07.521365
-2025-11-14,PSQH,Hebert Michael Robert,Hebert Michael Robert,Chief People Officer,9400,1.61,15102,1.61,,,,,,,,,2025-12-14T13:55:08.047652
-2025-11-13,SRZN,Lp Column Group Gp,"Column Group III Gp, LP",10%,315457,12.65,3990531,12.65,,,,,,,,,2025-12-14T13:55:08.464338
-2025-11-14,PODC,Merriman D Jonathan,Merriman D Jonathan,Dir,10700,2.16,23112,2.16,,,,,,,,,2025-12-14T13:55:08.934424
-2025-11-13,LAB,Lp Casdin Partners Master Fund,"Casdin Partners Master Fund, L.P.","Dir, 10%",925000,1.22,1126775,1.22,,,,,,,,,2025-12-14T13:55:09.443791
+2025-11-14,EGBN,Newell Eric R,Newell Eric R,"Senior EVP, CFO",3050,16.55,50474,16.55,,,,,,,,,2025-12-15T11:28:45.165436
+2025-11-13,CRWS,Ratajczak Donald R,Ratajczak Donald R,Dir,30000,2.75,82350,2.75,,,,,,,,,2025-12-15T11:28:45.614061
+2025-11-14,GMRE,Kiernan Robert J,Kiernan Robert J,"CFO, Treasurer",3000,31.91,95730,31.91,,,,,,,,,2025-12-15T11:28:46.143019
+2025-11-14,GMRE,Decker Mark Okey,Decker Mark Okey Jr,"CEO, Pres",10000,32.58,325813,32.58,,,,,,,,,2025-12-15T11:28:46.472995
+2025-11-14,PSQH,Hebert Michael Robert,Hebert Michael Robert,Chief People Officer,9400,1.61,15102,1.61,,,,,,,,,2025-12-15T11:28:46.874805
+2025-11-13,SRZN,Lp Column Group Gp,"Column Group III Gp, LP",10%,315457,12.65,3990531,12.65,,,,,,,,,2025-12-15T11:28:47.286483
+2025-11-14,PODC,Merriman D Jonathan,Merriman D Jonathan,Dir,10700,2.16,23112,2.16,,,,,,,,,2025-12-15T11:28:47.746480
+2025-11-13,LAB,Lp Casdin Partners Master Fund,"Casdin Partners Master Fund, L.P.","Dir, 10%",925000,1.22,1126775,1.22,,,,,,,,,2025-12-15T11:28:48.202786
 2025-11-17,ICHR,Mackenzie Iain,Mackenzie Iain,Dir,10000,14.53,145300,14.53,,,,,,,,,2025-12-03T11:46:00.419582
-2025-11-14,IOSP,Parrette Leslie J,Parrette Leslie J,Dir,340,74.09,25191,74.09,,,,,,,,,2025-12-14T13:55:09.956117
+2025-11-14,IOSP,Parrette Leslie J,Parrette Leslie J,Dir,340,74.09,25191,74.09,,,,,,,,,2025-12-15T11:28:48.663806
 2025-11-14,MDRR,Kavanaugh Frank,Kavanaugh Frank,"COB, CEO, Pres, 10%",20000,13.5,270000,13.5,,,,,,,,,2025-12-14T13:55:10.355918
 2025-11-17,AVTR,Ligner Emmanuel,Ligner Emmanuel,"Pres, CEO",87500,11.35,993125,11.35,,,,,,,,,2025-12-03T11:46:00.482252
 2025-11-13,ABR,Kaufman Ivan,Kaufman Ivan,"COB, CEO, Pres",54000,8.69,469360,8.69,,,,,,,,,2025-12-03T11:46:00.502732
@@ -8185,3 +8185,69 @@ trade_date,ticker,insider_name,insider_name_raw,title,qty,price,value,entry_pric
 2025-12-04,ASA,Lp Saba Capital Management,"Saba Capital Management, L.P.",10%,23410,52.99,1240487,52.99,,,,,,,,,2025-12-14T13:54:48.092035
 2025-12-04,NRDY,Cohn Charles K,Cohn Charles K.,"CEO, 10%",186930,1.37,256094,1.37,,,,,,,,,2025-12-14T13:54:48.094607
 2025-12-05,SINT,Honigblum Gregg R,Honigblum Gregg R.,Chief Investment Officer,65000,3.93,255350,3.93,,,,,,,,,2025-12-14T13:54:48.097124
+2025-12-11,CRMT,Collins Jonathan M,Collins Jonathan M.,CFO,197,25.27,4978,25.27,,,,,,,,,2025-12-15T11:28:25.388473
+2025-12-11,AARD,Lee Tienli,Lee Tien-Li,"CEO, 10%",7000,14.49,101395,14.49,,,,,,,,,2025-12-15T11:28:25.391077
+2025-12-10,AMR,Courtis Kenneth S,Courtis Kenneth S.,Dir,15000,181.32,2719849,181.32,,,,,,,,,2025-12-15T11:28:25.392437
+2025-12-12,BLNK,Battaglia Michael C,Battaglia Michael C.,"Pres, CEO",33333,0.75,25000,0.75,,,,,,,,,2025-12-15T11:28:25.396281
+2025-12-12,OXM,Chubb Thomas Caldecot,Chubb Thomas Caldecot III,"CEO, Pres",5000,35.12,175585,35.12,,,,,,,,,2025-12-15T11:28:25.401403
+2025-12-12,IMVT,Roivant Sciences Ltd,Roivant Sciences Ltd.,"Dir, 10%",16666666,21.0,349999986,21.0,,,,,,,,,2025-12-15T11:28:25.405185
+2025-12-10,ARE,Mcgrath Sheila K,McGrath Sheila K.,Dir,3100,45.6,141360,45.6,,,,,,,,,2025-12-15T11:28:25.410228
+2025-12-11,DLHC,Mink Brook Asset Management Llc,Mink Brook Asset Management LLC,10%,924,5.5,5082,5.5,,,,,,,,,2025-12-15T11:28:25.412813
+2025-12-11,MMLP,Martin Product Sales Llc,Martin Product Sales LLC,10%,12585,2.58,32426,2.58,,,,,,,,,2025-12-15T11:28:25.414167
+2025-12-10,GPUS,Ault Milton C,Ault Milton C III,"Exec COB, 10%",10000,0.29,2903,0.29,,,,,,,,,2025-12-15T11:28:25.416753
+2025-12-10,ITW,Smith David Jon,Smith David Byron Jr,Dir,6709,250.13,1678122,250.13,,,,,,,,,2025-12-15T11:28:25.420546
+2025-12-10,MGLD,Nicholas Melinda Gerber Living Trust,Nicholas & Melinda Gerber Living Trust,"CEO, 10%",25000,0.93,23175,0.93,,,,,,,,,2025-12-15T11:28:25.432064
+2025-12-11,TPL,Horizon Kinetics Asset Management Llc,Horizon Kinetics Asset Management LLC,10%,1,877.16,877,877.16,,,,,,,,,2025-12-15T11:28:25.434648
+2025-12-10,GPN,Baldwin Robert H B,Baldwin Robert H B Jr,Dir,13392,81.16,1086867,81.16,,,,,,,,,2025-12-15T11:28:25.441008
+2025-12-10,NRDY,Cohn Charles K,Cohn Charles K.,"CEO, 10%",174947,1.4,244926,1.4,,,,,,,,,2025-12-15T11:28:25.442334
+2025-12-09,FROPX,Coolidge R Scott,Coolidge R. Scott,Dir,1533,16.31,25000,16.31,,,,,,,,,2025-12-15T11:28:25.449882
+2025-12-09,CORFX,Coolidge R Scott,Coolidge R. Scott,Dir,1262,19.81,25000,19.81,,,,,,,,,2025-12-15T11:28:25.452395
+2025-12-09,CORFX,Finnen Paul E,Finnen Paul E.,Dir,1262,19.81,25000,19.81,,,,,,,,,2025-12-15T11:28:25.453655
+2025-12-09,FRBBX,Coolidge R Scott,Coolidge R. Scott,Dir,1140,21.93,25000,21.93,,,,,,,,,2025-12-15T11:28:25.456120
+2025-12-09,FRBBX,Finnen Paul E,Finnen Paul E.,Dir,1140,21.93,25000,21.93,,,,,,,,,2025-12-15T11:28:25.457396
+2025-12-11,CDNL,Lee Richard Melvin,Lee Richard Melvin Jr.,Dir,22725,21.0,477225,21.0,,,,,,,,,2025-12-15T11:28:25.466195
+2025-12-11,KYMR,Baker Bros Advisors Lp,Baker Bros. Advisors LP,"Dir, 10%",2005813,86.0,172499918,86.0,,,,,,,,,2025-12-15T11:28:25.477605
+2025-12-11,SEVN,Tremont Realty Capital Llc,Tremont Realty Capital LLC,10%,2015748,8.65,17436220,8.65,,,,,,,,,2025-12-15T11:28:25.480182
+2025-12-11,SEVN,Portnoy Adam D,Portnoy Adam D.,"Dir, 10%",2015748,8.65,17436220,8.65,,,,,,,,,2025-12-15T11:28:25.484016
+2025-12-09,SATL,L P Cantor Fitzgerald,"Cantor Fitzgerald, L. P.",10%,10000,1.88,18800,1.88,,,,,,,,,2025-12-15T11:28:25.489086
+2025-12-10,SCISX,Ma Eagle Holdings Fund,Ma Eagle II Holdings Fund,10%,52146,24.93,1300000,24.93,,,,,,,,,2025-12-15T11:28:25.492881
+2025-12-10,TPL,Horizon Kinetics Asset Management Llc,Horizon Kinetics Asset Management LLC,10%,1,870.01,870,870.01,,,,,,,,,2025-12-15T11:28:25.496699
+2025-12-09,MXF,Lp Saba Capital Management,"Saba Capital Management, L.P.",10%,1628,19.72,32097,19.72,,,,,,,,,2025-12-15T11:28:25.499221
+2025-12-10,ASA,Lp Saba Capital Management,"Saba Capital Management, L.P.",10%,10397,54.09,562374,54.09,,,,,,,,,2025-12-15T11:28:25.500548
+2025-12-09,NRDY,Cohn Charles K,Cohn Charles K.,"CEO, 10%",176215,1.44,253750,1.44,,,,,,,,,2025-12-15T11:28:25.501903
+2025-12-10,APRE,Hamill John P,Hamill John P.,"SrVP, CFO, Prin Fin, Acct Ofcr",5000,1.17,5825,1.17,,,,,,,,,2025-12-15T11:28:25.504484
+2025-12-10,MDRR,Winn Charles Brent,Winn Charles Brent Jr.,CFO,400,12.66,5062,12.66,,,,,,,,,2025-12-15T11:28:25.505829
+2025-12-05,UUU,Ault Milton C,Ault Milton C III,Dir,29100,4.47,130082,4.47,,,,,,,,,2025-12-15T11:28:25.509816
+2025-12-10,AIRJ,Pang Stephen S,Pang Stephen S.,CFO,2169,2.95,6399,2.95,,,,,,,,,2025-12-15T11:28:25.515020
+2025-12-08,NEXT,Ltd Hanwha Aerospace Co,"Hanwha Aerospace Co., Ltd.",10%,932598,6.16,5742414,6.16,,,,,,,,,2025-12-15T11:28:25.518875
+2025-12-08,AMR,Courtis Kenneth S,Courtis Kenneth S.,Dir,36000,175.26,6309390,175.26,,,,,,,,,2025-12-15T11:28:25.521458
+2025-12-08,BH,Sardar Biglari,"Biglari, Sardar","COB, CEO, 10%",2221,317.73,705671,317.73,,,,,,,,,2025-12-15T11:28:25.522727
+2025-12-10,SVCO,Ngaipesic Katherine S,Ngai-Pesic Katherine S.,"Member of 10% owner group, 10%",25000,4.13,103305,4.13,,,,,,,,,2025-12-15T11:28:25.534016
+2025-12-08,EML,Disanto Frederick D,Disanto Frederick D.,Dir,111,19.0,2109,19.0,,,,,,,,,2025-12-15T11:28:25.535319
+2025-12-08,ROLR,Francis John Milton,Francis John Milton IV,COO,2745,1.82,5003,1.82,,,,,,,,,2025-12-15T11:28:25.536613
+2025-12-10,DSAC,Daedalus Special Acquisition Llc,Daedalus Special Acquisition LLC,10%,435000,0.0,0,0.0,,,,,,,,,2025-12-15T11:28:25.537905
+2025-12-10,ATLO,Trost Scot A,Trost Scot A.,Dir,200,22.88,4576,22.88,,,,,,,,,2025-12-15T11:28:25.546706
+2025-12-08,ATEX,Lang Scott A,Lang Scott A.,"Pres, CEO",2450,20.41,50005,20.41,,,,,,,,,2025-12-15T11:28:25.548020
+2025-12-09,SRTA,Heyburn William A,Heyburn William A.,"Co-CEO, CFO",17000,4.47,76044,4.47,,,,,,,,,2025-12-15T11:28:25.550583
+2025-12-08,MNR,Mcmullen William Wallace,McMullen William Wallace,"See Remarks, 10%",30000,12.41,372225,12.41,,,,,,,,,2025-12-15T11:28:25.554368
+2025-12-08,STRR,Eberwein Jeffrey E,Eberwein Jeffrey E.,"CEO, 10%",287631,10.43,2999991,10.43,,,,,,,,,2025-12-15T11:28:25.557003
+2025-12-08,LFAC,Leapfrog Partners Llc,Leapfrog Partners LLC,10%,328750,10.0,3287500,10.0,,,,,,,,,2025-12-15T11:28:25.560838
+2025-12-09,TPL,Horizon Kinetics Asset Management Llc,Horizon Kinetics Asset Management LLC,10%,1,896.25,896,896.25,,,,,,,,,2025-12-15T11:28:25.573446
+2025-12-09,NRIM,Mccambridge David J,McCambridge David J,Dir,1150,24.87,28601,24.87,,,,,,,,,2025-12-15T11:28:25.574751
+2025-12-08,NAN,Bank Of America Corp De,Bank of America Corp /de/,10%,1000,11.53,11530,11.53,,,,,,,,,2025-12-15T11:28:25.579745
+2025-12-08,NRDY,Cohn Charles K,Cohn Charles K.,"CEO, 10%",184491,1.33,245373,1.33,,,,,,,,,2025-12-15T11:28:25.584824
+2025-12-05,GRND,Zage George Raymond,Zage George Raymond III,"Dir, 10%",50000,13.51,675500,13.51,,,,,,,,,2025-12-15T11:28:25.589882
+2025-12-05,SPRU,Steel Partners Holdings Lp,Steel Partners Holdings L.P.,10%,68289,5.1,348075,5.1,,,,,,,,,2025-12-15T11:28:25.594943
+2025-12-08,JFB,Basile Joseph Frank,Basile Joseph Frank III,"CEO, COB",5900,16.79,99061,16.79,,,,,,,,,2025-12-15T11:28:25.599995
+2025-12-05,MGM,Iac Inc,Iac Inc.,10%,1098748,36.3,39884552,36.3,,,,,,,,,2025-12-15T11:28:25.603775
+2025-12-05,GLP,Global Gp Llc,Global Gp LLC,General Partner,3917,45.08,176566,45.08,,,,,,,,,2025-12-15T11:28:25.607651
+2025-12-08,LUCK,Lavan Robert M,Lavan Robert M.,CFO,243,8.53,2073,8.53,,,,,,,,,2025-12-15T11:28:25.615327
+2025-12-08,GAM,Majmudar Anang K,Majmudar Anang K.,Senior Vice-Pres,36,24.98,899,24.98,,,,,,,,,2025-12-15T11:28:25.619118
+2025-12-05,SLGL,Opaleye Management Inc,Opaleye Management Inc.,10%,744,39.61,29469,39.61,,,,,,,,,2025-12-15T11:28:25.621705
+2025-12-08,GRNT,Mccartney John,McCartney John,Dir,5000,5.26,26300,5.26,,,,,,,,,2025-12-15T11:28:25.631750
+2025-12-05,BSBK,Masterson John J,Masterson John J.,Dir,1600,8.33,13332,8.33,,,,,,,,,2025-12-15T11:28:25.633051
+2025-12-08,TPL,Horizon Kinetics Asset Management Llc,Horizon Kinetics Asset Management LLC,10%,1,914.15,914,914.15,,,,,,,,,2025-12-15T11:28:25.634362
+2025-12-08,ASA,Lp Saba Capital Management,"Saba Capital Management, L.P.",10%,7542,52.4,395201,52.4,,,,,,,,,2025-12-15T11:28:25.641929
+2025-12-08,MXF,Lp Saba Capital Management,"Saba Capital Management, L.P.",10%,2403,19.63,47171,19.63,,,,,,,,,2025-12-15T11:28:25.643205
+2025-12-08,SINT,Honigblum Gregg R,Honigblum Gregg R.,Chief Investment Officer,8200,4.26,34896,4.26,,,,,,,,,2025-12-15T11:28:25.645784
+2025-12-05,NRDY,Cohn Charles K,Cohn Charles K.,"CEO, 10%",177969,1.4,249157,1.4,,,,,,,,,2025-12-15T11:28:25.647086
