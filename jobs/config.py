@@ -108,10 +108,19 @@ INSIDER_SCORE_WEIGHT = 0.15  # Weight of insider score in overall ranking (0-1)
 INSIDER_SCORE_MULTIPLIER_MIN = 0.5
 INSIDER_SCORE_MULTIPLIER_MAX = 2.0
 
+# Signal Processing Settings
+MAX_SIGNALS_TO_ANALYZE = 200  # Maximum number of top-ranked signals to include in daily analysis
+# Previously hardcoded to 50 which was causing exactly 50 clusters every day
+# Increased to 200 to avoid artificial limiting while still maintaining performance
+
 # 13F Data Settings
 SEC_13F_CACHE_HOURS = 168  # Cache duration in hours (168 hours = 7 days)
 # 13F filings are quarterly, so weekly refresh is sufficient
 # Set to lower value if you want more frequent checks (minimum 24 hours recommended)
+
+# FMP API Settings (for institutional holdings)
+FMP_API_KEY = None  # Set via environment variable FMP_API_KEY
+FMP_API_RATE_LIMIT_PER_DAY = 250  # Free tier allows 250 calls/day
 
 # Short Interest Analysis Settings
 ENABLE_SHORT_INTEREST_ANALYSIS = True  # Enable short interest data fetching and analysis

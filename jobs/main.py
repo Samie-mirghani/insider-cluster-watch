@@ -418,7 +418,7 @@ def main(test=False, urgent_test=False, enable_paper_trading=True):
     print("   • Pattern detection (accelerating buys, CEO clusters)")
     if ENABLE_INSIDER_SCORING:
         print("   • Follow-the-Smart-Money scoring (insider track records)")
-    cluster_df = cluster_and_score(df, window_days=5, top_n=50, insider_tracker=insider_tracker)
+    cluster_df = cluster_and_score(df, window_days=5, top_n=config.MAX_SIGNALS_TO_ANALYZE, insider_tracker=insider_tracker)
 
     if cluster_df is None or cluster_df.empty:
         print("ℹ️  No significant insider buying clusters detected")
