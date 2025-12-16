@@ -254,6 +254,11 @@
                                         {% endif %}
                                       </span>
                                     {% endif %}
+                                    {% if insider.win_rate_display %}
+                                      <span style="opacity: 0.85;">
+                                        • {{ insider.win_rate_display }}
+                                      </span>
+                                    {% endif %}
                                   </div>
                                   {% if insider.track_record %}
                                   <div style="color: #92400e; font-size: 12px; font-style: italic; margin-top: 3px; opacity: 0.9;">
