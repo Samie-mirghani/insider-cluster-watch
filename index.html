@@ -1428,6 +1428,15 @@
             }
         }
 
+        // Helper function to format names from "Last Middle First" to "First Middle Last"
+        function formatInsiderName(name) {
+            if (!name) return '';
+            const parts = name.trim().split(/\s+/);
+            if (parts.length <= 1) return name; // Single name, no change
+            // Reverse the order: last word becomes first, first word becomes last
+            return parts.reverse().join(' ');
+        }
+
         // Load and display top performing insiders
         async function loadInsiderPerformanceData() {
             try {
@@ -1463,6 +1472,9 @@
                         `+${performer.avg_return}%` :
                         `${performer.avg_return}%`;
 
+                    // Format name from "Last Middle First" to "First Middle Last"
+                    const displayName = formatInsiderName(performer.name);
+
                     return `
                         <div class="insider-card ${rankClass}">
                             <!-- Top bar: Rank badge + Score pill -->
@@ -1472,7 +1484,7 @@
                             </div>
 
                             <!-- Name -->
-                            <div class="insider-name">${performer.name}</div>
+                            <div class="insider-name">${displayName}</div>
 
                             <!-- HERO METRIC (Avg Return - BIG) -->
                             <div class="hero-metric">
@@ -1501,11 +1513,13 @@
                     const tableRows = remaining10.map((performer, index) => {
                         const rank = index + 6;
                         const returnClass = performer.avg_return >= 0 ? 'positive' : 'neutral';
+                        // Format name from "Last Middle First" to "First Middle Last"
+                        const displayName = formatInsiderName(performer.name);
 
                         return `
                             <tr>
                                 <td class="rank-cell">#${rank}</td>
-                                <td class="name-cell">${performer.name}</td>
+                                <td class="name-cell">${displayName}</td>
                                 <td class="score-cell">${performer.score}</td>
                                 <td class="positive">${performer.win_rate}%</td>
                                 <td class="${returnClass}">${performer.avg_return >= 0 ? '+' : ''}${performer.avg_return}%</td>
