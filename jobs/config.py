@@ -118,10 +118,6 @@ SEC_13F_CACHE_HOURS = 168  # Cache duration in hours (168 hours = 7 days)
 # 13F filings are quarterly, so weekly refresh is sufficient
 # Set to lower value if you want more frequent checks (minimum 24 hours recommended)
 
-# FMP API Settings (for institutional holdings)
-# API key should be set via FMP_API_KEY environment variable
-FMP_API_RATE_LIMIT_PER_DAY = 250  # Free tier allows 250 calls/day
-
 # Short Interest Analysis Settings
 ENABLE_SHORT_INTEREST_ANALYSIS = True  # Enable short interest data fetching and analysis
 SHORT_INTEREST_CACHE_HOURS = 168  # Cache duration in hours (168 hours = 7 days)
