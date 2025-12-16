@@ -1,9 +1,29 @@
 {
-  "last_updated": "2025-12-15T11:52:23.719295",
+  "last_updated": "2025-12-16T08:14:10.508967",
   "status": "OK",
-  "total_insiders_tracked": 213,
+  "total_insiders_tracked": 215,
   "qualified_performers": 32,
   "top_performers": [
+    {
+      "name": "Klass Russell Kevin",
+      "score": 100.0,
+      "win_rate": 100.0,
+      "avg_return": 126.2,
+      "total_trades": 5,
+      "best_trade": 142.5,
+      "worst_trade": 110.0,
+      "sharpe_ratio": 5.49
+    },
+    {
+      "name": "Piconi Robert",
+      "score": 100.0,
+      "win_rate": 100.0,
+      "avg_return": 87.0,
+      "total_trades": 5,
+      "best_trade": 94.7,
+      "worst_trade": 79.2,
+      "sharpe_ratio": 7.9
+    },
     {
       "name": "Billingsley Chester",
       "score": 100.0,
@@ -25,16 +45,6 @@
       "sharpe_ratio": 2.58
     },
     {
-      "name": "Piconi Robert",
-      "score": 100.0,
-      "win_rate": 100.0,
-      "avg_return": 87.0,
-      "total_trades": 5,
-      "best_trade": 94.7,
-      "worst_trade": 79.2,
-      "sharpe_ratio": 7.9
-    },
-    {
       "name": "Topper James N",
       "score": 100.0,
       "win_rate": 100.0,
@@ -53,6 +63,96 @@
       "best_trade": 36.9,
       "worst_trade": 13.5,
       "sharpe_ratio": 2.64
+    },
+    {
+      "name": "Marin Kendall Leo",
+      "score": 98.5,
+      "win_rate": 100.0,
+      "avg_return": 6945.0,
+      "total_trades": 8,
+      "best_trade": 13825.0,
+      "worst_trade": 119.0,
+      "sharpe_ratio": 1.7
+    },
+    {
+      "name": "Odowd William",
+      "score": 98.2,
+      "win_rate": 100.0,
+      "avg_return": 28.5,
+      "total_trades": 23,
+      "best_trade": 56.5,
+      "worst_trade": 8.3,
+      "sharpe_ratio": 1.65
+    },
+    {
+      "name": "Carson William H",
+      "score": 97.5,
+      "win_rate": 100.0,
+      "avg_return": 55.5,
+      "total_trades": 5,
+      "best_trade": 97.6,
+      "worst_trade": 26.8,
+      "sharpe_ratio": 1.49
+    },
+    {
+      "name": "Martell Frank",
+      "score": 96.1,
+      "win_rate": 100.0,
+      "avg_return": 18.9,
+      "total_trades": 5,
+      "best_trade": 36.9,
+      "worst_trade": 9.6,
+      "sharpe_ratio": 1.49
+    },
+    {
+      "name": "Shaw Thomas J",
+      "score": 94.6,
+      "win_rate": 100.0,
+      "avg_return": 18.9,
+      "total_trades": 30,
+      "best_trade": 58.5,
+      "worst_trade": 2.4,
+      "sharpe_ratio": 1.18
+    },
+    {
+      "name": "Kavanaugh Frank",
+      "score": 92.4,
+      "win_rate": 100.0,
+      "avg_return": 13.9,
+      "total_trades": 6,
+      "best_trade": 26.5,
+      "worst_trade": 7.5,
+      "sharpe_ratio": 2.05
+    },
+    {
+      "name": "Galkin Vladimir",
+      "score": 92.1,
+      "win_rate": 88.9,
+      "avg_return": 57.0,
+      "total_trades": 9,
+      "best_trade": 170.8,
+      "worst_trade": -25.1,
+      "sharpe_ratio": 1.09
+    },
+    {
+      "name": "Daly Joseph Patrick",
+      "score": 90.0,
+      "win_rate": 100.0,
+      "avg_return": 55.6,
+      "total_trades": 7,
+      "best_trade": 55.6,
+      "worst_trade": 55.6,
+      "sharpe_ratio": null
+    },
+    {
+      "name": "Lynx1 Capital Management Lp",
+      "score": 90.0,
+      "win_rate": 100.0,
+      "avg_return": 49.8,
+      "total_trades": 6,
+      "best_trade": 49.8,
+      "worst_trade": 49.8,
+      "sharpe_ratio": null
     }
   ]
 }

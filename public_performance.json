@@ -1,25 +1,31 @@
 {
-  "last_updated": "December 15, 2025 at 11:52 UTC",
-  "total_return_pct": 2.5,
-  "win_rate": 66.7,
-  "completed_trades": 3,
+  "last_updated": "December 16, 2025 at 08:14 UTC",
+  "total_return_pct": 2.15,
+  "win_rate": 75.0,
+  "completed_trades": 4,
   "active_trades": 9,
-  "avg_return_per_trade": 4.68,
-  "sharpe_ratio": 11.11,
+  "avg_return_per_trade": 3.84,
+  "sharpe_ratio": 10.22,
   "max_drawdown": -9.11,
-  "avg_hold_days": 14,
+  "avg_hold_days": 12,
   "best_trade_pct": 14.08,
   "worst_trade_pct": -0.77,
-  "alpha_vs_sp500": 2.19,
-  "avg_winner": 7.4,
+  "alpha_vs_sp500": 2.0,
+  "avg_winner": 5.38,
   "avg_loser": -0.77,
-  "win_loss_ratio": 9.61,
-  "profit_factor": 19.13,
-  "last_30_days_return": 14.03,
-  "last_10_trades_win_rate": 66.7,
-  "current_streak": 2,
+  "win_loss_ratio": 6.99,
+  "profit_factor": 20.85,
+  "last_30_days_return": 15.36,
+  "last_10_trades_win_rate": 75.0,
+  "current_streak": 3,
   "current_streak_type": "wins",
   "conviction_performance": [
+    {
+      "conviction": "VERY HIGH",
+      "trades": 1,
+      "win_rate": 100.0,
+      "avg_return": 1.33
+    },
     {
       "conviction": "HIGH",
       "trades": 2,
@@ -36,10 +42,19 @@
   "monthly_returns": [
     {
       "month": "2025-12",
-      "return": 14.03
+      "return": 15.36
     }
   ],
   "recent_trades": [
+    {
+      "ticker": "FOSL",
+      "entry_date": "Dec 08, 2025",
+      "exit_date": "Dec 16, 2025",
+      "hold_days": 7,
+      "return_pct": 1.33,
+      "conviction": "VERY HIGH",
+      "exit_reason": "Trailing Stop"
+    },
     {
       "ticker": "CBIO",
       "entry_date": "Dec 09, 2025",
@@ -73,64 +88,64 @@
       "ticker": "CBC",
       "entry_date": "Nov 26, 2025",
       "days_held": 19,
-      "unrealized_return": -3.62,
+      "unrealized_return": -4.38,
       "conviction": "VERY HIGH"
     },
     {
       "ticker": "VAC",
       "entry_date": "Nov 26, 2025",
       "days_held": 19,
-      "unrealized_return": 6.04,
+      "unrealized_return": 5.95,
       "conviction": "VERY HIGH"
     },
     {
       "ticker": "ARX",
       "entry_date": "Nov 27, 2025",
       "days_held": 18,
-      "unrealized_return": 7.4,
+      "unrealized_return": 5.48,
       "conviction": "HIGH"
     },
     {
       "ticker": "WSBC",
       "entry_date": "Dec 03, 2025",
-      "days_held": 11,
-      "unrealized_return": 7.27,
+      "days_held": 12,
+      "unrealized_return": 7.82,
       "conviction": "VERY HIGH"
     },
     {
       "ticker": "EMN",
       "entry_date": "Dec 03, 2025",
-      "days_held": 11,
-      "unrealized_return": 6.77,
+      "days_held": 12,
+      "unrealized_return": 4.85,
       "conviction": "VERY HIGH"
     },
     {
       "ticker": "HYNE",
       "entry_date": "Dec 08, 2025",
-      "days_held": 6,
-      "unrealized_return": -0.94,
-      "conviction": "VERY HIGH"
-    },
-    {
-      "ticker": "FOSL",
-      "entry_date": "Dec 08, 2025",
-      "days_held": 6,
-      "unrealized_return": 3.72,
+      "days_held": 7,
+      "unrealized_return": -0.8,
       "conviction": "VERY HIGH"
     },
     {
       "ticker": "UTI",
       "entry_date": "Dec 09, 2025",
-      "days_held": 5,
-      "unrealized_return": -0.46,
+      "days_held": 6,
+      "unrealized_return": 4.43,
       "conviction": "HIGH"
     },
     {
       "ticker": "KYMR",
       "entry_date": "Dec 12, 2025",
       "days_held": 3,
-      "unrealized_return": 2.13,
+      "unrealized_return": -1.47,
       "conviction": "VERY HIGH"
+    },
+    {
+      "ticker": "CLYM",
+      "entry_date": "Dec 16, 2025",
+      "days_held": 0,
+      "unrealized_return": 0.0,
+      "conviction": "HIGH"
     }
   ]
 }

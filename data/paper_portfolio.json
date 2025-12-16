@@ -1,6 +1,6 @@
 {
   "starting_capital": 10000,
-  "cash": 4472.375,
+  "cash": 4129.655,
   "positions": {
     "CBC": {
       "entry_date": "2025-11-26T11:43:44.081109",
@@ -79,9 +79,9 @@
       "shares": 18,
       "cost_basis": 586.8000000000001,
       "initial_stop_loss": 30.97,
-      "stop_loss": 33.2215,
+      "stop_loss": 33.3925,
       "take_profit": 35.208000000000006,
-      "highest_price": 34.97,
+      "highest_price": 35.15,
       "trailing_enabled": true,
       "signal_score": 29.12962241773009,
       "sector": NaN,
@@ -139,38 +139,16 @@
         }
       ]
     },
-    "FOSL": {
-      "entry_date": "2025-12-08T14:17:58.546855",
-      "entry_price": 3.76,
-      "shares": 160,
-      "cost_basis": 601.5999999999999,
-      "initial_stop_loss": 3.5719999999999996,
-      "stop_loss": 3.8142499999999995,
-      "take_profit": 4.0608,
-      "highest_price": 4.015,
-      "trailing_enabled": true,
-      "signal_score": 17.537975777269363,
-      "sector": NaN,
-      "multi_signal_tier": "none",
-      "has_politician_signal": false,
-      "tranches": [
-        {
-          "shares": 160,
-          "price": 3.76,
-          "date": "2025-12-08T14:17:58.546860"
-        }
-      ]
-    },
     "UTI": {
       "entry_date": "2025-12-09T16:22:36.613042",
       "entry_price": 24.955,
       "shares": 24,
       "cost_basis": 598.92,
       "initial_stop_loss": 23.70725,
-      "stop_loss": 23.70725,
+      "stop_loss": 24.756999999999998,
       "take_profit": 26.9514,
-      "highest_price": 24.99,
-      "trailing_enabled": false,
+      "highest_price": 26.06,
+      "trailing_enabled": true,
       "signal_score": 14.491598628745699,
       "sector": "Unknown",
       "multi_signal_tier": "none",
@@ -185,12 +163,12 @@
     },
     "KYMR": {
       "entry_date": "2025-12-12T11:47:20.645393",
-      "entry_price": 87.81,
-      "shares": 6,
-      "cost_basis": 526.86,
+      "entry_price": 86.958,
+      "shares": 10,
+      "cost_basis": 869.58,
       "initial_stop_loss": 83.4195,
-      "stop_loss": 83.4195,
-      "take_profit": 94.83480000000002,
+      "stop_loss": 82.61009999999999,
+      "take_profit": 93.91464,
       "highest_price": 89.68,
       "trailing_enabled": false,
       "signal_score": 16.293181464974072,
@@ -202,24 +180,51 @@
           "shares": 6,
           "price": 87.81,
           "date": "2025-12-12T11:47:20.645399"
+        },
+        {
+          "shares": 4,
+          "price": 85.68,
+          "date": "2025-12-16T08:13:54.008462"
+        }
+      ]
+    },
+    "CLYM": {
+      "entry_date": "2025-12-16T08:13:55.647747",
+      "entry_price": 3.81,
+      "shares": 160,
+      "cost_basis": 609.6,
+      "initial_stop_loss": 3.6195,
+      "stop_loss": 3.6195,
+      "take_profit": 4.114800000000001,
+      "highest_price": 3.81,
+      "trailing_enabled": false,
+      "signal_score": 13.741052182042552,
+      "sector": null,
+      "multi_signal_tier": "none",
+      "has_politician_signal": false,
+      "tranches": [
+        {
+          "shares": 160,
+          "price": 3.81,
+          "date": "2025-12-16T08:13:55.647750"
         }
       ]
     }
   },
   "pending_entries": {
-    "KYMR": {
-      "shares": 4,
-      "trigger_price": 86.0538,
-      "original_entry": 87.81,
-      "expires": "2025-12-17T11:47:20.826692",
-      "signal_score": 16.293181464974072
+    "CLYM": {
+      "shares": 107,
+      "trigger_price": 3.7338,
+      "original_entry": 3.81,
+      "expires": "2025-12-21T08:13:55.828450",
+      "signal_score": 13.741052182042552
     }
   },
-  "total_trades": 26,
-  "winning_trades": 8,
+  "total_trades": 27,
+  "winning_trades": 9,
   "losing_trades": 9,
-  "total_profit": 98.30500000000015,
+  "total_profit": 106.30500000000026,
   "max_portfolio_value": 11086.842,
   "max_drawdown": -9.109194484777545,
-  "last_updated": "2025-12-15T11:52:19.753027"
+  "last_updated": "2025-12-16T08:14:06.969301"
 }
