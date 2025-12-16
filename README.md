@@ -82,7 +82,7 @@ Enhances insider signals by checking for confirmation from other data sources:
   - Fully automated using Congress.gov API (zero manual work!)
   - Active: Full weight | Retiring: 1.5x boost | Retired: Exponential decay (never deleted)
   - Preserves historical data for analysis
-- **Institutional Holdings (13F):** API-based institutional ownership tracking via Financial Modeling Prep
+- **Institutional Holdings:** Validates with SEC 13F filings from 15 priority funds (Berkshire, Bridgewater, etc.)
 - **Tiered Classification:** Assigns signals to tiers based on confirmation count
   - **Tier 1** (3+ signals): Largest positions (100%), widest stops (12%)
   - **Tier 2** (2 signals): 75% positions, 10% stops
@@ -103,16 +103,13 @@ Enhances insider signals by checking for confirmation from other data sources:
 **Tracked politicians** (weighted by performance):
 - Nancy Pelosi (2.0x), Paul Pelosi (2.0x), Josh Gottheimer (1.8x), Mark Green (1.6x), Dan Crenshaw (1.5x), and 10+ more
 
-#### Institutional Holdings (13F Filings)
-**API-based 13F data extraction via Financial Modeling Prep:**
-- **Source:** Financial Modeling Prep API (free tier: 250 calls/day)
-- **Reliable:** Clean API integration replacing broken SEC EDGAR XML parser
-- **Quarterly data:** Automatically detects current quarter with 45-day filing lag
-- **Rate limiting:** Built-in daily call tracking (250/day sufficient for all tickers)
-- **Smart matching:** Identifies 15 target institutions (Vanguard, BlackRock, State Street, Fidelity, etc.)
-- **Rich data:** Returns shares held, market value, and portfolio weight percentages
-- **Fast:** Direct API calls vs. slow XML parsing + SEC server delays
-- **Migration:** Replaced 579-line XML parser with 291-line API client (50% code reduction)
+#### SEC 13F Parser
+**Production-ready institutional holdings validator:**
+- **30-second timeout:** Extended from 10s to handle slow SEC servers
+- **Exponential backoff:** Retry logic with 2s, 4s, 8s delays
+- **24-hour caching:** Avoids repeated API calls to SEC EDGAR
+- **XML error handling:** Gracefully handles malformed SEC responses with content cleaning
+- **Priority funds:** Tracks 15 top institutional investors (Berkshire Hathaway, Bridgewater, Renaissance Technologies, etc.)
 
 ---
 
@@ -240,7 +237,6 @@ This creates a fake urgent signal with multiple insiders to test the urgent emai
 | `GMAIL_APP_PASSWORD` | Yes | Gmail app-specific password |
 | `RECIPIENT_EMAIL` | Yes | Email to receive reports |
 | `RAPIDAPI_KEY` | Yes | RapidAPI key for politician trade data (100 calls/month free) |
-| `FMP_API_KEY` | Yes | Financial Modeling Prep API key for 13F institutional holdings (250 calls/day free) |
 | `CONGRESS_GOV_API_KEY` | No | Congress.gov API key for automated politician status updates (free) |
 
 ### Tuning Signal Parameters
@@ -249,13 +245,9 @@ Edit `jobs/process_signals.py` to adjust:
 
 **Clustering window:**
 ```python
-# In jobs/config.py
-MAX_SIGNALS_TO_ANALYZE = 200  # Max signals to analyze (increased from 50 to avoid artificial limiting)
-
-# In jobs/main.py
-cluster_df = cluster_and_score(df, window_days=5, top_n=config.MAX_SIGNALS_TO_ANALYZE)
+cluster_df = cluster_and_score(df, window_days=5, top_n=50)
 # window_days: Days ±trade date to look for clustering (default: 5)
-# top_n: Max signals to include in daily report (default: 200)
+# top_n: Max signals to include in daily report (default: 50)
 ```
 
 **Urgent alert thresholds:**
@@ -325,7 +317,6 @@ MULTI_SIGNAL_STOP_LOSS = {
    - `GMAIL_APP_PASSWORD` (required)
    - `RECIPIENT_EMAIL` (required)
    - `RAPIDAPI_KEY` (required - for politician trade data)
-   - `FMP_API_KEY` (required - for 13F institutional holdings data)
    - `CONGRESS_GOV_API_KEY` (optional - for automated politician status updates)
 
 ### Daily Signal Generation (Mon-Fri 7AM ET)
