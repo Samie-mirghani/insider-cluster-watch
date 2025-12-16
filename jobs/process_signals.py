@@ -967,18 +967,31 @@ def apply_insider_scoring(buys_df, cluster_df, tracker=None):
 
                 # Only show track record for notable performers with sufficient data
                 if total_trades >= 3 and win_rate_90d is not None and avg_return_90d is not None:
-                    # Top performers: ≥75% win rate
-                    if win_rate_90d >= 75:
-                        insider_details_map[insider_name] = {
+                    # Store details if win rate is outside 45-60% range
+                    track_data = {}
+
+                    # High performers: >60% win rate
+                    if win_rate_90d > 60:
+                        track_data = {
                             'track_record': f"{win_rate_90d:.0f}% win rate, {avg_return_90d:+.1f}% avg return",
-                            'is_notable': True
+                            'win_rate_display': f"✓ {win_rate_90d:.0f}% Win Rate",
+                            'win_rate_value': win_rate_90d,
+                            'is_notable': True,
+                            'is_high_performer': True
                         }
-                    # Poor performers: <30% win rate
-                    elif win_rate_90d < 30:
-                        insider_details_map[insider_name] = {
+                    # Low performers: <45% win rate
+                    elif win_rate_90d < 45:
+                        track_data = {
                             'track_record': f"{win_rate_90d:.0f}% win rate, {avg_return_90d:+.1f}% avg return",
-                            'is_notable': True
+                            'win_rate_display': f"⚠️ {win_rate_90d:.0f}% Win Rate",
+                            'win_rate_value': win_rate_90d,
+                            'is_notable': True,
+                            'is_high_performer': False
                         }
+
+                    # Only add to map if outside neutral range
+                    if track_data:
+                        insider_details_map[insider_name] = track_data
 
         if insider_scores:
             # Calculate average score for this cluster
@@ -1010,7 +1023,10 @@ def apply_insider_scoring(buys_df, cluster_df, tracker=None):
                         for orig_name, track_data in insider_details_map.items():
                             if orig_name in insider['name'] or insider['name'] in orig_name:
                                 insider['track_record'] = track_data['track_record']
+                                insider['win_rate_display'] = track_data.get('win_rate_display')
+                                insider['win_rate_value'] = track_data.get('win_rate_value')
                                 insider['is_notable'] = track_data['is_notable']
+                                insider['is_high_performer'] = track_data.get('is_high_performer')
                                 break
 
             # Create legacy format for backward compatibility

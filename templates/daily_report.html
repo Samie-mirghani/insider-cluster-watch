@@ -441,6 +441,11 @@
                                         {% if insider.is_grouped and insider.series and insider.series|length > 1 %} total{% endif %}
                                       </span>
                                     {% endif %}
+                                    {% if insider.win_rate_display %}
+                                      <span style="opacity: 0.85;">
+                                        • {{ insider.win_rate_display }}
+                                      </span>
+                                    {% endif %}
                                   </div>
                                   {% if insider.is_grouped and insider.series and insider.series|length > 1 %}
                                   <div style="color: #856404; font-size: 11px; margin-top: 4px; margin-left: 12px; opacity: 0.85;">
