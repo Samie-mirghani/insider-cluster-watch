@@ -212,25 +212,26 @@
         /* Insider Performers Grid - Premium Two-Tier Display */
         .insider-performers-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 25px;
             margin: 30px 0;
+            max-width: 100%;
         }
 
         /* Responsive grid - Top 5 Featured Display */
-        @media (min-width: 1400px) {
+        @media (min-width: 1200px) {
             .insider-performers-grid {
-                grid-template-columns: repeat(5, minmax(260px, 1fr));
+                grid-template-columns: repeat(5, 1fr);
             }
         }
 
-        @media (min-width: 1000px) and (max-width: 1399px) {
+        @media (min-width: 900px) and (max-width: 1199px) {
             .insider-performers-grid {
                 grid-template-columns: repeat(3, 1fr);
             }
         }
 
-        @media (min-width: 600px) and (max-width: 999px) {
+        @media (min-width: 600px) and (max-width: 899px) {
             .insider-performers-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
@@ -250,7 +251,6 @@
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
-            min-width: 260px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.04);
             display: flex;
             flex-direction: column;
@@ -427,8 +427,14 @@
             font-weight: 700;
         }
 
+        .performers-table-wrapper {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
         .performers-table {
             width: 100%;
+            min-width: 600px;
             border-collapse: separate;
             border-spacing: 0;
             background: white;
@@ -496,12 +502,6 @@
 
         /* Mobile responsiveness for table */
         @media (max-width: 768px) {
-            .performers-table {
-                display: block;
-                overflow-x: auto;
-                -webkit-overflow-scrolling: touch;
-            }
-
             .performers-table th,
             .performers-table td {
                 padding: 12px 10px;
@@ -1428,13 +1428,42 @@
             }
         }
 
-        // Helper function to format names from "Last Middle First" to "First Middle Last"
+        // Helper function to format insider names correctly
         function formatInsiderName(name) {
             if (!name) return '';
+
+            // List of keywords that indicate an institution rather than a person
+            const institutionKeywords = ['inc', 'llc', 'lp', 'ltd', 'corp', 'corporation', 'pharmaceutical',
+                                        'holdings', 'capital', 'management', 'advisors', 'partners', 'trust',
+                                        'fund', 'ventures', 'group', 'ctt', 'lynx1'];
+            const lowerName = name.toLowerCase();
+
+            // Check if this is an institution - if so, return as-is
+            if (institutionKeywords.some(keyword => lowerName.includes(keyword))) {
+                return name;
+            }
+
+            // Split name into parts
             const parts = name.trim().split(/\s+/);
-            if (parts.length <= 1) return name; // Single name, no change
-            // Reverse the order: last word becomes first, first word becomes last
-            return parts.reverse().join(' ');
+
+            // Single name - return as-is
+            if (parts.length <= 1) {
+                return name;
+            }
+
+            // Two parts - assume "LastName FirstName" format, swap them
+            if (parts.length === 2) {
+                return `${parts[1]} ${parts[0]}`;
+            }
+
+            // Three parts - assume "LastName FirstName Middle" format
+            // Transform to "FirstName Middle LastName"
+            if (parts.length === 3) {
+                return `${parts[1]} ${parts[2]} ${parts[0]}`;
+            }
+
+            // 4+ parts - likely institution or complex name, return as-is
+            return name;
         }
 
         // Load and display top performing insiders
@@ -1472,7 +1501,7 @@
                         `+${performer.avg_return}%` :
                         `${performer.avg_return}%`;
 
-                    // Format name from "Last Middle First" to "First Middle Last"
+                    // Format name from "Last First Middle" to "First Middle Last"
                     const displayName = formatInsiderName(performer.name);
 
                     return `
@@ -1513,7 +1542,7 @@
                     const tableRows = remaining10.map((performer, index) => {
                         const rank = index + 6;
                         const returnClass = performer.avg_return >= 0 ? 'positive' : 'neutral';
-                        // Format name from "Last Middle First" to "First Middle Last"
+                        // Format name from "Last First Middle" to "First Middle Last"
                         const displayName = formatInsiderName(performer.name);
 
                         return `
@@ -1531,21 +1560,23 @@
                     tableHTML = `
                         <div class="remaining-performers">
                             <h3>🎯 #6-15 Strong Performers</h3>
-                            <table class="performers-table">
-                                <thead>
-                                    <tr>
-                                        <th>Rank</th>
-                                        <th>Name</th>
-                                        <th>Score</th>
-                                        <th>Win Rate</th>
-                                        <th>Avg Return</th>
-                                        <th>Trades</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    ${tableRows}
-                                </tbody>
-                            </table>
+                            <div class="performers-table-wrapper">
+                                <table class="performers-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Rank</th>
+                                            <th>Name</th>
+                                            <th>Score</th>
+                                            <th>Win Rate</th>
+                                            <th>Avg Return</th>
+                                            <th>Trades</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        ${tableRows}
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     `;
                 }
