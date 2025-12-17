@@ -1,6 +1,6 @@
 {
   "starting_capital": 10000,
-  "cash": 4129.655,
+  "cash": 4251.804999999999,
   "positions": {
     "CBC": {
       "entry_date": "2025-11-26T11:43:44.081109",
@@ -188,43 +188,43 @@
         }
       ]
     },
-    "CLYM": {
-      "entry_date": "2025-12-16T08:13:55.647747",
-      "entry_price": 3.81,
-      "shares": 160,
-      "cost_basis": 609.6,
-      "initial_stop_loss": 3.6195,
-      "stop_loss": 3.6195,
-      "take_profit": 4.114800000000001,
-      "highest_price": 3.81,
+    "SMRT": {
+      "entry_date": "2025-12-17T08:49:46.891437",
+      "entry_price": 2.05,
+      "shares": 301,
+      "cost_basis": 617.05,
+      "initial_stop_loss": 1.9474999999999998,
+      "stop_loss": 1.9474999999999998,
+      "take_profit": 2.214,
+      "highest_price": 2.05,
       "trailing_enabled": false,
-      "signal_score": 13.741052182042552,
+      "signal_score": 17.028711111579078,
       "sector": null,
       "multi_signal_tier": "none",
       "has_politician_signal": false,
       "tranches": [
         {
-          "shares": 160,
-          "price": 3.81,
-          "date": "2025-12-16T08:13:55.647750"
+          "shares": 301,
+          "price": 2.05,
+          "date": "2025-12-17T08:49:46.891442"
         }
       ]
     }
   },
   "pending_entries": {
-    "CLYM": {
-      "shares": 107,
-      "trigger_price": 3.7338,
-      "original_entry": 3.81,
-      "expires": "2025-12-21T08:13:55.828450",
-      "signal_score": 13.741052182042552
+    "SMRT": {
+      "shares": 201,
+      "trigger_price": 2.009,
+      "original_entry": 2.05,
+      "expires": "2025-12-22T08:49:47.056819",
+      "signal_score": 17.028711111579078
     }
   },
-  "total_trades": 27,
-  "winning_trades": 9,
+  "total_trades": 28,
+  "winning_trades": 10,
   "losing_trades": 9,
-  "total_profit": 106.30500000000026,
+  "total_profit": 235.90500000000029,
   "max_portfolio_value": 11086.842,
   "max_drawdown": -9.109194484777545,
-  "last_updated": "2025-12-16T08:14:06.969301"
+  "last_updated": "2025-12-17T08:49:52.592347"
 }
