@@ -7,6 +7,9 @@ Centralized configuration for all paper trading parameters.
 
 import os
 
+# Signal processing limits
+MAX_SIGNALS_TO_ANALYZE = 200  # Maximum number of signals to analyze daily
+
 # Portfolio Settings
 STARTING_CAPITAL = 10000  # $10k starting capital
 
