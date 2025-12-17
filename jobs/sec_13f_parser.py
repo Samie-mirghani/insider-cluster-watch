@@ -38,7 +38,7 @@ class SEC13FParser:
     """
 
     BASE_URL = "https://www.sec.gov"
-
+    
     # Class-level flag to warn about missing yfinance only once
     _yfinance_warning_logged = False
 

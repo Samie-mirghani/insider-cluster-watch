@@ -1057,12 +1057,13 @@ def apply_insider_scoring(buys_df, cluster_df, tracker=None):
 
     return cluster_df
 
-def cluster_and_score(df, window_days=5, top_n=50, insider_tracker=None):
+def cluster_and_score(df, window_days=5, top_n=config.MAX_SIGNALS_TO_ANALYZE, insider_tracker=None):
     """
     df: raw DataFrame from fetch_openinsider_recent
     returns: DataFrame with per-ticker aggregated cluster info and suggested action/rationale
-    
+
     UPDATED: Now includes sector info, quality filters, and pattern detection
+    FIXED: Changed default top_n from hardcoded 50 to config.MAX_SIGNALS_TO_ANALYZE (200)
     """
     # filter buys
     buys = df[df['trade_type'].str.upper().str.contains('BUY|PURCHASE|P -', na=False)].copy()
