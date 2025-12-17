@@ -138,7 +138,9 @@ class MultiSignalDetector:
                         politician_clusters['ticker'] == ticker
                     ].iloc[0]
                     politician_score = politician_data['conviction_score']
-                logger.info(f"  ✓ Politician signal: {politician_data['num_politicians']} politicians")
+                    logger.info(f"  ✓ Politician signal: {politician_data['num_politicians']} politicians")
+                else:
+                    logger.debug("No politician data available")
 
             # Check institutional (if quarterly check enabled)
             has_institutional = False
