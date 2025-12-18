@@ -1,30 +1,30 @@
 {
-  "last_updated": "December 17, 2025 at 12:43 UTC",
-  "total_return_pct": 3.16,
-  "win_rate": 80.0,
-  "completed_trades": 5,
-  "active_trades": 9,
-  "avg_return_per_trade": 7.32,
-  "sharpe_ratio": 13.25,
+  "last_updated": "December 18, 2025 at 11:44 UTC",
+  "total_return_pct": 3.58,
+  "win_rate": 57.1,
+  "completed_trades": 7,
+  "active_trades": 10,
+  "avg_return_per_trade": 4.08,
+  "sharpe_ratio": 7.15,
   "max_drawdown": -9.11,
-  "avg_hold_days": 10,
+  "avg_hold_days": 11,
   "best_trade_pct": 21.26,
-  "worst_trade_pct": -0.77,
-  "alpha_vs_sp500": 3.28,
+  "worst_trade_pct": -5.62,
+  "alpha_vs_sp500": 4.8,
   "avg_winner": 9.35,
-  "avg_loser": -0.77,
-  "win_loss_ratio": 12.14,
-  "profit_factor": 48.32,
-  "last_30_days_return": 36.62,
-  "last_10_trades_win_rate": 80.0,
-  "current_streak": 4,
-  "current_streak_type": "wins",
+  "avg_loser": -2.95,
+  "win_loss_ratio": 3.17,
+  "profit_factor": 4.23,
+  "last_30_days_return": 28.55,
+  "last_10_trades_win_rate": 57.1,
+  "current_streak": 2,
+  "current_streak_type": "losses",
   "conviction_performance": [
     {
       "conviction": "VERY HIGH",
-      "trades": 1,
-      "win_rate": 100.0,
-      "avg_return": 1.33
+      "trades": 3,
+      "win_rate": 33.3,
+      "avg_return": -2.25
     },
     {
       "conviction": "HIGH",
@@ -42,10 +42,28 @@
   "monthly_returns": [
     {
       "month": "2025-12",
-      "return": 36.62
+      "return": 28.55
     }
   ],
   "recent_trades": [
+    {
+      "ticker": "KYMR",
+      "entry_date": "Dec 12, 2025",
+      "exit_date": "Dec 18, 2025",
+      "hold_days": 5,
+      "return_pct": -5.62,
+      "conviction": "VERY HIGH",
+      "exit_reason": "Stop Loss"
+    },
+    {
+      "ticker": "CBC",
+      "entry_date": "Nov 26, 2025",
+      "exit_date": "Dec 18, 2025",
+      "hold_days": 22,
+      "return_pct": -2.45,
+      "conviction": "VERY HIGH",
+      "exit_reason": "Time Stop"
+    },
     {
       "ticker": "CLYM",
       "entry_date": "Dec 16, 2025",
@@ -94,67 +112,74 @@
   ],
   "open_positions": [
     {
-      "ticker": "CBC",
-      "entry_date": "Nov 26, 2025",
-      "days_held": 21,
-      "unrealized_return": -3.16,
-      "conviction": "VERY HIGH"
-    },
-    {
       "ticker": "VAC",
       "entry_date": "Nov 26, 2025",
-      "days_held": 21,
-      "unrealized_return": 4.19,
+      "days_held": 22,
+      "unrealized_return": 6.41,
       "conviction": "VERY HIGH"
     },
     {
       "ticker": "ARX",
       "entry_date": "Nov 27, 2025",
       "days_held": 20,
-      "unrealized_return": 5.21,
+      "unrealized_return": 7.95,
       "conviction": "HIGH"
     },
     {
       "ticker": "WSBC",
       "entry_date": "Dec 03, 2025",
       "days_held": 14,
-      "unrealized_return": 6.47,
+      "unrealized_return": 7.36,
       "conviction": "VERY HIGH"
     },
     {
       "ticker": "EMN",
       "entry_date": "Dec 03, 2025",
       "days_held": 14,
-      "unrealized_return": 4.36,
+      "unrealized_return": 4.82,
       "conviction": "VERY HIGH"
     },
     {
       "ticker": "HYNE",
       "entry_date": "Dec 08, 2025",
-      "days_held": 8,
+      "days_held": 9,
       "unrealized_return": -0.72,
       "conviction": "VERY HIGH"
     },
     {
       "ticker": "UTI",
       "entry_date": "Dec 09, 2025",
-      "days_held": 7,
-      "unrealized_return": 3.83,
+      "days_held": 8,
+      "unrealized_return": 5.51,
       "conviction": "HIGH"
-    },
-    {
-      "ticker": "KYMR",
-      "entry_date": "Dec 12, 2025",
-      "days_held": 5,
-      "unrealized_return": -3.18,
-      "conviction": "VERY HIGH"
     },
     {
       "ticker": "SMRT",
       "entry_date": "Dec 17, 2025",
+      "days_held": 1,
+      "unrealized_return": 1.46,
+      "conviction": "VERY HIGH"
+    },
+    {
+      "ticker": "AMR",
+      "entry_date": "Dec 18, 2025",
       "days_held": 0,
       "unrealized_return": 0.0,
-      "conviction": "VERY HIGH"
+      "conviction": "MEDIUM"
+    },
+    {
+      "ticker": "BRR",
+      "entry_date": "Dec 18, 2025",
+      "days_held": 0,
+      "unrealized_return": 0.0,
+      "conviction": "MEDIUM"
+    },
+    {
+      "ticker": "ACVA",
+      "entry_date": "Dec 18, 2025",
+      "days_held": 0,
+      "unrealized_return": 0.0,
+      "conviction": "LOW"
     }
   ]
 }
