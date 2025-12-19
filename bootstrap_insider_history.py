@@ -215,8 +215,8 @@ def fetch_historical_trades(years_back: int, quick_test: bool = False) -> pd.Dat
         all_trades.append(buys)
 
     if all_trades:
-        # Fix for pandas FutureWarning: filter out empty DataFrames before concat
-        non_empty_trades = [df for df in all_trades if not df.empty]
+        # Fix for pandas FutureWarning: filter out empty and all-NA DataFrames before concat
+        non_empty_trades = [df for df in all_trades if not df.empty and not df.isna().all().all()]
         if non_empty_trades:
             combined = pd.concat(non_empty_trades, ignore_index=True)
             print(f"\n✅ Total historical trades fetched: {len(combined):,}")

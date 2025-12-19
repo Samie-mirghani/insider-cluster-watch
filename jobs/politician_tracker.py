@@ -371,11 +371,12 @@ class PoliticianTracker:
 
         if new_trades:
             new_df = pd.DataFrame(new_trades)
+            # Fix for pandas FutureWarning: handle empty and all-NA DataFrames properly
             if self.trades_history.empty:
-                self.trades_history = new_df
+                self.trades_history = new_df.copy()
             else:
-                # Check if new_df is not empty before concatenating to avoid FutureWarning
-                if not new_df.empty:
+                # Check if new_df is not empty and not all-NA before concatenating
+                if not new_df.empty and not new_df.isna().all().all():
                     self.trades_history = pd.concat([self.trades_history, new_df], ignore_index=True)
 
             self._save_trades_history()
@@ -446,8 +447,8 @@ class PoliticianTracker:
                 continue
 
         if lame_duck_trades:
-            # Fix for pandas FutureWarning: filter out empty DataFrames before concat
-            non_empty_trades = [df for df in lame_duck_trades if not df.empty]
+            # Fix for pandas FutureWarning: filter out empty and all-NA DataFrames before concat
+            non_empty_trades = [df for df in lame_duck_trades if not df.empty and not df.isna().all().all()]
             if non_empty_trades:
                 result = pd.concat(non_empty_trades, ignore_index=True)
                 logger.info(f"Found {len(result)} lame duck trades from {len(non_empty_trades)} politicians")

@@ -14,6 +14,15 @@ import xml.etree.ElementTree as ET
 import json
 import os
 from pathlib import Path
+from concurrent.futures import ThreadPoolExecutor, as_completed
+import threading
+
+try:
+    from rapidfuzz import fuzz
+    RAPIDFUZZ_AVAILABLE = True
+except ImportError:
+    RAPIDFUZZ_AVAILABLE = False
+    logging.warning("rapidfuzz not available - fuzzy matching disabled. Install with: pip install rapidfuzz")
 
 try:
     import yfinance as yf
@@ -29,6 +38,33 @@ except ImportError:
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
+# Parallel execution constants
+MAX_PARALLEL_WORKERS = 5  # Max concurrent fund lookups
+RATE_LIMIT_CALLS_PER_SECOND = 10  # SEC API rate limit
+
+# Fuzzy matching constants
+FUZZY_MATCH_THRESHOLD = 85  # Minimum match score (0-100)
+MIN_STRING_LENGTH_FOR_FUZZY = 3  # Minimum string length to avoid false positives
+
+
+class RateLimiter:
+    """Thread-safe rate limiter for API calls"""
+
+    def __init__(self, calls_per_second: float):
+        self.min_interval = 1.0 / calls_per_second
+        self.last_call = 0
+        self.lock = threading.Lock()
+
+    def wait(self):
+        """Wait if necessary to respect rate limit"""
+        with self.lock:
+            now = time.time()
+            time_since_last = now - self.last_call
+            if time_since_last < self.min_interval:
+                sleep_time = self.min_interval - time_since_last
+                time.sleep(sleep_time)
+            self.last_call = time.time()
 
 
 class SEC13FParser:
@@ -85,6 +121,9 @@ class SEC13FParser:
         self.max_retries = 3
         self.retry_delays = [2, 4, 8]  # Exponential backoff
         self.timeout = 30  # Increased from 10s
+
+        # Rate limiter for parallel requests
+        self.rate_limiter = RateLimiter(RATE_LIMIT_CALLS_PER_SECOND)
 
     def _get_cache_path(self, ticker: str) -> Path:
         """Get cache file path for a ticker"""
@@ -172,6 +211,95 @@ class SEC13FParser:
             logger.warning(f"Failed to lookup {ticker}: {last_error}")
 
         return None
+
+    def _normalize_company_name(self, name: str) -> str:
+        """
+        Normalize company name for matching
+        Removes common suffixes, punctuation, and normalizes whitespace
+
+        Args:
+            name: Company name to normalize
+
+        Returns:
+            Normalized company name
+        """
+        if not name or not isinstance(name, str):
+            return ""
+
+        # Convert to uppercase for case-insensitive matching
+        normalized = name.upper().strip()
+
+        # Remove trailing suffixes only (not in middle of words)
+        # Order matters - remove longer suffixes first
+        suffixes = [
+            ' CORPORATION', ' INCORPORATED', ' INC.', ' INC',
+            ' CORP.', ' CORP', ' LTD.', ' LTD', ' LLC',
+            ' CO.', ' CO', ' LP', ' L.P.', ' PLC',
+            ' COMPANY', ' GROUP', ' HOLDINGS'
+        ]
+        for suffix in suffixes:
+            if normalized.endswith(suffix):
+                normalized = normalized[:-len(suffix)].strip()
+
+        # Handle .COM domains specially (normalize "AMAZON.COM" to "AMAZON COM")
+        normalized = normalized.replace('.COM', ' COM')
+
+        # Remove other punctuation and normalize whitespace
+        for char in [',', '.', '-', '&', '/', '(', ')', "'", '"']:
+            normalized = normalized.replace(char, ' ')
+
+        # Normalize multiple spaces to single space
+        normalized = ' '.join(normalized.split())
+
+        return normalized
+
+    def _fuzzy_match_company_name(self, target_name: str, filing_name: str) -> tuple:
+        """
+        Perform fuzzy matching between target and filing company names
+        Returns (matched: bool, score: float, method: str)
+
+        Args:
+            target_name: Target company name (from ticker lookup)
+            filing_name: Company name from 13F filing
+
+        Returns:
+            Tuple of (matched, score, match_method)
+        """
+        # Normalize both names
+        target_clean = self._normalize_company_name(target_name)
+        filing_clean = self._normalize_company_name(filing_name)
+
+        # Validation: prevent false positives with short strings
+        if len(target_clean) < MIN_STRING_LENGTH_FOR_FUZZY or len(filing_clean) < MIN_STRING_LENGTH_FOR_FUZZY:
+            return (False, 0.0, "too_short")
+
+        # Try exact match first (after normalization)
+        if target_clean == filing_clean:
+            return (True, 100.0, "exact")
+
+        # Try substring match with high overlap ratio
+        if len(target_clean) >= 8 and target_clean in filing_clean:
+            overlap_ratio = len(target_clean) / len(filing_clean)
+            if overlap_ratio > 0.7:
+                return (True, 95.0, "substring_target_in_filing")
+
+        if len(filing_clean) >= 8 and filing_clean in target_clean:
+            overlap_ratio = len(filing_clean) / len(target_clean)
+            if overlap_ratio > 0.7:
+                return (True, 95.0, "substring_filing_in_target")
+
+        # Use rapidfuzz for fuzzy matching if available
+        if RAPIDFUZZ_AVAILABLE:
+            # Use token_sort_ratio for better matching with word order differences
+            score = fuzz.token_sort_ratio(target_clean, filing_clean)
+
+            if score >= FUZZY_MATCH_THRESHOLD:
+                return (True, score, "fuzzy")
+
+            return (False, score, "fuzzy_below_threshold")
+
+        # Fallback: no fuzzy matching available
+        return (False, 0.0, "no_fuzzy_lib")
 
     def get_latest_13f_filings(self, cik: str, count: int = 5) -> List[Dict]:
         """
@@ -361,49 +489,18 @@ class SEC13FParser:
 
                         # If target company name specified, only return matching holdings
                         if target_company_name:
-                            # Fuzzy match: check if key parts of company name are in the 13F name
-                            # Remove common suffixes/punctuation for better matching
-                            target_clean = target_company_name.upper().strip()
-                            name_clean = name.upper().strip()
-
-                            # Remove trailing suffixes only (not in middle of words)
-                            # Order matters - remove longer suffixes first
-                            for suffix in [' CORPORATION', ' INCORPORATED', ' INC.', ' INC',
-                                          ' CORP.', ' CORP', ' LTD.', ' LTD', ' LLC',
-                                          ' CO.', ' CO']:
-                                if target_clean.endswith(suffix):
-                                    target_clean = target_clean[:-len(suffix)].strip()
-                                if name_clean.endswith(suffix):
-                                    name_clean = name_clean[:-len(suffix)].strip()
-
-                            # Handle .COM domains specially (normalize "AMAZON.COM" to "AMAZON COM")
-                            target_clean = target_clean.replace('.COM', ' COM')
-                            name_clean = name_clean.replace('.COM', ' COM')
-
-                            # Remove other punctuation and normalize whitespace
-                            for char in [',', '.', '-', '&']:
-                                target_clean = target_clean.replace(char, ' ')
-                                name_clean = name_clean.replace(char, ' ')
-
-                            # Normalize multiple spaces to single space
-                            target_clean = ' '.join(target_clean.split())
-                            name_clean = ' '.join(name_clean.split())
-
-                            # Match logic: require exact match or high similarity to avoid false positives
-                            matched = False
-                            if target_clean == name_clean:
-                                # Exact match after cleaning
-                                matched = True
-                            elif len(target_clean) >= 8 and target_clean in name_clean and \
-                                 len(target_clean) / len(name_clean) > 0.7:
-                                # Target is substantial substring with high overlap ratio
-                                matched = True
-                            elif len(name_clean) >= 8 and name_clean in target_clean and \
-                                 len(name_clean) / len(target_clean) > 0.7:
-                                # 13F name is substantial substring with high overlap ratio
-                                matched = True
+                            # Use fuzzy matching to find company
+                            matched, score, method = self._fuzzy_match_company_name(target_company_name, name)
 
                             if matched:
+                                # Log fuzzy matches separately for monitoring
+                                if method == "fuzzy":
+                                    logger.info(f"Fuzzy match: '{target_company_name}' -> '{name}' ({score:.0f}%)")
+                                elif method in ["substring_target_in_filing", "substring_filing_in_target"]:
+                                    logger.debug(f"Substring match: '{target_company_name}' -> '{name}' ({score:.0f}%)")
+                                else:  # exact match
+                                    logger.debug(f"Exact match: '{target_company_name}' -> '{name}'")
+
                                 holdings.append({
                                     'name': name,
                                     'ticker_class': ticker,
@@ -429,9 +526,61 @@ class SEC13FParser:
             logger.debug(f"Error parsing 13F from {filing_url}: {e}")
             return pd.DataFrame()
 
+    def _check_single_fund(self, fund_name: str, cik: str, ticker: str, company_name: str) -> Optional[Dict]:
+        """
+        Check a single fund for holdings of a specific ticker
+        Thread-safe helper method for parallel execution
+
+        Args:
+            fund_name: Name of the fund
+            cik: Central Index Key
+            ticker: Stock ticker
+            company_name: Company name to match
+
+        Returns:
+            Dictionary with holding data if found, None otherwise
+        """
+        try:
+            # Apply rate limiting
+            self.rate_limiter.wait()
+
+            # Get latest filings
+            filings = self.get_latest_13f_filings(cik, count=2)
+
+            if not filings:
+                return None
+
+            # Check most recent filing
+            latest = filings[0]
+
+            # Parse holdings to find this company
+            # Use company name for matching (more reliable than ticker)
+            holdings = self.parse_13f_holdings(latest['url'], target_company_name=company_name)
+
+            if not holdings.empty:
+                # Found the company in this fund's holdings
+                holding = holdings.iloc[0]  # Should only be one match
+                result = {
+                    'fund': fund_name,
+                    'cik': cik,
+                    'filing_date': latest['date'],
+                    'ticker': ticker,
+                    'value': holding['value'],
+                    'shares': holding['shares']
+                }
+                logger.debug(f"✓ {fund_name}: {holding['shares']:,} shares (${holding['value']:,.0f})")
+                return result
+
+            return None
+
+        except Exception as e:
+            logger.debug(f"Error checking {fund_name}: {e}")
+            return None
+
     def check_institutional_interest(self, ticker: str, quarter_year: int, quarter: int) -> pd.DataFrame:
         """
         Check which priority funds hold a given ticker and extract actual position sizes
+        Uses parallel execution with ThreadPoolExecutor for improved performance
 
         Args:
             ticker: Stock ticker symbol
@@ -457,41 +606,34 @@ class SEC13FParser:
             self._write_cache(ticker, empty_df)
             return empty_df
 
-        results = []
-
+        # Prepare list of (fund_name, cik) tuples for parallel processing
+        fund_tasks = []
         for fund_name, ciks in self.PRIORITY_FUNDS.items():
             for cik in ciks:
+                fund_tasks.append((fund_name, cik))
+
+        # Execute fund checks in parallel
+        results = []
+        start_time = time.time()
+
+        with ThreadPoolExecutor(max_workers=MAX_PARALLEL_WORKERS) as executor:
+            # Submit all tasks
+            future_to_fund = {
+                executor.submit(self._check_single_fund, fund_name, cik, ticker, company_name): (fund_name, cik)
+                for fund_name, cik in fund_tasks
+            }
+
+            # Collect results as they complete
+            for future in as_completed(future_to_fund):
                 try:
-                    # Get latest filings
-                    filings = self.get_latest_13f_filings(cik, count=2)
-
-                    if not filings:
-                        continue
-
-                    # Check most recent filing
-                    latest = filings[0]
-
-                    # Parse holdings to find this company
-                    # Use company name for matching (more reliable than ticker)
-                    holdings = self.parse_13f_holdings(latest['url'], target_company_name=company_name)
-
-                    if not holdings.empty:
-                        # Found the company in this fund's holdings
-                        holding = holdings.iloc[0]  # Should only be one match
-                        results.append({
-                            'fund': fund_name,
-                            'cik': cik,
-                            'filing_date': latest['date'],
-                            'ticker': ticker,
-                            'value': holding['value'],
-                            'shares': holding['shares']
-                        })
-                        logger.debug(f"✓ {fund_name}: {holding['shares']:,} shares (${holding['value']:,.0f})")
-
+                    result = future.result()
+                    if result is not None:
+                        results.append(result)
                 except Exception as e:
-                    logger.debug(f"Error checking {fund_name}: {e}")
-                    continue
+                    fund_name, cik = future_to_fund[future]
+                    logger.debug(f"Exception in parallel fund check for {fund_name}: {e}")
 
+        elapsed_time = time.time() - start_time
         df = pd.DataFrame(results)
 
         # Log summary with institutions checked and holdings found
@@ -499,11 +641,11 @@ class SEC13FParser:
         holdings_found = len(df)
 
         if not df.empty:
-            logger.info(f"✓ {ticker}: Checked {total_institutions} institutions, {holdings_found} have positions")
+            logger.info(f"✓ {ticker}: Checked {total_institutions} institutions in {elapsed_time:.1f}s, {holdings_found} have positions")
             # Cache the results
             self._write_cache(ticker, df)
         else:
-            logger.info(f"✓ {ticker}: Checked {total_institutions} institutions, {holdings_found} have positions")
+            logger.info(f"✓ {ticker}: Checked {total_institutions} institutions in {elapsed_time:.1f}s, {holdings_found} have positions")
             # Cache empty result too (avoid repeated failed lookups)
             self._write_cache(ticker, df)
 
