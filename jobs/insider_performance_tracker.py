@@ -278,13 +278,21 @@ class InsiderPerformanceTracker:
 
         if new_trades:
             new_df = pd.DataFrame(new_trades)
+
             # Fix for pandas FutureWarning: handle empty and all-NA DataFrames properly
-            if self.trades_history.empty:
-                self.trades_history = new_df.copy()
-            else:
-                # Check if new_df is not empty and not all-NA before concatenating
-                if not new_df.empty and not new_df.isna().all().all():
-                    self.trades_history = pd.concat([self.trades_history, new_df], ignore_index=True)
+            # Check validity of both DataFrames before concatenating
+            new_df_valid = not new_df.empty and not new_df.isna().all().all()
+            history_valid = not self.trades_history.empty and not self.trades_history.isna().all().all()
+
+            if not history_valid:
+                # History is empty or all-NA, initialize with new data
+                if new_df_valid:
+                    self.trades_history = new_df.copy()
+                # else: both invalid, keep empty history
+            elif new_df_valid:
+                # Both are valid, safe to concatenate
+                self.trades_history = pd.concat([self.trades_history, new_df], ignore_index=True)
+            # else: new_df invalid but history valid, do nothing (keep existing history)
 
             # Only print summary when adding multiple trades or in verbose mode
             if self.verbose or len(new_trades) > 5:
