@@ -149921,5 +149921,25 @@
       "90d": null,
       "180d": null
     }
+  },
+  {
+    "trade_id": "RNXT_Bagai Shaun_2025-12-17 00:00:00",
+    "ticker": "RNXT",
+    "insider_name": "Bagai Shaun",
+    "trade_date": "2025-12-17",
+    "entry_price": 0.85,
+    "title": "CEO",
+    "qty": 5000,
+    "value": 4262,
+    "status": "TRACKING",
+    "tracked_since": "2025-12-19T12:06:45.337560",
+    "source": "daily_signal_detection",
+    "last_updated": "2025-12-19T12:06:45.337565",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    }
   }
 ]
