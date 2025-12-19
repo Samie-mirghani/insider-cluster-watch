@@ -266,12 +266,12 @@ def append_to_history(cluster_df):
 
     if os.path.exists(HISTORY_CSV):
         old = pd.read_csv(HISTORY_CSV)
-        # Fix for pandas FutureWarning: handle empty DataFrame properly
+        # Fix for pandas FutureWarning: handle empty and all-NA DataFrames properly
         if old.empty:
-            combined = new_df
+            combined = new_df.copy()
         else:
-            # Check if new_df is not empty before concatenating to avoid FutureWarning
-            if not new_df.empty:
+            # Check if new_df is not empty and not all-NA before concatenating
+            if not new_df.empty and not new_df.isna().all().all():
                 combined = pd.concat([old, new_df], ignore_index=True)
             else:
                 combined = old
@@ -420,7 +420,7 @@ def main(test=False, urgent_test=False, enable_paper_trading=True):
     print("   • Pattern detection (accelerating buys, CEO clusters)")
     if ENABLE_INSIDER_SCORING:
         print("   • Follow-the-Smart-Money scoring (insider track records)")
-    cluster_df = cluster_and_score(df, window_days=5, top_n=50, insider_tracker=insider_tracker)
+    cluster_df = cluster_and_score(df, window_days=5, top_n=200, insider_tracker=insider_tracker)
 
     if cluster_df is None or cluster_df.empty:
         print("ℹ️  No significant insider buying clusters detected")

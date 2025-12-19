@@ -112,8 +112,8 @@ INSIDER_SCORE_MULTIPLIER_MIN = 0.5
 INSIDER_SCORE_MULTIPLIER_MAX = 2.0
 
 # 13F Data Settings
-SEC_13F_CACHE_HOURS = 168  # Cache duration in hours (168 hours = 7 days)
-# 13F filings are quarterly, so weekly refresh is sufficient
+SEC_13F_CACHE_HOURS = 72  # Cache duration in hours (72 hours = 3 days)
+# 13F filings are quarterly, but 3-day refresh provides more timely institutional tracking
 # Set to lower value if you want more frequent checks (minimum 24 hours recommended)
 
 # Short Interest Analysis Settings
