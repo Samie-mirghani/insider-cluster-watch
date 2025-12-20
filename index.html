@@ -1428,13 +1428,41 @@
             }
         }
 
-        // Helper function to format names from "Last Middle First" to "First Middle Last"
+        // Helper function to format names from "Last First Middle" to "First Middle Last"
         function formatInsiderName(name) {
             if (!name) return '';
             const parts = name.trim().split(/\s+/);
             if (parts.length <= 1) return name; // Single name, no change
-            // Reverse the order: last word becomes first, first word becomes last
-            return parts.reverse().join(' ');
+
+            const entitySuffixes = ['Inc', 'LLC', 'Llc', 'LP', 'Lp', 'Ltd', 'Corporation', 'Corp', 'Co'];
+            const firstWord = parts[0];
+            const lastWord = parts[parts.length - 1];
+
+            // Check if entity suffix is at the START (e.g., "Inc Ctt Pharmaceutical Holdings")
+            if (entitySuffixes.includes(firstWord)) {
+                const suffix = parts.shift(); // Remove first word
+                // Add comma before suffix if it's a formal ending
+                if (['Inc', 'LLC', 'Ltd', 'Corp'].includes(suffix)) {
+                    return parts.join(' ') + ', ' + suffix + '.';
+                } else {
+                    const normalizedSuffix = suffix.toUpperCase();
+                    return parts.join(' ') + ' ' + normalizedSuffix;
+                }
+            }
+
+            // Check if entity suffix is at the END (e.g., "Lynx1 Capital Management Lp")
+            if (entitySuffixes.includes(lastWord)) {
+                const suffix = parts.pop(); // Remove last word
+                // Just uppercase the suffix and return
+                const normalizedSuffix = suffix.toUpperCase();
+                return parts.join(' ') + ' ' + normalizedSuffix;
+            }
+
+            // Person name: move first word (last name) to end
+            // "Salvucci Joseph V" → "Joseph V Salvucci"
+            const lastName = parts.shift(); // Remove first word (last name)
+            parts.push(lastName); // Add it to the end
+            return parts.join(' ');
         }
 
         // Load and display top performing insiders
