@@ -408,12 +408,10 @@ class PaperTradingPortfolio:
         
         logger.info(f"\n{'='*60}")
         logger.info(f"📊 SIGNAL EVALUATION: {ticker}")
-        logger.info(f"   Entry Price: ${entry_price:.2f}")
-        logger.info(f"   Signal Score: {signal_score:.2f}")
 
         # Validation 1: Valid price
         if not entry_price or entry_price <= 0:
-            logger.warning(f"   ❌ REJECTED: Invalid price")
+            logger.warning(f"   ❌ REJECTED: Invalid price (value: {entry_price})")
             return False
 
         # Validation 2: Signal score threshold (defensive check)
@@ -426,6 +424,10 @@ class PaperTradingPortfolio:
         if signal_score < MIN_SIGNAL_SCORE_THRESHOLD:
             logger.warning(f"   ❌ REJECTED: Score {signal_score:.2f} below threshold {MIN_SIGNAL_SCORE_THRESHOLD}")
             return False
+
+        # Log validated values
+        logger.info(f"   Entry Price: ${entry_price:.2f}")
+        logger.info(f"   Signal Score: {signal_score:.2f}")
 
         # Validation 3: No duplicate position
         if ticker in self.positions:
