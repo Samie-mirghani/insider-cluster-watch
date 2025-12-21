@@ -25,7 +25,8 @@ from insider_performance_auto_tracker import AutoInsiderTracker
 from config import (
     ENABLE_INSIDER_SCORING, INSIDER_LOOKBACK_YEARS, MIN_TRADES_FOR_INSIDER_SCORE,
     INSIDER_OUTCOME_UPDATE_BATCH_SIZE, INSIDER_API_RATE_LIMIT_DELAY,
-    ENABLE_SHORT_INTEREST_ANALYSIS, SHORT_INTEREST_CACHE_HOURS
+    ENABLE_SHORT_INTEREST_ANALYSIS, SHORT_INTEREST_CACHE_HOURS,
+    MIN_SIGNAL_SCORE_THRESHOLD
 )
 
 # Short interest analysis import
@@ -822,13 +823,56 @@ def main(test=False, urgent_test=False, enable_paper_trading=True):
         # Check exits first (stops, targets, scaling)
         print(f"\n🔍 Checking exits and updates...")
         closed = paper_trader.check_exits()
-        
-        # Process new signals
-        print(f"\n📊 Processing {len(cluster_df)} new signal(s)...")
+
+        # Filter signals by minimum score threshold
+        print(f"\n🎯 Filtering signals by score threshold (min: {MIN_SIGNAL_SCORE_THRESHOLD})...")
+        total_signals = len(cluster_df)
+        rejected_signals = []
+        qualified_signals = []
+
+        for _, signal_row in cluster_df.iterrows():
+            ticker = signal_row.get('ticker', 'UNKNOWN')
+            score = signal_row.get('rank_score', 0)
+
+            # Validate score exists and is numeric
+            if score is None or pd.isna(score):
+                print(f"   ⚠️  {ticker}: REJECTED - Missing or invalid score")
+                rejected_signals.append({'ticker': ticker, 'score': 'N/A', 'reason': 'missing_score'})
+                continue
+
+            # Check if score meets threshold
+            if score < MIN_SIGNAL_SCORE_THRESHOLD:
+                print(f"   ❌ {ticker}: REJECTED - Score {score:.2f} below threshold {MIN_SIGNAL_SCORE_THRESHOLD}")
+                rejected_signals.append({'ticker': ticker, 'score': score, 'reason': 'below_threshold'})
+            else:
+                qualified_signals.append(signal_row)
+
+        # Convert qualified signals back to DataFrame
+        if qualified_signals:
+            qualified_df = pd.DataFrame(qualified_signals)
+        else:
+            qualified_df = pd.DataFrame()
+
+        # Log summary
+        qualified_count = len(qualified_df)
+        rejected_count = len(rejected_signals)
+        qualification_rate = (qualified_count / total_signals * 100) if total_signals > 0 else 0
+
+        print(f"\n📊 Signal Quality Filter Results:")
+        print(f"   Total Signals: {total_signals}")
+        print(f"   ✅ Qualified: {qualified_count} ({qualification_rate:.1f}%)")
+        print(f"   ❌ Rejected: {rejected_count} ({100-qualification_rate:.1f}%)")
+
+        if qualified_count == 0:
+            print(f"\n⚠️  No signals meet minimum score threshold of {MIN_SIGNAL_SCORE_THRESHOLD}")
+            print(f"   Skipping position entry for this cycle")
+
+        # Process qualified signals only
+        print(f"\n📊 Processing {len(qualified_df)} qualified signal(s)...")
         signals_executed = 0
         signals_skipped = 0
 
-        for _, signal_row in cluster_df.iterrows():
+        for _, signal_row in qualified_df.iterrows():
             entry_price = signal_row.get('currentPrice')
             
             # Skip if no valid price (market data fetch failed)

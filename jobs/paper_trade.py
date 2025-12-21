@@ -309,12 +309,16 @@ class PaperTradingPortfolio:
     def calculate_position_size(self, signal):
         """
         Calculate appropriate position size based on portfolio value and risk params
-        Enhanced with multi-signal tier support
+        Enhanced with:
+        - Multi-signal tier support
+        - Score-weighted position sizing (higher scores = larger positions)
 
         Returns: (full_position_size, initial_size, second_tranche_size)
         """
         portfolio_value = self.get_portfolio_value()
         entry_price = signal.get('entry_price')
+        ticker = signal.get('ticker', 'UNKNOWN')
+        signal_score = signal.get('signal_score', 0)
 
         # Import multi-signal config if available
         try:
@@ -331,14 +335,54 @@ class PaperTradingPortfolio:
             tier_multiplier = MULTI_SIGNAL_POSITION_SIZES[multi_signal_tier]
             logger.info(f"   📊 Multi-Signal Tier: {multi_signal_tier.upper()} (multiplier: {tier_multiplier}x)")
 
-        # Calculate base position size
-        base_position_size = portfolio_value * self.max_position_pct
+        # Score-Weighted Position Sizing
+        # Position size scales with signal score: higher scores = larger positions
+        if ENABLE_SCORE_WEIGHTED_SIZING:
+            # Validate score
+            if signal_score is None or pd.isna(signal_score) or signal_score <= 0:
+                logger.warning(f"   ⚠️  {ticker}: Invalid score ({signal_score}), using default position sizing")
+                base_position_pct = self.max_position_pct
+            else:
+                # Linear scaling: score 6.0 → 5% position, score 20.0 → 15% position
+                # Formula: position_pct = MIN + (normalized_score * (MAX - MIN))
+                score_range = SCORE_WEIGHT_MAX_SCORE - SCORE_WEIGHT_MIN_SCORE
+
+                # Handle edge case: if score range is 0 or negative
+                if score_range <= 0:
+                    logger.warning(f"   ⚠️  Invalid score range config, using default sizing")
+                    base_position_pct = self.max_position_pct
+                else:
+                    # Clamp score to valid range
+                    clamped_score = max(SCORE_WEIGHT_MIN_SCORE, min(signal_score, SCORE_WEIGHT_MAX_SCORE))
+
+                    # Calculate normalized score (0.0 to 1.0)
+                    normalized_score = (clamped_score - SCORE_WEIGHT_MIN_SCORE) / score_range
+
+                    # Calculate position percentage
+                    base_position_pct = SCORE_WEIGHT_MIN_POSITION_PCT + (
+                        normalized_score * (SCORE_WEIGHT_MAX_POSITION_PCT - SCORE_WEIGHT_MIN_POSITION_PCT)
+                    )
+
+                    # Log the calculation
+                    logger.info(f"   📈 Score-Weighted Sizing for {ticker}:")
+                    logger.info(f"      Signal Score: {signal_score:.2f} (clamped: {clamped_score:.2f})")
+                    logger.info(f"      Normalized Score: {normalized_score:.2%}")
+                    logger.info(f"      Position %: {base_position_pct:.2%} (range: {SCORE_WEIGHT_MIN_POSITION_PCT:.2%}-{SCORE_WEIGHT_MAX_POSITION_PCT:.2%})")
+
+            base_position_size = portfolio_value * base_position_pct
+        else:
+            # Traditional fixed-percentage sizing
+            base_position_size = portfolio_value * self.max_position_pct
 
         # Apply tier multiplier for multi-signal trades
         full_position_size = base_position_size * tier_multiplier
 
         # Don't exceed 90% of available cash (keep buffer)
         full_position_size = min(full_position_size, self.cash * 0.9)
+
+        # Calculate dollar amount and percentage of available cash
+        cash_pct = (full_position_size / self.cash * 100) if self.cash > 0 else 0
+        logger.info(f"   💰 Position Size: ${full_position_size:,.2f} ({cash_pct:.1f}% of available cash)")
 
         if self.enable_scaling:
             # Split into 2 tranches: 60% initial, 40% on pullback
@@ -366,18 +410,29 @@ class PaperTradingPortfolio:
         logger.info(f"📊 SIGNAL EVALUATION: {ticker}")
         logger.info(f"   Entry Price: ${entry_price:.2f}")
         logger.info(f"   Signal Score: {signal_score:.2f}")
-        
+
         # Validation 1: Valid price
         if not entry_price or entry_price <= 0:
             logger.warning(f"   ❌ REJECTED: Invalid price")
             return False
-        
-        # Validation 2: No duplicate position
+
+        # Validation 2: Signal score threshold (defensive check)
+        # Note: Signals should already be filtered in main.py, but we check again here
+        # in case execute_signal is called directly from other code paths
+        if signal_score is None or pd.isna(signal_score):
+            logger.warning(f"   ❌ REJECTED: Missing or invalid signal score")
+            return False
+
+        if signal_score < MIN_SIGNAL_SCORE_THRESHOLD:
+            logger.warning(f"   ❌ REJECTED: Score {signal_score:.2f} below threshold {MIN_SIGNAL_SCORE_THRESHOLD}")
+            return False
+
+        # Validation 3: No duplicate position
         if ticker in self.positions:
             logger.warning(f"   ⏭️  SKIPPED: Already have position in {ticker}")
             return False
-        
-        # Validation 3: Daily trade limit (reset counter if new day)
+
+        # Validation 4: Daily trade limit (reset counter if new day)
         today = datetime.now().date()
         if self.last_trade_date != today:
             self.daily_trades_count = 0

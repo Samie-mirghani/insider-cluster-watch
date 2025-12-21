@@ -10,6 +10,9 @@ import os
 # Signal processing limits
 MAX_SIGNALS_TO_ANALYZE = 200  # Maximum number of signals to analyze daily
 
+# Signal Quality Filtering
+MIN_SIGNAL_SCORE_THRESHOLD = 6.0  # Minimum rank_score required to trade (filter low-quality signals)
+
 # Portfolio Settings
 STARTING_CAPITAL = 10000  # $10k starting capital
 
@@ -17,6 +20,14 @@ STARTING_CAPITAL = 10000  # $10k starting capital
 MAX_POSITION_PCT = 0.10  # 10% max per position
 MAX_TOTAL_EXPOSURE = 0.60  # 60% max total exposure
 MAX_POSITIONS = 15  # Max 15 concurrent positions
+
+# Score-Weighted Position Sizing
+# When enabled, position sizes scale with signal score (higher scores = larger positions)
+ENABLE_SCORE_WEIGHTED_SIZING = True  # Enable score-based position sizing
+SCORE_WEIGHT_MIN_POSITION_PCT = 0.05  # 5% min position size (for signals at MIN_SCORE)
+SCORE_WEIGHT_MAX_POSITION_PCT = 0.15  # 15% max position size (for signals at MAX_SCORE)
+SCORE_WEIGHT_MIN_SCORE = 6.0  # Minimum score in range (signals below this are filtered)
+SCORE_WEIGHT_MAX_SCORE = 20.0  # Maximum score in range (adjust based on actual max scores)
 
 # Risk Management
 STOP_LOSS_PCT = 0.05  # 5% initial stop loss
