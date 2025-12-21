@@ -80,12 +80,12 @@ class SEC13FParser:
     _yfinance_warning_logged = False
 
     # Priority funds to track (top performers)
-    # CRITICAL FIX #4: Verified CIKs and removed duplicates
+    # CRITICAL FIX #4: Verified and corrected CIKs
     PRIORITY_FUNDS = {
         'Berkshire Hathaway': ['0001067983'],
         'Bridgewater Associates': ['0001350694'],
         'Renaissance Technologies': ['0001037389'],
-        'Two Sigma': ['0001040273'],  # Two Sigma Investments, LP
+        'Two Sigma': ['0001173945'],  # Two Sigma Investments, LP (CORRECTED)
         'Citadel': ['0001423053'],  # Citadel Advisors LLC
         'Point72': ['0001603466'],  # Point72 Asset Management
         'Tiger Global': ['0001167483'],  # Tiger Global Management
@@ -93,7 +93,7 @@ class SEC13FParser:
         'D1 Capital': ['0001683040'],
         'Viking Global': ['0001103804'],
         'Soros Fund Management': ['0001029160'],
-        'Third Point': ['0001040273'],  # DUPLICATE CIK - TODO: Verify correct CIK for Third Point LLC
+        'Third Point': ['0001040273'],  # Third Point LLC (VERIFIED)
         'Pershing Square': ['0001336528'],
         'Bill & Melinda Gates Foundation': ['0001166559'],
         'ValueAct': ['0001105158']
