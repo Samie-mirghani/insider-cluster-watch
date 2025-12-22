@@ -188,18 +188,19 @@ class SEC13FParser:
         return None
 
     def _write_cache(self, ticker: str, df: pd.DataFrame, quarter_year: int = None, quarter: int = None):
-        """Write 13F results to cache - only caches non-empty results"""
-        # CRITICAL FIX #2: Don't cache empty DataFrames (prevents caching failures)
-        if df.empty or df.isna().all().all():
-            logger.warning(f"Not caching empty result for {ticker} - likely yfinance or API failure")
-            return
-
+        """Write 13F results to cache"""
         cache_path = self._get_cache_path(ticker, quarter_year, quarter)
 
         try:
+            # Cache both empty and non-empty results
+            # Empty results are legitimate when institutions don't hold the stock
             with open(cache_path, 'w') as f:
                 json.dump(df.to_dict('records'), f)
-            logger.debug(f"Cached 13F data for {ticker} ({quarter_year} Q{quarter})")
+
+            if df.empty:
+                logger.debug(f"Cached empty 13F result for {ticker} ({quarter_year} Q{quarter}) - no institutional holdings")
+            else:
+                logger.debug(f"Cached 13F data for {ticker} ({quarter_year} Q{quarter})")
         except Exception as e:
             logger.warning(f"Cache write error for {ticker}: {e}")
 
@@ -580,6 +581,7 @@ class SEC13FParser:
 
         Returns:
             Dictionary with holding data if found, None otherwise
+            OR dictionary with 'error': True if API call failed
         """
         try:
             # Apply rate limiting
@@ -589,6 +591,10 @@ class SEC13FParser:
             filings = self.get_latest_13f_filings(cik, count=2)
 
             if not filings:
+                # Distinguish between "no filings found" (legitimate) vs API failure
+                # If get_latest_13f_filings returns empty list, it could be either
+                # We'll treat it as "no holdings" rather than error
+                logger.debug(f"{fund_name}: No recent 13F filings found")
                 return None
 
             # Check most recent filing
@@ -611,12 +617,15 @@ class SEC13FParser:
                 }
                 logger.debug(f"✓ {fund_name}: {holding['shares']:,} shares (${holding['value']:,.0f})")
                 return result
+            else:
+                logger.debug(f"{fund_name}: Does not hold {ticker}")
 
             return None
 
         except Exception as e:
-            logger.debug(f"Error checking {fund_name}: {e}")
-            return None
+            # This is a genuine error - API failure, timeout, etc.
+            logger.warning(f"API error checking {fund_name} for {ticker}: {e}")
+            return {'error': True, 'fund': fund_name, 'exception': str(e)}
 
     def check_institutional_interest(self, ticker: str, quarter_year: int, quarter: int) -> pd.DataFrame:
         """
@@ -663,6 +672,7 @@ class SEC13FParser:
 
         # Execute fund checks in parallel
         results = []
+        api_errors = []
         start_time = time.time()
 
         with ThreadPoolExecutor(max_workers=MAX_PARALLEL_WORKERS) as executor:
@@ -677,10 +687,16 @@ class SEC13FParser:
                 try:
                     result = future.result()
                     if result is not None:
-                        results.append(result)
+                        # Check if this is an error result
+                        if isinstance(result, dict) and result.get('error'):
+                            api_errors.append(result)
+                        else:
+                            # Valid holding found
+                            results.append(result)
                 except Exception as e:
                     fund_name, cik = future_to_fund[future]
-                    logger.debug(f"Exception in parallel fund check for {fund_name}: {e}")
+                    logger.warning(f"Exception in parallel fund check for {fund_name}: {e}")
+                    api_errors.append({'error': True, 'fund': fund_name, 'exception': str(e)})
 
         elapsed_time = time.time() - start_time
         df = pd.DataFrame(results)
@@ -688,15 +704,25 @@ class SEC13FParser:
         # Log summary with institutions checked and holdings found
         total_institutions = len(self.PRIORITY_FUNDS)
         holdings_found = len(df)
+        errors_count = len(api_errors)
 
-        if not df.empty:
+        # Improved logging: distinguish between errors and legitimate empty results
+        if api_errors:
+            logger.warning(f"⚠️  {ticker}: {errors_count}/{total_institutions} institutions had API errors")
+            logger.warning(f"   Failed institutions: {', '.join([e['fund'] for e in api_errors])}")
+            # Don't cache if we had significant API failures
+            if errors_count > total_institutions / 2:
+                logger.warning(f"   Too many API errors ({errors_count}/{total_institutions}), not caching result")
+                return df
+
+        if holdings_found > 0:
             logger.info(f"✓ {ticker}: Checked {total_institutions} institutions in {elapsed_time:.1f}s, {holdings_found} have positions")
-            # Cache the results
-            self._write_cache(ticker, df, quarter_year, quarter)
         else:
-            logger.info(f"✓ {ticker}: Checked {total_institutions} institutions in {elapsed_time:.1f}s, {holdings_found} have positions")
-            # CRITICAL FIX #2: Empty results won't be cached (validated in _write_cache)
-            self._write_cache(ticker, df, quarter_year, quarter)
+            # No holdings found - this is often legitimate for small-cap stocks
+            logger.info(f"✓ {ticker}: Checked {total_institutions} institutions in {elapsed_time:.1f}s, 0 have positions (likely not held by mega-funds)")
+
+        # Cache the results (empty results are OK if no API errors)
+        self._write_cache(ticker, df, quarter_year, quarter)
 
         return df
 
@@ -710,17 +736,27 @@ class SEC13FParser:
         Returns:
             Dictionary with summary stats
         """
-        # Get current quarter
+        # Calculate most recent FILED quarter (13F filings due 45 days after quarter end)
         now = datetime.now()
-        quarter = (now.month - 1) // 3 + 1
-        year = now.year
+        current_month = now.month
+        current_year = now.year
 
-        # Check last quarter (13F filings lag by 45 days)
-        if quarter == 1:
+        # Conservative approach to ensure data availability
+        if current_month <= 2:  # Jan-Feb: Q3 of previous year
+            quarter = 3
+            year = current_year - 1
+        elif current_month <= 5:  # Mar-May: Q4 of previous year
             quarter = 4
-            year -= 1
-        else:
-            quarter -= 1
+            year = current_year - 1
+        elif current_month <= 8:  # Jun-Aug: Q1 of current year
+            quarter = 1
+            year = current_year
+        elif current_month <= 11:  # Sep-Nov: Q2 of current year
+            quarter = 2
+            year = current_year
+        else:  # December: Q3 of current year
+            quarter = 3
+            year = current_year
 
         holdings = self.check_institutional_interest(ticker, year, quarter)
 
