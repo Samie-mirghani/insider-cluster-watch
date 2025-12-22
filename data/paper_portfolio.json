@@ -1,6 +1,6 @@
 {
   "starting_capital": 10000,
-  "cash": 4239.4749999999985,
+  "cash": 3840.8649999999984,
   "positions": {
     "VAC": {
       "entry_date": "2025-11-26T11:43:44.391409",
@@ -118,9 +118,9 @@
       "shares": 3,
       "cost_basis": 594.75,
       "initial_stop_loss": 188.33749999999998,
-      "stop_loss": 196.042,
+      "stop_loss": 197.65699999999998,
       "take_profit": 214.11,
-      "highest_price": 206.36,
+      "highest_price": 208.06,
       "trailing_enabled": true,
       "signal_score": 9.546080815471049,
       "sector": "Industrials",
@@ -136,12 +136,12 @@
     },
     "BRR": {
       "entry_date": "2025-12-18T11:43:55.992500",
-      "entry_price": 3.21,
-      "shares": 193,
-      "cost_basis": 619.53,
+      "entry_price": 3.1619254658385088,
+      "shares": 322,
+      "cost_basis": 1018.1399999999999,
       "initial_stop_loss": 3.0494999999999997,
-      "stop_loss": 3.0494999999999997,
-      "take_profit": 3.4668,
+      "stop_loss": 3.003829192546583,
+      "take_profit": 3.4148795031055896,
       "highest_price": 3.21,
       "trailing_enabled": false,
       "signal_score": 7.182410939603519,
@@ -153,6 +153,11 @@
           "shares": 193,
           "price": 3.21,
           "date": "2025-12-18T11:43:55.992504"
+        },
+        {
+          "shares": 129,
+          "price": 3.09,
+          "date": "2025-12-22T11:49:16.854051"
         }
       ]
     },
@@ -184,10 +189,10 @@
       "shares": 40,
       "cost_basis": 614.4,
       "initial_stop_loss": 14.591999999999999,
-      "stop_loss": 14.591999999999999,
+      "stop_loss": 15.599,
       "take_profit": 16.5888,
-      "highest_price": 15.36,
-      "trailing_enabled": false,
+      "highest_price": 16.42,
+      "trailing_enabled": true,
       "signal_score": 15.829026574940773,
       "sector": null,
       "multi_signal_tier": "none",
@@ -206,10 +211,10 @@
       "shares": 31,
       "cost_basis": 618.4499999999999,
       "initial_stop_loss": 18.952499999999997,
-      "stop_loss": 18.952499999999997,
+      "stop_loss": 20.368,
       "take_profit": 21.546,
-      "highest_price": 19.95,
-      "trailing_enabled": false,
+      "highest_price": 21.44,
+      "trailing_enabled": true,
       "signal_score": 8.080811959209603,
       "sector": null,
       "multi_signal_tier": "none",
@@ -224,26 +229,12 @@
     }
   },
   "pending_entries": {
-    "SMRT": {
-      "shares": 201,
-      "trigger_price": 2.009,
-      "original_entry": 2.05,
-      "expires": "2025-12-22T08:49:47.056819",
-      "signal_score": 17.028711111579078
-    },
     "AMR": {
       "shares": 2,
       "trigger_price": 194.285,
       "original_entry": 198.25,
       "expires": "2025-12-23T11:43:54.887636",
       "signal_score": 9.546080815471049
-    },
-    "BRR": {
-      "shares": 129,
-      "trigger_price": 3.1458,
-      "original_entry": 3.21,
-      "expires": "2025-12-23T11:43:56.550673",
-      "signal_score": 7.182410939603519
     },
     "ACVA": {
       "shares": 53,
@@ -273,5 +264,5 @@
   "total_profit": 263.3050000000002,
   "max_portfolio_value": 11290.594999999998,
   "max_drawdown": -9.109194484777545,
-  "last_updated": "2025-12-19T12:11:44.520909"
+  "last_updated": "2025-12-22T11:49:51.871522"
 }
