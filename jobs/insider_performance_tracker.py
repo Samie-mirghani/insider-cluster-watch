@@ -209,12 +209,28 @@ class InsiderPerformanceTracker:
         return self._create_empty_trades_df()
 
     def _create_empty_trades_df(self) -> pd.DataFrame:
-        """Create an empty trades history DataFrame with the correct schema."""
-        return pd.DataFrame(columns=[
-            'trade_date', 'ticker', 'insider_name', 'insider_name_raw', 'title', 'qty', 'price',
-            'value', 'entry_price', 'outcome_30d', 'outcome_60d', 'outcome_90d', 'outcome_180d',
-            'return_30d', 'return_60d', 'return_90d', 'return_180d', 'last_updated'
-        ])
+        """Create an empty trades history DataFrame with the correct schema and dtypes."""
+        # Create DataFrame with explicit dtypes to prevent FutureWarning on concat
+        return pd.DataFrame({
+            'trade_date': pd.Series(dtype='datetime64[ns]'),
+            'ticker': pd.Series(dtype='str'),
+            'insider_name': pd.Series(dtype='str'),
+            'insider_name_raw': pd.Series(dtype='str'),
+            'title': pd.Series(dtype='str'),
+            'qty': pd.Series(dtype='float64'),
+            'price': pd.Series(dtype='float64'),
+            'value': pd.Series(dtype='float64'),
+            'entry_price': pd.Series(dtype='float64'),
+            'outcome_30d': pd.Series(dtype='float64'),
+            'outcome_60d': pd.Series(dtype='float64'),
+            'outcome_90d': pd.Series(dtype='float64'),
+            'outcome_180d': pd.Series(dtype='float64'),
+            'return_30d': pd.Series(dtype='float64'),
+            'return_60d': pd.Series(dtype='float64'),
+            'return_90d': pd.Series(dtype='float64'),
+            'return_180d': pd.Series(dtype='float64'),
+            'last_updated': pd.Series(dtype='str')
+        })
 
     def _save_trades_history(self):
         """Save trades history to CSV file."""
@@ -282,15 +298,19 @@ class InsiderPerformanceTracker:
             # Fix for pandas FutureWarning: handle empty and all-NA DataFrames properly
             # Check validity of both DataFrames before concatenating
             new_df_valid = not new_df.empty and not new_df.isna().all().all()
-            history_valid = not self.trades_history.empty and not self.trades_history.isna().all().all()
+            # Use len() check to avoid false positives with empty DataFrames that have schema
+            history_has_data = len(self.trades_history) > 0 and not self.trades_history.isna().all().all()
 
-            if not history_valid:
+            if not history_has_data:
                 # History is empty or all-NA, initialize with new data
                 if new_df_valid:
                     self.trades_history = new_df.copy()
+                    if self.verbose:
+                        print(f"Initialized trades history with {len(new_df)} new trades")
                 # else: both invalid, keep empty history
             elif new_df_valid:
                 # Both are valid, safe to concatenate
+                # This should not trigger FutureWarning since both have proper dtypes now
                 self.trades_history = pd.concat([self.trades_history, new_df], ignore_index=True)
             # else: new_df invalid but history valid, do nothing (keep existing history)
 

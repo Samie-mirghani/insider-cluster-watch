@@ -584,15 +584,35 @@ def main(test=False, urgent_test=False, enable_paper_trading=True):
         try:
             detector = MultiSignalDetector(SEC_USER_AGENT, politician_tracker=politician_tracker)
 
-            # Get current quarter for 13F checks
+            # Calculate most recent FILED quarter for 13F checks
+            # 13F filings are due 45 days after quarter end
+            # We use a conservative approach to ensure data is available
             now = datetime.utcnow()
-            quarter = (now.month - 1) // 3 + 1
-            year = now.year
-            if quarter == 1:
+            current_month = now.month
+            current_year = now.year
+
+            # Q1 ends Mar 31 (filed by ~May 15)
+            # Q2 ends Jun 30 (filed by ~Aug 14)
+            # Q3 ends Sep 30 (filed by ~Nov 14)
+            # Q4 ends Dec 31 (filed by ~Feb 14)
+
+            if current_month <= 2:  # Jan-Feb: Q3 of previous year is most recent
+                quarter = 3
+                year = current_year - 1
+            elif current_month <= 5:  # Mar-May: Q4 of previous year
                 quarter = 4
-                year -= 1
-            else:
-                quarter -= 1
+                year = current_year - 1
+            elif current_month <= 8:  # Jun-Aug: Q1 of current year
+                quarter = 1
+                year = current_year
+            elif current_month <= 11:  # Sep-Nov: Q2 of current year
+                quarter = 2
+                year = current_year
+            else:  # December: Q3 of current year
+                quarter = 3
+                year = current_year
+
+            logger.info(f"Using 13F filing quarter: {year} Q{quarter} (current date: {now.strftime('%Y-%m-%d')})")
 
             # Run full scan
             multi_signal_results = detector.run_full_scan(
