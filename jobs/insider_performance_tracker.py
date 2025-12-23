@@ -295,7 +295,19 @@ class InsiderPerformanceTracker:
         if new_trades:
             new_df = pd.DataFrame(new_trades)
 
-            # Fix for pandas FutureWarning: handle empty and all-NA DataFrames properly
+            # CRITICAL FIX for pandas FutureWarning: Ensure dtypes match before concat
+            # Convert new_df to match the schema/dtypes of trades_history to prevent dtype mismatch warnings
+            # This is necessary because pd.DataFrame(list_of_dicts) infers dtypes, which may differ from our explicit schema
+            if not self.trades_history.empty:
+                # Match dtypes to existing history
+                for col in new_df.columns:
+                    if col in self.trades_history.columns:
+                        try:
+                            new_df[col] = new_df[col].astype(self.trades_history[col].dtype)
+                        except (ValueError, TypeError):
+                            # If conversion fails, pandas will handle it during concat
+                            pass
+
             # Check validity of both DataFrames before concatenating
             new_df_valid = not new_df.empty and not new_df.isna().all().all()
             # Use len() check to avoid false positives with empty DataFrames that have schema
@@ -309,8 +321,7 @@ class InsiderPerformanceTracker:
                         print(f"Initialized trades history with {len(new_df)} new trades")
                 # else: both invalid, keep empty history
             elif new_df_valid:
-                # Both are valid, safe to concatenate
-                # This should not trigger FutureWarning since both have proper dtypes now
+                # Both are valid and dtypes now match, safe to concatenate
                 self.trades_history = pd.concat([self.trades_history, new_df], ignore_index=True)
             # else: new_df invalid but history valid, do nothing (keep existing history)
 

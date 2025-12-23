@@ -4,8 +4,12 @@ import argparse
 from datetime import datetime, timedelta
 import pandas as pd
 from dotenv import load_dotenv
+import logging
 
 load_dotenv()
+
+# Initialize logger
+logger = logging.getLogger(__name__)
 
 from fetch_openinsider import fetch_openinsider_recent
 from fetch_sec_edgar import fetch_sec_edgar_data
@@ -331,8 +335,15 @@ def append_to_history(cluster_df):
         if old.empty:
             combined = new_df.copy()
         else:
-            # Check if new_df is not empty and not all-NA before concatenating
+            # CRITICAL FIX: Ensure dtypes match before concat
             if not new_df.empty and not new_df.isna().all().all():
+                # Match dtypes to existing history
+                for col in new_df.columns:
+                    if col in old.columns:
+                        try:
+                            new_df[col] = new_df[col].astype(old[col].dtype)
+                        except (ValueError, TypeError):
+                            pass
                 combined = pd.concat([old, new_df], ignore_index=True)
             else:
                 combined = old

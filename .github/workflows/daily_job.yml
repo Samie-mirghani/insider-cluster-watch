@@ -88,6 +88,14 @@ jobs:
             echo "✅ Added politician_trades_cache.json"
           fi
 
+          # CRITICAL FIX: Add politician status check timestamp file to prevent daily checks
+          # This file tracks the last time politician statuses were checked
+          # Without committing it, the check runs EVERY DAY instead of quarterly (90 days)
+          if [ -f "data/politician_status_last_checked.json" ]; then
+            git add -f data/politician_status_last_checked.json
+            echo "✅ Added politician_status_last_checked.json (prevents daily status checks)"
+          fi
+
           # Add FMP API cache file (company profiles)
           if [ -f "data/company_profiles_cache.json" ]; then
             git add -f data/company_profiles_cache.json
@@ -159,6 +167,11 @@ jobs:
 
           if [ -f "data/politician_trades_cache.json" ]; then
             git add -f data/politician_trades_cache.json
+          fi
+
+          # Add politician status check timestamp file
+          if [ -f "data/politician_status_last_checked.json" ]; then
+            git add -f data/politician_status_last_checked.json
           fi
 
           # Add FMP API cache file if it exists
