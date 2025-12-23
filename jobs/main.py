@@ -48,7 +48,9 @@ try:
         SEC_USER_AGENT, POLITICIAN_LOOKBACK_DAYS, POLITICIAN_MAX_PAGES,
         ENABLE_POLITICIAN_TIME_DECAY, POLITICIAN_DECAY_HALF_LIFE_DAYS,
         POLITICIAN_MIN_WEIGHT_FRACTION, POLITICIAN_RETIRING_BOOST,
-        ENABLE_AUTOMATED_POLITICIAN_STATUS_CHECK, CONGRESS_GOV_API_KEY
+        ENABLE_AUTOMATED_POLITICIAN_STATUS_CHECK, CONGRESS_GOV_API_KEY,
+        POLITICIAN_STATUS_CHECK_INTERVAL_DAYS, POLITICIAN_STATUS_LAST_CHECKED_FILE,
+        FORCE_POLITICIAN_STATUS_CHECK
     )
     MULTI_SIGNAL_AVAILABLE = True
 except ImportError as e:
@@ -62,6 +64,63 @@ DATA_DIR = os.path.join(os.path.dirname(__file__), '..', 'data')
 if not os.path.exists(DATA_DIR):
     os.makedirs(DATA_DIR)
 HISTORY_CSV = os.path.join(DATA_DIR, 'signals_history.csv')
+
+def should_check_politician_status():
+    """
+    Determine if it's time to check politician statuses.
+
+    Returns:
+        bool: True if check should run, False otherwise
+    """
+    # Force check override
+    if FORCE_POLITICIAN_STATUS_CHECK:
+        print("   🔧 FORCE_POLITICIAN_CHECK enabled - bypassing interval check")
+        return True
+
+    last_checked_path = os.path.join(DATA_DIR, 'politician_status_last_checked.json')
+
+    # First run ever - no timestamp file exists
+    if not os.path.exists(last_checked_path):
+        return True
+
+    try:
+        with open(last_checked_path, 'r') as f:
+            data = json.load(f)
+            last_checked_str = data.get('last_checked')
+
+            if not last_checked_str:
+                return True
+
+            # Parse last checked timestamp
+            last_checked = datetime.strptime(last_checked_str, '%Y-%m-%d %H:%M:%S')
+            days_since_check = (datetime.utcnow() - last_checked).days
+
+            if days_since_check >= POLITICIAN_STATUS_CHECK_INTERVAL_DAYS:
+                return True
+            else:
+                next_check_days = POLITICIAN_STATUS_CHECK_INTERVAL_DAYS - days_since_check
+                print(f"   ℹ️  Politician status check skipped (last checked {days_since_check} days ago, next check in {next_check_days} days)")
+                return False
+
+    except (json.JSONDecodeError, ValueError, KeyError) as e:
+        # Corrupted timestamp file - run check
+        print(f"   ⚠️  Corrupted timestamp file, running check: {e}")
+        return True
+
+def mark_politician_status_checked():
+    """
+    Record that politician status was checked.
+    """
+    last_checked_path = os.path.join(DATA_DIR, 'politician_status_last_checked.json')
+
+    timestamp_data = {
+        'last_checked': datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S'),
+        'next_check_due': (datetime.utcnow() + timedelta(days=POLITICIAN_STATUS_CHECK_INTERVAL_DAYS)).strftime('%Y-%m-%d'),
+        'check_interval_days': POLITICIAN_STATUS_CHECK_INTERVAL_DAYS
+    }
+
+    with open(last_checked_path, 'w') as f:
+        json.dump(timestamp_data, f, indent=2)
 
 def load_recent_signals(days_back=30):
     """
@@ -547,19 +606,30 @@ def main(test=False, urgent_test=False, enable_paper_trading=True):
         if ENABLE_13F_CHECKING:
             print("   • Checking 13F institutional holdings")
 
-        # Automated politician status check (Option C - Fully Automated)
+        # Automated politician status check (Option C - Fully Automated with Quarterly Frequency)
         if ENABLE_AUTOMATED_POLITICIAN_STATUS_CHECK:
             try:
-                api_key = os.getenv('CONGRESS_GOV_API_KEY') or CONGRESS_GOV_API_KEY
-                if api_key:
-                    checker = create_automated_checker(api_key=api_key)
-                    result = checker.check_and_update_statuses()
-                    # Only print if there are actual status changes
-                    if result['status'] == 'success' and result['changes']:
-                        print("   • Running automated politician status check...")
-                        print(f"     - Auto-updated {len(result['changes'])} politician statuses")
-                        for change in result['changes']:
-                            print(f"       • {change['politician']}: {change['old_status']} → {change['new_status']}")
+                # Check if it's time to run the quarterly status check
+                if should_check_politician_status():
+                    api_key = os.getenv('CONGRESS_GOV_API_KEY') or CONGRESS_GOV_API_KEY
+                    if api_key:
+                        print("   • Running quarterly politician status check...")
+                        checker = create_automated_checker(api_key=api_key)
+                        result = checker.check_and_update_statuses()
+
+                        # Record the check timestamp
+                        mark_politician_status_checked()
+
+                        # Print results
+                        if result['status'] == 'success':
+                            if result['changes']:
+                                print(f"     ✅ Auto-updated {len(result['changes'])} politician statuses")
+                                for change in result['changes']:
+                                    print(f"       • {change['politician']}: {change['old_status']} → {change['new_status']}")
+                            else:
+                                print(f"     ✅ No status changes detected (checked {result.get('checked_politicians', 0)} politicians)")
+                        else:
+                            print(f"     ⚠️  Status check failed: {result.get('reason', 'unknown')}")
             except Exception as e:
                 # Silent failure - automated check is optional, don't clutter logs
                 pass

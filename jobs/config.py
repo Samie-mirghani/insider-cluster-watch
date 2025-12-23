@@ -178,11 +178,23 @@ POLITICIAN_RETIRING_BOOST = 1.5  # Weight multiplier for "lame duck" trades (ann
 # - Provides context for track record analysis
 
 # Automated Politician Status Checking (Option C - Fully Automated)
-ENABLE_AUTOMATED_POLITICIAN_STATUS_CHECK = True  # Auto-check politician statuses daily
+ENABLE_AUTOMATED_POLITICIAN_STATUS_CHECK = True  # Auto-check politician statuses quarterly
+
+# Politician Status Check Frequency
+POLITICIAN_STATUS_CHECK_INTERVAL_DAYS = int(os.getenv('POLITICIAN_STATUS_CHECK_INTERVAL_DAYS', 90))  # Quarterly checks (90 days)
+POLITICIAN_STATUS_LAST_CHECKED_FILE = "data/politician_status_last_checked.json"  # Timestamp tracking file
+FORCE_POLITICIAN_STATUS_CHECK = os.getenv('FORCE_POLITICIAN_CHECK', 'false').lower() == 'true'  # Force check override
+#
+# Why Quarterly?
+# - New Congress starts: Every 2 years in January (odd-numbered years)
+# - Retirements: Announced months in advance, effective at term end
+# - Mid-term changes: Rare (death, resignation, appointment)
+# - Quarterly checks (90 days) are MORE than sufficient to catch all changes
+# - Saves ~48,000 API calls per quarter (539 members × 89 skipped days)
 
 # Congress.gov API Key (reads from GitHub secrets via environment variable)
 # Get free API key at: https://api.congress.gov/sign-up/
-# 5,000 requests/hour free tier (more than sufficient for daily checks)
+# 5,000 requests/hour free tier (more than sufficient for quarterly checks)
 CONGRESS_GOV_API_KEY = os.getenv('CONGRESS_GOV_API_KEY', None)
 
 # FMP API Settings (Financial Modeling Prep)
