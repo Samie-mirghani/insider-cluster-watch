@@ -68,7 +68,7 @@ OLD_POSITION_STOP_PCT = 0.10  # 10% stop from high for old modest positions
 MAX_DAILY_LOSS_PCT = 5.0  # Alert if down >5% in one day
 MAX_DRAWDOWN_ALERT = 10.0  # Alert if drawdown >10%
 MIN_WIN_RATE_ALERT = 35.0  # Alert if win rate <35%
-MAX_EXPOSURE_ALERT = 30.0  # Alert if exposure >30%
+MAX_EXPOSURE_ALERT = 60.0  # Alert if exposure >60% (matches MAX_TOTAL_EXPOSURE)
 
 # Logging
 LOG_LEVEL = 'INFO'  # DEBUG, INFO, WARNING, ERROR
