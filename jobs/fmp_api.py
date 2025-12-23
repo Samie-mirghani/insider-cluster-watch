@@ -32,7 +32,7 @@ ANALYTICS_FILE = "data/fmp_analytics.json"
 PROFILE_CACHE_TTL_DAYS = 30  # Industry/sector rarely change
 PRICE_CACHE_TTL_HOURS = 24  # Price data expires daily
 MAX_PARALLEL_WORKERS = 5
-FMP_API_BASE_URL = "https://financialmodelingprep.com/api/v3"
+FMP_API_BASE_URL = "https://financialmodelingprep.com/stable"
 
 # Cost tracking (FMP pricing)
 FMP_FREE_TIER_LIMIT = 250  # requests per day
@@ -292,8 +292,11 @@ class EnhancedFMPAPIClient:
             return None
 
         try:
-            url = f"{FMP_API_BASE_URL}/profile/{ticker}"
-            params = {'apikey': self.api_key}
+            url = f"{FMP_API_BASE_URL}/profile"
+            params = {
+                'symbol': ticker,
+                'apikey': self.api_key
+            }
 
             response = self.session.get(url, params=params, timeout=10)
             response.raise_for_status()
