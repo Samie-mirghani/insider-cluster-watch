@@ -371,6 +371,18 @@ class PoliticianTracker:
 
         if new_trades:
             new_df = pd.DataFrame(new_trades)
+
+            # CRITICAL FIX for pandas FutureWarning: Ensure dtypes match before concat
+            if not self.trades_history.empty:
+                # Match dtypes to existing history
+                for col in new_df.columns:
+                    if col in self.trades_history.columns:
+                        try:
+                            new_df[col] = new_df[col].astype(self.trades_history[col].dtype)
+                        except (ValueError, TypeError):
+                            # If conversion fails, pandas will handle it during concat
+                            pass
+
             # Fix for pandas FutureWarning: handle empty and all-NA DataFrames properly
             if self.trades_history.empty:
                 self.trades_history = new_df.copy()
