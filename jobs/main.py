@@ -225,8 +225,8 @@ def format_sell_warning(sell_df):
 def append_to_history(cluster_df):
     """
     Append new signals to the historical tracking CSV.
-    Now includes sector, quality_score, and float analysis metrics.
-    Now includes sector, quality_score, and multi-signal fields.
+    Now includes sector, industry, quality_score, float analysis metrics, and multi-signal fields.
+    Industry data sourced from FMP API for reliable tracking and traceability.
     """
     if cluster_df is None or cluster_df.empty:
         return
@@ -241,6 +241,7 @@ def append_to_history(cluster_df):
             'cluster_count': int(r.get('cluster_count', 0)),
             'total_value': float(r.get('total_value', 0)),
             'sector': r.get('sector', 'Unknown'),
+            'industry': r.get('industry', 'Unknown'),  # Add industry column for traceability
             'quality_score': float(r.get('quality_score', 0)),
             'pattern_detected': r.get('pattern_detected', 'None'),
             # Float analysis metrics

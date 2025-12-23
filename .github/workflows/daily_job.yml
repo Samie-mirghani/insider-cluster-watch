@@ -31,6 +31,7 @@ jobs:
           MARKET_DATA_API_KEY: ${{ secrets.MARKET_DATA_API_KEY }}
           CONGRESS_GOV_API_KEY: ${{ secrets.CONGRESS_GOV_API_KEY }}
           RAPIDAPI_KEY: ${{ secrets.RAPIDAPI_KEY }}
+          FMP_API_KEY: ${{ secrets.FMP_API_KEY }}
         run: python jobs/main.py
 
       - name: Generate public performance data
@@ -85,6 +86,18 @@ jobs:
           if [ -f "data/politician_trades_cache.json" ]; then
             git add -f data/politician_trades_cache.json
             echo "✅ Added politician_trades_cache.json"
+          fi
+
+          # Add FMP API cache file (company profiles)
+          if [ -f "data/company_profiles_cache.json" ]; then
+            git add -f data/company_profiles_cache.json
+            echo "✅ Added company_profiles_cache.json"
+          fi
+
+          # Add FMP API analytics file
+          if [ -f "data/fmp_analytics.json" ]; then
+            git add -f data/fmp_analytics.json
+            echo "✅ Added fmp_analytics.json"
           fi
 
           # Add insider performance data files (continuous tracking)
@@ -146,6 +159,16 @@ jobs:
 
           if [ -f "data/politician_trades_cache.json" ]; then
             git add -f data/politician_trades_cache.json
+          fi
+
+          # Add FMP API cache file if it exists
+          if [ -f "data/company_profiles_cache.json" ]; then
+            git add -f data/company_profiles_cache.json
+          fi
+
+          # Add FMP API analytics file if it exists
+          if [ -f "data/fmp_analytics.json" ]; then
+            git add -f data/fmp_analytics.json
           fi
 
           # Add insider data files if they exist

@@ -185,6 +185,12 @@ ENABLE_AUTOMATED_POLITICIAN_STATUS_CHECK = True  # Auto-check politician statuse
 # 5,000 requests/hour free tier (more than sufficient for daily checks)
 CONGRESS_GOV_API_KEY = os.getenv('CONGRESS_GOV_API_KEY', None)
 
+# FMP API Settings (Financial Modeling Prep)
+FMP_API_KEY = os.getenv('FMP_API_KEY', None)  # FMP API key for company profile data
+INDUSTRY_CACHE_FILE = "data/company_profiles_cache.json"  # Cache file for company profiles
+INDUSTRY_CACHE_TTL_DAYS = 30  # Industry cache TTL (30 days - industry rarely changes)
+MAX_PARALLEL_WORKERS = 5  # Max parallel workers for batch API fetching
+
 # Sector Relative Analysis Settings
 ENABLE_SECTOR_ANALYSIS = True  # Enable sector relative performance analysis
 SECTOR_CACHE_HOURS = 24  # Cache sector ETF performance for 24 hours (daily update)

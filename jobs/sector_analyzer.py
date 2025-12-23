@@ -20,6 +20,7 @@ import json
 import os
 from pathlib import Path
 import logging
+from fmp_api import get_company_industry
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -180,29 +181,26 @@ class SectorAnalyzer:
 
     def get_stock_sector(self, ticker):
         """
-        Get sector for a stock using yfinance.
+        Get industry for a stock using FMP API (reliable, cached).
 
         Args:
             ticker: Stock ticker symbol
 
         Returns:
-            str: Sector name or 'Unknown'
+            str: Industry/sector name or 'Unknown'
         """
         try:
-            stock = yf.Ticker(ticker)
-            info = stock.info
+            # Use FMP API for reliable industry data (with caching)
+            industry = get_company_industry(ticker)
 
-            # Try different keys that might contain sector info
-            sector = info.get('sector') or info.get('sectorKey') or info.get('sectorDisp')
+            if industry:
+                return industry
 
-            if sector:
-                return sector
-
-            logger.warning(f"No sector found for {ticker}")
+            logger.warning(f"No industry found for {ticker}")
             return 'Unknown'
 
         except Exception as e:
-            logger.error(f"Failed to get sector for {ticker}: {e}")
+            logger.error(f"Failed to get industry for {ticker}: {e}")
             return 'Unknown'
 
     def analyze_signal_sector(self, ticker, sector=None):
