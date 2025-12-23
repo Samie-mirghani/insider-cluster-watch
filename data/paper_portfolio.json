@@ -1,29 +1,7 @@
 {
   "starting_capital": 10000,
-  "cash": 3840.8649999999984,
+  "cash": 6543.455,
   "positions": {
-    "VAC": {
-      "entry_date": "2025-11-26T11:43:44.391409",
-      "entry_price": 54.62,
-      "shares": 11,
-      "cost_basis": 600.8199999999999,
-      "initial_stop_loss": 51.888999999999996,
-      "stop_loss": 55.024,
-      "take_profit": 58.9896,
-      "highest_price": 58.12,
-      "trailing_enabled": true,
-      "signal_score": 20.32408382966457,
-      "sector": "Consumer Cyclical",
-      "multi_signal_tier": "none",
-      "has_politician_signal": false,
-      "tranches": [
-        {
-          "shares": 11,
-          "price": 54.62,
-          "date": "2025-11-26T11:43:44.391412"
-        }
-      ]
-    },
     "EMN": {
       "entry_date": "2025-12-03T12:05:35.993971",
       "entry_price": 60.99,
@@ -74,9 +52,9 @@
       "shares": 24,
       "cost_basis": 598.92,
       "initial_stop_loss": 23.70725,
-      "stop_loss": 25.232,
+      "stop_loss": 25.469499999999996,
       "take_profit": 26.9514,
-      "highest_price": 26.56,
+      "highest_price": 26.81,
       "trailing_enabled": true,
       "signal_score": 14.491598628745699,
       "sector": "Unknown",
@@ -134,43 +112,16 @@
         }
       ]
     },
-    "BRR": {
-      "entry_date": "2025-12-18T11:43:55.992500",
-      "entry_price": 3.1619254658385088,
-      "shares": 322,
-      "cost_basis": 1018.1399999999999,
-      "initial_stop_loss": 3.0494999999999997,
-      "stop_loss": 3.003829192546583,
-      "take_profit": 3.4148795031055896,
-      "highest_price": 3.21,
-      "trailing_enabled": false,
-      "signal_score": 7.182410939603519,
-      "sector": null,
-      "multi_signal_tier": "none",
-      "has_politician_signal": false,
-      "tranches": [
-        {
-          "shares": 193,
-          "price": 3.21,
-          "date": "2025-12-18T11:43:55.992504"
-        },
-        {
-          "shares": 129,
-          "price": 3.09,
-          "date": "2025-12-22T11:49:16.854051"
-        }
-      ]
-    },
     "ACVA": {
       "entry_date": "2025-12-18T11:43:57.924459",
       "entry_price": 7.72,
       "shares": 80,
       "cost_basis": 617.6,
       "initial_stop_loss": 7.334,
-      "stop_loss": 7.334,
+      "stop_loss": 7.7995,
       "take_profit": 8.3376,
-      "highest_price": 7.93,
-      "trailing_enabled": false,
+      "highest_price": 8.21,
+      "trailing_enabled": true,
       "signal_score": 6.95861176132786,
       "sector": null,
       "multi_signal_tier": "none",
@@ -183,47 +134,25 @@
         }
       ]
     },
-    "HYMC": {
-      "entry_date": "2025-12-19T11:43:40.924872",
-      "entry_price": 15.36,
-      "shares": 40,
-      "cost_basis": 614.4,
-      "initial_stop_loss": 14.591999999999999,
-      "stop_loss": 15.599,
-      "take_profit": 16.5888,
-      "highest_price": 16.42,
-      "trailing_enabled": true,
-      "signal_score": 15.829026574940773,
+    "XZO": {
+      "entry_date": "2025-12-23T11:29:03.436861",
+      "entry_price": 22.03,
+      "shares": 26,
+      "cost_basis": 572.78,
+      "initial_stop_loss": 20.9285,
+      "stop_loss": 20.9285,
+      "take_profit": 23.792400000000004,
+      "highest_price": 22.03,
+      "trailing_enabled": false,
+      "signal_score": 11.561315991490785,
       "sector": null,
       "multi_signal_tier": "none",
       "has_politician_signal": false,
       "tranches": [
         {
-          "shares": 40,
-          "price": 15.36,
-          "date": "2025-12-19T11:43:40.924877"
-        }
-      ]
-    },
-    "IMNM": {
-      "entry_date": "2025-12-19T11:43:44.696139",
-      "entry_price": 19.95,
-      "shares": 31,
-      "cost_basis": 618.4499999999999,
-      "initial_stop_loss": 18.952499999999997,
-      "stop_loss": 20.368,
-      "take_profit": 21.546,
-      "highest_price": 21.44,
-      "trailing_enabled": true,
-      "signal_score": 8.080811959209603,
-      "sector": null,
-      "multi_signal_tier": "none",
-      "has_politician_signal": false,
-      "tranches": [
-        {
-          "shares": 31,
-          "price": 19.95,
-          "date": "2025-12-19T11:43:44.696143"
+          "shares": 26,
+          "price": 22.03,
+          "date": "2025-12-23T11:29:03.436865"
         }
       ]
     }
@@ -243,26 +172,19 @@
       "expires": "2025-12-23T11:43:58.420364",
       "signal_score": 6.95861176132786
     },
-    "HYMC": {
-      "shares": 27,
-      "trigger_price": 15.0528,
-      "original_entry": 15.36,
-      "expires": "2025-12-24T11:43:41.130649",
-      "signal_score": 15.829026574940773
-    },
-    "IMNM": {
-      "shares": 20,
-      "trigger_price": 19.551,
-      "original_entry": 19.95,
-      "expires": "2025-12-24T11:43:44.951473",
-      "signal_score": 8.080811959209603
+    "XZO": {
+      "shares": 17,
+      "trigger_price": 21.5894,
+      "original_entry": 22.03,
+      "expires": "2025-12-28T11:29:03.589258",
+      "signal_score": 11.561315991490785
     }
   },
-  "total_trades": 33,
-  "winning_trades": 12,
-  "losing_trades": 11,
-  "total_profit": 263.3050000000002,
-  "max_portfolio_value": 11290.594999999998,
+  "total_trades": 34,
+  "winning_trades": 15,
+  "losing_trades": 12,
+  "total_profit": 686.8650000000005,
+  "max_portfolio_value": 11790.185000000001,
   "max_drawdown": -9.109194484777545,
-  "last_updated": "2025-12-22T11:49:51.871522"
+  "last_updated": "2025-12-23T11:29:03.858289"
 }
