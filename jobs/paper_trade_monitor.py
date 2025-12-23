@@ -13,11 +13,11 @@ logger = logging.getLogger(__name__)
 class PaperTradingMonitor:
     """Monitor paper trading health and send alerts"""
     
-    def __init__(self, 
+    def __init__(self,
                  max_daily_loss_pct=5.0,
                  max_drawdown_alert=10.0,
                  min_win_rate_alert=35.0,
-                 max_exposure_alert=30.0):
+                 max_exposure_alert=60.0):
         self.max_daily_loss = max_daily_loss_pct
         self.max_drawdown_alert = max_drawdown_alert
         self.min_win_rate = min_win_rate_alert
