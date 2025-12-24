@@ -1,14 +1,14 @@
 {
-  "total_api_calls": 145,
-  "total_cache_hits": 218,
-  "total_cache_misses": 145,
+  "total_api_calls": 150,
+  "total_cache_hits": 328,
+  "total_cache_misses": 150,
   "total_errors": 0,
   "daily_usage": {
     "2025-12-23": 126,
-    "2025-12-24": 19
+    "2025-12-24": 24
   },
   "monthly_usage": {
-    "2025-12": 145
+    "2025-12": 150
   },
   "cache_efficiency_history": [
     {
@@ -31,13 +31,20 @@
       "hit_rate_pct": 60.06,
       "total_hits": 218,
       "total_misses": 145
+    },
+    {
+      "timestamp": "2025-12-24T12:38:28.208129",
+      "cache_size": 231,
+      "hit_rate_pct": 68.62,
+      "total_hits": 328,
+      "total_misses": 150
     }
   ],
   "cost_tracking": {
-    "total_free_calls": 145,
+    "total_free_calls": 150,
     "total_paid_calls": 0,
-    "estimated_cost_saved": 0.006104000000000008
+    "estimated_cost_saved": 0.009184000000000034
   },
   "created_at": "2025-12-23T11:27:31.371555",
-  "last_updated": "2025-12-24T11:28:45.828428"
+  "last_updated": "2025-12-24T12:38:28.208184"
 }
