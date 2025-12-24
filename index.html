@@ -1289,16 +1289,16 @@
                 `;
 
                 // Populate Portfolio Overview Section
-                const startingCapital = 10000;
-                const currentValue = startingCapital * (1 + data.total_return_pct / 100);
+                const startingCapital = data.portfolio_composition?.starting_capital || 10000;
+                const currentValue = data.portfolio_composition?.current_value || (startingCapital * (1 + data.total_return_pct / 100));
                 const totalPnL = currentValue - startingCapital;
 
-                // Calculate portfolio composition
-                // Note: We estimate cash as 30% of current value (conservative estimate)
-                // In a future update, this should come from the backend JSON
+                // Use real portfolio composition data when available, otherwise estimate
                 const estimatedCash = currentValue * 0.30;
-                const investedCapital = currentValue - estimatedCash;
-                const capitalDeployed = data.active_trades > 0 ? ((investedCapital / currentValue) * 100) : 0;
+                const cash = data.portfolio_composition?.cash || estimatedCash;
+                const investedCapital = data.portfolio_composition?.invested_capital || (currentValue - estimatedCash);
+                const capitalDeployed = data.portfolio_composition?.capital_deployed_pct ||
+                    (data.active_trades > 0 ? ((investedCapital / currentValue) * 100) : 0);
 
                 // Calculate win/loss breakdown
                 const totalTrades = data.completed_trades + data.active_trades;
@@ -1315,7 +1315,7 @@
 
                 // Update portfolio metrics
                 document.getElementById('liquid-cash-value').textContent =
-                    `$${estimatedCash.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+                    `$${cash.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
                 document.getElementById('invested-capital-value').textContent =
                     `$${investedCapital.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
                 document.getElementById('active-positions-value').textContent = data.active_trades;
