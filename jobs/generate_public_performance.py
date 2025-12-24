@@ -292,7 +292,17 @@ def generate_public_performance():
         public_data['total_return_pct'] = round(total_return_pct, 2)
         public_data['active_trades'] = len(positions)
 
+        # Add portfolio composition data
+        public_data['portfolio_composition'] = {
+            'starting_capital': round(starting_capital, 2),
+            'current_value': round(current_value, 2),
+            'cash': round(cash, 2),
+            'invested_capital': round(positions_value, 2),
+            'capital_deployed_pct': round((positions_value / current_value) * 100, 2) if current_value > 0 else 0.0
+        }
+
         logger.info(f"  Total return: {total_return_pct:.2f}%")
+        logger.info(f"  Portfolio composition: Cash=${cash:,.2f}, Invested=${positions_value:,.2f}, Deployed={public_data['portfolio_composition']['capital_deployed_pct']:.1f}%")
 
         # Open positions for display with REAL unrealized returns
         logger.info("  Calculating unrealized returns for open positions...")

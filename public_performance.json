@@ -1,6 +1,6 @@
 {
   "last_updated": "December 24, 2025 at 13:02 UTC",
-  "total_return_pct": 8.56,
+  "total_return_pct": 15.06,
   "win_rate": 73.3,
   "completed_trades": 15,
   "active_trades": 5,
@@ -10,7 +10,7 @@
   "avg_hold_days": 12,
   "best_trade_pct": 59.64,
   "worst_trade_pct": -5.75,
-  "alpha_vs_sp500": 7.63,
+  "alpha_vs_sp500": 14.13,
   "avg_winner": 13.06,
   "avg_loser": -3.65,
   "win_loss_ratio": 3.58,
@@ -19,6 +19,13 @@
   "last_10_trades_win_rate": 70.0,
   "current_streak": 4,
   "current_streak_type": "wins",
+  "portfolio_composition": {
+    "starting_capital": 10000.0,
+    "current_value": 11506.44,
+    "cash": 7756.26,
+    "invested_capital": 3750.18,
+    "capital_deployed_pct": 32.6
+  },
   "conviction_performance": [
     {
       "conviction": "VERY HIGH",
