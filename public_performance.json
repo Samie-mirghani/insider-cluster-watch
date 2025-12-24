@@ -1,36 +1,36 @@
 {
-  "last_updated": "December 24, 2025 at 12:38 UTC",
+  "last_updated": "December 24, 2025 at 13:02 UTC",
   "total_return_pct": 8.56,
-  "win_rate": 69.2,
-  "completed_trades": 13,
-  "active_trades": 7,
-  "avg_return_per_trade": 9.08,
-  "sharpe_ratio": 8.75,
+  "win_rate": 73.3,
+  "completed_trades": 15,
+  "active_trades": 5,
+  "avg_return_per_trade": 8.6,
+  "sharpe_ratio": 8.85,
   "max_drawdown": -9.11,
-  "avg_hold_days": 11,
+  "avg_hold_days": 12,
   "best_trade_pct": 59.64,
   "worst_trade_pct": -5.75,
-  "alpha_vs_sp500": 7.67,
-  "avg_winner": 14.73,
+  "alpha_vs_sp500": 7.63,
+  "avg_winner": 13.06,
   "avg_loser": -3.65,
-  "win_loss_ratio": 4.04,
-  "profit_factor": 9.08,
-  "last_30_days_return": 118.01,
+  "win_loss_ratio": 3.58,
+  "profit_factor": 9.84,
+  "last_30_days_return": 129.06,
   "last_10_trades_win_rate": 70.0,
-  "current_streak": 2,
+  "current_streak": 4,
   "current_streak_type": "wins",
   "conviction_performance": [
     {
       "conviction": "VERY HIGH",
-      "trades": 6,
-      "win_rate": 66.7,
-      "avg_return": 11.6
+      "trades": 7,
+      "win_rate": 71.4,
+      "avg_return": 10.3
     },
     {
       "conviction": "HIGH",
-      "trades": 4,
-      "win_rate": 75.0,
-      "avg_return": 10.75
+      "trades": 5,
+      "win_rate": 80.0,
+      "avg_return": 10.32
     },
     {
       "conviction": "MEDIUM",
@@ -42,10 +42,28 @@
   "monthly_returns": [
     {
       "month": "2025-12",
-      "return": 118.01
+      "return": 129.06
     }
   ],
   "recent_trades": [
+    {
+      "ticker": "UTI",
+      "entry_date": "Dec 09, 2025",
+      "exit_date": "Dec 24, 2025",
+      "hold_days": 14,
+      "return_pct": 8.6,
+      "conviction": "HIGH",
+      "exit_reason": "Take Profit"
+    },
+    {
+      "ticker": "EMN",
+      "entry_date": "Dec 03, 2025",
+      "exit_date": "Dec 24, 2025",
+      "hold_days": 21,
+      "return_pct": 2.46,
+      "conviction": "VERY HIGH",
+      "exit_reason": "Time Stop"
+    },
     {
       "ticker": "IMNM",
       "entry_date": "Dec 19, 2025",
@@ -166,25 +184,11 @@
   ],
   "open_positions": [
     {
-      "ticker": "EMN",
-      "entry_date": "Dec 03, 2025",
-      "days_held": 21,
-      "unrealized_return": 2.46,
-      "conviction": "VERY HIGH"
-    },
-    {
       "ticker": "HYNE",
       "entry_date": "Dec 08, 2025",
       "days_held": 15,
       "unrealized_return": 0.36,
       "conviction": "VERY HIGH"
-    },
-    {
-      "ticker": "UTI",
-      "entry_date": "Dec 09, 2025",
-      "days_held": 14,
-      "unrealized_return": 8.6,
-      "conviction": "HIGH"
     },
     {
       "ticker": "SMRT",

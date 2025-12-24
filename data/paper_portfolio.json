@@ -1,29 +1,7 @@
 {
   "starting_capital": 10000,
-  "cash": 6543.455,
+  "cash": 7756.264999999999,
   "positions": {
-    "EMN": {
-      "entry_date": "2025-12-03T12:05:35.993971",
-      "entry_price": 60.99,
-      "shares": 9,
-      "cost_basis": 548.91,
-      "initial_stop_loss": 57.9405,
-      "stop_loss": 62.548,
-      "take_profit": 65.8692,
-      "highest_price": 65.84,
-      "trailing_enabled": true,
-      "signal_score": 25.856280654900846,
-      "sector": NaN,
-      "multi_signal_tier": "none",
-      "has_politician_signal": false,
-      "tranches": [
-        {
-          "shares": 9,
-          "price": 60.99,
-          "date": "2025-12-03T12:05:35.993976"
-        }
-      ]
-    },
     "HYNE": {
       "entry_date": "2025-12-08T14:17:55.742314",
       "entry_price": 13.8,
@@ -43,28 +21,6 @@
           "shares": 43,
           "price": 13.8,
           "date": "2025-12-08T14:17:55.742318"
-        }
-      ]
-    },
-    "UTI": {
-      "entry_date": "2025-12-09T16:22:36.613042",
-      "entry_price": 24.955,
-      "shares": 24,
-      "cost_basis": 598.92,
-      "initial_stop_loss": 23.70725,
-      "stop_loss": 25.469499999999996,
-      "take_profit": 26.9514,
-      "highest_price": 26.81,
-      "trailing_enabled": true,
-      "signal_score": 14.491598628745699,
-      "sector": "Unknown",
-      "multi_signal_tier": "none",
-      "has_politician_signal": false,
-      "tranches": [
-        {
-          "shares": 24,
-          "price": 24.955,
-          "date": "2025-12-09T16:22:36.613048"
         }
       ]
     },
@@ -96,9 +52,9 @@
       "shares": 3,
       "cost_basis": 594.75,
       "initial_stop_loss": 188.33749999999998,
-      "stop_loss": 197.65699999999998,
+      "stop_loss": 198.303,
       "take_profit": 214.11,
-      "highest_price": 208.06,
+      "highest_price": 208.74,
       "trailing_enabled": true,
       "signal_score": 9.546080815471049,
       "sector": "Industrials",
@@ -140,10 +96,10 @@
       "shares": 26,
       "cost_basis": 572.78,
       "initial_stop_loss": 20.9285,
-      "stop_loss": 20.9285,
+      "stop_loss": 22.0305,
       "take_profit": 23.792400000000004,
-      "highest_price": 22.03,
-      "trailing_enabled": false,
+      "highest_price": 23.19,
+      "trailing_enabled": true,
       "signal_score": 11.561315991490785,
       "sector": null,
       "multi_signal_tier": "none",
@@ -158,20 +114,6 @@
     }
   },
   "pending_entries": {
-    "AMR": {
-      "shares": 2,
-      "trigger_price": 194.285,
-      "original_entry": 198.25,
-      "expires": "2025-12-23T11:43:54.887636",
-      "signal_score": 9.546080815471049
-    },
-    "ACVA": {
-      "shares": 53,
-      "trigger_price": 7.5656,
-      "original_entry": 7.72,
-      "expires": "2025-12-23T11:43:58.420364",
-      "signal_score": 6.95861176132786
-    },
     "XZO": {
       "shares": 17,
       "trigger_price": 21.5894,
@@ -181,10 +123,10 @@
     }
   },
   "total_trades": 34,
-  "winning_trades": 15,
+  "winning_trades": 17,
   "losing_trades": 12,
-  "total_profit": 686.8650000000005,
+  "total_profit": 751.8450000000006,
   "max_portfolio_value": 11790.185000000001,
   "max_drawdown": -9.109194484777545,
-  "last_updated": "2025-12-23T11:29:03.858289"
+  "last_updated": "2025-12-24T13:02:30.538496"
 }
