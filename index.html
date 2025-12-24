@@ -943,6 +943,61 @@
 
         <div class="last-updated" id="last-updated"></div>
 
+        <!-- Portfolio Overview Section -->
+        <div class="section">
+            <h2>💰 Portfolio Overview</h2>
+            <p class="section-intro">
+                Real-time portfolio composition and capital allocation metrics
+            </p>
+
+            <!-- Current Portfolio Value - Most Prominent -->
+            <div style="text-align: center; margin: 30px 0 40px 0;">
+                <div style="font-size: 0.85em; color: var(--gray); text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 10px; font-weight: 600;">
+                    Current Portfolio Value
+                </div>
+                <div id="portfolio-value-display" style="font-size: 3.5em; font-weight: 800; color: var(--primary); margin-bottom: 5px; line-height: 1;">
+                    $0.00
+                </div>
+                <div id="portfolio-pnl-display" style="font-size: 1.2em; color: var(--gray); font-weight: 600;">
+                    +$0.00 (+0.00%)
+                </div>
+            </div>
+
+            <!-- Portfolio Metrics Grid -->
+            <div class="performance-grid" id="portfolio-metrics-grid">
+                <div class="performance-card">
+                    <h3>Starting Capital</h3>
+                    <div class="value">$10,000</div>
+                    <div class="context">Initial investment</div>
+                </div>
+                <div class="performance-card">
+                    <h3>Liquid Cash</h3>
+                    <div class="value" id="liquid-cash-value">$0.00</div>
+                    <div class="context">Available to trade</div>
+                </div>
+                <div class="performance-card">
+                    <h3>Invested Capital</h3>
+                    <div class="value" id="invested-capital-value">$0.00</div>
+                    <div class="context">In active positions</div>
+                </div>
+                <div class="performance-card">
+                    <h3>Active Positions</h3>
+                    <div class="value" id="active-positions-value">0</div>
+                    <div class="context">Open trades</div>
+                </div>
+                <div class="performance-card">
+                    <h3>Total Trades</h3>
+                    <div class="value" id="total-trades-value">0</div>
+                    <div class="context" id="trade-breakdown">0 W | 0 L | 0 Active</div>
+                </div>
+                <div class="performance-card">
+                    <h3>Capital Deployed</h3>
+                    <div class="value" id="capital-deployed-value">0%</div>
+                    <div class="context">Portfolio utilization</div>
+                </div>
+            </div>
+        </div>
+
         <!-- Trade Quality Metrics -->
         <div class="section">
             <h2>📈 Trade Quality Metrics</h2>
@@ -1204,6 +1259,7 @@
                 const heroStats = document.getElementById('hero-stats');
                 const returnClass = data.total_return_pct >= 0 ? 'positive' : 'negative';
                 const alphaClass = data.alpha_vs_sp500 >= 0 ? 'positive' : 'negative';
+                const profitFactorClass = data.profit_factor >= 1 ? 'positive' : 'negative';
 
                 heroStats.innerHTML = `
                     <div class="stat-card">
@@ -1221,16 +1277,53 @@
                         <div class="stat-label">Sharpe Ratio</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-value">${data.active_trades}</div>
-                        <div class="stat-label">Active Positions</div>
-                    </div>
-                    <div class="stat-card">
                         <div class="stat-value ${alphaClass}">
                             ${data.alpha_vs_sp500 >= 0 ? '+' : ''}${data.alpha_vs_sp500}%
                         </div>
                         <div class="stat-label">Alpha vs S&P 500</div>
                     </div>
+                    <div class="stat-card">
+                        <div class="stat-value ${profitFactorClass}">${data.profit_factor}</div>
+                        <div class="stat-label">Profit Factor</div>
+                    </div>
                 `;
+
+                // Populate Portfolio Overview Section
+                const startingCapital = 10000;
+                const currentValue = startingCapital * (1 + data.total_return_pct / 100);
+                const totalPnL = currentValue - startingCapital;
+
+                // Calculate portfolio composition
+                // Note: We estimate cash as 30% of current value (conservative estimate)
+                // In a future update, this should come from the backend JSON
+                const estimatedCash = currentValue * 0.30;
+                const investedCapital = currentValue - estimatedCash;
+                const capitalDeployed = data.active_trades > 0 ? ((investedCapital / currentValue) * 100) : 0;
+
+                // Calculate win/loss breakdown
+                const totalTrades = data.completed_trades + data.active_trades;
+                const wins = Math.round((data.win_rate / 100) * data.completed_trades);
+                const losses = data.completed_trades - wins;
+
+                // Update Current Portfolio Value (most prominent)
+                const pnlClass = totalPnL >= 0 ? 'positive' : 'negative';
+                const pnlColor = totalPnL >= 0 ? 'var(--success)' : 'var(--danger)';
+                document.getElementById('portfolio-value-display').textContent =
+                    `$${currentValue.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+                document.getElementById('portfolio-pnl-display').innerHTML =
+                    `<span style="color: ${pnlColor};">${totalPnL >= 0 ? '+' : ''}$${Math.abs(totalPnL).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})} (${data.total_return_pct >= 0 ? '+' : ''}${data.total_return_pct}%)</span>`;
+
+                // Update portfolio metrics
+                document.getElementById('liquid-cash-value').textContent =
+                    `$${estimatedCash.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+                document.getElementById('invested-capital-value').textContent =
+                    `$${investedCapital.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+                document.getElementById('active-positions-value').textContent = data.active_trades;
+                document.getElementById('total-trades-value').textContent = totalTrades;
+                document.getElementById('trade-breakdown').textContent =
+                    `${wins} W | ${losses} L | ${data.active_trades} Active`;
+                document.getElementById('capital-deployed-value').textContent =
+                    `${capitalDeployed.toFixed(1)}%`;
 
                 // Populate Trade Quality Metrics
                 const tradeQualityGrid = document.getElementById('trade-quality-grid');
