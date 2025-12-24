@@ -1329,7 +1329,7 @@
                 const tradeQualityGrid = document.getElementById('trade-quality-grid');
                 const avgWinnerClass = data.avg_winner >= 0 ? 'positive' : 'negative';
                 const avgLoserClass = data.avg_loser >= 0 ? 'positive' : 'negative';
-                const profitFactorClass = data.profit_factor >= 1 ? 'positive' : 'negative';
+                // profitFactorClass already declared above for hero stats - reusing it
                 const maxDDClass = data.max_drawdown >= 0 ? 'positive' : 'negative';
 
                 tradeQualityGrid.innerHTML = `
