@@ -824,10 +824,67 @@ def main(test=False, urgent_test=False, enable_paper_trading=True):
             import traceback
             traceback.print_exc()
 
+    # ============================================================================
+    # DAILY PAPER TRADING POSITION MANAGEMENT
+    # Runs every day to manage existing positions, regardless of new signals
+    # This ensures stops, targets, and pending entries are checked daily
+    # ============================================================================
+    paper_trader_closed_positions = []  # Track closed positions for later reporting
+    paper_trader_monitor = None  # Monitor instance for health checks
+
+    if paper_trader:
+        print("\n" + "="*60)
+        print("📈 PAPER TRADING - DAILY POSITION MANAGEMENT")
+        print("="*60)
+
+        # Initialize monitor for the day
+        paper_trader_monitor = PaperTradingMonitor()
+        start_value = paper_trader.get_portfolio_value()
+        paper_trader_monitor.set_start_of_day_value(start_value)
+
+        # Show current status
+        stats = paper_trader.get_performance_summary()
+        print(f"\n📊 Current Portfolio Status:")
+        print(f"   Portfolio Value: ${stats['current_value']:,.2f}")
+        print(f"   Cash: ${stats['cash']:,.2f}")
+        print(f"   Open Positions: {stats['open_positions']}")
+        print(f"   Pending Entries: {stats['pending_entries']}")
+        print(f"   Total Return: {stats['total_return_pct']:+.2f}%")
+        print(f"   Exposure: {stats['exposure_pct']:.1f}%")
+
+        # Check exits (stops, targets, scaling) - runs daily
+        print(f"\n🔍 Checking exits and updates...")
+        paper_trader_closed_positions = paper_trader.check_exits()
+
+        # Save portfolio after exits
+        paper_trader.save()
+
+        # Run health check after position management
+        print(f"\n🏥 Running portfolio health check...")
+        status, alerts = paper_trader_monitor.check_portfolio_health(paper_trader)
+
+        if alerts:
+            print(paper_trader_monitor.format_alerts_report(status, alerts))
+            paper_trader_monitor.log_alerts(status, alerts)
+        else:
+            print("   ✅ Portfolio health: HEALTHY")
+
+        # Show updated stats if positions were closed
+        if paper_trader_closed_positions:
+            updated_stats = paper_trader.get_performance_summary()
+            print(f"\n📊 Updated Portfolio After Exits:")
+            print(f"   Closed Today: {len(paper_trader_closed_positions)}")
+            print(f"   Portfolio Value: ${updated_stats['current_value']:,.2f}")
+            print(f"   Cash: ${updated_stats['cash']:,.2f}")
+            print(f"   Open Positions: {updated_stats['open_positions']}")
+            print(f"   Total Return: {updated_stats['total_return_pct']:+.2f}%")
+
+        print("="*60 + "\n")
+
     # 4) Check news sentiment for signals
     print("\n📰 Checking news sentiment...")
     cluster_df = check_news_for_signals(cluster_df)
-    
+
     if cluster_df.empty:
         print("⚠️  All signals filtered out due to negative news")
         total_tx = len(df) if df is not None and not df.empty else 0
@@ -841,7 +898,7 @@ def main(test=False, urgent_test=False, enable_paper_trading=True):
         print("✅ Report complete - no signals passed news filter")
         print(f"{'='*60}\n")
         return
-    
+
     # 5) Filter out duplicate signals
     print("\n🔍 Checking for duplicate signals...")
     recent_signals = load_recent_signals(days_back=30)
@@ -901,30 +958,14 @@ def main(test=False, urgent_test=False, enable_paper_trading=True):
     print()
 
     
-    # 6) Paper trading: Process signals
+    # 6) Paper trading: Process NEW signals (if any qualified signals exist)
     if paper_trader:
         print("\n" + "="*60)
-        print("📈 PAPER TRADING - SIGNAL PROCESSING")
+        print("📈 PAPER TRADING - NEW SIGNAL PROCESSING")
         print("="*60)
-        
-        # Initialize monitor
-        monitor = PaperTradingMonitor()
-        start_value = paper_trader.get_portfolio_value()
-        monitor.set_start_of_day_value(start_value)
-        
-        # Show current status
-        stats = paper_trader.get_performance_summary()
-        print(f"\n📊 Current Portfolio Status:")
-        print(f"   Portfolio Value: ${stats['current_value']:,.2f}")
-        print(f"   Cash: ${stats['cash']:,.2f}")
-        print(f"   Open Positions: {stats['open_positions']}")
-        print(f"   Pending Entries: {stats['pending_entries']}")
-        print(f"   Total Return: {stats['total_return_pct']:+.2f}%")
-        print(f"   Exposure: {stats['exposure_pct']:.1f}%")
-        
-        # Check exits first (stops, targets, scaling)
-        print(f"\n🔍 Checking exits and updates...")
-        closed = paper_trader.check_exits()
+
+        # Note: Daily position management (exits, stops, etc.) already completed above
+        # This section only processes NEW signals
 
         # Filter signals by minimum score threshold
         print(f"\n🎯 Filtering signals by score threshold (min: {MIN_SIGNAL_SCORE_THRESHOLD})...")
@@ -996,28 +1037,32 @@ def main(test=False, urgent_test=False, enable_paper_trading=True):
             
             if paper_trader.execute_signal(signal):
                 signals_executed += 1
-        
-        # Run health check
-        print(f"\n🏥 Running portfolio health check...")
-        status, alerts = monitor.check_portfolio_health(paper_trader)
-        
+
+        # Run health check after processing new signals (reuse monitor if available)
+        if paper_trader_monitor is None:
+            paper_trader_monitor = PaperTradingMonitor()
+            paper_trader_monitor.set_start_of_day_value(paper_trader.get_portfolio_value())
+
+        print(f"\n🏥 Running portfolio health check (after new signals)...")
+        status, alerts = paper_trader_monitor.check_portfolio_health(paper_trader)
+
         if alerts:
-            print(monitor.format_alerts_report(status, alerts))
-            monitor.log_alerts(status, alerts)
+            print(paper_trader_monitor.format_alerts_report(status, alerts))
+            paper_trader_monitor.log_alerts(status, alerts)
         else:
             print("   ✅ Portfolio health: HEALTHY")
-        
-        # Save portfolio
+
+        # Save portfolio (captures both exits and new entries)
         paper_trader.save()
-        
+
         # Final summary
         final_stats = paper_trader.get_performance_summary()
-        print(f"\n📊 Paper Trading Summary:")
-        print(f"   Executed: {signals_executed} position(s)")
+        print(f"\n📊 Paper Trading Daily Summary:")
+        print(f"   New Positions: {signals_executed}")
         if signals_skipped > 0:
-            print(f"   Skipped: {signals_skipped} signal(s) (no price data)")
-        if closed:
-            print(f"   Closed: {len(closed)} position(s)")
+            print(f"   Skipped Signals: {signals_skipped} (no price data)")
+        if paper_trader_closed_positions:
+            print(f"   Closed Positions: {len(paper_trader_closed_positions)}")
         print(f"   Portfolio Value: ${final_stats['current_value']:,.2f}")
         print(f"   Total Return: {final_stats['total_return_pct']:+.2f}%")
         print(f"   Win Rate: {final_stats['win_rate']:.1f}%")
