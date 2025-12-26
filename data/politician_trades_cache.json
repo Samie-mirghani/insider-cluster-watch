@@ -1,5 +1,5 @@
 {
-  "cached_at": "2025-12-25T11:27:22.685794",
+  "cached_at": "2025-12-26T11:27:28.864385",
   "trades": [
     {
       "ticker": "LPIEP",
@@ -120,24 +120,6 @@
       "transaction_type": "buy",
       "disclosure_date": null,
       "state": "KY",
-      "amount_min": 1000.0,
-      "amount_max": 15000.0,
-      "amount_mid": 8000.0,
-      "politician_weight": 1.0,
-      "weighted_amount": 8000.0,
-      "disclosure_lag_days": NaN
-    },
-    {
-      "ticker": "TXN",
-      "politician": "Thomas Kean Jr",
-      "party": "Republican",
-      "trade_date": "2025-11-26",
-      "amount_range": "1K-15K",
-      "asset_name": "Texas Instruments Inc",
-      "chamber": "House",
-      "transaction_type": "buy",
-      "disclosure_date": null,
-      "state": "NJ",
       "amount_min": 1000.0,
       "amount_max": 15000.0,
       "amount_mid": 8000.0,
