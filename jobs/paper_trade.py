@@ -80,30 +80,72 @@ class PaperTradingPortfolio:
         logger.info(f"   Max Position Size: {max_position_pct*100}%")
         logger.info(f"   Scaling Enabled: {enable_scaling}")
     
-    def get_portfolio_value(self):
-        """Calculate total portfolio value (cash + positions)"""
+    def get_portfolio_value(self, verbose=False):
+        """
+        Calculate total portfolio value (cash + positions)
+
+        Args:
+            verbose: If True, log detailed breakdown of calculation
+
+        Returns:
+            float: Total portfolio value
+        """
         positions_value = 0.0
-        
+        position_details = []
+
         for ticker, pos in self.positions.items():
             try:
                 current_price = yf.Ticker(ticker).info.get('currentPrice', pos['entry_price'])
                 if not current_price or current_price <= 0:
                     current_price = pos['entry_price']
-                positions_value += pos['shares'] * current_price
+                position_value = pos['shares'] * current_price
+                positions_value += position_value
+
+                if verbose:
+                    position_details.append({
+                        'ticker': ticker,
+                        'shares': pos['shares'],
+                        'price': current_price,
+                        'value': position_value
+                    })
             except:
-                positions_value += pos['shares'] * pos['entry_price']
-        
+                position_value = pos['shares'] * pos['entry_price']
+                positions_value += position_value
+
+                if verbose:
+                    position_details.append({
+                        'ticker': ticker,
+                        'shares': pos['shares'],
+                        'price': pos['entry_price'],
+                        'value': position_value
+                    })
+
         portfolio_value = self.cash + positions_value
-        
+
+        # VALIDATION: Log detailed breakdown if verbose mode enabled
+        if verbose:
+            logger.info(f"\n{'='*60}")
+            logger.info(f"📊 PORTFOLIO VALUE BREAKDOWN")
+            logger.info(f"{'='*60}")
+            logger.info(f"   Cash: ${self.cash:,.2f}")
+            logger.info(f"   Open Positions ({len(self.positions)}):")
+            for detail in position_details:
+                logger.info(f"      {detail['ticker']}: {detail['shares']} × ${detail['price']:.2f} = ${detail['value']:,.2f}")
+            logger.info(f"   Total Positions Value: ${positions_value:,.2f}")
+            logger.info(f"   ─────────────────────")
+            logger.info(f"   Portfolio Value: ${portfolio_value:,.2f}")
+            logger.info(f"   (Cash ${self.cash:,.2f} + Positions ${positions_value:,.2f})")
+            logger.info(f"{'='*60}\n")
+
         # Track max value for drawdown calculation
         if portfolio_value > self.max_portfolio_value:
             self.max_portfolio_value = portfolio_value
-        
+
         # Calculate current drawdown
         current_drawdown = ((portfolio_value - self.max_portfolio_value) / self.max_portfolio_value) * 100
         if current_drawdown < self.max_drawdown:
             self.max_drawdown = current_drawdown
-        
+
         return portfolio_value
     
     def validate_position_size(self, ticker, shares, price):
@@ -809,23 +851,35 @@ class PaperTradingPortfolio:
     
     def _close_position(self, ticker, exit_price, reason):
         """Close a position and update stats"""
-        pos = self.positions[ticker]
-        
+        # CRITICAL FIX: Store position data and remove from positions dict BEFORE
+        # any portfolio value calculations to prevent double-counting
+        pos = self.positions[ticker].copy()  # Make a copy of position data
+
         proceeds = pos['shares'] * exit_price
         profit = proceeds - pos['cost_basis']
         profit_pct = (profit / pos['cost_basis']) * 100
         days_held = (datetime.now() - pos['entry_date']).days
-        
+
+        # Update cash and stats
         self.cash += proceeds
         self.total_profit += profit
-        
+
         if profit > 0:
             self.winning_trades += 1
             emoji = "✅"
         else:
             self.losing_trades += 1
             emoji = "❌"
-        
+
+        # CRITICAL FIX: Remove position from dict BEFORE calculating portfolio value
+        # This prevents double-counting (cash includes proceeds + position still counted)
+        del self.positions[ticker]
+
+        # Remove any pending entries for this ticker
+        if ticker in self.pending_entries:
+            del self.pending_entries[ticker]
+
+        # Now log with CORRECT portfolio value (position already removed)
         logger.info(f"\n{'='*60}")
         logger.info(f"{emoji} POSITION CLOSED: {ticker}")
         logger.info(f"{'='*60}")
@@ -836,10 +890,14 @@ class PaperTradingPortfolio:
         logger.info(f"   Profit: ${profit:.2f} ({profit_pct:+.2f}%)")
         logger.info(f"   Days Held: {days_held}")
         logger.info(f"   Cash After: ${self.cash:,.2f}")
-        logger.info(f"   Portfolio: ${self.get_portfolio_value():,.2f}")
+
+        # Get portfolio value with detailed breakdown for validation
+        current_portfolio_value = self.get_portfolio_value(verbose=True)
+
         logger.info(f"{'='*60}\n")
-        
+
         # Log trade in NEW format expected by generate_public_performance.py
+        # Portfolio value is now CORRECT (position already removed, no double-counting)
         self.trade_history.append({
             'entry_date': pos['entry_date'],        # Entry date from position
             'exit_date': datetime.now(),             # Exit date (now)
@@ -855,15 +913,8 @@ class PaperTradingPortfolio:
             'hold_days': days_held,                  # Renamed from 'days_held' to match expected format
             'signal_score': pos.get('signal_score', 0),
             'cash_remaining': self.cash,
-            'portfolio_value': self.get_portfolio_value()
+            'portfolio_value': self.get_portfolio_value()  # Now CORRECT - no double counting
         })
-        
-        # Remove position
-        del self.positions[ticker]
-        
-        # Remove any pending entries
-        if ticker in self.pending_entries:
-            del self.pending_entries[ticker]
     
     def get_performance_summary(self):
         """Get comprehensive portfolio performance statistics"""
