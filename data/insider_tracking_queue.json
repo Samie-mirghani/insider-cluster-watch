@@ -238,16 +238,19 @@
     "title": "Dir",
     "qty": 1026,
     "value": 5366,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:45:51.282476",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:45:51.282480",
+    "last_updated": "2025-12-31T11:25:39.909105",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "FISV_Rosman Adam L._2025-12-02 00:00:00",
@@ -278,16 +281,19 @@
     "title": "CFO",
     "qty": 17000,
     "value": 1060970,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:45:51.293469",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:45:51.293472",
+    "last_updated": "2025-12-31T11:25:40.492821",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "DMLP_Vaughn Robert C_2025-11-28 00:00:00",
@@ -407,16 +413,19 @@
     "title": "Dir",
     "qty": 10000,
     "value": 710230,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:45:51.326723",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:45:51.326725",
+    "last_updated": "2025-12-31T11:25:41.085439",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "SMRT_Martell Frank_2025-12-01 00:00:00",
@@ -427,16 +436,19 @@
     "title": "CEO",
     "qty": 47278,
     "value": 79934,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:45:51.333831",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:45:51.333833",
+    "last_updated": "2025-12-31T11:25:41.677103",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "FUSB_Field Robert C_2025-12-01 00:00:00",
@@ -447,16 +459,19 @@
     "title": "Dir",
     "qty": 1000,
     "value": 13610,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:45:51.338000",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:45:51.338003",
+    "last_updated": "2025-12-31T11:25:42.373189",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "SMRT_Bohjalian Thomas N_2025-12-02 00:00:00",
@@ -585,16 +600,19 @@
     "title": "Dir",
     "qty": 1672,
     "value": 247506,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:45:51.372462",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:45:51.372465",
+    "last_updated": "2025-12-31T11:25:42.994533",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "BMEA_Erdtmann Rainer M_2025-11-28 00:00:00",
@@ -628,16 +646,19 @@
     "title": "CFO",
     "qty": 10000,
     "value": 16055,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:45:51.383941",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:45:51.383943",
+    "last_updated": "2025-12-31T11:25:43.633261",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "FLD_Young Bracebridge H Jr_2025-12-01 00:00:00",
@@ -648,16 +669,19 @@
     "title": "Dir",
     "qty": 8100,
     "value": 25308,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:45:51.388307",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:45:51.388310",
+    "last_updated": "2025-12-31T11:25:44.217220",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "FRD_Scott Sandra Kay_2025-11-28 00:00:00",
@@ -691,16 +715,19 @@
     "title": "Pres, Co-Portfolio Manager, 10%",
     "qty": 1134,
     "value": 2858,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:45:51.400088",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:45:51.400090",
+    "last_updated": "2025-12-31T11:25:44.906462",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "XIVYX_Ghodoosi Arash_2025-12-01 00:00:00",
@@ -711,16 +738,19 @@
     "title": "Pres, Principal Exec",
     "qty": 41,
     "value": 500,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:45:51.404559",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:45:51.404562",
+    "last_updated": "2025-12-31T11:25:45.635766",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "INVALID_TICKER",
+    "failure_reason": "Ticker is MUTUALFUND, not a stock"
   },
   {
     "trade_id": "NWBI_Meegan John P_2025-12-01 00:00:00",
@@ -731,16 +761,19 @@
     "title": "Dir",
     "qty": 1500,
     "value": 18150,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:45:51.409025",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:45:51.409027",
+    "last_updated": "2025-12-31T11:25:46.302421",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "MYSZ_Luzon Ronen_2025-12-01 00:00:00",
@@ -751,16 +784,19 @@
     "title": "CEO",
     "qty": 2600,
     "value": 2353,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:45:51.416765",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:45:51.416767",
+    "last_updated": "2025-12-31T11:25:46.896592",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "HKHC_Stahl Murray_2025-12-01 00:00:00",
@@ -771,16 +807,19 @@
     "title": "CEO, CIO, 10%",
     "qty": 22,
     "value": 594,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:45:51.421303",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:45:51.421305",
+    "last_updated": "2025-12-31T11:25:47.491021",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "CWBC_Cagle Dawn M_2025-11-28 00:00:00",
@@ -883,16 +922,19 @@
     "title": "10%",
     "qty": 1,
     "value": 867,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:45:51.447456",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:45:51.447460",
+    "last_updated": "2025-12-31T11:25:48.182199",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "MXF_Saba Capital Management, L.P._2025-12-01 00:00:00",
@@ -903,16 +945,19 @@
     "title": "10%",
     "qty": 10902,
     "value": 212044,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:45:51.452063",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:45:51.452066",
+    "last_updated": "2025-12-31T11:25:48.914758",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "DSM_Saba Capital Management, L.P._2025-11-28 00:00:00",
@@ -946,16 +991,19 @@
     "title": "10%",
     "qty": 9560,
     "value": 511078,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:45:51.461439",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:45:51.461442",
+    "last_updated": "2025-12-31T11:25:49.641388",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "AP_McBrayer Brett_2025-12-01 00:00:00",
@@ -966,16 +1014,19 @@
     "title": "CEO",
     "qty": 19000,
     "value": 48944,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:45:51.466115",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:45:51.466118",
+    "last_updated": "2025-12-31T11:25:50.369214",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "NRDY_Cohn Charles K._2025-11-28 00:00:00",
@@ -1147,16 +1198,19 @@
     "title": "Dir",
     "qty": 200,
     "value": 4950,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:45:51.508548",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:45:51.508551",
+    "last_updated": "2025-12-31T11:25:51.033131",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "SHBI_Willey Dawn M._2025-11-26 00:00:00",
@@ -1673,16 +1727,19 @@
     "title": "CEO",
     "qty": 2950,
     "value": 4924,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:45:51.628022",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:45:51.628024",
+    "last_updated": "2025-12-31T11:25:51.619638",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "MNR_Ward Tom L._2025-11-26 00:00:00",
@@ -1808,16 +1865,19 @@
     "title": "Dir",
     "qty": 5000,
     "value": 80656,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:45:51.661125",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-03T11:45:51.661129",
+    "last_updated": "2025-12-31T11:25:52.202942",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "ALG_Hureau Robert Paul_2025-11-26 00:00:00",
@@ -18733,10 +18793,10 @@
     "title": "CFO, Secretary",
     "qty": 119050,
     "value": 2381000,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:46:01.962979",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:26:33.964813",
+    "last_updated": "2025-12-31T11:25:52.798543",
     "outcomes": {
       "30d": {
         "price": 25.260000228881836,
@@ -18750,7 +18810,10 @@
       },
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "NP_Carlon Jonathan Winant_2025-10-02 00:00:00",
@@ -18761,10 +18824,10 @@
     "title": "Dir",
     "qty": 5000,
     "value": 100000,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:46:01.985207",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:26:34.576545",
+    "last_updated": "2025-12-31T11:25:53.348910",
     "outcomes": {
       "30d": {
         "price": 25.260000228881836,
@@ -18778,7 +18841,10 @@
       },
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "NP_Burgess Trevor R_2025-10-02 00:00:00",
@@ -18789,10 +18855,10 @@
     "title": "CEO, COB, 10%",
     "qty": 50000,
     "value": 1000000,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:46:02.007487",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:26:35.163955",
+    "last_updated": "2025-12-31T11:25:53.869856",
     "outcomes": {
       "30d": {
         "price": 25.260000228881836,
@@ -18806,7 +18872,10 @@
       },
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "TBRG_Pinetree Capital Ltd._2025-11-12 00:00:00",
@@ -44293,10 +44362,10 @@
     "title": "Pres, CEO",
     "qty": 500,
     "value": 19345,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:46:35.285168",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:33:06.101248",
+    "last_updated": "2025-12-31T11:25:54.707140",
     "outcomes": {
       "30d": {
         "price": 39.25,
@@ -44310,7 +44379,10 @@
       },
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "CALM_Lombardo Keira L_2025-10-02 00:00:00",
@@ -44321,10 +44393,10 @@
     "title": "Chief Strategy Officer",
     "qty": 2800,
     "value": 258599,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:46:35.330782",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:33:06.790944",
+    "last_updated": "2025-12-31T11:25:55.381288",
     "outcomes": {
       "30d": {
         "price": 88.45999908447266,
@@ -44338,7 +44410,10 @@
       },
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "YCY_Sun Qing Bill_2025-10-02 00:00:00",
@@ -44349,10 +44424,10 @@
     "title": "CEO, 10%",
     "qty": 334000,
     "value": 3340000,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:46:35.375651",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:33:07.379478",
+    "last_updated": "2025-12-31T11:25:55.970366",
     "outcomes": {
       "30d": {
         "price": 9.930000305175781,
@@ -44366,7 +44441,10 @@
       },
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "YCY_Aa Mission Sponsor II_2025-10-02 00:00:00",
@@ -44377,10 +44455,10 @@
     "title": "10%",
     "qty": 334000,
     "value": 3340000,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:46:35.419934",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:33:07.935644",
+    "last_updated": "2025-12-31T11:25:56.526296",
     "outcomes": {
       "30d": {
         "price": 9.930000305175781,
@@ -44394,7 +44472,10 @@
       },
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "SPWH_Tucci Michael D_2025-10-03 00:00:00",
@@ -44433,10 +44514,10 @@
     "title": "Dir",
     "qty": 520,
     "value": 3627,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:46:35.508214",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:33:09.212435",
+    "last_updated": "2025-12-31T11:25:57.154444",
     "outcomes": {
       "30d": {
         "price": 6.480000019073486,
@@ -44450,7 +44531,10 @@
       },
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "BGC_Cf Group Management Inc_2025-10-06 00:00:00",
@@ -44657,10 +44741,10 @@
     "title": "Dir",
     "qty": 10816,
     "value": 499807,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:46:35.861746",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:33:14.117434",
+    "last_updated": "2025-12-31T11:25:57.747174",
     "outcomes": {
       "30d": {
         "price": 41.34000015258789,
@@ -44674,7 +44758,10 @@
       },
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "MKZR_Dixon Robert E_2025-10-02 00:00:00",
@@ -44685,10 +44772,10 @@
     "title": "CEO, Pres",
     "qty": 15000,
     "value": 75880,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:46:35.906947",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:33:14.761203",
+    "last_updated": "2025-12-31T11:25:58.355880",
     "outcomes": {
       "30d": {
         "price": 5.360000133514404,
@@ -44702,7 +44789,10 @@
       },
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "MKZR_Sherpa Angche_2025-10-02 00:00:00",
@@ -44713,10 +44803,10 @@
     "title": "CFO",
     "qty": 15000,
     "value": 75880,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:46:35.951486",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:33:15.350723",
+    "last_updated": "2025-12-31T11:25:58.876589",
     "outcomes": {
       "30d": {
         "price": 5.360000133514404,
@@ -44730,7 +44820,10 @@
       },
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "KYN_Mears Michael N_2025-10-06 00:00:00",
@@ -44800,10 +44893,10 @@
     "title": "Chief Portfolio Manager",
     "qty": 15000,
     "value": 75880,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:46:36.085886",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:33:17.102135",
+    "last_updated": "2025-12-31T11:25:59.442501",
     "outcomes": {
       "30d": {
         "price": 5.360000133514404,
@@ -44817,7 +44910,10 @@
       },
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "MKZR_Fuller Glen W_2025-10-02 00:00:00",
@@ -44828,10 +44924,10 @@
     "title": "TREASURER",
     "qty": 15000,
     "value": 75880,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:46:36.130612",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:33:17.654262",
+    "last_updated": "2025-12-31T11:25:59.962934",
     "outcomes": {
       "30d": {
         "price": 5.360000133514404,
@@ -44845,7 +44941,10 @@
       },
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "MKZR_Patterson Charles E. II_2025-10-02 00:00:00",
@@ -44856,10 +44955,10 @@
     "title": "GC, Secretary",
     "qty": 15000,
     "value": 75880,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:46:36.174618",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:33:18.282567",
+    "last_updated": "2025-12-31T11:26:00.517124",
     "outcomes": {
       "30d": {
         "price": 5.360000133514404,
@@ -44873,7 +44972,10 @@
       },
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "MKZR_Bluth Jeri Ruth_2025-10-02 00:00:00",
@@ -44884,10 +44986,10 @@
     "title": "Chief Compliance Officer",
     "qty": 15000,
     "value": 75880,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:46:36.219286",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:33:18.803762",
+    "last_updated": "2025-12-31T11:26:01.074425",
     "outcomes": {
       "30d": {
         "price": 5.360000133514404,
@@ -44901,7 +45003,10 @@
       },
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "SCISX_Ma Eagle Holdings Fund_2025-10-03 00:00:00",
@@ -45136,10 +45241,10 @@
     "title": "Dir",
     "qty": 14697,
     "value": 69282,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:46:36.619506",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:33:24.336776",
+    "last_updated": "2025-12-31T11:26:01.704142",
     "outcomes": {
       "30d": {
         "price": 4.619999885559082,
@@ -45153,7 +45258,10 @@
       },
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "SPWH_Stone Paul_2025-10-02 00:00:00",
@@ -45164,10 +45272,10 @@
     "title": "Pres, CEO",
     "qty": 68279,
     "value": 188359,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:46:36.664191",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:33:24.890813",
+    "last_updated": "2025-12-31T11:26:02.323717",
     "outcomes": {
       "30d": {
         "price": 2.369999885559082,
@@ -45181,7 +45289,10 @@
       },
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "LAC_Zawadzki Alexi Illya_2025-10-01 00:00:00",
@@ -45223,10 +45334,10 @@
     "title": "See Remarks",
     "qty": 5000,
     "value": 195650,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:46:36.753417",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:33:26.150783",
+    "last_updated": "2025-12-31T11:26:02.929700",
     "outcomes": {
       "30d": {
         "price": 38.0099983215332,
@@ -45240,7 +45351,10 @@
       },
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "BNC_McDonald Anthony K_2025-10-01 00:00:00",
@@ -45344,10 +45458,10 @@
     "title": "Dir",
     "qty": 2000,
     "value": 91140,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:46:36.933837",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:33:28.566522",
+    "last_updated": "2025-12-31T11:26:03.479824",
     "outcomes": {
       "30d": {
         "price": 41.34000015258789,
@@ -45361,7 +45475,10 @@
       },
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "GGROU_Johnson Glenn Harold_2025-10-01 00:00:00",
@@ -45434,10 +45551,10 @@
     "title": "COB, CEO, Pres",
     "qty": 15132,
     "value": 20000,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:46:37.070497",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:33:30.360439",
+    "last_updated": "2025-12-31T11:26:04.098149",
     "outcomes": {
       "30d": {
         "price": 1.4700000286102295,
@@ -45451,7 +45568,10 @@
       },
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "CLOQ_Hurst Edwin Leon_2025-09-19 00:00:00",
@@ -45609,10 +45729,10 @@
     "title": "10%",
     "qty": 1,
     "value": 967,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:46:37.346676",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:33:37.067190",
+    "last_updated": "2025-12-31T11:26:04.704308",
     "outcomes": {
       "30d": {
         "price": 922.9482421875,
@@ -45626,7 +45746,10 @@
       },
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "RCG_Stahl Murray_2025-10-02 00:00:00",
@@ -45637,10 +45760,10 @@
     "title": "Pres, Co-Portfolio Manager, 10%",
     "qty": 1134,
     "value": 2960,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:46:37.392197",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:33:37.687013",
+    "last_updated": "2025-12-31T11:26:05.291241",
     "outcomes": {
       "30d": {
         "price": 2.5999999046325684,
@@ -45654,7 +45777,10 @@
       },
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "XPEPX_Sassine Victoria_2025-10-01 00:00:00",
@@ -45688,10 +45814,10 @@
     "title": "Pres, CEO",
     "qty": 3528,
     "value": 249183,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:46:37.481496",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:33:42.035350",
+    "last_updated": "2025-12-31T11:26:05.967113",
     "outcomes": {
       "30d": {
         "price": 72.76538848876953,
@@ -45705,7 +45831,10 @@
       },
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "ZIVO_Yaldoo Laith L_2025-09-30 00:00:00",
@@ -45778,10 +45907,10 @@
     "title": "Dir",
     "qty": 25000,
     "value": 61750,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:46:37.616051",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:33:43.878939",
+    "last_updated": "2025-12-31T11:26:06.519285",
     "outcomes": {
       "30d": {
         "price": 2.369999885559082,
@@ -45795,7 +45924,10 @@
       },
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "FGBI_Smith Edgar R. III_2025-09-30 00:00:00",
@@ -140053,16 +140185,19 @@
     "title": "Dir",
     "qty": 5101,
     "value": 13976,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-04T12:30:59.413977",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:30:59.413981",
+    "last_updated": "2025-12-31T11:26:07.796177",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "TISI_Corre Partners Management, LLC_2025-12-01 00:00:00",
@@ -140073,16 +140208,19 @@
     "title": "10%",
     "qty": 14034,
     "value": 208166,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-04T12:30:59.602737",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:30:59.602740",
+    "last_updated": "2025-12-31T11:26:08.430492",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "BLND_Haveli Investments, L.P._2025-12-01 00:00:00",
@@ -140093,16 +140231,19 @@
     "title": "Dir, 10%",
     "qty": 1309823,
     "value": 4068721,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-04T12:30:59.797127",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:30:59.797131",
+    "last_updated": "2025-12-31T11:26:09.017451",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "TBRG_Pinetree Capital Ltd._2025-12-01 00:00:00",
@@ -140113,16 +140254,19 @@
     "title": "10%",
     "qty": 130000,
     "value": 2932400,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-04T12:30:59.987083",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:30:59.987087",
+    "last_updated": "2025-12-31T11:26:09.650662",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "AFCG_Tannenbaum Leonard M_2025-12-01 00:00:00",
@@ -140133,16 +140277,19 @@
     "title": "Dir, 10%",
     "qty": 54000,
     "value": 155130,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-04T12:31:00.180233",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:31:00.180237",
+    "last_updated": "2025-12-31T11:26:10.248201",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "JYNT_Jobson Charles E_2025-12-01 00:00:00",
@@ -140153,16 +140300,19 @@
     "title": "10%",
     "qty": 13000,
     "value": 109330,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-04T12:31:00.373159",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:31:00.373164",
+    "last_updated": "2025-12-31T11:26:10.838248",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "AUBN_Housel David E_2025-12-03 00:00:00",
@@ -140193,16 +140343,19 @@
     "title": "Dir",
     "qty": 13500,
     "value": 72155,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-04T12:31:00.755094",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:31:00.755097",
+    "last_updated": "2025-12-31T11:26:11.426720",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "ENR_Mulligan Donal L_2025-12-02 00:00:00",
@@ -140233,16 +140386,19 @@
     "title": "Pres",
     "qty": 8148,
     "value": 28995,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-04T12:31:01.172682",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:31:01.172688",
+    "last_updated": "2025-12-31T11:26:12.015116",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "SLGL_Opaleye Management Inc._2025-12-01 00:00:00",
@@ -140253,16 +140409,19 @@
     "title": "10%",
     "qty": 6864,
     "value": 257610,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-04T12:31:01.376162",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:31:01.376166",
+    "last_updated": "2025-12-31T11:26:12.602641",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "DMLP_Box Frank Damon_2025-12-03 00:00:00",
@@ -140353,16 +140512,19 @@
     "title": "Dir",
     "qty": 588,
     "value": 11149,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-04T12:31:02.339537",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:31:02.339540",
+    "last_updated": "2025-12-31T11:26:13.275872",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "PARK_Gerlach Todd Christopher_2025-12-03 00:00:00",
@@ -140433,16 +140595,19 @@
     "title": "Dir",
     "qty": 1025,
     "value": 10250,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-04T12:31:03.117379",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:31:03.117383",
+    "last_updated": "2025-12-31T11:26:13.948480",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "RFMZ_Rivernorth Financial Holdings, LLC_2025-12-02 00:00:00",
@@ -140473,16 +140638,19 @@
     "title": "CFO",
     "qty": 33670,
     "value": 500808,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-04T12:31:03.501674",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:31:03.501679",
+    "last_updated": "2025-12-31T11:26:14.540393",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "PARK_Swenson Peter G_2025-12-03 00:00:00",
@@ -140513,16 +140681,19 @@
     "title": "Co-CEO",
     "qty": 158000,
     "value": 2379469,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-04T12:31:03.886996",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:31:03.887000",
+    "last_updated": "2025-12-31T11:26:15.099275",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "OWL_Lipschultz Marc S_2025-12-01 00:00:00",
@@ -140533,16 +140704,19 @@
     "title": "Co-CEO",
     "qty": 158000,
     "value": 2379469,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-04T12:31:04.081321",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:31:04.081325",
+    "last_updated": "2025-12-31T11:26:15.619526",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "OWL_Packer Craig_2025-12-01 00:00:00",
@@ -140553,16 +140727,19 @@
     "title": "Co-Pres",
     "qty": 125000,
     "value": 1882492,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-04T12:31:04.275089",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:31:04.275093",
+    "last_updated": "2025-12-31T11:26:16.180100",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "BV_Cornog William L_2025-12-02 00:00:00",
@@ -140633,16 +140810,19 @@
     "title": "Chief Growth Officer",
     "qty": 4900,
     "value": 24549,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-04T12:31:05.042301",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:31:05.042305",
+    "last_updated": "2025-12-31T11:26:16.768253",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "ANNX_Choi Jung_2025-12-01 00:00:00",
@@ -140653,16 +140833,19 @@
     "title": "Dir",
     "qty": 33000,
     "value": 138270,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-04T12:31:05.237380",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:31:05.237384",
+    "last_updated": "2025-12-31T11:26:17.354816",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "ANNX_Carson William H._2025-12-01 00:00:00",
@@ -140673,16 +140856,19 @@
     "title": "Dir",
     "qty": 4115,
     "value": 18394,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-04T12:31:05.435086",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:31:05.435092",
+    "last_updated": "2025-12-31T11:26:17.876181",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "GPUS_Ault Milton C III_2025-12-01 00:00:00",
@@ -140693,16 +140879,19 @@
     "title": "Exec COB, 10%",
     "qty": 101000,
     "value": 27702,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-04T12:31:05.637564",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:31:05.637571",
+    "last_updated": "2025-12-31T11:26:18.466080",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "MLP_Case Stephen M_2025-12-01 00:00:00",
@@ -140713,16 +140902,19 @@
     "title": "Dir, 10%",
     "qty": 10000,
     "value": 159250,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-04T12:31:05.833021",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:31:05.833026",
+    "last_updated": "2025-12-31T11:26:19.070921",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "CBAN_Canup Edward G_2025-11-28 00:00:00",
@@ -140756,16 +140948,19 @@
     "title": "Dir, 10%",
     "qty": 21988,
     "value": 76700,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-04T12:31:06.216837",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:31:06.216841",
+    "last_updated": "2025-12-31T11:26:19.692359",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "MMLP_Martin Product Sales LLC_2025-12-01 00:00:00",
@@ -140776,16 +140971,19 @@
     "title": "10%",
     "qty": 2239,
     "value": 5801,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-04T12:31:06.408406",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:31:06.408409",
+    "last_updated": "2025-12-31T11:26:20.354830",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "PFLT_Briones Jose A_2025-12-01 00:00:00",
@@ -140796,16 +140994,19 @@
     "title": "Dir",
     "qty": 5500,
     "value": 50045,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-04T12:31:06.601369",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:31:06.601373",
+    "last_updated": "2025-12-31T11:26:20.992750",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "UTI_Coliseum Capital Management, LLC_2025-12-01 00:00:00",
@@ -140816,16 +141017,19 @@
     "title": "Dir",
     "qty": 708107,
     "value": 17130752,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-04T12:31:06.798984",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:31:06.798989",
+    "last_updated": "2025-12-31T11:26:21.594201",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "ICCC_Te Boekhorst Paul Francis Olivier_2025-12-02 00:00:00",
@@ -140856,16 +141060,19 @@
     "title": "Dir",
     "qty": 4235,
     "value": 25016,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-04T12:31:07.190883",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:31:07.190888",
+    "last_updated": "2025-12-31T11:26:22.241357",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "ZONE_Enholm David James_2025-12-01 00:00:00",
@@ -140876,16 +141083,19 @@
     "title": "CFO",
     "qty": 18750,
     "value": 5595,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-04T12:31:07.385061",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:31:07.385065",
+    "last_updated": "2025-12-31T11:26:22.848831",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "FSCO_Fouss Barbara J_2025-12-01 00:00:00",
@@ -140896,16 +141106,19 @@
     "title": "Dir",
     "qty": 1620,
     "value": 9810,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-04T12:31:07.582866",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:31:07.582871",
+    "last_updated": "2025-12-31T11:26:23.449834",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "RCG_Stahl Murray_2025-12-02 00:00:00",
@@ -140999,16 +141212,19 @@
     "title": "10%",
     "qty": 592000,
     "value": 799200,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-04T12:31:08.589522",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:31:08.589528",
+    "last_updated": "2025-12-31T11:26:24.042164",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "RGCO_Oliver Lawrence T._2025-12-01 00:00:00",
@@ -141019,16 +141235,19 @@
     "title": "SVP, Secretary",
     "qty": 13,
     "value": 300,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-04T12:31:08.794501",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:31:08.794506",
+    "last_updated": "2025-12-31T11:26:24.709117",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "RGCO_Miles Christen Brooke_2025-12-01 00:00:00",
@@ -141039,16 +141258,19 @@
     "title": "VP, HR",
     "qty": 7,
     "value": 150,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-04T12:31:08.988588",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:31:08.988593",
+    "last_updated": "2025-12-31T11:26:25.295100",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "RGCO_Furcron Thomas Patrick_2025-12-01 00:00:00",
@@ -141059,16 +141281,19 @@
     "title": "VP, Field Operations",
     "qty": 29,
     "value": 645,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-04T12:31:09.182197",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:31:09.182201",
+    "last_updated": "2025-12-31T11:26:25.815173",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "TPVG_Labe James_2025-12-01 00:00:00",
@@ -141079,16 +141304,19 @@
     "title": "CEO",
     "qty": 100000,
     "value": 638460,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-04T12:31:09.375983",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:31:09.375987",
+    "last_updated": "2025-12-31T11:26:26.435103",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "TPVG_Srivastava Sajal_2025-12-01 00:00:00",
@@ -141099,16 +141327,19 @@
     "title": "Pres, CIO",
     "qty": 100000,
     "value": 638460,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-04T12:31:09.567542",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:31:09.567547",
+    "last_updated": "2025-12-31T11:26:26.956628",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "EHSI_Jeereddi Prasad Anjaneya_2025-11-04 00:00:00",
@@ -141143,16 +141374,19 @@
     "title": "Chairman of the Board",
     "qty": 6230,
     "value": 99671,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-04T12:31:09.966782",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:31:09.966787",
+    "last_updated": "2025-12-31T11:26:27.509371",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "TPL_Horizon Kinetics Asset Management LLC_2025-12-02 00:00:00",
@@ -141203,16 +141437,19 @@
     "title": "CEO, 10%",
     "qty": 189000,
     "value": 249480,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-04T12:31:10.547300",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:31:10.547304",
+    "last_updated": "2025-12-31T11:26:28.096896",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "DGICA_Donegal Mutual Insurance Co_2025-12-01 00:00:00",
@@ -141223,16 +141460,19 @@
     "title": "10%",
     "qty": 30000,
     "value": 602259,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-04T12:31:10.744883",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:31:10.744888",
+    "last_updated": "2025-12-31T11:26:28.740541",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "ELUT_Ferguson Matthew_2025-12-01 00:00:00",
@@ -141243,16 +141483,19 @@
     "title": "CFO",
     "qty": 10000,
     "value": 6610,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-04T12:31:10.946144",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T12:31:10.946151",
+    "last_updated": "2025-12-31T11:26:29.355927",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "ECOR_Goldberger Daniel S_2025-12-02 00:00:00",
