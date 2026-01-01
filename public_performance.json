@@ -1,6 +1,6 @@
 {
-  "last_updated": "December 31, 2025 at 11:27 UTC",
-  "total_return_pct": 8.58,
+  "last_updated": "January 01, 2026 at 11:27 UTC",
+  "total_return_pct": 8.56,
   "win_rate": 68.8,
   "completed_trades": 16,
   "active_trades": 4,
@@ -10,7 +10,7 @@
   "avg_hold_days": 12,
   "best_trade_pct": 59.64,
   "worst_trade_pct": -5.75,
-  "alpha_vs_sp500": 7.79,
+  "alpha_vs_sp500": 8.52,
   "avg_winner": 13.06,
   "avg_loser": -3.31,
   "win_loss_ratio": 3.95,
@@ -195,37 +195,37 @@
     {
       "ticker": "HYNE",
       "entry_date": "Dec 08, 2025",
-      "days_held": 22,
-      "unrealized_return": 4.24,
+      "days_held": 23,
+      "unrealized_return": 5.0,
       "conviction": "VERY HIGH"
     },
     {
       "ticker": "AMR",
       "entry_date": "Dec 18, 2025",
-      "days_held": 12,
-      "unrealized_return": 1.95,
+      "days_held": 13,
+      "unrealized_return": 0.82,
       "conviction": "MEDIUM"
     },
     {
       "ticker": "ACVA",
       "entry_date": "Dec 18, 2025",
-      "days_held": 12,
-      "unrealized_return": 5.44,
+      "days_held": 13,
+      "unrealized_return": 3.89,
       "conviction": "LOW"
     },
     {
       "ticker": "XZO",
       "entry_date": "Dec 23, 2025",
-      "days_held": 7,
-      "unrealized_return": 8.44,
+      "days_held": 8,
+      "unrealized_return": 10.08,
       "conviction": "HIGH"
     }
   ],
   "portfolio_composition": {
     "starting_capital": 10000,
-    "current_value": 10858.5,
+    "current_value": 10856.08,
     "cash": 8361.27,
-    "invested_capital": 2497.22,
-    "capital_deployed_pct": 23.0
+    "invested_capital": 2494.81,
+    "capital_deployed_pct": 22.98
   }
 }

@@ -68,7 +68,7 @@
     "recent_avg_return_90d": 2.73,
     "recent_trade_count": 4,
     "overall_score": 60.96,
-    "score_percentile": 56.9
+    "score_percentile": 57.3
   },
   "Brouwer Roald": {
     "name": "Brouwer Roald",
@@ -103,7 +103,7 @@
     "recent_avg_return_90d": 1.77,
     "recent_trade_count": 3,
     "overall_score": 53.81,
-    "score_percentile": 48.6
+    "score_percentile": 49.1
   },
   "Llc Rivernorth Financial Holdings": {
     "name": "Llc Rivernorth Financial Holdings",
@@ -139,7 +139,7 @@
     "recent_avg_return_90d": null,
     "recent_trade_count": 0,
     "overall_score": 50,
-    "score_percentile": 47.2
+    "score_percentile": 47.7
   },
   "Canup Edward G": {
     "name": "Canup Edward G",
@@ -209,7 +209,7 @@
     "recent_avg_return_90d": -0.06,
     "recent_trade_count": 11,
     "overall_score": 54.88,
-    "score_percentile": 50.0
+    "score_percentile": 50.5
   },
   "Caldwell Christopher A": {
     "name": "Caldwell Christopher A",
@@ -244,7 +244,7 @@
     "recent_avg_return_90d": null,
     "recent_trade_count": 0,
     "overall_score": 50,
-    "score_percentile": 47.2
+    "score_percentile": 47.7
   },
   "Fitzgerald John Taylor Maloney": {
     "name": "Fitzgerald John Taylor Maloney",
@@ -279,39 +279,33 @@
     "recent_avg_return_90d": -0.06,
     "recent_trade_count": 11,
     "overall_score": 54.88,
-    "score_percentile": 50.0
+    "score_percentile": 50.5
   },
   "Lp Saba Capital Management": {
     "name": "Lp Saba Capital Management",
-    "total_trades": 59,
-    "most_recent_trade": "2025-10-30T00:00:00",
-    "oldest_trade": "2025-06-12T00:00:00",
-    "companies_traded": 9,
+    "total_trades": 3,
+    "most_recent_trade": "2025-12-01T00:00:00",
+    "oldest_trade": "2025-11-28T00:00:00",
+    "companies_traded": 3,
     "tickers": [
-      "GF",
-      "ASA",
-      "ECF",
       "MXF",
-      "GRX",
-      "DMA",
       "DSM",
-      "EVM",
-      "ENX"
+      "ASA"
     ],
-    "win_rate_30d": 54.24,
-    "avg_return_30d": 5.33,
-    "median_return_30d": 1.52,
-    "best_return_30d": 25.5,
-    "worst_return_30d": -6.59,
-    "sharpe_30d": 0.53,
-    "sample_size_30d": 59,
-    "win_rate_90d": 75.86,
-    "avg_return_90d": 13.99,
-    "median_return_90d": 7.47,
-    "best_return_90d": 46.7,
-    "worst_return_90d": -9.25,
-    "sharpe_90d": 0.84,
-    "sample_size_90d": 29,
+    "win_rate_30d": 100.0,
+    "avg_return_30d": 5.73,
+    "median_return_30d": 3.55,
+    "best_return_30d": 11.62,
+    "worst_return_30d": 2.03,
+    "sharpe_30d": 1.11,
+    "sample_size_30d": 3,
+    "win_rate_90d": null,
+    "avg_return_90d": null,
+    "median_return_90d": null,
+    "best_return_90d": null,
+    "worst_return_90d": null,
+    "sharpe_90d": null,
+    "sample_size_90d": 0,
     "win_rate_180d": null,
     "avg_return_180d": null,
     "median_return_180d": null,
@@ -319,10 +313,10 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
-    "recent_avg_return_90d": 13.99,
-    "recent_trade_count": 59,
-    "overall_score": 79.45,
-    "score_percentile": 71.1
+    "recent_avg_return_90d": null,
+    "recent_trade_count": 0,
+    "overall_score": 50,
+    "score_percentile": 47.7
   },
   "Cassabaum Michelle R": {
     "name": "Cassabaum Michelle R",
@@ -361,23 +355,23 @@
   },
   "Stahl Murray": {
     "name": "Stahl Murray",
-    "total_trades": 127,
-    "most_recent_trade": "2025-11-10T00:00:00",
+    "total_trades": 129,
+    "most_recent_trade": "2025-12-01T00:00:00",
     "oldest_trade": "2025-06-13T00:00:00",
     "companies_traded": 4,
     "tickers": [
       "RCG",
-      "MIAX",
       "HKHC",
+      "MIAX",
       "TPL"
     ],
-    "win_rate_30d": 31.5,
-    "avg_return_30d": -1.32,
+    "win_rate_30d": 31.78,
+    "avg_return_30d": -1.38,
     "median_return_30d": -1.04,
     "best_return_30d": 12.94,
     "worst_return_30d": -15.46,
-    "sharpe_30d": -0.35,
-    "sample_size_30d": 127,
+    "sharpe_30d": -0.36,
+    "sample_size_30d": 129,
     "win_rate_90d": 22.35,
     "avg_return_90d": -6.74,
     "median_return_90d": -2.26,
@@ -393,7 +387,7 @@
     "sharpe_180d": -0.89,
     "sample_size_180d": 2,
     "recent_avg_return_90d": -6.74,
-    "recent_trade_count": 127,
+    "recent_trade_count": 129,
     "overall_score": 30.23,
     "score_percentile": 28.0
   },
@@ -570,7 +564,7 @@
     "recent_avg_return_90d": null,
     "recent_trade_count": 0,
     "overall_score": 50,
-    "score_percentile": 47.2
+    "score_percentile": 47.7
   },
   "Carson William H": {
     "name": "Carson William H",
@@ -675,7 +669,7 @@
     "recent_avg_return_90d": 4.63,
     "recent_trade_count": 14,
     "overall_score": 75.29,
-    "score_percentile": 66.1
+    "score_percentile": 66.5
   },
   "Shaw Thomas J": {
     "name": "Shaw Thomas J",
@@ -745,7 +739,7 @@
     "recent_avg_return_90d": 4.25,
     "recent_trade_count": 3,
     "overall_score": 76.21,
-    "score_percentile": 67.4
+    "score_percentile": 67.9
   },
   "Inc Ctt Pharmaceutical Holdings": {
     "name": "Inc Ctt Pharmaceutical Holdings",
@@ -959,7 +953,7 @@
     "recent_avg_return_90d": null,
     "recent_trade_count": 0,
     "overall_score": 50,
-    "score_percentile": 47.2
+    "score_percentile": 47.7
   },
   "Sell Moritz A": {
     "name": "Sell Moritz A",
@@ -1102,7 +1096,7 @@
     "recent_avg_return_90d": 1.21,
     "recent_trade_count": 3,
     "overall_score": 66.51,
-    "score_percentile": 61.5
+    "score_percentile": 61.9
   },
   "Odowd William": {
     "name": "Odowd William",
@@ -1242,7 +1236,7 @@
     "recent_avg_return_90d": null,
     "recent_trade_count": 0,
     "overall_score": 50,
-    "score_percentile": 47.2
+    "score_percentile": 47.7
   },
   "Fairmount Funds Management Llc": {
     "name": "Fairmount Funds Management Llc",
@@ -1314,7 +1308,7 @@
     "recent_avg_return_90d": 0.88,
     "recent_trade_count": 3,
     "overall_score": 72.4,
-    "score_percentile": 64.2
+    "score_percentile": 64.7
   },
   "Alford Tony L": {
     "name": "Alford Tony L",
@@ -1771,7 +1765,7 @@
     "recent_avg_return_90d": 2.41,
     "recent_trade_count": 6,
     "overall_score": 78.01,
-    "score_percentile": 68.8
+    "score_percentile": 69.3
   },
   "Hand Joseph Thomas": {
     "name": "Hand Joseph Thomas",
@@ -1806,7 +1800,7 @@
     "recent_avg_return_90d": 0.87,
     "recent_trade_count": 5,
     "overall_score": 56.74,
-    "score_percentile": 51.4
+    "score_percentile": 51.8
   },
   "Sack Peter": {
     "name": "Sack Peter",
@@ -2092,7 +2086,7 @@
     "recent_avg_return_90d": 5.26,
     "recent_trade_count": 13,
     "overall_score": 72.58,
-    "score_percentile": 64.7
+    "score_percentile": 65.1
   },
   "Yaldoo Laith L": {
     "name": "Yaldoo Laith L",
@@ -2163,7 +2157,7 @@
     "recent_avg_return_90d": 2.64,
     "recent_trade_count": 3,
     "overall_score": 76.05,
-    "score_percentile": 67.0
+    "score_percentile": 67.4
   },
   "Opaleye Management Inc": {
     "name": "Opaleye Management Inc",
@@ -2269,7 +2263,7 @@
     "recent_avg_return_90d": 4.64,
     "recent_trade_count": 3,
     "overall_score": 57.1,
-    "score_percentile": 52.3
+    "score_percentile": 52.8
   },
   "Marlett Christopher A": {
     "name": "Marlett Christopher A",
@@ -2379,7 +2373,7 @@
     "recent_avg_return_90d": null,
     "recent_trade_count": 0,
     "overall_score": 50,
-    "score_percentile": 47.2
+    "score_percentile": 47.7
   },
   "Resch Martin H": {
     "name": "Resch Martin H",
@@ -2519,7 +2513,7 @@
     "recent_avg_return_90d": -0.47,
     "recent_trade_count": 8,
     "overall_score": 54.21,
-    "score_percentile": 49.1
+    "score_percentile": 49.5
   },
   "Sherpa Angche": {
     "name": "Sherpa Angche",
@@ -2554,7 +2548,7 @@
     "recent_avg_return_90d": 0.61,
     "recent_trade_count": 6,
     "overall_score": 59.96,
-    "score_percentile": 56.4
+    "score_percentile": 56.9
   },
   "Simpson Christine Elizabeth": {
     "name": "Simpson Christine Elizabeth",
@@ -2589,7 +2583,7 @@
     "recent_avg_return_90d": 0.61,
     "recent_trade_count": 6,
     "overall_score": 59.96,
-    "score_percentile": 56.4
+    "score_percentile": 56.9
   },
   "Fuller Glen W": {
     "name": "Fuller Glen W",
@@ -2624,7 +2618,7 @@
     "recent_avg_return_90d": 0.61,
     "recent_trade_count": 6,
     "overall_score": 59.96,
-    "score_percentile": 56.4
+    "score_percentile": 56.9
   },
   "Patterson Charles E": {
     "name": "Patterson Charles E",
@@ -2659,7 +2653,7 @@
     "recent_avg_return_90d": 2.7,
     "recent_trade_count": 8,
     "overall_score": 65.14,
-    "score_percentile": 61.0
+    "score_percentile": 61.5
   },
   "Bluth Jeri Ruth": {
     "name": "Bluth Jeri Ruth",
@@ -2694,7 +2688,7 @@
     "recent_avg_return_90d": 0.61,
     "recent_trade_count": 6,
     "overall_score": 59.96,
-    "score_percentile": 56.4
+    "score_percentile": 56.9
   },
   "Ma Eagle Holdings Fund": {
     "name": "Ma Eagle Holdings Fund",
@@ -2799,7 +2793,7 @@
     "recent_avg_return_90d": 1.28,
     "recent_trade_count": 5,
     "overall_score": 57.85,
-    "score_percentile": 53.7
+    "score_percentile": 54.1
   },
   "Miles Christen Brooke": {
     "name": "Miles Christen Brooke",
@@ -2834,7 +2828,7 @@
     "recent_avg_return_90d": 1.28,
     "recent_trade_count": 5,
     "overall_score": 57.85,
-    "score_percentile": 53.7
+    "score_percentile": 54.1
   },
   "Oliver Lawrence T": {
     "name": "Oliver Lawrence T",
@@ -2869,7 +2863,7 @@
     "recent_avg_return_90d": 1.28,
     "recent_trade_count": 4,
     "overall_score": 57.85,
-    "score_percentile": 53.7
+    "score_percentile": 54.1
   },
   "Agree Joey": {
     "name": "Agree Joey",
@@ -2904,7 +2898,7 @@
     "recent_avg_return_90d": 1.64,
     "recent_trade_count": 3,
     "overall_score": 77.05,
-    "score_percentile": 67.9
+    "score_percentile": 68.3
   },
   "Lamendola Damien": {
     "name": "Lamendola Damien",
@@ -2939,7 +2933,7 @@
     "recent_avg_return_90d": 11.98,
     "recent_trade_count": 4,
     "overall_score": 71.83,
-    "score_percentile": 63.3
+    "score_percentile": 63.8
   },
   "Stewart Marta R": {
     "name": "Stewart Marta R",
@@ -3009,7 +3003,7 @@
     "recent_avg_return_90d": 4.05,
     "recent_trade_count": 3,
     "overall_score": 74.16,
-    "score_percentile": 65.1
+    "score_percentile": 65.6
   },
   "Eberwein Jeffrey E": {
     "name": "Eberwein Jeffrey E",
@@ -3044,7 +3038,7 @@
     "recent_avg_return_90d": null,
     "recent_trade_count": 0,
     "overall_score": 50,
-    "score_percentile": 47.2
+    "score_percentile": 47.7
   },
   "Inglis John C": {
     "name": "Inglis John C",
@@ -3227,7 +3221,7 @@
     "recent_avg_return_90d": null,
     "recent_trade_count": 0,
     "overall_score": 50,
-    "score_percentile": 47.2
+    "score_percentile": 47.7
   },
   "Quinlan Peter Sebastian": {
     "name": "Quinlan Peter Sebastian",
@@ -3262,7 +3256,7 @@
     "recent_avg_return_90d": 3.09,
     "recent_trade_count": 6,
     "overall_score": 75.81,
-    "score_percentile": 66.5
+    "score_percentile": 67.0
   },
   "Niemann John O": {
     "name": "Niemann John O",
@@ -3297,7 +3291,7 @@
     "recent_avg_return_90d": null,
     "recent_trade_count": 0,
     "overall_score": 50,
-    "score_percentile": 47.2
+    "score_percentile": 47.7
   },
   "Barry John F": {
     "name": "Barry John F",
@@ -3475,7 +3469,7 @@
     "recent_avg_return_90d": 2.0,
     "recent_trade_count": 3,
     "overall_score": 55.05,
-    "score_percentile": 50.5
+    "score_percentile": 50.9
   },
   "Johnson Marc": {
     "name": "Johnson Marc",
@@ -3545,7 +3539,7 @@
     "recent_avg_return_90d": null,
     "recent_trade_count": 0,
     "overall_score": 50,
-    "score_percentile": 47.2
+    "score_percentile": 47.7
   },
   "Schuler Jack W": {
     "name": "Schuler Jack W",
@@ -3686,7 +3680,7 @@
     "recent_avg_return_90d": 0.13,
     "recent_trade_count": 5,
     "overall_score": 56.91,
-    "score_percentile": 51.8
+    "score_percentile": 52.3
   },
   "Roberts Eric W": {
     "name": "Roberts Eric W",
@@ -3756,7 +3750,7 @@
     "recent_avg_return_90d": 0.28,
     "recent_trade_count": 5,
     "overall_score": 58.2,
-    "score_percentile": 54.1
+    "score_percentile": 54.6
   },
   "Piconi Robert": {
     "name": "Piconi Robert",
@@ -4142,24 +4136,24 @@
     "recent_avg_return_90d": 3.44,
     "recent_trade_count": 4,
     "overall_score": 61.45,
-    "score_percentile": 57.8
+    "score_percentile": 58.3
   },
   "Martell Frank": {
     "name": "Martell Frank",
-    "total_trades": 5,
-    "most_recent_trade": "2025-09-16T00:00:00",
+    "total_trades": 6,
+    "most_recent_trade": "2025-12-01T00:00:00",
     "oldest_trade": "2025-08-08T00:00:00",
     "companies_traded": 1,
     "tickers": [
       "SMRT"
     ],
-    "win_rate_30d": 60.0,
-    "avg_return_30d": 4.82,
-    "median_return_30d": 8.33,
-    "best_return_30d": 16.8,
+    "win_rate_30d": 66.67,
+    "avg_return_30d": 7.27,
+    "median_return_30d": 10.46,
+    "best_return_30d": 19.53,
     "worst_return_30d": -7.59,
-    "sharpe_30d": 0.44,
-    "sample_size_30d": 5,
+    "sharpe_30d": 0.63,
+    "sample_size_30d": 6,
     "win_rate_90d": 100.0,
     "avg_return_90d": 18.89,
     "median_return_90d": 14.5,
@@ -4175,7 +4169,7 @@
     "sharpe_180d": null,
     "sample_size_180d": 0,
     "recent_avg_return_90d": 18.89,
-    "recent_trade_count": 5,
+    "recent_trade_count": 6,
     "overall_score": 96.06,
     "score_percentile": 90.8
   },
@@ -4252,7 +4246,7 @@
     "recent_avg_return_90d": 3.47,
     "recent_trade_count": 3,
     "overall_score": 61.99,
-    "score_percentile": 59.6
+    "score_percentile": 60.1
   },
   "Jensen Karen M": {
     "name": "Jensen Karen M",
@@ -4287,7 +4281,7 @@
     "recent_avg_return_90d": 2.9,
     "recent_trade_count": 3,
     "overall_score": 61.58,
-    "score_percentile": 58.3
+    "score_percentile": 58.7
   },
   "Krindel Yaffa": {
     "name": "Krindel Yaffa",
@@ -4883,7 +4877,7 @@
     "recent_avg_return_90d": 3.39,
     "recent_trade_count": 4,
     "overall_score": 61.39,
-    "score_percentile": 57.3
+    "score_percentile": 57.8
   },
   "Smith Daniel Earl": {
     "name": "Smith Daniel Earl",
@@ -4919,7 +4913,7 @@
     "recent_avg_return_90d": 3.52,
     "recent_trade_count": 3,
     "overall_score": 61.75,
-    "score_percentile": 58.7
+    "score_percentile": 59.2
   },
   "Case Stephen M": {
     "name": "Case Stephen M",
@@ -5059,7 +5053,7 @@
     "recent_avg_return_90d": 0.34,
     "recent_trade_count": 3,
     "overall_score": 50.88,
-    "score_percentile": 47.7
+    "score_percentile": 48.2
   },
   "Baker Bros Advisors Lp": {
     "name": "Baker Bros Advisors Lp",
@@ -5166,7 +5160,7 @@
     "recent_avg_return_90d": 1.91,
     "recent_trade_count": 7,
     "overall_score": 64.89,
-    "score_percentile": 60.6
+    "score_percentile": 61.0
   },
   "Merriman D Jonathan": {
     "name": "Merriman D Jonathan",
@@ -5379,7 +5373,7 @@
     "recent_avg_return_90d": 14.46,
     "recent_trade_count": 6,
     "overall_score": 74.88,
-    "score_percentile": 65.6
+    "score_percentile": 66.1
   },
   "Labe James": {
     "name": "Labe James",
@@ -5695,7 +5689,7 @@
     "recent_avg_return_90d": 5.33,
     "recent_trade_count": 13,
     "overall_score": 66.63,
-    "score_percentile": 61.9
+    "score_percentile": 62.4
   },
   "Hixon Dylan": {
     "name": "Hixon Dylan",
@@ -5800,7 +5794,7 @@
     "recent_avg_return_90d": 3.14,
     "recent_trade_count": 6,
     "overall_score": 56.03,
-    "score_percentile": 50.9
+    "score_percentile": 51.4
   },
   "Zamani Payam": {
     "name": "Zamani Payam",
@@ -5870,7 +5864,7 @@
     "recent_avg_return_90d": 6.19,
     "recent_trade_count": 3,
     "overall_score": 78.74,
-    "score_percentile": 69.7
+    "score_percentile": 70.2
   },
   "Clark Christopher D": {
     "name": "Clark Christopher D",
@@ -5942,7 +5936,7 @@
     "recent_avg_return_90d": 3.19,
     "recent_trade_count": 3,
     "overall_score": 78.99,
-    "score_percentile": 70.6
+    "score_percentile": 71.1
   },
   "Conway Shawn": {
     "name": "Conway Shawn",
@@ -6259,7 +6253,7 @@
     "recent_avg_return_90d": 7.18,
     "recent_trade_count": 3,
     "overall_score": 67.68,
-    "score_percentile": 62.4
+    "score_percentile": 62.8
   },
   "Bourland Jill": {
     "name": "Bourland Jill",
@@ -6294,7 +6288,7 @@
     "recent_avg_return_90d": 13.43,
     "recent_trade_count": 3,
     "overall_score": 77.24,
-    "score_percentile": 68.3
+    "score_percentile": 68.8
   },
   "Galkin Vladimir": {
     "name": "Galkin Vladimir",
@@ -6505,7 +6499,7 @@
     "recent_avg_return_90d": 11.86,
     "recent_trade_count": 3,
     "overall_score": 71.78,
-    "score_percentile": 62.8
+    "score_percentile": 63.3
   },
   "Jones Stephen J": {
     "name": "Jones Stephen J",
@@ -6645,7 +6639,7 @@
     "recent_avg_return_90d": 1.26,
     "recent_trade_count": 3,
     "overall_score": 58.73,
-    "score_percentile": 54.6
+    "score_percentile": 55.0
   },
   "Brinker Scott M": {
     "name": "Brinker Scott M",
@@ -6999,7 +6993,7 @@
     "recent_avg_return_90d": -3.97,
     "recent_trade_count": 5,
     "overall_score": 53.19,
-    "score_percentile": 48.2
+    "score_percentile": 48.6
   },
   "Halfacre Aaron Scott": {
     "name": "Halfacre Aaron Scott",
@@ -7034,7 +7028,7 @@
     "recent_avg_return_90d": 3.06,
     "recent_trade_count": 3,
     "overall_score": 78.82,
-    "score_percentile": 70.2
+    "score_percentile": 70.6
   },
   "Llc Skycrest Holdings": {
     "name": "Llc Skycrest Holdings",
@@ -7104,7 +7098,7 @@
     "recent_avg_return_90d": 29.39,
     "recent_trade_count": 3,
     "overall_score": 78.35,
-    "score_percentile": 69.3
+    "score_percentile": 69.7
   },
   "Peterman Tamara": {
     "name": "Peterman Tamara",
@@ -7178,20 +7172,20 @@
   },
   "Belsky Scott": {
     "name": "Belsky Scott",
-    "total_trades": 3,
-    "most_recent_trade": "2025-11-03T00:00:00",
+    "total_trades": 4,
+    "most_recent_trade": "2025-12-01T00:00:00",
     "oldest_trade": "2025-08-28T00:00:00",
     "companies_traded": 1,
     "tickers": [
       "TEAM"
     ],
-    "win_rate_30d": 33.33,
-    "avg_return_30d": -0.52,
-    "median_return_30d": -4.45,
+    "win_rate_30d": 50.0,
+    "avg_return_30d": 1.99,
+    "median_return_30d": 2.54,
     "best_return_30d": 10.66,
     "worst_return_30d": -7.79,
-    "sharpe_30d": -0.05,
-    "sample_size_30d": 3,
+    "sharpe_30d": 0.21,
+    "sample_size_30d": 4,
     "win_rate_90d": 0.0,
     "avg_return_90d": -14.43,
     "median_return_90d": -14.43,
@@ -7207,7 +7201,7 @@
     "sharpe_180d": null,
     "sample_size_180d": 0,
     "recent_avg_return_90d": -14.43,
-    "recent_trade_count": 3,
+    "recent_trade_count": 4,
     "overall_score": 16.96,
     "score_percentile": 17.0
   },
@@ -7279,7 +7273,7 @@
     "recent_avg_return_90d": 2.92,
     "recent_trade_count": 4,
     "overall_score": 72.2,
-    "score_percentile": 63.8
+    "score_percentile": 64.2
   },
   "Smith Dwight Eric": {
     "name": "Smith Dwight Eric",
@@ -7386,7 +7380,7 @@
     "recent_avg_return_90d": null,
     "recent_trade_count": 0,
     "overall_score": 50,
-    "score_percentile": 47.2
+    "score_percentile": 47.7
   },
   "Marchetti Kevin Patrick": {
     "name": "Marchetti Kevin Patrick",
@@ -7456,7 +7450,7 @@
     "recent_avg_return_90d": 6.89,
     "recent_trade_count": 3,
     "overall_score": 61.86,
-    "score_percentile": 59.2
+    "score_percentile": 59.6
   },
   "Kothandaraman Badrinarayanan": {
     "name": "Kothandaraman Badrinarayanan",
@@ -7526,7 +7520,7 @@
     "recent_avg_return_90d": null,
     "recent_trade_count": 0,
     "overall_score": 50,
-    "score_percentile": 47.2
+    "score_percentile": 47.7
   },
   "Moore William M": {
     "name": "Moore William M",
@@ -7561,7 +7555,7 @@
     "recent_avg_return_90d": 10.45,
     "recent_trade_count": 3,
     "overall_score": 64.26,
-    "score_percentile": 60.1
+    "score_percentile": 60.6
   },
   "Seger Andrew M": {
     "name": "Seger Andrew M",
@@ -7668,7 +7662,7 @@
     "recent_avg_return_90d": null,
     "recent_trade_count": 0,
     "overall_score": 50,
-    "score_percentile": 47.2
+    "score_percentile": 47.7
   },
   "Williams Mark": {
     "name": "Williams Mark",

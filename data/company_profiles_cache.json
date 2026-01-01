@@ -3202,5 +3202,113 @@
     "ipoDate": "1986-10-24",
     "updated": "2025-12-31T11:26:52.537616",
     "source": "fmp_api"
+  },
+  "EP": {
+    "industry": "Oil & Gas Exploration & Production",
+    "sector": "Energy",
+    "price": 3.04,
+    "companyName": "Empire Petroleum Corporation",
+    "currency": "USD",
+    "beta": 1.023,
+    "range": "2.78-8.12",
+    "ipoDate": "1999-10-27",
+    "updated": "2026-01-01T11:26:19.233972",
+    "source": "fmp_api"
+  },
+  "CLPR": {
+    "industry": "REIT - Residential",
+    "sector": "Real Estate",
+    "price": 3.82,
+    "companyName": "Clipper Realty Inc.",
+    "currency": "USD",
+    "beta": 0.975,
+    "range": "3.31-5.16",
+    "ipoDate": "2017-02-10",
+    "updated": "2026-01-01T11:26:19.236901",
+    "source": "fmp_api"
+  },
+  "VANI": {
+    "industry": "Medical - Devices",
+    "sector": "Healthcare",
+    "price": 1.23,
+    "companyName": "Vivani Medical, Inc.",
+    "currency": "USD",
+    "beta": 3.319,
+    "range": "0.905-1.92",
+    "ipoDate": "2014-11-19",
+    "updated": "2026-01-01T11:26:19.252217",
+    "source": "fmp_api"
+  },
+  "IRD": {
+    "industry": "Biotechnology",
+    "sector": "Healthcare",
+    "price": 2.01,
+    "companyName": "Opus Genetics, Inc.",
+    "currency": "USD",
+    "beta": 0.419,
+    "range": "0.65-2.59",
+    "ipoDate": "2015-01-19",
+    "updated": "2026-01-01T11:26:19.256170",
+    "source": "fmp_api"
+  },
+  "AIG": {
+    "industry": "Insurance - Diversified",
+    "sector": "Financial Services",
+    "price": 85.55,
+    "companyName": "American International Group, Inc.",
+    "currency": "USD",
+    "beta": 0.626,
+    "range": "69.24-88.07",
+    "ipoDate": "1973-01-02",
+    "updated": "2026-01-01T11:26:19.268836",
+    "source": "fmp_api"
+  },
+  "MDBH": {
+    "industry": "Financial - Capital Markets",
+    "sector": "Financial Services",
+    "price": 3.245,
+    "companyName": "MDB Capital Holdings, LLC Class A common",
+    "currency": "USD",
+    "beta": 1.089,
+    "range": "3.11-7.98",
+    "ipoDate": "2023-09-21",
+    "updated": "2026-01-01T11:26:19.311525",
+    "source": "fmp_api"
+  },
+  "MSIF": {
+    "industry": "Asset Management",
+    "sector": "Financial Services",
+    "price": 13.14,
+    "companyName": "MSC Income Fund, Inc.",
+    "currency": "USD",
+    "beta": 0.726,
+    "range": "11.78-18.095",
+    "ipoDate": "2025-01-29",
+    "updated": "2026-01-01T11:26:19.317641",
+    "source": "fmp_api"
+  },
+  "FSCO": {
+    "industry": "Asset Management",
+    "sector": "Financial Services",
+    "price": 6.3,
+    "companyName": "FS Credit Opportunities Corp.",
+    "currency": "USD",
+    "beta": 0.35134038,
+    "range": "5.29-7.65",
+    "ipoDate": "2022-11-14",
+    "updated": "2026-01-01T11:26:19.331064",
+    "source": "fmp_api"
+  },
+  "LGL": {
+    "industry": "Hardware, Equipment & Parts",
+    "sector": "Technology",
+    "price": 5.75,
+    "companyName": "The LGL Group, Inc.",
+    "currency": "USD",
+    "beta": 0.052,
+    "range": "5.45-9.74",
+    "ipoDate": "1980-03-17",
+    "updated": "2026-01-01T11:26:19.340576",
+    "source": "fmp_api"
   }
 }
