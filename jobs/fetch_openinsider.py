@@ -9,6 +9,10 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 import time
+import logging
+from ticker_validator import validate_and_normalize_ticker
+
+logger = logging.getLogger(__name__)
 
 OPENINS_URL = "http://openinsider.com/screener"
 
@@ -136,9 +140,35 @@ def fetch_openinsider_recent(max_retries=3):
                     return code
             
             df['trade_type'] = df['trade_type'].apply(map_transaction_type)
-            
-            print(f"✅ Successfully fetched {len(df)} records from OpenInsider")
-            
+
+            # TICKER VALIDATION: Normalize and validate all tickers
+            # Remove .Q, .G, .M suffixes and filter out invalid tickers
+            initial_count = len(df)
+
+            # Create mapping of raw -> normalized tickers
+            ticker_mapping = {}
+            invalid_tickers = []
+
+            for raw_ticker in df['ticker'].unique():
+                normalized_ticker, error, _ = validate_and_normalize_ticker(raw_ticker)
+                if normalized_ticker:
+                    ticker_mapping[raw_ticker] = normalized_ticker
+                else:
+                    invalid_tickers.append((raw_ticker, error))
+
+            # Apply normalization using map (avoids SettingWithCopyWarning)
+            df['ticker'] = df['ticker'].map(lambda t: ticker_mapping.get(t, t))
+
+            # Filter out invalid tickers (those not in mapping)
+            df = df[df['ticker'].isin(ticker_mapping.values())].copy()
+
+            if invalid_tickers:
+                logger.info(f"Filtered out {len(invalid_tickers)} invalid tickers from OpenInsider data")
+                for ticker, reason in invalid_tickers[:5]:  # Log first 5
+                    logger.debug(f"  Skipped '{ticker}': {reason}")
+
+            print(f"✅ Successfully fetched {len(df)} records from OpenInsider ({initial_count - len(df)} invalid tickers filtered)")
+
             # Show breakdown
             if not df.empty:
                 buy_count = len(df[df['trade_type'].str.contains('Purchase|P -', case=False, na=False)])

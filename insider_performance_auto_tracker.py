@@ -54,8 +54,10 @@ import logging
 # yfinance logs ERROR for every delisted ticker, which clutters logs
 # These are expected failures and don't break the pipeline
 logging.getLogger('yfinance').setLevel(logging.WARNING)
+logger = logging.getLogger(__name__)
 
 from insider_performance_tracker import InsiderPerformanceTracker
+from ticker_validator import get_failed_ticker_cache, validate_and_normalize_ticker
 
 
 class AutoInsiderTracker:
@@ -421,6 +423,16 @@ class AutoInsiderTracker:
         """
         delay = 1.0
         last_error = None
+        failed_ticker_cache = get_failed_ticker_cache()
+
+        # Check if ticker is blacklisted before attempting fetch
+        is_blacklisted, blacklist_reason = failed_ticker_cache.is_blacklisted(ticker)
+        if is_blacklisted:
+            logger.debug(f"Skipping blacklisted ticker {ticker}: {blacklist_reason}")
+            return {
+                'failure_type': 'PERMANENT',
+                'failure_reason': f'Blacklisted: {blacklist_reason}'
+            }
 
         for attempt in range(max_retries):
             try:
@@ -439,6 +451,11 @@ class AutoInsiderTracker:
                         if not info or len(info) < 5:
                             # Likely invalid ticker
                             if self._is_invalid_ticker_format(ticker):
+                                failed_ticker_cache.record_failure(
+                                    ticker,
+                                    f'Invalid ticker format: {ticker}',
+                                    failure_type='PERMANENT'
+                                )
                                 return {
                                     'failure_type': 'INVALID_TICKER',
                                     'failure_reason': f'Invalid ticker format: {ticker}'
@@ -491,9 +508,17 @@ class AutoInsiderTracker:
                         }
 
                 if outcomes:
+                    # Record success - remove from blacklist if present
+                    failed_ticker_cache.record_success(ticker)
                     return {'outcomes': outcomes}
                 else:
                     # No data for the required horizons (trade too recent)
+                    #Record failure
+                    failed_ticker_cache.record_failure(
+                        ticker,
+                        'No trading data for required time horizon',
+                        failure_type='PERMANENT'
+                    )
                     return {
                         'failure_type': 'DELISTED',
                         'failure_reason': 'No trading data for required time horizon'

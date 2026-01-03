@@ -11,6 +11,7 @@ import os
 import json
 import logging
 from config import *
+from ticker_validator import get_failed_ticker_cache
 
 DATA_DIR = os.path.join(os.path.dirname(__file__), '..', 'data')
 PAPER_PORTFOLIO_FILE = os.path.join(DATA_DIR, 'paper_portfolio.json')
@@ -92,6 +93,7 @@ class PaperTradingPortfolio:
         """
         positions_value = 0.0
         position_details = []
+        failed_ticker_cache = get_failed_ticker_cache()
 
         for ticker, pos in self.positions.items():
             try:
@@ -108,9 +110,20 @@ class PaperTradingPortfolio:
                         'price': current_price,
                         'value': position_value
                     })
-            except:
+            except Exception as e:
+                # Better error handling - log and cache failures
+                error_msg = str(e)
                 position_value = pos['shares'] * pos['entry_price']
                 positions_value += position_value
+
+                # Record failure for paper trading price fetch
+                if '404' in error_msg or 'not found' in error_msg.lower():
+                    failed_ticker_cache.record_failure(
+                        ticker,
+                        f"Paper trading price fetch: {error_msg[:80]}",
+                        failure_type='PERMANENT'
+                    )
+                    logger.debug(f"Paper trading: {ticker} price fetch failed (404)")
 
                 if verbose:
                     position_details.append({
@@ -188,7 +201,11 @@ class PaperTradingPortfolio:
         try:
             price = yf.Ticker(ticker).info.get('currentPrice', fallback_price)
             return price if price and price > 0 else fallback_price
-        except:
+        except Exception as e:
+            # Log price fetch failures at debug level
+            error_msg = str(e)
+            if '404' in error_msg or 'not found' in error_msg.lower():
+                logger.debug(f"Paper trading: Failed to fetch price for {ticker}: {error_msg[:50]}")
             return fallback_price
 
     def get_sector_concentration(self):
