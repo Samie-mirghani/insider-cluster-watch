@@ -9,6 +9,10 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 import time
+import logging
+from ticker_validator import validate_and_normalize_ticker
+
+logger = logging.getLogger(__name__)
 
 OPENINS_URL = "http://openinsider.com/screener"
 
@@ -136,9 +140,35 @@ def fetch_openinsider_recent(max_retries=3):
                     return code
             
             df['trade_type'] = df['trade_type'].apply(map_transaction_type)
-            
-            print(f"✅ Successfully fetched {len(df)} records from OpenInsider")
-            
+
+            # TICKER VALIDATION: Normalize and validate all tickers
+            # Remove .Q, .G, .M suffixes and filter out invalid tickers
+            initial_count = len(df)
+            valid_tickers = []
+            invalid_tickers = []
+
+            for idx, row in df.iterrows():
+                raw_ticker = row['ticker']
+                normalized_ticker, error, _ = validate_and_normalize_ticker(raw_ticker)
+
+                if normalized_ticker:
+                    # Update ticker with normalized version
+                    df.at[idx, 'ticker'] = normalized_ticker
+                    valid_tickers.append(normalized_ticker)
+                else:
+                    # Mark for removal
+                    invalid_tickers.append((raw_ticker, error))
+
+            # Filter out invalid tickers
+            df = df[df['ticker'].isin(valid_tickers)]
+
+            if invalid_tickers:
+                logger.info(f"Filtered out {len(invalid_tickers)} invalid tickers from OpenInsider data")
+                for ticker, reason in invalid_tickers[:5]:  # Log first 5
+                    logger.debug(f"  Skipped '{ticker}': {reason}")
+
+            print(f"✅ Successfully fetched {len(df)} records from OpenInsider ({initial_count - len(df)} invalid tickers filtered)")
+
             # Show breakdown
             if not df.empty:
                 buy_count = len(df[df['trade_type'].str.contains('Purchase|P -', case=False, na=False)])

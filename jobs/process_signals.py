@@ -22,9 +22,11 @@ from fmp_api import (
     get_analytics_summary,
     save_analytics
 )
+from ticker_validator import get_failed_ticker_cache
 
 # Suppress yfinance error spam for delisted stocks
 logging.getLogger('yfinance').setLevel(logging.WARNING)
+logger = logging.getLogger(__name__)
 
 ROLE_WEIGHT = {
     'CEO': 3.0,
@@ -581,6 +583,8 @@ def enrich_with_market_data(cluster_df):
     if yf_needed:
         print(f"   🔄 yfinance fallback: {len(yf_needed)} tickers...")
 
+        failed_ticker_cache = get_failed_ticker_cache()
+
         for t in yf_needed:
             try:
                 ticker_obj = yf.Ticker(t)
@@ -610,15 +614,44 @@ def enrich_with_market_data(cluster_df):
 
                     info[t] = ticker_info
                     yf_successful += 1
+
+                    # Record success to remove from blacklist if present
+                    failed_ticker_cache.record_success(t)
                 else:
                     info[t] = {'company': t}
                     yf_failed += 1
 
+                    # Record failure - no price data available
+                    failed_ticker_cache.record_failure(
+                        t,
+                        "No price data from yfinance",
+                        failure_type='TEMPORARY'
+                    )
+
                 time.sleep(0.5)  # Rate limiting
 
-            except Exception:
+            except Exception as e:
+                error_msg = str(e)
                 info[t] = {'company': t}
                 yf_failed += 1
+
+                # Improved error handling with specific logging
+                failure_type = 'TEMPORARY'
+                if '404' in error_msg or 'not found' in error_msg.lower():
+                    failure_type = 'PERMANENT'
+                    logger.debug(f"yfinance: {t} not found (404) - marking as permanent failure")
+                elif 'delisted' in error_msg.lower():
+                    failure_type = 'PERMANENT'
+                    logger.debug(f"yfinance: {t} appears delisted - marking as permanent failure")
+                else:
+                    logger.debug(f"yfinance: {t} failed with error: {error_msg}")
+
+                # Record the failure in cache
+                failed_ticker_cache.record_failure(
+                    t,
+                    error_msg[:100],  # Truncate long error messages
+                    failure_type=failure_type
+                )
 
     # STEP 4: Fetch 52-week range and float from yfinance (for ALL tickers)
     # These fields are not available in FMP basic profile
@@ -654,7 +687,9 @@ def enrich_with_market_data(cluster_df):
 
             time.sleep(0.3)  # Rate limiting
 
-        except Exception:
+        except Exception as e:
+            # Log 52-week data fetch failures at debug level (not critical)
+            logger.debug(f"Failed to fetch 52-week data for {t}: {str(e)[:50]}")
             pass  # Continue without 52-week data
 
     # Smart logging summary (consolidated)

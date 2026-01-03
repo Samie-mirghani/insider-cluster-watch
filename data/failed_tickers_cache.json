@@ -1,0 +1,41 @@
+{
+  "BADTICKER1": {
+    "failure_count": 1,
+    "first_failure": "2026-01-03T09:52:06.298679",
+    "failure_history": [
+      {
+        "date": "2026-01-03T09:52:06.298694",
+        "reason": "404 Not Found",
+        "type": "PERMANENT"
+      }
+    ],
+    "last_failure": "2026-01-03T09:52:06.298692",
+    "reason": "404 Not Found",
+    "failure_type": "PERMANENT",
+    "error_code": 404
+  },
+  "BADTICKER2": {
+    "failure_count": 3,
+    "first_failure": "2026-01-03T09:52:06.299232",
+    "failure_history": [
+      {
+        "date": "2026-01-03T09:52:06.299236",
+        "reason": "Timeout",
+        "type": "TEMPORARY"
+      },
+      {
+        "date": "2026-01-03T09:52:06.299645",
+        "reason": "Timeout",
+        "type": "TEMPORARY"
+      },
+      {
+        "date": "2026-01-03T09:52:06.300030",
+        "reason": "Timeout",
+        "type": "TEMPORARY"
+      }
+    ],
+    "last_failure": "2026-01-03T09:52:06.300028",
+    "reason": "Timeout",
+    "failure_type": "PERMANENT"
+  }
+}

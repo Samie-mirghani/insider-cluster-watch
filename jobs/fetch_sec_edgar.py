@@ -10,7 +10,11 @@ import pandas as pd
 from datetime import datetime, timedelta
 import time
 import re
+import logging
 from xml.etree import ElementTree as ET
+from ticker_validator import validate_and_normalize_ticker, get_failed_ticker_cache
+
+logger = logging.getLogger(__name__)
 
 SEC_RSS_URL = "https://www.sec.gov/cgi-bin/browse-edgar"
 SEC_HEADERS = {
@@ -114,9 +118,19 @@ def parse_form4_xml(filing_url, max_retries=2):
                 return []
             
             ticker_elem = issuer.find('.//issuerTradingSymbol')
-            ticker = ticker_elem.text if ticker_elem is not None else None
-            
+            raw_ticker = ticker_elem.text if ticker_elem is not None else None
+
+            if not raw_ticker:
+                return []
+
+            # TICKER VALIDATION: Normalize and validate ticker
+            # Removes .Q, .G, .M suffixes and checks against blacklist
+            ticker, validation_error, _ = validate_and_normalize_ticker(raw_ticker)
+
             if not ticker:
+                # Invalid ticker - log and skip
+                if validation_error and 'Blacklisted' not in validation_error:
+                    logger.debug(f"Skipping invalid ticker '{raw_ticker}': {validation_error}")
                 return []
             
             # Extract reporting owner (insider) information
@@ -245,15 +259,18 @@ def fetch_sec_edgar_data(days_back=3, max_filings=50):
     
     # Convert to DataFrame
     df = pd.DataFrame(all_transactions)
-    
+
     # Ensure proper data types
     df['trade_date'] = pd.to_datetime(df['trade_date'])
     df['filing_date'] = pd.to_datetime(df['filing_date'])
-    
+
     for col in ['qty', 'price', 'owned', 'value']:
         df[col] = pd.to_numeric(df[col], errors='coerce').fillna(0)
-    
-    print(f"✅ Extracted {len(df)} transactions from SEC EDGAR")
+
+    # Log ticker validation summary
+    unique_tickers = df['ticker'].nunique() if not df.empty else 0
+    print(f"✅ Extracted {len(df)} transactions from SEC EDGAR ({unique_tickers} unique tickers)")
+
     return df
 
 if __name__ == "__main__":
