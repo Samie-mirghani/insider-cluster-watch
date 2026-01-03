@@ -144,23 +144,23 @@ def fetch_openinsider_recent(max_retries=3):
             # TICKER VALIDATION: Normalize and validate all tickers
             # Remove .Q, .G, .M suffixes and filter out invalid tickers
             initial_count = len(df)
-            valid_tickers = []
+
+            # Create mapping of raw -> normalized tickers
+            ticker_mapping = {}
             invalid_tickers = []
 
-            for idx, row in df.iterrows():
-                raw_ticker = row['ticker']
+            for raw_ticker in df['ticker'].unique():
                 normalized_ticker, error, _ = validate_and_normalize_ticker(raw_ticker)
-
                 if normalized_ticker:
-                    # Update ticker with normalized version
-                    df.at[idx, 'ticker'] = normalized_ticker
-                    valid_tickers.append(normalized_ticker)
+                    ticker_mapping[raw_ticker] = normalized_ticker
                 else:
-                    # Mark for removal
                     invalid_tickers.append((raw_ticker, error))
 
-            # Filter out invalid tickers
-            df = df[df['ticker'].isin(valid_tickers)]
+            # Apply normalization using map (avoids SettingWithCopyWarning)
+            df['ticker'] = df['ticker'].map(lambda t: ticker_mapping.get(t, t))
+
+            # Filter out invalid tickers (those not in mapping)
+            df = df[df['ticker'].isin(ticker_mapping.values())].copy()
 
             if invalid_tickers:
                 logger.info(f"Filtered out {len(invalid_tickers)} invalid tickers from OpenInsider data")

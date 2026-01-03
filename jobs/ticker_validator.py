@@ -264,7 +264,9 @@ def normalize_ticker(ticker: str) -> str:
 
     # Remove stock class suffixes (e.g., .Q, .G, .M, .A, .B)
     # Pattern: dot followed by 1-2 uppercase letters at end of string
-    ticker = re.sub(r'\.[A-Z]{1,2}$', '', ticker)
+    # Apply repeatedly to handle cases like GAB.Q.X
+    while re.search(r'\.[A-Z]{1,2}$', ticker):
+        ticker = re.sub(r'\.[A-Z]{1,2}$', '', ticker)
 
     # Remove any remaining special characters except hyphens
     # (Some tickers legitimately have hyphens like BRK-B)
