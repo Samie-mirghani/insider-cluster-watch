@@ -421,6 +421,64 @@ def main(test=False, urgent_test=False, enable_paper_trading=True):
             traceback.print_exc()
             print("Continuing with signal detection...\n")
 
+    # ============================================================================
+    # DAILY PAPER TRADING POSITION MANAGEMENT
+    # Runs every day to manage existing positions, regardless of new signals
+    # This ensures stops, targets, and pending entries are checked daily
+    # CRITICAL: This must run BEFORE any early returns (no data, no clusters)
+    # ============================================================================
+    paper_trader_closed_positions = []  # Track closed positions for later reporting
+    paper_trader_monitor = None  # Monitor instance for health checks
+
+    if paper_trader:
+        print("\n" + "="*60)
+        print("📈 PAPER TRADING - DAILY POSITION MANAGEMENT")
+        print("="*60)
+
+        # Initialize monitor for the day
+        paper_trader_monitor = PaperTradingMonitor()
+        start_value = paper_trader.get_portfolio_value()
+        paper_trader_monitor.set_start_of_day_value(start_value)
+
+        # Show current status
+        stats = paper_trader.get_performance_summary()
+        print(f"\n📊 Current Portfolio Status:")
+        print(f"   Portfolio Value: ${stats['current_value']:,.2f}")
+        print(f"   Cash: ${stats['cash']:,.2f}")
+        print(f"   Open Positions: {stats['open_positions']}")
+        print(f"   Pending Entries: {stats['pending_entries']}")
+        print(f"   Total Return: {stats['total_return_pct']:+.2f}%")
+        print(f"   Exposure: {stats['exposure_pct']:.1f}%")
+
+        # Check exits (stops, targets, scaling) - runs daily
+        print(f"\n🔍 Checking exits and updates...")
+        paper_trader_closed_positions = paper_trader.check_exits()
+
+        # Save portfolio after exits
+        paper_trader.save()
+
+        # Run health check after position management
+        print(f"\n🏥 Running portfolio health check...")
+        status, alerts = paper_trader_monitor.check_portfolio_health(paper_trader)
+
+        if alerts:
+            print(paper_trader_monitor.format_alerts_report(status, alerts))
+            paper_trader_monitor.log_alerts(status, alerts)
+        else:
+            print("   ✅ Portfolio health: HEALTHY")
+
+        # Show updated stats if positions were closed
+        if paper_trader_closed_positions:
+            updated_stats = paper_trader.get_performance_summary()
+            print(f"\n📊 Updated Portfolio After Exits:")
+            print(f"   Closed Today: {len(paper_trader_closed_positions)}")
+            print(f"   Portfolio Value: ${updated_stats['current_value']:,.2f}")
+            print(f"   Cash: ${updated_stats['cash']:,.2f}")
+            print(f"   Open Positions: {updated_stats['open_positions']}")
+            print(f"   Total Return: {updated_stats['total_return_pct']:+.2f}%")
+
+        print("="*60 + "\n")
+
     # 1) Fetch insider trading data
     print("📥 Fetching recent insider transactions from OpenInsider...")
     df = fetch_openinsider_recent()
@@ -823,63 +881,6 @@ def main(test=False, urgent_test=False, enable_paper_trading=True):
             print(f"   ⚠️  Multi-signal detection failed: {e}")
             import traceback
             traceback.print_exc()
-
-    # ============================================================================
-    # DAILY PAPER TRADING POSITION MANAGEMENT
-    # Runs every day to manage existing positions, regardless of new signals
-    # This ensures stops, targets, and pending entries are checked daily
-    # ============================================================================
-    paper_trader_closed_positions = []  # Track closed positions for later reporting
-    paper_trader_monitor = None  # Monitor instance for health checks
-
-    if paper_trader:
-        print("\n" + "="*60)
-        print("📈 PAPER TRADING - DAILY POSITION MANAGEMENT")
-        print("="*60)
-
-        # Initialize monitor for the day
-        paper_trader_monitor = PaperTradingMonitor()
-        start_value = paper_trader.get_portfolio_value()
-        paper_trader_monitor.set_start_of_day_value(start_value)
-
-        # Show current status
-        stats = paper_trader.get_performance_summary()
-        print(f"\n📊 Current Portfolio Status:")
-        print(f"   Portfolio Value: ${stats['current_value']:,.2f}")
-        print(f"   Cash: ${stats['cash']:,.2f}")
-        print(f"   Open Positions: {stats['open_positions']}")
-        print(f"   Pending Entries: {stats['pending_entries']}")
-        print(f"   Total Return: {stats['total_return_pct']:+.2f}%")
-        print(f"   Exposure: {stats['exposure_pct']:.1f}%")
-
-        # Check exits (stops, targets, scaling) - runs daily
-        print(f"\n🔍 Checking exits and updates...")
-        paper_trader_closed_positions = paper_trader.check_exits()
-
-        # Save portfolio after exits
-        paper_trader.save()
-
-        # Run health check after position management
-        print(f"\n🏥 Running portfolio health check...")
-        status, alerts = paper_trader_monitor.check_portfolio_health(paper_trader)
-
-        if alerts:
-            print(paper_trader_monitor.format_alerts_report(status, alerts))
-            paper_trader_monitor.log_alerts(status, alerts)
-        else:
-            print("   ✅ Portfolio health: HEALTHY")
-
-        # Show updated stats if positions were closed
-        if paper_trader_closed_positions:
-            updated_stats = paper_trader.get_performance_summary()
-            print(f"\n📊 Updated Portfolio After Exits:")
-            print(f"   Closed Today: {len(paper_trader_closed_positions)}")
-            print(f"   Portfolio Value: ${updated_stats['current_value']:,.2f}")
-            print(f"   Cash: ${updated_stats['cash']:,.2f}")
-            print(f"   Open Positions: {updated_stats['open_positions']}")
-            print(f"   Total Return: {updated_stats['total_return_pct']:+.2f}%")
-
-        print("="*60 + "\n")
 
     # 4) Check news sentiment for signals
     print("\n📰 Checking news sentiment...")
