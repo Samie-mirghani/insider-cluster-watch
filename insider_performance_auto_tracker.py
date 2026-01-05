@@ -891,7 +891,14 @@ def run_daily_update():
         print(f"\n⚠️  ALERT: {stale_count} stale trade(s) detected (tracking >200 days)")
         stale_trades = stats_after.get('stale_trades', [])
         for stale in stale_trades[:5]:  # Show first 5
-            print(f"   • {stale['ticker']} ({stale['insider_name'][:30]}...)")
+            # Safe truncation of insider name
+            insider_name = stale.get('insider_name', 'Unknown')
+            if insider_name and len(insider_name) > 30:
+                insider_display = f"{insider_name[:30]}..."
+            else:
+                insider_display = insider_name
+
+            print(f"   • {stale['ticker']} ({insider_display})")
             print(f"     Tracking for {stale['days_tracking']} days, missing: {', '.join(stale['missing_outcomes'])}")
         if len(stale_trades) > 5:
             print(f"   ... and {len(stale_trades) - 5} more")
