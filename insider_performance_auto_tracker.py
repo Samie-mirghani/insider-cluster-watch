@@ -133,6 +133,7 @@ class AutoInsiderTracker:
 
         Args:
             signal: Signal dict with keys: ticker, insider_name, trade_date, price, etc.
+                   Optional: filing_date, filing_url, accession_number for attribution
             source: Source of the signal (for tracking)
 
         Returns:
@@ -147,6 +148,11 @@ class AutoInsiderTracker:
             title = signal.get('title', '')
             qty = signal.get('qty', 0)
             value = signal.get('value', 0)
+
+            # Form 4 attribution fields (optional)
+            filing_date = signal.get('filing_date')
+            filing_url = signal.get('filing_url')
+            accession_number = signal.get('accession_number')
 
             # Validate required fields
             if not all([ticker, insider_name, trade_date, entry_price]):
@@ -180,7 +186,11 @@ class AutoInsiderTracker:
                     '60d': None,
                     '90d': None,
                     '180d': None
-                }
+                },
+                # Form 4 attribution (for audit trail)
+                'filing_date': str(filing_date)[:10] if filing_date else None,
+                'filing_url': filing_url if filing_url else None,
+                'accession_number': accession_number if accession_number else None
             }
 
             # Add to tracking queue
@@ -205,6 +215,9 @@ class AutoInsiderTracker:
                 'return_60d': None,   # BUG FIX: Added missing 60d field
                 'return_90d': None,
                 'return_180d': None,
+                'filing_date': filing_date,
+                'filing_url': filing_url,
+                'accession_number': accession_number,
                 'last_updated': datetime.now().isoformat()
             }])
 
@@ -490,6 +503,20 @@ class AutoInsiderTracker:
                 hist = hist.reset_index()
                 hist['Date'] = pd.to_datetime(hist['Date']).dt.tz_localize(None)
 
+                # Fetch dividend data for the period
+                dividends = None
+                try:
+                    div_data = stock.dividends
+                    if div_data is not None and not div_data.empty:
+                        # Convert to DataFrame and remove timezone
+                        dividends = div_data.reset_index()
+                        dividends.columns = ['Date', 'Dividend']
+                        dividends['Date'] = pd.to_datetime(dividends['Date']).dt.tz_localize(None)
+                except Exception as e:
+                    # Dividends fetch failed, continue without dividend adjustment
+                    logger.debug(f"Could not fetch dividends for {ticker}: {e}")
+                    dividends = None
+
                 outcomes = {}
 
                 # Calculate outcomes for each horizon
@@ -499,12 +526,32 @@ class AutoInsiderTracker:
 
                     if not future_data.empty:
                         outcome_price = future_data.iloc[0]['Close']
-                        return_pct = ((outcome_price - entry_price) / entry_price) * 100
+                        outcome_date = future_data.iloc[0]['Date']
+
+                        # Calculate dividends received during holding period
+                        dividends_received = 0.0
+                        if dividends is not None and not dividends.empty:
+                            # Sum dividends paid between trade_date and outcome_date
+                            trade_date_normalized = pd.to_datetime(trade_date)
+                            if trade_date_normalized.tz is not None:
+                                trade_date_normalized = trade_date_normalized.tz_localize(None)
+
+                            period_dividends = dividends[
+                                (dividends['Date'] > trade_date_normalized) &
+                                (dividends['Date'] <= outcome_date)
+                            ]
+                            if not period_dividends.empty:
+                                dividends_received = period_dividends['Dividend'].sum()
+
+                        # Calculate total return including dividends
+                        # Total return = (price appreciation + dividends) / entry price
+                        total_return_pct = ((outcome_price - entry_price + dividends_received) / entry_price) * 100
 
                         outcomes[horizon_name] = {
                             'price': float(outcome_price),
-                            'return': float(return_pct),
-                            'date': str(future_data.iloc[0]['Date'])[:10]
+                            'return': float(total_return_pct),
+                            'dividends': float(dividends_received),
+                            'date': str(outcome_date)[:10]
                         }
 
                 if outcomes:
@@ -650,6 +697,42 @@ class AutoInsiderTracker:
             print(f"   New profiles: {new_profiles}")
         print("="*70 + "\n")
 
+    def get_stale_trades(self, days_threshold: int = 200) -> List[Dict]:
+        """
+        Identify trades that have been in TRACKING status for an unusually long time.
+
+        A trade is considered "stale" if it's been tracking for more than the threshold
+        (default 200 days, which is 20 days beyond the 180-day final outcome).
+
+        Args:
+            days_threshold: Number of days before a trade is considered stale
+
+        Returns:
+            List of stale trade records
+        """
+        today = datetime.now()
+        stale_trades = []
+
+        for track in self._get_active_tracks():
+            tracked_since = pd.to_datetime(track.get('tracked_since', track.get('trade_date')))
+            days_tracking = (today - tracked_since).days
+
+            if days_tracking > days_threshold:
+                stale_trades.append({
+                    'ticker': track['ticker'],
+                    'insider_name': track['insider_name'],
+                    'trade_date': track['trade_date'],
+                    'days_tracking': days_tracking,
+                    'missing_outcomes': [
+                        h for h in ['30d', '60d', '90d', '180d']
+                        if track['outcomes'].get(h) is None
+                    ],
+                    'last_updated': track.get('last_updated'),
+                    'failure_type': track.get('failure_type')
+                })
+
+        return stale_trades
+
     def get_tracking_stats(self) -> Dict:
         """
         Get current tracking statistics.
@@ -671,11 +754,16 @@ class AutoInsiderTracker:
         from collections import Counter
         failure_types = Counter(t.get('failure_type', 'UNKNOWN') for t in failed)
 
+        # Identify stale trades
+        stale_trades = self.get_stale_trades(days_threshold=200)
+
         return {
             'total_tracks': len(self.tracking_queue),
             'active': len(active),
             'matured': len(matured),
             'failed': len(failed),
+            'stale': len(stale_trades),
+            'stale_trades': stale_trades,
             'failure_types': dict(failure_types),
             'outcomes': {
                 '30d': with_30d,
@@ -796,6 +884,17 @@ def run_daily_update():
     if stats_after.get('failure_types'):
         print(f"   Failure types: {stats_after['failure_types']}")
     print(f"   Insider profiles: {stats_after['insider_profiles']}")
+
+    # Alert on stale trades
+    stale_count = stats_after.get('stale', 0)
+    if stale_count > 0:
+        print(f"\n⚠️  ALERT: {stale_count} stale trade(s) detected (tracking >200 days)")
+        stale_trades = stats_after.get('stale_trades', [])
+        for stale in stale_trades[:5]:  # Show first 5
+            print(f"   • {stale['ticker']} ({stale['insider_name'][:30]}...)")
+            print(f"     Tracking for {stale['days_tracking']} days, missing: {', '.join(stale['missing_outcomes'])}")
+        if len(stale_trades) > 5:
+            print(f"   ... and {len(stale_trades) - 5} more")
 
     print(f"\n✅ Daily update complete!")
     print("="*70 + "\n")

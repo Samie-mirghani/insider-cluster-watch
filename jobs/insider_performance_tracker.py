@@ -229,6 +229,9 @@ class InsiderPerformanceTracker:
             'return_60d': pd.Series(dtype='float64'),
             'return_90d': pd.Series(dtype='float64'),
             'return_180d': pd.Series(dtype='float64'),
+            'filing_date': pd.Series(dtype='str'),
+            'filing_url': pd.Series(dtype='str'),
+            'accession_number': pd.Series(dtype='str'),
             'last_updated': pd.Series(dtype='str')
         })
 
@@ -288,6 +291,9 @@ class InsiderPerformanceTracker:
                 'return_60d': None,   # BUG FIX: Added missing 60d field
                 'return_90d': None,
                 'return_180d': None,
+                'filing_date': row.get('filing_date'),
+                'filing_url': row.get('filing_url'),
+                'accession_number': row.get('accession_number'),
                 'last_updated': datetime.now().isoformat()
             }
             new_trades.append(new_trade)
@@ -452,6 +458,20 @@ class InsiderPerformanceTracker:
 
                 trade_position = trade_idx.index[0]
 
+                # Fetch dividend data for the period
+                dividends = None
+                try:
+                    div_data = stock.dividends
+                    if div_data is not None and not div_data.empty:
+                        # Convert to DataFrame and remove timezone
+                        dividends = div_data.reset_index()
+                        dividends.columns = ['Date', 'Dividend']
+                        dividends['Date'] = pd.to_datetime(dividends['Date']).dt.tz_localize(None)
+                except Exception as e:
+                    # Dividends fetch failed, continue without dividend adjustment
+                    logging.debug(f"Could not fetch dividends for {ticker}: {e}")
+                    dividends = None
+
                 outcomes = {}
 
                 # Calculate outcomes at different time horizons
@@ -465,8 +485,23 @@ class InsiderPerformanceTracker:
                     if not future_data.empty:
                         # Use the first available price on or after target date
                         outcome_price = future_data.iloc[0]['Close']
+                        outcome_date = future_data.iloc[0]['Date']
+
+                        # Calculate dividends received during holding period
+                        dividends_received = 0.0
+                        if dividends is not None and not dividends.empty:
+                            period_dividends = dividends[
+                                (dividends['Date'] > trade_date_normalized) &
+                                (dividends['Date'] <= outcome_date)
+                            ]
+                            if not period_dividends.empty:
+                                dividends_received = period_dividends['Dividend'].sum()
+
+                        # Calculate total return including dividends
+                        total_return_pct = ((outcome_price - entry_price + dividends_received) / entry_price) * 100
+
                         outcomes[f'price_{key}'] = outcome_price
-                        outcomes[f'return_{key}'] = ((outcome_price - entry_price) / entry_price) * 100
+                        outcomes[f'return_{key}'] = total_return_pct
                     else:
                         outcomes[f'price_{key}'] = None
                         outcomes[f'return_{key}'] = None
@@ -486,6 +521,56 @@ class InsiderPerformanceTracker:
                     return None
 
         return None
+
+    def _get_spy_return(self, start_date: datetime, days: int) -> Optional[float]:
+        """
+        Calculate S&P 500 return for a given period.
+
+        Args:
+            start_date: Start date for the period
+            days: Number of days to hold
+
+        Returns:
+            SPY return percentage, or None if unable to fetch
+        """
+        try:
+            end_date = start_date + timedelta(days=days)
+
+            # Normalize dates
+            if isinstance(start_date, str):
+                start_date = pd.to_datetime(start_date)
+            if start_date.tz is not None:
+                start_date = start_date.tz_localize(None)
+
+            # Fetch SPY data with buffer
+            spy = yf.Ticker("SPY")
+            hist = spy.history(start=start_date - timedelta(days=5), end=end_date + timedelta(days=5))
+
+            if hist.empty or len(hist) < 2:
+                return None
+
+            hist = hist.reset_index()
+            hist['Date'] = pd.to_datetime(hist['Date']).dt.tz_localize(None)
+
+            # Get start price (on or after start_date)
+            start_data = hist[hist['Date'] >= start_date]
+            if start_data.empty:
+                return None
+            start_price = start_data.iloc[0]['Close']
+
+            # Get end price (on or after end_date)
+            end_data = hist[hist['Date'] >= end_date]
+            if end_data.empty:
+                return None
+            end_price = end_data.iloc[0]['Close']
+
+            # Calculate return
+            spy_return = ((end_price - start_price) / start_price) * 100
+            return float(spy_return)
+
+        except Exception as e:
+            logging.debug(f"Could not fetch SPY return: {e}")
+            return None
 
     def calculate_insider_profiles(self):
         """
@@ -529,9 +614,11 @@ class InsiderPerformanceTracker:
             # Calculate performance metrics for each time horizon
             for horizon in ['30d', '90d', '180d']:
                 returns_col = f'return_{horizon}'
-                valid_returns = insider_trades[insider_trades[returns_col].notna()][returns_col]
+                valid_trades = insider_trades[insider_trades[returns_col].notna()].copy()
 
-                if len(valid_returns) > 0:
+                if len(valid_trades) > 0:
+                    valid_returns = valid_trades[returns_col]
+
                     # Win rate (% of profitable trades)
                     win_rate = (valid_returns > 0).sum() / len(valid_returns) * 100
 
@@ -555,6 +642,29 @@ class InsiderPerformanceTracker:
                     else:
                         sharpe = 0
 
+                    # Calculate alpha vs S&P 500
+                    # Alpha = Average(Insider Return - SPY Return)
+                    days = int(horizon.replace('d', ''))
+                    alpha_values = []
+
+                    for _, trade in valid_trades.iterrows():
+                        trade_date = pd.to_datetime(trade['trade_date'])
+                        spy_return = self._get_spy_return(trade_date, days)
+
+                        if spy_return is not None:
+                            trade_return = trade[returns_col]
+                            alpha = trade_return - spy_return
+                            alpha_values.append(alpha)
+
+                    # Calculate average alpha if we have data
+                    if alpha_values:
+                        avg_alpha = np.mean(alpha_values)
+                        profile[f'alpha_{horizon}'] = round(avg_alpha, 2)
+                        profile[f'alpha_sample_size_{horizon}'] = len(alpha_values)
+                    else:
+                        profile[f'alpha_{horizon}'] = None
+                        profile[f'alpha_sample_size_{horizon}'] = 0
+
                     profile[f'win_rate_{horizon}'] = round(win_rate, 2)
                     profile[f'avg_return_{horizon}'] = round(avg_return, 2)
                     profile[f'median_return_{horizon}'] = round(median_return, 2)
@@ -570,6 +680,8 @@ class InsiderPerformanceTracker:
                     profile[f'worst_return_{horizon}'] = None
                     profile[f'sharpe_{horizon}'] = None
                     profile[f'sample_size_{horizon}'] = 0
+                    profile[f'alpha_{horizon}'] = None
+                    profile[f'alpha_sample_size_{horizon}'] = 0
 
             # Calculate recency-weighted performance (last 12 months weighted 2x)
             recent_cutoff = datetime.now() - timedelta(days=365)
@@ -586,32 +698,40 @@ class InsiderPerformanceTracker:
                 profile['recent_trade_count'] = 0
 
             # Calculate overall score (0-100 scale)
-            # Based on: 90-day performance (primary), win rate, Sharpe ratio, recency
+            # Based on: 90-day alpha (primary), win rate, Sharpe ratio, recency
             score_components = []
 
-            # Component 1: 90-day average return (weighted 40%)
+            # Component 1: 90-day alpha vs S&P 500 (weighted 35%)
+            # Alpha shows skill beyond market performance
+            if profile['alpha_90d'] is not None:
+                # Normalize: 0% alpha = 50, +15% alpha = 100, -15% alpha = 0
+                alpha_score = 50 + (profile['alpha_90d'] * 3.33)
+                alpha_score = max(0, min(100, alpha_score))
+                score_components.append(alpha_score * 0.35)
+
+            # Component 2: 90-day average return (weighted 25%)
             if profile['avg_return_90d'] is not None:
                 # Normalize: 0% = 50, +20% = 100, -20% = 0
                 return_score = 50 + (profile['avg_return_90d'] * 2.5)
                 return_score = max(0, min(100, return_score))
-                score_components.append(return_score * 0.40)
+                score_components.append(return_score * 0.25)
 
-            # Component 2: 90-day win rate (weighted 30%)
+            # Component 3: 90-day win rate (weighted 20%)
             if profile['win_rate_90d'] is not None:
-                score_components.append(profile['win_rate_90d'] * 0.30)
+                score_components.append(profile['win_rate_90d'] * 0.20)
 
-            # Component 3: Sharpe ratio (weighted 20%)
+            # Component 4: Sharpe ratio (weighted 15%)
             if profile['sharpe_90d'] is not None:
                 # Normalize: 0 = 50, 2.0 = 100, -2.0 = 0
                 sharpe_score = 50 + (profile['sharpe_90d'] * 25)
                 sharpe_score = max(0, min(100, sharpe_score))
-                score_components.append(sharpe_score * 0.20)
+                score_components.append(sharpe_score * 0.15)
 
-            # Component 4: Recent performance bonus (weighted 10%)
+            # Component 5: Recent performance bonus (weighted 5%)
             if profile['recent_avg_return_90d'] is not None:
                 recent_score = 50 + (profile['recent_avg_return_90d'] * 2.5)
                 recent_score = max(0, min(100, recent_score))
-                score_components.append(recent_score * 0.10)
+                score_components.append(recent_score * 0.05)
 
             if score_components:
                 overall_score = sum(score_components)
