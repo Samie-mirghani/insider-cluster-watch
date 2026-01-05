@@ -108,6 +108,12 @@ jobs:
             echo "✅ Added fmp_analytics.json"
           fi
 
+          # Add failed ticker cache (prevents redundant API calls for known bad tickers)
+          if [ -f "data/failed_tickers_cache.json" ]; then
+            git add -f data/failed_tickers_cache.json
+            echo "✅ Added failed_tickers_cache.json (prevents redundant API calls)"
+          fi
+
           # Add insider performance data files (continuous tracking)
           if [ -f "data/insider_tracking_queue.json" ]; then
             git add -f data/insider_tracking_queue.json
@@ -182,6 +188,11 @@ jobs:
           # Add FMP API analytics file if it exists
           if [ -f "data/fmp_analytics.json" ]; then
             git add -f data/fmp_analytics.json
+          fi
+
+          # Add failed ticker cache if it exists
+          if [ -f "data/failed_tickers_cache.json" ]; then
+            git add -f data/failed_tickers_cache.json
           fi
 
           # Add insider data files if they exist
