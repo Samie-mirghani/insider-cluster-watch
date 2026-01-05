@@ -9,6 +9,8 @@
       "UUU",
       "GPUS"
     ],
+    "alpha_30d": 21.77,
+    "alpha_sample_size_30d": 4,
     "win_rate_30d": 75.0,
     "avg_return_30d": 23.63,
     "median_return_30d": 19.75,
@@ -16,6 +18,8 @@
     "worst_return_30d": -24.14,
     "sharpe_30d": 0.56,
     "sample_size_30d": 4,
+    "alpha_90d": 20.16,
+    "alpha_sample_size_90d": 1,
     "win_rate_90d": 100.0,
     "avg_return_90d": 25.0,
     "median_return_90d": 25.0,
@@ -30,10 +34,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 25.0,
     "recent_trade_count": 4,
-    "overall_score": 90.0,
-    "score_percentile": 87.6
+    "overall_score": 92.5,
+    "score_percentile": 88.5
   },
   "Bradshaw Stanley J": {
     "name": "Bradshaw Stanley J",
@@ -44,6 +50,8 @@
     "tickers": [
       "BUSE"
     ],
+    "alpha_30d": 3.96,
+    "alpha_sample_size_30d": 4,
     "win_rate_30d": 100.0,
     "avg_return_30d": 5.67,
     "median_return_30d": 6.08,
@@ -51,6 +59,8 @@
     "worst_return_30d": 1.73,
     "sharpe_30d": 1.91,
     "sample_size_30d": 4,
+    "alpha_90d": -5.69,
+    "alpha_sample_size_90d": 3,
     "win_rate_90d": 66.67,
     "avg_return_90d": 2.73,
     "median_return_90d": 0.81,
@@ -58,6 +68,8 @@
     "worst_return_90d": -1.38,
     "sharpe_90d": 0.51,
     "sample_size_90d": 3,
+    "alpha_180d": -4.76,
+    "alpha_sample_size_180d": 1,
     "win_rate_180d": 100.0,
     "avg_return_180d": 11.07,
     "median_return_180d": 11.07,
@@ -67,8 +79,8 @@
     "sample_size_180d": 1,
     "recent_avg_return_90d": 2.73,
     "recent_trade_count": 4,
-    "overall_score": 60.96,
-    "score_percentile": 57.3
+    "overall_score": 50.66,
+    "score_percentile": 55.5
   },
   "Brouwer Roald": {
     "name": "Brouwer Roald",
@@ -79,6 +91,8 @@
     "tickers": [
       "AMRZ"
     ],
+    "alpha_30d": 1.74,
+    "alpha_sample_size_30d": 3,
     "win_rate_30d": 66.67,
     "avg_return_30d": 3.14,
     "median_return_30d": 0.5,
@@ -86,6 +100,8 @@
     "worst_return_30d": -8.11,
     "sharpe_30d": 0.25,
     "sample_size_30d": 3,
+    "alpha_90d": -3.32,
+    "alpha_sample_size_90d": 2,
     "win_rate_90d": 50.0,
     "avg_return_90d": 1.77,
     "median_return_90d": 1.77,
@@ -100,10 +116,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 1.77,
     "recent_trade_count": 3,
-    "overall_score": 53.81,
-    "score_percentile": 49.1
+    "overall_score": 48.66,
+    "score_percentile": 45.9
   },
   "Llc Rivernorth Financial Holdings": {
     "name": "Llc Rivernorth Financial Holdings",
@@ -139,7 +157,7 @@
     "recent_avg_return_90d": null,
     "recent_trade_count": 0,
     "overall_score": 50,
-    "score_percentile": 47.7
+    "score_percentile": 53.2
   },
   "Canup Edward G": {
     "name": "Canup Edward G",
@@ -150,6 +168,8 @@
     "tickers": [
       "CBAN"
     ],
+    "alpha_30d": 4.14,
+    "alpha_sample_size_30d": 5,
     "win_rate_30d": 100.0,
     "avg_return_30d": 4.62,
     "median_return_30d": 4.06,
@@ -157,6 +177,8 @@
     "worst_return_30d": 0.9,
     "sharpe_30d": 1.38,
     "sample_size_30d": 5,
+    "alpha_90d": -6.19,
+    "alpha_sample_size_90d": 2,
     "win_rate_90d": 50.0,
     "avg_return_90d": -0.96,
     "median_return_90d": -0.96,
@@ -171,10 +193,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": -0.96,
     "recent_trade_count": 5,
-    "overall_score": 45.85,
-    "score_percentile": 38.1
+    "overall_score": 39.85,
+    "score_percentile": 38.5
   },
   "Hansen Kent A": {
     "name": "Hansen Kent A",
@@ -185,6 +209,8 @@
     "tickers": [
       "KFS"
     ],
+    "alpha_30d": -3.82,
+    "alpha_sample_size_30d": 11,
     "win_rate_30d": 45.45,
     "avg_return_30d": -1.71,
     "median_return_30d": -0.29,
@@ -192,6 +218,8 @@
     "worst_return_30d": -20.67,
     "sharpe_30d": -0.21,
     "sample_size_30d": 11,
+    "alpha_90d": -7.35,
+    "alpha_sample_size_90d": 6,
     "win_rate_90d": 66.67,
     "avg_return_90d": -0.06,
     "median_return_90d": 2.79,
@@ -199,6 +227,8 @@
     "worst_return_90d": -11.58,
     "sharpe_90d": -0.01,
     "sample_size_90d": 6,
+    "alpha_180d": -24.33,
+    "alpha_sample_size_180d": 1,
     "win_rate_180d": 0.0,
     "avg_return_180d": -8.5,
     "median_return_180d": -8.5,
@@ -208,8 +238,8 @@
     "sample_size_180d": 1,
     "recent_avg_return_90d": -0.06,
     "recent_trade_count": 11,
-    "overall_score": 54.88,
-    "score_percentile": 50.5
+    "overall_score": 44.69,
+    "score_percentile": 41.7
   },
   "Caldwell Christopher A": {
     "name": "Caldwell Christopher A",
@@ -220,6 +250,8 @@
     "tickers": [
       "CNXC"
     ],
+    "alpha_30d": -16.39,
+    "alpha_sample_size_30d": 4,
     "win_rate_30d": 0.0,
     "avg_return_30d": -14.84,
     "median_return_30d": -13.38,
@@ -234,6 +266,8 @@
     "worst_return_90d": null,
     "sharpe_90d": null,
     "sample_size_90d": 0,
+    "alpha_90d": null,
+    "alpha_sample_size_90d": 0,
     "win_rate_180d": null,
     "avg_return_180d": null,
     "median_return_180d": null,
@@ -241,10 +275,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": null,
     "recent_trade_count": 0,
     "overall_score": 50,
-    "score_percentile": 47.7
+    "score_percentile": 53.2
   },
   "Fitzgerald John Taylor Maloney": {
     "name": "Fitzgerald John Taylor Maloney",
@@ -255,6 +291,8 @@
     "tickers": [
       "KFS"
     ],
+    "alpha_30d": -3.82,
+    "alpha_sample_size_30d": 11,
     "win_rate_30d": 45.45,
     "avg_return_30d": -1.71,
     "median_return_30d": -0.29,
@@ -262,6 +300,8 @@
     "worst_return_30d": -20.67,
     "sharpe_30d": -0.21,
     "sample_size_30d": 11,
+    "alpha_90d": -7.35,
+    "alpha_sample_size_90d": 6,
     "win_rate_90d": 66.67,
     "avg_return_90d": -0.06,
     "median_return_90d": 2.79,
@@ -269,6 +309,8 @@
     "worst_return_90d": -11.58,
     "sharpe_90d": -0.01,
     "sample_size_90d": 6,
+    "alpha_180d": -24.33,
+    "alpha_sample_size_180d": 1,
     "win_rate_180d": 0.0,
     "avg_return_180d": -8.5,
     "median_return_180d": -8.5,
@@ -278,8 +320,8 @@
     "sample_size_180d": 1,
     "recent_avg_return_90d": -0.06,
     "recent_trade_count": 11,
-    "overall_score": 54.88,
-    "score_percentile": 50.5
+    "overall_score": 44.69,
+    "score_percentile": 41.7
   },
   "Lp Saba Capital Management": {
     "name": "Lp Saba Capital Management",
@@ -292,12 +334,14 @@
       "DSM",
       "ASA"
     ],
+    "alpha_30d": 5.19,
+    "alpha_sample_size_30d": 3,
     "win_rate_30d": 100.0,
-    "avg_return_30d": 5.73,
+    "avg_return_30d": 5.86,
     "median_return_30d": 3.55,
     "best_return_30d": 11.62,
-    "worst_return_30d": 2.03,
-    "sharpe_30d": 1.11,
+    "worst_return_30d": 2.42,
+    "sharpe_30d": 1.17,
     "sample_size_30d": 3,
     "win_rate_90d": null,
     "avg_return_90d": null,
@@ -306,6 +350,8 @@
     "worst_return_90d": null,
     "sharpe_90d": null,
     "sample_size_90d": 0,
+    "alpha_90d": null,
+    "alpha_sample_size_90d": 0,
     "win_rate_180d": null,
     "avg_return_180d": null,
     "median_return_180d": null,
@@ -313,10 +359,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": null,
     "recent_trade_count": 0,
     "overall_score": 50,
-    "score_percentile": 47.7
+    "score_percentile": 53.2
   },
   "Cassabaum Michelle R": {
     "name": "Cassabaum Michelle R",
@@ -327,6 +375,8 @@
     "tickers": [
       "ATLO"
     ],
+    "alpha_30d": 2.74,
+    "alpha_sample_size_30d": 3,
     "win_rate_30d": 100.0,
     "avg_return_30d": 4.14,
     "median_return_30d": 3.84,
@@ -334,6 +384,8 @@
     "worst_return_30d": 1.43,
     "sharpe_30d": 1.44,
     "sample_size_30d": 3,
+    "alpha_90d": 3.1,
+    "alpha_sample_size_90d": 2,
     "win_rate_90d": 100.0,
     "avg_return_90d": 10.75,
     "median_return_90d": 10.75,
@@ -348,10 +400,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 10.75,
     "recent_trade_count": 3,
-    "overall_score": 88.44,
-    "score_percentile": 79.8
+    "overall_score": 79.18,
+    "score_percentile": 76.6
   },
   "Stahl Murray": {
     "name": "Stahl Murray",
@@ -365,13 +419,17 @@
       "MIAX",
       "TPL"
     ],
+    "alpha_30d": -3.84,
+    "alpha_sample_size_30d": 129,
     "win_rate_30d": 31.78,
     "avg_return_30d": -1.38,
     "median_return_30d": -1.04,
     "best_return_30d": 12.94,
     "worst_return_30d": -15.46,
-    "sharpe_30d": -0.36,
+    "sharpe_30d": -0.35,
     "sample_size_30d": 129,
+    "alpha_90d": -13.73,
+    "alpha_sample_size_90d": 85,
     "win_rate_90d": 22.35,
     "avg_return_90d": -6.74,
     "median_return_90d": -2.26,
@@ -379,6 +437,8 @@
     "worst_return_90d": -33.58,
     "sharpe_90d": -0.61,
     "sample_size_90d": 85,
+    "alpha_180d": -27.0,
+    "alpha_sample_size_180d": 2,
     "win_rate_180d": 0.0,
     "avg_return_180d": -11.17,
     "median_return_180d": -11.17,
@@ -388,8 +448,8 @@
     "sample_size_180d": 2,
     "recent_avg_return_90d": -6.74,
     "recent_trade_count": 129,
-    "overall_score": 30.23,
-    "score_percentile": 28.0
+    "overall_score": 21.13,
+    "score_percentile": 24.8
   },
   "Horizon Kinetics Asset Management Llc": {
     "name": "Horizon Kinetics Asset Management Llc",
@@ -424,7 +484,7 @@
     "recent_avg_return_90d": -3.03,
     "recent_trade_count": 88,
     "overall_score": 36.38,
-    "score_percentile": 31.7
+    "score_percentile": 33.9
   },
   "A6684 Ltd": {
     "name": "A6684 Ltd",
@@ -459,7 +519,7 @@
     "recent_avg_return_90d": -0.77,
     "recent_trade_count": 18,
     "overall_score": 47.17,
-    "score_percentile": 38.5
+    "score_percentile": 43.6
   },
   "Jensen Barry H": {
     "name": "Jensen Barry H",
@@ -470,6 +530,8 @@
     "tickers": [
       "AVBC"
     ],
+    "alpha_30d": 4.46,
+    "alpha_sample_size_30d": 9,
     "win_rate_30d": 88.89,
     "avg_return_30d": 6.27,
     "median_return_30d": 8.0,
@@ -477,6 +539,8 @@
     "worst_return_30d": -6.5,
     "sharpe_30d": 1.22,
     "sample_size_30d": 9,
+    "alpha_90d": -1.63,
+    "alpha_sample_size_90d": 6,
     "win_rate_90d": 100.0,
     "avg_return_90d": 4.21,
     "median_return_90d": 4.88,
@@ -491,10 +555,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 4.21,
     "recent_trade_count": 9,
-    "overall_score": 80.26,
-    "score_percentile": 73.4
+    "overall_score": 68.76,
+    "score_percentile": 67.9
   },
   "Foran Joseph Wm": {
     "name": "Foran Joseph Wm",
@@ -505,6 +571,8 @@
     "tickers": [
       "MTDR"
     ],
+    "alpha_30d": 2.06,
+    "alpha_sample_size_30d": 5,
     "win_rate_30d": 80.0,
     "avg_return_30d": 4.0,
     "median_return_30d": 3.16,
@@ -512,6 +580,8 @@
     "worst_return_30d": -10.54,
     "sharpe_30d": 0.4,
     "sample_size_30d": 5,
+    "alpha_90d": -20.0,
+    "alpha_sample_size_90d": 3,
     "win_rate_90d": 0.0,
     "avg_return_90d": -13.64,
     "median_return_90d": -13.34,
@@ -526,10 +596,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": -13.64,
     "recent_trade_count": 5,
-    "overall_score": 8.25,
-    "score_percentile": 11.0
+    "overall_score": 4.99,
+    "score_percentile": 9.6
   },
   "Davidson Spencer": {
     "name": "Davidson Spencer",
@@ -540,6 +612,8 @@
     "tickers": [
       "GAM"
     ],
+    "alpha_30d": 132.99,
+    "alpha_sample_size_30d": 6,
     "win_rate_30d": 100.0,
     "avg_return_30d": 132.89,
     "median_return_30d": 134.07,
@@ -554,6 +628,8 @@
     "worst_return_90d": null,
     "sharpe_90d": null,
     "sample_size_90d": 0,
+    "alpha_90d": null,
+    "alpha_sample_size_90d": 0,
     "win_rate_180d": null,
     "avg_return_180d": null,
     "median_return_180d": null,
@@ -561,10 +637,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": null,
     "recent_trade_count": 0,
     "overall_score": 50,
-    "score_percentile": 47.7
+    "score_percentile": 53.2
   },
   "Carson William H": {
     "name": "Carson William H",
@@ -610,6 +688,8 @@
     "tickers": [
       "MNTR"
     ],
+    "alpha_30d": 10.81,
+    "alpha_sample_size_30d": 28,
     "win_rate_30d": 64.29,
     "avg_return_30d": 12.67,
     "median_return_30d": 15.56,
@@ -617,6 +697,8 @@
     "worst_return_30d": -89.8,
     "sharpe_30d": 0.36,
     "sample_size_30d": 28,
+    "alpha_90d": 68.45,
+    "alpha_sample_size_90d": 13,
     "win_rate_90d": 100.0,
     "avg_return_90d": 74.49,
     "median_return_90d": 80.0,
@@ -631,6 +713,8 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 74.49,
     "recent_trade_count": 28,
     "overall_score": 100.0,
@@ -645,6 +729,8 @@
     "tickers": [
       "AVBC"
     ],
+    "alpha_30d": 0.67,
+    "alpha_sample_size_30d": 14,
     "win_rate_30d": 64.29,
     "avg_return_30d": 2.86,
     "median_return_30d": 4.93,
@@ -652,6 +738,8 @@
     "worst_return_30d": -7.2,
     "sharpe_30d": 0.45,
     "sample_size_30d": 14,
+    "alpha_90d": -0.94,
+    "alpha_sample_size_90d": 10,
     "win_rate_90d": 90.0,
     "avg_return_90d": 4.63,
     "median_return_90d": 4.29,
@@ -666,10 +754,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 4.63,
     "recent_trade_count": 14,
-    "overall_score": 75.29,
-    "score_percentile": 66.5
+    "overall_score": 66.0,
+    "score_percentile": 65.6
   },
   "Shaw Thomas J": {
     "name": "Shaw Thomas J",
@@ -680,6 +770,8 @@
     "tickers": [
       "RVP"
     ],
+    "alpha_30d": 2.96,
+    "alpha_sample_size_30d": 30,
     "win_rate_30d": 73.33,
     "avg_return_30d": 4.96,
     "median_return_30d": 3.77,
@@ -687,6 +779,8 @@
     "worst_return_30d": -16.67,
     "sharpe_30d": 0.42,
     "sample_size_30d": 30,
+    "alpha_90d": 11.45,
+    "alpha_sample_size_90d": 19,
     "win_rate_90d": 100.0,
     "avg_return_90d": 18.93,
     "median_return_90d": 21.62,
@@ -694,6 +788,8 @@
     "worst_return_90d": 2.44,
     "sharpe_90d": 1.18,
     "sample_size_90d": 19,
+    "alpha_180d": 8.41,
+    "alpha_sample_size_180d": 1,
     "win_rate_180d": 100.0,
     "avg_return_180d": 24.24,
     "median_return_180d": 24.24,
@@ -703,8 +799,8 @@
     "sample_size_180d": 1,
     "recent_avg_return_90d": 18.93,
     "recent_trade_count": 30,
-    "overall_score": 94.56,
-    "score_percentile": 89.4
+    "overall_score": 91.97,
+    "score_percentile": 83.5
   },
   "Jenisch Jan Philipp": {
     "name": "Jenisch Jan Philipp",
@@ -715,6 +811,8 @@
     "tickers": [
       "AMRZ"
     ],
+    "alpha_30d": 8.31,
+    "alpha_sample_size_30d": 3,
     "win_rate_30d": 66.67,
     "avg_return_30d": 9.79,
     "median_return_30d": 12.46,
@@ -722,6 +820,8 @@
     "worst_return_30d": -1.36,
     "sharpe_30d": 0.97,
     "sample_size_30d": 3,
+    "alpha_90d": -2.22,
+    "alpha_sample_size_90d": 2,
     "win_rate_90d": 100.0,
     "avg_return_90d": 4.25,
     "median_return_90d": 4.25,
@@ -736,10 +836,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 4.25,
     "recent_trade_count": 3,
-    "overall_score": 76.21,
-    "score_percentile": 67.9
+    "overall_score": 65.03,
+    "score_percentile": 64.7
   },
   "Inc Ctt Pharmaceutical Holdings": {
     "name": "Inc Ctt Pharmaceutical Holdings",
@@ -785,6 +887,8 @@
     "tickers": [
       "TCBI"
     ],
+    "alpha_30d": 328.55,
+    "alpha_sample_size_30d": 3,
     "win_rate_30d": 100.0,
     "avg_return_30d": 329.29,
     "median_return_30d": 329.18,
@@ -792,6 +896,8 @@
     "worst_return_30d": 325.79,
     "sharpe_30d": 92.77,
     "sample_size_30d": 3,
+    "alpha_90d": 318.21,
+    "alpha_sample_size_90d": 1,
     "win_rate_90d": 100.0,
     "avg_return_90d": 326.68,
     "median_return_90d": 326.68,
@@ -799,6 +905,8 @@
     "worst_return_90d": 326.68,
     "sharpe_90d": 0,
     "sample_size_90d": 1,
+    "alpha_180d": 345.68,
+    "alpha_sample_size_180d": 1,
     "win_rate_180d": 100.0,
     "avg_return_180d": 360.01,
     "median_return_180d": 360.01,
@@ -808,8 +916,8 @@
     "sample_size_180d": 1,
     "recent_avg_return_90d": 326.68,
     "recent_trade_count": 3,
-    "overall_score": 90.0,
-    "score_percentile": 87.6
+    "overall_score": 92.5,
+    "score_percentile": 88.5
   },
   "Lynx1 Capital Management Lp": {
     "name": "Lynx1 Capital Management Lp",
@@ -846,7 +954,7 @@
     "recent_avg_return_90d": 49.82,
     "recent_trade_count": 6,
     "overall_score": 90.0,
-    "score_percentile": 87.6
+    "score_percentile": 83.0
   },
   "Streeter Jeffrey B": {
     "name": "Streeter Jeffrey B",
@@ -857,6 +965,8 @@
     "tickers": [
       "CHMG"
     ],
+    "alpha_30d": -0.25,
+    "alpha_sample_size_30d": 6,
     "win_rate_30d": 50.0,
     "avg_return_30d": 0.47,
     "median_return_30d": 0.34,
@@ -864,6 +974,8 @@
     "worst_return_30d": -0.69,
     "sharpe_30d": 0.38,
     "sample_size_30d": 6,
+    "alpha_90d": -9.25,
+    "alpha_sample_size_90d": 4,
     "win_rate_90d": 0.0,
     "avg_return_90d": -2.92,
     "median_return_90d": -2.52,
@@ -878,10 +990,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": -2.92,
     "recent_trade_count": 6,
-    "overall_score": 21.5,
-    "score_percentile": 21.1
+    "overall_score": 19.64,
+    "score_percentile": 22.9
   },
   "Llc Arch Venture Partners Xii": {
     "name": "Llc Arch Venture Partners Xii",
@@ -917,7 +1031,7 @@
     "recent_avg_return_90d": 31.82,
     "recent_trade_count": 4,
     "overall_score": 90.0,
-    "score_percentile": 87.6
+    "score_percentile": 83.0
   },
   "Eliasek M Grier": {
     "name": "Eliasek M Grier",
@@ -929,6 +1043,8 @@
       "PAYIX",
       "PSEC"
     ],
+    "alpha_30d": -0.84,
+    "alpha_sample_size_30d": 3,
     "win_rate_30d": 0.0,
     "avg_return_30d": -0.57,
     "median_return_30d": -0.42,
@@ -943,6 +1059,8 @@
     "worst_return_90d": null,
     "sharpe_90d": null,
     "sample_size_90d": 0,
+    "alpha_90d": null,
+    "alpha_sample_size_90d": 0,
     "win_rate_180d": null,
     "avg_return_180d": null,
     "median_return_180d": null,
@@ -950,10 +1068,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": null,
     "recent_trade_count": 0,
     "overall_score": 50,
-    "score_percentile": 47.7
+    "score_percentile": 53.2
   },
   "Sell Moritz A": {
     "name": "Sell Moritz A",
@@ -966,6 +1086,8 @@
       "IAF",
       "FAX"
     ],
+    "alpha_30d": 42.34,
+    "alpha_sample_size_30d": 4,
     "win_rate_30d": 25.0,
     "avg_return_30d": 43.53,
     "median_return_30d": -1.5,
@@ -973,6 +1095,8 @@
     "worst_return_30d": -2.68,
     "sharpe_30d": 0.48,
     "sample_size_30d": 4,
+    "alpha_90d": 56.91,
+    "alpha_sample_size_90d": 3,
     "win_rate_90d": 66.67,
     "avg_return_90d": 64.61,
     "median_return_90d": 0.95,
@@ -987,10 +1111,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 64.61,
     "recent_trade_count": 4,
-    "overall_score": 82.8,
-    "score_percentile": 77.1
+    "overall_score": 87.93,
+    "score_percentile": 80.3
   },
   "Malone John C": {
     "name": "Malone John C",
@@ -1002,6 +1128,8 @@
       "BATRA",
       "GLIBK"
     ],
+    "alpha_30d": -0.02,
+    "alpha_sample_size_30d": 11,
     "win_rate_30d": 81.82,
     "avg_return_30d": 2.45,
     "median_return_30d": 2.44,
@@ -1009,6 +1137,8 @@
     "worst_return_30d": -2.37,
     "sharpe_30d": 0.91,
     "sample_size_30d": 11,
+    "alpha_90d": -13.54,
+    "alpha_sample_size_90d": 4,
     "win_rate_90d": 0.0,
     "avg_return_90d": -8.42,
     "median_return_90d": -8.0,
@@ -1023,10 +1153,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": -8.42,
     "recent_trade_count": 11,
-    "overall_score": 14.48,
-    "score_percentile": 12.8
+    "overall_score": 10.4,
+    "score_percentile": 14.7
   },
   "Mosseri Marlio Charles": {
     "name": "Mosseri Marlio Charles",
@@ -1037,6 +1169,8 @@
     "tickers": [
       "NVCT"
     ],
+    "alpha_30d": -5.11,
+    "alpha_sample_size_30d": 3,
     "win_rate_30d": 0.0,
     "avg_return_30d": -1.52,
     "median_return_30d": -1.36,
@@ -1044,6 +1178,8 @@
     "worst_return_30d": -3.07,
     "sharpe_30d": -1.03,
     "sample_size_30d": 3,
+    "alpha_90d": -32.74,
+    "alpha_sample_size_90d": 2,
     "win_rate_90d": 0.0,
     "avg_return_90d": -21.55,
     "median_return_90d": -21.55,
@@ -1058,6 +1194,8 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": -21.55,
     "recent_trade_count": 3,
     "overall_score": 0.0,
@@ -1096,7 +1234,7 @@
     "recent_avg_return_90d": 1.21,
     "recent_trade_count": 3,
     "overall_score": 66.51,
-    "score_percentile": 61.9
+    "score_percentile": 66.5
   },
   "Odowd William": {
     "name": "Odowd William",
@@ -1166,7 +1304,7 @@
     "recent_avg_return_90d": -16.06,
     "recent_trade_count": 4,
     "overall_score": 14.92,
-    "score_percentile": 13.8
+    "score_percentile": 18.8
   },
   "Geygan Jeffrey Richart": {
     "name": "Geygan Jeffrey Richart",
@@ -1177,6 +1315,8 @@
     "tickers": [
       "RMCF"
     ],
+    "alpha_30d": -13.38,
+    "alpha_sample_size_30d": 4,
     "win_rate_30d": 0.0,
     "avg_return_30d": -14.08,
     "median_return_30d": -14.3,
@@ -1184,6 +1324,8 @@
     "worst_return_30d": -23.32,
     "sharpe_30d": -1.75,
     "sample_size_30d": 4,
+    "alpha_90d": -23.11,
+    "alpha_sample_size_90d": 1,
     "win_rate_90d": 0.0,
     "avg_return_90d": -16.06,
     "median_return_90d": -16.06,
@@ -1198,10 +1340,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": -16.06,
     "recent_trade_count": 4,
-    "overall_score": 14.92,
-    "score_percentile": 13.8
+    "overall_score": 10.46,
+    "score_percentile": 15.1
   },
   "Williams Gregg": {
     "name": "Williams Gregg",
@@ -1212,6 +1356,8 @@
     "tickers": [
       "VANI"
     ],
+    "alpha_30d": 7.06,
+    "alpha_sample_size_30d": 3,
     "win_rate_30d": 66.67,
     "avg_return_30d": 7.44,
     "median_return_30d": 13.79,
@@ -1226,6 +1372,8 @@
     "worst_return_90d": null,
     "sharpe_90d": null,
     "sample_size_90d": 0,
+    "alpha_90d": null,
+    "alpha_sample_size_90d": 0,
     "win_rate_180d": null,
     "avg_return_180d": null,
     "median_return_180d": null,
@@ -1233,10 +1381,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": null,
     "recent_trade_count": 0,
     "overall_score": 50,
-    "score_percentile": 47.7
+    "score_percentile": 53.2
   },
   "Fairmount Funds Management Llc": {
     "name": "Fairmount Funds Management Llc",
@@ -1273,7 +1423,7 @@
     "recent_avg_return_90d": 73.11,
     "recent_trade_count": 3,
     "overall_score": 90.0,
-    "score_percentile": 87.6
+    "score_percentile": 83.0
   },
   "Transcontinental Realty Investors Inc": {
     "name": "Transcontinental Realty Investors Inc",
@@ -1284,6 +1434,8 @@
     "tickers": [
       "IOR"
     ],
+    "alpha_30d": 0.57,
+    "alpha_sample_size_30d": 3,
     "win_rate_30d": 100.0,
     "avg_return_30d": 3.73,
     "median_return_30d": 4.36,
@@ -1291,6 +1443,8 @@
     "worst_return_30d": 0.95,
     "sharpe_30d": 1.48,
     "sample_size_30d": 3,
+    "alpha_90d": -6.44,
+    "alpha_sample_size_90d": 3,
     "win_rate_90d": 100.0,
     "avg_return_90d": 0.88,
     "median_return_90d": 0.5,
@@ -1298,6 +1452,8 @@
     "worst_return_90d": 0.45,
     "sharpe_90d": 1.26,
     "sample_size_90d": 3,
+    "alpha_180d": -15.99,
+    "alpha_sample_size_180d": 1,
     "win_rate_180d": 0.0,
     "avg_return_180d": -0.56,
     "median_return_180d": -0.56,
@@ -1307,8 +1463,8 @@
     "sample_size_180d": 1,
     "recent_avg_return_90d": 0.88,
     "recent_trade_count": 3,
-    "overall_score": 72.4,
-    "score_percentile": 64.7
+    "overall_score": 57.88,
+    "score_percentile": 60.6
   },
   "Alford Tony L": {
     "name": "Alford Tony L",
@@ -1319,6 +1475,8 @@
     "tickers": [
       "LCGMF"
     ],
+    "alpha_30d": -1.4,
+    "alpha_sample_size_30d": 3,
     "win_rate_30d": 66.67,
     "avg_return_30d": 0.0,
     "median_return_30d": 0.0,
@@ -1326,6 +1484,8 @@
     "worst_return_30d": -10.0,
     "sharpe_30d": 0.0,
     "sample_size_30d": 3,
+    "alpha_90d": 34.34,
+    "alpha_sample_size_90d": 1,
     "win_rate_90d": 100.0,
     "avg_return_90d": 40.0,
     "median_return_90d": 40.0,
@@ -1340,10 +1500,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 40.0,
     "recent_trade_count": 3,
-    "overall_score": 90.0,
-    "score_percentile": 87.6
+    "overall_score": 92.5,
+    "score_percentile": 88.5
   },
   "Lober Ralph J": {
     "name": "Lober Ralph J",
@@ -1389,6 +1551,8 @@
     "tickers": [
       "EP"
     ],
+    "alpha_30d": -7.33,
+    "alpha_sample_size_30d": 4,
     "win_rate_30d": 0.0,
     "avg_return_30d": -6.86,
     "median_return_30d": -5.28,
@@ -1396,6 +1560,8 @@
     "worst_return_30d": -16.53,
     "sharpe_30d": -0.96,
     "sample_size_30d": 4,
+    "alpha_90d": -19.69,
+    "alpha_sample_size_90d": 1,
     "win_rate_90d": 0.0,
     "avg_return_90d": -14.67,
     "median_return_90d": -14.67,
@@ -1410,10 +1576,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": -14.67,
     "recent_trade_count": 4,
-    "overall_score": 16.66,
-    "score_percentile": 16.5
+    "overall_score": 11.5,
+    "score_percentile": 16.1
   },
   "Duggan Robert W": {
     "name": "Duggan Robert W",
@@ -1425,6 +1593,8 @@
       "SMMT",
       "PLSE"
     ],
+    "alpha_30d": 10.67,
+    "alpha_sample_size_30d": 3,
     "win_rate_30d": 66.67,
     "avg_return_30d": 10.01,
     "median_return_30d": 20.69,
@@ -1432,6 +1602,8 @@
     "worst_return_30d": -12.22,
     "sharpe_30d": 0.52,
     "sample_size_30d": 3,
+    "alpha_90d": -5.79,
+    "alpha_sample_size_90d": 2,
     "win_rate_90d": 50.0,
     "avg_return_90d": -0.78,
     "median_return_90d": -0.78,
@@ -1446,10 +1618,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": -0.78,
     "recent_trade_count": 3,
-    "overall_score": 48.58,
-    "score_percentile": 40.4
+    "overall_score": 42.33,
+    "score_percentile": 39.9
   },
   "Henriksen Michael Gregory Max": {
     "name": "Henriksen Michael Gregory Max",
@@ -1484,7 +1658,7 @@
     "recent_avg_return_90d": Infinity,
     "recent_trade_count": 3,
     "overall_score": 90.0,
-    "score_percentile": 87.6
+    "score_percentile": 83.0
   },
   "Mink Brook Asset Management Llc": {
     "name": "Mink Brook Asset Management Llc",
@@ -1519,7 +1693,7 @@
     "recent_avg_return_90d": 6.53,
     "recent_trade_count": 18,
     "overall_score": 79.76,
-    "score_percentile": 72.5
+    "score_percentile": 77.1
   },
   "Sims Luke E": {
     "name": "Sims Luke E",
@@ -1530,6 +1704,8 @@
     "tickers": [
       "GRF"
     ],
+    "alpha_30d": -8.34,
+    "alpha_sample_size_30d": 3,
     "win_rate_30d": 0.0,
     "avg_return_30d": -5.1,
     "median_return_30d": -5.04,
@@ -1537,6 +1713,8 @@
     "worst_return_30d": -7.43,
     "sharpe_30d": -2.22,
     "sample_size_30d": 3,
+    "alpha_90d": -9.71,
+    "alpha_sample_size_90d": 2,
     "win_rate_90d": 50.0,
     "avg_return_90d": -0.07,
     "median_return_90d": -0.07,
@@ -1551,10 +1729,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": -0.07,
     "recent_trade_count": 3,
-    "overall_score": 49.36,
-    "score_percentile": 40.8
+    "overall_score": 38.22,
+    "score_percentile": 34.9
   },
   "Martin Product Sales Llc": {
     "name": "Martin Product Sales Llc",
@@ -1589,7 +1769,7 @@
     "recent_avg_return_90d": -8.44,
     "recent_trade_count": 4,
     "overall_score": 30.1,
-    "score_percentile": 27.5
+    "score_percentile": 28.9
   },
   "Gould Matthew J": {
     "name": "Gould Matthew J",
@@ -1600,6 +1780,8 @@
     "tickers": [
       "BRT"
     ],
+    "alpha_30d": -4.3,
+    "alpha_sample_size_30d": 6,
     "win_rate_30d": 16.67,
     "avg_return_30d": -2.04,
     "median_return_30d": -3.11,
@@ -1607,6 +1789,8 @@
     "worst_return_30d": -5.55,
     "sharpe_30d": -0.49,
     "sample_size_30d": 6,
+    "alpha_90d": -9.27,
+    "alpha_sample_size_90d": 3,
     "win_rate_90d": 33.33,
     "avg_return_90d": -0.67,
     "median_return_90d": -0.23,
@@ -1614,6 +1798,8 @@
     "worst_return_90d": -2.88,
     "sharpe_90d": -0.33,
     "sample_size_90d": 3,
+    "alpha_180d": -22.51,
+    "alpha_sample_size_180d": 1,
     "win_rate_180d": 0.0,
     "avg_return_180d": -8.73,
     "median_return_180d": -8.73,
@@ -1623,8 +1809,8 @@
     "sample_size_180d": 1,
     "recent_avg_return_90d": -0.67,
     "recent_trade_count": 6,
-    "overall_score": 42.51,
-    "score_percentile": 34.9
+    "overall_score": 34.12,
+    "score_percentile": 33.0
   },
   "Gould Investors L P": {
     "name": "Gould Investors L P",
@@ -1635,6 +1821,8 @@
     "tickers": [
       "BRT"
     ],
+    "alpha_30d": -4.3,
+    "alpha_sample_size_30d": 6,
     "win_rate_30d": 16.67,
     "avg_return_30d": -2.04,
     "median_return_30d": -3.11,
@@ -1642,6 +1830,8 @@
     "worst_return_30d": -5.55,
     "sharpe_30d": -0.49,
     "sample_size_30d": 6,
+    "alpha_90d": -9.27,
+    "alpha_sample_size_90d": 3,
     "win_rate_90d": 33.33,
     "avg_return_90d": -0.67,
     "median_return_90d": -0.23,
@@ -1649,6 +1839,8 @@
     "worst_return_90d": -2.88,
     "sharpe_90d": -0.33,
     "sample_size_90d": 3,
+    "alpha_180d": -22.51,
+    "alpha_sample_size_180d": 1,
     "win_rate_180d": 0.0,
     "avg_return_180d": -8.73,
     "median_return_180d": -8.73,
@@ -1658,8 +1850,8 @@
     "sample_size_180d": 1,
     "recent_avg_return_90d": -0.67,
     "recent_trade_count": 6,
-    "overall_score": 42.51,
-    "score_percentile": 34.9
+    "overall_score": 34.12,
+    "score_percentile": 33.0
   },
   "Gould Jeffrey": {
     "name": "Gould Jeffrey",
@@ -1670,6 +1862,8 @@
     "tickers": [
       "BRT"
     ],
+    "alpha_30d": -4.3,
+    "alpha_sample_size_30d": 6,
     "win_rate_30d": 16.67,
     "avg_return_30d": -2.04,
     "median_return_30d": -3.11,
@@ -1677,6 +1871,8 @@
     "worst_return_30d": -5.55,
     "sharpe_30d": -0.49,
     "sample_size_30d": 6,
+    "alpha_90d": -9.27,
+    "alpha_sample_size_90d": 3,
     "win_rate_90d": 33.33,
     "avg_return_90d": -0.67,
     "median_return_90d": -0.23,
@@ -1684,6 +1880,8 @@
     "worst_return_90d": -2.88,
     "sharpe_90d": -0.33,
     "sample_size_90d": 3,
+    "alpha_180d": -22.51,
+    "alpha_sample_size_180d": 1,
     "win_rate_180d": 0.0,
     "avg_return_180d": -8.73,
     "median_return_180d": -8.73,
@@ -1693,8 +1891,8 @@
     "sample_size_180d": 1,
     "recent_avg_return_90d": -0.67,
     "recent_trade_count": 6,
-    "overall_score": 42.51,
-    "score_percentile": 34.9
+    "overall_score": 34.12,
+    "score_percentile": 33.0
   },
   "Bogan Thomas F": {
     "name": "Bogan Thomas F",
@@ -1705,6 +1903,8 @@
     "tickers": [
       "LAW"
     ],
+    "alpha_30d": 7.66,
+    "alpha_sample_size_30d": 4,
     "win_rate_30d": 100.0,
     "avg_return_30d": 8.13,
     "median_return_30d": 8.7,
@@ -1712,6 +1912,8 @@
     "worst_return_30d": 0.5,
     "sharpe_30d": 1.31,
     "sample_size_30d": 4,
+    "alpha_90d": 46.67,
+    "alpha_sample_size_90d": 1,
     "win_rate_90d": 100.0,
     "avg_return_90d": 51.79,
     "median_return_90d": 51.79,
@@ -1726,10 +1928,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 51.79,
     "recent_trade_count": 4,
-    "overall_score": 90.0,
-    "score_percentile": 87.6
+    "overall_score": 92.5,
+    "score_percentile": 88.5
   },
   "Oneill Stephen Andrew": {
     "name": "Oneill Stephen Andrew",
@@ -1765,7 +1969,7 @@
     "recent_avg_return_90d": 2.41,
     "recent_trade_count": 6,
     "overall_score": 78.01,
-    "score_percentile": 69.3
+    "score_percentile": 75.7
   },
   "Hand Joseph Thomas": {
     "name": "Hand Joseph Thomas",
@@ -1776,6 +1980,8 @@
     "tickers": [
       "YORW"
     ],
+    "alpha_30d": -0.12,
+    "alpha_sample_size_30d": 5,
     "win_rate_30d": 80.0,
     "avg_return_30d": 2.84,
     "median_return_30d": 2.67,
@@ -1783,6 +1989,8 @@
     "worst_return_30d": -3.48,
     "sharpe_30d": 0.54,
     "sample_size_30d": 5,
+    "alpha_90d": -6.66,
+    "alpha_sample_size_90d": 3,
     "win_rate_90d": 66.67,
     "avg_return_90d": 0.87,
     "median_return_90d": 2.91,
@@ -1797,10 +2005,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 0.87,
     "recent_trade_count": 5,
-    "overall_score": 56.74,
-    "score_percentile": 51.8
+    "overall_score": 46.71,
+    "score_percentile": 43.1
   },
   "Sack Peter": {
     "name": "Sack Peter",
@@ -1812,6 +2022,8 @@
       "REFI",
       "LIEN"
     ],
+    "alpha_30d": -3.58,
+    "alpha_sample_size_30d": 3,
     "win_rate_30d": 66.67,
     "avg_return_30d": -1.9,
     "median_return_30d": 1.56,
@@ -1819,6 +2031,8 @@
     "worst_return_30d": -10.06,
     "sharpe_30d": -0.27,
     "sample_size_30d": 3,
+    "alpha_90d": -7.45,
+    "alpha_sample_size_90d": 1,
     "win_rate_90d": 0.0,
     "avg_return_90d": -1.24,
     "median_return_90d": -1.24,
@@ -1833,10 +2047,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": -1.24,
     "recent_trade_count": 3,
-    "overall_score": 33.45,
-    "score_percentile": 30.7
+    "overall_score": 30.39,
+    "score_percentile": 29.4
   },
   "Sprott Eric": {
     "name": "Sprott Eric",
@@ -1847,6 +2063,8 @@
     "tickers": [
       "HYMC"
     ],
+    "alpha_30d": 40.05,
+    "alpha_sample_size_30d": 4,
     "win_rate_30d": 100.0,
     "avg_return_30d": 41.98,
     "median_return_30d": 40.94,
@@ -1854,6 +2072,8 @@
     "worst_return_30d": 12.0,
     "sharpe_30d": 1.65,
     "sample_size_30d": 4,
+    "alpha_90d": 108.6,
+    "alpha_sample_size_90d": 2,
     "win_rate_90d": 100.0,
     "avg_return_90d": 116.35,
     "median_return_90d": 116.35,
@@ -1861,6 +2081,8 @@
     "worst_return_90d": 69.14,
     "sharpe_90d": 1.74,
     "sample_size_90d": 2,
+    "alpha_180d": 217.31,
+    "alpha_sample_size_180d": 1,
     "win_rate_180d": 100.0,
     "avg_return_180d": 233.14,
     "median_return_180d": 233.14,
@@ -1870,7 +2092,7 @@
     "sample_size_180d": 1,
     "recent_avg_return_90d": 116.35,
     "recent_trade_count": 4,
-    "overall_score": 98.7,
+    "overall_score": 99.02,
     "score_percentile": 93.6
   },
   "Ellspermann Susan J": {
@@ -1882,6 +2104,8 @@
     "tickers": [
       "GABC"
     ],
+    "alpha_30d": -2.59,
+    "alpha_sample_size_30d": 5,
     "win_rate_30d": 60.0,
     "avg_return_30d": -0.22,
     "median_return_30d": 0.62,
@@ -1889,6 +2113,8 @@
     "worst_return_30d": -5.42,
     "sharpe_30d": -0.06,
     "sample_size_30d": 5,
+    "alpha_90d": -7.14,
+    "alpha_sample_size_90d": 3,
     "win_rate_90d": 33.33,
     "avg_return_90d": 0.06,
     "median_return_90d": -0.58,
@@ -1903,10 +2129,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 0.06,
     "recent_trade_count": 5,
-    "overall_score": 45.12,
-    "score_percentile": 37.6
+    "overall_score": 38.43,
+    "score_percentile": 36.7
   },
   "Bawel Zachary W": {
     "name": "Bawel Zachary W",
@@ -1917,6 +2145,8 @@
     "tickers": [
       "GABC"
     ],
+    "alpha_30d": -2.59,
+    "alpha_sample_size_30d": 5,
     "win_rate_30d": 60.0,
     "avg_return_30d": -0.22,
     "median_return_30d": 0.62,
@@ -1924,6 +2154,8 @@
     "worst_return_30d": -5.42,
     "sharpe_30d": -0.06,
     "sample_size_30d": 5,
+    "alpha_90d": -7.14,
+    "alpha_sample_size_90d": 3,
     "win_rate_90d": 33.33,
     "avg_return_90d": 0.06,
     "median_return_90d": -0.58,
@@ -1938,10 +2170,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 0.06,
     "recent_trade_count": 5,
-    "overall_score": 45.12,
-    "score_percentile": 37.6
+    "overall_score": 38.43,
+    "score_percentile": 36.7
   },
   "Sheidler Jack": {
     "name": "Sheidler Jack",
@@ -1952,6 +2186,8 @@
     "tickers": [
       "GABC"
     ],
+    "alpha_30d": -2.59,
+    "alpha_sample_size_30d": 5,
     "win_rate_30d": 60.0,
     "avg_return_30d": -0.22,
     "median_return_30d": 0.62,
@@ -1959,6 +2195,8 @@
     "worst_return_30d": -5.42,
     "sharpe_30d": -0.06,
     "sample_size_30d": 5,
+    "alpha_90d": -7.14,
+    "alpha_sample_size_90d": 3,
     "win_rate_90d": 33.33,
     "avg_return_90d": 0.06,
     "median_return_90d": -0.58,
@@ -1973,10 +2211,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 0.06,
     "recent_trade_count": 5,
-    "overall_score": 45.12,
-    "score_percentile": 37.6
+    "overall_score": 38.43,
+    "score_percentile": 36.7
   },
   "Ryan Christina M": {
     "name": "Ryan Christina M",
@@ -1987,6 +2227,8 @@
     "tickers": [
       "GABC"
     ],
+    "alpha_30d": -2.59,
+    "alpha_sample_size_30d": 5,
     "win_rate_30d": 60.0,
     "avg_return_30d": -0.22,
     "median_return_30d": 0.62,
@@ -1994,6 +2236,8 @@
     "worst_return_30d": -5.42,
     "sharpe_30d": -0.06,
     "sample_size_30d": 5,
+    "alpha_90d": -7.14,
+    "alpha_sample_size_90d": 3,
     "win_rate_90d": 33.33,
     "avg_return_90d": 0.06,
     "median_return_90d": -0.58,
@@ -2008,10 +2252,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 0.06,
     "recent_trade_count": 5,
-    "overall_score": 45.12,
-    "score_percentile": 37.6
+    "overall_score": 38.43,
+    "score_percentile": 36.7
   },
   "Reynolds Cameron John": {
     "name": "Reynolds Cameron John",
@@ -2022,6 +2268,8 @@
     "tickers": [
       "VNRX"
     ],
+    "alpha_30d": -14.82,
+    "alpha_sample_size_30d": 4,
     "win_rate_30d": 25.0,
     "avg_return_30d": -12.37,
     "median_return_30d": -16.47,
@@ -2029,6 +2277,8 @@
     "worst_return_30d": -31.82,
     "sharpe_30d": -0.53,
     "sample_size_30d": 4,
+    "alpha_90d": -34.94,
+    "alpha_sample_size_90d": 3,
     "win_rate_90d": 33.33,
     "avg_return_90d": -27.41,
     "median_return_90d": -31.25,
@@ -2036,6 +2286,8 @@
     "worst_return_90d": -56.06,
     "sharpe_90d": -0.89,
     "sample_size_90d": 3,
+    "alpha_180d": -63.05,
+    "alpha_sample_size_180d": 1,
     "win_rate_180d": 0.0,
     "avg_return_180d": -49.27,
     "median_return_180d": -49.27,
@@ -2045,8 +2297,8 @@
     "sample_size_180d": 1,
     "recent_avg_return_90d": -27.41,
     "recent_trade_count": 4,
-    "overall_score": 15.55,
-    "score_percentile": 14.2
+    "overall_score": 10.83,
+    "score_percentile": 15.6
   },
   "Bank Of America Corp De": {
     "name": "Bank Of America Corp De",
@@ -2086,7 +2338,7 @@
     "recent_avg_return_90d": 5.26,
     "recent_trade_count": 13,
     "overall_score": 72.58,
-    "score_percentile": 65.1
+    "score_percentile": 71.6
   },
   "Yaldoo Laith L": {
     "name": "Yaldoo Laith L",
@@ -2097,6 +2349,8 @@
     "tickers": [
       "ZIVO"
     ],
+    "alpha_30d": -7.84,
+    "alpha_sample_size_30d": 4,
     "win_rate_30d": 25.0,
     "avg_return_30d": -4.76,
     "median_return_30d": -3.52,
@@ -2104,6 +2358,8 @@
     "worst_return_30d": -12.45,
     "sharpe_30d": -0.83,
     "sample_size_30d": 4,
+    "alpha_90d": -19.76,
+    "alpha_sample_size_90d": 1,
     "win_rate_90d": 0.0,
     "avg_return_90d": -9.28,
     "median_return_90d": -9.28,
@@ -2111,6 +2367,8 @@
     "worst_return_90d": -9.28,
     "sharpe_90d": 0,
     "sample_size_90d": 1,
+    "alpha_180d": -46.33,
+    "alpha_sample_size_180d": 1,
     "win_rate_180d": 0.0,
     "avg_return_180d": -30.5,
     "median_return_180d": -30.5,
@@ -2120,8 +2378,8 @@
     "sample_size_180d": 1,
     "recent_avg_return_90d": -9.28,
     "recent_trade_count": 4,
-    "overall_score": 23.4,
-    "score_percentile": 23.4
+    "overall_score": 15.54,
+    "score_percentile": 19.7
   },
   "Topper Joseph V": {
     "name": "Topper Joseph V",
@@ -2157,7 +2415,7 @@
     "recent_avg_return_90d": 2.64,
     "recent_trade_count": 3,
     "overall_score": 76.05,
-    "score_percentile": 67.4
+    "score_percentile": 73.9
   },
   "Opaleye Management Inc": {
     "name": "Opaleye Management Inc",
@@ -2193,7 +2451,7 @@
     "recent_avg_return_90d": -3.0,
     "recent_trade_count": 6,
     "overall_score": 41.25,
-    "score_percentile": 33.5
+    "score_percentile": 39.4
   },
   "Cavoli Ivo James": {
     "name": "Cavoli Ivo James",
@@ -2204,6 +2462,8 @@
     "tickers": [
       "CPSH"
     ],
+    "alpha_30d": 7.89,
+    "alpha_sample_size_30d": 4,
     "win_rate_30d": 75.0,
     "avg_return_30d": 10.68,
     "median_return_30d": 12.26,
@@ -2211,6 +2471,8 @@
     "worst_return_30d": -0.79,
     "sharpe_30d": 1.27,
     "sample_size_30d": 4,
+    "alpha_90d": 11.88,
+    "alpha_sample_size_90d": 3,
     "win_rate_90d": 100.0,
     "avg_return_90d": 18.55,
     "median_return_90d": 17.56,
@@ -2225,10 +2487,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 18.55,
     "recent_trade_count": 4,
-    "overall_score": 95.64,
-    "score_percentile": 90.4
+    "overall_score": 93.35,
+    "score_percentile": 89.0
   },
   "Housel David E": {
     "name": "Housel David E",
@@ -2239,6 +2503,8 @@
     "tickers": [
       "AUBN"
     ],
+    "alpha_30d": -2.56,
+    "alpha_sample_size_30d": 3,
     "win_rate_30d": 33.33,
     "avg_return_30d": -1.44,
     "median_return_30d": -3.6,
@@ -2246,6 +2512,8 @@
     "worst_return_30d": -4.49,
     "sharpe_30d": -0.32,
     "sample_size_30d": 3,
+    "alpha_90d": -1.9,
+    "alpha_sample_size_90d": 2,
     "win_rate_90d": 50.0,
     "avg_return_90d": 4.64,
     "median_return_90d": 4.64,
@@ -2260,10 +2528,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 4.64,
     "recent_trade_count": 3,
-    "overall_score": 57.1,
-    "score_percentile": 52.8
+    "overall_score": 52.24,
+    "score_percentile": 56.4
   },
   "Marlett Christopher A": {
     "name": "Marlett Christopher A",
@@ -2274,6 +2544,8 @@
     "tickers": [
       "MDBH"
     ],
+    "alpha_30d": -2.25,
+    "alpha_sample_size_30d": 8,
     "win_rate_30d": 75.0,
     "avg_return_30d": 1.75,
     "median_return_30d": 5.85,
@@ -2281,6 +2553,8 @@
     "worst_return_30d": -17.65,
     "sharpe_30d": 0.17,
     "sample_size_30d": 8,
+    "alpha_90d": -16.93,
+    "alpha_sample_size_90d": 7,
     "win_rate_90d": 28.57,
     "avg_return_90d": -9.39,
     "median_return_90d": -10.64,
@@ -2295,10 +2569,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": -9.39,
     "recent_trade_count": 8,
-    "overall_score": 27.23,
-    "score_percentile": 26.6
+    "overall_score": 17.72,
+    "score_percentile": 21.1
   },
   "Feinberg Peter": {
     "name": "Feinberg Peter",
@@ -2309,6 +2585,8 @@
     "tickers": [
       "IMRX"
     ],
+    "alpha_30d": 6.68,
+    "alpha_sample_size_30d": 4,
     "win_rate_30d": 25.0,
     "avg_return_30d": 9.95,
     "median_return_30d": -5.23,
@@ -2316,6 +2594,8 @@
     "worst_return_30d": -12.95,
     "sharpe_30d": 0.28,
     "sample_size_30d": 4,
+    "alpha_90d": 217.66,
+    "alpha_sample_size_90d": 1,
     "win_rate_90d": 100.0,
     "avg_return_90d": 228.46,
     "median_return_90d": 228.46,
@@ -2330,10 +2610,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 228.46,
     "recent_trade_count": 4,
-    "overall_score": 90.0,
-    "score_percentile": 87.6
+    "overall_score": 92.5,
+    "score_percentile": 88.5
   },
   "Lutnick Brandon": {
     "name": "Lutnick Brandon",
@@ -2373,7 +2655,7 @@
     "recent_avg_return_90d": null,
     "recent_trade_count": 0,
     "overall_score": 50,
-    "score_percentile": 47.7
+    "score_percentile": 53.2
   },
   "Resch Martin H": {
     "name": "Resch Martin H",
@@ -2408,7 +2690,7 @@
     "recent_avg_return_90d": -0.69,
     "recent_trade_count": 3,
     "overall_score": 30.59,
-    "score_percentile": 28.4
+    "score_percentile": 29.8
   },
   "Shattuck Katherine W": {
     "name": "Shattuck Katherine W",
@@ -2419,6 +2701,8 @@
     "tickers": [
       "CZNC"
     ],
+    "alpha_30d": -3.1,
+    "alpha_sample_size_30d": 5,
     "win_rate_30d": 40.0,
     "avg_return_30d": -0.74,
     "median_return_30d": -3.25,
@@ -2426,6 +2710,8 @@
     "worst_return_30d": -8.55,
     "sharpe_30d": -0.1,
     "sample_size_30d": 5,
+    "alpha_90d": -7.79,
+    "alpha_sample_size_90d": 2,
     "win_rate_90d": 50.0,
     "avg_return_90d": -0.79,
     "median_return_90d": -0.79,
@@ -2440,10 +2726,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": -0.79,
     "recent_trade_count": 5,
-    "overall_score": 48.01,
-    "score_percentile": 39.4
+    "overall_score": 39.58,
+    "score_percentile": 38.1
   },
   "Pellegrino Frank G": {
     "name": "Pellegrino Frank G",
@@ -2454,6 +2742,8 @@
     "tickers": [
       "CZNC"
     ],
+    "alpha_30d": -3.1,
+    "alpha_sample_size_30d": 5,
     "win_rate_30d": 40.0,
     "avg_return_30d": -0.74,
     "median_return_30d": -3.25,
@@ -2461,6 +2751,8 @@
     "worst_return_30d": -8.55,
     "sharpe_30d": -0.1,
     "sample_size_30d": 5,
+    "alpha_90d": -7.79,
+    "alpha_sample_size_90d": 2,
     "win_rate_90d": 50.0,
     "avg_return_90d": -0.79,
     "median_return_90d": -0.79,
@@ -2475,10 +2767,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": -0.79,
     "recent_trade_count": 5,
-    "overall_score": 48.01,
-    "score_percentile": 39.4
+    "overall_score": 39.58,
+    "score_percentile": 38.1
   },
   "Dixon Robert E": {
     "name": "Dixon Robert E",
@@ -2489,6 +2783,8 @@
     "tickers": [
       "MKZR"
     ],
+    "alpha_30d": 15.02,
+    "alpha_sample_size_30d": 8,
     "win_rate_30d": 100.0,
     "avg_return_30d": 17.89,
     "median_return_30d": 16.32,
@@ -2496,6 +2792,8 @@
     "worst_return_30d": 5.49,
     "sharpe_30d": 1.65,
     "sample_size_30d": 8,
+    "alpha_90d": -6.04,
+    "alpha_sample_size_90d": 6,
     "win_rate_90d": 66.67,
     "avg_return_90d": -0.47,
     "median_return_90d": 1.96,
@@ -2510,10 +2808,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": -0.47,
     "recent_trade_count": 8,
-    "overall_score": 54.21,
-    "score_percentile": 49.5
+    "overall_score": 45.79,
+    "score_percentile": 42.7
   },
   "Sherpa Angche": {
     "name": "Sherpa Angche",
@@ -2524,6 +2824,8 @@
     "tickers": [
       "MKZR"
     ],
+    "alpha_30d": 14.55,
+    "alpha_sample_size_30d": 6,
     "win_rate_30d": 100.0,
     "avg_return_30d": 17.26,
     "median_return_30d": 16.32,
@@ -2531,6 +2833,8 @@
     "worst_return_30d": 5.49,
     "sharpe_30d": 1.59,
     "sample_size_30d": 6,
+    "alpha_90d": -5.31,
+    "alpha_sample_size_90d": 5,
     "win_rate_90d": 80.0,
     "avg_return_90d": 0.61,
     "median_return_90d": 2.89,
@@ -2545,10 +2849,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 0.61,
     "recent_trade_count": 6,
-    "overall_score": 59.96,
-    "score_percentile": 56.9
+    "overall_score": 50.42,
+    "score_percentile": 55.0
   },
   "Simpson Christine Elizabeth": {
     "name": "Simpson Christine Elizabeth",
@@ -2559,6 +2865,8 @@
     "tickers": [
       "MKZR"
     ],
+    "alpha_30d": 14.55,
+    "alpha_sample_size_30d": 6,
     "win_rate_30d": 100.0,
     "avg_return_30d": 17.26,
     "median_return_30d": 16.32,
@@ -2566,6 +2874,8 @@
     "worst_return_30d": 5.49,
     "sharpe_30d": 1.59,
     "sample_size_30d": 6,
+    "alpha_90d": -5.31,
+    "alpha_sample_size_90d": 5,
     "win_rate_90d": 80.0,
     "avg_return_90d": 0.61,
     "median_return_90d": 2.89,
@@ -2580,10 +2890,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 0.61,
     "recent_trade_count": 6,
-    "overall_score": 59.96,
-    "score_percentile": 56.9
+    "overall_score": 50.42,
+    "score_percentile": 55.0
   },
   "Fuller Glen W": {
     "name": "Fuller Glen W",
@@ -2594,6 +2906,8 @@
     "tickers": [
       "MKZR"
     ],
+    "alpha_30d": 14.55,
+    "alpha_sample_size_30d": 6,
     "win_rate_30d": 100.0,
     "avg_return_30d": 17.26,
     "median_return_30d": 16.32,
@@ -2601,6 +2915,8 @@
     "worst_return_30d": 5.49,
     "sharpe_30d": 1.59,
     "sample_size_30d": 6,
+    "alpha_90d": -5.31,
+    "alpha_sample_size_90d": 5,
     "win_rate_90d": 80.0,
     "avg_return_90d": 0.61,
     "median_return_90d": 2.89,
@@ -2615,10 +2931,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 0.61,
     "recent_trade_count": 6,
-    "overall_score": 59.96,
-    "score_percentile": 56.9
+    "overall_score": 50.42,
+    "score_percentile": 55.0
   },
   "Patterson Charles E": {
     "name": "Patterson Charles E",
@@ -2653,7 +2971,7 @@
     "recent_avg_return_90d": 2.7,
     "recent_trade_count": 8,
     "overall_score": 65.14,
-    "score_percentile": 61.5
+    "score_percentile": 65.1
   },
   "Bluth Jeri Ruth": {
     "name": "Bluth Jeri Ruth",
@@ -2664,6 +2982,8 @@
     "tickers": [
       "MKZR"
     ],
+    "alpha_30d": 14.55,
+    "alpha_sample_size_30d": 6,
     "win_rate_30d": 100.0,
     "avg_return_30d": 17.26,
     "median_return_30d": 16.32,
@@ -2671,6 +2991,8 @@
     "worst_return_30d": 5.49,
     "sharpe_30d": 1.59,
     "sample_size_30d": 6,
+    "alpha_90d": -5.31,
+    "alpha_sample_size_90d": 5,
     "win_rate_90d": 80.0,
     "avg_return_90d": 0.61,
     "median_return_90d": 2.89,
@@ -2685,10 +3007,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 0.61,
     "recent_trade_count": 6,
-    "overall_score": 59.96,
-    "score_percentile": 56.9
+    "overall_score": 50.42,
+    "score_percentile": 55.0
   },
   "Ma Eagle Holdings Fund": {
     "name": "Ma Eagle Holdings Fund",
@@ -2699,6 +3023,8 @@
     "tickers": [
       "SCISX"
     ],
+    "alpha_30d": -4.03,
+    "alpha_sample_size_30d": 3,
     "win_rate_30d": 0.0,
     "avg_return_30d": -2.14,
     "median_return_30d": -2.36,
@@ -2706,6 +3032,8 @@
     "worst_return_30d": -3.25,
     "sharpe_30d": -1.74,
     "sample_size_30d": 3,
+    "alpha_90d": -8.65,
+    "alpha_sample_size_90d": 2,
     "win_rate_90d": 0.0,
     "avg_return_90d": -1.32,
     "median_return_90d": -1.32,
@@ -2720,10 +3048,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": -1.32,
     "recent_trade_count": 3,
-    "overall_score": 23.35,
-    "score_percentile": 22.9
+    "overall_score": 21.43,
+    "score_percentile": 25.7
   },
   "Daly Joseph Patrick": {
     "name": "Daly Joseph Patrick",
@@ -2734,6 +3064,8 @@
     "tickers": [
       "BUKS"
     ],
+    "alpha_30d": 23.99,
+    "alpha_sample_size_30d": 7,
     "win_rate_30d": 100.0,
     "avg_return_30d": 25.51,
     "median_return_30d": 25.0,
@@ -2741,6 +3073,8 @@
     "worst_return_30d": 5.23,
     "sharpe_30d": 1.6,
     "sample_size_30d": 7,
+    "alpha_90d": 47.7,
+    "alpha_sample_size_90d": 1,
     "win_rate_90d": 100.0,
     "avg_return_90d": 55.56,
     "median_return_90d": 55.56,
@@ -2755,10 +3089,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 55.56,
     "recent_trade_count": 7,
-    "overall_score": 90.0,
-    "score_percentile": 87.6
+    "overall_score": 92.5,
+    "score_percentile": 88.5
   },
   "Furcron Thomas Patrick": {
     "name": "Furcron Thomas Patrick",
@@ -2769,6 +3105,8 @@
     "tickers": [
       "RGCO"
     ],
+    "alpha_30d": -3.13,
+    "alpha_sample_size_30d": 5,
     "win_rate_30d": 40.0,
     "avg_return_30d": -0.68,
     "median_return_30d": -2.0,
@@ -2776,6 +3114,8 @@
     "worst_return_30d": -12.68,
     "sharpe_30d": -0.07,
     "sample_size_30d": 5,
+    "alpha_90d": -6.7,
+    "alpha_sample_size_90d": 3,
     "win_rate_90d": 66.67,
     "avg_return_90d": 1.28,
     "median_return_90d": 0.63,
@@ -2790,10 +3130,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 1.28,
     "recent_trade_count": 5,
-    "overall_score": 57.85,
-    "score_percentile": 54.1
+    "overall_score": 47.42,
+    "score_percentile": 45.0
   },
   "Miles Christen Brooke": {
     "name": "Miles Christen Brooke",
@@ -2804,6 +3146,8 @@
     "tickers": [
       "RGCO"
     ],
+    "alpha_30d": -3.13,
+    "alpha_sample_size_30d": 5,
     "win_rate_30d": 40.0,
     "avg_return_30d": -0.68,
     "median_return_30d": -2.0,
@@ -2811,6 +3155,8 @@
     "worst_return_30d": -12.68,
     "sharpe_30d": -0.07,
     "sample_size_30d": 5,
+    "alpha_90d": -6.7,
+    "alpha_sample_size_90d": 3,
     "win_rate_90d": 66.67,
     "avg_return_90d": 1.28,
     "median_return_90d": 0.63,
@@ -2825,10 +3171,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 1.28,
     "recent_trade_count": 5,
-    "overall_score": 57.85,
-    "score_percentile": 54.1
+    "overall_score": 47.42,
+    "score_percentile": 45.0
   },
   "Oliver Lawrence T": {
     "name": "Oliver Lawrence T",
@@ -2863,7 +3211,7 @@
     "recent_avg_return_90d": 1.28,
     "recent_trade_count": 4,
     "overall_score": 57.85,
-    "score_percentile": 54.1
+    "score_percentile": 60.1
   },
   "Agree Joey": {
     "name": "Agree Joey",
@@ -2874,6 +3222,8 @@
     "tickers": [
       "ADC"
     ],
+    "alpha_30d": -1.04,
+    "alpha_sample_size_30d": 3,
     "win_rate_30d": 100.0,
     "avg_return_30d": 1.13,
     "median_return_30d": 0.24,
@@ -2881,6 +3231,8 @@
     "worst_return_30d": 0.14,
     "sharpe_30d": 0.69,
     "sample_size_30d": 3,
+    "alpha_90d": -4.59,
+    "alpha_sample_size_90d": 2,
     "win_rate_90d": 100.0,
     "avg_return_90d": 1.64,
     "median_return_90d": 1.64,
@@ -2895,10 +3247,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 1.64,
     "recent_trade_count": 3,
-    "overall_score": 77.05,
-    "score_percentile": 68.3
+    "overall_score": 63.38,
+    "score_percentile": 63.3
   },
   "Lamendola Damien": {
     "name": "Lamendola Damien",
@@ -2909,6 +3263,8 @@
     "tickers": [
       "MRAI"
     ],
+    "alpha_30d": 16.93,
+    "alpha_sample_size_30d": 4,
     "win_rate_30d": 100.0,
     "avg_return_30d": 18.69,
     "median_return_30d": 18.34,
@@ -2916,6 +3272,8 @@
     "worst_return_30d": 10.29,
     "sharpe_30d": 2.26,
     "sample_size_30d": 4,
+    "alpha_90d": 5.51,
+    "alpha_sample_size_90d": 3,
     "win_rate_90d": 66.67,
     "avg_return_90d": 11.98,
     "median_return_90d": 24.35,
@@ -2930,10 +3288,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 11.98,
     "recent_trade_count": 4,
-    "overall_score": 71.83,
-    "score_percentile": 63.8
+    "overall_score": 70.13,
+    "score_percentile": 69.3
   },
   "Stewart Marta R": {
     "name": "Stewart Marta R",
@@ -2944,6 +3304,8 @@
     "tickers": [
       "SPG"
     ],
+    "alpha_30d": -1.4,
+    "alpha_sample_size_30d": 3,
     "win_rate_30d": 66.67,
     "avg_return_30d": 1.0,
     "median_return_30d": 2.65,
@@ -2951,6 +3313,8 @@
     "worst_return_30d": -6.78,
     "sharpe_30d": 0.14,
     "sample_size_30d": 3,
+    "alpha_90d": 4.93,
+    "alpha_sample_size_90d": 2,
     "win_rate_90d": 100.0,
     "avg_return_90d": 11.91,
     "median_return_90d": 11.91,
@@ -2965,10 +3329,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 11.91,
     "recent_trade_count": 3,
-    "overall_score": 88.74,
-    "score_percentile": 80.3
+    "overall_score": 81.32,
+    "score_percentile": 77.5
   },
   "He Junli": {
     "name": "He Junli",
@@ -2979,6 +3345,8 @@
     "tickers": [
       "HRGN"
     ],
+    "alpha_30d": 1.45,
+    "alpha_sample_size_30d": 3,
     "win_rate_30d": 66.67,
     "avg_return_30d": 5.47,
     "median_return_30d": 3.24,
@@ -2986,6 +3354,8 @@
     "worst_return_30d": -2.53,
     "sharpe_30d": 0.59,
     "sample_size_30d": 3,
+    "alpha_90d": -1.5,
+    "alpha_sample_size_90d": 2,
     "win_rate_90d": 100.0,
     "avg_return_90d": 4.05,
     "median_return_90d": 4.05,
@@ -3000,10 +3370,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 4.05,
     "recent_trade_count": 3,
-    "overall_score": 74.16,
-    "score_percentile": 65.6
+    "overall_score": 64.36,
+    "score_percentile": 64.2
   },
   "Eberwein Jeffrey E": {
     "name": "Eberwein Jeffrey E",
@@ -3038,7 +3410,7 @@
     "recent_avg_return_90d": null,
     "recent_trade_count": 0,
     "overall_score": 50,
-    "score_percentile": 47.7
+    "score_percentile": 53.2
   },
   "Inglis John C": {
     "name": "Inglis John C",
@@ -3049,6 +3421,8 @@
     "tickers": [
       "AIG"
     ],
+    "alpha_30d": -4.35,
+    "alpha_sample_size_30d": 3,
     "win_rate_30d": 66.67,
     "avg_return_30d": -1.87,
     "median_return_30d": 0.21,
@@ -3056,6 +3430,8 @@
     "worst_return_30d": -7.45,
     "sharpe_30d": -0.38,
     "sample_size_30d": 3,
+    "alpha_90d": -11.6,
+    "alpha_sample_size_90d": 2,
     "win_rate_90d": 0.0,
     "avg_return_90d": -5.2,
     "median_return_90d": -5.2,
@@ -3070,10 +3446,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": -5.2,
     "recent_trade_count": 3,
-    "overall_score": 24.15,
-    "score_percentile": 23.9
+    "overall_score": 19.32,
+    "score_percentile": 22.5
   },
   "Zimmer Stuart J": {
     "name": "Zimmer Stuart J",
@@ -3108,7 +3486,7 @@
     "recent_avg_return_90d": -8.06,
     "recent_trade_count": 3,
     "overall_score": 24.92,
-    "score_percentile": 24.8
+    "score_percentile": 27.5
   },
   "Haley Mark T": {
     "name": "Haley Mark T",
@@ -3120,6 +3498,8 @@
       "ASG",
       "USA"
     ],
+    "alpha_30d": -6.71,
+    "alpha_sample_size_30d": 4,
     "win_rate_30d": 0.0,
     "avg_return_30d": -3.95,
     "median_return_30d": -3.87,
@@ -3127,6 +3507,8 @@
     "worst_return_30d": -5.68,
     "sharpe_30d": -2.89,
     "sample_size_30d": 4,
+    "alpha_90d": -11.66,
+    "alpha_sample_size_90d": 2,
     "win_rate_90d": 0.0,
     "avg_return_90d": -6.25,
     "median_return_90d": -6.25,
@@ -3141,9 +3523,11 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": -6.25,
     "recent_trade_count": 4,
-    "overall_score": 17.19,
+    "overall_score": 14.22,
     "score_percentile": 17.4
   },
   "Lp Ra Capital Management": {
@@ -3197,6 +3581,8 @@
       "AOD",
       "FAX"
     ],
+    "alpha_30d": 29.79,
+    "alpha_sample_size_30d": 5,
     "win_rate_30d": 40.0,
     "avg_return_30d": 33.33,
     "median_return_30d": -2.27,
@@ -3211,6 +3597,8 @@
     "worst_return_90d": null,
     "sharpe_90d": null,
     "sample_size_90d": 0,
+    "alpha_90d": null,
+    "alpha_sample_size_90d": 0,
     "win_rate_180d": null,
     "avg_return_180d": null,
     "median_return_180d": null,
@@ -3218,10 +3606,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": null,
     "recent_trade_count": 0,
     "overall_score": 50,
-    "score_percentile": 47.7
+    "score_percentile": 53.2
   },
   "Quinlan Peter Sebastian": {
     "name": "Quinlan Peter Sebastian",
@@ -3232,6 +3622,8 @@
     "tickers": [
       "VWFB"
     ],
+    "alpha_30d": -2.83,
+    "alpha_sample_size_30d": 6,
     "win_rate_30d": 66.67,
     "avg_return_30d": 0.36,
     "median_return_30d": 0.13,
@@ -3239,6 +3631,8 @@
     "worst_return_30d": -0.06,
     "sharpe_30d": 0.58,
     "sample_size_30d": 6,
+    "alpha_90d": -3.4,
+    "alpha_sample_size_90d": 4,
     "win_rate_90d": 100.0,
     "avg_return_90d": 3.09,
     "median_return_90d": 2.72,
@@ -3246,6 +3640,8 @@
     "worst_return_90d": 0.88,
     "sharpe_90d": 1.39,
     "sample_size_90d": 4,
+    "alpha_180d": -13.4,
+    "alpha_sample_size_180d": 1,
     "win_rate_180d": 100.0,
     "avg_return_180d": 2.43,
     "median_return_180d": 2.43,
@@ -3255,8 +3651,8 @@
     "sample_size_180d": 1,
     "recent_avg_return_90d": 3.09,
     "recent_trade_count": 6,
-    "overall_score": 75.81,
-    "score_percentile": 67.0
+    "overall_score": 63.57,
+    "score_percentile": 63.8
   },
   "Niemann John O": {
     "name": "Niemann John O",
@@ -3291,7 +3687,7 @@
     "recent_avg_return_90d": null,
     "recent_trade_count": 0,
     "overall_score": 50,
-    "score_percentile": 47.7
+    "score_percentile": 53.2
   },
   "Barry John F": {
     "name": "Barry John F",
@@ -3303,6 +3699,8 @@
       "PSEC",
       "PAYIX"
     ],
+    "alpha_30d": -3.38,
+    "alpha_sample_size_30d": 7,
     "win_rate_30d": 42.86,
     "avg_return_30d": -0.27,
     "median_return_30d": -0.37,
@@ -3310,6 +3708,8 @@
     "worst_return_30d": -2.7,
     "sharpe_30d": -0.17,
     "sample_size_30d": 7,
+    "alpha_90d": -23.83,
+    "alpha_sample_size_90d": 3,
     "win_rate_90d": 33.33,
     "avg_return_90d": -13.87,
     "median_return_90d": -20.38,
@@ -3324,10 +3724,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": -13.87,
     "recent_trade_count": 7,
-    "overall_score": 22.21,
-    "score_percentile": 22.0
+    "overall_score": 14.68,
+    "score_percentile": 17.9
   },
   "Kovler Benjamin": {
     "name": "Kovler Benjamin",
@@ -3338,6 +3740,8 @@
     "tickers": [
       "RYM"
     ],
+    "alpha_30d": 1.58,
+    "alpha_sample_size_30d": 4,
     "win_rate_30d": 75.0,
     "avg_return_30d": 5.16,
     "median_return_30d": 5.58,
@@ -3345,6 +3749,8 @@
     "worst_return_30d": -7.45,
     "sharpe_30d": 0.49,
     "sample_size_30d": 4,
+    "alpha_90d": -60.33,
+    "alpha_sample_size_90d": 2,
     "win_rate_90d": 0.0,
     "avg_return_90d": -53.98,
     "median_return_90d": -53.98,
@@ -3359,6 +3765,8 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": -53.98,
     "recent_trade_count": 4,
     "overall_score": 0.0,
@@ -3373,6 +3781,8 @@
     "tickers": [
       "NYC"
     ],
+    "alpha_30d": 2.14,
+    "alpha_sample_size_30d": 13,
     "win_rate_30d": 46.15,
     "avg_return_30d": 5.26,
     "median_return_30d": -0.51,
@@ -3380,6 +3790,8 @@
     "worst_return_30d": -12.6,
     "sharpe_30d": 0.3,
     "sample_size_30d": 13,
+    "alpha_90d": -28.38,
+    "alpha_sample_size_90d": 9,
     "win_rate_90d": 0.0,
     "avg_return_90d": -20.94,
     "median_return_90d": -22.67,
@@ -3387,6 +3799,8 @@
     "worst_return_90d": -32.49,
     "sharpe_90d": -2.04,
     "sample_size_90d": 9,
+    "alpha_180d": -40.28,
+    "alpha_sample_size_180d": 1,
     "win_rate_180d": 0.0,
     "avg_return_180d": -24.45,
     "median_return_180d": -24.45,
@@ -3432,7 +3846,7 @@
     "recent_avg_return_90d": -15.92,
     "recent_trade_count": 8,
     "overall_score": 5.1,
-    "score_percentile": 9.2
+    "score_percentile": 10.1
   },
   "Reit Todd": {
     "name": "Reit Todd",
@@ -3445,6 +3859,8 @@
       "VFL",
       "AWP"
     ],
+    "alpha_30d": -4.54,
+    "alpha_sample_size_30d": 3,
     "win_rate_30d": 33.33,
     "avg_return_30d": -1.86,
     "median_return_30d": -0.95,
@@ -3452,6 +3868,8 @@
     "worst_return_30d": -5.18,
     "sharpe_30d": -0.63,
     "sample_size_30d": 3,
+    "alpha_90d": -7.12,
+    "alpha_sample_size_90d": 2,
     "win_rate_90d": 50.0,
     "avg_return_90d": 2.0,
     "median_return_90d": 2.0,
@@ -3466,10 +3884,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 2.0,
     "recent_trade_count": 3,
-    "overall_score": 55.05,
-    "score_percentile": 50.9
+    "overall_score": 45.11,
+    "score_percentile": 42.2
   },
   "Johnson Marc": {
     "name": "Johnson Marc",
@@ -3480,6 +3900,8 @@
     "tickers": [
       "ADMQ"
     ],
+    "alpha_30d": -19.83,
+    "alpha_sample_size_30d": 5,
     "win_rate_30d": 20.0,
     "avg_return_30d": -17.0,
     "median_return_30d": -0.0,
@@ -3487,6 +3909,8 @@
     "worst_return_30d": -84.5,
     "sharpe_30d": -0.45,
     "sample_size_30d": 5,
+    "alpha_90d": -14.17,
+    "alpha_sample_size_90d": 3,
     "win_rate_90d": 0.0,
     "avg_return_90d": -7.72,
     "median_return_90d": -4.5,
@@ -3501,10 +3925,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": -7.72,
     "recent_trade_count": 5,
-    "overall_score": 20.6,
-    "score_percentile": 20.2
+    "overall_score": 14.13,
+    "score_percentile": 17.0
   },
   "Rebrook Jason C": {
     "name": "Rebrook Jason C",
@@ -3515,6 +3941,8 @@
     "tickers": [
       "AROC"
     ],
+    "alpha_30d": 1.16,
+    "alpha_sample_size_30d": 3,
     "win_rate_30d": 100.0,
     "avg_return_30d": 2.14,
     "median_return_30d": 0.95,
@@ -3529,6 +3957,8 @@
     "worst_return_90d": null,
     "sharpe_90d": null,
     "sample_size_90d": 0,
+    "alpha_90d": null,
+    "alpha_sample_size_90d": 0,
     "win_rate_180d": null,
     "avg_return_180d": null,
     "median_return_180d": null,
@@ -3536,10 +3966,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": null,
     "recent_trade_count": 0,
     "overall_score": 50,
-    "score_percentile": 47.7
+    "score_percentile": 53.2
   },
   "Schuler Jack W": {
     "name": "Schuler Jack W",
@@ -3551,6 +3983,8 @@
       "BDSX",
       "AWHL"
     ],
+    "alpha_30d": 426.71,
+    "alpha_sample_size_30d": 4,
     "win_rate_30d": 75.0,
     "avg_return_30d": 428.33,
     "median_return_30d": 9.64,
@@ -3558,6 +3992,8 @@
     "worst_return_30d": -5.97,
     "sharpe_30d": 0.51,
     "sample_size_30d": 4,
+    "alpha_90d": 1819.34,
+    "alpha_sample_size_90d": 1,
     "win_rate_90d": 100.0,
     "avg_return_90d": 1825.58,
     "median_return_90d": 1825.58,
@@ -3572,10 +4008,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 1825.58,
     "recent_trade_count": 4,
-    "overall_score": 90.0,
-    "score_percentile": 87.6
+    "overall_score": 92.5,
+    "score_percentile": 88.5
   },
   "Altman Peter": {
     "name": "Altman Peter",
@@ -3586,6 +4024,8 @@
     "tickers": [
       "BCDA"
     ],
+    "alpha_30d": 6.06,
+    "alpha_sample_size_30d": 6,
     "win_rate_30d": 83.33,
     "avg_return_30d": 8.44,
     "median_return_30d": 17.27,
@@ -3593,6 +4033,8 @@
     "worst_return_30d": -39.34,
     "sharpe_30d": 0.34,
     "sample_size_30d": 6,
+    "alpha_90d": -34.43,
+    "alpha_sample_size_90d": 5,
     "win_rate_90d": 0.0,
     "avg_return_90d": -28.61,
     "median_return_90d": -27.32,
@@ -3607,6 +4049,8 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": -28.61,
     "recent_trade_count": 6,
     "overall_score": 0.0,
@@ -3621,6 +4065,8 @@
     "tickers": [
       "MHH"
     ],
+    "alpha_30d": -8.73,
+    "alpha_sample_size_30d": 4,
     "win_rate_30d": 25.0,
     "avg_return_30d": -5.43,
     "median_return_30d": -3.9,
@@ -3628,6 +4074,8 @@
     "worst_return_30d": -14.3,
     "sharpe_30d": -0.87,
     "sample_size_30d": 4,
+    "alpha_90d": -12.66,
+    "alpha_sample_size_90d": 3,
     "win_rate_90d": 0.0,
     "avg_return_90d": -6.78,
     "median_return_90d": -7.71,
@@ -3642,10 +4090,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": -6.78,
     "recent_trade_count": 4,
-    "overall_score": 19.58,
-    "score_percentile": 18.8
+    "overall_score": 14.95,
+    "score_percentile": 19.3
   },
   "Stilwell Joseph": {
     "name": "Stilwell Joseph",
@@ -3656,6 +4106,8 @@
     "tickers": [
       "PFBX"
     ],
+    "alpha_30d": -0.74,
+    "alpha_sample_size_30d": 5,
     "win_rate_30d": 80.0,
     "avg_return_30d": 0.23,
     "median_return_30d": 0.2,
@@ -3663,6 +4115,8 @@
     "worst_return_30d": -0.1,
     "sharpe_30d": 0.79,
     "sample_size_30d": 5,
+    "alpha_90d": -4.86,
+    "alpha_sample_size_90d": 3,
     "win_rate_90d": 66.67,
     "avg_return_90d": 0.13,
     "median_return_90d": 0.05,
@@ -3677,10 +4131,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 0.13,
     "recent_trade_count": 5,
-    "overall_score": 56.91,
-    "score_percentile": 52.3
+    "overall_score": 49.08,
+    "score_percentile": 46.3
   },
   "Roberts Eric W": {
     "name": "Roberts Eric W",
@@ -3691,6 +4147,8 @@
     "tickers": [
       "CALC"
     ],
+    "alpha_30d": 15.76,
+    "alpha_sample_size_30d": 14,
     "win_rate_30d": 71.43,
     "avg_return_30d": 18.31,
     "median_return_30d": 5.89,
@@ -3698,6 +4156,8 @@
     "worst_return_30d": -26.19,
     "sharpe_30d": 0.4,
     "sample_size_30d": 14,
+    "alpha_90d": 29.53,
+    "alpha_sample_size_90d": 12,
     "win_rate_90d": 83.33,
     "avg_return_90d": 35.46,
     "median_return_90d": 24.45,
@@ -3712,10 +4172,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 35.46,
     "recent_trade_count": 14,
-    "overall_score": 89.25,
-    "score_percentile": 80.7
+    "overall_score": 92.35,
+    "score_percentile": 83.9
   },
   "Myman Darin M": {
     "name": "Myman Darin M",
@@ -3726,6 +4188,8 @@
     "tickers": [
       "MYSE"
     ],
+    "alpha_30d": 20.28,
+    "alpha_sample_size_30d": 5,
     "win_rate_30d": 100.0,
     "avg_return_30d": 23.33,
     "median_return_30d": 30.09,
@@ -3733,6 +4197,8 @@
     "worst_return_30d": 1.36,
     "sharpe_30d": 1.28,
     "sample_size_30d": 5,
+    "alpha_90d": -5.1,
+    "alpha_sample_size_90d": 4,
     "win_rate_90d": 75.0,
     "avg_return_90d": 0.28,
     "median_return_90d": 1.75,
@@ -3747,10 +4213,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 0.28,
     "recent_trade_count": 5,
-    "overall_score": 58.2,
-    "score_percentile": 54.6
+    "overall_score": 49.53,
+    "score_percentile": 46.8
   },
   "Piconi Robert": {
     "name": "Piconi Robert",
@@ -3761,6 +4229,8 @@
     "tickers": [
       "NRGV"
     ],
+    "alpha_30d": 58.6,
+    "alpha_sample_size_30d": 5,
     "win_rate_30d": 100.0,
     "avg_return_30d": 60.26,
     "median_return_30d": 63.04,
@@ -3768,6 +4238,8 @@
     "worst_return_30d": 28.81,
     "sharpe_30d": 3.1,
     "sample_size_30d": 5,
+    "alpha_90d": 81.32,
+    "alpha_sample_size_90d": 2,
     "win_rate_90d": 100.0,
     "avg_return_90d": 86.95,
     "median_return_90d": 86.95,
@@ -3782,6 +4254,8 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 86.95,
     "recent_trade_count": 5,
     "overall_score": 100.0,
@@ -3796,6 +4270,8 @@
     "tickers": [
       "PFX"
     ],
+    "alpha_30d": -4.73,
+    "alpha_sample_size_30d": 7,
     "win_rate_30d": 0.0,
     "avg_return_30d": -2.3,
     "median_return_30d": -2.04,
@@ -3803,6 +4279,8 @@
     "worst_return_30d": -5.5,
     "sharpe_30d": -1.35,
     "sample_size_30d": 7,
+    "alpha_90d": -18.17,
+    "alpha_sample_size_90d": 6,
     "win_rate_90d": 0.0,
     "avg_return_90d": -12.76,
     "median_return_90d": -13.45,
@@ -3817,10 +4295,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": -12.76,
     "recent_trade_count": 7,
-    "overall_score": 9.05,
-    "score_percentile": 11.5
+    "overall_score": 5.43,
+    "score_percentile": 10.6
   },
   "Portnoy David": {
     "name": "Portnoy David",
@@ -3831,6 +4311,8 @@
     "tickers": [
       "CCEL"
     ],
+    "alpha_30d": 0.63,
+    "alpha_sample_size_30d": 5,
     "win_rate_30d": 80.0,
     "avg_return_30d": 3.19,
     "median_return_30d": 1.13,
@@ -3838,6 +4320,8 @@
     "worst_return_30d": -0.68,
     "sharpe_30d": 0.79,
     "sample_size_30d": 5,
+    "alpha_90d": -11.32,
+    "alpha_sample_size_90d": 4,
     "win_rate_90d": 0.0,
     "avg_return_90d": -6.07,
     "median_return_90d": -6.41,
@@ -3852,10 +4336,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": -6.07,
     "recent_trade_count": 5,
-    "overall_score": 17.41,
-    "score_percentile": 17.9
+    "overall_score": 14.75,
+    "score_percentile": 18.3
   },
   "Paulson Larry": {
     "name": "Paulson Larry",
@@ -3866,6 +4352,8 @@
     "tickers": [
       "NRGV"
     ],
+    "alpha_30d": 63.85,
+    "alpha_sample_size_30d": 3,
     "win_rate_30d": 100.0,
     "avg_return_30d": 65.9,
     "median_return_30d": 65.94,
@@ -3873,6 +4361,8 @@
     "worst_return_30d": 62.08,
     "sharpe_30d": 17.39,
     "sample_size_30d": 3,
+    "alpha_90d": 143.36,
+    "alpha_sample_size_90d": 2,
     "win_rate_90d": 100.0,
     "avg_return_90d": 148.97,
     "median_return_90d": 148.97,
@@ -3887,9 +4377,11 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 148.97,
     "recent_trade_count": 3,
-    "overall_score": 98.5,
+    "overall_score": 98.88,
     "score_percentile": 93.1
   },
   "Topper James N": {
@@ -3901,6 +4393,8 @@
     "tickers": [
       "NAMS"
     ],
+    "alpha_30d": 26.59,
+    "alpha_sample_size_30d": 5,
     "win_rate_30d": 100.0,
     "avg_return_30d": 29.78,
     "median_return_30d": 27.26,
@@ -3908,6 +4402,8 @@
     "worst_return_30d": 7.28,
     "sharpe_30d": 1.19,
     "sample_size_30d": 5,
+    "alpha_90d": 35.78,
+    "alpha_sample_size_90d": 4,
     "win_rate_90d": 100.0,
     "avg_return_90d": 44.11,
     "median_return_90d": 45.11,
@@ -3922,6 +4418,8 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 44.11,
     "recent_trade_count": 5,
     "overall_score": 100.0,
@@ -3960,7 +4458,7 @@
     "recent_avg_return_90d": -2.56,
     "recent_trade_count": 3,
     "overall_score": 31.8,
-    "score_percentile": 29.8
+    "score_percentile": 31.2
   },
   "Salvucci Joseph V": {
     "name": "Salvucci Joseph V",
@@ -4006,6 +4504,8 @@
     "tickers": [
       "CBKM"
     ],
+    "alpha_30d": 2.62,
+    "alpha_sample_size_30d": 3,
     "win_rate_30d": 66.67,
     "avg_return_30d": 5.04,
     "median_return_30d": 6.84,
@@ -4013,6 +4513,8 @@
     "worst_return_30d": -2.05,
     "sharpe_30d": 0.79,
     "sample_size_30d": 3,
+    "alpha_90d": -0.02,
+    "alpha_sample_size_90d": 2,
     "win_rate_90d": 100.0,
     "avg_return_90d": 6.99,
     "median_return_90d": 6.99,
@@ -4027,10 +4529,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 6.99,
     "recent_trade_count": 3,
-    "overall_score": 81.44,
-    "score_percentile": 75.2
+    "overall_score": 70.99,
+    "score_percentile": 70.2
   },
   "Miller Matthew Reade": {
     "name": "Miller Matthew Reade",
@@ -4041,6 +4545,8 @@
     "tickers": [
       "GRNT"
     ],
+    "alpha_30d": -10.01,
+    "alpha_sample_size_30d": 4,
     "win_rate_30d": 0.0,
     "avg_return_30d": -6.99,
     "median_return_30d": -5.6,
@@ -4048,6 +4554,8 @@
     "worst_return_30d": -15.57,
     "sharpe_30d": -1.01,
     "sample_size_30d": 4,
+    "alpha_90d": -19.29,
+    "alpha_sample_size_90d": 3,
     "win_rate_90d": 0.0,
     "avg_return_90d": -10.36,
     "median_return_90d": -11.44,
@@ -4055,6 +4563,8 @@
     "worst_return_90d": -12.42,
     "sharpe_90d": -3.75,
     "sample_size_90d": 3,
+    "alpha_180d": -26.03,
+    "alpha_sample_size_180d": 1,
     "win_rate_180d": 0.0,
     "avg_return_180d": -10.2,
     "median_return_180d": -10.2,
@@ -4064,8 +4574,8 @@
     "sample_size_180d": 1,
     "recent_avg_return_90d": -10.36,
     "recent_trade_count": 4,
-    "overall_score": 12.05,
-    "score_percentile": 12.4
+    "overall_score": 7.23,
+    "score_percentile": 11.5
   },
   "Trotter Mitchell": {
     "name": "Trotter Mitchell",
@@ -4076,6 +4586,8 @@
     "tickers": [
       "EONR"
     ],
+    "alpha_30d": 19.74,
+    "alpha_sample_size_30d": 3,
     "win_rate_30d": 66.67,
     "avg_return_30d": 22.42,
     "median_return_30d": 35.83,
@@ -4083,6 +4595,8 @@
     "worst_return_30d": -9.14,
     "sharpe_30d": 0.82,
     "sample_size_30d": 3,
+    "alpha_90d": 20.71,
+    "alpha_sample_size_90d": 2,
     "win_rate_90d": 100.0,
     "avg_return_90d": 26.53,
     "median_return_90d": 26.53,
@@ -4097,6 +4611,8 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 26.53,
     "recent_trade_count": 3,
     "overall_score": 100.0,
@@ -4112,6 +4628,8 @@
       "CTO",
       "PINE"
     ],
+    "alpha_30d": -2.55,
+    "alpha_sample_size_30d": 4,
     "win_rate_30d": 25.0,
     "avg_return_30d": -0.58,
     "median_return_30d": -2.42,
@@ -4119,6 +4637,8 @@
     "worst_return_30d": -4.4,
     "sharpe_30d": -0.11,
     "sample_size_30d": 4,
+    "alpha_90d": -3.29,
+    "alpha_sample_size_90d": 3,
     "win_rate_90d": 66.67,
     "avg_return_90d": 3.44,
     "median_return_90d": 4.15,
@@ -4133,10 +4653,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 3.44,
     "recent_trade_count": 4,
-    "overall_score": 61.45,
-    "score_percentile": 58.3
+    "overall_score": 53.69,
+    "score_percentile": 57.8
   },
   "Martell Frank": {
     "name": "Martell Frank",
@@ -4147,6 +4669,8 @@
     "tickers": [
       "SMRT"
     ],
+    "alpha_30d": 5.74,
+    "alpha_sample_size_30d": 6,
     "win_rate_30d": 66.67,
     "avg_return_30d": 7.27,
     "median_return_30d": 10.46,
@@ -4154,6 +4678,8 @@
     "worst_return_30d": -7.59,
     "sharpe_30d": 0.63,
     "sample_size_30d": 6,
+    "alpha_90d": 13.19,
+    "alpha_sample_size_90d": 4,
     "win_rate_90d": 100.0,
     "avg_return_90d": 18.89,
     "median_return_90d": 14.5,
@@ -4168,9 +4694,11 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 18.89,
     "recent_trade_count": 6,
-    "overall_score": 96.06,
+    "overall_score": 95.13,
     "score_percentile": 90.8
   },
   "Mcdaniel Connie D": {
@@ -4222,6 +4750,8 @@
     "tickers": [
       "GCTS"
     ],
+    "alpha_30d": 10.75,
+    "alpha_sample_size_30d": 3,
     "win_rate_30d": 66.67,
     "avg_return_30d": 13.28,
     "median_return_30d": 19.84,
@@ -4229,6 +4759,8 @@
     "worst_return_30d": -2.65,
     "sharpe_30d": 0.96,
     "sample_size_30d": 3,
+    "alpha_90d": -1.7,
+    "alpha_sample_size_90d": 3,
     "win_rate_90d": 66.67,
     "avg_return_90d": 3.47,
     "median_return_90d": 0.79,
@@ -4243,10 +4775,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 3.47,
     "recent_trade_count": 3,
-    "overall_score": 61.99,
-    "score_percentile": 60.1
+    "overall_score": 55.94,
+    "score_percentile": 59.2
   },
   "Jensen Karen M": {
     "name": "Jensen Karen M",
@@ -4257,6 +4791,8 @@
     "tickers": [
       "BUSE"
     ],
+    "alpha_30d": -2.44,
+    "alpha_sample_size_30d": 3,
     "win_rate_30d": 66.67,
     "avg_return_30d": -0.12,
     "median_return_30d": 1.73,
@@ -4264,6 +4800,8 @@
     "worst_return_30d": -8.36,
     "sharpe_30d": -0.02,
     "sample_size_30d": 3,
+    "alpha_90d": -4.21,
+    "alpha_sample_size_90d": 3,
     "win_rate_90d": 66.67,
     "avg_return_90d": 2.9,
     "median_return_90d": 1.79,
@@ -4271,6 +4809,8 @@
     "worst_return_90d": -1.38,
     "sharpe_90d": 0.59,
     "sample_size_90d": 3,
+    "alpha_180d": -5.25,
+    "alpha_sample_size_180d": 1,
     "win_rate_180d": 100.0,
     "avg_return_180d": 10.58,
     "median_return_180d": 10.58,
@@ -4280,8 +4820,8 @@
     "sample_size_180d": 1,
     "recent_avg_return_90d": 2.9,
     "recent_trade_count": 3,
-    "overall_score": 61.58,
-    "score_percentile": 58.7
+    "overall_score": 52.81,
+    "score_percentile": 56.9
   },
   "Krindel Yaffa": {
     "name": "Krindel Yaffa",
@@ -4292,6 +4832,8 @@
     "tickers": [
       "TEAD"
     ],
+    "alpha_30d": -10.05,
+    "alpha_sample_size_30d": 4,
     "win_rate_30d": 0.0,
     "avg_return_30d": -7.85,
     "median_return_30d": -8.02,
@@ -4299,6 +4841,8 @@
     "worst_return_30d": -9.77,
     "sharpe_30d": -4.45,
     "sample_size_30d": 4,
+    "alpha_90d": -60.35,
+    "alpha_sample_size_90d": 4,
     "win_rate_90d": 0.0,
     "avg_return_90d": -54.63,
     "median_return_90d": -53.26,
@@ -4313,6 +4857,8 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": -54.63,
     "recent_trade_count": 4,
     "overall_score": 0.0,
@@ -4351,7 +4897,7 @@
     "recent_avg_return_90d": -0.95,
     "recent_trade_count": 4,
     "overall_score": 48.41,
-    "score_percentile": 39.9
+    "score_percentile": 45.4
   },
   "Walker Robert W": {
     "name": "Walker Robert W",
@@ -4362,6 +4908,8 @@
     "tickers": [
       "FGBI"
     ],
+    "alpha_30d": 1.27,
+    "alpha_sample_size_30d": 5,
     "win_rate_30d": 100.0,
     "avg_return_30d": 3.71,
     "median_return_30d": 4.63,
@@ -4369,6 +4917,8 @@
     "worst_return_30d": 0.25,
     "sharpe_30d": 1.43,
     "sample_size_30d": 5,
+    "alpha_90d": -37.32,
+    "alpha_sample_size_90d": 5,
     "win_rate_90d": 20.0,
     "avg_return_90d": -31.99,
     "median_return_90d": -38.63,
@@ -4383,10 +4933,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": -31.99,
     "recent_trade_count": 5,
-    "overall_score": 7.25,
-    "score_percentile": 9.6
+    "overall_score": 4.94,
+    "score_percentile": 9.2
   },
   "Dizon Romeo R": {
     "name": "Dizon Romeo R",
@@ -4397,6 +4949,8 @@
     "tickers": [
       "IRIX"
     ],
+    "alpha_30d": -13.61,
+    "alpha_sample_size_30d": 20,
     "win_rate_30d": 20.0,
     "avg_return_30d": -10.47,
     "median_return_30d": -13.04,
@@ -4404,6 +4958,8 @@
     "worst_return_30d": -22.79,
     "sharpe_30d": -0.99,
     "sample_size_30d": 20,
+    "alpha_90d": -32.39,
+    "alpha_sample_size_90d": 19,
     "win_rate_90d": 0.0,
     "avg_return_90d": -27.59,
     "median_return_90d": -28.68,
@@ -4418,6 +4974,8 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": -27.59,
     "recent_trade_count": 20,
     "overall_score": 0.0,
@@ -4432,6 +4990,8 @@
     "tickers": [
       "DGICA"
     ],
+    "alpha_30d": -0.56,
+    "alpha_sample_size_30d": 9,
     "win_rate_30d": 77.78,
     "avg_return_30d": 1.9,
     "median_return_30d": 0.68,
@@ -4439,6 +4999,8 @@
     "worst_return_30d": -4.47,
     "sharpe_30d": 0.48,
     "sample_size_30d": 9,
+    "alpha_90d": 1.78,
+    "alpha_sample_size_90d": 7,
     "win_rate_90d": 100.0,
     "avg_return_90d": 7.06,
     "median_return_90d": 3.69,
@@ -4453,10 +5015,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 7.06,
     "recent_trade_count": 9,
-    "overall_score": 79.98,
-    "score_percentile": 72.9
+    "overall_score": 71.98,
+    "score_percentile": 71.1
   },
   "Seidman Lawrence B": {
     "name": "Seidman Lawrence B",
@@ -4467,6 +5031,8 @@
     "tickers": [
       "BWFG"
     ],
+    "alpha_30d": -6.69,
+    "alpha_sample_size_30d": 4,
     "win_rate_30d": 25.0,
     "avg_return_30d": -5.09,
     "median_return_30d": -6.53,
@@ -4474,6 +5040,8 @@
     "worst_return_30d": -8.59,
     "sharpe_30d": -1.17,
     "sample_size_30d": 4,
+    "alpha_90d": 2.85,
+    "alpha_sample_size_90d": 4,
     "win_rate_90d": 100.0,
     "avg_return_90d": 8.01,
     "median_return_90d": 7.34,
@@ -4488,10 +5056,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 8.01,
     "recent_trade_count": 4,
-    "overall_score": 85.01,
-    "score_percentile": 77.5
+    "overall_score": 76.83,
+    "score_percentile": 74.3
   },
   "Greathouse Steven Robert": {
     "name": "Greathouse Steven Robert",
@@ -4503,6 +5073,8 @@
       "CTO",
       "PINE"
     ],
+    "alpha_30d": -4.56,
+    "alpha_sample_size_30d": 3,
     "win_rate_30d": 33.33,
     "avg_return_30d": -3.05,
     "median_return_30d": -6.11,
@@ -4510,6 +5082,8 @@
     "worst_return_30d": -9.14,
     "sharpe_30d": -0.38,
     "sample_size_30d": 3,
+    "alpha_90d": 3.34,
+    "alpha_sample_size_90d": 3,
     "win_rate_90d": 100.0,
     "avg_return_90d": 8.99,
     "median_return_90d": 5.75,
@@ -4524,10 +5098,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 8.99,
     "recent_trade_count": 3,
-    "overall_score": 82.04,
-    "score_percentile": 76.1
+    "overall_score": 74.99,
+    "score_percentile": 72.9
   },
   "Carter Thomas L": {
     "name": "Carter Thomas L",
@@ -4573,6 +5149,8 @@
     "tickers": [
       "AISP"
     ],
+    "alpha_30d": 218.27,
+    "alpha_sample_size_30d": 4,
     "win_rate_30d": 100.0,
     "avg_return_30d": 220.59,
     "median_return_30d": 213.23,
@@ -4580,6 +5158,8 @@
     "worst_return_30d": 195.21,
     "sharpe_30d": 7.09,
     "sample_size_30d": 4,
+    "alpha_90d": 155.06,
+    "alpha_sample_size_90d": 4,
     "win_rate_90d": 100.0,
     "avg_return_90d": 161.12,
     "median_return_90d": 160.66,
@@ -4594,6 +5174,8 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 161.12,
     "recent_trade_count": 4,
     "overall_score": 100.0,
@@ -4632,7 +5214,7 @@
     "recent_avg_return_90d": -13.63,
     "recent_trade_count": 24,
     "overall_score": 7.96,
-    "score_percentile": 10.6
+    "score_percentile": 12.4
   },
   "Llc Ecp Controlco": {
     "name": "Llc Ecp Controlco",
@@ -4667,7 +5249,7 @@
     "recent_avg_return_90d": -13.63,
     "recent_trade_count": 24,
     "overall_score": 7.96,
-    "score_percentile": 10.6
+    "score_percentile": 12.4
   },
   "Ivanov Penko Krassimir": {
     "name": "Ivanov Penko Krassimir",
@@ -4678,6 +5260,8 @@
     "tickers": [
       "AROW"
     ],
+    "alpha_30d": -3.26,
+    "alpha_sample_size_30d": 3,
     "win_rate_30d": 33.33,
     "avg_return_30d": -1.6,
     "median_return_30d": -3.16,
@@ -4685,6 +5269,8 @@
     "worst_return_30d": -11.18,
     "sharpe_30d": -0.15,
     "sample_size_30d": 3,
+    "alpha_90d": 2.5,
+    "alpha_sample_size_90d": 3,
     "win_rate_90d": 100.0,
     "avg_return_90d": 7.82,
     "median_return_90d": 8.49,
@@ -4699,10 +5285,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 7.82,
     "recent_trade_count": 3,
-    "overall_score": 81.88,
-    "score_percentile": 75.7
+    "overall_score": 74.1,
+    "score_percentile": 72.0
   },
   "Young Caroline": {
     "name": "Young Caroline",
@@ -4713,6 +5301,8 @@
     "tickers": [
       "CPIX"
     ],
+    "alpha_30d": -8.94,
+    "alpha_sample_size_30d": 3,
     "win_rate_30d": 66.67,
     "avg_return_30d": -5.5,
     "median_return_30d": 0.29,
@@ -4720,6 +5310,8 @@
     "worst_return_30d": -28.96,
     "sharpe_30d": -0.26,
     "sample_size_30d": 3,
+    "alpha_90d": -19.81,
+    "alpha_sample_size_90d": 3,
     "win_rate_90d": 0.0,
     "avg_return_90d": -11.23,
     "median_return_90d": -8.14,
@@ -4727,6 +5319,8 @@
     "worst_return_90d": -23.12,
     "sharpe_90d": -1.05,
     "sample_size_90d": 3,
+    "alpha_180d": -70.22,
+    "alpha_sample_size_180d": 1,
     "win_rate_180d": 0.0,
     "avg_return_180d": -54.79,
     "median_return_180d": -54.79,
@@ -4736,8 +5330,8 @@
     "sample_size_180d": 1,
     "recent_avg_return_90d": -11.23,
     "recent_trade_count": 3,
-    "overall_score": 15.71,
-    "score_percentile": 14.7
+    "overall_score": 10.14,
+    "score_percentile": 12.8
   },
   "Jones James": {
     "name": "Jones James",
@@ -4748,6 +5342,8 @@
     "tickers": [
       "CPIX"
     ],
+    "alpha_30d": -8.84,
+    "alpha_sample_size_30d": 3,
     "win_rate_30d": 66.67,
     "avg_return_30d": -5.41,
     "median_return_30d": 0.58,
@@ -4755,6 +5351,8 @@
     "worst_return_30d": -28.96,
     "sharpe_30d": -0.25,
     "sample_size_30d": 3,
+    "alpha_90d": -19.72,
+    "alpha_sample_size_90d": 3,
     "win_rate_90d": 0.0,
     "avg_return_90d": -11.14,
     "median_return_90d": -7.87,
@@ -4762,6 +5360,8 @@
     "worst_return_90d": -23.12,
     "sharpe_90d": -1.04,
     "sample_size_90d": 3,
+    "alpha_180d": -70.22,
+    "alpha_sample_size_180d": 1,
     "win_rate_180d": 0.0,
     "avg_return_180d": -54.79,
     "median_return_180d": -54.79,
@@ -4771,8 +5371,8 @@
     "sample_size_180d": 1,
     "recent_avg_return_90d": -11.14,
     "recent_trade_count": 3,
-    "overall_score": 15.88,
-    "score_percentile": 16.1
+    "overall_score": 10.24,
+    "score_percentile": 14.2
   },
   "Kazimi A J": {
     "name": "Kazimi A J",
@@ -4783,6 +5383,8 @@
     "tickers": [
       "CPIX"
     ],
+    "alpha_30d": -8.84,
+    "alpha_sample_size_30d": 3,
     "win_rate_30d": 66.67,
     "avg_return_30d": -5.41,
     "median_return_30d": 0.58,
@@ -4790,6 +5392,8 @@
     "worst_return_30d": -28.96,
     "sharpe_30d": -0.25,
     "sample_size_30d": 3,
+    "alpha_90d": -19.72,
+    "alpha_sample_size_90d": 3,
     "win_rate_90d": 0.0,
     "avg_return_90d": -11.14,
     "median_return_90d": -7.87,
@@ -4797,6 +5401,8 @@
     "worst_return_90d": -23.12,
     "sharpe_90d": -1.04,
     "sample_size_90d": 3,
+    "alpha_180d": -70.22,
+    "alpha_sample_size_180d": 1,
     "win_rate_180d": 0.0,
     "avg_return_180d": -54.79,
     "median_return_180d": -54.79,
@@ -4806,8 +5412,8 @@
     "sample_size_180d": 1,
     "recent_avg_return_90d": -11.14,
     "recent_trade_count": 3,
-    "overall_score": 15.88,
-    "score_percentile": 16.1
+    "overall_score": 10.24,
+    "score_percentile": 14.2
   },
   "Krogulski Kenneth": {
     "name": "Krogulski Kenneth",
@@ -4818,6 +5424,8 @@
     "tickers": [
       "CPIX"
     ],
+    "alpha_30d": -8.99,
+    "alpha_sample_size_30d": 3,
     "win_rate_30d": 66.67,
     "avg_return_30d": -5.55,
     "median_return_30d": 0.58,
@@ -4825,6 +5433,8 @@
     "worst_return_30d": -29.4,
     "sharpe_30d": -0.26,
     "sample_size_30d": 3,
+    "alpha_90d": -19.88,
+    "alpha_sample_size_90d": 3,
     "win_rate_90d": 0.0,
     "avg_return_90d": -11.3,
     "median_return_90d": -7.87,
@@ -4832,6 +5442,8 @@
     "worst_return_90d": -23.6,
     "sharpe_90d": -1.03,
     "sample_size_90d": 3,
+    "alpha_180d": -70.5,
+    "alpha_sample_size_180d": 1,
     "win_rate_180d": 0.0,
     "avg_return_180d": -55.07,
     "median_return_180d": -55.07,
@@ -4841,8 +5453,8 @@
     "sample_size_180d": 1,
     "recent_avg_return_90d": -11.3,
     "recent_trade_count": 3,
-    "overall_score": 15.73,
-    "score_percentile": 15.1
+    "overall_score": 10.16,
+    "score_percentile": 13.3
   },
   "Lp Casdin Partners Master Fund": {
     "name": "Lp Casdin Partners Master Fund",
@@ -4877,7 +5489,7 @@
     "recent_avg_return_90d": 3.39,
     "recent_trade_count": 4,
     "overall_score": 61.39,
-    "score_percentile": 57.8
+    "score_percentile": 61.5
   },
   "Smith Daniel Earl": {
     "name": "Smith Daniel Earl",
@@ -4889,6 +5501,8 @@
       "CTO",
       "PINE"
     ],
+    "alpha_30d": -1.69,
+    "alpha_sample_size_30d": 3,
     "win_rate_30d": 33.33,
     "avg_return_30d": 0.81,
     "median_return_30d": -0.28,
@@ -4896,6 +5510,8 @@
     "worst_return_30d": -4.97,
     "sharpe_30d": 0.13,
     "sample_size_30d": 3,
+    "alpha_90d": -3.22,
+    "alpha_sample_size_90d": 3,
     "win_rate_90d": 66.67,
     "avg_return_90d": 3.52,
     "median_return_90d": 4.89,
@@ -4910,10 +5526,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 3.52,
     "recent_trade_count": 3,
-    "overall_score": 61.75,
-    "score_percentile": 59.2
+    "overall_score": 53.98,
+    "score_percentile": 58.7
   },
   "Case Stephen M": {
     "name": "Case Stephen M",
@@ -4924,6 +5542,8 @@
     "tickers": [
       "MLP"
     ],
+    "alpha_30d": 5.73,
+    "alpha_sample_size_30d": 10,
     "win_rate_30d": 80.0,
     "avg_return_30d": 9.09,
     "median_return_30d": 12.01,
@@ -4931,6 +5551,8 @@
     "worst_return_30d": -3.18,
     "sharpe_30d": 1.19,
     "sample_size_30d": 10,
+    "alpha_90d": -12.1,
+    "alpha_sample_size_90d": 8,
     "win_rate_90d": 12.5,
     "avg_return_90d": -6.44,
     "median_return_90d": -7.94,
@@ -4938,6 +5560,8 @@
     "worst_return_90d": -13.1,
     "sharpe_90d": -0.94,
     "sample_size_90d": 8,
+    "alpha_180d": -19.96,
+    "alpha_sample_size_180d": 1,
     "win_rate_180d": 0.0,
     "avg_return_180d": -4.13,
     "median_return_180d": -4.13,
@@ -4947,8 +5571,8 @@
     "sample_size_180d": 1,
     "recent_avg_return_90d": -6.44,
     "recent_trade_count": 10,
-    "overall_score": 26.0,
-    "score_percentile": 25.2
+    "overall_score": 20.04,
+    "score_percentile": 23.4
   },
   "Feinsod Michael": {
     "name": "Feinsod Michael",
@@ -4959,6 +5583,8 @@
     "tickers": [
       "BSPK"
     ],
+    "alpha_30d": 57.16,
+    "alpha_sample_size_30d": 4,
     "win_rate_30d": 100.0,
     "avg_return_30d": 59.33,
     "median_return_30d": 56.84,
@@ -4966,6 +5592,8 @@
     "worst_return_30d": 35.0,
     "sharpe_30d": 2.47,
     "sample_size_30d": 4,
+    "alpha_90d": 41.1,
+    "alpha_sample_size_90d": 3,
     "win_rate_90d": 66.67,
     "avg_return_90d": 47.21,
     "median_return_90d": 5.26,
@@ -4980,10 +5608,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 47.21,
     "recent_trade_count": 4,
-    "overall_score": 82.75,
-    "score_percentile": 76.6
+    "overall_score": 87.9,
+    "score_percentile": 79.8
   },
   "Krebs Charles": {
     "name": "Krebs Charles",
@@ -4994,6 +5624,8 @@
     "tickers": [
       "OMCC"
     ],
+    "alpha_30d": -9.39,
+    "alpha_sample_size_30d": 8,
     "win_rate_30d": 0.0,
     "avg_return_30d": -6.8,
     "median_return_30d": -6.87,
@@ -5001,6 +5633,8 @@
     "worst_return_30d": -12.12,
     "sharpe_30d": -1.75,
     "sample_size_30d": 8,
+    "alpha_90d": -18.22,
+    "alpha_sample_size_90d": 8,
     "win_rate_90d": 0.0,
     "avg_return_90d": -11.43,
     "median_return_90d": -10.89,
@@ -5015,10 +5649,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": -11.43,
     "recent_trade_count": 8,
-    "overall_score": 10.71,
-    "score_percentile": 11.9
+    "overall_score": 6.43,
+    "score_percentile": 11.0
   },
   "Cali Brian J": {
     "name": "Cali Brian J",
@@ -5029,6 +5665,8 @@
     "tickers": [
       "FDBC"
     ],
+    "alpha_30d": -4.47,
+    "alpha_sample_size_30d": 3,
     "win_rate_30d": 33.33,
     "avg_return_30d": -3.72,
     "median_return_30d": -3.21,
@@ -5036,6 +5674,8 @@
     "worst_return_30d": -10.84,
     "sharpe_30d": -0.54,
     "sample_size_30d": 3,
+    "alpha_90d": -5.76,
+    "alpha_sample_size_90d": 2,
     "win_rate_90d": 50.0,
     "avg_return_90d": 0.34,
     "median_return_90d": 0.34,
@@ -5050,10 +5690,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 0.34,
     "recent_trade_count": 3,
-    "overall_score": 50.88,
-    "score_percentile": 48.2
+    "overall_score": 43.88,
+    "score_percentile": 40.8
   },
   "Baker Bros Advisors Lp": {
     "name": "Baker Bros Advisors Lp",
@@ -5101,6 +5743,8 @@
     "tickers": [
       "FFAI"
     ],
+    "alpha_30d": -31.14,
+    "alpha_sample_size_30d": 3,
     "win_rate_30d": 0.0,
     "avg_return_30d": -27.13,
     "median_return_30d": -29.79,
@@ -5108,6 +5752,8 @@
     "worst_return_30d": -35.02,
     "sharpe_30d": -2.85,
     "sample_size_30d": 3,
+    "alpha_90d": -51.48,
+    "alpha_sample_size_90d": 3,
     "win_rate_90d": 0.0,
     "avg_return_90d": -45.95,
     "median_return_90d": -49.79,
@@ -5122,6 +5768,8 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": -45.95,
     "recent_trade_count": 3,
     "overall_score": 0.0,
@@ -5136,6 +5784,8 @@
     "tickers": [
       "BPRN"
     ],
+    "alpha_30d": 0.12,
+    "alpha_sample_size_30d": 7,
     "win_rate_30d": 71.43,
     "avg_return_30d": 2.88,
     "median_return_30d": 5.46,
@@ -5143,6 +5793,8 @@
     "worst_return_30d": -7.38,
     "sharpe_30d": 0.47,
     "sample_size_30d": 7,
+    "alpha_90d": -5.33,
+    "alpha_sample_size_90d": 5,
     "win_rate_90d": 80.0,
     "avg_return_90d": 1.91,
     "median_return_90d": 2.37,
@@ -5157,10 +5809,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 1.91,
     "recent_trade_count": 7,
-    "overall_score": 64.89,
-    "score_percentile": 61.0
+    "overall_score": 53.85,
+    "score_percentile": 58.3
   },
   "Merriman D Jonathan": {
     "name": "Merriman D Jonathan",
@@ -5171,6 +5825,8 @@
     "tickers": [
       "PODC"
     ],
+    "alpha_30d": 3.56,
+    "alpha_sample_size_30d": 5,
     "win_rate_30d": 80.0,
     "avg_return_30d": 6.71,
     "median_return_30d": 5.06,
@@ -5178,6 +5834,8 @@
     "worst_return_30d": -14.98,
     "sharpe_30d": 0.45,
     "sample_size_30d": 5,
+    "alpha_90d": 41.24,
+    "alpha_sample_size_90d": 3,
     "win_rate_90d": 100.0,
     "avg_return_90d": 45.11,
     "median_return_90d": 44.3,
@@ -5192,6 +5850,8 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 45.11,
     "recent_trade_count": 5,
     "overall_score": 100.0,
@@ -5207,6 +5867,8 @@
       "SUNS",
       "AFCG"
     ],
+    "alpha_30d": -6.64,
+    "alpha_sample_size_30d": 11,
     "win_rate_30d": 45.45,
     "avg_return_30d": -3.27,
     "median_return_30d": -1.22,
@@ -5214,6 +5876,8 @@
     "worst_return_30d": -17.76,
     "sharpe_30d": -0.37,
     "sample_size_30d": 11,
+    "alpha_90d": -25.24,
+    "alpha_sample_size_90d": 8,
     "win_rate_90d": 0.0,
     "avg_return_90d": -20.25,
     "median_return_90d": -12.37,
@@ -5228,9 +5892,11 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": -20.25,
     "recent_trade_count": 11,
-    "overall_score": 3.65,
+    "overall_score": 2.74,
     "score_percentile": 7.8
   },
   "Gray Jonathan H": {
@@ -5266,7 +5932,7 @@
     "recent_avg_return_90d": -16.88,
     "recent_trade_count": 3,
     "overall_score": 3.9,
-    "score_percentile": 8.3
+    "score_percentile": 8.7
   },
   "Lamberton Wayne": {
     "name": "Lamberton Wayne",
@@ -5277,6 +5943,8 @@
     "tickers": [
       "CMTV"
     ],
+    "alpha_30d": -3.77,
+    "alpha_sample_size_30d": 3,
     "win_rate_30d": 33.33,
     "avg_return_30d": -0.56,
     "median_return_30d": -2.19,
@@ -5284,6 +5952,8 @@
     "worst_return_30d": -2.19,
     "sharpe_30d": -0.2,
     "sample_size_30d": 3,
+    "alpha_90d": -0.42,
+    "alpha_sample_size_90d": 3,
     "win_rate_90d": 100.0,
     "avg_return_90d": 4.79,
     "median_return_90d": 5.49,
@@ -5298,10 +5968,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 4.79,
     "recent_trade_count": 3,
-    "overall_score": 80.99,
-    "score_percentile": 74.8
+    "overall_score": 70.6,
+    "score_percentile": 69.7
   },
   "Mason Peter Daniel Charles": {
     "name": "Mason Peter Daniel Charles",
@@ -5314,6 +5986,8 @@
       "HIO",
       "SCD"
     ],
+    "alpha_30d": -7.43,
+    "alpha_sample_size_30d": 3,
     "win_rate_30d": 0.0,
     "avg_return_30d": -4.04,
     "median_return_30d": -4.6,
@@ -5321,6 +5995,8 @@
     "worst_return_30d": -5.06,
     "sharpe_30d": -2.9,
     "sample_size_30d": 3,
+    "alpha_90d": -9.78,
+    "alpha_sample_size_90d": 3,
     "win_rate_90d": 0.0,
     "avg_return_90d": -3.62,
     "median_return_90d": -2.3,
@@ -5335,10 +6011,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": -3.62,
     "recent_trade_count": 3,
-    "overall_score": 24.33,
-    "score_percentile": 24.3
+    "overall_score": 21.27,
+    "score_percentile": 25.2
   },
   "Lp Cdr Channel Holdings": {
     "name": "Lp Cdr Channel Holdings",
@@ -5373,7 +6051,7 @@
     "recent_avg_return_90d": 14.46,
     "recent_trade_count": 6,
     "overall_score": 74.88,
-    "score_percentile": 66.1
+    "score_percentile": 72.5
   },
   "Labe James": {
     "name": "Labe James",
@@ -5384,6 +6062,8 @@
     "tickers": [
       "TPVG"
     ],
+    "alpha_30d": -6.99,
+    "alpha_sample_size_30d": 8,
     "win_rate_30d": 37.5,
     "avg_return_30d": -3.83,
     "median_return_30d": -3.26,
@@ -5391,6 +6071,8 @@
     "worst_return_30d": -14.24,
     "sharpe_30d": -0.42,
     "sample_size_30d": 8,
+    "alpha_90d": -10.47,
+    "alpha_sample_size_90d": 6,
     "win_rate_90d": 0.0,
     "avg_return_90d": -5.79,
     "median_return_90d": -4.6,
@@ -5405,10 +6087,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": -5.79,
     "recent_trade_count": 8,
-    "overall_score": 20.01,
-    "score_percentile": 19.7
+    "overall_score": 17.64,
+    "score_percentile": 20.6
   },
   "Srivastava Sajal": {
     "name": "Srivastava Sajal",
@@ -5419,6 +6103,8 @@
     "tickers": [
       "TPVG"
     ],
+    "alpha_30d": -6.99,
+    "alpha_sample_size_30d": 8,
     "win_rate_30d": 37.5,
     "avg_return_30d": -3.83,
     "median_return_30d": -3.26,
@@ -5426,6 +6112,8 @@
     "worst_return_30d": -14.24,
     "sharpe_30d": -0.42,
     "sample_size_30d": 8,
+    "alpha_90d": -10.47,
+    "alpha_sample_size_90d": 6,
     "win_rate_90d": 0.0,
     "avg_return_90d": -5.79,
     "median_return_90d": -4.6,
@@ -5440,10 +6128,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": -5.79,
     "recent_trade_count": 8,
-    "overall_score": 20.01,
-    "score_percentile": 19.7
+    "overall_score": 17.64,
+    "score_percentile": 20.6
   },
   "Cox John D": {
     "name": "Cox John D",
@@ -5454,6 +6144,8 @@
     "tickers": [
       "NWPP"
     ],
+    "alpha_30d": -0.87,
+    "alpha_sample_size_30d": 3,
     "win_rate_30d": 66.67,
     "avg_return_30d": 2.93,
     "median_return_30d": 5.52,
@@ -5461,6 +6153,8 @@
     "worst_return_30d": -3.57,
     "sharpe_30d": 0.52,
     "sample_size_30d": 3,
+    "alpha_90d": -2.52,
+    "alpha_sample_size_90d": 3,
     "win_rate_90d": 100.0,
     "avg_return_90d": 4.57,
     "median_return_90d": 5.52,
@@ -5475,10 +6169,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 4.57,
     "recent_trade_count": 3,
-    "overall_score": 80.71,
-    "score_percentile": 74.3
+    "overall_score": 67.99,
+    "score_percentile": 67.4
   },
   "Kavanaugh Frank": {
     "name": "Kavanaugh Frank",
@@ -5489,6 +6185,8 @@
     "tickers": [
       "MDRR"
     ],
+    "alpha_30d": 7.36,
+    "alpha_sample_size_30d": 6,
     "win_rate_30d": 83.33,
     "avg_return_30d": 10.44,
     "median_return_30d": 10.1,
@@ -5496,6 +6194,8 @@
     "worst_return_30d": -2.87,
     "sharpe_30d": 1.09,
     "sample_size_30d": 6,
+    "alpha_90d": 8.58,
+    "alpha_sample_size_90d": 6,
     "win_rate_90d": 100.0,
     "avg_return_90d": 13.92,
     "median_return_90d": 13.07,
@@ -5503,6 +6203,8 @@
     "worst_return_90d": 7.48,
     "sharpe_90d": 2.05,
     "sample_size_90d": 6,
+    "alpha_180d": -3.49,
+    "alpha_sample_size_180d": 1,
     "win_rate_180d": 100.0,
     "avg_return_180d": 12.34,
     "median_return_180d": 12.34,
@@ -5512,8 +6214,8 @@
     "sample_size_180d": 1,
     "recent_avg_return_90d": 13.92,
     "recent_trade_count": 6,
-    "overall_score": 92.4,
-    "score_percentile": 88.5
+    "overall_score": 87.94,
+    "score_percentile": 80.7
   },
   "Nelson Jonathan Michael": {
     "name": "Nelson Jonathan Michael",
@@ -5524,6 +6226,8 @@
     "tickers": [
       "AVBC"
     ],
+    "alpha_30d": -0.63,
+    "alpha_sample_size_30d": 5,
     "win_rate_30d": 60.0,
     "avg_return_30d": 2.22,
     "median_return_30d": 1.39,
@@ -5531,6 +6235,8 @@
     "worst_return_30d": -3.24,
     "sharpe_30d": 0.4,
     "sample_size_30d": 5,
+    "alpha_90d": -1.45,
+    "alpha_sample_size_90d": 5,
     "win_rate_90d": 100.0,
     "avg_return_90d": 4.5,
     "median_return_90d": 3.82,
@@ -5545,10 +6251,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 4.5,
     "recent_trade_count": 5,
-    "overall_score": 80.62,
-    "score_percentile": 73.9
+    "overall_score": 69.19,
+    "score_percentile": 68.3
   },
   "Christensen Richard": {
     "name": "Christensen Richard",
@@ -5559,6 +6267,8 @@
     "tickers": [
       "GMGI"
     ],
+    "alpha_30d": -20.31,
+    "alpha_sample_size_30d": 8,
     "win_rate_30d": 12.5,
     "avg_return_30d": -18.07,
     "median_return_30d": -21.41,
@@ -5566,6 +6276,8 @@
     "worst_return_30d": -31.15,
     "sharpe_30d": -1.51,
     "sample_size_30d": 8,
+    "alpha_90d": -34.32,
+    "alpha_sample_size_90d": 5,
     "win_rate_90d": 0.0,
     "avg_return_90d": -28.23,
     "median_return_90d": -26.62,
@@ -5580,6 +6292,8 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": -28.23,
     "recent_trade_count": 8,
     "overall_score": 0.0,
@@ -5594,6 +6308,8 @@
     "tickers": [
       "HTH"
     ],
+    "alpha_30d": -2.45,
+    "alpha_sample_size_30d": 4,
     "win_rate_30d": 50.0,
     "avg_return_30d": 0.61,
     "median_return_30d": 0.8,
@@ -5601,6 +6317,8 @@
     "worst_return_30d": -4.35,
     "sharpe_30d": 0.13,
     "sample_size_30d": 4,
+    "alpha_90d": -5.19,
+    "alpha_sample_size_90d": 4,
     "win_rate_90d": 25.0,
     "avg_return_90d": -1.02,
     "median_return_90d": -1.68,
@@ -5615,10 +6333,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": -1.02,
     "recent_trade_count": 4,
-    "overall_score": 39.88,
-    "score_percentile": 32.6
+    "overall_score": 37.17,
+    "score_percentile": 34.4
   },
   "Gaslightwala Abizer": {
     "name": "Gaslightwala Abizer",
@@ -5629,6 +6349,8 @@
     "tickers": [
       "AKTX"
     ],
+    "alpha_30d": -11.86,
+    "alpha_sample_size_30d": 4,
     "win_rate_30d": 0.0,
     "avg_return_30d": -6.34,
     "median_return_30d": -5.63,
@@ -5636,6 +6358,8 @@
     "worst_return_30d": -11.94,
     "sharpe_30d": -1.55,
     "sample_size_30d": 4,
+    "alpha_90d": -45.69,
+    "alpha_sample_size_90d": 4,
     "win_rate_90d": 0.0,
     "avg_return_90d": -36.1,
     "median_return_90d": -34.33,
@@ -5650,6 +6374,8 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": -36.1,
     "recent_trade_count": 4,
     "overall_score": 0.0,
@@ -5689,7 +6415,7 @@
     "recent_avg_return_90d": 5.33,
     "recent_trade_count": 13,
     "overall_score": 66.63,
-    "score_percentile": 62.4
+    "score_percentile": 67.0
   },
   "Hixon Dylan": {
     "name": "Hixon Dylan",
@@ -5770,6 +6496,8 @@
     "tickers": [
       "CMT"
     ],
+    "alpha_30d": 15.76,
+    "alpha_sample_size_30d": 6,
     "win_rate_30d": 100.0,
     "avg_return_30d": 18.7,
     "median_return_30d": 20.06,
@@ -5777,6 +6505,8 @@
     "worst_return_30d": 12.46,
     "sharpe_30d": 4.28,
     "sample_size_30d": 6,
+    "alpha_90d": -1.9,
+    "alpha_sample_size_90d": 6,
     "win_rate_90d": 50.0,
     "avg_return_90d": 3.14,
     "median_return_90d": 0.33,
@@ -5791,10 +6521,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 3.14,
     "recent_trade_count": 6,
-    "overall_score": 56.03,
-    "score_percentile": 51.4
+    "overall_score": 51.72,
+    "score_percentile": 56.0
   },
   "Zamani Payam": {
     "name": "Zamani Payam",
@@ -5805,6 +6537,8 @@
     "tickers": [
       "ISPO"
     ],
+    "alpha_30d": -2.44,
+    "alpha_sample_size_30d": 3,
     "win_rate_30d": 100.0,
     "avg_return_30d": 0.88,
     "median_return_30d": 1.3,
@@ -5812,6 +6546,8 @@
     "worst_return_30d": 0.0,
     "sharpe_30d": 1.15,
     "sample_size_30d": 3,
+    "alpha_90d": -21.95,
+    "alpha_sample_size_90d": 3,
     "win_rate_90d": 0.0,
     "avg_return_90d": -17.87,
     "median_return_90d": -17.97,
@@ -5826,9 +6562,11 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": -17.87,
     "recent_trade_count": 3,
-    "overall_score": 2.66,
+    "overall_score": 1.6,
     "score_percentile": 7.3
   },
   "Gubin Moishe": {
@@ -5864,7 +6602,7 @@
     "recent_avg_return_90d": 6.19,
     "recent_trade_count": 3,
     "overall_score": 78.74,
-    "score_percentile": 70.2
+    "score_percentile": 76.1
   },
   "Clark Christopher D": {
     "name": "Clark Christopher D",
@@ -5877,6 +6615,8 @@
       "RGT",
       "RMT"
     ],
+    "alpha_30d": -1.61,
+    "alpha_sample_size_30d": 3,
     "win_rate_30d": 66.67,
     "avg_return_30d": 0.67,
     "median_return_30d": 0.95,
@@ -5884,6 +6624,8 @@
     "worst_return_30d": -0.13,
     "sharpe_30d": 0.96,
     "sample_size_30d": 3,
+    "alpha_90d": -6.5,
+    "alpha_sample_size_90d": 3,
     "win_rate_90d": 0.0,
     "avg_return_90d": -2.56,
     "median_return_90d": -2.46,
@@ -5898,10 +6640,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": -2.56,
     "recent_trade_count": 3,
-    "overall_score": 21.8,
-    "score_percentile": 21.6
+    "overall_score": 23.0,
+    "score_percentile": 27.1
   },
   "Handy Steve": {
     "name": "Handy Steve",
@@ -5912,6 +6656,8 @@
     "tickers": [
       "GIFT"
     ],
+    "alpha_30d": -1.01,
+    "alpha_sample_size_30d": 3,
     "win_rate_30d": 100.0,
     "avg_return_30d": 2.85,
     "median_return_30d": 1.89,
@@ -5919,6 +6665,8 @@
     "worst_return_30d": 1.89,
     "sharpe_30d": 1.71,
     "sample_size_30d": 3,
+    "alpha_90d": -0.37,
+    "alpha_sample_size_90d": 3,
     "win_rate_90d": 100.0,
     "avg_return_90d": 3.19,
     "median_return_90d": 3.77,
@@ -5933,10 +6681,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 3.19,
     "recent_trade_count": 3,
-    "overall_score": 78.99,
-    "score_percentile": 71.1
+    "overall_score": 69.46,
+    "score_percentile": 68.8
   },
   "Conway Shawn": {
     "name": "Conway Shawn",
@@ -6006,7 +6756,7 @@
     "recent_avg_return_90d": -2.6,
     "recent_trade_count": 16,
     "overall_score": 38.98,
-    "score_percentile": 32.1
+    "score_percentile": 37.2
   },
   "Hill Jaime": {
     "name": "Hill Jaime",
@@ -6017,6 +6767,8 @@
     "tickers": [
       "AMRZ"
     ],
+    "alpha_30d": 5.65,
+    "alpha_sample_size_30d": 3,
     "win_rate_30d": 100.0,
     "avg_return_30d": 8.37,
     "median_return_30d": 4.56,
@@ -6024,6 +6776,8 @@
     "worst_return_30d": 1.88,
     "sharpe_30d": 0.93,
     "sample_size_30d": 3,
+    "alpha_90d": -4.58,
+    "alpha_sample_size_90d": 3,
     "win_rate_90d": 33.33,
     "avg_return_90d": -0.7,
     "median_return_90d": -4.33,
@@ -6038,10 +6792,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": -0.7,
     "recent_trade_count": 3,
-    "overall_score": 43.62,
-    "score_percentile": 35.8
+    "overall_score": 40.43,
+    "score_percentile": 39.0
   },
   "Mccartney John": {
     "name": "Mccartney John",
@@ -6076,7 +6832,7 @@
     "recent_avg_return_90d": -5.72,
     "recent_trade_count": 5,
     "overall_score": 17.85,
-    "score_percentile": 18.3
+    "score_percentile": 21.6
   },
   "Disanto Frederick D": {
     "name": "Disanto Frederick D",
@@ -6111,7 +6867,7 @@
     "recent_avg_return_90d": -8.03,
     "recent_trade_count": 6,
     "overall_score": 31.31,
-    "score_percentile": 29.4
+    "score_percentile": 30.7
   },
   "Oliver Eric L": {
     "name": "Oliver Eric L",
@@ -6123,6 +6879,8 @@
       "TPL",
       "PBT"
     ],
+    "alpha_30d": -1.45,
+    "alpha_sample_size_30d": 3,
     "win_rate_30d": 66.67,
     "avg_return_30d": 2.45,
     "median_return_30d": 1.86,
@@ -6130,6 +6888,8 @@
     "worst_return_30d": -0.67,
     "sharpe_30d": 0.71,
     "sample_size_30d": 3,
+    "alpha_90d": 14.5,
+    "alpha_sample_size_90d": 3,
     "win_rate_90d": 100.0,
     "avg_return_90d": 20.92,
     "median_return_90d": 11.0,
@@ -6137,6 +6897,8 @@
     "worst_return_90d": 2.59,
     "sharpe_90d": 0.84,
     "sample_size_90d": 3,
+    "alpha_180d": 37.45,
+    "alpha_sample_size_180d": 1,
     "win_rate_180d": 100.0,
     "avg_return_180d": 51.78,
     "median_return_180d": 51.78,
@@ -6146,8 +6908,8 @@
     "sample_size_180d": 1,
     "recent_avg_return_90d": 20.92,
     "recent_trade_count": 3,
-    "overall_score": 94.2,
-    "score_percentile": 89.0
+    "overall_score": 95.05,
+    "score_percentile": 90.4
   },
   "Weaks Nathan E": {
     "name": "Weaks Nathan E",
@@ -6158,6 +6920,8 @@
     "tickers": [
       "CIVB"
     ],
+    "alpha_30d": 1.39,
+    "alpha_sample_size_30d": 3,
     "win_rate_30d": 100.0,
     "avg_return_30d": 4.51,
     "median_return_30d": 3.41,
@@ -6165,6 +6929,8 @@
     "worst_return_30d": 3.39,
     "sharpe_30d": 2.35,
     "sample_size_30d": 3,
+    "alpha_90d": 2.69,
+    "alpha_sample_size_90d": 3,
     "win_rate_90d": 100.0,
     "avg_return_90d": 8.32,
     "median_return_90d": 7.41,
@@ -6179,10 +6945,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 8.32,
     "recent_trade_count": 3,
-    "overall_score": 85.4,
-    "score_percentile": 78.0
+    "overall_score": 76.88,
+    "score_percentile": 74.8
   },
   "Baker James C": {
     "name": "Baker James C",
@@ -6193,6 +6961,8 @@
     "tickers": [
       "KYN"
     ],
+    "alpha_30d": -6.19,
+    "alpha_sample_size_30d": 3,
     "win_rate_30d": 0.0,
     "avg_return_30d": -3.07,
     "median_return_30d": -2.46,
@@ -6200,6 +6970,8 @@
     "worst_return_30d": -5.56,
     "sharpe_30d": -1.36,
     "sample_size_30d": 3,
+    "alpha_90d": -9.66,
+    "alpha_sample_size_90d": 3,
     "win_rate_90d": 0.0,
     "avg_return_90d": -3.62,
     "median_return_90d": -3.06,
@@ -6214,28 +6986,34 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": -3.62,
     "recent_trade_count": 3,
-    "overall_score": 21.03,
-    "score_percentile": 20.6
+    "overall_score": 18.94,
+    "score_percentile": 22.0
   },
   "Bohjalian Thomas N": {
     "name": "Bohjalian Thomas N",
-    "total_trades": 3,
-    "most_recent_trade": "2025-08-18T00:00:00",
+    "total_trades": 4,
+    "most_recent_trade": "2025-12-02T00:00:00",
     "oldest_trade": "2025-08-11T00:00:00",
     "companies_traded": 2,
     "tickers": [
       "SMRT",
       "HR"
     ],
+    "alpha_30d": 9.59,
+    "alpha_sample_size_30d": 4,
     "win_rate_30d": 100.0,
-    "avg_return_30d": 10.33,
-    "median_return_30d": 9.94,
-    "best_return_30d": 11.72,
+    "avg_return_30d": 11.47,
+    "median_return_30d": 10.83,
+    "best_return_30d": 14.88,
     "worst_return_30d": 9.33,
-    "sharpe_30d": 8.34,
-    "sample_size_30d": 3,
+    "sharpe_30d": 4.61,
+    "sample_size_30d": 4,
+    "alpha_90d": 1.37,
+    "alpha_sample_size_90d": 3,
     "win_rate_90d": 66.67,
     "avg_return_90d": 7.18,
     "median_return_90d": 11.48,
@@ -6250,10 +7028,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 7.18,
-    "recent_trade_count": 3,
-    "overall_score": 67.68,
-    "score_percentile": 62.8
+    "recent_trade_count": 4,
+    "overall_score": 63.09,
+    "score_percentile": 62.4
   },
   "Bourland Jill": {
     "name": "Bourland Jill",
@@ -6264,6 +7044,8 @@
     "tickers": [
       "ISBA"
     ],
+    "alpha_30d": -4.01,
+    "alpha_sample_size_30d": 3,
     "win_rate_30d": 66.67,
     "avg_return_30d": -0.87,
     "median_return_30d": 0.7,
@@ -6271,6 +7053,8 @@
     "worst_return_30d": -4.79,
     "sharpe_30d": -0.26,
     "sample_size_30d": 3,
+    "alpha_90d": 6.72,
+    "alpha_sample_size_90d": 3,
     "win_rate_90d": 66.67,
     "avg_return_90d": 13.43,
     "median_return_90d": 16.27,
@@ -6285,10 +7069,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 13.43,
     "recent_trade_count": 3,
-    "overall_score": 77.24,
-    "score_percentile": 68.8
+    "overall_score": 75.33,
+    "score_percentile": 73.4
   },
   "Galkin Vladimir": {
     "name": "Galkin Vladimir",
@@ -6299,6 +7085,8 @@
     "tickers": [
       "NEGG"
     ],
+    "alpha_30d": 115.48,
+    "alpha_sample_size_30d": 9,
     "win_rate_30d": 66.67,
     "avg_return_30d": 118.09,
     "median_return_30d": 123.36,
@@ -6306,6 +7094,8 @@
     "worst_return_30d": -58.46,
     "sharpe_30d": 0.79,
     "sample_size_30d": 9,
+    "alpha_90d": 49.98,
+    "alpha_sample_size_90d": 9,
     "win_rate_90d": 88.89,
     "avg_return_90d": 56.97,
     "median_return_90d": 56.7,
@@ -6320,10 +7110,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 56.97,
     "recent_trade_count": 9,
-    "overall_score": 92.12,
-    "score_percentile": 88.1
+    "overall_score": 94.37,
+    "score_percentile": 89.4
   },
   "Paulson John": {
     "name": "Paulson John",
@@ -6334,6 +7126,8 @@
     "tickers": [
       "BHC"
     ],
+    "alpha_30d": -4.83,
+    "alpha_sample_size_30d": 3,
     "win_rate_30d": 66.67,
     "avg_return_30d": -1.5,
     "median_return_30d": 6.73,
@@ -6341,6 +7135,8 @@
     "worst_return_30d": -20.22,
     "sharpe_30d": -0.09,
     "sample_size_30d": 3,
+    "alpha_90d": -9.15,
+    "alpha_sample_size_90d": 3,
     "win_rate_90d": 33.33,
     "avg_return_90d": -1.09,
     "median_return_90d": -2.44,
@@ -6348,6 +7144,8 @@
     "worst_return_90d": -22.89,
     "sharpe_90d": -0.05,
     "sample_size_90d": 3,
+    "alpha_180d": -1.02,
+    "alpha_sample_size_180d": 1,
     "win_rate_180d": 100.0,
     "avg_return_180d": 14.81,
     "median_return_180d": 14.81,
@@ -6357,8 +7155,8 @@
     "sample_size_180d": 1,
     "recent_avg_return_90d": -1.09,
     "recent_trade_count": 3,
-    "overall_score": 43.39,
-    "score_percentile": 35.3
+    "overall_score": 35.0,
+    "score_percentile": 33.5
   },
   "Llc Coliseum Capital Management": {
     "name": "Llc Coliseum Capital Management",
@@ -6405,6 +7203,8 @@
     "tickers": [
       "PETS"
     ],
+    "alpha_30d": -6.82,
+    "alpha_sample_size_30d": 6,
     "win_rate_30d": 16.67,
     "avg_return_30d": -4.75,
     "median_return_30d": -4.37,
@@ -6412,6 +7212,8 @@
     "worst_return_30d": -11.67,
     "sharpe_30d": -1.15,
     "sample_size_30d": 6,
+    "alpha_90d": -27.22,
+    "alpha_sample_size_90d": 6,
     "win_rate_90d": 0.0,
     "avg_return_90d": -20.04,
     "median_return_90d": -21.43,
@@ -6426,6 +7228,8 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": -20.04,
     "recent_trade_count": 6,
     "overall_score": 0.0,
@@ -6440,6 +7244,8 @@
     "tickers": [
       "ZOMDF"
     ],
+    "alpha_30d": 62.52,
+    "alpha_sample_size_30d": 5,
     "win_rate_30d": 100.0,
     "avg_return_30d": 64.35,
     "median_return_30d": 33.75,
@@ -6447,6 +7253,8 @@
     "worst_return_30d": 6.0,
     "sharpe_30d": 0.89,
     "sample_size_30d": 5,
+    "alpha_90d": 119.78,
+    "alpha_sample_size_90d": 2,
     "win_rate_90d": 100.0,
     "avg_return_90d": 126.25,
     "median_return_90d": 126.25,
@@ -6461,6 +7269,8 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 126.25,
     "recent_trade_count": 5,
     "overall_score": 100.0,
@@ -6499,7 +7309,7 @@
     "recent_avg_return_90d": 11.86,
     "recent_trade_count": 3,
     "overall_score": 71.78,
-    "score_percentile": 63.3
+    "score_percentile": 70.6
   },
   "Jones Stephen J": {
     "name": "Jones Stephen J",
@@ -6510,6 +7320,8 @@
     "tickers": [
       "TROX"
     ],
+    "alpha_30d": 31.12,
+    "alpha_sample_size_30d": 3,
     "win_rate_30d": 100.0,
     "avg_return_30d": 33.88,
     "median_return_30d": 37.95,
@@ -6517,6 +7329,8 @@
     "worst_return_30d": 24.06,
     "sharpe_30d": 3.97,
     "sample_size_30d": 3,
+    "alpha_90d": -9.53,
+    "alpha_sample_size_90d": 3,
     "win_rate_90d": 0.0,
     "avg_return_90d": -1.66,
     "median_return_90d": -1.76,
@@ -6531,10 +7345,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": -1.66,
     "recent_trade_count": 3,
-    "overall_score": 22.92,
-    "score_percentile": 22.5
+    "overall_score": 20.15,
+    "score_percentile": 23.9
   },
   "Dwyer Robert J": {
     "name": "Dwyer Robert J",
@@ -6545,6 +7361,8 @@
     "tickers": [
       "BMNM"
     ],
+    "alpha_30d": 10.17,
+    "alpha_sample_size_30d": 4,
     "win_rate_30d": 100.0,
     "avg_return_30d": 13.88,
     "median_return_30d": 15.18,
@@ -6552,6 +7370,8 @@
     "worst_return_30d": 7.53,
     "sharpe_30d": 2.99,
     "sample_size_30d": 4,
+    "alpha_90d": 32.65,
+    "alpha_sample_size_90d": 4,
     "win_rate_90d": 100.0,
     "avg_return_90d": 41.79,
     "median_return_90d": 40.73,
@@ -6566,6 +7386,8 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 41.79,
     "recent_trade_count": 4,
     "overall_score": 100.0,
@@ -6580,6 +7402,8 @@
     "tickers": [
       "TBBK"
     ],
+    "alpha_30d": 15.12,
+    "alpha_sample_size_30d": 4,
     "win_rate_30d": 100.0,
     "avg_return_30d": 17.07,
     "median_return_30d": 20.15,
@@ -6587,6 +7411,8 @@
     "worst_return_30d": 6.87,
     "sharpe_30d": 2.51,
     "sample_size_30d": 4,
+    "alpha_90d": 7.04,
+    "alpha_sample_size_90d": 3,
     "win_rate_90d": 66.67,
     "avg_return_90d": 15.49,
     "median_return_90d": 21.6,
@@ -6601,10 +7427,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 15.49,
     "recent_trade_count": 4,
-    "overall_score": 79.76,
-    "score_percentile": 72.5
+    "overall_score": 77.21,
+    "score_percentile": 75.2
   },
   "Anagnos Jeremy": {
     "name": "Anagnos Jeremy",
@@ -6615,6 +7443,8 @@
     "tickers": [
       "MEGI"
     ],
+    "alpha_30d": -5.16,
+    "alpha_sample_size_30d": 3,
     "win_rate_30d": 0.0,
     "avg_return_30d": -2.14,
     "median_return_30d": -2.13,
@@ -6622,6 +7452,8 @@
     "worst_return_30d": -2.28,
     "sharpe_30d": -15.03,
     "sample_size_30d": 3,
+    "alpha_90d": -7.38,
+    "alpha_sample_size_90d": 3,
     "win_rate_90d": 66.67,
     "avg_return_90d": 1.26,
     "median_return_90d": 1.41,
@@ -6636,10 +7468,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 1.26,
     "recent_trade_count": 3,
-    "overall_score": 58.73,
-    "score_percentile": 55.0
+    "overall_score": 47.29,
+    "score_percentile": 44.0
   },
   "Brinker Scott M": {
     "name": "Brinker Scott M",
@@ -6650,6 +7484,8 @@
     "tickers": [
       "DOC"
     ],
+    "alpha_30d": 1.13,
+    "alpha_sample_size_30d": 3,
     "win_rate_30d": 100.0,
     "avg_return_30d": 2.73,
     "median_return_30d": 3.45,
@@ -6657,6 +7493,8 @@
     "worst_return_30d": 1.15,
     "sharpe_30d": 1.99,
     "sample_size_30d": 3,
+    "alpha_90d": -3.22,
+    "alpha_sample_size_90d": 3,
     "win_rate_90d": 100.0,
     "avg_return_90d": 5.28,
     "median_return_90d": 4.5,
@@ -6671,10 +7509,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 5.28,
     "recent_trade_count": 3,
-    "overall_score": 79.6,
-    "score_percentile": 71.6
+    "overall_score": 66.21,
+    "score_percentile": 66.1
   },
   "Marin Kendall Leo": {
     "name": "Marin Kendall Leo",
@@ -6685,6 +7525,8 @@
     "tickers": [
       "PAPL"
     ],
+    "alpha_30d": 4334.41,
+    "alpha_sample_size_30d": 8,
     "win_rate_30d": 100.0,
     "avg_return_30d": 4337.66,
     "median_return_30d": 4245.0,
@@ -6692,6 +7534,8 @@
     "worst_return_30d": 86.29,
     "sharpe_30d": 1.57,
     "sample_size_30d": 8,
+    "alpha_90d": 6936.43,
+    "alpha_sample_size_90d": 8,
     "win_rate_90d": 100.0,
     "avg_return_90d": 6944.97,
     "median_return_90d": 6090.0,
@@ -6706,9 +7550,11 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 6944.97,
     "recent_trade_count": 8,
-    "overall_score": 98.5,
+    "overall_score": 98.88,
     "score_percentile": 93.1
   },
   "S8 Global Fintech Regtech Fund": {
@@ -6755,6 +7601,8 @@
     "tickers": [
       "NTWK"
     ],
+    "alpha_30d": 21.16,
+    "alpha_sample_size_30d": 3,
     "win_rate_30d": 100.0,
     "avg_return_30d": 23.78,
     "median_return_30d": 26.41,
@@ -6762,6 +7610,8 @@
     "worst_return_30d": 10.84,
     "sharpe_30d": 2.01,
     "sample_size_30d": 3,
+    "alpha_90d": 33.5,
+    "alpha_sample_size_90d": 3,
     "win_rate_90d": 100.0,
     "avg_return_90d": 41.04,
     "median_return_90d": 34.42,
@@ -6776,9 +7626,11 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 41.04,
     "recent_trade_count": 3,
-    "overall_score": 98.5,
+    "overall_score": 98.88,
     "score_percentile": 93.1
   },
   "Nesbitt Stephen Lane": {
@@ -6792,6 +7644,8 @@
       "CCLFX",
       "CPEFX"
     ],
+    "alpha_30d": -2.66,
+    "alpha_sample_size_30d": 3,
     "win_rate_30d": 33.33,
     "avg_return_30d": -1.05,
     "median_return_30d": -1.76,
@@ -6799,6 +7653,8 @@
     "worst_return_30d": -2.12,
     "sharpe_30d": -0.67,
     "sample_size_30d": 3,
+    "alpha_90d": -5.9,
+    "alpha_sample_size_90d": 3,
     "win_rate_90d": 33.33,
     "avg_return_90d": 1.95,
     "median_return_90d": -0.28,
@@ -6813,10 +7669,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 1.95,
     "recent_trade_count": 3,
-    "overall_score": 49.79,
-    "score_percentile": 41.3
+    "overall_score": 43.01,
+    "score_percentile": 40.4
   },
   "Laffer Arthur B": {
     "name": "Laffer Arthur B",
@@ -6827,6 +7685,8 @@
     "tickers": [
       "NXDT"
     ],
+    "alpha_30d": -9.76,
+    "alpha_sample_size_30d": 3,
     "win_rate_30d": 33.33,
     "avg_return_30d": -7.41,
     "median_return_30d": -13.87,
@@ -6834,6 +7694,8 @@
     "worst_return_30d": -14.67,
     "sharpe_30d": -0.62,
     "sample_size_30d": 3,
+    "alpha_90d": -30.56,
+    "alpha_sample_size_90d": 3,
     "win_rate_90d": 0.0,
     "avg_return_90d": -21.97,
     "median_return_90d": -25.05,
@@ -6848,9 +7710,11 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": -21.97,
     "recent_trade_count": 3,
-    "overall_score": 0.7,
+    "overall_score": 0.52,
     "score_percentile": 6.4
   },
   "Liberty 77 Capital Lp": {
@@ -6897,6 +7761,8 @@
     "tickers": [
       "HURC"
     ],
+    "alpha_30d": 3.38,
+    "alpha_sample_size_30d": 3,
     "win_rate_30d": 66.67,
     "avg_return_30d": 6.53,
     "median_return_30d": 4.65,
@@ -6904,6 +7770,8 @@
     "worst_return_30d": -6.67,
     "sharpe_30d": 0.46,
     "sample_size_30d": 3,
+    "alpha_90d": -11.39,
+    "alpha_sample_size_90d": 3,
     "win_rate_90d": 33.33,
     "avg_return_90d": -2.59,
     "median_return_90d": -5.95,
@@ -6918,10 +7786,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": -2.59,
     "recent_trade_count": 3,
-    "overall_score": 40.86,
-    "score_percentile": 33.0
+    "overall_score": 30.77,
+    "score_percentile": 30.3
   },
   "Liu David R": {
     "name": "Liu David R",
@@ -6993,7 +7863,7 @@
     "recent_avg_return_90d": -3.97,
     "recent_trade_count": 5,
     "overall_score": 53.19,
-    "score_percentile": 48.6
+    "score_percentile": 57.3
   },
   "Halfacre Aaron Scott": {
     "name": "Halfacre Aaron Scott",
@@ -7004,6 +7874,8 @@
     "tickers": [
       "MDV"
     ],
+    "alpha_30d": -4.02,
+    "alpha_sample_size_30d": 3,
     "win_rate_30d": 33.33,
     "avg_return_30d": 0.19,
     "median_return_30d": -0.47,
@@ -7011,6 +7883,8 @@
     "worst_return_30d": -0.47,
     "sharpe_30d": 0.17,
     "sample_size_30d": 3,
+    "alpha_90d": -5.65,
+    "alpha_sample_size_90d": 3,
     "win_rate_90d": 100.0,
     "avg_return_90d": 3.06,
     "median_return_90d": 2.53,
@@ -7018,6 +7892,8 @@
     "worst_return_90d": 2.39,
     "sharpe_90d": 2.92,
     "sample_size_90d": 3,
+    "alpha_180d": -12.07,
+    "alpha_sample_size_180d": 1,
     "win_rate_180d": 100.0,
     "avg_return_180d": 3.76,
     "median_return_180d": 3.76,
@@ -7027,8 +7903,8 @@
     "sample_size_180d": 1,
     "recent_avg_return_90d": 3.06,
     "recent_trade_count": 3,
-    "overall_score": 78.82,
-    "score_percentile": 70.6
+    "overall_score": 63.21,
+    "score_percentile": 62.8
   },
   "Llc Skycrest Holdings": {
     "name": "Llc Skycrest Holdings",
@@ -7074,6 +7950,8 @@
     "tickers": [
       "AWRE"
     ],
+    "alpha_30d": 10.03,
+    "alpha_sample_size_30d": 3,
     "win_rate_30d": 66.67,
     "avg_return_30d": 12.38,
     "median_return_30d": 8.18,
@@ -7081,6 +7959,8 @@
     "worst_return_30d": -0.45,
     "sharpe_30d": 0.81,
     "sample_size_30d": 3,
+    "alpha_90d": 22.09,
+    "alpha_sample_size_90d": 2,
     "win_rate_90d": 50.0,
     "avg_return_90d": 29.39,
     "median_return_90d": 29.39,
@@ -7088,6 +7968,8 @@
     "worst_return_90d": -1.82,
     "sharpe_90d": 0.67,
     "sample_size_90d": 2,
+    "alpha_180d": 6.81,
+    "alpha_sample_size_180d": 1,
     "win_rate_180d": 100.0,
     "avg_return_180d": 20.59,
     "median_return_180d": 20.59,
@@ -7097,8 +7979,8 @@
     "sample_size_180d": 1,
     "recent_avg_return_90d": 29.39,
     "recent_trade_count": 3,
-    "overall_score": 78.35,
-    "score_percentile": 69.7
+    "overall_score": 85.01,
+    "score_percentile": 78.0
   },
   "Peterman Tamara": {
     "name": "Peterman Tamara",
@@ -7109,6 +7991,8 @@
     "tickers": [
       "UMBF"
     ],
+    "alpha_30d": 3.67,
+    "alpha_sample_size_30d": 3,
     "win_rate_30d": 66.67,
     "avg_return_30d": 6.3,
     "median_return_30d": 8.07,
@@ -7116,6 +8000,8 @@
     "worst_return_30d": -1.78,
     "sharpe_30d": 0.86,
     "sample_size_30d": 3,
+    "alpha_90d": -11.44,
+    "alpha_sample_size_90d": 2,
     "win_rate_90d": 0.0,
     "avg_return_90d": -3.34,
     "median_return_90d": -3.34,
@@ -7130,10 +8016,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": -3.34,
     "recent_trade_count": 3,
-    "overall_score": 27.22,
-    "score_percentile": 26.1
+    "overall_score": 21.46,
+    "score_percentile": 26.6
   },
   "Graves Greg M": {
     "name": "Graves Greg M",
@@ -7144,6 +8032,8 @@
     "tickers": [
       "UMBF"
     ],
+    "alpha_30d": 3.67,
+    "alpha_sample_size_30d": 3,
     "win_rate_30d": 66.67,
     "avg_return_30d": 6.3,
     "median_return_30d": 8.07,
@@ -7151,6 +8041,8 @@
     "worst_return_30d": -1.78,
     "sharpe_30d": 0.86,
     "sample_size_30d": 3,
+    "alpha_90d": -11.44,
+    "alpha_sample_size_90d": 2,
     "win_rate_90d": 0.0,
     "avg_return_90d": -3.34,
     "median_return_90d": -3.34,
@@ -7165,10 +8057,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": -3.34,
     "recent_trade_count": 3,
-    "overall_score": 27.22,
-    "score_percentile": 26.1
+    "overall_score": 21.46,
+    "score_percentile": 26.6
   },
   "Belsky Scott": {
     "name": "Belsky Scott",
@@ -7179,6 +8073,8 @@
     "tickers": [
       "TEAM"
     ],
+    "alpha_30d": 0.69,
+    "alpha_sample_size_30d": 4,
     "win_rate_30d": 50.0,
     "avg_return_30d": 1.99,
     "median_return_30d": 2.54,
@@ -7186,6 +8082,8 @@
     "worst_return_30d": -7.79,
     "sharpe_30d": 0.21,
     "sample_size_30d": 4,
+    "alpha_90d": -19.46,
+    "alpha_sample_size_90d": 1,
     "win_rate_90d": 0.0,
     "avg_return_90d": -14.43,
     "median_return_90d": -14.43,
@@ -7200,10 +8098,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": -14.43,
     "recent_trade_count": 4,
-    "overall_score": 16.96,
-    "score_percentile": 17.0
+    "overall_score": 11.68,
+    "score_percentile": 16.5
   },
   "Reeves Charles N": {
     "name": "Reeves Charles N",
@@ -7214,6 +8114,8 @@
     "tickers": [
       "MOFG"
     ],
+    "alpha_30d": 6.67,
+    "alpha_sample_size_30d": 3,
     "win_rate_30d": 100.0,
     "avg_return_30d": 7.44,
     "median_return_30d": 7.15,
@@ -7221,6 +8123,8 @@
     "worst_return_30d": 6.53,
     "sharpe_30d": 6.87,
     "sample_size_30d": 3,
+    "alpha_90d": 28.4,
+    "alpha_sample_size_90d": 1,
     "win_rate_90d": 100.0,
     "avg_return_90d": 36.57,
     "median_return_90d": 36.57,
@@ -7235,10 +8139,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 36.57,
     "recent_trade_count": 3,
-    "overall_score": 90.0,
-    "score_percentile": 87.6
+    "overall_score": 92.5,
+    "score_percentile": 88.5
   },
   "Keene Harold L": {
     "name": "Keene Harold L",
@@ -7249,6 +8155,8 @@
     "tickers": [
       "NWPP"
     ],
+    "alpha_30d": 1.28,
+    "alpha_sample_size_30d": 4,
     "win_rate_30d": 75.0,
     "avg_return_30d": 4.4,
     "median_return_30d": 3.94,
@@ -7256,6 +8164,8 @@
     "worst_return_30d": -2.62,
     "sharpe_30d": 0.71,
     "sample_size_30d": 4,
+    "alpha_90d": -3.14,
+    "alpha_sample_size_90d": 2,
     "win_rate_90d": 100.0,
     "avg_return_90d": 2.92,
     "median_return_90d": 2.92,
@@ -7263,6 +8173,8 @@
     "worst_return_90d": 0.0,
     "sharpe_90d": 0.71,
     "sample_size_90d": 2,
+    "alpha_180d": 11.46,
+    "alpha_sample_size_180d": 1,
     "win_rate_180d": 100.0,
     "avg_return_180d": 25.25,
     "median_return_180d": 25.25,
@@ -7272,8 +8184,8 @@
     "sample_size_180d": 1,
     "recent_avg_return_90d": 2.92,
     "recent_trade_count": 4,
-    "overall_score": 72.2,
-    "score_percentile": 64.2
+    "overall_score": 61.19,
+    "score_percentile": 61.0
   },
   "Smith Dwight Eric": {
     "name": "Smith Dwight Eric",
@@ -7285,6 +8197,8 @@
       "PEBO",
       "RCKY"
     ],
+    "alpha_30d": -0.51,
+    "alpha_sample_size_30d": 4,
     "win_rate_30d": 25.0,
     "avg_return_30d": 1.25,
     "median_return_30d": -0.6,
@@ -7292,6 +8206,8 @@
     "worst_return_30d": -2.25,
     "sharpe_30d": 0.26,
     "sample_size_30d": 4,
+    "alpha_90d": -9.03,
+    "alpha_sample_size_90d": 1,
     "win_rate_90d": 0.0,
     "avg_return_90d": -3.47,
     "median_return_90d": -3.47,
@@ -7306,10 +8222,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": -3.47,
     "recent_trade_count": 4,
-    "overall_score": 30.66,
-    "score_percentile": 28.9
+    "overall_score": 26.87,
+    "score_percentile": 28.0
   },
   "Gabelli Mario J": {
     "name": "Gabelli Mario J",
@@ -7321,6 +8239,8 @@
       "GCV",
       "GGT"
     ],
+    "alpha_30d": -3.35,
+    "alpha_sample_size_30d": 3,
     "win_rate_30d": 33.33,
     "avg_return_30d": -1.72,
     "median_return_30d": -2.8,
@@ -7328,6 +8248,8 @@
     "worst_return_30d": -3.6,
     "sharpe_30d": -0.66,
     "sample_size_30d": 3,
+    "alpha_90d": -8.43,
+    "alpha_sample_size_90d": 1,
     "win_rate_90d": 0.0,
     "avg_return_90d": -1.89,
     "median_return_90d": -1.89,
@@ -7342,10 +8264,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": -1.89,
     "recent_trade_count": 3,
-    "overall_score": 32.64,
-    "score_percentile": 30.3
+    "overall_score": 28.76,
+    "score_percentile": 28.4
   },
   "Globalharvest Holdings Venture Ltd": {
     "name": "Globalharvest Holdings Venture Ltd",
@@ -7356,6 +8280,8 @@
     "tickers": [
       "AVO"
     ],
+    "alpha_30d": -0.78,
+    "alpha_sample_size_30d": 4,
     "win_rate_30d": 50.0,
     "avg_return_30d": 0.5,
     "median_return_30d": 0.36,
@@ -7370,6 +8296,8 @@
     "worst_return_90d": null,
     "sharpe_90d": null,
     "sample_size_90d": 0,
+    "alpha_90d": null,
+    "alpha_sample_size_90d": 0,
     "win_rate_180d": null,
     "avg_return_180d": null,
     "median_return_180d": null,
@@ -7377,10 +8305,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": null,
     "recent_trade_count": 0,
     "overall_score": 50,
-    "score_percentile": 47.7
+    "score_percentile": 53.2
   },
   "Marchetti Kevin Patrick": {
     "name": "Marchetti Kevin Patrick",
@@ -7391,6 +8321,8 @@
     "tickers": [
       "LINE"
     ],
+    "alpha_30d": -1.47,
+    "alpha_sample_size_30d": 3,
     "win_rate_30d": 33.33,
     "avg_return_30d": 0.61,
     "median_return_30d": -1.23,
@@ -7398,6 +8330,8 @@
     "worst_return_30d": -6.74,
     "sharpe_30d": 0.07,
     "sample_size_30d": 3,
+    "alpha_90d": -20.89,
+    "alpha_sample_size_90d": 2,
     "win_rate_90d": 0.0,
     "avg_return_90d": -15.98,
     "median_return_90d": -15.98,
@@ -7412,10 +8346,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": -15.98,
     "recent_trade_count": 3,
-    "overall_score": 5.02,
-    "score_percentile": 8.7
+    "overall_score": 3.01,
+    "score_percentile": 8.3
   },
   "Hart Spencer": {
     "name": "Hart Spencer",
@@ -7426,6 +8362,8 @@
     "tickers": [
       "LOOP"
     ],
+    "alpha_30d": -5.9,
+    "alpha_sample_size_30d": 3,
     "win_rate_30d": 66.67,
     "avg_return_30d": -4.06,
     "median_return_30d": 1.2,
@@ -7433,6 +8371,8 @@
     "worst_return_30d": -22.73,
     "sharpe_30d": -0.24,
     "sample_size_30d": 3,
+    "alpha_90d": -0.44,
+    "alpha_sample_size_90d": 2,
     "win_rate_90d": 50.0,
     "avg_return_90d": 6.89,
     "median_return_90d": 6.89,
@@ -7447,9 +8387,11 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 6.89,
     "recent_trade_count": 3,
-    "overall_score": 61.86,
+    "overall_score": 57.09,
     "score_percentile": 59.6
   },
   "Kothandaraman Badrinarayanan": {
@@ -7461,6 +8403,8 @@
     "tickers": [
       "ENPH"
     ],
+    "alpha_30d": 8.32,
+    "alpha_sample_size_30d": 3,
     "win_rate_30d": 66.67,
     "avg_return_30d": 9.3,
     "median_return_30d": 6.84,
@@ -7468,6 +8412,8 @@
     "worst_return_30d": -7.6,
     "sharpe_30d": 0.51,
     "sample_size_30d": 3,
+    "alpha_90d": -12.88,
+    "alpha_sample_size_90d": 1,
     "win_rate_90d": 0.0,
     "avg_return_90d": -5.87,
     "median_return_90d": -5.87,
@@ -7482,10 +8428,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": -5.87,
     "recent_trade_count": 3,
-    "overall_score": 27.66,
-    "score_percentile": 27.1
+    "overall_score": 20.59,
+    "score_percentile": 24.3
   },
   "Bass Charlie": {
     "name": "Bass Charlie",
@@ -7496,6 +8444,8 @@
     "tickers": [
       "SCKT"
     ],
+    "alpha_30d": 5.27,
+    "alpha_sample_size_30d": 4,
     "win_rate_30d": 75.0,
     "avg_return_30d": 7.05,
     "median_return_30d": 9.16,
@@ -7510,6 +8460,8 @@
     "worst_return_90d": null,
     "sharpe_90d": null,
     "sample_size_90d": 0,
+    "alpha_90d": null,
+    "alpha_sample_size_90d": 0,
     "win_rate_180d": null,
     "avg_return_180d": null,
     "median_return_180d": null,
@@ -7517,10 +8469,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": null,
     "recent_trade_count": 0,
     "overall_score": 50,
-    "score_percentile": 47.7
+    "score_percentile": 53.2
   },
   "Moore William M": {
     "name": "Moore William M",
@@ -7531,6 +8485,8 @@
     "tickers": [
       "IRIX"
     ],
+    "alpha_30d": 2.6,
+    "alpha_sample_size_30d": 3,
     "win_rate_30d": 100.0,
     "avg_return_30d": 5.51,
     "median_return_30d": 5.15,
@@ -7538,6 +8494,8 @@
     "worst_return_30d": 2.06,
     "sharpe_30d": 1.51,
     "sample_size_30d": 3,
+    "alpha_90d": 3.33,
+    "alpha_sample_size_90d": 2,
     "win_rate_90d": 50.0,
     "avg_return_90d": 10.45,
     "median_return_90d": 10.45,
@@ -7545,6 +8503,8 @@
     "worst_return_90d": -20.34,
     "sharpe_90d": 0.24,
     "sample_size_90d": 2,
+    "alpha_180d": -18.92,
+    "alpha_sample_size_180d": 1,
     "win_rate_180d": 0.0,
     "avg_return_180d": -3.09,
     "median_return_180d": -3.09,
@@ -7554,8 +8514,8 @@
     "sample_size_180d": 1,
     "recent_avg_return_90d": 10.45,
     "recent_trade_count": 3,
-    "overall_score": 64.26,
-    "score_percentile": 60.6
+    "overall_score": 62.62,
+    "score_percentile": 61.9
   },
   "Seger Andrew M": {
     "name": "Seger Andrew M",
@@ -7566,6 +8526,8 @@
     "tickers": [
       "GABC"
     ],
+    "alpha_30d": -0.79,
+    "alpha_sample_size_30d": 3,
     "win_rate_30d": 66.67,
     "avg_return_30d": 1.18,
     "median_return_30d": 2.19,
@@ -7573,6 +8535,8 @@
     "worst_return_30d": -5.42,
     "sharpe_30d": 0.19,
     "sample_size_30d": 3,
+    "alpha_90d": -5.31,
+    "alpha_sample_size_90d": 1,
     "win_rate_90d": 0.0,
     "avg_return_90d": -0.58,
     "median_return_90d": -0.58,
@@ -7587,10 +8551,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": -0.58,
     "recent_trade_count": 3,
-    "overall_score": 34.28,
-    "score_percentile": 31.2
+    "overall_score": 33.38,
+    "score_percentile": 31.7
   },
   "Akkaraju Srinivas": {
     "name": "Akkaraju Srinivas",
@@ -7603,6 +8569,8 @@
       "SRRK",
       "MLYS"
     ],
+    "alpha_30d": 21.07,
+    "alpha_sample_size_30d": 3,
     "win_rate_30d": 66.67,
     "avg_return_30d": 23.65,
     "median_return_30d": 45.3,
@@ -7610,6 +8578,8 @@
     "worst_return_30d": -23.42,
     "sharpe_30d": 0.58,
     "sample_size_30d": 3,
+    "alpha_90d": 48.08,
+    "alpha_sample_size_90d": 1,
     "win_rate_90d": 100.0,
     "avg_return_90d": 53.73,
     "median_return_90d": 53.73,
@@ -7624,10 +8594,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 53.73,
     "recent_trade_count": 3,
-    "overall_score": 90.0,
-    "score_percentile": 87.6
+    "overall_score": 92.5,
+    "score_percentile": 88.5
   },
   "Equinox Partners Investment Management Llc": {
     "name": "Equinox Partners Investment Management Llc",
@@ -7638,6 +8610,8 @@
     "tickers": [
       "GTE"
     ],
+    "alpha_30d": 0.17,
+    "alpha_sample_size_30d": 3,
     "win_rate_30d": 33.33,
     "avg_return_30d": 2.65,
     "median_return_30d": -4.82,
@@ -7652,6 +8626,8 @@
     "worst_return_90d": null,
     "sharpe_90d": null,
     "sample_size_90d": 0,
+    "alpha_90d": null,
+    "alpha_sample_size_90d": 0,
     "win_rate_180d": null,
     "avg_return_180d": null,
     "median_return_180d": null,
@@ -7659,10 +8635,12 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": null,
     "recent_trade_count": 0,
     "overall_score": 50,
-    "score_percentile": 47.7
+    "score_percentile": 53.2
   },
   "Williams Mark": {
     "name": "Williams Mark",
@@ -7673,6 +8651,8 @@
     "tickers": [
       "EONR"
     ],
+    "alpha_30d": 0.58,
+    "alpha_sample_size_30d": 3,
     "win_rate_30d": 33.33,
     "avg_return_30d": 2.4,
     "median_return_30d": -10.0,
@@ -7680,6 +8660,8 @@
     "worst_return_30d": -11.47,
     "sharpe_30d": 0.11,
     "sample_size_30d": 3,
+    "alpha_90d": 24.05,
+    "alpha_sample_size_90d": 1,
     "win_rate_90d": 100.0,
     "avg_return_90d": 31.76,
     "median_return_90d": 31.76,
@@ -7694,9 +8676,11 @@
     "worst_return_180d": null,
     "sharpe_180d": null,
     "sample_size_180d": 0,
+    "alpha_180d": null,
+    "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 31.76,
     "recent_trade_count": 3,
-    "overall_score": 90.0,
-    "score_percentile": 87.6
+    "overall_score": 92.5,
+    "score_percentile": 88.5
   }
 }
