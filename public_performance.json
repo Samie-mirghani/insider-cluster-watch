@@ -1,24 +1,24 @@
 {
-  "last_updated": "January 05, 2026 at 13:05 UTC",
-  "total_return_pct": 8.36,
-  "win_rate": 68.8,
-  "completed_trades": 16,
-  "active_trades": 4,
-  "avg_return_per_trade": 7.94,
-  "sharpe_ratio": 8.32,
+  "last_updated": "January 06, 2026 at 11:31 UTC",
+  "total_return_pct": 8.7,
+  "win_rate": 70.6,
+  "completed_trades": 17,
+  "active_trades": 3,
+  "avg_return_per_trade": 8.16,
+  "sharpe_ratio": 8.79,
   "max_drawdown": -9.11,
   "avg_hold_days": 12,
   "best_trade_pct": 59.64,
   "worst_trade_pct": -5.75,
-  "alpha_vs_sp500": 8.13,
-  "avg_winner": 13.06,
+  "alpha_vs_sp500": 7.8,
+  "avg_winner": 12.93,
   "avg_loser": -3.31,
-  "win_loss_ratio": 3.95,
-  "profit_factor": 8.68,
-  "last_30_days_return": 127.11,
-  "last_10_trades_win_rate": 70.0,
+  "win_loss_ratio": 3.91,
+  "profit_factor": 9.38,
+  "last_30_days_return": 138.64,
+  "last_10_trades_win_rate": 80.0,
   "current_streak": 1,
-  "current_streak_type": "losses",
+  "current_streak_type": "wins",
   "conviction_performance": [
     {
       "conviction": "VERY HIGH",
@@ -37,15 +37,34 @@
       "trades": 3,
       "win_rate": 66.7,
       "avg_return": 1.8
+    },
+    {
+      "conviction": "LOW",
+      "trades": 1,
+      "win_rate": 100.0,
+      "avg_return": 11.53
     }
   ],
   "monthly_returns": [
     {
       "month": "2025-12",
       "return": 127.11
+    },
+    {
+      "month": "2026-01",
+      "return": 11.53
     }
   ],
   "recent_trades": [
+    {
+      "ticker": "ACVA",
+      "entry_date": "Dec 18, 2025",
+      "exit_date": "Jan 06, 2026",
+      "hold_days": 18,
+      "return_pct": 11.53,
+      "conviction": "LOW",
+      "exit_reason": "Take Profit"
+    },
     {
       "ticker": "SMRT",
       "entry_date": "Dec 17, 2025",
@@ -195,37 +214,30 @@
     {
       "ticker": "HYNE",
       "entry_date": "Dec 08, 2025",
-      "days_held": 27,
-      "unrealized_return": 2.83,
+      "days_held": 28,
+      "unrealized_return": 4.78,
       "conviction": "VERY HIGH"
     },
     {
       "ticker": "AMR",
       "entry_date": "Dec 18, 2025",
       "days_held": 18,
-      "unrealized_return": 2.43,
+      "unrealized_return": 1.8,
       "conviction": "MEDIUM"
-    },
-    {
-      "ticker": "ACVA",
-      "entry_date": "Dec 18, 2025",
-      "days_held": 18,
-      "unrealized_return": 7.38,
-      "conviction": "LOW"
     },
     {
       "ticker": "XZO",
       "entry_date": "Dec 23, 2025",
-      "days_held": 13,
-      "unrealized_return": 3.31,
+      "days_held": 14,
+      "unrealized_return": 3.54,
       "conviction": "HIGH"
     }
   ],
   "portfolio_composition": {
     "starting_capital": 10000,
-    "current_value": 10835.58,
-    "cash": 8361.27,
-    "invested_capital": 2474.31,
-    "capital_deployed_pct": 22.84
+    "current_value": 10870.38,
+    "cash": 9050.07,
+    "invested_capital": 1820.3,
+    "capital_deployed_pct": 16.75
   }
 }

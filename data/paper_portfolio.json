@@ -1,6 +1,6 @@
 {
   "starting_capital": 10000,
-  "cash": 8361.275,
+  "cash": 9050.074999999999,
   "positions": {
     "HYNE": {
       "entry_date": "2025-12-08T14:17:55.742314",
@@ -10,8 +10,8 @@
       "initial_stop_loss": 13.11,
       "stop_loss": 13.11,
       "take_profit": 14.904000000000002,
-      "highest_price": 14.19,
-      "trailing_enabled": false,
+      "highest_price": 14.46,
+      "trailing_enabled": true,
       "signal_score": 24.345809157851214,
       "sector": NaN,
       "multi_signal_tier": "none",
@@ -46,28 +46,6 @@
         }
       ]
     },
-    "ACVA": {
-      "entry_date": "2025-12-18T11:43:57.924459",
-      "entry_price": 7.72,
-      "shares": 80,
-      "cost_basis": 617.6,
-      "initial_stop_loss": 7.334,
-      "stop_loss": 7.875499999999999,
-      "take_profit": 8.3376,
-      "highest_price": 8.29,
-      "trailing_enabled": true,
-      "signal_score": 6.95861176132786,
-      "sector": null,
-      "multi_signal_tier": "none",
-      "has_politician_signal": false,
-      "tranches": [
-        {
-          "shares": 80,
-          "price": 7.72,
-          "date": "2025-12-18T11:43:57.924464"
-        }
-      ]
-    },
     "XZO": {
       "entry_date": "2025-12-23T11:29:03.436861",
       "entry_price": 22.03,
@@ -93,10 +71,10 @@
   },
   "pending_entries": {},
   "total_trades": 34,
-  "winning_trades": 17,
+  "winning_trades": 18,
   "losing_trades": 13,
-  "total_profit": 739.8050000000006,
+  "total_profit": 811.0050000000006,
   "max_portfolio_value": 11790.185000000001,
   "max_drawdown": -9.109194484777545,
-  "last_updated": "2026-01-05T13:02:17.242426"
+  "last_updated": "2026-01-06T11:28:33.203636"
 }
