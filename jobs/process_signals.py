@@ -28,6 +28,137 @@ from ticker_validator import get_failed_ticker_cache
 logging.getLogger('yfinance').setLevel(logging.WARNING)
 logger = logging.getLogger(__name__)
 
+# ============================================================================
+# SIGNAL DETECTION ENHANCEMENT CONFIGURATION
+# ============================================================================
+# These thresholds control quality filters and can be tuned for different
+# market conditions. Holiday mode automatically reduces these by 20%.
+
+# Fix 1: Mega-Cluster Exception - Bypass volume filter for rare high-conviction clusters
+MEGA_CLUSTER_MIN_INSIDERS = 3              # Minimum insiders for mega-cluster
+MEGA_CLUSTER_MIN_TOTAL_VALUE = 1_000_000   # Minimum total $ for mega-cluster
+MEGA_CLUSTER_MIN_AVG_PER_INSIDER = 300_000 # Minimum average per insider (conviction check)
+
+# Fix 2: Dynamic $50k Threshold - Scale minimum purchase based on cluster size
+DYNAMIC_THRESHOLD_BASE = 50_000            # Base threshold for small clusters (1-3 insiders)
+DYNAMIC_THRESHOLD_MEDIUM = 40_000          # For medium clusters (4-6 insiders)
+DYNAMIC_THRESHOLD_LARGE = 30_000           # For large clusters (7+ insiders)
+DYNAMIC_THRESHOLD_MEDIUM_MIN_TOTAL = 150_000   # Minimum total for medium threshold
+DYNAMIC_THRESHOLD_LARGE_MIN_TOTAL = 200_000    # Minimum total for large threshold
+
+# Fix 3: Holiday Mode - Reduce thresholds during slow trading periods
+HOLIDAY_THRESHOLD_REDUCTION = 0.20         # 20% reduction during holidays
+
+# Holiday periods (month, day tuples)
+HOLIDAY_PERIODS = [
+    {'start': (12, 20), 'end': (1, 5), 'name': 'Year-End Holidays'},
+    {'start': (11, 20), 'end': (11, 30), 'name': 'Thanksgiving Week'},
+    {'start': (7, 1), 'end': (8, 15), 'name': 'Summer Slowdown'},
+    {'start': (4, 1), 'end': (4, 20), 'name': 'Tax Season'},
+]
+
+# Quality filter thresholds (used in apply_quality_filters)
+MIN_STOCK_PRICE = 2.0                      # No penny stocks
+MIN_AVERAGE_VOLUME = 100_000               # Liquidity requirement (shares/day)
+MAX_RECENT_DRAWDOWN = -0.40                # Don't buy falling knives (40% drop)
+
+# ============================================================================
+
+def is_holiday_period(check_date=None):
+    """
+    Check if the given date falls within any defined holiday period.
+
+    Args:
+        check_date: datetime object to check (defaults to today)
+
+    Returns:
+        tuple: (is_holiday, holiday_name, days_into_period)
+    """
+    if check_date is None:
+        check_date = datetime.now()
+
+    month = check_date.month
+    day = check_date.day
+
+    for period in HOLIDAY_PERIODS:
+        start_month, start_day = period['start']
+        end_month, end_day = period['end']
+
+        # Handle year-boundary periods (e.g., Dec 20 - Jan 5)
+        if start_month > end_month:
+            # Period crosses year boundary
+            if (month == start_month and day >= start_day) or \
+               (month == end_month and day <= end_day) or \
+               (month > start_month or month < end_month):
+                # Calculate days into period
+                if month == start_month:
+                    days_into = day - start_day
+                elif month == end_month:
+                    # Days from start month + days in current month
+                    days_in_start_month = 31 if start_month == 12 else 30
+                    days_into = (days_in_start_month - start_day) + day
+                else:
+                    days_into = 0  # Middle of period
+
+                return (True, period['name'], max(0, days_into))
+        else:
+            # Normal period within same year
+            if month == start_month and month == end_month:
+                if start_day <= day <= end_day:
+                    return (True, period['name'], day - start_day)
+            elif month == start_month and day >= start_day:
+                return (True, period['name'], day - start_day)
+            elif month == end_month and day <= end_day:
+                return (True, period['name'], day - start_day)
+            elif start_month < month < end_month:
+                return (True, period['name'], 0)
+
+    return (False, None, 0)
+
+def apply_holiday_adjustment(value, reduction=HOLIDAY_THRESHOLD_REDUCTION):
+    """
+    Apply holiday mode reduction to a threshold value.
+
+    Args:
+        value: Original threshold value
+        reduction: Reduction percentage (default 20%)
+
+    Returns:
+        Adjusted value (reduced by specified percentage)
+    """
+    return value * (1 - reduction)
+
+def get_dynamic_min_per_insider(cluster_count, total_value, apply_holiday=True):
+    """
+    Calculate dynamic minimum per-insider threshold based on cluster size.
+
+    Fix 2: Larger clusters (more insiders) get lower per-insider requirements,
+    but must meet minimum total value thresholds for conviction.
+
+    Args:
+        cluster_count: Number of insiders in cluster
+        total_value: Total $ value of cluster
+        apply_holiday: Whether to apply holiday mode reduction
+
+    Returns:
+        Minimum per-insider threshold
+    """
+    # Base thresholds
+    if cluster_count >= 7 and total_value >= DYNAMIC_THRESHOLD_LARGE_MIN_TOTAL:
+        threshold = DYNAMIC_THRESHOLD_LARGE
+    elif cluster_count >= 4 and total_value >= DYNAMIC_THRESHOLD_MEDIUM_MIN_TOTAL:
+        threshold = DYNAMIC_THRESHOLD_MEDIUM
+    else:
+        threshold = DYNAMIC_THRESHOLD_BASE
+
+    # Apply holiday mode if active
+    if apply_holiday:
+        is_holiday, holiday_name, days_into = is_holiday_period()
+        if is_holiday:
+            threshold = apply_holiday_adjustment(threshold)
+
+    return threshold
+
 ROLE_WEIGHT = {
     'CEO': 3.0,
     'CFO': 2.5,
@@ -825,51 +956,164 @@ def enrich_with_market_data(cluster_df):
 
 def apply_quality_filters(cluster_df):
     """
-    NEW FEATURE: Enhanced quality filters to remove low-quality signals
-    
+    ENHANCED: Quality filters with dynamic thresholds and mega-cluster exceptions
+
     Filters applied:
     1. Minimum price ($2.00) - no penny stocks
-    2. Minimum purchase per insider ($50k)
-    3. Liquidity requirement (100k+ avg volume)
+    2. DYNAMIC minimum purchase per insider (scales with cluster size)
+    3. Liquidity requirement (100k+ avg volume) - BYPASSED for mega-clusters
     4. Maximum recent drawdown (<40% drop in 30 days)
+
+    NEW FEATURES:
+    - Fix 1: Mega-cluster exception bypasses volume filter
+    - Fix 2: Dynamic per-insider thresholds (lower for larger clusters)
+    - Fix 3: Holiday mode automatically reduces all thresholds by 20%
     """
     if cluster_df.empty:
         return cluster_df
-    
+
     original_count = len(cluster_df)
     filtered = cluster_df.copy()
-    
+
+    # Check for holiday mode
+    is_holiday, holiday_name, days_into = is_holiday_period()
+    if is_holiday:
+        print(f"\n🎄 HOLIDAY MODE ACTIVE - {holiday_name} (Day {days_into + 1})")
+        print(f"   All thresholds reduced by {int(HOLIDAY_THRESHOLD_REDUCTION * 100)}% to catch strategic holiday buys")
+
     print(f"\n🔍 Applying quality filters to {original_count} signals...")
-    
-    # Filter 1: No penny stocks (price > $2.00)
+
+    # Get adjusted thresholds for holiday mode
+    min_price = apply_holiday_adjustment(MIN_STOCK_PRICE) if is_holiday else MIN_STOCK_PRICE
+    min_volume = apply_holiday_adjustment(MIN_AVERAGE_VOLUME) if is_holiday else MIN_AVERAGE_VOLUME
+
+    # Filter 1: No penny stocks (price > $2.00, or $1.60 in holiday mode)
     before = len(filtered)
     filtered = filtered[
-        (filtered['currentPrice'].isna()) | 
-        (filtered['currentPrice'] > 2.0)
+        (filtered['currentPrice'].isna()) |
+        (filtered['currentPrice'] > min_price)
     ]
     removed = before - len(filtered)
     if removed > 0:
-        print(f"   ❌ Removed {removed} penny stocks (price < $2.00)")
-    
-    # Filter 2: Minimum purchase per insider ($50k)
+        threshold_display = f"${min_price:.2f}"
+        print(f"   ❌ Removed {removed} penny stocks (price < {threshold_display})")
+
+    # Filter 2: DYNAMIC minimum purchase per insider
+    # Fix 2: Scale threshold based on cluster size and total value
     before = len(filtered)
     filtered['avg_purchase_per_insider'] = (
         filtered['total_value'] / filtered['cluster_count']
     )
-    filtered = filtered[filtered['avg_purchase_per_insider'] >= 50000]
+
+    # Apply dynamic threshold with detailed logging
+    def meets_dynamic_threshold(row):
+        cluster_count = row['cluster_count']
+        total_value = row['total_value']
+        avg_per_insider = row['avg_purchase_per_insider']
+
+        # Get dynamic threshold for this cluster
+        threshold = get_dynamic_min_per_insider(cluster_count, total_value, apply_holiday=is_holiday)
+
+        return avg_per_insider >= threshold
+
+    # Track which signals use dynamic thresholds
+    dynamic_threshold_applied = []
+    for idx, row in filtered.iterrows():
+        threshold = get_dynamic_min_per_insider(
+            row['cluster_count'],
+            row['total_value'],
+            apply_holiday=is_holiday
+        )
+        if threshold != DYNAMIC_THRESHOLD_BASE:
+            dynamic_threshold_applied.append({
+                'ticker': row['ticker'],
+                'cluster_count': row['cluster_count'],
+                'threshold': threshold,
+                'avg_per_insider': row['avg_purchase_per_insider']
+            })
+
+    filtered = filtered[filtered.apply(meets_dynamic_threshold, axis=1)]
     removed = before - len(filtered)
+
     if removed > 0:
-        print(f"   ❌ Removed {removed} signals (avg purchase < $50k per insider)")
-    
+        base_threshold = get_dynamic_min_per_insider(1, 0, apply_holiday=is_holiday)
+        print(f"   ❌ Removed {removed} signals (below dynamic per-insider threshold)")
+        if dynamic_threshold_applied:
+            print(f"   ℹ️  Applied dynamic thresholds to {len(dynamic_threshold_applied)} signals")
+            for dt in dynamic_threshold_applied[:3]:  # Show first 3 examples
+                print(f"      • {dt['ticker']}: {dt['cluster_count']} insiders, ${dt['threshold']:,.0f} threshold (${dt['avg_per_insider']:,.0f} avg)")
+
     # Filter 3: Liquidity check (avg volume > 100k shares/day)
+    # Fix 1: MEGA-CLUSTER EXCEPTION - Bypass for rare high-conviction clusters
     before = len(filtered)
-    filtered = filtered[
-        (filtered['averageVolume'].isna()) | 
-        (filtered['averageVolume'] > 100000)
-    ]
+
+    # Apply mega-cluster exception
+    def passes_volume_filter(row):
+        # Check if NaN (missing data - don't filter)
+        if pd.isna(row.get('averageVolume')):
+            return True
+
+        volume = row.get('averageVolume', 0)
+        cluster_count = row.get('cluster_count', 0)
+        total_value = row.get('total_value', 0)
+        avg_per_insider = row.get('avg_purchase_per_insider', 0)
+
+        # Apply holiday adjustment to mega-cluster thresholds
+        mega_cluster_min_insiders = MEGA_CLUSTER_MIN_INSIDERS  # No adjustment (count)
+        mega_cluster_min_total = apply_holiday_adjustment(MEGA_CLUSTER_MIN_TOTAL_VALUE) if is_holiday else MEGA_CLUSTER_MIN_TOTAL_VALUE
+        mega_cluster_min_avg = apply_holiday_adjustment(MEGA_CLUSTER_MIN_AVG_PER_INSIDER) if is_holiday else MEGA_CLUSTER_MIN_AVG_PER_INSIDER
+
+        # MEGA-CLUSTER EXCEPTION: Bypass volume filter for high-conviction rare clusters
+        is_mega_cluster = (
+            cluster_count >= mega_cluster_min_insiders and
+            total_value >= mega_cluster_min_total and
+            avg_per_insider >= mega_cluster_min_avg
+        )
+
+        if is_mega_cluster:
+            return True  # Bypass volume filter
+
+        # Standard volume filter
+        return volume > min_volume
+
+    # Track mega-cluster exceptions
+    mega_cluster_exceptions = []
+    for idx, row in filtered.iterrows():
+        if pd.notna(row.get('averageVolume')) and row.get('averageVolume', 0) <= min_volume:
+            # Would normally be filtered, check if mega-cluster
+            cluster_count = row.get('cluster_count', 0)
+            total_value = row.get('total_value', 0)
+            avg_per_insider = row.get('avg_purchase_per_insider', 0)
+
+            mega_cluster_min_total = apply_holiday_adjustment(MEGA_CLUSTER_MIN_TOTAL_VALUE) if is_holiday else MEGA_CLUSTER_MIN_TOTAL_VALUE
+            mega_cluster_min_avg = apply_holiday_adjustment(MEGA_CLUSTER_MIN_AVG_PER_INSIDER) if is_holiday else MEGA_CLUSTER_MIN_AVG_PER_INSIDER
+
+            is_mega = (
+                cluster_count >= MEGA_CLUSTER_MIN_INSIDERS and
+                total_value >= mega_cluster_min_total and
+                avg_per_insider >= mega_cluster_min_avg
+            )
+
+            if is_mega:
+                mega_cluster_exceptions.append({
+                    'ticker': row['ticker'],
+                    'cluster_count': cluster_count,
+                    'total_value': total_value,
+                    'avg_per_insider': avg_per_insider,
+                    'volume': row.get('averageVolume', 0)
+                })
+
+    filtered = filtered[filtered.apply(passes_volume_filter, axis=1)]
     removed = before - len(filtered)
+
+    if mega_cluster_exceptions:
+        print(f"   🚀 MEGA-CLUSTER EXCEPTION: {len(mega_cluster_exceptions)} signals bypassed volume filter")
+        for mc in mega_cluster_exceptions:
+            print(f"      • {mc['ticker']}: {mc['cluster_count']} insiders × ${mc['avg_per_insider']:,.0f} = ${mc['total_value']:,.0f} total (volume: {mc['volume']:,.0f})")
+
     if removed > 0:
-        print(f"   ❌ Removed {removed} illiquid stocks (volume < 100k)")
+        volume_display = f"{min_volume:,.0f}"
+        print(f"   ❌ Removed {removed} illiquid stocks (volume < {volume_display})")
     
     # Filter 4: Not down >40% in last 30 days (avoid falling knives)
     before = len(filtered)
