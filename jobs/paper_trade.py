@@ -911,6 +911,19 @@ class PaperTradingPortfolio:
         # Get portfolio value with detailed breakdown for validation
         current_portfolio_value = self.get_portfolio_value(verbose=True)
 
+        # CRITICAL VALIDATION: Verify portfolio state is consistent
+        # This catches bugs where cash/position count don't match expectations
+        logger.info(f"🔍 POST-CLOSE VALIDATION:")
+        logger.info(f"   Position '{ticker}' removed from portfolio: {ticker not in self.positions}")
+        logger.info(f"   Cash balance: ${self.cash:,.2f}")
+        logger.info(f"   Open position count: {len(self.positions)}")
+        logger.info(f"   Portfolio value: ${current_portfolio_value:,.2f}")
+
+        # Store these values for later comparison
+        expected_cash = self.cash
+        expected_position_count = len(self.positions)
+        expected_portfolio_value = current_portfolio_value
+
         logger.info(f"{'='*60}\n")
 
         # Log trade in NEW format expected by generate_public_performance.py
@@ -930,16 +943,71 @@ class PaperTradingPortfolio:
             'hold_days': days_held,                  # Renamed from 'days_held' to match expected format
             'signal_score': pos.get('signal_score', 0),
             'cash_remaining': self.cash,
-            'portfolio_value': self.get_portfolio_value()  # Now CORRECT - no double counting
+            'portfolio_value': self.get_portfolio_value(),  # Now CORRECT - no double counting
+            # Store expected values for validation
+            '_expected_cash': expected_cash,
+            '_expected_positions': expected_position_count,
+            '_expected_portfolio_value': expected_portfolio_value
         })
     
-    def get_performance_summary(self):
-        """Get comprehensive portfolio performance statistics"""
+    def get_performance_summary(self, validate=True):
+        """
+        Get comprehensive portfolio performance statistics
+
+        Args:
+            validate: If True, perform internal consistency checks and log warnings
+
+        Returns:
+            dict: Performance statistics including current_value, cash, positions, etc.
+        """
+        # CRITICAL: Always recalculate portfolio value fresh
         current_value = self.get_portfolio_value()
         total_return = current_value - self.starting_capital
         total_return_pct = (total_return / self.starting_capital) * 100
-        
+
         win_rate = (self.winning_trades / self.total_trades * 100) if self.total_trades > 0 else 0
+
+        # VALIDATION: Check for consistency issues
+        if validate:
+            # Verify that portfolio value matches cash + positions
+            positions_value = sum(
+                p['shares'] * self._get_current_price(t, p['entry_price'])
+                for t, p in self.positions.items()
+            )
+            calculated_value = self.cash + positions_value
+
+            # Allow for small floating point differences (< $0.10)
+            value_diff = abs(current_value - calculated_value)
+            if value_diff > 0.10:
+                logger.warning(f"⚠️  PORTFOLIO VALUE MISMATCH!")
+                logger.warning(f"   get_portfolio_value() returned: ${current_value:,.2f}")
+                logger.warning(f"   Cash + Positions = ${calculated_value:,.2f}")
+                logger.warning(f"   Difference: ${value_diff:,.2f}")
+                logger.warning(f"   Cash: ${self.cash:,.2f}")
+                logger.warning(f"   Positions value: ${positions_value:,.2f}")
+                logger.warning(f"   Position count: {len(self.positions)}")
+
+            # Check if we have recent trade history with expected values
+            if self.trade_history:
+                recent_sells = [t for t in self.trade_history if t.get('action') == 'SELL']
+                if recent_sells:
+                    last_sell = recent_sells[-1]
+                    if '_expected_cash' in last_sell:
+                        expected_cash = last_sell['_expected_cash']
+                        expected_positions = last_sell['_expected_positions']
+
+                        # Check if current state matches what was expected after last close
+                        if abs(self.cash - expected_cash) > 0.01:
+                            logger.warning(f"⚠️  CASH DISCREPANCY DETECTED!")
+                            logger.warning(f"   Expected cash after last close: ${expected_cash:,.2f}")
+                            logger.warning(f"   Current cash: ${self.cash:,.2f}")
+                            logger.warning(f"   Difference: ${self.cash - expected_cash:,.2f}")
+
+                        if len(self.positions) != expected_positions:
+                            logger.warning(f"⚠️  POSITION COUNT DISCREPANCY DETECTED!")
+                            logger.warning(f"   Expected positions after last close: {expected_positions}")
+                            logger.warning(f"   Current positions: {len(self.positions)}")
+                            logger.warning(f"   Difference: {len(self.positions) - expected_positions}")
         
         # Calculate average win and loss
         trades_df = pd.DataFrame(self.trade_history)
@@ -964,12 +1032,13 @@ class PaperTradingPortfolio:
         
         # Calculate exposure
         total_exposure = sum(
-            p['shares'] * self._get_current_price(t, p['entry_price']) 
+            p['shares'] * self._get_current_price(t, p['entry_price'])
             for t, p in self.positions.items()
         )
         exposure_pct = (total_exposure / current_value * 100) if current_value > 0 else 0
-        
-        return {
+
+        # Build stats dictionary
+        stats = {
             'starting_capital': self.starting_capital,
             'current_value': current_value,
             'cash': self.cash,
@@ -991,9 +1060,24 @@ class PaperTradingPortfolio:
             'exposure_pct': exposure_pct,
             'realized_pnl': self.total_profit
         }
+
+        # ENHANCED LOGGING: Log summary generation for debugging
+        if validate:
+            logger.debug(f"📊 get_performance_summary() returning:")
+            logger.debug(f"   Portfolio Value: ${stats['current_value']:,.2f}")
+            logger.debug(f"   Cash: ${stats['cash']:,.2f}")
+            logger.debug(f"   Open Positions: {stats['open_positions']}")
+            logger.debug(f"   Source: self.cash=${self.cash:,.2f}, len(self.positions)={len(self.positions)}")
+
+        return stats
     
     def save(self):
-        """Save portfolio state to disk"""
+        """Save portfolio state to disk with validation"""
+        # Store pre-save state for validation
+        pre_save_cash = self.cash
+        pre_save_position_count = len(self.positions)
+        pre_save_position_tickers = list(self.positions.keys())
+
         data = {
             'starting_capital': self.starting_capital,
             'cash': self.cash,
@@ -1002,7 +1086,7 @@ class PaperTradingPortfolio:
                     **pos,
                     'entry_date': pos['entry_date'].isoformat(),
                     'tranches': [
-                        {**t, 'date': t['date'].isoformat()} 
+                        {**t, 'date': t['date'].isoformat()}
                         for t in pos.get('tranches', [])
                     ]
                 }
@@ -1023,16 +1107,27 @@ class PaperTradingPortfolio:
             'max_drawdown': self.max_drawdown,
             'last_updated': datetime.now().isoformat()
         }
-        
+
         with open(PAPER_PORTFOLIO_FILE, 'w') as f:
             json.dump(data, f, indent=2)
-        
+
         # Save trade history
         if self.trade_history:
             trades_df = pd.DataFrame(self.trade_history)
             trades_df.to_csv(PAPER_TRADES_CSV, index=False)
-        
+
+        # VALIDATION: Log what was saved for debugging
         logger.info(f"💾 Portfolio saved to disk")
+        logger.debug(f"   Saved cash: ${pre_save_cash:,.2f}")
+        logger.debug(f"   Saved positions: {pre_save_position_count} ({', '.join(pre_save_position_tickers) if pre_save_position_tickers else 'none'})")
+
+        # CRITICAL VALIDATION: Verify in-memory state didn't change during save
+        if self.cash != pre_save_cash:
+            logger.error(f"🚨 CRITICAL: Cash changed during save! Before: ${pre_save_cash:,.2f}, After: ${self.cash:,.2f}")
+        if len(self.positions) != pre_save_position_count:
+            logger.error(f"🚨 CRITICAL: Position count changed during save! Before: {pre_save_position_count}, After: {len(self.positions)}")
+        if list(self.positions.keys()) != pre_save_position_tickers:
+            logger.error(f"🚨 CRITICAL: Position tickers changed during save!")
     
     @classmethod
     def load(cls):
@@ -1072,12 +1167,17 @@ class PaperTradingPortfolio:
             # Load trade history
             if os.path.exists(PAPER_TRADES_CSV):
                 portfolio.trade_history = pd.read_csv(PAPER_TRADES_CSV).to_dict('records')
-            
+
             logger.info(f"📂 Portfolio loaded from disk")
-            logger.info(f"   Positions: {len(portfolio.positions)}")
+            logger.info(f"   Cash: ${portfolio.cash:,.2f}")
+            logger.info(f"   Positions: {len(portfolio.positions)} ({', '.join(portfolio.positions.keys()) if portfolio.positions else 'none'})")
             logger.info(f"   Pending Entries: {len(portfolio.pending_entries)}")
             logger.info(f"   Total Trades: {portfolio.total_trades}")
-            
+
+            # VALIDATION: Calculate and log portfolio value after load
+            loaded_value = portfolio.get_portfolio_value()
+            logger.debug(f"   Portfolio Value after load: ${loaded_value:,.2f}")
+
             return portfolio
         
         except Exception as e:
