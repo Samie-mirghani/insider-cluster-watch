@@ -90,6 +90,36 @@ Enhances insider signals by checking for confirmation from other data sources:
   - **Tier 4** (watch list): 25% positions, 6% stops
 - **Email Badges:** Shows 🔥 TIER 1, ⚡ TIER 2, and 🏛️ POLITICIAN indicators in reports
 
+### 11. Intelligent Signal Detection Enhancements
+Advanced filtering system that catches high-quality trades while maintaining signal standards:
+
+#### 🚀 Mega-Cluster Exception
+Bypasses volume filters for rare, high-conviction clusters that would otherwise be missed:
+- **Criteria:** 3+ insiders AND $1M+ total AND $300k+ per insider
+- **Example:** FGBI (3 directors × $626k = $1.9M) with low volume (15k/day) now passes
+- **Why:** Rare mega-clusters signal extreme conviction despite low liquidity
+- **Safeguards:** Must still pass price, market cap, and other quality filters
+
+#### 💰 Dynamic Per-Insider Thresholds
+Scales minimum purchase requirements based on cluster size:
+- **7+ insiders:** $30k per insider (requires $200k total)
+- **4-6 insiders:** $40k per insider (requires $150k total)
+- **1-3 insiders:** $50k per insider (baseline)
+- **Example:** 7 directors @ $35k each = $245k total now qualifies
+- **Why:** Large clusters with many smaller buys still demonstrate coordination
+- **Safeguards:** Requires minimum total value to ensure conviction
+
+#### 🎄 Holiday Mode (Seasonal Adjustments)
+Automatically reduces all thresholds by 20% during historically slow trading periods:
+- **Year-End:** Dec 20 - Jan 5 (strategic year-end positioning)
+- **Thanksgiving:** Nov 20 - Nov 30 (quiet pre-holiday week)
+- **Summer Slowdown:** Jul 1 - Aug 15 (vacation season)
+- **Tax Season:** Apr 1 - Apr 20 (distracted traders)
+- **Why:** Insiders often make strategic buys during low-volume periods
+- **Auto-detects:** No manual configuration needed - activates automatically
+
+**Configuration:** All thresholds are tunable in `jobs/process_signals.py` (lines 31-64)
+
 #### Politician Trade Tracking
 **API-based data extraction via PoliticianTradeTracker:**
 - **Source:** RapidAPI PoliticianTradeTracker (free tier: 100 calls/month)
@@ -248,6 +278,30 @@ Edit `jobs/process_signals.py` to adjust:
 cluster_df = cluster_and_score(df, window_days=5, top_n=50)
 # window_days: Days ±trade date to look for clustering (default: 5)
 # top_n: Max signals to include in daily report (default: 50)
+```
+
+**Signal detection enhancements (lines 31-64):**
+```python
+# Mega-Cluster Exception
+MEGA_CLUSTER_MIN_INSIDERS = 3              # Min insiders for exception
+MEGA_CLUSTER_MIN_TOTAL_VALUE = 1_000_000   # Min total $ (bypasses volume)
+MEGA_CLUSTER_MIN_AVG_PER_INSIDER = 300_000 # Min avg/insider (conviction)
+
+# Dynamic Thresholds
+DYNAMIC_THRESHOLD_BASE = 50_000            # 1-3 insiders
+DYNAMIC_THRESHOLD_MEDIUM = 40_000          # 4-6 insiders
+DYNAMIC_THRESHOLD_LARGE = 30_000           # 7+ insiders
+DYNAMIC_THRESHOLD_MEDIUM_MIN_TOTAL = 150_000   # Min for medium
+DYNAMIC_THRESHOLD_LARGE_MIN_TOTAL = 200_000    # Min for large
+
+# Holiday Mode
+HOLIDAY_THRESHOLD_REDUCTION = 0.20         # 20% reduction
+# Holiday periods defined in HOLIDAY_PERIODS (Dec 20-Jan 5, etc.)
+
+# Quality Filters
+MIN_STOCK_PRICE = 2.0                      # No penny stocks
+MIN_AVERAGE_VOLUME = 100_000               # Liquidity requirement
+MAX_RECENT_DRAWDOWN = -0.40                # Avoid falling knives
 ```
 
 **Urgent alert thresholds:**
@@ -768,8 +822,14 @@ Built with:
 
 ---
 
-**Last Updated:** November 2025
-**Version:** 2.0.0
+**Last Updated:** January 2026
+**Version:** 2.1.0
+
+**Recent Updates:**
+- ✅ Signal Detection Enhancements (Jan 2026)
+  - Mega-Cluster Exception for high-conviction trades
+  - Dynamic per-insider thresholds
+  - Holiday mode with seasonal adjustments
 
 ---
 

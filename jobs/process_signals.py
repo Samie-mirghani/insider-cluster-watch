@@ -1001,6 +1001,10 @@ def apply_quality_filters(cluster_df):
     # Filter 2: DYNAMIC minimum purchase per insider
     # Fix 2: Scale threshold based on cluster size and total value
     before = len(filtered)
+
+    # Safety check: Remove any clusters with invalid cluster_count
+    filtered = filtered[filtered['cluster_count'] > 0]
+
     filtered['avg_purchase_per_insider'] = (
         filtered['total_value'] / filtered['cluster_count']
     )
