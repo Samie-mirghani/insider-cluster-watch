@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Terms of Service for Insider Cluster Watch - Multi-signal trading detection platform.">
+    <title>Terms of Service - Insider Cluster Watch</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-main: #0b1120;
+            --bg-card: #151e32;
+            --bg-hover: #1e2943;
+            --primary: #38bdf8;
+            --secondary: #818cf8;
+            --success: #00e676;
+            --danger: #ff5252;
+            --warning: #fbbf24;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border: #334155;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg-main);
+            color: var(--text-main);
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            line-height: 1.8;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        .navbar {
+            border-bottom: 1px solid var(--border);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            background: rgba(11, 17, 32, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+        }
+
+        .navbar .container {
+            max-width: 1200px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--text-main);
+            text-decoration: none;
+        }
+
+        .nav-brand svg {
+            color: var(--primary);
+        }
+
+        .text-muted {
+            color: var(--text-muted);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Legal Content */
+        .legal-container {
+            max-width: 900px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        .legal-content h1 {
+            color: var(--primary);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 800;
+        }
+
+        .legal-content .last-updated {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 3rem;
+        }
+
+        .legal-content h2 {
+            color: var(--success);
+            font-size: 1.6rem;
+            margin-top: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .legal-content h3 {
+            color: var(--text-main);
+            font-size: 1.2rem;
+            margin-top: 2rem;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+        }
+
+        .legal-content p {
+            color: var(--text-main);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .legal-content ul, .legal-content ol {
+            color: var(--text-main);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            padding-left: 2rem;
+        }
+
+        .legal-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        .legal-content a {
+            color: var(--primary);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-bottom 0.3s;
+        }
+
+        .legal-content a:hover {
+            border-bottom: 1px solid var(--primary);
+        }
+
+        .legal-content strong {
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 60px 0 40px;
+            background: var(--bg-card);
+            margin-top: 80px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .footer-copyright {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .legal-content h1 {
+                font-size: 2rem;
+            }
+
+            .legal-content h2 {
+                font-size: 1.4rem;
+            }
+
+            .legal-container {
+                padding: 0 1rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="nav-brand">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                <span>INSIDER CLUSTER <span class="text-muted">WATCH</span></span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="dashboard-v2.html">Dashboard</a>
+                <a href="terms-of-service.html">Terms</a>
+                <a href="privacy-policy.html">Privacy</a>
+                <a href="disclaimer.html">Disclaimer</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="legal-container">
+        <div class="legal-content">
+            <h1>Terms of Service</h1>
+            <p class="last-updated">Last Updated: January 8, 2026</p>
+
+            <section>
+                <h2>1. Acceptance of Terms</h2>
+                <p>
+                    Welcome to Insider Cluster Watch ("Service", "Platform", "we", "us", or "our"). By accessing or using our website,
+                    dashboard, email alerts, or any other services we provide, you agree to be bound by these Terms of Service ("Terms").
+                    If you do not agree to all of these Terms, you may not access or use our Service.
+                </p>
+                <p>
+                    These Terms apply to all visitors, users, and others who access or use the Service. We reserve the right to update
+                    or modify these Terms at any time without prior notice. Your continued use of the Service after any changes
+                    constitutes acceptance of the new Terms.
+                </p>
+            </section>
+
+            <section>
+                <h2>2. Description of Service</h2>
+                <p>
+                    Insider Cluster Watch is an open-source research platform that aggregates and analyzes publicly available data from:
+                </p>
+                <ul>
+                    <li>SEC Form 4 filings (insider trading disclosures)</li>
+                    <li>SEC 13F filings (institutional holdings)</li>
+                    <li>Capitol Trades (politician trading disclosures)</li>
+                </ul>
+                <p>
+                    The Service provides data visualization, signal detection, paper trading simulations, and email alerts based on
+                    analysis of this publicly available information. All features are provided for <strong>informational and educational
+                    purposes only</strong>.
+                </p>
+            </section>
+
+            <section>
+                <h2>3. Important Disclaimer - NOT Financial Advice</h2>
+                <p>
+                    <strong>THE SERVICE IS NOT INTENDED TO PROVIDE INVESTMENT ADVICE.</strong> The information presented on this
+                    platform, including but not limited to trading signals, performance metrics, and insider activity data:
+                </p>
+                <ul>
+                    <li>Does NOT constitute investment advice, financial advice, trading advice, or any other sort of advice</li>
+                    <li>Should NOT be treated as a recommendation to buy, sell, or hold any securities</li>
+                    <li>Is provided for informational and educational purposes ONLY</li>
+                    <li>Is based on paper trading (simulated trading) and NOT real money results</li>
+                </ul>
+                <p>
+                    You should conduct your own research and consult with a licensed financial advisor before making any investment decisions.
+                </p>
+            </section>
+
+            <section>
+                <h2>4. User Responsibilities</h2>
+                <p>By using the Service, you agree to:</p>
+                <ul>
+                    <li>Provide accurate information when subscribing to email alerts</li>
+                    <li>Use the Service only for lawful purposes</li>
+                    <li>Not attempt to reverse engineer, decompile, or disassemble any part of the Service</li>
+                    <li>Not use automated systems or software to extract data from the Service without permission</li>
+                    <li>Not redistribute or republish our content without attribution</li>
+                    <li>Make your own independent investment decisions</li>
+                    <li>Accept full responsibility for any actions you take based on information from this Service</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>5. Email Subscription</h2>
+                <p>
+                    If you subscribe to our email alerts, you consent to receive periodic emails containing insider trading signals,
+                    market analysis, and platform updates. You may unsubscribe at any time by clicking the unsubscribe link in any
+                    email or by contacting us directly.
+                </p>
+                <p>
+                    We reserve the right to modify the frequency, format, or content of email communications at any time.
+                </p>
+            </section>
+
+            <section>
+                <h2>6. Intellectual Property</h2>
+                <p>
+                    The Service, including its original content, features, and functionality, is licensed under the MIT License.
+                    The source code is available on GitHub for review, modification, and redistribution in accordance with the
+                    license terms.
+                </p>
+                <p>
+                    The underlying data (SEC filings, Capitol Trades data) is public information and is not owned by us.
+                </p>
+            </section>
+
+            <section>
+                <h2>7. Limitation of Liability</h2>
+                <p>
+                    TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, IN NO EVENT SHALL INSIDER CLUSTER WATCH, ITS OPERATORS,
+                    CONTRIBUTORS, OR AFFILIATES BE LIABLE FOR ANY INDIRECT, PUNITIVE, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR
+                    EXEMPLARY DAMAGES, INCLUDING WITHOUT LIMITATION:
+                </p>
+                <ul>
+                    <li>Loss of profits, revenue, or anticipated savings</li>
+                    <li>Loss of data or information</li>
+                    <li>Financial losses from investment decisions</li>
+                    <li>Any other pecuniary loss</li>
+                </ul>
+                <p>
+                    WHETHER ARISING OUT OF THE USE OR INABILITY TO USE THE SERVICE, EVEN IF WE HAVE BEEN ADVISED OF THE
+                    POSSIBILITY OF SUCH DAMAGES.
+                </p>
+            </section>
+
+            <section>
+                <h2>8. Accuracy of Information</h2>
+                <p>
+                    While we strive to provide accurate information, we make no warranties or representations regarding:
+                </p>
+                <ul>
+                    <li>The accuracy, completeness, or timeliness of data</li>
+                    <li>The reliability of trading signals</li>
+                    <li>The accuracy of performance calculations</li>
+                    <li>The availability or uptime of the Service</li>
+                </ul>
+                <p>
+                    Data may contain errors due to source data issues, processing errors, or delays in SEC/Capitol Trades filings.
+                </p>
+            </section>
+
+            <section>
+                <h2>9. Third-Party Services</h2>
+                <p>
+                    The Service may contain links to third-party websites or services that are not owned or controlled by us.
+                    We have no control over, and assume no responsibility for, the content, privacy policies, or practices of
+                    any third-party services.
+                </p>
+            </section>
+
+            <section>
+                <h2>10. Termination</h2>
+                <p>
+                    We reserve the right to terminate or suspend access to our Service immediately, without prior notice or
+                    liability, for any reason whatsoever, including without limitation if you breach the Terms.
+                </p>
+            </section>
+
+            <section>
+                <h2>11. Governing Law</h2>
+                <p>
+                    These Terms shall be governed and construed in accordance with the laws of the United States, without
+                    regard to its conflict of law provisions.
+                </p>
+            </section>
+
+            <section>
+                <h2>12. Contact Information</h2>
+                <p>
+                    If you have any questions about these Terms, please contact us through our
+                    <a href="https://github.com/Samie-mirghani/insider-cluster-watch/issues">GitHub Issues</a> page.
+                </p>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="dashboard-v2.html">Dashboard</a>
+                <a href="terms-of-service.html">Terms of Service</a>
+                <a href="privacy-policy.html">Privacy Policy</a>
+                <a href="disclaimer.html">Disclaimer</a>
+                <a href="https://github.com/Samie-mirghani/insider-cluster-watch">GitHub</a>
+            </div>
+            <div class="footer-copyright">
+                &copy; 2026 Insider Cluster Watch. All rights reserved. | Open Source Project - MIT License
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

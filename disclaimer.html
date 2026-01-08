@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Legal Disclaimer for Insider Cluster Watch - Important information about financial risks and limitations.">
+    <title>Disclaimer - Insider Cluster Watch</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-main: #0b1120;
+            --bg-card: #151e32;
+            --bg-hover: #1e2943;
+            --primary: #38bdf8;
+            --secondary: #818cf8;
+            --success: #00e676;
+            --danger: #ff5252;
+            --warning: #fbbf24;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border: #334155;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg-main);
+            color: var(--text-main);
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            line-height: 1.8;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        .navbar {
+            border-bottom: 1px solid var(--border);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            background: rgba(11, 17, 32, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+        }
+
+        .navbar .container {
+            max-width: 1200px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--text-main);
+            text-decoration: none;
+        }
+
+        .nav-brand svg {
+            color: var(--primary);
+        }
+
+        .text-muted {
+            color: var(--text-muted);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Legal Content */
+        .legal-container {
+            max-width: 900px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        .legal-content h1 {
+            color: var(--primary);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 800;
+        }
+
+        .legal-content .last-updated {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 3rem;
+        }
+
+        .legal-content h2 {
+            color: var(--success);
+            font-size: 1.6rem;
+            margin-top: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .legal-content h3 {
+            color: var(--text-main);
+            font-size: 1.2rem;
+            margin-top: 2rem;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+        }
+
+        .legal-content p {
+            color: var(--text-main);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .legal-content ul, .legal-content ol {
+            color: var(--text-main);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            padding-left: 2rem;
+        }
+
+        .legal-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        .legal-content a {
+            color: var(--primary);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-bottom 0.3s;
+        }
+
+        .legal-content a:hover {
+            border-bottom: 1px solid var(--primary);
+        }
+
+        .legal-content strong {
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+        .warning-box {
+            background: rgba(255, 82, 82, 0.1);
+            border: 1px solid var(--danger);
+            border-left: 4px solid var(--danger);
+            border-radius: 8px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .warning-box h3 {
+            color: var(--danger);
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .warning-box p {
+            margin-bottom: 0;
+        }
+
+        .info-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--warning);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .highlight-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--primary);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 60px 0 40px;
+            background: var(--bg-card);
+            margin-top: 80px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .footer-copyright {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .legal-content h1 {
+                font-size: 2rem;
+            }
+
+            .legal-content h2 {
+                font-size: 1.4rem;
+            }
+
+            .legal-container {
+                padding: 0 1rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="nav-brand">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                <span>INSIDER CLUSTER <span class="text-muted">WATCH</span></span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="dashboard-v2.html">Dashboard</a>
+                <a href="terms-of-service.html">Terms</a>
+                <a href="privacy-policy.html">Privacy</a>
+                <a href="disclaimer.html">Disclaimer</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="legal-container">
+        <div class="legal-content">
+            <h1>Important Disclaimer</h1>
+            <p class="last-updated">Last Updated: January 8, 2026</p>
+
+            <div class="warning-box">
+                <h3>NOT FINANCIAL ADVICE</h3>
+                <p>
+                    <strong>Insider Cluster Watch is for informational and educational purposes ONLY.</strong> Nothing on this platform
+                    constitutes investment advice, financial advice, trading advice, or any other sort of advice. You should not treat
+                    any information presented here as a recommendation to buy, sell, or hold any securities or other financial products.
+                </p>
+            </div>
+
+            <section>
+                <h2>1. Educational Purpose Only</h2>
+                <p>
+                    The information provided by Insider Cluster Watch, including but not limited to trading signals, performance
+                    metrics, insider activity data, and analysis, is intended solely for educational and informational purposes.
+                    This platform is designed to help users understand public SEC filings and market data, not to provide
+                    personalized investment recommendations.
+                </p>
+                <p>
+                    <strong>You are solely responsible for your own investment decisions.</strong> We strongly encourage you to
+                    conduct your own research and due diligence before making any investment decisions.
+                </p>
+            </section>
+
+            <section>
+                <h2>2. Paper Trading Results - Not Real Returns</h2>
+                <div class="info-box">
+                    <p>
+                        <strong>All performance metrics displayed on this platform are based on PAPER TRADING (simulated trading)
+                        and NOT real money trading.</strong> Paper trading results have significant limitations and should not be
+                        relied upon as an indicator of future actual trading results.
+                    </p>
+                </div>
+                <p>Paper trading differs from real trading in several important ways:</p>
+                <ul>
+                    <li><strong>No Real Execution:</strong> Paper trades don't interact with actual markets</li>
+                    <li><strong>Simulated Slippage:</strong> We estimate 0.15% slippage, but real slippage can be significantly higher</li>
+                    <li><strong>No Market Impact:</strong> Paper trading doesn't account for how your orders might move prices</li>
+                    <li><strong>Liquidity Assumptions:</strong> We assume trades can always be executed, which isn't always true in real markets</li>
+                    <li><strong>Emotional Factors:</strong> Paper trading eliminates the psychological aspects of trading with real money</li>
+                    <li><strong>Perfect Fills:</strong> Paper trading assumes orders are filled at expected prices, which rarely happens in practice</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>3. Past Performance Disclaimer</h2>
+                <div class="warning-box">
+                    <h3>PAST PERFORMANCE DOES NOT GUARANTEE FUTURE RESULTS</h3>
+                    <p>
+                        Historical performance, whether actual or simulated, is not indicative of future results. The performance
+                        data shown represents past performance and does not guarantee future results. Investment returns and principal
+                        value will fluctuate, and you may lose money.
+                    </p>
+                </div>
+                <p>
+                    Market conditions change constantly. Strategies that worked in the past may not work in the future.
+                    Insider trading patterns that historically generated alpha may not continue to do so.
+                </p>
+            </section>
+
+            <section>
+                <h2>4. Risk Warnings</h2>
+                <p>
+                    <strong>Trading securities involves substantial risk of loss.</strong> You should be aware of the following risks:
+                </p>
+                <ul>
+                    <li><strong>Market Risk:</strong> Stock prices can decline significantly, resulting in loss of principal</li>
+                    <li><strong>Liquidity Risk:</strong> Some securities may be difficult to buy or sell at desired prices</li>
+                    <li><strong>Concentration Risk:</strong> Following specific trading signals may result in concentrated positions</li>
+                    <li><strong>Timing Risk:</strong> Markets can remain irrational longer than you can remain solvent</li>
+                    <li><strong>Execution Risk:</strong> Slippage, gaps, and failed orders can affect actual returns</li>
+                    <li><strong>Regulatory Risk:</strong> Changes in securities laws may affect trading strategies</li>
+                    <li><strong>Data Risk:</strong> SEC filings may contain errors or be delayed</li>
+                </ul>
+                <p>
+                    <strong>Only invest money you can afford to lose.</strong> Do not invest your emergency fund, retirement savings,
+                    or money needed for essential expenses.
+                </p>
+            </section>
+
+            <section>
+                <h2>5. No Guarantees of Accuracy</h2>
+                <p>
+                    While we strive to provide accurate information, we make NO WARRANTIES or representations regarding:
+                </p>
+                <ul>
+                    <li>The accuracy, completeness, or timeliness of any data</li>
+                    <li>The reliability or effectiveness of any trading signals</li>
+                    <li>The accuracy of performance calculations or metrics</li>
+                    <li>The availability or uptime of the platform</li>
+                    <li>The correctness of insider or politician trade interpretations</li>
+                </ul>
+                <p>
+                    Data may contain errors due to:
+                </p>
+                <ul>
+                    <li>Errors in original SEC filings</li>
+                    <li>Delays in filing or publication</li>
+                    <li>Data processing errors</li>
+                    <li>API or technical failures</li>
+                    <li>Changes in data source formats</li>
+                </ul>
+                <p>
+                    Always verify information from primary sources (SEC EDGAR, Capitol Trades) before making investment decisions.
+                </p>
+            </section>
+
+            <section>
+                <h2>6. Limitation of Liability</h2>
+                <p>
+                    TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW:
+                </p>
+                <ul>
+                    <li>Insider Cluster Watch, its operators, contributors, and affiliates shall NOT be liable for any investment losses</li>
+                    <li>We shall NOT be liable for any direct, indirect, incidental, special, consequential, or exemplary damages</li>
+                    <li>We shall NOT be liable for any decisions made based on information from this platform</li>
+                    <li>We shall NOT be liable for any data errors, omissions, or inaccuracies</li>
+                    <li>We shall NOT be liable for any service interruptions or technical failures</li>
+                </ul>
+                <p>
+                    <strong>BY USING THIS PLATFORM, YOU AGREE TO ASSUME ALL RISKS ASSOCIATED WITH YOUR INVESTMENT DECISIONS.</strong>
+                </p>
+            </section>
+
+            <section>
+                <h2>7. SEC Compliance Note</h2>
+                <p>
+                    Insider Cluster Watch is NOT a registered investment advisor, broker-dealer, or securities exchange. We do not:
+                </p>
+                <ul>
+                    <li>Provide personalized investment advice</li>
+                    <li>Manage client portfolios</li>
+                    <li>Execute trades on behalf of users</li>
+                    <li>Hold client funds or securities</li>
+                    <li>Guarantee investment returns</li>
+                </ul>
+                <p>
+                    The information we provide is based on publicly available SEC filings that anyone can access.
+                    We simply aggregate and analyze this public information.
+                </p>
+            </section>
+
+            <section>
+                <h2>8. Consult Professional Advisors</h2>
+                <div class="highlight-box">
+                    <p>
+                        <strong>Before making any investment decisions, you should consult with:</strong>
+                    </p>
+                    <ul style="margin-bottom: 0;">
+                        <li>A licensed financial advisor who understands your specific financial situation</li>
+                        <li>A tax professional regarding tax implications of trading</li>
+                        <li>A legal professional regarding any regulatory concerns</li>
+                    </ul>
+                </div>
+                <p>
+                    Only a qualified professional who knows your complete financial picture can provide appropriate investment advice.
+                </p>
+            </section>
+
+            <section>
+                <h2>9. Insider Trading Definition</h2>
+                <p>
+                    For clarity, "insider trading" as discussed on this platform refers to <strong>LEGAL</strong> insider trading -
+                    that is, trades made by corporate insiders (officers, directors, and major shareholders) that are properly
+                    disclosed to the SEC via Form 4 filings within the required timeframe.
+                </p>
+                <p>
+                    This platform does NOT encourage, facilitate, or provide information for ILLEGAL insider trading, which involves
+                    trading on material non-public information in violation of securities laws.
+                </p>
+            </section>
+
+            <section>
+                <h2>10. Changes to This Disclaimer</h2>
+                <p>
+                    We reserve the right to modify this Disclaimer at any time. Changes will be effective immediately upon posting.
+                    Your continued use of the platform constitutes acceptance of any changes.
+                </p>
+            </section>
+
+            <section>
+                <h2>11. Contact</h2>
+                <p>
+                    If you have questions about this Disclaimer, please contact us through our
+                    <a href="https://github.com/Samie-mirghani/insider-cluster-watch/issues">GitHub Issues</a> page.
+                </p>
+            </section>
+
+            <div class="warning-box" style="margin-top: 40px;">
+                <h3>ACKNOWLEDGMENT</h3>
+                <p>
+                    By using Insider Cluster Watch, you acknowledge that you have read, understood, and agree to be bound by
+                    this Disclaimer. You acknowledge that trading securities involves risk and that you are solely responsible
+                    for your investment decisions. You agree that Insider Cluster Watch shall not be held liable for any
+                    losses you may incur.
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="dashboard-v2.html">Dashboard</a>
+                <a href="terms-of-service.html">Terms of Service</a>
+                <a href="privacy-policy.html">Privacy Policy</a>
+                <a href="disclaimer.html">Disclaimer</a>
+                <a href="https://github.com/Samie-mirghani/insider-cluster-watch">GitHub</a>
+            </div>
+            <div class="footer-copyright">
+                &copy; 2026 Insider Cluster Watch. All rights reserved. | Open Source Project - MIT License
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
