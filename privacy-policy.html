@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Privacy Policy for Insider Cluster Watch - How we collect, use, and protect your information.">
+    <title>Privacy Policy - Insider Cluster Watch</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-main: #0b1120;
+            --bg-card: #151e32;
+            --bg-hover: #1e2943;
+            --primary: #38bdf8;
+            --secondary: #818cf8;
+            --success: #00e676;
+            --danger: #ff5252;
+            --warning: #fbbf24;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border: #334155;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg-main);
+            color: var(--text-main);
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            line-height: 1.8;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        .navbar {
+            border-bottom: 1px solid var(--border);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            background: rgba(11, 17, 32, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+        }
+
+        .navbar .container {
+            max-width: 1200px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--text-main);
+            text-decoration: none;
+        }
+
+        .nav-brand svg {
+            color: var(--primary);
+        }
+
+        .text-muted {
+            color: var(--text-muted);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Legal Content */
+        .legal-container {
+            max-width: 900px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        .legal-content h1 {
+            color: var(--primary);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 800;
+        }
+
+        .legal-content .last-updated {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 3rem;
+        }
+
+        .legal-content h2 {
+            color: var(--success);
+            font-size: 1.6rem;
+            margin-top: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .legal-content h3 {
+            color: var(--text-main);
+            font-size: 1.2rem;
+            margin-top: 2rem;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+        }
+
+        .legal-content p {
+            color: var(--text-main);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .legal-content ul, .legal-content ol {
+            color: var(--text-main);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            padding-left: 2rem;
+        }
+
+        .legal-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        .legal-content a {
+            color: var(--primary);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-bottom 0.3s;
+        }
+
+        .legal-content a:hover {
+            border-bottom: 1px solid var(--primary);
+        }
+
+        .legal-content strong {
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+        .info-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--primary);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .info-box p {
+            margin-bottom: 0;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 60px 0 40px;
+            background: var(--bg-card);
+            margin-top: 80px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .footer-copyright {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .legal-content h1 {
+                font-size: 2rem;
+            }
+
+            .legal-content h2 {
+                font-size: 1.4rem;
+            }
+
+            .legal-container {
+                padding: 0 1rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="nav-brand">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                <span>INSIDER CLUSTER <span class="text-muted">WATCH</span></span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="dashboard-v2.html">Dashboard</a>
+                <a href="terms-of-service.html">Terms</a>
+                <a href="privacy-policy.html">Privacy</a>
+                <a href="disclaimer.html">Disclaimer</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="legal-container">
+        <div class="legal-content">
+            <h1>Privacy Policy</h1>
+            <p class="last-updated">Last Updated: January 8, 2026</p>
+
+            <div class="info-box">
+                <p>
+                    <strong>Summary:</strong> We collect minimal data (only email addresses for subscribers), we don't sell your information,
+                    and we use industry-standard security practices. This policy explains our data practices in detail.
+                </p>
+            </div>
+
+            <section>
+                <h2>1. Introduction</h2>
+                <p>
+                    Insider Cluster Watch ("we", "us", or "our") respects your privacy and is committed to protecting your personal data.
+                    This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website
+                    or subscribe to our email alerts.
+                </p>
+                <p>
+                    Please read this Privacy Policy carefully. By using our Service, you agree to the collection and use of information
+                    in accordance with this policy.
+                </p>
+            </section>
+
+            <section>
+                <h2>2. Information We Collect</h2>
+
+                <h3>2.1 Information You Provide</h3>
+                <p>We collect information that you voluntarily provide to us, including:</p>
+                <ul>
+                    <li><strong>Email Address:</strong> When you subscribe to our daily briefing or weekly alerts</li>
+                </ul>
+                <p>
+                    We do NOT collect names, addresses, phone numbers, payment information, or any other personal details.
+                </p>
+
+                <h3>2.2 Automatically Collected Information</h3>
+                <p>When you visit our website, we may automatically collect certain information, including:</p>
+                <ul>
+                    <li>Browser type and version</li>
+                    <li>Operating system</li>
+                    <li>Referring website (how you found us)</li>
+                    <li>Pages visited and time spent on pages</li>
+                    <li>Date and time of your visit</li>
+                    <li>IP address (anonymized where possible)</li>
+                </ul>
+                <p>
+                    This information is collected through standard web server logs and analytics tools.
+                </p>
+            </section>
+
+            <section>
+                <h2>3. How We Use Your Information</h2>
+                <p>We use the information we collect for the following purposes:</p>
+                <ul>
+                    <li><strong>Email Communications:</strong> To send you daily briefings, weekly alerts, and platform updates</li>
+                    <li><strong>Service Improvement:</strong> To understand how users interact with our platform and improve the user experience</li>
+                    <li><strong>Technical Support:</strong> To diagnose and resolve technical issues</li>
+                    <li><strong>Security:</strong> To detect and prevent fraud or abuse</li>
+                </ul>
+                <p>
+                    We do NOT use your information for targeted advertising, and we do NOT sell, rent, or share your personal
+                    information with third parties for marketing purposes.
+                </p>
+            </section>
+
+            <section>
+                <h2>4. Third-Party Services</h2>
+                <p>We use the following third-party services to operate our platform:</p>
+
+                <h3>4.1 GitHub Pages</h3>
+                <p>
+                    Our website is hosted on GitHub Pages. GitHub may collect technical information as described in their
+                    <a href="https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement" target="_blank" rel="noopener">Privacy Statement</a>.
+                </p>
+
+                <h3>4.2 Formspree</h3>
+                <p>
+                    Email subscriptions are processed through Formspree. When you submit your email address, it is processed
+                    according to Formspree's <a href="https://formspree.io/legal/privacy-policy" target="_blank" rel="noopener">Privacy Policy</a>.
+                </p>
+
+                <h3>4.3 Data Sources</h3>
+                <p>
+                    We aggregate publicly available data from SEC EDGAR and Capitol Trades. We do not collect any personal
+                    information from these sources beyond what is already publicly disclosed in official filings.
+                </p>
+            </section>
+
+            <section>
+                <h2>5. Cookies and Tracking</h2>
+                <p>
+                    Our website may use cookies and similar tracking technologies. Cookies are small text files stored on
+                    your device that help us improve your experience.
+                </p>
+                <p>We may use the following types of cookies:</p>
+                <ul>
+                    <li><strong>Essential Cookies:</strong> Required for basic website functionality</li>
+                    <li><strong>Analytics Cookies:</strong> Help us understand how visitors use our site</li>
+                </ul>
+                <p>
+                    You can configure your browser to reject cookies or alert you when cookies are being sent. However,
+                    some parts of our Service may not function properly without cookies.
+                </p>
+            </section>
+
+            <section>
+                <h2>6. Data Security</h2>
+                <p>
+                    We implement appropriate technical and organizational security measures to protect your personal information.
+                    However, no method of transmission over the Internet or electronic storage is 100% secure.
+                </p>
+                <p>Our security measures include:</p>
+                <ul>
+                    <li>HTTPS encryption for all data in transit</li>
+                    <li>Regular security updates and monitoring</li>
+                    <li>Limited access to personal data on a need-to-know basis</li>
+                    <li>Use of reputable third-party service providers</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>7. Data Retention</h2>
+                <p>
+                    We retain your email address for as long as you remain subscribed to our communications. If you
+                    unsubscribe, we will remove your email address from our active mailing list within 30 days.
+                </p>
+                <p>
+                    Analytics data is retained in aggregate form and does not personally identify you.
+                </p>
+            </section>
+
+            <section>
+                <h2>8. Your Rights</h2>
+                <p>You have the following rights regarding your personal information:</p>
+                <ul>
+                    <li><strong>Access:</strong> Request a copy of the personal data we hold about you</li>
+                    <li><strong>Correction:</strong> Request correction of inaccurate information</li>
+                    <li><strong>Deletion:</strong> Request deletion of your personal data</li>
+                    <li><strong>Opt-out:</strong> Unsubscribe from email communications at any time</li>
+                    <li><strong>Portability:</strong> Request your data in a portable format</li>
+                </ul>
+                <p>
+                    To exercise any of these rights, please contact us through our GitHub Issues page or by clicking
+                    the unsubscribe link in any email.
+                </p>
+            </section>
+
+            <section>
+                <h2>9. Children's Privacy</h2>
+                <p>
+                    Our Service is not intended for individuals under the age of 18. We do not knowingly collect personal
+                    information from children. If you are a parent or guardian and believe your child has provided us with
+                    personal information, please contact us.
+                </p>
+            </section>
+
+            <section>
+                <h2>10. International Data Transfers</h2>
+                <p>
+                    Your information may be transferred to and processed in countries other than your country of residence.
+                    These countries may have different data protection laws. By using our Service, you consent to such transfers.
+                </p>
+            </section>
+
+            <section>
+                <h2>11. Changes to This Privacy Policy</h2>
+                <p>
+                    We may update this Privacy Policy from time to time. We will notify you of any material changes by posting
+                    the new Privacy Policy on this page and updating the "Last Updated" date. Your continued use of the Service
+                    after any changes constitutes acceptance of the new Privacy Policy.
+                </p>
+            </section>
+
+            <section>
+                <h2>12. Contact Us</h2>
+                <p>
+                    If you have any questions about this Privacy Policy or our data practices, please contact us through our
+                    <a href="https://github.com/Samie-mirghani/insider-cluster-watch/issues">GitHub Issues</a> page.
+                </p>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="dashboard-v2.html">Dashboard</a>
+                <a href="terms-of-service.html">Terms of Service</a>
+                <a href="privacy-policy.html">Privacy Policy</a>
+                <a href="disclaimer.html">Disclaimer</a>
+                <a href="https://github.com/Samie-mirghani/insider-cluster-watch">GitHub</a>
+            </div>
+            <div class="footer-copyright">
+                &copy; 2026 Insider Cluster Watch. All rights reserved. | Open Source Project - MIT License
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
