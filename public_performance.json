@@ -1,30 +1,30 @@
 {
-  "last_updated": "January 07, 2026 at 11:32 UTC",
-  "total_return_pct": 8.83,
-  "win_rate": 70.6,
-  "completed_trades": 17,
+  "last_updated": "January 08, 2026 at 11:32 UTC",
+  "total_return_pct": 12.32,
+  "win_rate": 73.7,
+  "completed_trades": 19,
   "active_trades": 3,
-  "avg_return_per_trade": 8.16,
-  "sharpe_ratio": 8.79,
+  "avg_return_per_trade": 8.07,
+  "sharpe_ratio": 9.15,
   "max_drawdown": -9.11,
-  "avg_hold_days": 12,
+  "avg_hold_days": 13,
   "best_trade_pct": 59.64,
   "worst_trade_pct": -5.75,
-  "alpha_vs_sp500": 7.33,
-  "avg_winner": 12.93,
+  "alpha_vs_sp500": 12.08,
+  "avg_winner": 12.14,
   "avg_loser": -3.31,
-  "win_loss_ratio": 3.91,
-  "profit_factor": 9.38,
-  "last_30_days_return": 138.64,
+  "win_loss_ratio": 3.67,
+  "profit_factor": 10.27,
+  "last_30_days_return": 153.41,
   "last_10_trades_win_rate": 80.0,
-  "current_streak": 1,
+  "current_streak": 3,
   "current_streak_type": "wins",
   "conviction_performance": [
     {
       "conviction": "VERY HIGH",
-      "trades": 8,
-      "win_rate": 62.5,
-      "avg_return": 8.77
+      "trades": 9,
+      "win_rate": 66.7,
+      "avg_return": 8.09
     },
     {
       "conviction": "HIGH",
@@ -34,9 +34,9 @@
     },
     {
       "conviction": "MEDIUM",
-      "trades": 3,
-      "win_rate": 66.7,
-      "avg_return": 1.8
+      "trades": 4,
+      "win_rate": 75.0,
+      "avg_return": 4.37
     },
     {
       "conviction": "LOW",
@@ -52,10 +52,28 @@
     },
     {
       "month": "2026-01",
-      "return": 11.53
+      "return": 26.3
     }
   ],
   "recent_trades": [
+    {
+      "ticker": "AMR",
+      "entry_date": "Dec 18, 2025",
+      "exit_date": "Jan 08, 2026",
+      "hold_days": 20,
+      "return_pct": 12.09,
+      "conviction": "MEDIUM",
+      "exit_reason": "Take Profit"
+    },
+    {
+      "ticker": "HYNE",
+      "entry_date": "Dec 08, 2025",
+      "exit_date": "Jan 08, 2026",
+      "hold_days": 30,
+      "return_pct": 2.68,
+      "conviction": "VERY HIGH",
+      "exit_reason": "Time Stop"
+    },
     {
       "ticker": "ACVA",
       "entry_date": "Dec 18, 2025",
@@ -212,32 +230,32 @@
   ],
   "open_positions": [
     {
-      "ticker": "HYNE",
-      "entry_date": "Dec 08, 2025",
-      "days_held": 29,
-      "unrealized_return": 5.29,
-      "conviction": "VERY HIGH"
-    },
-    {
-      "ticker": "AMR",
-      "entry_date": "Dec 18, 2025",
-      "days_held": 19,
-      "unrealized_return": 6.71,
-      "conviction": "MEDIUM"
-    },
-    {
       "ticker": "XZO",
       "entry_date": "Dec 23, 2025",
-      "days_held": 15,
-      "unrealized_return": 0.18,
+      "days_held": 16,
+      "unrealized_return": 1.0,
+      "conviction": "HIGH"
+    },
+    {
+      "ticker": "NAVN",
+      "entry_date": "Jan 08, 2026",
+      "days_held": 0,
+      "unrealized_return": 13.58,
+      "conviction": "HIGH"
+    },
+    {
+      "ticker": "FGBI",
+      "entry_date": "Jan 08, 2026",
+      "days_held": 0,
+      "unrealized_return": 37.92,
       "conviction": "HIGH"
     }
   ],
   "portfolio_composition": {
     "starting_capital": 10000,
-    "current_value": 10883.33,
-    "cash": 9050.07,
-    "invested_capital": 1833.26,
-    "capital_deployed_pct": 16.84
+    "current_value": 11232.26,
+    "cash": 9002.6,
+    "invested_capital": 2229.66,
+    "capital_deployed_pct": 19.85
   }
 }

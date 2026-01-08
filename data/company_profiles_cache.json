@@ -3778,5 +3778,101 @@
     "ipoDate": "1996-11-01",
     "updated": "2026-01-07T11:31:30.051850",
     "source": "fmp_api"
+  },
+  "FLYW": {
+    "industry": "Information Technology Services",
+    "sector": "Technology",
+    "price": 14.5,
+    "companyName": "Flywire Corporation",
+    "currency": "USD",
+    "beta": 1.284,
+    "range": "8.2-21.31",
+    "ipoDate": "2021-05-26",
+    "updated": "2026-01-08T11:31:22.229471",
+    "source": "fmp_api"
+  },
+  "PMCB": {
+    "industry": "Biotechnology",
+    "sector": "Healthcare",
+    "price": 0.83,
+    "companyName": "PharmaCyte Biotech, Inc.",
+    "currency": "USD",
+    "beta": 0.04,
+    "range": "0.63-1.9",
+    "ipoDate": "2013-01-02",
+    "updated": "2026-01-08T11:31:22.236569",
+    "source": "fmp_api"
+  },
+  "CLYM": {
+    "industry": "Biotechnology",
+    "sector": "Healthcare",
+    "price": 4.2,
+    "companyName": "Climb Bio, Inc.",
+    "currency": "USD",
+    "beta": -0.152,
+    "range": "1.05-5.048",
+    "ipoDate": "2021-08-10",
+    "updated": "2026-01-08T11:31:22.242761",
+    "source": "fmp_api"
+  },
+  "INDV": {
+    "industry": "Drug Manufacturers - Specialty & Generic",
+    "sector": "Healthcare",
+    "price": 35.89,
+    "companyName": "Indivior PLC",
+    "currency": "USD",
+    "beta": 1.105,
+    "range": "7.62-38",
+    "ipoDate": "2014-12-29",
+    "updated": "2026-01-08T11:31:22.250554",
+    "source": "fmp_api"
+  },
+  "VIRC": {
+    "industry": "Furnishings, Fixtures & Appliances",
+    "sector": "Consumer Cyclical",
+    "price": 6.49,
+    "companyName": "Virco Mfg. Corporation",
+    "currency": "USD",
+    "beta": 0.219,
+    "range": "6.01-12.09",
+    "ipoDate": "1980-03-18",
+    "updated": "2026-01-08T11:31:22.269819",
+    "source": "fmp_api"
+  },
+  "NTLA": {
+    "industry": "Biotechnology",
+    "sector": "Healthcare",
+    "price": 10.13,
+    "companyName": "Intellia Therapeutics, Inc.",
+    "currency": "USD",
+    "beta": 2.056,
+    "range": "5.9-28.25",
+    "ipoDate": "2016-05-06",
+    "updated": "2026-01-08T11:31:22.296179",
+    "source": "fmp_api"
+  },
+  "JLS": {
+    "industry": "Asset Management - Income",
+    "sector": "Financial Services",
+    "price": 18.13,
+    "companyName": "Nuveen Mortgage and Income Fund",
+    "currency": "USD",
+    "beta": 0.32623875,
+    "range": "16.8-19.25",
+    "ipoDate": "2009-11-27",
+    "updated": "2026-01-08T11:31:22.310692",
+    "source": "fmp_api"
+  },
+  "PAR": {
+    "industry": "Software - Application",
+    "sector": "Technology",
+    "price": 34.76,
+    "companyName": "PAR Technology Corporation",
+    "currency": "USD",
+    "beta": 1.346,
+    "range": "31.65-77.55",
+    "ipoDate": "1982-12-03",
+    "updated": "2026-01-08T11:31:22.543007",
+    "source": "fmp_api"
   }
 }
