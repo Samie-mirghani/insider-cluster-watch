@@ -75,7 +75,14 @@ class PaperTradingPortfolio:
         # Daily tracking for monitoring
         self.daily_trades_count = 0
         self.last_trade_date = None
-        
+
+        # Session tracking for accurate change reporting
+        self.session_start_cash = None
+        self.session_start_portfolio_value = None
+        self.session_start_positions_count = None
+        self.session_start_positions_cost = None
+        self.session_trades = []  # Trades during this session
+
         logger.info(f"📊 Paper Trading Portfolio Initialized")
         logger.info(f"   Starting Capital: ${starting_capital:,.2f}")
         logger.info(f"   Max Position Size: {max_position_pct*100}%")
@@ -160,7 +167,30 @@ class PaperTradingPortfolio:
             self.max_drawdown = current_drawdown
 
         return portfolio_value
-    
+
+    def start_session(self):
+        """
+        Capture the portfolio state at the beginning of a trading session.
+        This enables accurate session-level change tracking and validation.
+        """
+        self.session_start_cash = self.cash
+        self.session_start_portfolio_value = self.get_portfolio_value()
+        self.session_start_positions_count = len(self.positions)
+
+        # Calculate total cost basis of all positions
+        self.session_start_positions_cost = sum(
+            pos.get('cost_basis', pos['shares'] * pos['entry_price'])
+            for pos in self.positions.values()
+        )
+
+        # Reset session trades
+        self.session_trades = []
+
+        logger.info(f"📊 Trading Session Started")
+        logger.info(f"   Starting Cash: ${self.session_start_cash:,.2f}")
+        logger.info(f"   Starting Portfolio Value: ${self.session_start_portfolio_value:,.2f}")
+        logger.info(f"   Starting Positions: {self.session_start_positions_count}")
+
     def validate_position_size(self, ticker, shares, price):
         """
         Validate position doesn't exceed risk limits
@@ -574,9 +604,9 @@ class PaperTradingPortfolio:
         self.cash -= actual_cost
         self.total_trades += 1
         self.daily_trades_count += 1
-        
+
         # Log trade
-        self.trade_history.append({
+        trade_record = {
             'date': datetime.now(),
             'action': 'BUY',
             'ticker': ticker,
@@ -587,7 +617,11 @@ class PaperTradingPortfolio:
             'signal_score': signal_score,
             'cash_remaining': self.cash,
             'portfolio_value': self.get_portfolio_value()
-        })
+        }
+        self.trade_history.append(trade_record)
+
+        # Track in session
+        self.session_trades.append(trade_record)
         
         logger.info(f"   💰 Cash Remaining: ${self.cash:,.2f}")
         logger.info(f"   🎯 Stop Loss: ${self.positions[ticker]['stop_loss']:.2f} (-{self.stop_loss_pct*100}%)")
@@ -928,7 +962,7 @@ class PaperTradingPortfolio:
 
         # Log trade in NEW format expected by generate_public_performance.py
         # Portfolio value is now CORRECT (position already removed, no double-counting)
-        self.trade_history.append({
+        trade_record = {
             'entry_date': pos['entry_date'],        # Entry date from position
             'exit_date': datetime.now(),             # Exit date (now)
             'action': 'SELL',
@@ -944,11 +978,15 @@ class PaperTradingPortfolio:
             'signal_score': pos.get('signal_score', 0),
             'cash_remaining': self.cash,
             'portfolio_value': self.get_portfolio_value(),  # Now CORRECT - no double counting
-            # Store expected values for validation
+            # Store expected values for validation (no longer used for validation, kept for compatibility)
             '_expected_cash': expected_cash,
             '_expected_positions': expected_position_count,
             '_expected_portfolio_value': expected_portfolio_value
-        })
+        }
+        self.trade_history.append(trade_record)
+
+        # Track in session
+        self.session_trades.append(trade_record)
     
     def get_performance_summary(self, validate=True):
         """
@@ -987,27 +1025,25 @@ class PaperTradingPortfolio:
                 logger.warning(f"   Positions value: ${positions_value:,.2f}")
                 logger.warning(f"   Position count: {len(self.positions)}")
 
-            # Check if we have recent trade history with expected values
-            if self.trade_history:
-                recent_sells = [t for t in self.trade_history if t.get('action') == 'SELL']
-                if recent_sells:
-                    last_sell = recent_sells[-1]
-                    if '_expected_cash' in last_sell:
-                        expected_cash = last_sell['_expected_cash']
-                        expected_positions = last_sell['_expected_positions']
+            # Session-based validation: Compare current state with session start
+            # This properly accounts for both buys and sells during the session
+            if self.session_start_cash is not None and self.session_trades:
+                # Calculate expected cash based on session activity
+                buys_total = sum(t.get('cost', 0) for t in self.session_trades if t.get('action') == 'BUY')
+                sells_total = sum(t.get('proceeds', 0) for t in self.session_trades if t.get('action') == 'SELL')
+                expected_cash = self.session_start_cash - buys_total + sells_total
 
-                        # Check if current state matches what was expected after last close
-                        if abs(self.cash - expected_cash) > 0.01:
-                            logger.warning(f"⚠️  CASH DISCREPANCY DETECTED!")
-                            logger.warning(f"   Expected cash after last close: ${expected_cash:,.2f}")
-                            logger.warning(f"   Current cash: ${self.cash:,.2f}")
-                            logger.warning(f"   Difference: ${self.cash - expected_cash:,.2f}")
-
-                        if len(self.positions) != expected_positions:
-                            logger.warning(f"⚠️  POSITION COUNT DISCREPANCY DETECTED!")
-                            logger.warning(f"   Expected positions after last close: {expected_positions}")
-                            logger.warning(f"   Current positions: {len(self.positions)}")
-                            logger.warning(f"   Difference: {len(self.positions) - expected_positions}")
+                # Validate cash consistency
+                cash_diff = abs(self.cash - expected_cash)
+                if cash_diff > 0.01:
+                    logger.warning(f"⚠️  SESSION CASH DISCREPANCY DETECTED!")
+                    logger.warning(f"   Session Start Cash: ${self.session_start_cash:,.2f}")
+                    logger.warning(f"   Buy Orders Total: -${buys_total:,.2f}")
+                    logger.warning(f"   Sell Orders Total: +${sells_total:,.2f}")
+                    logger.warning(f"   Expected Cash: ${expected_cash:,.2f}")
+                    logger.warning(f"   Actual Cash: ${self.cash:,.2f}")
+                    logger.warning(f"   Difference: ${self.cash - expected_cash:,.2f}")
+                    logger.warning(f"   This indicates a calculation error in the trading logic.")
         
         # Calculate average win and loss
         trades_df = pd.DataFrame(self.trade_history)
@@ -1070,7 +1106,120 @@ class PaperTradingPortfolio:
             logger.debug(f"   Source: self.cash=${self.cash:,.2f}, len(self.positions)={len(self.positions)}")
 
         return stats
-    
+
+    def get_session_summary(self):
+        """
+        Generate a comprehensive summary of the trading session.
+        Shows portfolio value changes, realized gains/losses, and position changes.
+
+        Returns:
+            dict: Session summary with all metrics
+        """
+        if self.session_start_cash is None:
+            return None  # No session started
+
+        # Current state
+        current_value = self.get_portfolio_value()
+        current_positions_cost = sum(
+            pos.get('cost_basis', pos['shares'] * pos['entry_price'])
+            for pos in self.positions.values()
+        )
+
+        # Calculate changes
+        portfolio_change = current_value - self.session_start_portfolio_value
+        portfolio_change_pct = (portfolio_change / self.session_start_portfolio_value * 100) if self.session_start_portfolio_value > 0 else 0
+        cash_change = self.cash - self.session_start_cash
+
+        # Analyze session trades
+        buys = [t for t in self.session_trades if t.get('action') == 'BUY']
+        sells = [t for t in self.session_trades if t.get('action') == 'SELL']
+
+        buys_total = sum(t.get('cost', 0) for t in buys)
+        sells_proceeds = sum(t.get('proceeds', 0) for t in sells)
+        realized_profit = sum(t.get('profit', 0) for t in sells)
+
+        # Calculate unrealized P&L on current positions
+        unrealized_pnl = 0.0
+        for ticker, pos in self.positions.items():
+            current_price = self._get_current_price(ticker, pos['entry_price'])
+            position_value = pos['shares'] * current_price
+            unrealized_pnl += position_value - pos.get('cost_basis', pos['shares'] * pos['entry_price'])
+
+        summary = {
+            'session_start_value': self.session_start_portfolio_value,
+            'session_end_value': current_value,
+            'portfolio_change': portfolio_change,
+            'portfolio_change_pct': portfolio_change_pct,
+            'session_start_cash': self.session_start_cash,
+            'session_end_cash': self.cash,
+            'cash_change': cash_change,
+            'buys_count': len(buys),
+            'buys_total': buys_total,
+            'sells_count': len(sells),
+            'sells_proceeds': sells_proceeds,
+            'realized_profit': realized_profit,
+            'unrealized_pnl': unrealized_pnl,
+            'positions_start_count': self.session_start_positions_count,
+            'positions_end_count': len(self.positions),
+            'positions_change': len(self.positions) - self.session_start_positions_count,
+            'cost_basis_deployed': current_positions_cost
+        }
+
+        return summary
+
+    def print_session_summary(self):
+        """Print a formatted session summary to the log"""
+        summary = self.get_session_summary()
+
+        if summary is None:
+            logger.info("No session data available")
+            return
+
+        logger.info(f"\n{'='*60}")
+        logger.info(f"📊 TRADING SESSION SUMMARY")
+        logger.info(f"{'='*60}")
+
+        # Portfolio value section
+        logger.info(f"\n💼 Portfolio Value:")
+        logger.info(f"   Start:  ${summary['session_start_value']:>12,.2f}")
+        logger.info(f"   End:    ${summary['session_end_value']:>12,.2f}")
+        change_symbol = "📈" if summary['portfolio_change'] >= 0 else "📉"
+        logger.info(f"   {change_symbol} Change: ${summary['portfolio_change']:>12,.2f} ({summary['portfolio_change_pct']:+.2f}%)")
+
+        # Activity breakdown
+        logger.info(f"\n💰 Session Activity:")
+        if summary['sells_count'] > 0:
+            logger.info(f"   ✅ Positions Closed: {summary['sells_count']}")
+            logger.info(f"   💵 Proceeds: ${summary['sells_proceeds']:,.2f}")
+            profit_symbol = "✅" if summary['realized_profit'] >= 0 else "❌"
+            logger.info(f"   {profit_symbol} Realized P&L: ${summary['realized_profit']:,.2f}")
+
+        if summary['buys_count'] > 0:
+            logger.info(f"   📥 Positions Opened: {summary['buys_count']}")
+            logger.info(f"   💵 Capital Deployed: ${summary['buys_total']:,.2f}")
+
+        if summary['unrealized_pnl'] != 0:
+            unrealized_symbol = "📈" if summary['unrealized_pnl'] >= 0 else "📉"
+            logger.info(f"   {unrealized_symbol} Unrealized P&L: ${summary['unrealized_pnl']:,.2f}")
+
+        # Cash breakdown
+        logger.info(f"\n💵 Cash Flow:")
+        logger.info(f"   Start:  ${summary['session_start_cash']:>12,.2f}")
+        logger.info(f"   End:    ${summary['session_end_cash']:>12,.2f}")
+        logger.info(f"   Change: ${summary['cash_change']:>12,.2f}")
+
+        # Position breakdown with cost basis
+        logger.info(f"\n📊 Positions:")
+        logger.info(f"   Start:  {summary['positions_start_count']:>3} positions")
+        logger.info(f"   End:    {summary['positions_end_count']:>3} positions")
+        if summary['positions_end_count'] > 0:
+            logger.info(f"   Cost Basis Deployed: ${summary['cost_basis_deployed']:,.2f}")
+            logger.info(f"   Available Cash:      ${summary['session_end_cash']:,.2f}")
+            total_buying_power = summary['cost_basis_deployed'] + summary['session_end_cash']
+            logger.info(f"   Total Buying Power:  ${total_buying_power:,.2f}")
+
+        logger.info(f"{'='*60}\n")
+
     def save(self):
         """Save portfolio state to disk with validation"""
         # Store pre-save state for validation
