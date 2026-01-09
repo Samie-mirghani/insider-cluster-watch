@@ -13,15 +13,15 @@ Usage:
 
 import sys
 import os
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'jobs'))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
 import argparse
 from datetime import datetime, timedelta
 from typing import Dict, List
 import pandas as pd
 
-from insider_performance_auto_tracker import AutoInsiderTracker
-from insider_performance_tracker import InsiderPerformanceTracker
+from jobs.insider_performance_auto_tracker import AutoInsiderTracker
+from jobs.insider_performance_tracker import InsiderPerformanceTracker
 
 
 def format_age(days: float) -> str:

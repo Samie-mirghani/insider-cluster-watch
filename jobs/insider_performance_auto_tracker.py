@@ -24,7 +24,7 @@ Impact on Profiles:
 • Failed trades are excluded entirely (conservative approach)
 
 Usage:
-    from insider_performance_auto_tracker import AutoInsiderTracker
+    from jobs.insider_performance_auto_tracker import AutoInsiderTracker
 
     # Initialize tracker
     auto_tracker = AutoInsiderTracker()
