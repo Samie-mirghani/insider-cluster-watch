@@ -189,10 +189,10 @@
     "title": "Control Person of Adviser",
     "qty": 50000,
     "value": 214300,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:45:58.256866",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:26:55.446049",
+    "last_updated": "2026-01-09T11:26:31.859026",
     "outcomes": {
       "30d": {
         "price": 4.289999961853027,
@@ -202,7 +202,10 @@
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "ATMU_Donoso Diego_2025-08-13 00:00:00",
@@ -576,7 +579,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:03.166229",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:26:59.280902",
+    "last_updated": "2026-01-09T11:26:32.363155",
     "outcomes": {
       "30d": {
         "price": 12.260000228881836,
@@ -586,7 +589,10 @@
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NETWORK_ERROR",
+    "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
   {
     "trade_id": "IONQ_Teuber William J Jr_2025-11-11 00:00:00",
@@ -621,10 +627,10 @@
     "title": "10%",
     "qty": 1689758,
     "value": 52974436,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:46:03.351765",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:27:00.542281",
+    "last_updated": "2026-01-09T11:26:33.064784",
     "outcomes": {
       "30d": {
         "price": 35.349998474121094,
@@ -634,7 +640,10 @@
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "NEXT_Hanwha Aerospace Co., Ltd._2025-11-11 00:00:00",
@@ -669,10 +678,10 @@
     "title": "Dir",
     "qty": 11700,
     "value": 994500,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:46:03.399034",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:27:01.784060",
+    "last_updated": "2026-01-09T11:26:33.920478",
     "outcomes": {
       "30d": {
         "price": 83.8499984741211,
@@ -682,7 +691,10 @@
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "EWTX_Fox Jonathan C_2025-11-11 00:00:00",
@@ -789,10 +801,10 @@
     "title": "Dir",
     "qty": 402,
     "value": 58835,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:46:03.614571",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:27:04.915717",
+    "last_updated": "2026-01-09T11:26:34.731939",
     "outcomes": {
       "30d": {
         "price": 156.60000610351562,
@@ -802,7 +814,10 @@
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "CPS_Mastrocola David John_2025-11-10 00:00:00",
@@ -813,10 +828,10 @@
     "title": "Dir",
     "qty": 2000,
     "value": 58100,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:46:03.637848",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:27:05.575453",
+    "last_updated": "2026-01-09T11:26:35.429704",
     "outcomes": {
       "30d": {
         "price": 31.200000762939453,
@@ -826,7 +841,10 @@
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "GEF_Hoffman Leonard Dennis Jr_2025-11-11 00:00:00",
@@ -888,7 +906,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:03.779257",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:27:07.639559",
+    "last_updated": "2026-01-09T11:26:35.931900",
     "outcomes": {
       "30d": {
         "price": 7.03000020980835,
@@ -898,7 +916,10 @@
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NETWORK_ERROR",
+    "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
   {
     "trade_id": "APLE_Woolley Howard E._2025-11-11 00:00:00",
@@ -1077,10 +1098,10 @@
     "title": "10%",
     "qty": 3840,
     "value": 161234,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:46:04.212065",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:27:12.689025",
+    "last_updated": "2026-01-09T11:26:36.620287",
     "outcomes": {
       "30d": {
         "price": 42.65999984741211,
@@ -1090,7 +1111,10 @@
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "TPVG_Srivastava Sajal_2025-11-11 00:00:00",
@@ -1269,10 +1293,10 @@
     "title": "Dir",
     "qty": 100000,
     "value": 345000,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:46:04.751128",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:27:17.479188",
+    "last_updated": "2026-01-09T11:26:37.307321",
     "outcomes": {
       "30d": {
         "price": 3.559999942779541,
@@ -1282,7 +1306,10 @@
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "ARQ_Voncannon Jay Loring_2025-11-10 00:00:00",
@@ -1293,10 +1320,10 @@
     "title": "CFO",
     "qty": 15000,
     "value": 54970,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:46:04.775206",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:27:18.086286",
+    "last_updated": "2026-01-09T11:26:38.160625",
     "outcomes": {
       "30d": {
         "price": 3.6600000858306885,
@@ -1306,7 +1333,10 @@
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "ARQ_Campbell-Breeden Richard_2025-11-11 00:00:00",
@@ -1365,10 +1395,10 @@
     "title": "Dir, 10%",
     "qty": 2255052,
     "value": 6800328,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:46:04.849819",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:27:20.016955",
+    "last_updated": "2026-01-09T11:26:38.825022",
     "outcomes": {
       "30d": {
         "price": 3.309999942779541,
@@ -1378,7 +1408,10 @@
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "ACVA_Goodman Robert P_2025-11-10 00:00:00",
@@ -1389,10 +1422,10 @@
     "title": "Dir",
     "qty": 912408,
     "value": 5118609,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:46:04.874458",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:27:20.616389",
+    "last_updated": "2026-01-09T11:26:39.485413",
     "outcomes": {
       "30d": {
         "price": 8.260000228881836,
@@ -1402,7 +1435,10 @@
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "RHLD_Mahoney Timothy O._2025-11-07 00:00:00",
@@ -1443,7 +1479,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:04.924131",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:27:49.954428",
+    "last_updated": "2026-01-09T11:26:39.986829",
     "outcomes": {
       "30d": {
         "price": 201.67999267578125,
@@ -1454,7 +1490,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 3,
+    "failure_count": 4,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -1518,10 +1554,10 @@
     "title": "EVP, CFO",
     "qty": 150000,
     "value": 957000,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:46:04.998620",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:27:21.909942",
+    "last_updated": "2026-01-09T11:26:40.766815",
     "outcomes": {
       "30d": {
         "price": 6.960000038146973,
@@ -1531,7 +1567,10 @@
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "FRSH_Woodside Dennis_2025-11-10 00:00:00",
@@ -1542,10 +1581,10 @@
     "title": "CEO, Pres",
     "qty": 176100,
     "value": 1991691,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:46:05.023954",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:27:22.528003",
+    "last_updated": "2026-01-09T11:26:41.458524",
     "outcomes": {
       "30d": {
         "price": 13.4399995803833,
@@ -1555,7 +1594,10 @@
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "BLMN_Kunkel Julie T._2025-11-11 00:00:00",
@@ -1644,7 +1686,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:05.154992",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:27:50.457212",
+    "last_updated": "2026-01-09T11:26:41.960648",
     "outcomes": {
       "30d": {
         "price": 104.66000366210938,
@@ -1655,7 +1697,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 3,
+    "failure_count": 4,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -1671,7 +1713,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:05.182566",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:27:50.958368",
+    "last_updated": "2026-01-09T11:26:42.462011",
     "outcomes": {
       "30d": {
         "price": 104.66000366210938,
@@ -1682,7 +1724,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 3,
+    "failure_count": 4,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -1698,7 +1740,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:05.207903",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:27:51.459582",
+    "last_updated": "2026-01-09T11:26:42.963488",
     "outcomes": {
       "30d": {
         "price": 104.66000366210938,
@@ -1709,7 +1751,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 3,
+    "failure_count": 4,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -1725,7 +1767,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:05.233541",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:27:51.961004",
+    "last_updated": "2026-01-09T11:26:43.464831",
     "outcomes": {
       "30d": {
         "price": 104.66000366210938,
@@ -1736,7 +1778,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 3,
+    "failure_count": 4,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -1752,7 +1794,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:05.339964",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:27:24.418165",
+    "last_updated": "2026-01-09T11:26:43.966282",
     "outcomes": {
       "30d": {
         "price": 37.029998779296875,
@@ -1762,7 +1804,10 @@
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NETWORK_ERROR",
+    "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
   {
     "trade_id": "LINE_Marchetti Kevin Patrick_2025-11-10 00:00:00",
@@ -1776,7 +1821,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:05.415939",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:27:25.001178",
+    "last_updated": "2026-01-09T11:26:44.467683",
     "outcomes": {
       "30d": {
         "price": 37.029998779296875,
@@ -1786,7 +1831,10 @@
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NETWORK_ERROR",
+    "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
   {
     "trade_id": "GRNT_McCartney John_2025-11-11 00:00:00",
@@ -1845,10 +1893,10 @@
     "title": "10%",
     "qty": 178044,
     "value": 1352587,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:46:05.491858",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:27:26.916843",
+    "last_updated": "2026-01-09T11:26:45.131963",
     "outcomes": {
       "30d": {
         "price": 10.59000015258789,
@@ -1858,7 +1906,10 @@
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "GTE_Equinox Partners Investment Management LLC_2025-11-07 00:00:00",
@@ -1896,10 +1947,10 @@
     "title": "Dir",
     "qty": 600,
     "value": 9843,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:46:05.547209",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:27:27.521607",
+    "last_updated": "2026-01-09T11:26:45.800577",
     "outcomes": {
       "30d": {
         "price": 17.790000915527344,
@@ -1909,7 +1960,10 @@
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "AMPL_Casey Andrew_2025-11-07 00:00:00",
@@ -1995,10 +2049,10 @@
     "title": "Dir",
     "qty": 16236,
     "value": 314181,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:46:05.649260",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:27:29.378761",
+    "last_updated": "2026-01-09T11:26:46.527780",
     "outcomes": {
       "30d": {
         "price": 2.7300000190734863,
@@ -2008,7 +2062,10 @@
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "CROX_Replogle John B_2025-11-11 00:00:00",
@@ -2094,10 +2151,10 @@
     "title": "Dir",
     "qty": 1000,
     "value": 34388,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:46:05.750445",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:27:31.280326",
+    "last_updated": "2026-01-09T11:26:47.397407",
     "outcomes": {
       "30d": {
         "price": 35.150001525878906,
@@ -2107,7 +2164,10 @@
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "SELF_Winmill & Co. Inc_2025-11-11 00:00:00",
@@ -2265,10 +2325,10 @@
     "title": "Dir",
     "qty": 50000,
     "value": 66070,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:46:05.955820",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:27:35.034549",
+    "last_updated": "2026-01-09T11:26:48.075200",
     "outcomes": {
       "30d": {
         "price": 1.0199999809265137,
@@ -2278,7 +2338,10 @@
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "APVO_Grant Grady III_2025-11-10 00:00:00",
@@ -2289,10 +2352,10 @@
     "title": "Dir",
     "qty": 13513,
     "value": 20134,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:46:05.981895",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:27:35.752427",
+    "last_updated": "2026-01-09T11:26:48.758014",
     "outcomes": {
       "30d": {
         "price": 1.2000000476837158,
@@ -2302,7 +2365,10 @@
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "NUS_Hatchett Steven Keith_2025-11-11 00:00:00",
@@ -2364,10 +2430,10 @@
     "title": "Dir",
     "qty": 4100,
     "value": 39737,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:46:06.059654",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:27:37.124662",
+    "last_updated": "2026-01-09T11:26:49.507872",
     "outcomes": {
       "30d": {
         "price": 9.979999542236328,
@@ -2377,7 +2443,10 @@
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "SCKT_Bass Charlie_2025-11-11 00:00:00",
@@ -2442,7 +2511,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:06.164478",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:27:52.469122",
+    "last_updated": "2026-01-09T11:26:50.009508",
     "outcomes": {
       "30d": {
         "price": 18.440000534057617,
@@ -2453,7 +2522,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 3,
+    "failure_count": 4,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -2469,7 +2538,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:06.190813",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:27:52.970277",
+    "last_updated": "2026-01-09T11:26:50.510650",
     "outcomes": {
       "30d": {
         "price": 18.440000534057617,
@@ -2480,7 +2549,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 3,
+    "failure_count": 4,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -2493,10 +2562,10 @@
     "title": "Dir",
     "qty": 1400,
     "value": 98784,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:46:06.216718",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:27:38.393558",
+    "last_updated": "2026-01-09T11:26:51.309444",
     "outcomes": {
       "30d": {
         "price": 87.16000366210938,
@@ -2506,7 +2575,10 @@
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "PRSU_Schechter Joshua_2025-11-10 00:00:00",
@@ -2517,10 +2589,10 @@
     "title": "Dir",
     "qty": 1000,
     "value": 34000,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:46:06.242741",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:27:39.099814",
+    "last_updated": "2026-01-09T11:26:52.139592",
     "outcomes": {
       "30d": {
         "price": 35.560001373291016,
@@ -2530,7 +2602,10 @@
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "PRSU_Barry David W_2025-11-10 00:00:00",
@@ -2544,7 +2619,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:06.268849",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:27:39.734970",
+    "last_updated": "2026-01-09T11:26:52.640863",
     "outcomes": {
       "30d": {
         "price": 35.560001373291016,
@@ -2554,7 +2629,10 @@
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NETWORK_ERROR",
+    "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
   {
     "trade_id": "OBDC_Weiler Melissa_2025-11-10 00:00:00",
@@ -2565,10 +2643,10 @@
     "title": "Dir",
     "qty": 10000,
     "value": 119900,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:46:06.295499",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:27:40.414483",
+    "last_updated": "2026-01-09T11:26:53.349612",
     "outcomes": {
       "30d": {
         "price": 13.380000114440918,
@@ -2578,7 +2656,10 @@
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "FRPH_Baker John D. III_2025-11-10 00:00:00",
@@ -2589,10 +2670,10 @@
     "title": "CEO",
     "qty": 4166,
     "value": 98734,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:46:06.321632",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:27:41.077406",
+    "last_updated": "2026-01-09T11:26:54.187100",
     "outcomes": {
       "30d": {
         "price": 23.479999542236328,
@@ -2602,7 +2683,10 @@
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "AMCR_Glerum James T Jr._2025-11-10 00:00:00",
@@ -2613,10 +2697,10 @@
     "title": "Dir",
     "qty": 59945,
     "value": 499947,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:46:06.347433",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:27:41.705264",
+    "last_updated": "2026-01-09T11:26:54.951494",
     "outcomes": {
       "30d": {
         "price": 8.199999809265137,
@@ -2626,7 +2710,10 @@
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "AMCR_Wilson Ian_2025-11-10 00:00:00",
@@ -2640,7 +2727,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:06.373282",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:27:42.274597",
+    "last_updated": "2026-01-09T11:26:55.452888",
     "outcomes": {
       "30d": {
         "price": 8.199999809265137,
@@ -2650,7 +2737,10 @@
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NETWORK_ERROR",
+    "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
   {
     "trade_id": "AMCR_Konieczny Peter_2025-11-10 00:00:00",
@@ -2664,7 +2754,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:06.399563",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:27:42.854127",
+    "last_updated": "2026-01-09T11:26:55.954273",
     "outcomes": {
       "30d": {
         "price": 8.199999809265137,
@@ -2674,7 +2764,10 @@
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NETWORK_ERROR",
+    "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
   {
     "trade_id": "HUN_Lister Philip M._2025-11-10 00:00:00",
@@ -2685,10 +2778,10 @@
     "title": "EVP, CFO",
     "qty": 29762,
     "value": 242709,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:46:06.425751",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:27:43.570306",
+    "last_updated": "2026-01-09T11:26:56.789153",
     "outcomes": {
       "30d": {
         "price": 10.65999984741211,
@@ -2698,7 +2791,10 @@
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "MGY_Ropp Ralph Lewis_2025-11-11 00:00:00",
@@ -2733,10 +2829,10 @@
     "title": "PAO",
     "qty": 1500,
     "value": 17760,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:46:06.477632",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:27:44.811808",
+    "last_updated": "2026-01-09T11:26:57.528175",
     "outcomes": {
       "30d": {
         "price": 13.130000114440918,
@@ -2746,7 +2842,10 @@
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "AERT_Kumar Venu Raman_2025-11-10 00:00:00",
@@ -2757,10 +2856,10 @@
     "title": "Dir, 10%",
     "qty": 1111,
     "value": 710,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:46:06.504169",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:27:45.491253",
+    "last_updated": "2026-01-09T11:26:58.223757",
     "outcomes": {
       "30d": {
         "price": 0.5809999704360962,
@@ -2770,7 +2869,10 @@
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "LAW_Friedrichsen Eric_2025-11-10 00:00:00",
@@ -2784,7 +2886,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:06.530689",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:27:46.149944",
+    "last_updated": "2026-01-09T11:26:58.725180",
     "outcomes": {
       "30d": {
         "price": 8.789999961853027,
@@ -2794,7 +2896,10 @@
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NETWORK_ERROR",
+    "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
   {
     "trade_id": "KMPR_Parker Stuart B._2025-11-10 00:00:00",
@@ -2805,10 +2910,10 @@
     "title": "Dir",
     "qty": 25000,
     "value": 920500,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:46:06.557358",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:27:46.934680",
+    "last_updated": "2026-01-09T11:26:59.635972",
     "outcomes": {
       "30d": {
         "price": 40.33000183105469,
@@ -2818,7 +2923,10 @@
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "FRPH_Baker John D II_2025-11-10 00:00:00",
@@ -2832,7 +2940,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:06.583878",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:27:47.492341",
+    "last_updated": "2026-01-09T11:27:00.137318",
     "outcomes": {
       "30d": {
         "price": 23.479999542236328,
@@ -2842,7 +2950,10 @@
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NETWORK_ERROR",
+    "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
   {
     "trade_id": "LPX_Macadam Stephen E._2025-11-07 00:00:00",
@@ -2883,7 +2994,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:06.636740",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:27:48.091666",
+    "last_updated": "2026-01-09T11:27:00.638694",
     "outcomes": {
       "30d": {
         "price": 0.09000000357627869,
@@ -2893,7 +3004,10 @@
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NETWORK_ERROR",
+    "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
   {
     "trade_id": "RMI_Rivernorth Financial Holdings, LLC_2025-11-10 00:00:00",
@@ -2907,7 +3021,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:06.714984",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:27:48.779897",
+    "last_updated": "2026-01-09T11:27:01.140134",
     "outcomes": {
       "30d": {
         "price": 14.640000343322754,
@@ -2917,7 +3031,10 @@
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NETWORK_ERROR",
+    "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
   {
     "trade_id": "BDN_Sweeney Gerard H_2025-11-10 00:00:00",
@@ -2928,10 +3045,10 @@
     "title": "Pres, CEO",
     "qty": 88500,
     "value": 298882,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:46:06.741701",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:27:49.463822",
+    "last_updated": "2026-01-09T11:27:02.096831",
     "outcomes": {
       "30d": {
         "price": 3.0199999809265137,
@@ -2941,7 +3058,10 @@
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "AVBC_Cozzone Robert D_2025-11-10 00:00:00",
@@ -2955,7 +3075,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:06.767866",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:27:50.134274",
+    "last_updated": "2026-01-09T11:27:02.598091",
     "outcomes": {
       "30d": {
         "price": 16.979999542236328,
@@ -2965,7 +3085,10 @@
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NETWORK_ERROR",
+    "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
   {
     "trade_id": "GBFH_Nigro Edward Michael_2025-11-07 00:00:00",
@@ -3006,7 +3129,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:06.821646",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:27:50.815764",
+    "last_updated": "2026-01-09T11:27:03.099462",
     "outcomes": {
       "30d": {
         "price": 14.279999732971191,
@@ -3016,7 +3139,10 @@
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NETWORK_ERROR",
+    "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
   {
     "trade_id": "GBFH_Griege Charles William Jr._2025-11-11 00:00:00",
@@ -3102,10 +3228,10 @@
     "title": "President of the Advisor",
     "qty": 10000,
     "value": 103490,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:46:06.986122",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:27:52.694905",
+    "last_updated": "2026-01-09T11:27:03.881240",
     "outcomes": {
       "30d": {
         "price": 10.050000190734863,
@@ -3115,7 +3241,10 @@
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "AROW_White Daniel James_2025-11-10 00:00:00",
@@ -3126,10 +3255,10 @@
     "title": "Dir",
     "qty": 1644,
     "value": 49550,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:46:07.013082",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:27:53.453490",
+    "last_updated": "2026-01-09T11:27:04.908820",
     "outcomes": {
       "30d": {
         "price": 31.639999389648438,
@@ -3139,7 +3268,10 @@
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "RCG_Stahl Murray_2025-11-10 00:00:00",
@@ -3153,7 +3285,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:07.039611",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:27:54.197248",
+    "last_updated": "2026-01-09T11:27:05.410142",
     "outcomes": {
       "30d": {
         "price": 2.5899999141693115,
@@ -3163,7 +3295,10 @@
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NETWORK_ERROR",
+    "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
   {
     "trade_id": "TPL_Horizon Kinetics Asset Management LLC_2025-11-10 00:00:00",
@@ -3177,7 +3312,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:07.066745",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:27:54.955484",
+    "last_updated": "2026-01-09T11:27:05.911504",
     "outcomes": {
       "30d": {
         "price": 892.5,
@@ -3187,7 +3322,10 @@
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NETWORK_ERROR",
+    "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
   {
     "trade_id": "RNST_Levy Jonathan A_2025-11-11 00:00:00",
@@ -3297,10 +3435,10 @@
     "title": "10%",
     "qty": 68788,
     "value": 726401,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:46:07.199922",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:27:57.621692",
+    "last_updated": "2026-01-09T11:27:06.849506",
     "outcomes": {
       "30d": {
         "price": 11.109999656677246,
@@ -3310,7 +3448,10 @@
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "SRV_Alban John_2025-11-11 00:00:00",
@@ -3348,7 +3489,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:07.279932",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:27:58.993591",
+    "last_updated": "2026-01-09T11:27:07.351261",
     "outcomes": {
       "30d": {
         "price": 54.91999816894531,
@@ -3358,7 +3499,10 @@
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NETWORK_ERROR",
+    "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
   {
     "trade_id": "TRIN_Brown Kyle Steven_2025-11-07 00:00:00",
@@ -3423,10 +3567,10 @@
     "title": "Dir",
     "qty": 7500,
     "value": 350924,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:46:07.416550",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:27:59.778744",
+    "last_updated": "2026-01-09T11:27:08.399695",
     "outcomes": {
       "30d": {
         "price": 46.849998474121094,
@@ -3436,7 +3580,10 @@
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "ARQ_Rasmus Robert E._2025-11-10 00:00:00",
@@ -3450,7 +3597,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:07.443579",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:28:00.400210",
+    "last_updated": "2026-01-09T11:27:08.901087",
     "outcomes": {
       "30d": {
         "price": 3.6600000858306885,
@@ -3460,7 +3607,10 @@
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NETWORK_ERROR",
+    "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
   {
     "trade_id": "NCLH_Curtis Harry C_2025-11-07 00:00:00",
@@ -3474,7 +3624,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:07.471085",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:27:53.481930",
+    "last_updated": "2026-01-09T11:27:09.402462",
     "outcomes": {
       "30d": {
         "price": 19.110000610351562,
@@ -3485,7 +3635,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 3,
+    "failure_count": 4,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -3522,10 +3672,10 @@
     "title": "Dir",
     "qty": 5000,
     "value": 107600,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:46:07.525497",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:28:01.602745",
+    "last_updated": "2026-01-09T11:27:10.105474",
     "outcomes": {
       "30d": {
         "price": 20.450000762939453,
@@ -3535,7 +3685,10 @@
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "DGICA_Donegal Mutual Insurance Co_2025-11-07 00:00:00",
@@ -3549,7 +3702,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:07.553237",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:27:53.983718",
+    "last_updated": "2026-01-09T11:27:10.606881",
     "outcomes": {
       "30d": {
         "price": 19.520000457763672,
@@ -3560,7 +3713,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 3,
+    "failure_count": 4,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -3573,10 +3726,10 @@
     "title": "Pres, CEO",
     "qty": 6000,
     "value": 293844,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:46:07.580945",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:28:02.315221",
+    "last_updated": "2026-01-09T11:27:11.263982",
     "outcomes": {
       "30d": {
         "price": 49.88999938964844,
@@ -3586,7 +3739,10 @@
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "PRMB_Hass David W._2025-11-11 00:00:00",
@@ -3621,10 +3777,10 @@
     "title": "Dir",
     "qty": 5000,
     "value": 78651,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:46:07.635607",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:28:03.584442",
+    "last_updated": "2026-01-09T11:27:12.189681",
     "outcomes": {
       "30d": {
         "price": 15.720000267028809,
@@ -3634,7 +3790,10 @@
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "RXO_Szlosek Thomas A_2025-11-07 00:00:00",
@@ -3750,7 +3909,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:07.780672",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:27:54.486614",
+    "last_updated": "2026-01-09T11:27:12.691652",
     "outcomes": {
       "30d": {
         "price": 0.8399999737739563,
@@ -3761,7 +3920,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 3,
+    "failure_count": 4,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -3777,7 +3936,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:07.808542",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:27:54.987777",
+    "last_updated": "2026-01-09T11:27:13.193010",
     "outcomes": {
       "30d": {
         "price": 0.8399999737739563,
@@ -3788,7 +3947,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 3,
+    "failure_count": 4,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -3804,7 +3963,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:07.835670",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:28:05.366217",
+    "last_updated": "2026-01-09T11:27:13.694352",
     "outcomes": {
       "30d": {
         "price": 0.10599999874830246,
@@ -3814,7 +3973,10 @@
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NETWORK_ERROR",
+    "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
   {
     "trade_id": "GLSI_Patel Snehal_2025-11-07 00:00:00",
@@ -3852,10 +4014,10 @@
     "title": "Pres Europe, Africa, MEPA",
     "qty": 10000,
     "value": 89540,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:46:07.890839",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:28:06.088113",
+    "last_updated": "2026-01-09T11:27:14.552125",
     "outcomes": {
       "30d": {
         "price": 9.460000038146973,
@@ -3865,7 +4027,10 @@
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "AEYE_Hawkins James B_2025-11-11 00:00:00",
@@ -3903,7 +4068,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:07.946314",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:28:07.313380",
+    "last_updated": "2026-01-09T11:27:15.053861",
     "outcomes": {
       "30d": {
         "price": 35.349998474121094,
@@ -3913,7 +4078,10 @@
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NETWORK_ERROR",
+    "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
   {
     "trade_id": "BNTC_Suvretta Capital Management, LLC_2025-11-07 00:00:00",
@@ -3954,7 +4122,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:08.000681",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:27:55.490181",
+    "last_updated": "2026-01-09T11:27:15.555306",
     "outcomes": {
       "30d": {
         "price": 104.66000366210938,
@@ -3965,7 +4133,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 3,
+    "failure_count": 4,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -4035,7 +4203,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:08.084529",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:27:55.991446",
+    "last_updated": "2026-01-09T11:27:16.056689",
     "outcomes": {
       "30d": {
         "price": 15.279999732971191,
@@ -4046,7 +4214,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 3,
+    "failure_count": 4,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -4113,10 +4281,10 @@
     "title": "Pres, COO",
     "qty": 18200,
     "value": 1001702,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:46:08.169299",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:28:07.977423",
+    "last_updated": "2026-01-09T11:27:16.805975",
     "outcomes": {
       "30d": {
         "price": 67.55999755859375,
@@ -4126,7 +4294,10 @@
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "RXO_Wilkerson Andrew M._2025-11-10 00:00:00",
@@ -4140,7 +4311,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:08.198100",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:28:08.635824",
+    "last_updated": "2026-01-09T11:27:17.307398",
     "outcomes": {
       "30d": {
         "price": 15.130000114440918,
@@ -4150,7 +4321,10 @@
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NETWORK_ERROR",
+    "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
   {
     "trade_id": "KNTK_Welch Jamie_2025-11-10 00:00:00",
@@ -4161,10 +4335,10 @@
     "title": "See Remarks",
     "qty": 8000,
     "value": 276560,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:46:08.226328",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:28:09.242472",
+    "last_updated": "2026-01-09T11:27:18.014819",
     "outcomes": {
       "30d": {
         "price": 38.31999969482422,
@@ -4174,7 +4348,10 @@
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "COP_McRaven William H._2025-11-10 00:00:00",
@@ -4185,10 +4362,10 @@
     "title": "Dir",
     "qty": 5768,
     "value": 500000,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:46:08.255378",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:28:10.046740",
+    "last_updated": "2026-01-09T11:27:19.105246",
     "outcomes": {
       "30d": {
         "price": 96.80000305175781,
@@ -4198,7 +4375,10 @@
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "RDW_Cannito Peter Anthony Jr_2025-11-10 00:00:00",
@@ -4209,10 +4389,10 @@
     "title": "COB, CEO",
     "qty": 32155,
     "value": 199673,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:46:08.283676",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:28:10.600279",
+    "last_updated": "2026-01-09T11:27:19.769621",
     "outcomes": {
       "30d": {
         "price": 7.480000019073486,
@@ -4222,7 +4402,10 @@
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "ZOMDF_Klass Russell Kevin_2025-11-07 00:00:00",
@@ -4398,7 +4581,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:08.475984",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:27:56.494314",
+    "last_updated": "2026-01-09T11:27:20.271039",
     "outcomes": {
       "30d": {
         "price": 1.25,
@@ -4409,7 +4592,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 3,
+    "failure_count": 4,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -4425,7 +4608,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:08.503500",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:28:11.199016",
+    "last_updated": "2026-01-09T11:27:20.772381",
     "outcomes": {
       "30d": {
         "price": 1.5700000524520874,
@@ -4435,7 +4618,10 @@
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NETWORK_ERROR",
+    "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
   {
     "trade_id": "CHRD_Holroyd Samantha_2025-11-07 00:00:00",
@@ -4476,7 +4662,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:08.558869",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:27:56.996109",
+    "last_updated": "2026-01-09T11:27:21.273703",
     "outcomes": {
       "30d": {
         "price": 14.680000305175781,
@@ -4487,7 +4673,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 3,
+    "failure_count": 4,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -4503,7 +4689,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:08.586472",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:27:57.497561",
+    "last_updated": "2026-01-09T11:27:21.775077",
     "outcomes": {
       "30d": {
         "price": 14.180000305175781,
@@ -4514,7 +4700,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 3,
+    "failure_count": 4,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -4581,10 +4767,10 @@
     "title": "Pres, CEO",
     "qty": 5000,
     "value": 153439,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:46:08.669948",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:28:11.849301",
+    "last_updated": "2026-01-09T11:27:22.467785",
     "outcomes": {
       "30d": {
         "price": 32.790000915527344,
@@ -4594,7 +4780,10 @@
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "TRIN_Estes Ronald E._2025-11-07 00:00:00",
@@ -4608,7 +4797,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:08.697723",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:27:57.999195",
+    "last_updated": "2026-01-09T11:27:22.969209",
     "outcomes": {
       "30d": {
         "price": 15.279999732971191,
@@ -4619,7 +4808,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 3,
+    "failure_count": 4,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -4716,7 +4905,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:08.809429",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:27:58.500558",
+    "last_updated": "2026-01-09T11:27:23.470562",
     "outcomes": {
       "30d": {
         "price": 17.440000534057617,
@@ -4727,7 +4916,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 3,
+    "failure_count": 4,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -4797,7 +4986,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:08.893451",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:27:59.001990",
+    "last_updated": "2026-01-09T11:27:23.971944",
     "outcomes": {
       "30d": {
         "price": 17.440000534057617,
@@ -4808,7 +4997,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 3,
+    "failure_count": 4,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -5172,10 +5361,10 @@
     "title": "Dir",
     "qty": 1000,
     "value": 44500,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:46:09.285451",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:28:12.595044",
+    "last_updated": "2026-01-09T11:27:24.914724",
     "outcomes": {
       "30d": {
         "price": 45.779998779296875,
@@ -5185,7 +5374,10 @@
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "FDBC_Santaniello Daniel J_2025-11-10 00:00:00",
@@ -5199,7 +5391,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:09.314612",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:28:13.180433",
+    "last_updated": "2026-01-09T11:27:25.416136",
     "outcomes": {
       "30d": {
         "price": 45.779998779296875,
@@ -5209,7 +5401,10 @@
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NETWORK_ERROR",
+    "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
   {
     "trade_id": "FDBC_Cali Brian J_2025-11-10 00:00:00",
@@ -5223,7 +5418,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:09.343087",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:28:13.761698",
+    "last_updated": "2026-01-09T11:27:25.917524",
     "outcomes": {
       "30d": {
         "price": 45.779998779296875,
@@ -5233,7 +5428,10 @@
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NETWORK_ERROR",
+    "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
   {
     "trade_id": "EQBK_Borck Leon_2025-11-10 00:00:00",
@@ -5244,10 +5442,10 @@
     "title": "Dir",
     "qty": 250,
     "value": 10393,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:46:09.371297",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:28:14.435838",
+    "last_updated": "2026-01-09T11:27:26.644307",
     "outcomes": {
       "30d": {
         "price": 46.459999084472656,
@@ -5257,7 +5455,10 @@
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "MNTR_Billingsley Chester_2025-11-06 00:00:00",
@@ -5298,7 +5499,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:09.429867",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:27:59.504924",
+    "last_updated": "2026-01-09T11:27:27.145731",
     "outcomes": {
       "30d": {
         "price": 20.3700008392334,
@@ -5309,7 +5510,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 3,
+    "failure_count": 4,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -5325,7 +5526,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:09.458130",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:00.006106",
+    "last_updated": "2026-01-09T11:27:27.646969",
     "outcomes": {
       "30d": {
         "price": 20.3700008392334,
@@ -5336,7 +5537,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 3,
+    "failure_count": 4,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -5349,10 +5550,10 @@
     "title": "Dir",
     "qty": 655,
     "value": 19525,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-03T11:46:09.486538",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:28:15.173253",
+    "last_updated": "2026-01-09T11:27:28.534132",
     "outcomes": {
       "30d": {
         "price": 34.849998474121094,
@@ -5362,7 +5563,10 @@
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "NWPP_Keene Harold L_2025-11-06 00:00:00",
@@ -5430,7 +5634,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:09.572511",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:00.507789",
+    "last_updated": "2026-01-09T11:27:29.035578",
     "outcomes": {
       "30d": {
         "price": 2.549999952316284,
@@ -5441,7 +5645,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 3,
+    "failure_count": 4,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -5538,7 +5742,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:09.688655",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:01.008862",
+    "last_updated": "2026-01-09T11:27:29.536974",
     "outcomes": {
       "30d": {
         "price": 904.1500244140625,
@@ -5549,7 +5753,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 3,
+    "failure_count": 4,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -5862,7 +6066,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:10.033197",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:01.510078",
+    "last_updated": "2026-01-09T11:27:30.038368",
     "outcomes": {
       "30d": {
         "price": 8.579999923706055,
@@ -5873,7 +6077,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 3,
+    "failure_count": 4,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -5916,7 +6120,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:10.095420",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:02.011205",
+    "last_updated": "2026-01-09T11:27:30.539702",
     "outcomes": {
       "30d": {
         "price": 8.579999923706055,
@@ -5927,7 +6131,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 5,
+    "failure_count": 6,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -5970,7 +6174,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:10.153467",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:02.512385",
+    "last_updated": "2026-01-09T11:27:31.040961",
     "outcomes": {
       "30d": {
         "price": 28.360000610351562,
@@ -5981,7 +6185,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 3,
+    "failure_count": 4,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -6132,7 +6336,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:10.328434",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:03.013567",
+    "last_updated": "2026-01-09T11:27:31.542302",
     "outcomes": {
       "30d": {
         "price": 6.679999828338623,
@@ -6143,7 +6347,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 3,
+    "failure_count": 4,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -6159,7 +6363,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:10.357774",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:03.514790",
+    "last_updated": "2026-01-09T11:27:32.043532",
     "outcomes": {
       "30d": {
         "price": 6.679999828338623,
@@ -6170,7 +6374,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 3,
+    "failure_count": 4,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -6240,7 +6444,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:10.446863",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:04.015881",
+    "last_updated": "2026-01-09T11:27:32.544901",
     "outcomes": {
       "30d": {
         "price": 44.41999816894531,
@@ -6251,7 +6455,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 5,
+    "failure_count": 6,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -6375,7 +6579,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:10.593389",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:04.517221",
+    "last_updated": "2026-01-09T11:27:33.046095",
     "outcomes": {
       "30d": {
         "price": 28.389999389648438,
@@ -6386,7 +6590,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 5,
+    "failure_count": 6,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -6402,7 +6606,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:10.622472",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:05.018508",
+    "last_updated": "2026-01-09T11:27:33.547471",
     "outcomes": {
       "30d": {
         "price": 28.389999389648438,
@@ -6413,7 +6617,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 5,
+    "failure_count": 6,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -6429,7 +6633,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:10.651992",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:05.519661",
+    "last_updated": "2026-01-09T11:27:34.048734",
     "outcomes": {
       "30d": {
         "price": 28.389999389648438,
@@ -6440,7 +6644,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 5,
+    "failure_count": 6,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -6456,7 +6660,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:10.681289",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:06.020817",
+    "last_updated": "2026-01-09T11:27:34.550168",
     "outcomes": {
       "30d": {
         "price": 28.389999389648438,
@@ -6467,7 +6671,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 5,
+    "failure_count": 6,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -6483,7 +6687,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:10.710444",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:06.522159",
+    "last_updated": "2026-01-09T11:27:35.051326",
     "outcomes": {
       "30d": {
         "price": 28.389999389648438,
@@ -6494,7 +6698,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 5,
+    "failure_count": 6,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -6510,7 +6714,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:10.739957",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:07.023516",
+    "last_updated": "2026-01-09T11:27:35.552343",
     "outcomes": {
       "30d": {
         "price": 26.709999084472656,
@@ -6521,7 +6725,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 3,
+    "failure_count": 4,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -6861,7 +7065,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:11.125968",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:07.524828",
+    "last_updated": "2026-01-09T11:27:36.053438",
     "outcomes": {
       "30d": {
         "price": 17.079999923706055,
@@ -6872,7 +7076,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 5,
+    "failure_count": 6,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -6888,7 +7092,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:11.156360",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:08.026184",
+    "last_updated": "2026-01-09T11:27:36.554531",
     "outcomes": {
       "30d": {
         "price": 17.079999923706055,
@@ -6899,7 +7103,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 5,
+    "failure_count": 6,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -6915,7 +7119,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:11.186580",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:08.527628",
+    "last_updated": "2026-01-09T11:27:37.055875",
     "outcomes": {
       "30d": {
         "price": 17.079999923706055,
@@ -6926,7 +7130,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 5,
+    "failure_count": 6,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -6969,7 +7173,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:11.246684",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:09.028865",
+    "last_updated": "2026-01-09T11:27:37.557064",
     "outcomes": {
       "30d": {
         "price": 17.079999923706055,
@@ -6980,7 +7184,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 5,
+    "failure_count": 6,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -6996,7 +7200,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:11.276746",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:09.530025",
+    "last_updated": "2026-01-09T11:27:38.058253",
     "outcomes": {
       "30d": {
         "price": 17.079999923706055,
@@ -7007,7 +7211,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 5,
+    "failure_count": 6,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -7023,7 +7227,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:11.307291",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:10.031190",
+    "last_updated": "2026-01-09T11:27:38.559507",
     "outcomes": {
       "30d": {
         "price": 17.079999923706055,
@@ -7034,7 +7238,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 5,
+    "failure_count": 6,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -7725,7 +7929,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:12.121687",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:10.532411",
+    "last_updated": "2026-01-09T11:27:39.060749",
     "outcomes": {
       "30d": {
         "price": 19.110000610351562,
@@ -7736,7 +7940,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 5,
+    "failure_count": 6,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -7752,7 +7956,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:12.151689",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:11.033662",
+    "last_updated": "2026-01-09T11:27:39.562128",
     "outcomes": {
       "30d": {
         "price": 19.110000610351562,
@@ -7763,7 +7967,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 5,
+    "failure_count": 6,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -7779,7 +7983,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:12.181822",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:11.534815",
+    "last_updated": "2026-01-09T11:27:40.063495",
     "outcomes": {
       "30d": {
         "price": 19.110000610351562,
@@ -7790,7 +7994,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 5,
+    "failure_count": 6,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -7806,7 +8010,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:12.212897",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:12.036124",
+    "last_updated": "2026-01-09T11:27:40.564721",
     "outcomes": {
       "30d": {
         "price": 45.220001220703125,
@@ -7817,7 +8021,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 5,
+    "failure_count": 6,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -7968,7 +8172,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:12.459015",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:12.537504",
+    "last_updated": "2026-01-09T11:27:41.066129",
     "outcomes": {
       "30d": {
         "price": 44.630001068115234,
@@ -7979,7 +8183,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 5,
+    "failure_count": 6,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -8697,7 +8901,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:13.360550",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:13.038678",
+    "last_updated": "2026-01-09T11:27:41.567232",
     "outcomes": {
       "30d": {
         "price": 6.710000038146973,
@@ -8708,7 +8912,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 5,
+    "failure_count": 6,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -8724,7 +8928,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:13.392367",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:13.540025",
+    "last_updated": "2026-01-09T11:27:42.068461",
     "outcomes": {
       "30d": {
         "price": 44.630001068115234,
@@ -8735,7 +8939,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 5,
+    "failure_count": 6,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -8805,7 +9009,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:13.489277",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:14.041351",
+    "last_updated": "2026-01-09T11:27:42.569625",
     "outcomes": {
       "30d": {
         "price": 4.239999771118164,
@@ -8816,7 +9020,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 5,
+    "failure_count": 6,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -8832,7 +9036,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:13.521960",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:14.542545",
+    "last_updated": "2026-01-09T11:27:43.070716",
     "outcomes": {
       "30d": {
         "price": 4.239999771118164,
@@ -8843,7 +9047,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 5,
+    "failure_count": 6,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -9345,7 +9549,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:14.627439",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:15.043646",
+    "last_updated": "2026-01-09T11:27:43.572116",
     "outcomes": {
       "30d": {
         "price": 2.5999999046325684,
@@ -9356,7 +9560,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 5,
+    "failure_count": 6,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -9372,7 +9576,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:14.659726",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:15.544779",
+    "last_updated": "2026-01-09T11:27:44.073265",
     "outcomes": {
       "30d": {
         "price": 919.75,
@@ -9383,7 +9587,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 5,
+    "failure_count": 6,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -9453,7 +9657,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:14.983844",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:16.045851",
+    "last_updated": "2026-01-09T11:27:44.574554",
     "outcomes": {
       "30d": {
         "price": 42.290000915527344,
@@ -9464,7 +9668,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 5,
+    "failure_count": 6,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -9480,7 +9684,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:15.016968",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:16.547019",
+    "last_updated": "2026-01-09T11:27:45.075896",
     "outcomes": {
       "30d": {
         "price": 42.290000915527344,
@@ -9491,7 +9695,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 5,
+    "failure_count": 6,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -9958,7 +10162,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:31.348359",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:17.797765",
+    "last_updated": "2026-01-09T11:27:45.578497",
     "outcomes": {
       "30d": {
         "price": 11.899999618530273,
@@ -9973,7 +10177,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 1,
+    "failure_count": 2,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -10020,7 +10224,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:31.479037",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:18.299099",
+    "last_updated": "2026-01-09T11:27:46.079642",
     "outcomes": {
       "30d": {
         "price": 10.020000457763672,
@@ -10035,7 +10239,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 2,
+    "failure_count": 3,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -10051,7 +10255,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:31.522037",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:18.800020",
+    "last_updated": "2026-01-09T11:27:46.580796",
     "outcomes": {
       "30d": {
         "price": 32.470001220703125,
@@ -10066,7 +10270,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 2,
+    "failure_count": 3,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -10082,7 +10286,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:31.563720",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:19.301392",
+    "last_updated": "2026-01-09T11:27:47.082016",
     "outcomes": {
       "30d": {
         "price": 32.470001220703125,
@@ -10097,7 +10301,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 2,
+    "failure_count": 3,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -10175,7 +10379,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:31.691879",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:20.889785",
+    "last_updated": "2026-01-09T11:27:47.583183",
     "outcomes": {
       "30d": {
         "price": 330.6400146484375,
@@ -10190,7 +10394,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 1,
+    "failure_count": 2,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -10206,7 +10410,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:31.776546",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:21.391134",
+    "last_updated": "2026-01-09T11:27:48.084383",
     "outcomes": {
       "30d": {
         "price": 330.6400146484375,
@@ -10221,7 +10425,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 1,
+    "failure_count": 2,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -10237,7 +10441,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:31.819026",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:21.892540",
+    "last_updated": "2026-01-09T11:27:48.585700",
     "outcomes": {
       "30d": {
         "price": 330.6400146484375,
@@ -10252,7 +10456,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 1,
+    "failure_count": 2,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -10268,7 +10472,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:31.862520",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:22.393935",
+    "last_updated": "2026-01-09T11:27:49.087033",
     "outcomes": {
       "30d": {
         "price": 330.6400146484375,
@@ -10283,7 +10487,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 1,
+    "failure_count": 2,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -10330,7 +10534,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:31.949002",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:22.895314",
+    "last_updated": "2026-01-09T11:27:49.588359",
     "outcomes": {
       "30d": {
         "price": 14.520000457763672,
@@ -10345,7 +10549,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 2,
+    "failure_count": 3,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -10361,7 +10565,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:31.991050",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:23.396660",
+    "last_updated": "2026-01-09T11:27:50.089637",
     "outcomes": {
       "30d": {
         "price": 14.520000457763672,
@@ -10376,7 +10580,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 2,
+    "failure_count": 3,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -10392,7 +10596,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:32.033355",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:23.898051",
+    "last_updated": "2026-01-09T11:27:50.590997",
     "outcomes": {
       "30d": {
         "price": 330.6400146484375,
@@ -10407,7 +10611,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 1,
+    "failure_count": 2,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -10454,7 +10658,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:32.117039",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:25.183692",
+    "last_updated": "2026-01-09T11:27:51.092310",
     "outcomes": {
       "30d": {
         "price": 330.6400146484375,
@@ -10469,7 +10673,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 1,
+    "failure_count": 2,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -10485,7 +10689,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:32.158868",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:25.685061",
+    "last_updated": "2026-01-09T11:27:51.593425",
     "outcomes": {
       "30d": {
         "price": 20.780000686645508,
@@ -10500,7 +10704,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 1,
+    "failure_count": 2,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -10516,7 +10720,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:32.201651",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:26.186469",
+    "last_updated": "2026-01-09T11:27:52.094795",
     "outcomes": {
       "30d": {
         "price": 330.6400146484375,
@@ -10531,7 +10735,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 1,
+    "failure_count": 2,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -10579,7 +10783,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:32.288007",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:26.688183",
+    "last_updated": "2026-01-09T11:27:52.596434",
     "outcomes": {
       "30d": {
         "price": 0.09000000357627869,
@@ -10594,7 +10798,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 2,
+    "failure_count": 3,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -10672,7 +10876,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:32.415804",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:28.674490",
+    "last_updated": "2026-01-09T11:27:53.097572",
     "outcomes": {
       "30d": {
         "price": 10.594491958618164,
@@ -10687,7 +10891,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 1,
+    "failure_count": 2,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -10734,7 +10938,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:32.500915",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:29.927782",
+    "last_updated": "2026-01-09T11:27:53.598710",
     "outcomes": {
       "30d": {
         "price": 46.97056198120117,
@@ -10749,7 +10953,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 2,
+    "failure_count": 3,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -10765,7 +10969,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:32.586228",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:30.429155",
+    "last_updated": "2026-01-09T11:27:54.099988",
     "outcomes": {
       "30d": {
         "price": 992.0201416015625,
@@ -10780,7 +10984,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 1,
+    "failure_count": 2,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -10796,7 +11000,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:32.629731",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:30.930354",
+    "last_updated": "2026-01-09T11:27:54.601110",
     "outcomes": {
       "30d": {
         "price": 2.619999885559082,
@@ -10811,7 +11015,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 1,
+    "failure_count": 2,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -10858,7 +11062,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:32.714906",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:32.303853",
+    "last_updated": "2026-01-09T11:27:55.102464",
     "outcomes": {
       "30d": {
         "price": 32.470001220703125,
@@ -10873,7 +11077,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 2,
+    "failure_count": 3,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -11013,7 +11217,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:33.014242",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:32.804998",
+    "last_updated": "2026-01-09T11:27:55.603715",
     "outcomes": {
       "30d": {
         "price": 2.619999885559082,
@@ -11028,7 +11232,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 2,
+    "failure_count": 3,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -11044,7 +11248,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:33.057361",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:33.306121",
+    "last_updated": "2026-01-09T11:27:56.104991",
     "outcomes": {
       "30d": {
         "price": 992.0201416015625,
@@ -11059,7 +11263,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 2,
+    "failure_count": 3,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -11416,7 +11620,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:33.657104",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:33.807505",
+    "last_updated": "2026-01-09T11:27:56.606255",
     "outcomes": {
       "30d": {
         "price": 3.319999933242798,
@@ -11431,7 +11635,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 3,
+    "failure_count": 4,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -11447,7 +11651,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:33.700101",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:34.308822",
+    "last_updated": "2026-01-09T11:27:57.107638",
     "outcomes": {
       "30d": {
         "price": 3.319999933242798,
@@ -11462,7 +11666,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 3,
+    "failure_count": 4,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -11478,7 +11682,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:33.742848",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:34.810183",
+    "last_updated": "2026-01-09T11:27:57.608989",
     "outcomes": {
       "30d": {
         "price": 3.319999933242798,
@@ -11493,7 +11697,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 3,
+    "failure_count": 4,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -11509,7 +11713,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:33.785876",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:35.311589",
+    "last_updated": "2026-01-09T11:27:58.110148",
     "outcomes": {
       "30d": {
         "price": 3.319999933242798,
@@ -11524,7 +11728,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 3,
+    "failure_count": 4,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -11634,7 +11838,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:33.958103",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:35.813277",
+    "last_updated": "2026-01-09T11:27:58.611824",
     "outcomes": {
       "30d": {
         "price": 26.479999542236328,
@@ -11649,7 +11853,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 3,
+    "failure_count": 4,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -11665,7 +11869,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:34.000992",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:36.314639",
+    "last_updated": "2026-01-09T11:27:59.113136",
     "outcomes": {
       "30d": {
         "price": 26.479999542236328,
@@ -11680,7 +11884,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 3,
+    "failure_count": 4,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -11727,7 +11931,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:34.087599",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:36.816037",
+    "last_updated": "2026-01-09T11:27:59.614479",
     "outcomes": {
       "30d": {
         "price": 26.479999542236328,
@@ -11742,7 +11946,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 3,
+    "failure_count": 4,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -11758,7 +11962,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:34.130655",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:37.317427",
+    "last_updated": "2026-01-09T11:28:00.115808",
     "outcomes": {
       "30d": {
         "price": 2.619999885559082,
@@ -11773,7 +11977,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 3,
+    "failure_count": 4,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -11789,7 +11993,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:34.178435",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:37.818807",
+    "last_updated": "2026-01-09T11:28:00.617117",
     "outcomes": {
       "30d": {
         "price": 45.871253967285156,
@@ -11804,7 +12008,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 3,
+    "failure_count": 4,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -11820,7 +12024,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:34.221821",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:38.320167",
+    "last_updated": "2026-01-09T11:28:01.118322",
     "outcomes": {
       "30d": {
         "price": 979.8726806640625,
@@ -11835,7 +12039,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 3,
+    "failure_count": 4,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -11944,7 +12148,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:34.442883",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:38.821557",
+    "last_updated": "2026-01-09T11:28:01.619482",
     "outcomes": {
       "30d": {
         "price": 2.5999999046325684,
@@ -11959,7 +12163,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 5,
+    "failure_count": 6,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -11975,7 +12179,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:34.486582",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:39.322928",
+    "last_updated": "2026-01-09T11:28:02.120655",
     "outcomes": {
       "30d": {
         "price": 1009.2581787109375,
@@ -11990,7 +12194,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 5,
+    "failure_count": 6,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -12224,7 +12428,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:35.058013",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:39.824639",
+    "last_updated": "2026-01-09T11:28:02.622171",
     "outcomes": {
       "30d": {
         "price": 2.569999933242798,
@@ -12239,7 +12443,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 5,
+    "failure_count": 6,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -12255,7 +12459,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:35.101998",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:40.326056",
+    "last_updated": "2026-01-09T11:28:03.123290",
     "outcomes": {
       "30d": {
         "price": 917.3486328125,
@@ -12270,7 +12474,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 5,
+    "failure_count": 6,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -12379,7 +12583,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:35.640664",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:40.827425",
+    "last_updated": "2026-01-09T11:28:03.624531",
     "outcomes": {
       "30d": {
         "price": 9.098490715026855,
@@ -12394,7 +12598,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 5,
+    "failure_count": 6,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -70875,7 +71079,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:49:13.078005",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:41.868980",
+    "last_updated": "2026-01-09T11:28:04.663468",
     "outcomes": {
       "30d": {
         "price": 5.619999885559082,
@@ -70894,7 +71098,7 @@
       },
       "180d": null
     },
-    "failure_count": 2,
+    "failure_count": 3,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -74832,7 +75036,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:49:25.184817",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:42.404944",
+    "last_updated": "2026-01-09T11:28:05.199487",
     "outcomes": {
       "30d": {
         "price": 11.763943672180176,
@@ -74851,7 +75055,7 @@
       },
       "180d": null
     },
-    "failure_count": 2,
+    "failure_count": 3,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -74867,7 +75071,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:49:25.281726",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:42.906278",
+    "last_updated": "2026-01-09T11:28:05.700591",
     "outcomes": {
       "30d": {
         "price": 11.763943672180176,
@@ -74886,7 +75090,7 @@
       },
       "180d": null
     },
-    "failure_count": 2,
+    "failure_count": 3,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -75001,7 +75205,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:49:25.781646",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:43.408385",
+    "last_updated": "2026-01-09T11:28:06.202414",
     "outcomes": {
       "30d": {
         "price": 19.54488182067871,
@@ -75020,7 +75224,7 @@
       },
       "180d": null
     },
-    "failure_count": 2,
+    "failure_count": 3,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -75036,7 +75240,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:49:25.878288",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:43.909528",
+    "last_updated": "2026-01-09T11:28:06.703642",
     "outcomes": {
       "30d": {
         "price": 19.54488182067871,
@@ -75055,7 +75259,7 @@
       },
       "180d": null
     },
-    "failure_count": 2,
+    "failure_count": 3,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -75071,7 +75275,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:49:25.976991",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:44.410828",
+    "last_updated": "2026-01-09T11:28:07.204831",
     "outcomes": {
       "30d": {
         "price": 19.54488182067871,
@@ -75090,7 +75294,7 @@
       },
       "180d": null
     },
-    "failure_count": 2,
+    "failure_count": 3,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -75106,7 +75310,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:49:26.074919",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:44.911982",
+    "last_updated": "2026-01-09T11:28:07.706112",
     "outcomes": {
       "30d": {
         "price": 19.54488182067871,
@@ -75125,7 +75329,7 @@
       },
       "180d": null
     },
-    "failure_count": 2,
+    "failure_count": 3,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -75141,7 +75345,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:49:26.269839",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:45.413319",
+    "last_updated": "2026-01-09T11:28:08.207314",
     "outcomes": {
       "30d": {
         "price": 19.54488182067871,
@@ -75160,7 +75364,7 @@
       },
       "180d": null
     },
-    "failure_count": 2,
+    "failure_count": 3,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -75243,7 +75447,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:49:26.560953",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:45.914895",
+    "last_updated": "2026-01-09T11:28:08.708830",
     "outcomes": {
       "30d": {
         "price": 19.54488182067871,
@@ -75262,7 +75466,7 @@
       },
       "180d": null
     },
-    "failure_count": 2,
+    "failure_count": 3,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -75278,7 +75482,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:49:26.660782",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:46.416133",
+    "last_updated": "2026-01-09T11:28:09.210048",
     "outcomes": {
       "30d": {
         "price": 19.54488182067871,
@@ -75297,7 +75501,7 @@
       },
       "180d": null
     },
-    "failure_count": 2,
+    "failure_count": 3,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -75313,7 +75517,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:49:26.757246",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:46.917356",
+    "last_updated": "2026-01-09T11:28:09.711390",
     "outcomes": {
       "30d": {
         "price": 0.8199999928474426,
@@ -75332,7 +75536,7 @@
       },
       "180d": null
     },
-    "failure_count": 2,
+    "failure_count": 3,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -75893,7 +76097,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:49:28.423425",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:47.420169",
+    "last_updated": "2026-01-09T11:28:10.214311",
     "outcomes": {
       "30d": {
         "price": 851.7850952148438,
@@ -75912,7 +76116,7 @@
       },
       "180d": null
     },
-    "failure_count": 2,
+    "failure_count": 3,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -75928,7 +76132,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:49:28.520313",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:47.921315",
+    "last_updated": "2026-01-09T11:28:10.715528",
     "outcomes": {
       "30d": {
         "price": 2.569999933242798,
@@ -75947,7 +76151,7 @@
       },
       "180d": null
     },
-    "failure_count": 2,
+    "failure_count": 3,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -75963,7 +76167,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:49:28.621936",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:48.422657",
+    "last_updated": "2026-01-09T11:28:11.216767",
     "outcomes": {
       "30d": {
         "price": 2.940000057220459,
@@ -75982,7 +76186,7 @@
       },
       "180d": null
     },
-    "failure_count": 2,
+    "failure_count": 3,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -76247,7 +76451,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:49:29.514088",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:48.924034",
+    "last_updated": "2026-01-09T11:28:11.717973",
     "outcomes": {
       "30d": {
         "price": 2.569999933242798,
@@ -76266,7 +76470,7 @@
       },
       "180d": null
     },
-    "failure_count": 3,
+    "failure_count": 4,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -76282,7 +76486,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:49:29.616234",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:49.425117",
+    "last_updated": "2026-01-09T11:28:12.219129",
     "outcomes": {
       "30d": {
         "price": 851.7850952148438,
@@ -76301,7 +76505,7 @@
       },
       "180d": null
     },
-    "failure_count": 3,
+    "failure_count": 4,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -76562,7 +76766,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:49:30.513774",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:49.926353",
+    "last_updated": "2026-01-09T11:28:12.720232",
     "outcomes": {
       "30d": {
         "price": 2.569999933242798,
@@ -76581,7 +76785,7 @@
       },
       "180d": null
     },
-    "failure_count": 5,
+    "failure_count": 6,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -76597,7 +76801,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:49:30.614856",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:50.427754",
+    "last_updated": "2026-01-09T11:28:13.221537",
     "outcomes": {
       "30d": {
         "price": 859.0291137695312,
@@ -76616,7 +76820,7 @@
       },
       "180d": null
     },
-    "failure_count": 5,
+    "failure_count": 6,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -76877,7 +77081,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:49:31.525639",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:50.928927",
+    "last_updated": "2026-01-09T11:28:13.722737",
     "outcomes": {
       "30d": {
         "price": 12.843295097351074,
@@ -76896,7 +77100,7 @@
       },
       "180d": null
     },
-    "failure_count": 5,
+    "failure_count": 6,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -76912,7 +77116,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:49:31.635085",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:51.430201",
+    "last_updated": "2026-01-09T11:28:14.223918",
     "outcomes": {
       "30d": {
         "price": 12.843295097351074,
@@ -76931,7 +77135,7 @@
       },
       "180d": null
     },
-    "failure_count": 5,
+    "failure_count": 6,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -77158,7 +77362,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:49:32.333813",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:51.931515",
+    "last_updated": "2026-01-09T11:28:14.725056",
     "outcomes": {
       "30d": {
         "price": 2.640000104904175,
@@ -77177,7 +77381,7 @@
       },
       "180d": null
     },
-    "failure_count": 5,
+    "failure_count": 6,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -77193,7 +77397,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:49:32.434882",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:52.432847",
+    "last_updated": "2026-01-09T11:28:15.226213",
     "outcomes": {
       "30d": {
         "price": 864.3701171875,
@@ -77212,7 +77416,7 @@
       },
       "180d": null
     },
-    "failure_count": 5,
+    "failure_count": 6,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -77403,7 +77607,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:49:33.334951",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:52.933954",
+    "last_updated": "2026-01-09T11:28:15.727424",
     "outcomes": {
       "30d": {
         "price": 2.6700000762939453,
@@ -77422,7 +77626,7 @@
       },
       "180d": null
     },
-    "failure_count": 5,
+    "failure_count": 6,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -77438,7 +77642,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:49:33.435302",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:53.435294",
+    "last_updated": "2026-01-09T11:28:16.228523",
     "outcomes": {
       "30d": {
         "price": 947.23388671875,
@@ -77457,7 +77661,7 @@
       },
       "180d": null
     },
-    "failure_count": 5,
+    "failure_count": 6,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -81993,14 +82197,14 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-08T14:02:52.569325",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:53.936707",
+    "last_updated": "2026-01-09T11:28:16.729666",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
     },
-    "failure_count": 5,
+    "failure_count": 6,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -82039,14 +82243,14 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-08T14:02:53.012888",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:54.437979",
+    "last_updated": "2026-01-09T11:28:17.230973",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
     },
-    "failure_count": 5,
+    "failure_count": 6,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -82420,14 +82624,14 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-09T11:54:58.479351",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:54.939338",
+    "last_updated": "2026-01-09T11:28:17.732320",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
     },
-    "failure_count": 2,
+    "failure_count": 3,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -82650,14 +82854,14 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-09T11:55:00.914317",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:55.440713",
+    "last_updated": "2026-01-09T11:28:18.233616",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
     },
-    "failure_count": 5,
+    "failure_count": 6,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -82742,14 +82946,14 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-09T11:55:01.820972",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:55.942085",
+    "last_updated": "2026-01-09T11:28:18.734908",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
     },
-    "failure_count": 2,
+    "failure_count": 3,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -83008,14 +83212,14 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-09T11:55:04.455756",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:56.443435",
+    "last_updated": "2026-01-09T11:28:19.236149",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
     },
-    "failure_count": 5,
+    "failure_count": 6,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -83031,14 +83235,14 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-09T11:55:04.669063",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:56.944769",
+    "last_updated": "2026-01-09T11:28:19.737423",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
     },
-    "failure_count": 5,
+    "failure_count": 6,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -83146,14 +83350,14 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-09T11:55:05.836442",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:57.446148",
+    "last_updated": "2026-01-09T11:28:20.238589",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
     },
-    "failure_count": 5,
+    "failure_count": 6,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -83261,14 +83465,14 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-09T11:55:06.907572",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:57.947479",
+    "last_updated": "2026-01-09T11:28:20.739980",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
     },
-    "failure_count": 5,
+    "failure_count": 6,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -83376,14 +83580,14 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-09T11:55:08.040236",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:58.448859",
+    "last_updated": "2026-01-09T11:28:21.241206",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
     },
-    "failure_count": 5,
+    "failure_count": 6,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -83399,14 +83603,14 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-09T11:55:08.253883",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:58.950166",
+    "last_updated": "2026-01-09T11:28:21.742295",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
     },
-    "failure_count": 5,
+    "failure_count": 6,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -83422,14 +83626,14 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-09T11:55:08.467275",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:59.451539",
+    "last_updated": "2026-01-09T11:28:22.243396",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
     },
-    "failure_count": 5,
+    "failure_count": 6,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -83514,14 +83718,14 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-09T11:55:09.374042",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:28:59.952920",
+    "last_updated": "2026-01-09T11:28:22.744757",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
     },
-    "failure_count": 5,
+    "failure_count": 6,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -83583,14 +83787,14 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-09T16:04:16.491036",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:29:00.454213",
+    "last_updated": "2026-01-09T11:28:23.245957",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
     },
-    "failure_count": 2,
+    "failure_count": 3,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -83652,14 +83856,14 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-09T16:04:17.193996",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:29:00.955626",
+    "last_updated": "2026-01-09T11:28:23.747224",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
     },
-    "failure_count": 2,
+    "failure_count": 3,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -83997,14 +84201,14 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-10T11:34:16.655514",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:29:02.325579",
+    "last_updated": "2026-01-09T11:28:24.248496",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
     },
-    "failure_count": 1,
+    "failure_count": 2,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -84020,14 +84224,14 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-10T11:34:16.868414",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:29:02.826949",
+    "last_updated": "2026-01-09T11:28:24.749667",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
     },
-    "failure_count": 2,
+    "failure_count": 3,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -84158,14 +84362,14 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-10T11:34:18.234178",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:29:03.328360",
+    "last_updated": "2026-01-09T11:28:25.250882",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
     },
-    "failure_count": 2,
+    "failure_count": 3,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -84204,14 +84408,14 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-10T11:34:18.659596",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:29:03.829660",
+    "last_updated": "2026-01-09T11:28:25.752293",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
     },
-    "failure_count": 1,
+    "failure_count": 2,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -84273,14 +84477,14 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-10T11:34:19.347202",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:29:04.331015",
+    "last_updated": "2026-01-09T11:28:26.253482",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
     },
-    "failure_count": 2,
+    "failure_count": 3,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -84296,14 +84500,14 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-10T11:34:19.607483",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:29:04.832386",
+    "last_updated": "2026-01-09T11:28:26.754665",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
     },
-    "failure_count": 2,
+    "failure_count": 3,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -84319,14 +84523,14 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-10T11:34:19.820564",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:29:05.333728",
+    "last_updated": "2026-01-09T11:28:27.255777",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
     },
-    "failure_count": 2,
+    "failure_count": 3,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -84526,14 +84730,14 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-10T11:34:22.200410",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:29:06.573109",
+    "last_updated": "2026-01-09T11:28:27.757183",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
     },
-    "failure_count": 2,
+    "failure_count": 3,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -84572,14 +84776,14 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-10T11:34:22.625280",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:29:07.074503",
+    "last_updated": "2026-01-09T11:28:28.258479",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
     },
-    "failure_count": 2,
+    "failure_count": 3,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -84595,14 +84799,14 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-10T11:34:22.838172",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:29:07.575849",
+    "last_updated": "2026-01-09T11:28:28.759868",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
     },
-    "failure_count": 2,
+    "failure_count": 3,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -84618,14 +84822,14 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-10T11:34:23.049766",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:29:08.077140",
+    "last_updated": "2026-01-09T11:28:29.261066",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
     },
-    "failure_count": 2,
+    "failure_count": 3,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -84641,14 +84845,14 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-10T11:34:23.260662",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:29:08.578464",
+    "last_updated": "2026-01-09T11:28:29.762406",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
     },
-    "failure_count": 5,
+    "failure_count": 6,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -84756,14 +84960,14 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-11T11:36:09.744508",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:29:09.079845",
+    "last_updated": "2026-01-09T11:28:30.263642",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
     },
-    "failure_count": 2,
+    "failure_count": 3,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -84802,13 +85006,16 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-11T11:36:10.229340",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:36:10.229344",
+    "last_updated": "2026-01-09T11:28:30.765056",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NETWORK_ERROR",
+    "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
   {
     "trade_id": "AIRJ_Jore Matthew B_2025-12-08 00:00:00",
@@ -84891,14 +85098,14 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-11T11:36:11.249837",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:29:09.581535",
+    "last_updated": "2026-01-09T11:28:31.266237",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
     },
-    "failure_count": 2,
+    "failure_count": 3,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -84980,16 +85187,19 @@
     "title": "CEO, COB",
     "qty": 746,
     "value": 4976,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-11T11:36:12.218785",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:36:12.218804",
+    "last_updated": "2026-01-09T11:28:31.938329",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "TENX_Rich Stuart_2025-12-08 00:00:00",
@@ -85026,13 +85236,16 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-11T11:36:12.655085",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:36:12.655089",
+    "last_updated": "2026-01-09T11:28:32.439578",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NETWORK_ERROR",
+    "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
   {
     "trade_id": "QDEL_Rhoads Ann D_2025-12-10 00:00:00",
@@ -85043,16 +85256,19 @@
     "title": "Dir",
     "qty": 750,
     "value": 21206,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-11T11:36:12.870928",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:36:12.870932",
+    "last_updated": "2026-01-09T11:28:33.197603",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "GAM_Priest Jeffrey W_2025-12-10 00:00:00",
@@ -85066,13 +85282,16 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-11T11:36:13.136478",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:36:13.136482",
+    "last_updated": "2026-01-09T11:28:33.698578",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NETWORK_ERROR",
+    "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
   {
     "trade_id": "ASTS_Larson Keith R_2025-12-10 00:00:00",
@@ -85083,16 +85302,19 @@
     "title": "Dir",
     "qty": 675,
     "value": 49079,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-11T11:36:13.353292",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:36:13.353297",
+    "last_updated": "2026-01-09T11:28:34.366487",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "TBTC_Berger Andrew_2025-12-08 00:00:00",
@@ -85129,13 +85351,16 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-11T11:36:13.837186",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:36:13.837190",
+    "last_updated": "2026-01-09T11:28:34.867610",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NETWORK_ERROR",
+    "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
   {
     "trade_id": "EML_Disanto Frederick D._2025-12-08 00:00:00",
@@ -85241,13 +85466,16 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-11T11:36:15.091142",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:36:15.091147",
+    "last_updated": "2026-01-09T11:28:35.368721",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NETWORK_ERROR",
+    "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
   {
     "trade_id": "MLP_Case Stephen M_2025-12-08 00:00:00",
@@ -85281,16 +85509,19 @@
     "title": "Dir",
     "qty": 200,
     "value": 4576,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-11T11:36:15.530602",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:36:15.530607",
+    "last_updated": "2026-01-09T11:28:36.290957",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "ATEX_Lang Scott A._2025-12-08 00:00:00",
@@ -85324,16 +85555,19 @@
     "title": "Dir",
     "qty": 300,
     "value": 6990,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-11T11:36:16.013443",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:36:16.013447",
+    "last_updated": "2026-01-09T11:28:37.159687",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "SRTA_Heyburn William A._2025-12-09 00:00:00",
@@ -85393,13 +85627,16 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-11T11:36:16.723170",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:36:16.723174",
+    "last_updated": "2026-01-09T11:28:37.660867",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NETWORK_ERROR",
+    "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
   {
     "trade_id": "MNR_McMullen William Wallace_2025-12-08 00:00:00",
@@ -85482,14 +85719,14 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-11T11:36:17.655352",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:29:13.039939",
+    "last_updated": "2026-01-09T11:28:38.162215",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
     },
-    "failure_count": 2,
+    "failure_count": 3,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -85505,14 +85742,14 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-11T11:36:17.874881",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:29:13.541222",
+    "last_updated": "2026-01-09T11:28:38.663458",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
     },
-    "failure_count": 2,
+    "failure_count": 3,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -85574,13 +85811,16 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-11T11:36:18.643921",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:36:18.643925",
+    "last_updated": "2026-01-09T11:28:39.164589",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NETWORK_ERROR",
+    "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
   {
     "trade_id": "JFB_Calderon Ruben_2025-12-10 00:00:00",
@@ -85594,13 +85834,16 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-11T11:36:18.912917",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-11T11:36:18.912922",
+    "last_updated": "2026-01-09T11:28:39.665885",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NETWORK_ERROR",
+    "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
   {
     "trade_id": "NRIM_Hegna Shauna_2025-12-09 00:00:00",
@@ -85706,14 +85949,14 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-11T11:36:20.155400",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:29:16.565410",
+    "last_updated": "2026-01-09T11:28:40.167100",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
     },
-    "failure_count": 1,
+    "failure_count": 2,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -85729,14 +85972,14 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-11T11:36:20.371251",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:29:17.066643",
+    "last_updated": "2026-01-09T11:28:40.668491",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
     },
-    "failure_count": 1,
+    "failure_count": 2,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -85752,14 +85995,14 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-11T11:36:20.588575",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:29:17.567861",
+    "last_updated": "2026-01-09T11:28:41.169709",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
     },
-    "failure_count": 1,
+    "failure_count": 2,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -85775,14 +86018,14 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-11T11:36:20.807191",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:29:18.069063",
+    "last_updated": "2026-01-09T11:28:41.670918",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
     },
-    "failure_count": 1,
+    "failure_count": 2,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -85821,14 +86064,14 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-11T11:36:21.299393",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:29:18.570147",
+    "last_updated": "2026-01-09T11:28:42.172238",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
     },
-    "failure_count": 2,
+    "failure_count": 3,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -85890,14 +86133,14 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-11T11:36:22.018111",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:29:19.071447",
+    "last_updated": "2026-01-09T11:28:42.673545",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
     },
-    "failure_count": 2,
+    "failure_count": 3,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -85910,16 +86153,19 @@
     "title": "Dir",
     "qty": 38422,
     "value": 61647,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-12T11:33:30.654245",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-12T11:33:30.654250",
+    "last_updated": "2026-01-09T11:28:43.349622",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "LYFT_Risher John David_2025-12-10 00:00:00",
@@ -85930,16 +86176,19 @@
     "title": "CEO",
     "qty": 5030,
     "value": 99617,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-12T11:33:30.926753",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-12T11:33:30.926757",
+    "last_updated": "2026-01-09T11:28:44.061585",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "FROPX_Durston Marshall_2025-12-09 00:00:00",
@@ -85976,14 +86225,14 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-12T11:33:31.419938",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:29:20.290846",
+    "last_updated": "2026-01-09T11:28:44.562972",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
     },
-    "failure_count": 1,
+    "failure_count": 2,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -86022,14 +86271,14 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-12T11:33:31.968428",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:29:21.569312",
+    "last_updated": "2026-01-09T11:28:45.064331",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
     },
-    "failure_count": 1,
+    "failure_count": 2,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -86045,14 +86294,14 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-12T11:33:32.240213",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:29:22.070687",
+    "last_updated": "2026-01-09T11:28:45.565700",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
     },
-    "failure_count": 1,
+    "failure_count": 2,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -86091,14 +86340,14 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-12T11:33:32.780554",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:29:23.233233",
+    "last_updated": "2026-01-09T11:28:46.067080",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
     },
-    "failure_count": 1,
+    "failure_count": 2,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -86114,14 +86363,14 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-12T11:33:33.048613",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:29:23.734617",
+    "last_updated": "2026-01-09T11:28:46.568420",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
     },
-    "failure_count": 1,
+    "failure_count": 2,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -86134,16 +86383,19 @@
     "title": "COO, CHIEF INVESTMENT OFFICER, 10%",
     "qty": 17760,
     "value": 102298,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-12T11:33:33.313101",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-12T11:33:33.313106",
+    "last_updated": "2026-01-09T11:28:47.268227",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "HYMC_Sprott Eric_2025-12-09 00:00:00",
@@ -86200,16 +86452,19 @@
     "title": "SVP CFO, Treasurer",
     "qty": 550,
     "value": 23540,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-12T11:33:34.026412",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-12T11:33:34.026416",
+    "last_updated": "2026-01-09T11:28:48.303616",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "RSG_Weymouth Katharine_2025-12-09 00:00:00",
@@ -86369,13 +86624,16 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-12T11:33:36.147420",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-12T11:33:36.147425",
+    "last_updated": "2026-01-09T11:28:48.806597",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NETWORK_ERROR",
+    "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
   {
     "trade_id": "MCY_Braunegg George Gwyer_2025-12-10 00:00:00",
@@ -86386,16 +86644,19 @@
     "title": "Dir",
     "qty": 552,
     "value": 49912,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-12T11:33:36.370400",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-12T11:33:36.370405",
+    "last_updated": "2026-01-09T11:28:49.833682",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "CE_Kyrish Chuck_2025-12-09 00:00:00",
@@ -86429,16 +86690,19 @@
     "title": "CEO, 10%",
     "qty": 100000,
     "value": 414000,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-12T11:33:36.921443",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-12T11:33:36.921448",
+    "last_updated": "2026-01-09T11:28:50.538695",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "KYMR_Baker Bros. Advisors LP_2025-12-11 00:00:00",
@@ -86469,16 +86733,19 @@
     "title": "COB, CEO, Pres, 10%",
     "qty": 70000,
     "value": 1030000,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-12T11:33:37.368669",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-12T11:33:37.368675",
+    "last_updated": "2026-01-09T11:28:51.280656",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "SEVN_Tremont Realty Capital LLC_2025-12-11 00:00:00",
@@ -86595,16 +86862,19 @@
     "title": "Dir",
     "qty": 7500,
     "value": 34050,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-12T11:33:38.837420",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-12T11:33:38.837425",
+    "last_updated": "2026-01-09T11:28:52.096745",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "NSPR_Stuka Paul_2025-12-09 00:00:00",
@@ -86618,14 +86888,14 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-12T11:33:39.059377",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:29:29.588721",
+    "last_updated": "2026-01-09T11:28:52.598319",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
     },
-    "failure_count": 1,
+    "failure_count": 2,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -86661,16 +86931,19 @@
     "title": "10%",
     "qty": 52146,
     "value": 1300000,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-12T11:33:39.566091",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-12T11:33:39.566096",
+    "last_updated": "2026-01-09T11:28:53.254787",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "HKHC_Stahl Murray_2025-12-10 00:00:00",
@@ -86684,13 +86957,16 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-12T11:33:39.789374",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-12T11:33:39.789378",
+    "last_updated": "2026-01-09T11:28:53.756091",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NETWORK_ERROR",
+    "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
   {
     "trade_id": "TPL_Horizon Kinetics Asset Management LLC_2025-12-10 00:00:00",
@@ -86704,13 +86980,16 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-12T11:33:40.009694",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-12T11:33:40.009699",
+    "last_updated": "2026-01-09T11:28:54.257440",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NETWORK_ERROR",
+    "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
   {
     "trade_id": "RCG_Stahl Murray_2025-12-10 00:00:00",
@@ -86724,13 +87003,16 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-12T11:33:40.232057",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-12T11:33:40.232062",
+    "last_updated": "2026-01-09T11:28:54.758652",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NETWORK_ERROR",
+    "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
   {
     "trade_id": "MXF_Saba Capital Management, L.P._2025-12-09 00:00:00",
@@ -86744,14 +87026,14 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-12T11:33:40.456339",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:29:30.755580",
+    "last_updated": "2026-01-09T11:28:55.259734",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
     },
-    "failure_count": 1,
+    "failure_count": 2,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -86767,13 +87049,16 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-12T11:33:40.677688",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-12T11:33:40.677693",
+    "last_updated": "2026-01-09T11:28:55.761013",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NETWORK_ERROR",
+    "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
   {
     "trade_id": "NRDY_Cohn Charles K._2025-12-09 00:00:00",
@@ -86787,14 +87072,14 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-12T11:33:40.899696",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:29:31.257263",
+    "last_updated": "2026-01-09T11:28:56.262289",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
     },
-    "failure_count": 1,
+    "failure_count": 2,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -86807,16 +87092,19 @@
     "title": "Dir",
     "qty": 21459,
     "value": 25000,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-12T11:33:41.123211",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-12T11:33:41.123216",
+    "last_updated": "2026-01-09T11:28:56.937638",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "APRE_Hamill John P._2025-12-10 00:00:00",
@@ -86830,13 +87118,16 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-12T11:33:41.388127",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-12T11:33:41.388133",
+    "last_updated": "2026-01-09T11:28:57.438879",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NETWORK_ERROR",
+    "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
   {
     "trade_id": "MDRR_Winn Charles Brent Jr._2025-12-10 00:00:00",
@@ -86850,13 +87141,16 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-12T11:33:41.658782",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-12T11:33:41.658787",
+    "last_updated": "2026-01-09T11:28:57.940210",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NETWORK_ERROR",
+    "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
   {
     "trade_id": "MDBH_Brandon George Hugh_2025-12-09 00:00:00",
@@ -86976,13 +87270,16 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-14T08:19:50.865949",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-14T08:19:50.865955",
+    "last_updated": "2026-01-09T11:28:58.442521",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NETWORK_ERROR",
+    "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
   {
     "trade_id": "AIRJ_Murphy Thomas Edward_2025-12-10 00:00:00",
@@ -86996,13 +87293,16 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-14T08:19:51.086694",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-14T08:19:51.086699",
+    "last_updated": "2026-01-09T11:28:58.943771",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NETWORK_ERROR",
+    "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
   {
     "trade_id": "BLNK_Bercovich Michael_2025-12-12 00:00:00",
@@ -87073,16 +87373,19 @@
     "title": "Dir",
     "qty": 5000,
     "value": 15250,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-14T08:19:52.088401",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-14T08:19:52.088405",
+    "last_updated": "2026-01-09T11:28:59.579752",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "AZO_Jackson Jamere_2025-12-10 00:00:00",
@@ -87093,16 +87396,19 @@
     "title": "CFO",
     "qty": 55,
     "value": 187743,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-14T08:19:52.309653",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-14T08:19:52.309658",
+    "last_updated": "2026-01-09T11:29:00.427779",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "OXM_Chubb Thomas Caldecot III_2025-12-12 00:00:00",
@@ -87213,16 +87519,19 @@
     "title": "Dir",
     "qty": 25000,
     "value": 600770,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-14T08:19:53.776864",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-14T08:19:53.776869",
+    "last_updated": "2026-01-09T11:29:01.208387",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "CJMB_Williams Wayne D_2025-12-10 00:00:00",
@@ -87236,13 +87545,16 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-14T08:19:54.048515",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-14T08:19:54.048519",
+    "last_updated": "2026-01-09T11:29:01.709610",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NETWORK_ERROR",
+    "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
   {
     "trade_id": "ARE_McGrath Sheila K._2025-12-10 00:00:00",
@@ -87253,16 +87565,19 @@
     "title": "Dir",
     "qty": 3100,
     "value": 141360,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-14T08:19:54.324538",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-14T08:19:54.324542",
+    "last_updated": "2026-01-09T11:29:02.653532",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "APLE_Knight Glade M_2025-12-11 00:00:00",
@@ -87353,16 +87668,19 @@
     "title": "Exec COB, 10%",
     "qty": 10000,
     "value": 2903,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-14T08:19:55.488386",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-14T08:19:55.488390",
+    "last_updated": "2026-01-09T11:29:03.395321",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "CE_Richardson Scott A_2025-12-10 00:00:00",
@@ -87376,13 +87694,16 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-14T08:19:55.708093",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-14T08:19:55.708097",
+    "last_updated": "2026-01-09T11:29:03.896642",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NETWORK_ERROR",
+    "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
   {
     "trade_id": "IFF_Landsman Stephen N_2025-12-12 00:00:00",
@@ -87413,16 +87734,19 @@
     "title": "Dir",
     "qty": 6709,
     "value": 1678122,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-14T08:19:56.259161",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-14T08:19:56.259165",
+    "last_updated": "2026-01-09T11:29:05.013939",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "IT_Pagliuca Stephen G_2025-12-10 00:00:00",
@@ -87433,16 +87757,19 @@
     "title": "Dir",
     "qty": 43300,
     "value": 9940341,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-14T08:19:56.533432",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-14T08:19:56.533437",
+    "last_updated": "2026-01-09T11:29:05.796174",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "FSSL_Goldstein Richard I_2025-12-10 00:00:00",
@@ -87453,16 +87780,19 @@
     "title": "Dir",
     "qty": 10000,
     "value": 136200,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-14T08:19:56.815823",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-14T08:19:56.815828",
+    "last_updated": "2026-01-09T11:29:06.435157",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "QNTO_Strong Robert T_2025-12-10 00:00:00",
@@ -87476,13 +87806,16 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-14T08:19:57.039360",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-14T08:19:57.039364",
+    "last_updated": "2026-01-09T11:29:06.936559",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NETWORK_ERROR",
+    "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
   {
     "trade_id": "LUCY_Galkin Vladimir_2025-12-10 00:00:00",
@@ -87493,16 +87826,19 @@
     "title": "10%",
     "qty": 58723,
     "value": 88255,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-14T08:19:57.259651",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-14T08:19:57.259655",
+    "last_updated": "2026-01-09T11:29:07.601102",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "FRST_Diaz Deborah_2025-12-10 00:00:00",
@@ -87513,16 +87849,19 @@
     "title": "Dir",
     "qty": 1608,
     "value": 19849,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-14T08:19:57.488374",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-14T08:19:57.488379",
+    "last_updated": "2026-01-09T11:29:08.420256",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "IAUX_Seaman John William_2025-12-09 00:00:00",
@@ -87579,13 +87918,16 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-14T08:19:58.259252",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-14T08:19:58.259257",
+    "last_updated": "2026-01-09T11:29:08.922092",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NETWORK_ERROR",
+    "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
   {
     "trade_id": "MGLD_Nicholas & Melinda Gerber Living Trust_2025-12-10 00:00:00",
@@ -87596,16 +87938,19 @@
     "title": "CEO, 10%",
     "qty": 25000,
     "value": 23175,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-14T08:19:58.485335",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-14T08:19:58.485340",
+    "last_updated": "2026-01-09T11:29:09.572517",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "OFLX_Evans David K_2025-12-10 00:00:00",
@@ -87616,16 +87961,19 @@
     "title": "Dir",
     "qty": 384,
     "value": 11765,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-14T08:19:58.704942",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-14T08:19:58.704947",
+    "last_updated": "2026-01-09T11:29:10.406659",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "TPL_Horizon Kinetics Asset Management LLC_2025-12-11 00:00:00",
@@ -87679,13 +88027,16 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-14T08:19:59.417118",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-14T08:19:59.417122",
+    "last_updated": "2026-01-09T11:29:10.908674",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NETWORK_ERROR",
+    "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
   {
     "trade_id": "TPVG_Srivastava Sajal_2025-12-10 00:00:00",
@@ -87699,13 +88050,16 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-14T08:19:59.640310",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-14T08:19:59.640314",
+    "last_updated": "2026-01-09T11:29:11.409712",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NETWORK_ERROR",
+    "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
   {
     "trade_id": "DLX_Zint William C_2025-12-10 00:00:00",
@@ -87716,16 +88070,19 @@
     "title": "SVP, CFO",
     "qty": 175,
     "value": 3752,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-14T08:19:59.860852",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-14T08:19:59.860856",
+    "last_updated": "2026-01-09T11:29:12.485568",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "GPN_Baldwin Robert H B Jr_2025-12-10 00:00:00",
@@ -87739,13 +88096,16 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-14T08:20:00.078994",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-14T08:20:00.078997",
+    "last_updated": "2026-01-09T11:29:12.986866",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NETWORK_ERROR",
+    "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
   {
     "trade_id": "NRDY_Cohn Charles K._2025-12-10 00:00:00",
@@ -87759,13 +88119,16 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-14T08:20:00.359830",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-14T08:20:00.359835",
+    "last_updated": "2026-01-09T11:29:13.488133",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NETWORK_ERROR",
+    "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
   {
     "trade_id": "SXTP_Dow Geoffrey S_2025-12-10 00:00:00",
@@ -87776,16 +88139,19 @@
     "title": "Pres, CEO",
     "qty": 12963,
     "value": 12204,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-14T08:20:00.578177",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-14T08:20:00.578181",
+    "last_updated": "2026-01-09T11:29:14.176988",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "FBLG_Garcia Ruben A_2025-12-11 00:00:00",
@@ -88859,16 +89225,19 @@
     "title": "CEO, 10%",
     "qty": 1000,
     "value": 1908,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-16T08:12:08.831991",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-16T08:12:08.831995",
+    "last_updated": "2026-01-09T11:29:14.868569",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "IRIX_Dizon Romeo R_2025-12-12 00:00:00",
@@ -89262,14 +89631,14 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-17T08:48:10.282585",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-08T11:29:33.860406",
+    "last_updated": "2026-01-09T11:29:15.375669",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
     },
-    "failure_count": 1,
+    "failure_count": 2,
     "failure_type": "NETWORK_ERROR",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -89942,16 +90311,19 @@
     "title": "CEO",
     "qty": 3000,
     "value": 8785,
-    "status": "TRACKING",
+    "status": "FAILED",
     "tracked_since": "2025-12-17T08:48:18.641605",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-17T08:48:18.641610",
+    "last_updated": "2026-01-09T11:29:16.128677",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "DELISTED",
+    "failure_reason": "No trading data for required time horizon"
   },
   {
     "trade_id": "TFSL_Asher Anthony J_2025-12-15 00:00:00",
@@ -97817,6 +98189,236 @@
     "tracked_since": "2026-01-08T11:32:17.468659",
     "source": "daily_signal_detection",
     "last_updated": "2026-01-08T11:32:17.468662",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    },
+    "filing_date": null,
+    "filing_url": null,
+    "accession_number": null
+  },
+  {
+    "trade_id": "STAA_Broadwood Partners, L.P._2026-01-06 00:00:00",
+    "ticker": "STAA",
+    "insider_name": "Broadwood Partners, L.P.",
+    "trade_date": "2026-01-06",
+    "entry_price": 21.68,
+    "title": "10%",
+    "qty": 406653,
+    "value": 8817664,
+    "status": "TRACKING",
+    "tracked_since": "2026-01-09T11:31:30.895553",
+    "source": "daily_signal_detection",
+    "last_updated": "2026-01-09T11:31:30.895557",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    },
+    "filing_date": null,
+    "filing_url": null,
+    "accession_number": null
+  },
+  {
+    "trade_id": "IVFH_Pappas James C_2026-01-06 00:00:00",
+    "ticker": "IVFH",
+    "insider_name": "Pappas James C",
+    "trade_date": "2026-01-06",
+    "entry_price": 0.3,
+    "title": "Dir, 10%",
+    "qty": 505555,
+    "value": 151667,
+    "status": "TRACKING",
+    "tracked_since": "2026-01-09T11:31:31.090153",
+    "source": "daily_signal_detection",
+    "last_updated": "2026-01-09T11:31:31.090156",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    },
+    "filing_date": null,
+    "filing_url": null,
+    "accession_number": null
+  },
+  {
+    "trade_id": "JYNT_Jobson Charles E_2026-01-06 00:00:00",
+    "ticker": "JYNT",
+    "insider_name": "Jobson Charles E",
+    "trade_date": "2026-01-06",
+    "entry_price": 8.89,
+    "title": "10%",
+    "qty": 5240,
+    "value": 46584,
+    "status": "TRACKING",
+    "tracked_since": "2026-01-09T11:31:31.336754",
+    "source": "daily_signal_detection",
+    "last_updated": "2026-01-09T11:31:31.336757",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    },
+    "filing_date": null,
+    "filing_url": null,
+    "accession_number": null
+  },
+  {
+    "trade_id": "VAC_Fitzgerald John D._2026-01-06 00:00:00",
+    "ticker": "VAC",
+    "insider_name": "Fitzgerald John D.",
+    "trade_date": "2026-01-06",
+    "entry_price": 61.11,
+    "title": "See Remarks",
+    "qty": 109,
+    "value": 6657,
+    "status": "TRACKING",
+    "tracked_since": "2026-01-09T11:31:31.527437",
+    "source": "daily_signal_detection",
+    "last_updated": "2026-01-09T11:31:31.527441",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    },
+    "filing_date": null,
+    "filing_url": null,
+    "accession_number": null
+  },
+  {
+    "trade_id": "ZNTL_Walters Group_2025-12-31 00:00:00",
+    "ticker": "ZNTL",
+    "insider_name": "Walters Group",
+    "trade_date": "2025-12-31",
+    "entry_price": 1.2,
+    "title": "10%",
+    "qty": 6459973,
+    "value": 7751968,
+    "status": "TRACKING",
+    "tracked_since": "2026-01-09T11:31:31.775672",
+    "source": "daily_signal_detection",
+    "last_updated": "2026-01-09T11:31:31.775676",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    },
+    "filing_date": null,
+    "filing_url": null,
+    "accession_number": null
+  },
+  {
+    "trade_id": "UPBD_Brown Jeffrey J_2026-01-06 00:00:00",
+    "ticker": "UPBD",
+    "insider_name": "Brown Jeffrey J",
+    "trade_date": "2026-01-06",
+    "entry_price": 17.68,
+    "title": "Dir",
+    "qty": 2502,
+    "value": 44235,
+    "status": "TRACKING",
+    "tracked_since": "2026-01-09T11:31:32.016480",
+    "source": "daily_signal_detection",
+    "last_updated": "2026-01-09T11:31:32.016484",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    },
+    "filing_date": null,
+    "filing_url": null,
+    "accession_number": null
+  },
+  {
+    "trade_id": "DLHC_Mink Brook Asset Management LLC_2026-01-07 00:00:00",
+    "ticker": "DLHC",
+    "insider_name": "Mink Brook Asset Management LLC",
+    "trade_date": "2026-01-07",
+    "entry_price": 5.5,
+    "title": "10%",
+    "qty": 5027,
+    "value": 27649,
+    "status": "TRACKING",
+    "tracked_since": "2026-01-09T11:31:32.207504",
+    "source": "daily_signal_detection",
+    "last_updated": "2026-01-09T11:31:32.207507",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    },
+    "filing_date": null,
+    "filing_url": null,
+    "accession_number": null
+  },
+  {
+    "trade_id": "EHSI_Jeereddi Prasad Anjaneya_2026-01-06 00:00:00",
+    "ticker": "EHSI",
+    "insider_name": "Jeereddi Prasad Anjaneya",
+    "trade_date": "2026-01-06",
+    "entry_price": 1.42,
+    "title": "CEO, 10%",
+    "qty": 3602,
+    "value": 5111,
+    "status": "TRACKING",
+    "tracked_since": "2026-01-09T11:31:32.397874",
+    "source": "daily_signal_detection",
+    "last_updated": "2026-01-09T11:31:32.397878",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    },
+    "filing_date": null,
+    "filing_url": null,
+    "accession_number": null
+  },
+  {
+    "trade_id": "COSM_Siokas Grigorios_2026-01-07 00:00:00",
+    "ticker": "COSM",
+    "insider_name": "Siokas Grigorios",
+    "trade_date": "2026-01-07",
+    "entry_price": 0.52,
+    "title": "CEO, 10%",
+    "qty": 124880,
+    "value": 65000,
+    "status": "TRACKING",
+    "tracked_since": "2026-01-09T11:31:32.591264",
+    "source": "daily_signal_detection",
+    "last_updated": "2026-01-09T11:31:32.591268",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    },
+    "filing_date": null,
+    "filing_url": null,
+    "accession_number": null
+  },
+  {
+    "trade_id": "LFT_Keenan Walter C_2025-12-30 00:00:00",
+    "ticker": "LFT",
+    "insider_name": "Keenan Walter C",
+    "trade_date": "2025-12-30",
+    "entry_price": 1.46,
+    "title": "Dir",
+    "qty": 25000,
+    "value": 36448,
+    "status": "TRACKING",
+    "tracked_since": "2026-01-09T11:31:32.784651",
+    "source": "daily_signal_detection",
+    "last_updated": "2026-01-09T11:31:32.784654",
     "outcomes": {
       "30d": null,
       "60d": null,

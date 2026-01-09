@@ -1,23 +1,23 @@
 {
-  "last_updated": "January 08, 2026 at 11:32 UTC",
-  "total_return_pct": 12.32,
-  "win_rate": 73.7,
-  "completed_trades": 19,
-  "active_trades": 3,
-  "avg_return_per_trade": 8.07,
-  "sharpe_ratio": 9.15,
+  "last_updated": "January 09, 2026 at 11:31 UTC",
+  "total_return_pct": 12.18,
+  "win_rate": 76.2,
+  "completed_trades": 21,
+  "active_trades": 1,
+  "avg_return_per_trade": 9.69,
+  "sharpe_ratio": 10.43,
   "max_drawdown": -9.11,
-  "avg_hold_days": 13,
+  "avg_hold_days": 12,
   "best_trade_pct": 59.64,
   "worst_trade_pct": -5.75,
-  "alpha_vs_sp500": 12.08,
-  "avg_winner": 12.14,
+  "alpha_vs_sp500": 11.95,
+  "avg_winner": 13.75,
   "avg_loser": -3.31,
-  "win_loss_ratio": 3.67,
-  "profit_factor": 10.27,
-  "last_30_days_return": 153.41,
-  "last_10_trades_win_rate": 80.0,
-  "current_streak": 3,
+  "win_loss_ratio": 4.15,
+  "profit_factor": 13.29,
+  "last_30_days_return": 204.25,
+  "last_10_trades_win_rate": 90.0,
+  "current_streak": 5,
   "current_streak_type": "wins",
   "conviction_performance": [
     {
@@ -28,9 +28,9 @@
     },
     {
       "conviction": "HIGH",
-      "trades": 5,
-      "win_rate": 80.0,
-      "avg_return": 10.32
+      "trades": 7,
+      "win_rate": 85.7,
+      "avg_return": 14.52
     },
     {
       "conviction": "MEDIUM",
@@ -52,10 +52,28 @@
     },
     {
       "month": "2026-01",
-      "return": 26.3
+      "return": 76.36
     }
   ],
   "recent_trades": [
+    {
+      "ticker": "FGBI",
+      "entry_date": "Jan 08, 2026",
+      "exit_date": "Jan 09, 2026",
+      "hold_days": 0,
+      "return_pct": 37.55,
+      "conviction": "HIGH",
+      "exit_reason": "Take Profit"
+    },
+    {
+      "ticker": "NAVN",
+      "entry_date": "Jan 08, 2026",
+      "exit_date": "Jan 09, 2026",
+      "hold_days": 0,
+      "return_pct": 12.52,
+      "conviction": "HIGH",
+      "exit_reason": "Take Profit"
+    },
     {
       "ticker": "AMR",
       "entry_date": "Dec 18, 2025",
@@ -217,45 +235,22 @@
       "return_pct": 0.72,
       "conviction": "MEDIUM",
       "exit_reason": "Time Stop"
-    },
-    {
-      "ticker": "AISP",
-      "entry_date": "Nov 28, 2025",
-      "exit_date": "Dec 09, 2025",
-      "hold_days": 11,
-      "return_pct": -0.77,
-      "conviction": "HIGH",
-      "exit_reason": "Trailing Stop"
     }
   ],
   "open_positions": [
     {
       "ticker": "XZO",
       "entry_date": "Dec 23, 2025",
-      "days_held": 16,
-      "unrealized_return": 1.0,
-      "conviction": "HIGH"
-    },
-    {
-      "ticker": "NAVN",
-      "entry_date": "Jan 08, 2026",
-      "days_held": 0,
-      "unrealized_return": 13.58,
-      "conviction": "HIGH"
-    },
-    {
-      "ticker": "FGBI",
-      "entry_date": "Jan 08, 2026",
-      "days_held": 0,
-      "unrealized_return": 37.92,
+      "days_held": 17,
+      "unrealized_return": 0.32,
       "conviction": "HIGH"
     }
   ],
   "portfolio_composition": {
     "starting_capital": 10000,
-    "current_value": 11232.26,
-    "cash": 9002.6,
-    "invested_capital": 2229.66,
-    "capital_deployed_pct": 19.85
+    "current_value": 11218.45,
+    "cash": 10643.85,
+    "invested_capital": 574.6,
+    "capital_deployed_pct": 5.12
   }
 }

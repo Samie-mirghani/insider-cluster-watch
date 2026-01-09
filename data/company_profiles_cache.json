@@ -3874,5 +3874,65 @@
     "ipoDate": "1982-12-03",
     "updated": "2026-01-08T11:31:22.543007",
     "source": "fmp_api"
+  },
+  "VAC": {
+    "industry": "Gambling, Resorts & Casinos",
+    "sector": "Consumer Cyclical",
+    "price": 63.44,
+    "companyName": "Marriott Vacations Worldwide Corporation",
+    "currency": "USD",
+    "beta": 1.355,
+    "range": "44.58-91.18",
+    "ipoDate": "2011-11-08",
+    "updated": "2026-01-09T11:31:02.256309",
+    "source": "fmp_api"
+  },
+  "IVFH": {
+    "industry": "Food Distribution",
+    "sector": "Consumer Defensive",
+    "price": 0.386,
+    "companyName": "Innovative Food Holdings, Inc.",
+    "currency": "USD",
+    "beta": -0.008,
+    "range": "0.3-2.5",
+    "ipoDate": "2001-06-27",
+    "updated": "2026-01-09T11:31:02.256958",
+    "source": "fmp_api"
+  },
+  "ZNTL": {
+    "industry": "Biotechnology",
+    "sector": "Healthcare",
+    "price": 2.84,
+    "companyName": "Zentalis Pharmaceuticals, Inc.",
+    "currency": "USD",
+    "beta": 1.753,
+    "range": "1.01-3.06",
+    "ipoDate": "2020-04-03",
+    "updated": "2026-01-09T11:31:02.277984",
+    "source": "fmp_api"
+  },
+  "STAA": {
+    "industry": "Medical - Instruments & Supplies",
+    "sector": "Healthcare",
+    "price": 22.5,
+    "companyName": "STAAR Surgical Company",
+    "currency": "USD",
+    "beta": 1.006,
+    "range": "13.5-30.81",
+    "ipoDate": "1992-02-24",
+    "updated": "2026-01-09T11:31:02.304664",
+    "source": "fmp_api"
+  },
+  "UPBD": {
+    "industry": "Software - Application",
+    "sector": "Technology",
+    "price": 19.02,
+    "companyName": "Upbound Group, Inc.",
+    "currency": "USD",
+    "beta": 1.863,
+    "range": "15.82-30.62",
+    "ipoDate": "1995-01-25",
+    "updated": "2026-01-09T11:31:02.362007",
+    "source": "fmp_api"
   }
 }

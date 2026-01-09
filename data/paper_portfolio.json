@@ -1,6 +1,6 @@
 {
   "starting_capital": 10000,
-  "cash": 9002.604999999998,
+  "cash": 10643.854999999998,
   "positions": {
     "XZO": {
       "entry_date": "2025-12-23T11:29:03.436861",
@@ -23,73 +23,14 @@
           "date": "2025-12-23T11:29:03.436865"
         }
       ]
-    },
-    "NAVN": {
-      "entry_date": "2026-01-08T11:32:24.576562",
-      "entry_price": 15.9,
-      "shares": 45,
-      "cost_basis": 715.5,
-      "initial_stop_loss": 15.105,
-      "stop_loss": 15.105,
-      "take_profit": 17.172,
-      "highest_price": 15.9,
-      "trailing_enabled": false,
-      "signal_score": 14.323033901561676,
-      "sector": null,
-      "multi_signal_tier": "none",
-      "has_politician_signal": false,
-      "tranches": [
-        {
-          "shares": 45,
-          "price": 15.9,
-          "date": "2026-01-08T11:32:24.576566"
-        }
-      ]
-    },
-    "FGBI": {
-      "entry_date": "2026-01-08T11:32:24.862440",
-      "entry_price": 5.38,
-      "shares": 113,
-      "cost_basis": 607.9399999999999,
-      "initial_stop_loss": 5.111,
-      "stop_loss": 5.111,
-      "take_profit": 5.8104000000000005,
-      "highest_price": 5.38,
-      "trailing_enabled": false,
-      "signal_score": 11.895339643662794,
-      "sector": null,
-      "multi_signal_tier": "none",
-      "has_politician_signal": false,
-      "tranches": [
-        {
-          "shares": 113,
-          "price": 5.38,
-          "date": "2026-01-08T11:32:24.862445"
-        }
-      ]
     }
   },
-  "pending_entries": {
-    "NAVN": {
-      "shares": 30,
-      "trigger_price": 15.582,
-      "original_entry": 15.9,
-      "expires": "2026-01-13T11:32:24.701493",
-      "signal_score": 14.323033901561676
-    },
-    "FGBI": {
-      "shares": 75,
-      "trigger_price": 5.2724,
-      "original_entry": 5.38,
-      "expires": "2026-01-13T11:32:25.017024",
-      "signal_score": 11.895339643662794
-    }
-  },
+  "pending_entries": {},
   "total_trades": 36,
-  "winning_trades": 20,
+  "winning_trades": 22,
   "losing_trades": 13,
-  "total_profit": 898.8250000000005,
+  "total_profit": 1216.6350000000007,
   "max_portfolio_value": 11790.185000000001,
   "max_drawdown": -9.109194484777545,
-  "last_updated": "2026-01-08T11:32:25.312980"
+  "last_updated": "2026-01-09T11:29:17.824610"
 }
