@@ -1448,7 +1448,7 @@
         // ===== LOAD PERFORMANCE DATA =====
         async function loadPerformanceData() {
             try {
-                const response = await fetch('public_performance.json');
+                const response = await fetch('../public_performance.json');
                 if (!response.ok) throw new Error('Failed to load performance data');
                 performanceData = await response.json();
 

@@ -22,8 +22,6 @@ from paper_trade_monitor import PaperTradingMonitor
 from insider_performance_tracker import InsiderPerformanceTracker
 
 # Continuous insider tracking
-import sys
-sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 from insider_performance_auto_tracker import AutoInsiderTracker
 
 from config import (
