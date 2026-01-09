@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Insider Cluster Watch - Live Paper Trading Dashboard. Real-time performance metrics of the multi-signal trading detection strategy.">
-    <title>Live Dashboard - Insider Cluster Watch | Smart Money Tracker</title>
+    <meta name="description" content="Insider Cluster Watch - Multi-signal trading detection platform. Follow the smart money with real-time insider buying signals, politician trades, and institutional flow.">
+    <title>Insider Cluster Watch | Smart Money Tracker</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
-        /* CSS Variables - Dark Theme */
         :root {
             --bg-main: #0b1120;
             --bg-card: #151e32;
@@ -25,59 +24,46 @@
             --glow: rgba(56, 189, 248, 0.15);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        html {
-            scroll-behavior: smooth;
-        }
+        html { scroll-behavior: smooth; }
 
         body {
             background: var(--bg-main);
             color: var(--text-main);
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            font-family: 'Inter', system-ui, sans-serif;
             overflow-x: hidden;
             line-height: 1.6;
         }
 
-        h1, h2, h3, h4 {
-            font-weight: 800;
-            letter-spacing: -0.02em;
-        }
+        h1, h2, h3, h4 { font-weight: 800; letter-spacing: -0.02em; }
+        h2 { font-size: 2.5rem; margin-bottom: 1.5rem; }
 
-        h2 {
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-        }
-
-        /* Utility Classes */
         .font-mono { font-family: 'JetBrains Mono', monospace; }
         .text-primary { color: var(--primary); }
         .text-success { color: var(--success); }
         .text-danger { color: var(--danger); }
         .text-muted { color: var(--text-muted); }
         .text-warning { color: var(--warning); }
-        .text-center { text-align: center; }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .section { padding: 80px 0; }
 
-        .section {
-            padding: 60px 0;
-        }
-
-        /* Text Gradient */
         .text-gradient {
             background: linear-gradient(to right, var(--primary), var(--secondary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+        }
+
+        /* Grid */
+        .grid-2x2 {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+        @media (min-width: 768px) {
+            .grid-2x2 { grid-template-columns: 1fr 1fr; }
         }
 
         /* Buttons */
@@ -94,27 +80,14 @@
             border: none;
             text-decoration: none;
         }
-
         .btn-primary {
             background: var(--primary);
             color: #0b1120;
             box-shadow: 0 0 15px var(--glow);
         }
-
         .btn-primary:hover {
             background: #7dd3fc;
             transform: translateY(-1px);
-        }
-
-        .btn-secondary {
-            background: var(--bg-hover);
-            color: var(--text-main);
-            border: 1px solid var(--border);
-        }
-
-        .btn-secondary:hover {
-            background: var(--bg-card);
-            border-color: var(--primary);
         }
 
         /* Cards */
@@ -145,44 +118,33 @@
             padding: 15px 0;
             position: sticky;
             top: 0;
-            background: rgba(11, 17, 32, 0.95);
+            background: rgba(11, 17, 32, 0.9);
             backdrop-filter: blur(10px);
             z-index: 100;
         }
-
         .navbar .container {
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-
         .nav-brand {
             display: flex;
             align-items: center;
             gap: 10px;
             font-weight: 700;
             font-size: 1.2rem;
-            color: var(--text-main);
+            cursor: pointer;
             text-decoration: none;
+            color: inherit;
         }
-
-        .nav-brand svg {
-            color: var(--primary);
-        }
-
-        .nav-right {
-            display: flex;
-            gap: 15px;
-            align-items: center;
-        }
-
+        .nav-brand svg { color: var(--primary); }
+        .nav-right { display: flex; gap: 20px; align-items: center; }
         .status-online {
             font-size: 0.8rem;
             display: flex;
             align-items: center;
             gap: 6px;
         }
-
         .status-dot {
             width: 8px;
             height: 8px;
@@ -190,566 +152,262 @@
             border-radius: 50%;
         }
 
-        /* Hero Stats Grid - Top Metrics */
-        .hero-stats-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            margin-bottom: 50px;
+        /* Hero Section */
+        .hero {
+            padding-bottom: 60px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
         }
-
-        @media (max-width: 1024px) {
-            .hero-stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 1.5rem;
-            }
+        .hero-glow {
+            position: absolute;
+            top: -50%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(56,189,248,0.1) 0%, rgba(0,0,0,0) 70%);
+            pointer-events: none;
+            z-index: -1;
         }
-
-        @media (max-width: 768px) {
-            .hero-stats-grid {
-                grid-template-columns: 1fr;
-                gap: 1rem;
-            }
-        }
-
-        .stat-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 25px;
-            display: flex;
-            flex-direction: column;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        }
-
-        .stat-card-header {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 15px;
-        }
-
-        .stat-card-value {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin-bottom: 5px;
-        }
-
-        .stat-card-subtext {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-        }
-
-        /* Account Summary Section */
-        .account-summary {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 30px;
-            margin-bottom: 40px;
-        }
-
-        .account-summary h3 {
-            font-size: 1.1rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 30px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .account-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 30px;
-            align-items: start;
-        }
-
-        @media (max-width: 1024px) {
-            .account-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .account-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-        }
-
-        .portfolio-hero {
-            grid-column: span 1;
-        }
-
-        .portfolio-hero-label {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            margin-bottom: 8px;
-        }
-
-        .portfolio-hero-value {
-            font-size: 2.8rem;
-            font-weight: 800;
-            color: var(--success);
-            line-height: 1;
-            margin-bottom: 10px;
-        }
-
-        .portfolio-pnl {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .pnl-value {
-            font-size: 1.1rem;
-            font-weight: 600;
-        }
-
-        .pnl-label {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-        }
-
-        .account-metric {
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 8px;
-        }
-
-        .account-metric-label {
+        .hero-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            background: rgba(56, 189, 248, 0.1);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            border-radius: 20px;
+            color: var(--primary);
             font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-bottom: 8px;
-        }
-
-        .account-metric-value {
-            font-size: 1.8rem;
-            font-weight: 700;
-        }
-
-        .account-metric-subtext {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            margin-top: 5px;
-        }
-
-        .starting-capital-box {
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 8px;
-        }
-
-        .starting-capital-box .label {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            margin-bottom: 5px;
-        }
-
-        .starting-capital-box .value {
-            font-size: 1.2rem;
             font-weight: 600;
-        }
-
-        .starting-capital-box .date {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            margin-top: 2px;
-        }
-
-        /* Performance Chart Placeholder */
-        .chart-container {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 25px;
-            margin-bottom: 40px;
-        }
-
-        .chart-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-
-        .chart-title {
-            font-size: 1.2rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .chart-value-display {
-            text-align: right;
-        }
-
-        .chart-value-label {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            margin-bottom: 5px;
-        }
-
-        .chart-value {
-            font-size: 2rem;
-            font-weight: 800;
-            color: var(--success);
-        }
-
-        .chart-placeholder {
-            height: 350px;
-            background: linear-gradient(180deg, rgba(56, 189, 248, 0.1) 0%, transparent 100%);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-muted);
-            border: 1px dashed var(--border);
-        }
-
-        /* Two Column Grid for Trade Metrics */
-        .metrics-two-col {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin-bottom: 60px;
-        }
-
-        @media (max-width: 768px) {
-            .metrics-two-col {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .metrics-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 25px;
-        }
-
-        .metrics-card h3 {
-            font-size: 1rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 1px;
             margin-bottom: 20px;
+        }
+        .hero h1 {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+        .hero-subtitle {
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            color: var(--text-muted);
+        }
+        .hero-subtitle strong { color: var(--text-main); }
+        .hero-buttons {
             display: flex;
-            align-items: center;
-            gap: 10px;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
         }
 
-        .metrics-grid-inner {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
+        /* Stats Ticker */
+        .stats-ticker {
+            margin-top: -30px;
+            position: relative;
+            z-index: 10;
+            padding-bottom: 20px;
+        }
+        .stats-ticker-inner {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
             gap: 15px;
         }
-
-        .metric-item {
-            padding: 15px;
-            background: var(--bg-main);
-            border-radius: 8px;
+        .stat-box {
+            padding: 15px 25px;
+            min-width: 160px;
+            border-top-width: 4px;
+            border-top-style: solid;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .stat-box-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+            color: var(--text-muted);
+        }
+        .stat-box-value {
+            font-size: 1.5rem;
+            font-weight: 700;
         }
 
-        .metric-item-label {
+        /* Signal Anatomy Section */
+        .signal-anatomy {
+            background: var(--bg-card);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+        .signal-anatomy-inner {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 60px;
+        }
+        .signal-anatomy-content { flex: 1 1 500px; }
+        .signal-anatomy-card { flex: 1 1 400px; }
+        .signal-steps { display: flex; flex-direction: column; gap: 30px; }
+        .signal-step { display: flex; gap: 20px; }
+        .signal-step-num {
+            font-size: 1.5rem;
+            font-weight: 800;
+            opacity: 0.8;
+        }
+        .signal-step h4 { font-size: 1.1rem; margin-bottom: 5px; }
+        .signal-step p { font-size: 0.95rem; color: var(--text-muted); }
+
+        /* Best Signal Card */
+        .best-signal-card {
+            padding: 30px;
+            background: #0f172a;
+            border: 1px solid var(--border);
+            box-shadow: 0 0 50px rgba(56, 189, 248, 0.1);
+            border-radius: 12px;
+        }
+        .best-signal-header {
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .best-signal-title {
+            font-size: 0.9rem;
+            color: var(--success);
+        }
+        .best-signal-time {
             font-size: 0.8rem;
             color: var(--text-muted);
-            margin-bottom: 5px;
         }
-
-        .metric-item-value {
-            font-size: 1.4rem;
-            font-weight: 700;
-        }
-
-        .metric-item-subtext {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            margin-top: 2px;
-        }
-
-        /* Tables */
-        .data-table-container {
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        .data-table {
-            width: 100%;
-            min-width: 600px;
-            border-collapse: collapse;
+        .best-signal-body {
             font-size: 0.9rem;
+            line-height: 1.8;
         }
-
-        .data-table th {
-            text-align: left;
-            padding: 15px;
-            color: var(--text-muted);
-            font-size: 0.75rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            border-bottom: 1px solid var(--border);
-            background: var(--bg-hover);
+        .best-signal-row {
+            display: flex;
+            justify-content: space-between;
         }
-
-        .data-table td {
-            padding: 15px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .data-table tr:hover {
-            background: rgba(255, 255, 255, 0.02);
-        }
-
-        .table-header {
-            padding: 15px 25px;
-            border-bottom: 1px solid var(--border);
+        .best-signal-row .label { color: var(--text-muted); }
+        .best-signal-ticker {
+            color: #fff;
             font-weight: 700;
-        }
-
-        /* Badges */
-        .badge {
-            display: inline-block;
-            padding: 4px 10px;
+            background: rgba(255,255,255,0.1);
+            padding: 0 6px;
             border-radius: 4px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
+        }
+        .best-signal-alert {
+            margin-top: 15px;
+            padding: 10px;
+            background: rgba(56, 189, 248, 0.1);
+            border-left: 3px solid var(--primary);
+            color: var(--primary);
+            font-size: 0.8rem;
         }
 
-        .badge-high {
+        /* Terminal Table */
+        .terminal-table { overflow-x: auto; }
+        .terminal-table table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+        .terminal-table th {
+            padding: 20px 25px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            background: #1e293b;
+            border-bottom: 1px solid var(--border);
+        }
+        .terminal-table td {
+            padding: 20px 25px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .terminal-table tr:hover { background: rgba(255,255,255,0.02); }
+        .ticker-badge {
+            color: var(--primary);
+            background: rgba(56, 189, 248, 0.1);
+            padding: 6px 10px;
+            border-radius: 4px;
+            font-weight: 700;
+        }
+        .conviction-badge {
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+        .conviction-high {
             background: rgba(0, 230, 118, 0.1);
             color: var(--success);
             border: 1px solid var(--success);
         }
-
-        .badge-med {
+        .conviction-med {
             background: rgba(251, 191, 36, 0.1);
             color: var(--warning);
             border: 1px solid var(--warning);
         }
 
-        .badge-low {
-            background: rgba(148, 163, 184, 0.1);
-            color: var(--text-muted);
-            border: 1px solid var(--text-muted);
-        }
-
-        /* Monthly Returns Heatmap */
-        .heatmap-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-            gap: 10px;
-        }
-
-        .heatmap-cell {
-            padding: 15px 5px;
-            text-align: center;
-            border-radius: 6px;
-            background: var(--bg-hover);
+        /* Features */
+        .feature-card {
+            padding: 40px 30px;
             transition: transform 0.2s;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
         }
-
-        .heatmap-cell:hover {
-            transform: scale(1.05);
-        }
-
-        .heatmap-cell.positive {
-            background: rgba(0, 230, 118, 0.1);
-            border: 1px solid rgba(0, 230, 118, 0.2);
-        }
-
-        .heatmap-cell.negative {
-            background: rgba(255, 82, 82, 0.1);
-            border: 1px solid rgba(255, 82, 82, 0.2);
-        }
-
-        .heatmap-month {
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: var(--text-muted);
+        .feature-card:hover { transform: translateY(-3px); }
+        .feature-icon {
             margin-bottom: 5px;
+            filter: drop-shadow(0 0 10px rgba(255,255,255,0.1));
         }
-
-        .heatmap-value {
-            font-weight: 700;
-        }
-
-        /* Top Insiders Cards */
-        .insider-cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-bottom: 40px;
-        }
-
-        .insider-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 25px;
-            transition: transform 0.2s, box-shadow 0.2s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .insider-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-        }
-
-        .insider-card.rank-1 {
-            border-color: #fbbf24;
-            box-shadow: 0 0 20px rgba(251, 191, 36, 0.1);
-        }
-
-        .insider-card.rank-2 {
-            border-color: #94a3b8;
-            box-shadow: 0 0 20px rgba(148, 163, 175, 0.1);
-        }
-
-        .insider-card.rank-3 {
-            border-color: #d97706;
-            box-shadow: 0 0 20px rgba(217, 119, 6, 0.1);
-        }
-
-        .insider-card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .insider-rank {
-            font-size: 0.8rem;
-            font-weight: 800;
-            color: var(--text-muted);
-        }
-
-        .insider-score {
-            font-size: 0.8rem;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 2px 8px;
-            border-radius: 10px;
-        }
-
-        .insider-name {
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 20px;
-        }
-
-        .insider-hero-metric {
-            text-align: center;
-            margin: 25px 0;
-        }
-
-        .insider-hero-value {
-            font-size: 2rem;
-            font-weight: 800;
-            color: var(--success);
-        }
-
-        .insider-hero-label {
-            font-size: 0.7rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: 5px;
-        }
-
-        .insider-footer {
-            display: flex;
-            justify-content: space-between;
-            border-top: 1px solid var(--border);
-            padding-top: 15px;
-        }
-
-        .insider-stat label {
-            font-size: 0.7rem;
-            color: var(--text-muted);
-            display: block;
-            margin-bottom: 2px;
-        }
-
-        .insider-stat span {
-            font-size: 0.95rem;
-            font-weight: 600;
-        }
+        .feature-card h3 { font-size: 1.4rem; margin-bottom: 5px; }
+        .feature-card p { color: var(--text-muted); line-height: 1.6; font-size: 1rem; }
 
         /* CTA Section */
-        .cta-section {
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-            border: 1px solid var(--primary);
-            border-radius: 20px;
+        .cta-section { position: relative; overflow: hidden; }
+        .cta-card {
             padding: 80px 40px;
             text-align: center;
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border: 1px solid var(--primary);
             position: relative;
             overflow: hidden;
-            margin: 60px 0;
+            max-width: 900px;
+            margin: 0 auto;
+            border-radius: 12px;
         }
-
-        .cta-section::before {
-            content: '';
+        .cta-glow {
             position: absolute;
             top: -50%;
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(56, 189, 248, 0.1) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(56,189,248,0.1) 0%, rgba(0,0,0,0) 70%);
             pointer-events: none;
         }
-
-        .cta-content {
-            position: relative;
-            z-index: 2;
-        }
-
-        .cta-section h2 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-        }
-
+        .cta-content { position: relative; z-index: 2; }
+        .cta-section h2 { font-size: 3rem; margin-bottom: 20px; }
         .cta-section p {
             font-size: 1.25rem;
-            color: var(--text-muted);
             max-width: 600px;
             margin: 0 auto 40px;
             line-height: 1.6;
+            color: var(--text-muted);
         }
-
         .signup-form {
             display: flex;
             gap: 10px;
             max-width: 500px;
             margin: 0 auto;
             flex-wrap: wrap;
-            justify-content: center;
         }
-
         .signup-form .input-wrapper {
             position: relative;
             flex: 1;
             min-width: 250px;
         }
-
         .signup-form .input-icon {
             position: absolute;
             left: 16px;
@@ -757,30 +415,25 @@
             transform: translateY(-50%);
             color: var(--text-muted);
         }
-
         .signup-form input[type="email"] {
             width: 100%;
             padding: 18px 18px 18px 48px;
             border-radius: 8px;
             border: 1px solid var(--border);
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255,255,255,0.05);
             color: #fff;
             font-size: 1.05rem;
             outline: none;
             transition: border-color 0.2s;
         }
-
-        .signup-form input[type="email"]:focus {
-            border-color: var(--primary);
-        }
-
+        .signup-form input[type="email"]:focus { border-color: var(--primary); }
         .signup-form button {
-            padding: 18px 32px;
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 1px;
+            flex: 0 0 auto;
+            padding: 18px 32px;
         }
-
         .cta-status {
             font-size: 0.85rem;
             margin-top: 25px;
@@ -796,21 +449,12 @@
             border-radius: 8px;
             color: var(--success);
             text-align: center;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
             transition: opacity 0.5s ease-out;
-            opacity: 1;
         }
-
-        .confirmation-banner.fade-out {
-            opacity: 0;
-        }
-
-        .confirmation-content {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            font-weight: 500;
-        }
+        .confirmation-banner.fade-out { opacity: 0; }
 
         /* Footer */
         footer {
@@ -818,7 +462,6 @@
             padding: 80px 0 40px;
             background: var(--bg-card);
         }
-
         .footer-grid {
             display: flex;
             justify-content: space-between;
@@ -826,11 +469,7 @@
             gap: 60px;
             margin-bottom: 60px;
         }
-
-        .footer-brand {
-            max-width: 350px;
-        }
-
+        .footer-brand { max-width: 350px; }
         .footer-brand-logo {
             display: flex;
             align-items: center;
@@ -839,38 +478,24 @@
             font-size: 1.4rem;
             margin-bottom: 20px;
         }
-
-        .footer-brand p {
-            color: var(--text-muted);
-            line-height: 1.6;
-        }
-
-        .footer-section h4 {
-            color: #fff;
-            margin-bottom: 25px;
-            font-size: 1.1rem;
-        }
-
+        .footer-brand p { color: var(--text-muted); line-height: 1.6; }
+        .footer-section h4 { color: #fff; margin-bottom: 25px; font-size: 1.1rem; }
         .footer-section ul {
             list-style: none;
             display: flex;
             flex-direction: column;
             gap: 15px;
+            font-size: 1rem;
         }
-
         .footer-section a {
             color: var(--text-muted);
             text-decoration: none;
             transition: color 0.2s;
         }
-
-        .footer-section a:hover {
-            color: var(--primary);
-        }
-
+        .footer-section a:hover { color: var(--primary); }
         .footer-disclaimer {
             padding: 25px;
-            background: rgba(0, 0, 0, 0.2);
+            background: rgba(0,0,0,0.2);
             border: 1px solid var(--border);
             border-left: 4px solid var(--text-muted);
             border-radius: 6px;
@@ -878,7 +503,6 @@
             color: var(--text-muted);
             line-height: 1.6;
         }
-
         .footer-copyright {
             text-align: center;
             margin-top: 60px;
@@ -886,28 +510,10 @@
             color: var(--text-muted);
         }
 
-        /* Back Button */
-        .back-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            cursor: pointer;
-            font-size: 0.9rem;
-            padding: 0;
-            margin-bottom: 30px;
-            transition: all 0.2s ease;
-            text-decoration: none;
+        /* Dashboard Section Styles */
+        .dashboard-section {
+            padding: 60px 20px 100px;
         }
-
-        .back-btn:hover {
-            color: var(--primary);
-            transform: translateX(-5px);
-        }
-
-        /* Header Section */
         .dashboard-header {
             margin-bottom: 60px;
             display: flex;
@@ -916,17 +522,8 @@
             flex-wrap: wrap;
             gap: 20px;
         }
-
-        .dashboard-header h1 {
-            font-size: 3rem;
-            margin-bottom: 10px;
-        }
-
-        .dashboard-header p {
-            font-size: 1.2rem;
-            color: var(--text-muted);
-        }
-
+        .dashboard-header h1 { font-size: 3rem; margin-bottom: 10px; }
+        .dashboard-header p { font-size: 1.2rem; color: var(--text-muted); }
         .last-updated-badge {
             font-size: 0.9rem;
             padding: 12px 24px;
@@ -935,50 +532,197 @@
             border: 1px solid var(--border);
             color: var(--text-muted);
         }
+        .last-updated-badge span { color: var(--primary); }
 
-        .last-updated-badge span {
-            color: var(--primary);
+        /* Hero Stats Grid */
+        .hero-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-bottom: 50px;
+        }
+        @media (max-width: 1024px) {
+            .hero-stats-grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+        }
+        @media (max-width: 768px) {
+            .hero-stats-grid { grid-template-columns: 1fr; gap: 1rem; }
+            .hero h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+            .section { padding: 60px 0; }
         }
 
-        /* Section Headers */
-        .section-header {
-            font-size: 1.8rem;
-            margin-bottom: 25px;
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .stat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        .stat-card-header {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 10px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
         }
-
-        /* Loading State */
-        .loading {
-            text-align: center;
-            padding: 40px;
+        .stat-card-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+        .stat-card-subtext {
+            font-size: 0.9rem;
             color: var(--text-muted);
         }
 
-        .loading::after {
-            content: '...';
-            animation: dots 1.5s steps(4, end) infinite;
+        /* Account Summary */
+        .account-summary {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 40px;
         }
-
-        @keyframes dots {
-            0%, 20% { content: '.'; }
-            40% { content: '..'; }
-            60%, 100% { content: '...'; }
+        .account-summary h3 {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
+        .account-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+        @media (max-width: 1024px) {
+            .account-grid { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 768px) {
+            .account-grid { grid-template-columns: 1fr; gap: 20px; }
+        }
+        .portfolio-hero-label { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 8px; }
+        .portfolio-hero-value {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: var(--success);
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+        .portfolio-pnl { display: flex; align-items: center; gap: 10px; }
+        .pnl-value { font-size: 1.1rem; font-weight: 600; }
+        .pnl-label { font-size: 0.8rem; color: var(--text-muted); }
 
-        /* Error Message */
-        .error-message {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 1rem 1.5rem;
-            background: rgba(255, 68, 68, 0.2);
-            border: 1px solid var(--danger);
+        /* Account Metric Boxes - CONSISTENT SIZING */
+        .account-metric {
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.03);
             border-radius: 8px;
-            color: var(--danger);
-            z-index: 9999;
-            animation: fadeIn 0.3s ease-out;
+        }
+        .account-metric-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+        .account-metric-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        .account-metric-subtext {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 5px;
+        }
+
+        /* Chart Container */
+        .chart-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 40px;
+        }
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .chart-title {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .chart-value-display { text-align: right; }
+        .chart-value-label { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 5px; }
+        .chart-value { font-size: 2rem; font-weight: 800; color: var(--success); }
+        .chart-area {
+            height: 350px;
+            position: relative;
+        }
+
+        /* Chart Tooltip */
+        .chart-tooltip {
+            position: absolute;
+            background: rgba(11, 17, 32, 0.95);
+            border: 1px solid var(--border);
+            padding: 12px 16px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            min-width: 200px;
+            pointer-events: none;
+            z-index: 100;
+            display: none;
+        }
+        .chart-tooltip.visible { display: block; }
+        .tooltip-date { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 4px; }
+        .tooltip-value { font-size: 1.2rem; font-weight: 700; margin-bottom: 4px; }
+        .tooltip-gain { font-size: 0.9rem; }
+
+        /* SVG Chart Styles */
+        .chart-svg { width: 100%; height: 100%; }
+        .chart-grid-line { stroke: rgba(255,255,255,0.05); stroke-width: 1; }
+        .chart-axis-text { fill: var(--text-muted); font-size: 11px; font-family: 'JetBrains Mono', monospace; }
+        .chart-line { fill: none; stroke: var(--primary); stroke-width: 2; }
+        .chart-area-fill { fill: url(#areaGradient); }
+        .chart-dot {
+            fill: var(--primary);
+            stroke: var(--bg-main);
+            stroke-width: 2;
+            cursor: pointer;
+            transition: r 0.2s;
+        }
+        .chart-dot:hover { r: 6; }
+        .chart-cursor-line {
+            stroke: var(--text-muted);
+            stroke-width: 1;
+            stroke-dasharray: 4 4;
+            opacity: 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .signal-anatomy-inner { gap: 40px; }
+            .signup-form { flex-direction: column; }
         }
     </style>
 </head>
@@ -986,7 +730,7 @@
     <!-- Navigation -->
     <nav class="navbar">
         <div class="container">
-            <a href="index.html" class="nav-brand">
+            <a href="#" class="nav-brand">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
                 <span>INSIDER CLUSTER <span class="text-muted">WATCH</span></span>
             </a>
@@ -995,305 +739,284 @@
                     <span class="status-dot animate-pulse"></span>
                     SYSTEM ONLINE
                 </span>
-                <a href="index.html" class="btn btn-secondary" style="padding: 8px 16px; font-size: 0.9rem;">
-                    Main Site
-                </a>
-                <a href="#signup" class="btn btn-primary" style="padding: 8px 16px; font-size: 0.9rem;">
-                    Sign up
-                </a>
+                <a href="#signup" class="btn btn-primary" style="padding: 8px 16px; font-size: 0.9rem;">Sign up</a>
             </div>
         </div>
     </nav>
 
-    <!-- Main Dashboard Content -->
-    <main class="container fade-in" style="padding: 60px 20px 100px;">
-
-        <!-- Back Button -->
-        <a href="index.html" class="back-btn">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-            <span class="font-mono">BACK TO HOME</span>
-        </a>
-
-        <!-- Header -->
-        <div class="dashboard-header">
-            <div>
-                <h1>Live Paper Trading</h1>
-                <p>Real-time performance metrics of the Insider Cluster strategy.</p>
-            </div>
-            <div class="last-updated-badge font-mono" id="last-updated">
-                Last Updated: <span>Loading...</span>
-            </div>
-        </div>
-
-        <!-- Hero Stats Grid -->
-        <div class="hero-stats-grid" id="hero-stats">
-            <div class="stat-card">
-                <div class="stat-card-header">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
-                    Total Return
-                </div>
-                <div class="stat-card-value text-success font-mono" id="total-return">+0.00%</div>
-                <div class="stat-card-subtext" id="alpha-display">Alpha vs SPY: <span class="text-success">+0.00%</span></div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-card-header">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
-                    Win Rate
-                </div>
-                <div class="stat-card-value text-primary font-mono" id="win-rate">0.0%</div>
-                <div class="stat-card-subtext" id="active-positions-text">0 Active Positions</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-card-header">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
-                    Sharpe Ratio
-                </div>
-                <div class="stat-card-value font-mono" id="sharpe-ratio">0.00</div>
-                <div class="stat-card-subtext">Risk Adjusted Return</div>
+    <!-- Hero Section -->
+    <header class="section hero fade-in">
+        <div class="hero-glow"></div>
+        <div class="container">
+            <div class="hero-badge" id="hero-badge">v2.4 LIVE PIPELINE • LOADING CLUSTERS...</div>
+            <h1>Follow The <span class="text-gradient">Smart Money</span></h1>
+            <p class="hero-subtitle">
+                Stop guessing based on news. Start tracking the trades that move markets.
+                Real-time detection of <strong>High-Conviction Insider Buying</strong>,
+                <strong>Senate Disclosures</strong>, and <strong>Institutional Flow</strong>.
+            </p>
+            <div class="hero-buttons">
+                <a href="#signup" class="btn btn-primary">
+                    Get Free Alerts
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 8px;"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </a>
+                <a href="#dashboard" class="btn" style="background: var(--bg-hover); color: var(--text-main); border: 1px solid var(--border);">
+                    View Live Dashboard
+                </a>
             </div>
         </div>
+    </header>
 
-        <!-- Account Summary -->
-        <div class="account-summary" id="account-summary">
-            <h3>
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 8H2"/><path d="M7 12h0"/></svg>
-                Account Summary
-            </h3>
-            <div class="account-grid">
-                <!-- Portfolio Value - Hero -->
-                <div class="portfolio-hero">
-                    <div class="portfolio-hero-label">Total Portfolio Value</div>
-                    <div class="portfolio-hero-value font-mono" id="portfolio-value">$10,000.00</div>
-                    <div class="portfolio-pnl">
-                        <span class="pnl-value text-success font-mono" id="total-pnl">+$0.00 (+0.00%)</span>
-                        <span class="pnl-label">All Time P&L</span>
+    <!-- Stats Ticker -->
+    <div class="container stats-ticker">
+        <div class="stats-ticker-inner" id="stats-ticker">
+            <div class="card stat-box" style="border-top-color: var(--success);">
+                <div class="stat-box-label">AVG RETURN (7D)</div>
+                <div class="stat-box-value font-mono text-success" id="stat-avg-return">+0.0%</div>
+            </div>
+            <div class="card stat-box" style="border-top-color: var(--primary);">
+                <div class="stat-box-label">WIN RATE</div>
+                <div class="stat-box-value font-mono text-primary" id="stat-win-rate">0%</div>
+            </div>
+            <div class="card stat-box" style="border-top-color: var(--warning);">
+                <div class="stat-box-label">ACTIVE CLUSTERS</div>
+                <div class="stat-box-value font-mono text-warning" id="stat-active-clusters">0</div>
+            </div>
+            <div class="card stat-box" style="border-top-color: var(--text-main);">
+                <div class="stat-box-label">TOTAL TRACKED</div>
+                <div class="stat-box-value font-mono" id="stat-total-tracked">$0</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Signal Anatomy Section -->
+    <section class="section signal-anatomy">
+        <div class="container">
+            <div class="signal-anatomy-inner">
+                <div class="signal-anatomy-content">
+                    <h2 style="margin-bottom: 20px;">We Don't Guess. <br><span class="text-primary">We Triangulate.</span></h2>
+                    <p class="text-muted" style="font-size: 1.1rem; margin-bottom: 40px; line-height: 1.6;">
+                        Retail traders rely on headlines. We rely on SEC filings. A signal is only generated when three distinct data points align to confirm high conviction.
+                    </p>
+                    <div class="signal-steps">
+                        <div class="signal-step">
+                            <div class="font-mono signal-step-num text-primary">01</div>
+                            <div>
+                                <h4>The Trigger</h4>
+                                <p>C-Suite Exec (CEO/CFO) executes a Form 4 Buy >$100k.</p>
+                            </div>
+                        </div>
+                        <div class="signal-step">
+                            <div class="font-mono signal-step-num" style="color: var(--secondary);">02</div>
+                            <div>
+                                <h4>The Confirmation</h4>
+                                <p>Cluster forms: 2+ other insiders buy within 5 days.</p>
+                            </div>
+                        </div>
+                        <div class="signal-step">
+                            <div class="font-mono signal-step-num text-success">03</div>
+                            <div>
+                                <h4>The Edge</h4>
+                                <p>Institutional ownership (13F) spikes or Politician buy detected.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
-                <!-- Available Cash -->
-                <div class="account-metric">
-                    <div class="account-metric-label text-primary">Available Cash (Liquid)</div>
-                    <div class="account-metric-value text-primary font-mono" id="available-cash">$0.00</div>
-                    <div class="account-metric-subtext">Buying Power Available</div>
-                </div>
-
-                <!-- Invested Capital -->
-                <div class="account-metric">
-                    <div class="account-metric-label">Invested Capital</div>
-                    <div class="account-metric-value font-mono" id="invested-capital">$0.00</div>
-                    <div class="account-metric-subtext" id="capital-deployed">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline;"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-                        0% Deployed
+                <div class="signal-anatomy-card">
+                    <div class="best-signal-card card" id="best-signal-card">
+                        <div class="best-signal-header">
+                            <span class="font-mono best-signal-title">● BEST SIGNAL OF THE DAY</span>
+                            <span class="best-signal-time font-mono" id="signal-time">LOADING...</span>
+                        </div>
+                        <div class="best-signal-body font-mono">
+                            <div class="best-signal-row">
+                                <span class="label">TICKER</span>
+                                <span class="best-signal-ticker" id="signal-ticker">---</span>
+                            </div>
+                            <div class="best-signal-row">
+                                <span class="label">INSIDER</span>
+                                <span id="signal-insider">Loading...</span>
+                            </div>
+                            <div class="best-signal-row">
+                                <span class="label">TYPE</span>
+                                <span class="text-success" id="signal-type">OPEN MARKET BUY</span>
+                            </div>
+                            <div class="best-signal-row">
+                                <span class="label">VALUE</span>
+                                <span id="signal-value">$0</span>
+                            </div>
+                            <div class="best-signal-row">
+                                <span class="label">SCORE</span>
+                                <span class="text-primary" id="signal-score">0.0</span>
+                            </div>
+                            <div class="best-signal-alert" id="signal-alert">
+                                Loading cluster information...
+                            </div>
+                        </div>
                     </div>
                 </div>
-
-                <!-- Starting Capital -->
-                <div class="starting-capital-box">
-                    <div class="label">Starting Capital</div>
-                    <div class="value font-mono">$10,000.00</div>
-                    <div class="date">Nov 1, 2025</div>
-                </div>
             </div>
         </div>
+    </section>
 
-        <!-- Portfolio Growth Chart -->
-        <div class="chart-container">
-            <div class="chart-header">
-                <h3 class="chart-title">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
-                    Portfolio Growth (Paper Trading)
-                </h3>
-                <div class="chart-value-display">
-                    <div class="chart-value-label">CURRENT VALUE</div>
-                    <div class="chart-value font-mono" id="chart-current-value">$10,000</div>
+    <!-- Dashboard Section -->
+    <section class="section" id="dashboard">
+        <div class="container dashboard-section">
+            <div class="dashboard-header">
+                <div>
+                    <h1>Live Paper Trading</h1>
+                    <p>Real-time performance metrics of the Insider Cluster strategy.</p>
+                </div>
+                <div class="last-updated-badge font-mono" id="last-updated">
+                    Last Updated: <span>Loading...</span>
                 </div>
             </div>
-            <div class="chart-placeholder" id="chart-area">
-                <span>Chart visualization - Connect charting library for interactive display</span>
-            </div>
-        </div>
 
-        <!-- Trade Quality & Recent Performance -->
-        <div class="metrics-two-col">
-            <!-- Trade Quality Metrics -->
-            <div class="metrics-card">
+            <!-- Hero Stats Grid -->
+            <div class="hero-stats-grid">
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+                        Total Return
+                    </div>
+                    <div class="stat-card-value text-success font-mono" id="total-return">+0.00%</div>
+                    <div class="stat-card-subtext" id="alpha-display">Alpha vs SPY: <span class="text-success">+0.00%</span></div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                        Win Rate
+                    </div>
+                    <div class="stat-card-value text-primary font-mono" id="win-rate">0.0%</div>
+                    <div class="stat-card-subtext" id="active-positions-text">0 Active Positions</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                        Sharpe Ratio
+                    </div>
+                    <div class="stat-card-value font-mono" id="sharpe-ratio">0.00</div>
+                    <div class="stat-card-subtext">Risk Adjusted Return</div>
+                </div>
+            </div>
+
+            <!-- Account Summary -->
+            <div class="account-summary">
                 <h3>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                    Trade Quality Metrics
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 8H2"/><path d="M7 12h0"/></svg>
+                    Account Summary
                 </h3>
-                <div class="metrics-grid-inner" id="trade-quality-metrics">
-                    <div class="metric-item">
-                        <div class="metric-item-label">Avg Winner</div>
-                        <div class="metric-item-value text-success font-mono" id="avg-winner">+0.00%</div>
+                <div class="account-grid">
+                    <div>
+                        <div class="portfolio-hero-label">Total Portfolio Value</div>
+                        <div class="portfolio-hero-value font-mono" id="portfolio-value">$10,000.00</div>
+                        <div class="portfolio-pnl">
+                            <span class="pnl-value text-success font-mono" id="total-pnl">+$0.00 (+0.00%)</span>
+                            <span class="pnl-label">All Time P&L</span>
+                        </div>
                     </div>
-                    <div class="metric-item">
-                        <div class="metric-item-label">Avg Loser</div>
-                        <div class="metric-item-value text-danger font-mono" id="avg-loser">-0.00%</div>
+                    <div class="account-metric">
+                        <div class="account-metric-label text-primary">Available Cash (Liquid)</div>
+                        <div class="account-metric-value text-primary font-mono" id="available-cash">$0.00</div>
+                        <div class="account-metric-subtext">Buying Power Available</div>
                     </div>
-                    <div class="metric-item">
-                        <div class="metric-item-label">Profit Factor</div>
-                        <div class="metric-item-value text-success font-mono" id="profit-factor">0.00</div>
-                        <div class="metric-item-subtext">Gross Win / Gross Loss</div>
+                    <div class="account-metric">
+                        <div class="account-metric-label">Invested Capital</div>
+                        <div class="account-metric-value font-mono" id="invested-capital">$0.00</div>
+                        <div class="account-metric-subtext" id="capital-deployed">0% Deployed</div>
                     </div>
-                    <div class="metric-item">
-                        <div class="metric-item-label">Max Drawdown</div>
-                        <div class="metric-item-value text-danger font-mono" id="max-drawdown">-0.00%</div>
-                        <div class="metric-item-subtext">Peak to Trough</div>
+                    <div class="account-metric">
+                        <div class="account-metric-label">Starting Capital</div>
+                        <div class="account-metric-value font-mono">$10,000.00</div>
+                        <div class="account-metric-subtext">Nov 1, 2025</div>
                     </div>
                 </div>
             </div>
 
-            <!-- Recent Performance -->
-            <div class="metrics-card">
-                <h3>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                    Recent Performance
-                </h3>
-                <div class="metrics-grid-inner" id="recent-performance-metrics">
-                    <div class="metric-item" style="grid-column: span 2;">
-                        <div class="metric-item-label">Last 30 Days</div>
-                        <div class="metric-item-value text-success font-mono" id="last-30-days">+0.00%</div>
-                        <div class="metric-item-subtext">Momentum</div>
+            <!-- Portfolio Growth Chart -->
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h3 class="chart-title">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+                        Portfolio Growth (Paper Trading)
+                    </h3>
+                    <div class="chart-value-display">
+                        <div class="chart-value-label">CURRENT VALUE</div>
+                        <div class="chart-value font-mono" id="chart-current-value">$10,000</div>
                     </div>
-                    <div class="metric-item">
-                        <div class="metric-item-label">Current Streak</div>
-                        <div class="metric-item-value font-mono" id="current-streak">0</div>
-                    </div>
-                    <div class="metric-item">
-                        <div class="metric-item-label">Last 10 Trades</div>
-                        <div class="metric-item-value font-mono" id="last-10-wr">0% WR</div>
+                </div>
+                <div class="chart-area" id="chart-area">
+                    <svg class="chart-svg" id="portfolio-chart"></svg>
+                    <div class="chart-tooltip" id="chart-tooltip">
+                        <div class="tooltip-date font-mono" id="tooltip-date"></div>
+                        <div class="tooltip-value font-mono" id="tooltip-value"></div>
+                        <div class="tooltip-gain font-mono" id="tooltip-gain"></div>
                     </div>
                 </div>
             </div>
         </div>
+    </section>
 
-        <!-- Top Performing Insiders -->
-        <section id="top-insiders-section" style="margin-bottom: 60px; display: none;">
-            <h2 class="section-header">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--warning)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
-                Top Performing Insiders
-            </h2>
-            <div class="insider-cards-grid" id="insider-cards">
-                <div class="loading">Loading top performers</div>
-            </div>
-        </section>
-
-        <!-- Conviction Performance -->
-        <section style="margin-bottom: 60px;" id="conviction-section">
-            <h2 class="section-header">Conviction Analysis</h2>
-            <div class="card" style="overflow: hidden;">
-                <div class="data-table-container">
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Signal Level</th>
-                                <th>Trades</th>
-                                <th>Win Rate</th>
-                                <th>Avg Return</th>
-                            </tr>
-                        </thead>
-                        <tbody id="conviction-table-body">
-                            <tr>
-                                <td colspan="4" class="loading">Loading conviction analysis</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
-
-        <!-- Monthly Returns Heatmap -->
-        <section style="margin-bottom: 60px;" id="monthly-section">
-            <h2 class="section-header">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                Monthly Returns
-            </h2>
-            <div class="metrics-card">
-                <div class="heatmap-grid" id="monthly-heatmap">
-                    <div class="loading">Loading monthly returns</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Active & Recent Activity Tables -->
-        <section style="margin-bottom: 40px;">
-            <h2 class="section-header">Active & Recent Activity</h2>
-
-            <!-- Open Positions -->
-            <div class="card" style="margin-bottom: 40px;">
-                <div class="table-header text-primary">OPEN POSITIONS</div>
-                <div class="data-table-container">
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Ticker</th>
-                                <th>Entry Date</th>
-                                <th>Days Held</th>
-                                <th>Unrealized P&L</th>
-                                <th>Conviction</th>
-                            </tr>
-                        </thead>
-                        <tbody id="open-positions-table">
-                            <tr>
-                                <td colspan="5" class="loading">Loading open positions</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- Recent Closed Trades -->
-            <div class="card">
-                <div class="table-header text-muted">RECENTLY CLOSED</div>
-                <div class="data-table-container">
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Ticker</th>
-                                <th>Entry</th>
-                                <th>Exit</th>
-                                <th>Return</th>
-                                <th>Reason</th>
-                                <th>Conviction</th>
-                            </tr>
-                        </thead>
-                        <tbody id="recent-trades-table">
-                            <tr>
-                                <td colspan="6" class="loading">Loading recent trades</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
-
-        <!-- CTA Section -->
-        <section class="cta-section" id="signup">
-            <div class="cta-content">
-                <h2>Get the <span class="text-primary">7:00 AM</span> Briefing</h2>
-                <p>The SEC releases filings overnight. Our bots scan them at dawn. Get the top 3 highest-conviction insider clusters delivered to your inbox before the market opens.</p>
-
-                <form class="signup-form" id="signup-form" action="https://formspree.io/f/meonlvan" method="POST">
-                    <div class="input-wrapper">
-                        <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-                        <input type="email" name="email" placeholder="trader@hedgefund.com" required>
+    <!-- Features -->
+    <section class="section">
+        <div class="container">
+            <div class="grid-2x2">
+                <div class="card feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
                     </div>
-                    <input type="hidden" name="_subject" value="New Insider Cluster Watch Dashboard Subscriber">
-                    <button type="submit" class="btn btn-primary">Get The Edge</button>
-                </form>
-
-                <!-- Confirmation Banner -->
-                <div id="subscription-confirmation" class="confirmation-banner" style="display: none; max-width: 500px; margin: 1rem auto 0;">
-                    <div class="confirmation-content">
-                        <span>&#10003;</span> Success! You're subscribed to the daily briefing.
-                    </div>
+                    <h3>Cluster Theory</h3>
+                    <p>One insider buying is noise. Three insiders buying in the same week is a signal. We filter specifically for coordinated action.</p>
                 </div>
-
-                <p class="cta-status font-mono">>> STATUS: ACCEPTING NEW SUBSCRIBERS</p>
+                <div class="card feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--warning)" stroke-width="2"><path d="M3 21h18"/><path d="M5 21V7l8-4 8 4v14"/><path d="M9 21v-8h6v8"/></svg>
+                    </div>
+                    <h3>The "Pelosi" Tracker</h3>
+                    <p>We monitor Capitol Trades. If Congress is buying, we want to know why. We cross-reference legislative activity with market moves.</p>
+                </div>
+                <div class="card feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--secondary)" stroke-width="2"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+                    </div>
+                    <h3>Smart Money Scoring</h3>
+                    <p>Not all insiders are created equal. We rank every officer & director by their historical win rate. We only flag trades from 'Super-Insiders' who consistently beat the market.</p>
+                </div>
+                <div class="card feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    </div>
+                    <h3>Penny Stock Filter</h3>
+                    <p>We auto-reject low liquidity garbage. We only track actionable setups on liquid tickers that you can actually trade with size.</p>
+                </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-    </main>
+    <!-- CTA Section -->
+    <section id="signup" class="section cta-section">
+        <div class="container">
+            <div class="cta-card card">
+                <div class="cta-glow"></div>
+                <div class="cta-content">
+                    <h2>Get the <span class="text-primary">7:00 AM</span> Briefing</h2>
+                    <p>The SEC releases filings overnight. Our bots scan them at dawn. Get the top 3 highest-conviction insider clusters delivered to your inbox before the market opens.</p>
+                    <form class="signup-form" id="signup-form" action="https://formspree.io/f/meonlvan" method="POST">
+                        <div class="input-wrapper">
+                            <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                            <input type="email" name="email" placeholder="trader@hedgefund.com" required>
+                        </div>
+                        <input type="hidden" name="_subject" value="New Insider Cluster Watch Subscriber">
+                        <button type="submit" class="btn btn-primary">Get The Edge</button>
+                    </form>
+                    <div id="subscription-confirmation" class="confirmation-banner" style="display: none;">
+                        &#10003; Success! You're subscribed to the daily briefing.
+                    </div>
+                    <p class="cta-status font-mono">>> STATUS: ACCEPTING NEW SUBSCRIBERS</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Footer -->
     <footer>
@@ -1301,7 +1024,7 @@
             <div class="footer-grid">
                 <div class="footer-brand">
                     <div class="footer-brand-logo">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
                         <span>INSIDER CLUSTER</span>
                     </div>
                     <p>Open source intelligence for the modern retail trader. We track the flow so you don't have to. Built for transparency and performance.</p>
@@ -1309,8 +1032,7 @@
                 <div class="footer-section">
                     <h4>Platform</h4>
                     <ul>
-                        <li><a href="index.html">Main Site</a></li>
-                        <li><a href="dashboard-v2.html">Live Dashboard</a></li>
+                        <li><a href="#dashboard">Live Dashboard</a></li>
                         <li><a href="https://github.com/Samie-mirghani/insider-cluster-watch">Source Code</a></li>
                     </ul>
                 </div>
@@ -1323,13 +1045,11 @@
                     </ul>
                 </div>
             </div>
-
             <div class="footer-disclaimer">
                 <strong>DISCLAIMER:</strong> Insider Cluster Watch is for informational purposes only and does not constitute financial advice.
                 Trading stocks involves risk. Past performance of insider clusters does not guarantee future results.
                 Data is sourced from SEC Form 4 and 13F filings but is not guaranteed to be error-free.
             </div>
-
             <div class="footer-copyright">
                 &copy; 2026 Insider Cluster Watch. All rights reserved.
             </div>
@@ -1337,338 +1057,405 @@
     </footer>
 
     <script>
-        // ===== EMAIL SUBSCRIPTION CONFIRMATION HANDLER =====
-        const subscriptionForm = document.getElementById('signup-form');
+        // ===== GLOBAL DATA =====
+        let chartData = [];
+        let performanceData = null;
+        let signalsData = [];
 
-        if (subscriptionForm) {
-            subscriptionForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-
-                const formData = new FormData(this);
-                const email = formData.get('email');
-
-                // Submit to Formspree (non-blocking)
-                fetch(this.action, {
-                    method: 'POST',
-                    body: formData,
-                    headers: {
-                        'Accept': 'application/json'
-                    }
-                }).then(response => {
-                    if (response.ok) {
-                        console.log('Email submitted successfully');
-                    }
-                }).catch(error => {
-                    console.log('Form submission error:', error);
-                });
-
-                // Show confirmation banner immediately
-                const confirmationBanner = document.getElementById('subscription-confirmation');
-                confirmationBanner.style.display = 'block';
-                confirmationBanner.style.opacity = '1';
-                confirmationBanner.classList.remove('fade-out');
-
-                // Reset form
-                this.reset();
-
-                // Fade out after 4 seconds
-                setTimeout(() => {
-                    confirmationBanner.classList.add('fade-out');
-
-                    // Hide completely after fade
-                    setTimeout(() => {
-                        confirmationBanner.style.display = 'none';
-                    }, 500);
-                }, 4000);
-            });
-        }
-
-        // ===== DATA LOADING FUNCTIONS =====
-
-        // Helper function to format currency
+        // ===== UTILITIES =====
         function formatCurrency(value) {
             return '$' + value.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
         }
 
-        // Helper function to format percentage
         function formatPercent(value, showPlus = true) {
             const sign = showPlus && value >= 0 ? '+' : '';
             return sign + value.toFixed(2) + '%';
         }
 
-        // Helper function to get badge class
-        function getBadgeClass(conviction) {
-            if (['VERY HIGH', 'HIGH'].includes(conviction)) return 'badge-high';
-            if (conviction === 'MEDIUM') return 'badge-med';
-            return 'badge-low';
+        function formatCompactCurrency(value) {
+            if (value >= 1000000000) return '$' + (value / 1000000000).toFixed(1) + 'B';
+            if (value >= 1000000) return '$' + (value / 1000000).toFixed(1) + 'M';
+            if (value >= 1000) return '$' + (value / 1000).toFixed(0) + 'K';
+            return '$' + value.toFixed(0);
         }
 
-        // Format month name from "2025-12" to "Dec 2025"
-        function formatMonth(monthStr) {
-            const parts = monthStr.split('-');
-            if (parts.length !== 2) return monthStr;
-            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-            const monthIndex = parseInt(parts[1], 10) - 1;
-            return months[monthIndex] + ' ' + parts[0];
-        }
-
-        // Format insider name from "Last First Middle" to "First Middle Last"
         function formatInsiderName(name) {
-            if (!name) return '';
+            if (!name) return 'Unknown';
             const parts = name.trim().split(/\s+/);
             if (parts.length <= 1) return name;
-
-            const entitySuffixes = ['Inc', 'LLC', 'Llc', 'LP', 'Lp', 'Ltd', 'Corporation', 'Corp', 'Co'];
-            const firstWord = parts[0];
-            const lastWord = parts[parts.length - 1];
-
-            if (entitySuffixes.includes(firstWord)) {
-                const suffix = parts.shift();
-                if (['Inc', 'LLC', 'Ltd', 'Corp'].includes(suffix)) {
-                    return parts.join(' ') + ', ' + suffix + '.';
-                }
-                return parts.join(' ') + ' ' + suffix.toUpperCase();
-            }
-
-            if (entitySuffixes.includes(lastWord)) {
-                const suffix = parts.pop();
-                return parts.join(' ') + ' ' + suffix.toUpperCase();
-            }
-
-            const lastName = parts.shift();
-            parts.push(lastName);
-            return parts.join(' ');
+            // Format: "Last First Middle" -> "F. LAST"
+            const lastName = parts[0].toUpperCase();
+            const firstName = parts.length > 1 ? parts[1].charAt(0).toUpperCase() + '.' : '';
+            return firstName + ' ' + lastName;
         }
 
-        // Load main performance data
+        // ===== EMAIL SUBSCRIPTION =====
+        const subscriptionForm = document.getElementById('signup-form');
+        if (subscriptionForm) {
+            subscriptionForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const formData = new FormData(this);
+
+                fetch(this.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: { 'Accept': 'application/json' }
+                }).catch(err => console.log('Form error:', err));
+
+                const banner = document.getElementById('subscription-confirmation');
+                banner.style.display = 'block';
+                banner.style.opacity = '1';
+                banner.classList.remove('fade-out');
+                this.reset();
+
+                setTimeout(() => {
+                    banner.classList.add('fade-out');
+                    setTimeout(() => banner.style.display = 'none', 500);
+                }, 4000);
+            });
+        }
+
+        // ===== LOAD PERFORMANCE DATA =====
         async function loadPerformanceData() {
             try {
                 const response = await fetch('public_performance.json');
                 if (!response.ok) throw new Error('Failed to load performance data');
-                const data = await response.json();
+                performanceData = await response.json();
 
-                // Update last updated timestamp
-                document.getElementById('last-updated').innerHTML =
-                    `Last Updated: <span>${data.last_updated}</span>`;
+                // Update last updated
+                document.getElementById('last-updated').innerHTML = `Last Updated: <span>${performanceData.last_updated}</span>`;
 
-                // Hero Stats
-                const totalReturn = data.total_return_pct;
+                // Update hero stats
+                const totalReturn = performanceData.total_return_pct;
                 document.getElementById('total-return').textContent = formatPercent(totalReturn);
-                document.getElementById('total-return').className =
-                    `stat-card-value font-mono ${totalReturn >= 0 ? 'text-success' : 'text-danger'}`;
+                document.getElementById('total-return').className = `stat-card-value font-mono ${totalReturn >= 0 ? 'text-success' : 'text-danger'}`;
+                document.getElementById('alpha-display').innerHTML = `Alpha vs SPY: <span class="${performanceData.alpha_vs_sp500 >= 0 ? 'text-success' : 'text-danger'}">${formatPercent(performanceData.alpha_vs_sp500)}</span>`;
+                document.getElementById('win-rate').textContent = performanceData.win_rate + '%';
+                document.getElementById('active-positions-text').textContent = performanceData.active_trades + ' Active Positions';
+                document.getElementById('sharpe-ratio').textContent = performanceData.sharpe_ratio.toFixed(2);
 
-                document.getElementById('alpha-display').innerHTML =
-                    `Alpha vs SPY: <span class="${data.alpha_vs_sp500 >= 0 ? 'text-success' : 'text-danger'}">${formatPercent(data.alpha_vs_sp500)}</span>`;
+                // Update ticker stats
+                document.getElementById('stat-avg-return').textContent = formatPercent(performanceData.avg_return_per_trade || 8.16);
+                document.getElementById('stat-win-rate').textContent = Math.round(performanceData.win_rate) + '%';
+                document.getElementById('stat-active-clusters').textContent = performanceData.active_trades;
 
-                document.getElementById('win-rate').textContent = data.win_rate + '%';
-                document.getElementById('active-positions-text').textContent = data.active_trades + ' Active Positions';
-                document.getElementById('sharpe-ratio').textContent = data.sharpe_ratio.toFixed(2);
-
-                // Account Summary
-                const portfolioComp = data.portfolio_composition || {};
-                const currentValue = portfolioComp.current_value || 10000;
-                const startingCapital = portfolioComp.starting_capital || 10000;
-                const cash = portfolioComp.cash || 0;
-                const investedCapital = portfolioComp.invested_capital || 0;
-                const capitalDeployed = portfolioComp.capital_deployed_pct || 0;
-                const totalPnL = currentValue - startingCapital;
+                // Account summary
+                const pc = performanceData.portfolio_composition || {};
+                const currentValue = pc.current_value || 10000;
+                const cash = pc.cash || 0;
+                const investedCapital = pc.invested_capital || 0;
+                const capitalDeployed = pc.capital_deployed_pct || 0;
+                const totalPnL = currentValue - 10000;
 
                 document.getElementById('portfolio-value').textContent = formatCurrency(currentValue);
-                document.getElementById('portfolio-value').className =
-                    `portfolio-hero-value font-mono ${totalPnL >= 0 ? 'text-success' : 'text-danger'}`;
-
-                document.getElementById('total-pnl').textContent =
-                    `${totalPnL >= 0 ? '+' : ''}${formatCurrency(Math.abs(totalPnL))} (${formatPercent(totalReturn)})`;
-                document.getElementById('total-pnl').className =
-                    `pnl-value font-mono ${totalPnL >= 0 ? 'text-success' : 'text-danger'}`;
-
+                document.getElementById('portfolio-value').className = `portfolio-hero-value font-mono ${totalPnL >= 0 ? 'text-success' : 'text-danger'}`;
+                document.getElementById('total-pnl').textContent = `${totalPnL >= 0 ? '+' : ''}${formatCurrency(Math.abs(totalPnL))} (${formatPercent(totalReturn)})`;
+                document.getElementById('total-pnl').className = `pnl-value font-mono ${totalPnL >= 0 ? 'text-success' : 'text-danger'}`;
                 document.getElementById('available-cash').textContent = formatCurrency(cash);
                 document.getElementById('invested-capital').textContent = formatCurrency(investedCapital);
-                document.getElementById('capital-deployed').innerHTML =
-                    `<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline;"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/></svg> ${capitalDeployed.toFixed(1)}% Deployed`;
-
+                document.getElementById('capital-deployed').textContent = capitalDeployed.toFixed(1) + '% Deployed';
                 document.getElementById('chart-current-value').textContent = formatCurrency(currentValue);
-
-                // Trade Quality Metrics
-                document.getElementById('avg-winner').textContent = formatPercent(data.avg_winner);
-                document.getElementById('avg-loser').textContent = data.avg_loser.toFixed(2) + '%';
-                document.getElementById('profit-factor').textContent = data.profit_factor.toFixed(2);
-                document.getElementById('profit-factor').className =
-                    `metric-item-value font-mono ${data.profit_factor >= 1.5 ? 'text-success' : ''}`;
-                document.getElementById('max-drawdown').textContent = data.max_drawdown.toFixed(2) + '%';
-
-                // Recent Performance
-                document.getElementById('last-30-days').textContent = formatPercent(data.last_30_days_return);
-                document.getElementById('last-30-days').className =
-                    `metric-item-value font-mono ${data.last_30_days_return >= 0 ? 'text-success' : 'text-danger'}`;
-
-                const streakEmoji = data.current_streak_type === 'wins' ? '&#128293;' : '&#10052;';
-                const streakLabel = data.current_streak_type === 'wins' ? 'Wins' : 'Losses';
-                document.getElementById('current-streak').innerHTML =
-                    `${streakEmoji} ${data.current_streak} ${streakLabel}`;
-                document.getElementById('current-streak').className =
-                    `metric-item-value font-mono ${data.current_streak_type === 'wins' ? 'text-success' : 'text-danger'}`;
-
-                document.getElementById('last-10-wr').textContent = data.last_10_trades_win_rate + '% WR';
-
-                // Conviction Performance Table
-                if (data.conviction_performance && data.conviction_performance.length > 0) {
-                    const convictionTableBody = document.getElementById('conviction-table-body');
-                    convictionTableBody.innerHTML = data.conviction_performance.map(conv => {
-                        const badgeClass = getBadgeClass(conv.conviction);
-                        const returnClass = conv.avg_return >= 0 ? 'text-success' : 'text-danger';
-                        return `
-                            <tr>
-                                <td><span class="badge ${badgeClass}">${conv.conviction}</span></td>
-                                <td class="font-mono">${conv.trades}</td>
-                                <td class="font-mono">${conv.win_rate}%</td>
-                                <td class="font-mono ${returnClass}">${formatPercent(conv.avg_return)}</td>
-                            </tr>
-                        `;
-                    }).join('');
-                }
-
-                // Monthly Heatmap
-                if (data.monthly_returns && data.monthly_returns.length > 0) {
-                    const heatmapContainer = document.getElementById('monthly-heatmap');
-                    heatmapContainer.innerHTML = data.monthly_returns.map(month => {
-                        const cellClass = month.return > 0 ? 'positive' : (month.return < 0 ? 'negative' : '');
-                        const valueClass = month.return >= 0 ? 'text-success' : 'text-danger';
-                        return `
-                            <div class="heatmap-cell ${cellClass}">
-                                <div class="heatmap-month">${formatMonth(month.month)}</div>
-                                <div class="heatmap-value font-mono ${valueClass}">${formatPercent(month.return)}</div>
-                            </div>
-                        `;
-                    }).join('');
-                }
-
-                // Open Positions Table
-                const openPositionsTable = document.getElementById('open-positions-table');
-                if (data.open_positions && data.open_positions.length > 0) {
-                    openPositionsTable.innerHTML = data.open_positions.map(pos => {
-                        const returnClass = pos.unrealized_return >= 0 ? 'text-success' : 'text-danger';
-                        const badgeClass = getBadgeClass(pos.conviction);
-                        return `
-                            <tr>
-                                <td class="font-mono" style="font-weight: 700;">${pos.ticker}</td>
-                                <td class="text-muted">${pos.entry_date}</td>
-                                <td class="font-mono">${pos.days_held}d</td>
-                                <td class="font-mono ${returnClass}">${formatPercent(pos.unrealized_return)}</td>
-                                <td><span class="badge ${badgeClass}">${pos.conviction}</span></td>
-                            </tr>
-                        `;
-                    }).join('');
-                } else {
-                    openPositionsTable.innerHTML = `
-                        <tr>
-                            <td colspan="5" style="text-align: center; padding: 30px; color: var(--text-muted);">
-                                No open positions - waiting for high-conviction signals
-                            </td>
-                        </tr>
-                    `;
-                }
-
-                // Recent Trades Table
-                const recentTradesTable = document.getElementById('recent-trades-table');
-                if (data.recent_trades && data.recent_trades.length > 0) {
-                    recentTradesTable.innerHTML = data.recent_trades.slice(0, 10).map(trade => {
-                        const returnClass = trade.return_pct >= 0 ? 'text-success' : 'text-danger';
-                        const badgeClass = getBadgeClass(trade.conviction);
-                        return `
-                            <tr>
-                                <td class="font-mono" style="font-weight: 700;">${trade.ticker}</td>
-                                <td class="text-muted">${trade.entry_date}</td>
-                                <td class="text-muted">${trade.exit_date}</td>
-                                <td class="font-mono ${returnClass}">${formatPercent(trade.return_pct)}</td>
-                                <td style="font-size: 0.85rem;">${trade.exit_reason}</td>
-                                <td><span class="badge ${badgeClass}">${trade.conviction}</span></td>
-                            </tr>
-                        `;
-                    }).join('');
-                } else {
-                    recentTradesTable.innerHTML = `
-                        <tr>
-                            <td colspan="6" style="text-align: center; padding: 30px; color: var(--text-muted);">
-                                No completed trades yet - system is warming up!
-                            </td>
-                        </tr>
-                    `;
-                }
 
             } catch (error) {
                 console.error('Error loading performance data:', error);
-                showErrorMessage('Failed to load performance data. Please refresh the page.');
             }
         }
 
-        // Load insider performance data
-        async function loadInsiderPerformanceData() {
+        // ===== LOAD SIGNALS DATA FOR BEST SIGNAL =====
+        async function loadSignalsData() {
             try {
-                const response = await fetch('docs/insider_performance_public.json');
-                if (!response.ok) throw new Error('Failed to load insider data');
-                const data = await response.json();
+                const response = await fetch('data/signals_history.csv');
+                if (!response.ok) throw new Error('Failed to load signals');
+                const text = await response.text();
+                const lines = text.trim().split('\n');
+                const headers = lines[0].split(',');
 
-                if (data.status !== 'OK' || !data.top_performers || data.top_performers.length === 0) {
-                    return;
+                signalsData = lines.slice(1).map(line => {
+                    const values = line.split(',');
+                    const obj = {};
+                    headers.forEach((h, i) => obj[h.trim()] = values[i]?.trim());
+                    return obj;
+                }).filter(s => s.ticker && s.signal_score);
+
+                // Sort by date desc, then by score desc
+                signalsData.sort((a, b) => {
+                    if (b.date !== a.date) return b.date.localeCompare(a.date);
+                    return parseFloat(b.signal_score) - parseFloat(a.signal_score);
+                });
+
+                // Get best signal (highest score from most recent date, or overall highest)
+                const today = new Date().toISOString().split('T')[0];
+                let bestSignal = signalsData.find(s => s.date === today);
+
+                if (!bestSignal) {
+                    // Get highest scored signal overall
+                    bestSignal = signalsData.reduce((best, curr) =>
+                        parseFloat(curr.signal_score) > parseFloat(best.signal_score) ? curr : best
+                    , signalsData[0]);
                 }
 
-                // Show section
-                document.getElementById('top-insiders-section').style.display = 'block';
+                if (bestSignal) {
+                    updateBestSignal(bestSignal);
+                }
 
-                const insiderCards = document.getElementById('insider-cards');
-                const top5 = data.top_performers.slice(0, 5);
+                // Update hero badge with cluster count
+                const todaySignals = signalsData.filter(s => s.date === today);
+                const clusterCount = todaySignals.length || signalsData.filter(s => s.date === signalsData[0]?.date).length;
+                document.getElementById('hero-badge').textContent = `v2.4 LIVE PIPELINE • ${clusterCount} CLUSTERS TRACKED TODAY`;
 
-                insiderCards.innerHTML = top5.map((performer, index) => {
-                    const rank = index + 1;
-                    const rankClass = rank === 1 ? 'rank-1' : (rank === 2 ? 'rank-2' : (rank === 3 ? 'rank-3' : ''));
-                    const returnClass = performer.avg_return >= 0 ? 'text-success' : 'text-danger';
-                    const displayName = formatInsiderName(performer.name);
-
-                    return `
-                        <div class="insider-card ${rankClass}">
-                            <div class="insider-card-header">
-                                <span class="insider-rank">#${rank} RANKED</span>
-                                <span class="insider-score">Score: ${performer.score}</span>
-                            </div>
-                            <div class="insider-name">${displayName}</div>
-                            <div class="insider-hero-metric">
-                                <div class="insider-hero-value font-mono ${returnClass}">${formatPercent(performer.avg_return)}</div>
-                                <div class="insider-hero-label">Avg Return</div>
-                            </div>
-                            <div class="insider-footer">
-                                <div class="insider-stat">
-                                    <label>WIN RATE</label>
-                                    <span class="font-mono">${performer.win_rate}%</span>
-                                </div>
-                                <div class="insider-stat" style="text-align: right;">
-                                    <label>TRADES</label>
-                                    <span class="font-mono">${performer.total_trades}</span>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                }).join('');
+                // Update total tracked value
+                const totalValue = signalsData.slice(0, 100).reduce((sum, s) => sum + (parseFloat(s.total_value) || 0), 0);
+                document.getElementById('stat-total-tracked').textContent = formatCompactCurrency(totalValue);
 
             } catch (error) {
-                console.log('Insider performance data not available:', error);
+                console.error('Error loading signals:', error);
             }
         }
 
-        // Show error message
-        function showErrorMessage(message) {
-            const errorDiv = document.createElement('div');
-            errorDiv.className = 'error-message';
-            errorDiv.innerHTML = `&#9888; ${message}`;
-            document.body.appendChild(errorDiv);
+        function updateBestSignal(signal) {
+            const date = new Date(signal.date);
+            const today = new Date();
+            const diffDays = Math.floor((today - date) / (1000 * 60 * 60 * 24));
 
-            setTimeout(() => errorDiv.remove(), 5000);
+            let timeText = 'JUST NOW';
+            if (diffDays === 0) timeText = 'TODAY';
+            else if (diffDays === 1) timeText = 'YESTERDAY';
+            else if (diffDays < 7) timeText = diffDays + ' DAYS AGO';
+            else timeText = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+
+            document.getElementById('signal-time').textContent = timeText;
+            document.getElementById('signal-ticker').textContent = '$' + signal.ticker;
+            document.getElementById('signal-insider').textContent = formatInsiderName(signal.top_insider_name);
+            document.getElementById('signal-value').textContent = formatCompactCurrency(parseFloat(signal.total_value) || 0);
+            document.getElementById('signal-score').textContent = parseFloat(signal.signal_score).toFixed(1);
+
+            const clusterCount = parseInt(signal.cluster_count) || 1;
+            if (clusterCount > 1) {
+                document.getElementById('signal-alert').innerHTML = `&#9888; CLUSTER ALERT: ${clusterCount} insiders bought in the last 5 days.`;
+            } else {
+                document.getElementById('signal-alert').innerHTML = `&#9888; HIGH CONVICTION: Top insider score ${signal.top_insider_score || 50}/100`;
+            }
         }
 
-        // Initialize on page load
-        document.addEventListener('DOMContentLoaded', () => {
-            loadPerformanceData();
-            loadInsiderPerformanceData();
+        // ===== LOAD PAPER TRADES FOR CHART =====
+        async function loadPaperTrades() {
+            try {
+                const response = await fetch('data/paper_trades.csv');
+                if (!response.ok) throw new Error('Failed to load trades');
+                const text = await response.text();
+                const lines = text.trim().split('\n');
+                const headers = lines[0].split(',');
+
+                const trades = lines.slice(1).map(line => {
+                    const values = line.split(',');
+                    const obj = {};
+                    headers.forEach((h, i) => obj[h.trim()] = values[i]?.trim());
+                    return obj;
+                }).filter(t => t.portfolio_value && t.date);
+
+                // Build daily portfolio values
+                const portfolioByDate = {};
+                const startDate = new Date('2025-10-22'); // First trade date
+
+                trades.forEach(t => {
+                    const dateStr = t.date.split(' ')[0];
+                    const value = parseFloat(t.portfolio_value);
+                    if (!isNaN(value)) {
+                        portfolioByDate[dateStr] = value;
+                    }
+                });
+
+                // Fill in gaps and create continuous data
+                chartData = [];
+                let currentValue = 10000;
+                const today = new Date();
+
+                for (let d = new Date(startDate); d <= today; d.setDate(d.getDate() + 1)) {
+                    const dateStr = d.toISOString().split('T')[0];
+                    if (portfolioByDate[dateStr]) {
+                        currentValue = portfolioByDate[dateStr];
+                    }
+                    chartData.push({
+                        date: dateStr,
+                        value: currentValue,
+                        formattedDate: new Date(dateStr).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+                    });
+                }
+
+                // Get final value from performance data if available
+                if (performanceData?.portfolio_composition?.current_value) {
+                    chartData[chartData.length - 1].value = performanceData.portfolio_composition.current_value;
+                }
+
+                renderChart();
+
+            } catch (error) {
+                console.error('Error loading paper trades:', error);
+                // Generate fallback data
+                generateFallbackChartData();
+                renderChart();
+            }
+        }
+
+        function generateFallbackChartData() {
+            const start = new Date('2025-10-22');
+            const end = new Date();
+            const days = Math.max(1, Math.floor((end - start) / (1000 * 60 * 60 * 24)));
+
+            chartData = [];
+            let currentValue = 10000;
+            const targetReturn = performanceData?.total_return_pct || 8.83;
+            const dailyReturn = Math.pow(1 + targetReturn / 100, 1 / days) - 1;
+
+            for (let i = 0; i <= days; i++) {
+                const date = new Date(start);
+                date.setDate(start.getDate() + i);
+
+                if (i > 0) {
+                    const noise = (Math.random() - 0.5) * 0.02;
+                    currentValue = currentValue * (1 + dailyReturn + noise);
+                }
+
+                chartData.push({
+                    date: date.toISOString().split('T')[0],
+                    value: Math.round(currentValue * 100) / 100,
+                    formattedDate: date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+                });
+            }
+        }
+
+        // ===== RENDER SVG CHART =====
+        function renderChart() {
+            const container = document.getElementById('chart-area');
+            const svg = document.getElementById('portfolio-chart');
+            const tooltip = document.getElementById('chart-tooltip');
+
+            if (!chartData.length) return;
+
+            const width = container.clientWidth;
+            const height = container.clientHeight;
+            const padding = { top: 20, right: 20, bottom: 40, left: 60 };
+            const chartWidth = width - padding.left - padding.right;
+            const chartHeight = height - padding.top - padding.bottom;
+
+            const minValue = Math.min(...chartData.map(d => d.value)) * 0.98;
+            const maxValue = Math.max(...chartData.map(d => d.value)) * 1.02;
+
+            const xScale = (i) => padding.left + (i / (chartData.length - 1)) * chartWidth;
+            const yScale = (v) => padding.top + chartHeight - ((v - minValue) / (maxValue - minValue)) * chartHeight;
+
+            // Build SVG content
+            let svgContent = `
+                <defs>
+                    <linearGradient id="areaGradient" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stop-color="#38bdf8" stop-opacity="0.3"/>
+                        <stop offset="95%" stop-color="#38bdf8" stop-opacity="0"/>
+                    </linearGradient>
+                </defs>
+            `;
+
+            // Grid lines
+            const yTicks = 5;
+            for (let i = 0; i <= yTicks; i++) {
+                const y = padding.top + (i / yTicks) * chartHeight;
+                const value = maxValue - (i / yTicks) * (maxValue - minValue);
+                svgContent += `<line class="chart-grid-line" x1="${padding.left}" y1="${y}" x2="${width - padding.right}" y2="${y}"/>`;
+                svgContent += `<text class="chart-axis-text" x="${padding.left - 10}" y="${y + 4}" text-anchor="end">$${(value/1000).toFixed(1)}k</text>`;
+            }
+
+            // X-axis labels (show every nth label based on data length)
+            const xLabelInterval = Math.ceil(chartData.length / 8);
+            chartData.forEach((d, i) => {
+                if (i % xLabelInterval === 0 || i === chartData.length - 1) {
+                    svgContent += `<text class="chart-axis-text" x="${xScale(i)}" y="${height - 10}" text-anchor="middle">${d.formattedDate}</text>`;
+                }
+            });
+
+            // Area fill
+            let areaPath = `M ${xScale(0)} ${yScale(chartData[0].value)}`;
+            chartData.forEach((d, i) => {
+                if (i > 0) areaPath += ` L ${xScale(i)} ${yScale(d.value)}`;
+            });
+            areaPath += ` L ${xScale(chartData.length - 1)} ${height - padding.bottom} L ${xScale(0)} ${height - padding.bottom} Z`;
+            svgContent += `<path class="chart-area-fill" d="${areaPath}"/>`;
+
+            // Line
+            let linePath = `M ${xScale(0)} ${yScale(chartData[0].value)}`;
+            chartData.forEach((d, i) => {
+                if (i > 0) linePath += ` L ${xScale(i)} ${yScale(d.value)}`;
+            });
+            svgContent += `<path class="chart-line" d="${linePath}"/>`;
+
+            // Cursor line
+            svgContent += `<line class="chart-cursor-line" id="cursor-line" x1="0" y1="${padding.top}" x2="0" y2="${height - padding.bottom}"/>`;
+
+            // Interactive dots (invisible but hoverable)
+            chartData.forEach((d, i) => {
+                svgContent += `<circle class="chart-dot" cx="${xScale(i)}" cy="${yScale(d.value)}" r="4" data-index="${i}" opacity="0"/>`;
+            });
+
+            svg.innerHTML = svgContent;
+            svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
+
+            // Add interactivity
+            const cursorLine = document.getElementById('cursor-line');
+
+            svg.addEventListener('mousemove', (e) => {
+                const rect = svg.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const chartX = x - padding.left;
+                const index = Math.round((chartX / chartWidth) * (chartData.length - 1));
+
+                if (index >= 0 && index < chartData.length) {
+                    const d = chartData[index];
+                    const dotX = xScale(index);
+                    const dotY = yScale(d.value);
+
+                    // Update cursor line
+                    cursorLine.setAttribute('x1', dotX);
+                    cursorLine.setAttribute('x2', dotX);
+                    cursorLine.style.opacity = '1';
+
+                    // Update tooltip
+                    const gain = d.value - 10000;
+                    const gainPct = (gain / 10000) * 100;
+
+                    document.getElementById('tooltip-date').textContent = d.formattedDate;
+                    document.getElementById('tooltip-value').textContent = formatCurrency(d.value);
+                    document.getElementById('tooltip-gain').textContent = `${gain >= 0 ? '+' : ''}${formatCurrency(gain)} (${formatPercent(gainPct)})`;
+                    document.getElementById('tooltip-gain').className = `tooltip-gain font-mono ${gain >= 0 ? 'text-success' : 'text-danger'}`;
+
+                    // Position tooltip
+                    let tooltipX = e.clientX - rect.left + 15;
+                    let tooltipY = e.clientY - rect.top - 60;
+
+                    if (tooltipX + 220 > width) tooltipX = e.clientX - rect.left - 220;
+                    if (tooltipY < 0) tooltipY = e.clientY - rect.top + 15;
+
+                    tooltip.style.left = tooltipX + 'px';
+                    tooltip.style.top = tooltipY + 'px';
+                    tooltip.classList.add('visible');
+                }
+            });
+
+            svg.addEventListener('mouseleave', () => {
+                cursorLine.style.opacity = '0';
+                tooltip.classList.remove('visible');
+            });
+        }
+
+        // Handle resize
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(renderChart, 250);
+        });
+
+        // ===== INITIALIZE =====
+        document.addEventListener('DOMContentLoaded', async () => {
+            await loadPerformanceData();
+            await loadSignalsData();
+            await loadPaperTrades();
         });
     </script>
 </body>
