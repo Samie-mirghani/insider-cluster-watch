@@ -25,7 +25,6 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
         html { scroll-behavior: smooth; }
 
         body {
@@ -332,21 +331,29 @@
             border-radius: 4px;
             font-weight: 700;
         }
-        .conviction-badge {
-            font-size: 0.75rem;
-            font-weight: 700;
+
+        /* Badges */
+        .badge {
+            display: inline-block;
             padding: 4px 8px;
             border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
         }
-        .conviction-high {
+        .badge-high {
             background: rgba(0, 230, 118, 0.1);
             color: var(--success);
             border: 1px solid var(--success);
         }
-        .conviction-med {
+        .badge-med {
             background: rgba(251, 191, 36, 0.1);
             color: var(--warning);
             border: 1px solid var(--warning);
+        }
+        .badge-low {
+            background: rgba(148, 163, 184, 0.1);
+            color: var(--text-muted);
+            border: 1px solid var(--text-muted);
         }
 
         /* Features */
@@ -510,10 +517,30 @@
             color: var(--text-muted);
         }
 
-        /* Dashboard Section Styles */
+        /* ========== DASHBOARD STYLES ========== */
         .dashboard-section {
             padding: 60px 20px 100px;
         }
+
+        /* Back Button */
+        .back-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 0.9rem;
+            padding: 0;
+            margin-bottom: 30px;
+            transition: all 0.2s ease;
+        }
+        .back-btn:hover {
+            color: var(--primary);
+            transform: translateX(-5px);
+        }
+
         .dashboard-header {
             margin-bottom: 60px;
             display: flex;
@@ -538,50 +565,44 @@
         .hero-stats-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
+            gap: 30px;
             margin-bottom: 50px;
         }
         @media (max-width: 1024px) {
-            .hero-stats-grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+            .hero-stats-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
         }
         @media (max-width: 768px) {
-            .hero-stats-grid { grid-template-columns: 1fr; gap: 1rem; }
+            .hero-stats-grid { grid-template-columns: 1fr; gap: 15px; }
             .hero h1 { font-size: 2.5rem; }
             h2 { font-size: 2rem; }
             .section { padding: 60px 0; }
         }
 
-        .stat-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
+        /* Dashboard Card */
+        .dashboard-card {
             padding: 25px;
+            height: 100%;
             display: flex;
             flex-direction: column;
-            transition: transform 0.2s, box-shadow 0.2s;
         }
-        .stat-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        }
-        .stat-card-header {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 0.9rem;
+        .dashboard-card h3 {
+            font-size: 1rem;
             color: var(--text-muted);
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
-        .stat-card-value {
+        .dashboard-card-value {
             font-size: 2.5rem;
             font-weight: 800;
-            margin-bottom: 5px;
         }
-        .stat-card-subtext {
+        .dashboard-card-subtext {
             font-size: 0.9rem;
             color: var(--text-muted);
+            margin-top: 5px;
         }
 
         /* Account Summary */
@@ -593,7 +614,7 @@
             margin-bottom: 40px;
         }
         .account-summary h3 {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             color: var(--text-muted);
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -604,7 +625,7 @@
         }
         .account-grid {
             display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
+            grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
             gap: 30px;
             align-items: start;
         }
@@ -618,7 +639,6 @@
         .portfolio-hero-value {
             font-size: 2.8rem;
             font-weight: 800;
-            color: var(--success);
             line-height: 1;
             margin-bottom: 10px;
         }
@@ -626,25 +646,25 @@
         .pnl-value { font-size: 1.1rem; font-weight: 600; }
         .pnl-label { font-size: 0.8rem; color: var(--text-muted); }
 
-        /* Account Metric Boxes - CONSISTENT SIZING */
+        /* Account Metric Boxes */
         .account-metric {
-            padding: 20px;
+            padding: 15px;
             background: rgba(255, 255, 255, 0.03);
             border-radius: 8px;
         }
         .account-metric-label {
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             color: var(--text-muted);
-            margin-bottom: 8px;
+            margin-bottom: 5px;
         }
         .account-metric-value {
-            font-size: 1.8rem;
-            font-weight: 700;
+            font-size: 1.2rem;
+            font-weight: 600;
         }
         .account-metric-subtext {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: var(--text-muted);
-            margin-top: 5px;
+            margin-top: 2px;
         }
 
         /* Chart Container */
@@ -719,6 +739,79 @@
             opacity: 0;
         }
 
+        /* Metric Item */
+        .metric-item {
+            padding: 15px;
+            background: var(--bg-main);
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        .metric-item-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 5px;
+        }
+        .metric-item-value {
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+        .metric-item-subtext {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        /* Insider Rank Cards */
+        .insider-rank-card {
+            transition: transform 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+        .insider-rank-card:hover {
+            transform: translateY(-5px);
+        }
+        .rank-1 { border: 1px solid #fbbf24; box-shadow: 0 0 20px rgba(251, 191, 36, 0.1); }
+        .rank-2 { border: 1px solid #94a3b8; box-shadow: 0 0 20px rgba(148, 163, 184, 0.1); }
+        .rank-3 { border: 1px solid #d97706; box-shadow: 0 0 20px rgba(217, 119, 6, 0.1); }
+
+        /* Tables */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+        .data-table th {
+            text-align: left;
+            padding: 15px;
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            border-bottom: 1px solid var(--border);
+        }
+        .data-table td {
+            padding: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .data-table tr:hover {
+            background: rgba(255,255,255,0.02);
+        }
+
+        /* Heatmap */
+        .heatmap-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            gap: 10px;
+        }
+        .heatmap-cell {
+            padding: 15px 5px;
+            text-align: center;
+            border-radius: 6px;
+            background: var(--bg-hover);
+        }
+
+        /* View switching */
+        .view-hidden { display: none !important; }
+
         /* Responsive */
         @media (max-width: 768px) {
             .signal-anatomy-inner { gap: 40px; }
@@ -730,7 +823,7 @@
     <!-- Navigation -->
     <nav class="navbar">
         <div class="container">
-            <a href="#" class="nav-brand">
+            <a href="#" class="nav-brand" onclick="switchView('landing'); return false;">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
                 <span>INSIDER CLUSTER <span class="text-muted">WATCH</span></span>
             </a>
@@ -739,129 +832,230 @@
                     <span class="status-dot animate-pulse"></span>
                     SYSTEM ONLINE
                 </span>
-                <a href="#signup" class="btn btn-primary" style="padding: 8px 16px; font-size: 0.9rem;">Sign up</a>
+                <button id="nav-dashboard-btn" onclick="switchView('dashboard')" class="btn" style="padding: 8px 16px; font-size: 0.9rem; border: 1px solid var(--border); background: var(--bg-hover); color: #fff;">
+                    Dashboard
+                </button>
+                <button onclick="scrollToSignup()" class="btn btn-primary" style="padding: 8px 16px; font-size: 0.9rem;">Sign up</button>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <header class="section hero fade-in">
-        <div class="hero-glow"></div>
-        <div class="container">
-            <div class="hero-badge" id="hero-badge">v2.4 LIVE PIPELINE • LOADING CLUSTERS...</div>
-            <h1>Follow The <span class="text-gradient">Smart Money</span></h1>
-            <p class="hero-subtitle">
-                Stop guessing based on news. Start tracking the trades that move markets.
-                Real-time detection of <strong>High-Conviction Insider Buying</strong>,
-                <strong>Senate Disclosures</strong>, and <strong>Institutional Flow</strong>.
-            </p>
-            <div class="hero-buttons">
-                <a href="#signup" class="btn btn-primary">
-                    Get Free Alerts
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 8px;"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                </a>
-                <a href="#dashboard" class="btn" style="background: var(--bg-hover); color: var(--text-main); border: 1px solid var(--border);">
-                    View Live Dashboard
-                </a>
+    <!-- ========== LANDING PAGE ========== -->
+    <div id="landing-view">
+        <!-- Hero Section -->
+        <header class="section hero fade-in">
+            <div class="hero-glow"></div>
+            <div class="container">
+                <div class="hero-badge" id="hero-badge">v2.4 LIVE PIPELINE • LOADING CLUSTERS...</div>
+                <h1>Follow The <span class="text-gradient">Smart Money</span></h1>
+                <p class="hero-subtitle">
+                    Stop guessing based on news. Start tracking the trades that move markets.
+                    Real-time detection of <strong>High-Conviction Insider Buying</strong>,
+                    <strong>Senate Disclosures</strong>, and <strong>Institutional Flow</strong>.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#signup" class="btn btn-primary" onclick="scrollToSignup(); return false;">
+                        Get Free Alerts
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 8px;"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </a>
+                    <button onclick="switchView('dashboard')" class="btn" style="background: var(--bg-hover); color: var(--text-main); border: 1px solid var(--border);">
+                        View Live Dashboard
+                    </button>
+                </div>
             </div>
-        </div>
-    </header>
+        </header>
 
-    <!-- Stats Ticker -->
-    <div class="container stats-ticker">
-        <div class="stats-ticker-inner" id="stats-ticker">
-            <div class="card stat-box" style="border-top-color: var(--success);">
-                <div class="stat-box-label">AVG RETURN (7D)</div>
-                <div class="stat-box-value font-mono text-success" id="stat-avg-return">+0.0%</div>
-            </div>
-            <div class="card stat-box" style="border-top-color: var(--primary);">
-                <div class="stat-box-label">WIN RATE</div>
-                <div class="stat-box-value font-mono text-primary" id="stat-win-rate">0%</div>
-            </div>
-            <div class="card stat-box" style="border-top-color: var(--warning);">
-                <div class="stat-box-label">ACTIVE CLUSTERS</div>
-                <div class="stat-box-value font-mono text-warning" id="stat-active-clusters">0</div>
-            </div>
-            <div class="card stat-box" style="border-top-color: var(--text-main);">
-                <div class="stat-box-label">TOTAL TRACKED</div>
-                <div class="stat-box-value font-mono" id="stat-total-tracked">$0</div>
+        <!-- Stats Ticker -->
+        <div class="container stats-ticker">
+            <div class="stats-ticker-inner" id="stats-ticker">
+                <div class="card stat-box" style="border-top-color: var(--success);">
+                    <div class="stat-box-label">TOTAL RETURN</div>
+                    <div class="stat-box-value font-mono text-success" id="stat-total-return">+0.0%</div>
+                </div>
+                <div class="card stat-box" style="border-top-color: var(--primary);">
+                    <div class="stat-box-label">WIN RATE</div>
+                    <div class="stat-box-value font-mono text-primary" id="stat-win-rate">0%</div>
+                </div>
+                <div class="card stat-box" style="border-top-color: var(--warning);">
+                    <div class="stat-box-label">ACTIVE CLUSTERS</div>
+                    <div class="stat-box-value font-mono text-warning" id="stat-active-clusters">0</div>
+                </div>
+                <div class="card stat-box" style="border-top-color: var(--text-main);">
+                    <div class="stat-box-label">TOTAL TRACKED</div>
+                    <div class="stat-box-value font-mono" id="stat-total-tracked">$0</div>
+                </div>
             </div>
         </div>
+
+        <!-- Signal Anatomy Section -->
+        <section class="section signal-anatomy">
+            <div class="container">
+                <div class="signal-anatomy-inner">
+                    <div class="signal-anatomy-content">
+                        <h2 style="margin-bottom: 20px;">We Don't Guess. <br><span class="text-primary">We Triangulate.</span></h2>
+                        <p class="text-muted" style="font-size: 1.1rem; margin-bottom: 40px; line-height: 1.6;">
+                            Retail traders rely on headlines. We rely on SEC filings. A signal is only generated when three distinct data points align to confirm high conviction.
+                        </p>
+                        <div class="signal-steps">
+                            <div class="signal-step">
+                                <div class="font-mono signal-step-num text-primary">01</div>
+                                <div>
+                                    <h4>The Trigger</h4>
+                                    <p>C-Suite Exec (CEO/CFO) executes a Form 4 Buy >$100k.</p>
+                                </div>
+                            </div>
+                            <div class="signal-step">
+                                <div class="font-mono signal-step-num" style="color: var(--secondary);">02</div>
+                                <div>
+                                    <h4>The Confirmation</h4>
+                                    <p>Cluster forms: 2+ other insiders buy within 5 days.</p>
+                                </div>
+                            </div>
+                            <div class="signal-step">
+                                <div class="font-mono signal-step-num text-success">03</div>
+                                <div>
+                                    <h4>The Edge</h4>
+                                    <p>Institutional ownership (13F) spikes or Politician buy detected.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="signal-anatomy-card">
+                        <div class="best-signal-card card" id="best-signal-card">
+                            <div class="best-signal-header">
+                                <span class="font-mono best-signal-title">● BEST SIGNAL OF THE DAY</span>
+                                <span class="best-signal-time font-mono" id="signal-time">LOADING...</span>
+                            </div>
+                            <div class="best-signal-body font-mono">
+                                <div class="best-signal-row">
+                                    <span class="label">TICKER</span>
+                                    <span class="best-signal-ticker" id="signal-ticker">---</span>
+                                </div>
+                                <div class="best-signal-row">
+                                    <span class="label">INSIDER</span>
+                                    <span id="signal-insider">Loading...</span>
+                                </div>
+                                <div class="best-signal-row">
+                                    <span class="label">TYPE</span>
+                                    <span class="text-success" id="signal-type">OPEN MARKET BUY</span>
+                                </div>
+                                <div class="best-signal-row">
+                                    <span class="label">VALUE</span>
+                                    <span id="signal-value">$0</span>
+                                </div>
+                                <div class="best-signal-row">
+                                    <span class="label">SCORE</span>
+                                    <span class="text-primary" id="signal-score">0.0</span>
+                                </div>
+                                <div class="best-signal-alert" id="signal-alert">
+                                    Loading cluster information...
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Recent High-Conviction Clusters Table (BEFORE Features) -->
+        <section class="section">
+            <div class="container">
+                <div style="display: flex; justify-content: space-between; align-items: end; margin-bottom: 30px;">
+                    <h3 style="font-size: 1.8rem;">Recent High-Conviction Clusters</h3>
+                </div>
+                <div class="card terminal-table" id="clusters-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>TICKER</th>
+                                <th>PRICE</th>
+                                <th>INSIDERS</th>
+                                <th>TOTAL VALUE</th>
+                                <th>CLUSTER SCORE</th>
+                                <th>DATE</th>
+                                <th>CONVICTION</th>
+                            </tr>
+                        </thead>
+                        <tbody id="clusters-tbody">
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features -->
+        <section class="section">
+            <div class="container">
+                <div class="grid-2x2">
+                    <div class="card feature-card">
+                        <div class="feature-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+                        </div>
+                        <h3>Cluster Theory</h3>
+                        <p>One insider buying is noise. Three insiders buying in the same week is a signal. We filter specifically for coordinated action.</p>
+                    </div>
+                    <div class="card feature-card">
+                        <div class="feature-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--warning)" stroke-width="2"><path d="M3 21h18"/><path d="M5 21V7l8-4 8 4v14"/><path d="M9 21v-8h6v8"/></svg>
+                        </div>
+                        <h3>The "Pelosi" Tracker</h3>
+                        <p>We monitor Capitol Trades. If Congress is buying, we want to know why. We cross-reference legislative activity with market moves.</p>
+                    </div>
+                    <div class="card feature-card">
+                        <div class="feature-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--secondary)" stroke-width="2"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+                        </div>
+                        <h3>Smart Money Scoring</h3>
+                        <p>Not all insiders are created equal. We rank every officer & director by their historical win rate. We only flag trades from 'Super-Insiders' who consistently beat the market.</p>
+                    </div>
+                    <div class="card feature-card">
+                        <div class="feature-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        </div>
+                        <h3>Penny Stock Filter</h3>
+                        <p>We auto-reject low liquidity garbage. We only track actionable setups on liquid tickers that you can actually trade with size.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section id="signup" class="section cta-section">
+            <div class="container">
+                <div class="cta-card card">
+                    <div class="cta-glow"></div>
+                    <div class="cta-content">
+                        <h2>Get the <span class="text-primary">7:00 AM</span> Briefing</h2>
+                        <p>The SEC releases filings overnight. Our bots scan them at dawn. Get the top 3 highest-conviction insider clusters delivered to your inbox before the market opens.</p>
+                        <form class="signup-form" id="signup-form" action="https://formspree.io/f/meonlvan" method="POST">
+                            <div class="input-wrapper">
+                                <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                                <input type="email" name="email" placeholder="trader@hedgefund.com" required>
+                            </div>
+                            <input type="hidden" name="_subject" value="New Insider Cluster Watch Subscriber">
+                            <button type="submit" class="btn btn-primary">Get The Edge</button>
+                        </form>
+                        <div id="subscription-confirmation" class="confirmation-banner" style="display: none;">
+                            &#10003; Success! You're subscribed to the daily briefing.
+                        </div>
+                        <p class="cta-status font-mono">>> STATUS: ACCEPTING NEW SUBSCRIBERS</p>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
 
-    <!-- Signal Anatomy Section -->
-    <section class="section signal-anatomy">
-        <div class="container">
-            <div class="signal-anatomy-inner">
-                <div class="signal-anatomy-content">
-                    <h2 style="margin-bottom: 20px;">We Don't Guess. <br><span class="text-primary">We Triangulate.</span></h2>
-                    <p class="text-muted" style="font-size: 1.1rem; margin-bottom: 40px; line-height: 1.6;">
-                        Retail traders rely on headlines. We rely on SEC filings. A signal is only generated when three distinct data points align to confirm high conviction.
-                    </p>
-                    <div class="signal-steps">
-                        <div class="signal-step">
-                            <div class="font-mono signal-step-num text-primary">01</div>
-                            <div>
-                                <h4>The Trigger</h4>
-                                <p>C-Suite Exec (CEO/CFO) executes a Form 4 Buy >$100k.</p>
-                            </div>
-                        </div>
-                        <div class="signal-step">
-                            <div class="font-mono signal-step-num" style="color: var(--secondary);">02</div>
-                            <div>
-                                <h4>The Confirmation</h4>
-                                <p>Cluster forms: 2+ other insiders buy within 5 days.</p>
-                            </div>
-                        </div>
-                        <div class="signal-step">
-                            <div class="font-mono signal-step-num text-success">03</div>
-                            <div>
-                                <h4>The Edge</h4>
-                                <p>Institutional ownership (13F) spikes or Politician buy detected.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="signal-anatomy-card">
-                    <div class="best-signal-card card" id="best-signal-card">
-                        <div class="best-signal-header">
-                            <span class="font-mono best-signal-title">● BEST SIGNAL OF THE DAY</span>
-                            <span class="best-signal-time font-mono" id="signal-time">LOADING...</span>
-                        </div>
-                        <div class="best-signal-body font-mono">
-                            <div class="best-signal-row">
-                                <span class="label">TICKER</span>
-                                <span class="best-signal-ticker" id="signal-ticker">---</span>
-                            </div>
-                            <div class="best-signal-row">
-                                <span class="label">INSIDER</span>
-                                <span id="signal-insider">Loading...</span>
-                            </div>
-                            <div class="best-signal-row">
-                                <span class="label">TYPE</span>
-                                <span class="text-success" id="signal-type">OPEN MARKET BUY</span>
-                            </div>
-                            <div class="best-signal-row">
-                                <span class="label">VALUE</span>
-                                <span id="signal-value">$0</span>
-                            </div>
-                            <div class="best-signal-row">
-                                <span class="label">SCORE</span>
-                                <span class="text-primary" id="signal-score">0.0</span>
-                            </div>
-                            <div class="best-signal-alert" id="signal-alert">
-                                Loading cluster information...
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- ========== DASHBOARD VIEW ========== -->
+    <div id="dashboard-view" class="view-hidden">
+        <div class="container dashboard-section fade-in">
+            <!-- Back Button -->
+            <button class="back-btn" onclick="switchView('landing')">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                <span class="font-mono">BACK TO HOME</span>
+            </button>
 
-    <!-- Dashboard Section -->
-    <section class="section" id="dashboard">
-        <div class="container dashboard-section">
+            <!-- Header -->
             <div class="dashboard-header">
                 <div>
                     <h1>Live Paper Trading</h1>
@@ -872,36 +1066,36 @@
                 </div>
             </div>
 
-            <!-- Hero Stats Grid -->
+            <!-- Hero Stats -->
             <div class="hero-stats-grid">
-                <div class="stat-card">
-                    <div class="stat-card-header">
+                <div class="card dashboard-card">
+                    <h3>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
                         Total Return
-                    </div>
-                    <div class="stat-card-value text-success font-mono" id="total-return">+0.00%</div>
-                    <div class="stat-card-subtext" id="alpha-display">Alpha vs SPY: <span class="text-success">+0.00%</span></div>
+                    </h3>
+                    <div class="dashboard-card-value text-success font-mono" id="total-return">+0.00%</div>
+                    <div class="dashboard-card-subtext" id="alpha-display">Alpha vs SPY: <span class="text-success">+0.00%</span></div>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-card-header">
+                <div class="card dashboard-card">
+                    <h3>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
                         Win Rate
-                    </div>
-                    <div class="stat-card-value text-primary font-mono" id="win-rate">0.0%</div>
-                    <div class="stat-card-subtext" id="active-positions-text">0 Active Positions</div>
+                    </h3>
+                    <div class="dashboard-card-value text-primary font-mono" id="win-rate">0.0%</div>
+                    <div class="dashboard-card-subtext" id="active-positions-text">0 Active Positions</div>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-card-header">
+                <div class="card dashboard-card">
+                    <h3>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
                         Sharpe Ratio
-                    </div>
-                    <div class="stat-card-value font-mono" id="sharpe-ratio">0.00</div>
-                    <div class="stat-card-subtext">Risk Adjusted Return</div>
+                    </h3>
+                    <div class="dashboard-card-value font-mono" id="sharpe-ratio">0.00</div>
+                    <div class="dashboard-card-subtext">Risk Adjusted Return</div>
                 </div>
             </div>
 
             <!-- Account Summary -->
-            <div class="account-summary">
+            <div class="account-summary fade-in">
                 <h3>
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 8H2"/><path d="M7 12h0"/></svg>
                     Account Summary
@@ -909,7 +1103,7 @@
                 <div class="account-grid">
                     <div>
                         <div class="portfolio-hero-label">Total Portfolio Value</div>
-                        <div class="portfolio-hero-value font-mono" id="portfolio-value">$10,000.00</div>
+                        <div class="portfolio-hero-value font-mono text-success" id="portfolio-value">$10,000.00</div>
                         <div class="portfolio-pnl">
                             <span class="pnl-value text-success font-mono" id="total-pnl">+$0.00 (+0.00%)</span>
                             <span class="pnl-label">All Time P&L</span>
@@ -929,6 +1123,11 @@
                         <div class="account-metric-label">Starting Capital</div>
                         <div class="account-metric-value font-mono">$10,000.00</div>
                         <div class="account-metric-subtext">Nov 1, 2025</div>
+                    </div>
+                    <div class="account-metric">
+                        <div class="account-metric-label">Total Trades</div>
+                        <div class="account-metric-value font-mono" id="total-trades">0</div>
+                        <div class="account-metric-subtext" id="trades-breakdown">0 Closed | 0 Open</div>
                     </div>
                 </div>
             </div>
@@ -954,69 +1153,162 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- Features -->
-    <section class="section">
-        <div class="container">
-            <div class="grid-2x2">
-                <div class="card feature-card">
-                    <div class="feature-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
-                    </div>
-                    <h3>Cluster Theory</h3>
-                    <p>One insider buying is noise. Three insiders buying in the same week is a signal. We filter specifically for coordinated action.</p>
-                </div>
-                <div class="card feature-card">
-                    <div class="feature-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--warning)" stroke-width="2"><path d="M3 21h18"/><path d="M5 21V7l8-4 8 4v14"/><path d="M9 21v-8h6v8"/></svg>
-                    </div>
-                    <h3>The "Pelosi" Tracker</h3>
-                    <p>We monitor Capitol Trades. If Congress is buying, we want to know why. We cross-reference legislative activity with market moves.</p>
-                </div>
-                <div class="card feature-card">
-                    <div class="feature-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--secondary)" stroke-width="2"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
-                    </div>
-                    <h3>Smart Money Scoring</h3>
-                    <p>Not all insiders are created equal. We rank every officer & director by their historical win rate. We only flag trades from 'Super-Insiders' who consistently beat the market.</p>
-                </div>
-                <div class="card feature-card">
-                    <div class="feature-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                    </div>
-                    <h3>Penny Stock Filter</h3>
-                    <p>We auto-reject low liquidity garbage. We only track actionable setups on liquid tickers that you can actually trade with size.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section id="signup" class="section cta-section">
-        <div class="container">
-            <div class="cta-card card">
-                <div class="cta-glow"></div>
-                <div class="cta-content">
-                    <h2>Get the <span class="text-primary">7:00 AM</span> Briefing</h2>
-                    <p>The SEC releases filings overnight. Our bots scan them at dawn. Get the top 3 highest-conviction insider clusters delivered to your inbox before the market opens.</p>
-                    <form class="signup-form" id="signup-form" action="https://formspree.io/f/meonlvan" method="POST">
-                        <div class="input-wrapper">
-                            <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-                            <input type="email" name="email" placeholder="trader@hedgefund.com" required>
+            <!-- Trade Quality & Recent Performance -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-bottom: 60px;">
+                <div class="card dashboard-card">
+                    <h3>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        Trade Quality Metrics
+                    </h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div class="metric-item">
+                            <div class="metric-item-label">Avg Winner</div>
+                            <div class="metric-item-value text-success font-mono" id="avg-winner">+0.0%</div>
                         </div>
-                        <input type="hidden" name="_subject" value="New Insider Cluster Watch Subscriber">
-                        <button type="submit" class="btn btn-primary">Get The Edge</button>
-                    </form>
-                    <div id="subscription-confirmation" class="confirmation-banner" style="display: none;">
-                        &#10003; Success! You're subscribed to the daily briefing.
+                        <div class="metric-item">
+                            <div class="metric-item-label">Avg Loser</div>
+                            <div class="metric-item-value text-danger font-mono" id="avg-loser">-0.0%</div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-item-label">Profit Factor</div>
+                            <div class="metric-item-value font-mono" id="profit-factor">0.0</div>
+                            <div class="metric-item-subtext">Gross Win / Gross Loss</div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-item-label">Max Drawdown</div>
+                            <div class="metric-item-value text-danger font-mono" id="max-drawdown">-0.0%</div>
+                            <div class="metric-item-subtext">Peak to Trough</div>
+                        </div>
                     </div>
-                    <p class="cta-status font-mono">>> STATUS: ACCEPTING NEW SUBSCRIBERS</p>
+                </div>
+                <div class="card dashboard-card">
+                    <h3>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                        Recent Performance
+                    </h3>
+                    <div style="display: grid; grid-template-columns: 1fr; gap: 15px;">
+                        <div class="metric-item">
+                            <div class="metric-item-label">Last 30 Days</div>
+                            <div class="metric-item-value text-success font-mono" id="last-30-days">+0.0%</div>
+                            <div class="metric-item-subtext">Momentum</div>
+                        </div>
+                        <div class="metric-item" style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <div class="metric-item-label">Current Streak</div>
+                                <div class="metric-item-value text-success font-mono" id="current-streak">0 Wins</div>
+                            </div>
+                            <div style="text-align: right;">
+                                <div class="metric-item-label">Last 10 Trades</div>
+                                <div class="metric-item-value font-mono" id="last-10-wr">0% WR</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+
+            <!-- Top Performing Insiders -->
+            <h2 style="font-size: 1.8rem; margin-bottom: 30px; display: flex; align-items: center; gap: 10px;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--warning)" stroke-width="2"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+                Top Performing Insiders
+            </h2>
+            <div id="top-insiders-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-bottom: 60px;">
+                <!-- Populated by JS -->
+            </div>
+
+            <!-- Strong Performers Table -->
+            <h2 style="font-size: 1.8rem; margin-bottom: 25px;">Strong Performers (#6-15)</h2>
+            <div class="card" style="overflow-x: auto; margin-bottom: 60px;">
+                <table class="data-table" id="strong-performers-table">
+                    <thead>
+                        <tr>
+                            <th style="padding-left: 25px;">RANK</th>
+                            <th>NAME</th>
+                            <th>SCORE</th>
+                            <th>WIN RATE</th>
+                            <th>AVG RETURN</th>
+                            <th>TRADES</th>
+                        </tr>
+                    </thead>
+                    <tbody id="strong-performers-tbody">
+                        <!-- Populated by JS -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Conviction Analysis & Monthly Returns -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; margin-bottom: 60px;">
+                <div class="card dashboard-card">
+                    <h3>Conviction Analysis</h3>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>SIGNAL LEVEL</th>
+                                <th>TRADES</th>
+                                <th>WIN RATE</th>
+                                <th>AVG RETURN</th>
+                            </tr>
+                        </thead>
+                        <tbody id="conviction-tbody">
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card dashboard-card">
+                    <h3>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                        Monthly Returns
+                    </h3>
+                    <div class="heatmap-grid" id="monthly-heatmap">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Active & Recent Activity -->
+            <h2 style="font-size: 1.8rem; margin-bottom: 25px;">Active & Recent Activity</h2>
+
+            <!-- Open Positions -->
+            <div class="card" style="overflow-x: auto; margin-bottom: 40px;">
+                <div style="padding: 15px 25px; border-bottom: 1px solid var(--border); font-weight: 700; color: var(--primary);">OPEN POSITIONS</div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th style="padding-left: 25px;">TICKER</th>
+                            <th>ENTRY DATE</th>
+                            <th>DAYS HELD</th>
+                            <th>WEIGHT</th>
+                            <th>UNREALIZED P&L</th>
+                            <th>CONVICTION</th>
+                        </tr>
+                    </thead>
+                    <tbody id="open-positions-tbody">
+                        <!-- Populated by JS -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Recently Closed -->
+            <div class="card" style="overflow-x: auto;">
+                <div style="padding: 15px 25px; border-bottom: 1px solid var(--border); font-weight: 700; color: var(--text-muted);">RECENTLY CLOSED</div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th style="padding-left: 25px;">TICKER</th>
+                            <th>ENTRY</th>
+                            <th>EXIT</th>
+                            <th>RETURN</th>
+                            <th>REASON</th>
+                            <th>CONVICTION</th>
+                        </tr>
+                    </thead>
+                    <tbody id="recent-trades-tbody">
+                        <!-- Populated by JS -->
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </section>
+    </div>
 
     <!-- Footer -->
     <footer>
@@ -1032,7 +1324,7 @@
                 <div class="footer-section">
                     <h4>Platform</h4>
                     <ul>
-                        <li><a href="#dashboard">Live Dashboard</a></li>
+                        <li><a href="#" onclick="switchView('dashboard'); return false;">Live Dashboard</a></li>
                         <li><a href="https://github.com/Samie-mirghani/insider-cluster-watch">Source Code</a></li>
                     </ul>
                 </div>
@@ -1057,10 +1349,108 @@
     </footer>
 
     <script>
+        // ===== VIEW SWITCHING =====
+        let currentView = 'landing';
+
+        function switchView(view) {
+            currentView = view;
+            const landingView = document.getElementById('landing-view');
+            const dashboardView = document.getElementById('dashboard-view');
+            const navDashboardBtn = document.getElementById('nav-dashboard-btn');
+
+            if (view === 'dashboard') {
+                landingView.classList.add('view-hidden');
+                dashboardView.classList.remove('view-hidden');
+                navDashboardBtn.style.display = 'none';
+            } else {
+                landingView.classList.remove('view-hidden');
+                dashboardView.classList.add('view-hidden');
+                navDashboardBtn.style.display = 'inline-flex';
+            }
+            window.scrollTo(0, 0);
+        }
+
+        function scrollToSignup() {
+            if (currentView !== 'landing') {
+                switchView('landing');
+                setTimeout(() => {
+                    document.getElementById('signup')?.scrollIntoView({ behavior: 'smooth' });
+                }, 100);
+            } else {
+                document.getElementById('signup')?.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
         // ===== GLOBAL DATA =====
         let chartData = [];
         let performanceData = null;
         let signalsData = [];
+
+        // ===== MOCK DATA FOR DASHBOARD (matches React source) =====
+        const MOCK_DATA = {
+            avg_winner: 18.2,
+            avg_loser: -5.4,
+            profit_factor: 2.8,
+            max_drawdown: -12.5,
+            last_30_days_return: 8.5,
+            last_10_trades_win_rate: 70,
+            current_streak: 3,
+            monthly_returns: [
+                { month: 'Jan', return: 12.4 },
+                { month: 'Feb', return: -2.1 },
+                { month: 'Mar', return: 15.6 },
+                { month: 'Apr', return: 4.2 },
+                { month: 'May', return: 8.9 },
+                { month: 'Jun', return: -1.5 },
+                { month: 'Jul', return: 22.4 },
+                { month: 'Aug', return: 5.1 },
+                { month: 'Sep', return: -3.2 },
+                { month: 'Oct', return: 10.5 },
+                { month: 'Nov', return: 18.2 },
+                { month: 'Dec', return: 6.7 },
+            ],
+            conviction_performance: [
+                { conviction: 'VERY HIGH', trades: 42, win_rate: 82, avg_return: 24.5 },
+                { conviction: 'HIGH', trades: 85, win_rate: 65, avg_return: 14.2 },
+                { conviction: 'MEDIUM', trades: 112, win_rate: 54, avg_return: 6.8 },
+            ],
+            top_performers: [
+                { name: "Dustin Moskovitz", title: "CEO", score: 98, win_rate: 85, avg_return: 42.5, total_trades: 12 },
+                { name: "Patrick Armenta", title: "Director", score: 94, win_rate: 80, avg_return: 31.2, total_trades: 8 },
+                { name: "Beatriz V. Infante", title: "Director", score: 91, win_rate: 78, avg_return: 28.4, total_trades: 15 },
+            ],
+            strong_performers_table: [
+                { rank: 6, name: "Satya Nadella", title: "CEO", score: 84, win_rate: 72, avg_return: 18.5, trades: 8 },
+                { rank: 7, name: "Tim Cook", title: "CEO", score: 82, win_rate: 68, avg_return: 15.2, trades: 12 },
+                { rank: 8, name: "Lisa Su", title: "CEO", score: 81, win_rate: 70, avg_return: 21.4, trades: 6 },
+                { rank: 9, name: "Albert Bourla", title: "CEO", score: 79, win_rate: 65, avg_return: 12.8, trades: 15 },
+                { rank: 10, name: "Safra Catz", title: "CEO", score: 78, win_rate: 62, avg_return: 14.1, trades: 9 },
+                { rank: 11, name: "Sundar Pichai", title: "CEO", score: 77, win_rate: 60, avg_return: 11.5, trades: 11 },
+                { rank: 12, name: "Jamie Dimon", title: "CEO", score: 76, win_rate: 75, avg_return: 9.8, trades: 22 },
+                { rank: 13, name: "Brian Armstrong", title: "CEO", score: 75, win_rate: 58, avg_return: 28.4, trades: 14 },
+                { rank: 14, name: "Dara Khosrowshahi", title: "CEO", score: 74, win_rate: 64, avg_return: 16.2, trades: 7 },
+                { rank: 15, name: "Shantanu Narayen", title: "CEO", score: 72, win_rate: 61, avg_return: 13.5, trades: 10 },
+            ],
+            open_positions: [
+                { ticker: "ANVS", entry_date: "2023-10-24", days_held: 2, unrealized_return: 14.2, conviction: "VERY HIGH", weight: "12.5%" },
+                { ticker: "PLTR", entry_date: "2023-10-22", days_held: 4, unrealized_return: 8.5, conviction: "HIGH", weight: "8.0%" },
+                { ticker: "COIN", entry_date: "2023-10-20", days_held: 6, unrealized_return: -2.1, conviction: "MEDIUM", weight: "5.5%" },
+                { ticker: "LCID", entry_date: "2023-10-25", days_held: 1, unrealized_return: 1.2, conviction: "HIGH", weight: "10.0%" },
+            ],
+            recent_trades: [
+                { ticker: "NVDA", entry_date: "Oct 10", exit_date: "Oct 20", return_pct: 22.4, conviction: "VERY HIGH", exit_reason: "Target Hit" },
+                { ticker: "TSLA", entry_date: "Oct 05", exit_date: "Oct 12", return_pct: -4.5, conviction: "MEDIUM", exit_reason: "Stop Loss" },
+                { ticker: "AMD", entry_date: "Sep 28", exit_date: "Oct 15", return_pct: 15.2, conviction: "HIGH", exit_reason: "Trailing Stop" },
+                { ticker: "META", entry_date: "Sep 20", exit_date: "Oct 05", return_pct: 12.8, conviction: "HIGH", exit_reason: "Target Hit" },
+                { ticker: "AAPL", entry_date: "Sep 15", exit_date: "Sep 22", return_pct: -1.2, conviction: "LOW", exit_reason: "Time Stop" },
+            ],
+            clusters: [
+                { ticker: "ANVS", price: "$9.42", insiders: 4, value: "$420K", date: "Today", signal: "HIGH", cluster_score: 18.5 },
+                { ticker: "BOWL", price: "$12.15", insiders: 3, value: "$1.2M", date: "Yesterday", signal: "MED", cluster_score: 8.2 },
+                { ticker: "LUNR", price: "$5.80", insiders: 5, value: "$850K", date: "2d ago", signal: "HIGH", cluster_score: 14.7 },
+                { ticker: "PLTR", price: "$24.30", insiders: 2, value: "$5.5M", date: "2d ago", signal: "MED", cluster_score: 6.9 },
+            ]
+        };
 
         // ===== UTILITIES =====
         function formatCurrency(value) {
@@ -1083,7 +1473,6 @@
             if (!name) return 'Unknown';
             const parts = name.trim().split(/\s+/);
             if (parts.length <= 1) return name;
-            // Format: "Last First Middle" -> "F. LAST"
             const lastName = parts[0].toUpperCase();
             const firstName = parts.length > 1 ? parts[1].charAt(0).toUpperCase() + '.' : '';
             return firstName + ' ' + lastName;
@@ -1128,14 +1517,14 @@
                 // Update hero stats
                 const totalReturn = performanceData.total_return_pct;
                 document.getElementById('total-return').textContent = formatPercent(totalReturn);
-                document.getElementById('total-return').className = `stat-card-value font-mono ${totalReturn >= 0 ? 'text-success' : 'text-danger'}`;
+                document.getElementById('total-return').className = `dashboard-card-value font-mono ${totalReturn >= 0 ? 'text-success' : 'text-danger'}`;
                 document.getElementById('alpha-display').innerHTML = `Alpha vs SPY: <span class="${performanceData.alpha_vs_sp500 >= 0 ? 'text-success' : 'text-danger'}">${formatPercent(performanceData.alpha_vs_sp500)}</span>`;
                 document.getElementById('win-rate').textContent = performanceData.win_rate + '%';
                 document.getElementById('active-positions-text').textContent = performanceData.active_trades + ' Active Positions';
                 document.getElementById('sharpe-ratio').textContent = performanceData.sharpe_ratio.toFixed(2);
 
-                // Update ticker stats
-                document.getElementById('stat-avg-return').textContent = formatPercent(performanceData.avg_return_per_trade || 8.16);
+                // Update ticker stats (landing page)
+                document.getElementById('stat-total-return').textContent = formatPercent(totalReturn);
                 document.getElementById('stat-win-rate').textContent = Math.round(performanceData.win_rate) + '%';
                 document.getElementById('stat-active-clusters').textContent = performanceData.active_trades;
 
@@ -1155,6 +1544,11 @@
                 document.getElementById('invested-capital').textContent = formatCurrency(investedCapital);
                 document.getElementById('capital-deployed').textContent = capitalDeployed.toFixed(1) + '% Deployed';
                 document.getElementById('chart-current-value').textContent = formatCurrency(currentValue);
+
+                // Trade counts
+                const totalTrades = (performanceData.closed_trades || 0) + (performanceData.active_trades || 0);
+                document.getElementById('total-trades').textContent = totalTrades;
+                document.getElementById('trades-breakdown').textContent = `${performanceData.closed_trades || 0} Closed | ${performanceData.active_trades || 0} Open`;
 
             } catch (error) {
                 console.error('Error loading performance data:', error);
@@ -1183,12 +1577,11 @@
                     return parseFloat(b.signal_score) - parseFloat(a.signal_score);
                 });
 
-                // Get best signal (highest score from most recent date, or overall highest)
+                // Get best signal
                 const today = new Date().toISOString().split('T')[0];
                 let bestSignal = signalsData.find(s => s.date === today);
 
                 if (!bestSignal) {
-                    // Get highest scored signal overall
                     bestSignal = signalsData.reduce((best, curr) =>
                         parseFloat(curr.signal_score) > parseFloat(best.signal_score) ? curr : best
                     , signalsData[0]);
@@ -1255,7 +1648,7 @@
 
                 // Build daily portfolio values
                 const portfolioByDate = {};
-                const startDate = new Date('2025-10-22'); // First trade date
+                const startDate = new Date('2025-10-22');
 
                 trades.forEach(t => {
                     const dateStr = t.date.split(' ')[0];
@@ -1291,7 +1684,6 @@
 
             } catch (error) {
                 console.error('Error loading paper trades:', error);
-                // Generate fallback data
                 generateFallbackChartData();
                 renderChart();
             }
@@ -1363,7 +1755,7 @@
                 svgContent += `<text class="chart-axis-text" x="${padding.left - 10}" y="${y + 4}" text-anchor="end">$${(value/1000).toFixed(1)}k</text>`;
             }
 
-            // X-axis labels (show every nth label based on data length)
+            // X-axis labels
             const xLabelInterval = Math.ceil(chartData.length / 8);
             chartData.forEach((d, i) => {
                 if (i % xLabelInterval === 0 || i === chartData.length - 1) {
@@ -1389,11 +1781,6 @@
             // Cursor line
             svgContent += `<line class="chart-cursor-line" id="cursor-line" x1="0" y1="${padding.top}" x2="0" y2="${height - padding.bottom}"/>`;
 
-            // Interactive dots (invisible but hoverable)
-            chartData.forEach((d, i) => {
-                svgContent += `<circle class="chart-dot" cx="${xScale(i)}" cy="${yScale(d.value)}" r="4" data-index="${i}" opacity="0"/>`;
-            });
-
             svg.innerHTML = svgContent;
             svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
 
@@ -1409,14 +1796,11 @@
                 if (index >= 0 && index < chartData.length) {
                     const d = chartData[index];
                     const dotX = xScale(index);
-                    const dotY = yScale(d.value);
 
-                    // Update cursor line
                     cursorLine.setAttribute('x1', dotX);
                     cursorLine.setAttribute('x2', dotX);
                     cursorLine.style.opacity = '1';
 
-                    // Update tooltip
                     const gain = d.value - 10000;
                     const gainPct = (gain / 10000) * 100;
 
@@ -1425,7 +1809,6 @@
                     document.getElementById('tooltip-gain').textContent = `${gain >= 0 ? '+' : ''}${formatCurrency(gain)} (${formatPercent(gainPct)})`;
                     document.getElementById('tooltip-gain').className = `tooltip-gain font-mono ${gain >= 0 ? 'text-success' : 'text-danger'}`;
 
-                    // Position tooltip
                     let tooltipX = e.clientX - rect.left + 15;
                     let tooltipY = e.clientY - rect.top - 60;
 
@@ -1451,8 +1834,141 @@
             resizeTimeout = setTimeout(renderChart, 250);
         });
 
+        // ===== POPULATE DASHBOARD TABLES =====
+        function populateDashboardTables() {
+            // Clusters table (landing page)
+            const clustersTbody = document.getElementById('clusters-tbody');
+            clustersTbody.innerHTML = MOCK_DATA.clusters.map(trade => `
+                <tr>
+                    <td><span class="font-mono ticker-badge">$${trade.ticker}</span></td>
+                    <td class="font-mono">${trade.price}</td>
+                    <td>
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                            <span class="font-mono">${trade.insiders}</span>
+                        </div>
+                    </td>
+                    <td class="font-mono text-success">${trade.value}</td>
+                    <td class="font-mono text-primary">${trade.cluster_score}</td>
+                    <td class="text-muted">${trade.date}</td>
+                    <td><span class="badge ${trade.signal === 'HIGH' ? 'badge-high' : 'badge-med'}">${trade.signal}</span></td>
+                </tr>
+            `).join('');
+
+            // Trade quality metrics
+            document.getElementById('avg-winner').textContent = '+' + MOCK_DATA.avg_winner + '%';
+            document.getElementById('avg-loser').textContent = MOCK_DATA.avg_loser + '%';
+            document.getElementById('profit-factor').textContent = MOCK_DATA.profit_factor;
+            document.getElementById('max-drawdown').textContent = MOCK_DATA.max_drawdown + '%';
+            document.getElementById('last-30-days').textContent = '+' + MOCK_DATA.last_30_days_return + '%';
+            document.getElementById('current-streak').textContent = '🔥 ' + MOCK_DATA.current_streak + ' Wins';
+            document.getElementById('last-10-wr').textContent = MOCK_DATA.last_10_trades_win_rate + '% WR';
+
+            // Top insiders
+            const topInsidersGrid = document.getElementById('top-insiders-grid');
+            topInsidersGrid.innerHTML = MOCK_DATA.top_performers.map((person, i) => `
+                <div class="card insider-rank-card rank-${i+1}" style="padding: 25px;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
+                        <span class="font-mono" style="font-size: 0.8rem; font-weight: 800; color: var(--text-muted);">#${i+1} RANKED</span>
+                        <span style="font-size: 0.8rem; background: rgba(255,255,255,0.1); padding: 2px 8px; border-radius: 10px;">Score: ${person.score}</span>
+                    </div>
+                    <h3 style="font-size: 1.1rem; margin-bottom: 5px;">${person.name}</h3>
+                    <div class="text-muted" style="font-size: 0.9rem; margin-bottom: 20px;">${person.title}</div>
+                    <div style="text-align: center; margin-bottom: 20px;">
+                        <div style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase;">Avg Return</div>
+                        <div class="font-mono" style="font-size: 2rem; font-weight: 800; color: var(--success);">+${person.avg_return}%</div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; border-top: 1px solid var(--border); padding-top: 15px;">
+                        <div>
+                            <div style="font-size: 0.7rem; color: var(--text-muted);">WIN RATE</div>
+                            <div class="font-mono" style="font-weight: 700;">${person.win_rate}%</div>
+                        </div>
+                        <div style="text-align: right;">
+                            <div style="font-size: 0.7rem; color: var(--text-muted);">TRADES</div>
+                            <div class="font-mono" style="font-weight: 700;">${person.total_trades}</div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            // Strong performers table
+            const strongPerformersTbody = document.getElementById('strong-performers-tbody');
+            strongPerformersTbody.innerHTML = MOCK_DATA.strong_performers_table.map((row, i) => `
+                <tr style="background: ${i % 2 !== 0 ? 'rgba(255,255,255,0.02)' : 'transparent'};">
+                    <td style="padding-left: 25px;" class="font-mono text-muted">#${row.rank}</td>
+                    <td>
+                        <div style="font-weight: 600;">${row.name}</div>
+                        <div style="font-size: 0.75rem; color: var(--text-muted);">${row.title}</div>
+                    </td>
+                    <td><span class="badge badge-med">${row.score}</span></td>
+                    <td class="font-mono">${row.win_rate}%</td>
+                    <td class="font-mono text-success">+${row.avg_return}%</td>
+                    <td class="font-mono">${row.trades}</td>
+                </tr>
+            `).join('');
+
+            // Conviction analysis
+            const convictionTbody = document.getElementById('conviction-tbody');
+            convictionTbody.innerHTML = MOCK_DATA.conviction_performance.map(row => `
+                <tr>
+                    <td><span class="badge ${['VERY HIGH', 'HIGH'].includes(row.conviction) ? 'badge-high' : 'badge-med'}">${row.conviction}</span></td>
+                    <td class="font-mono">${row.trades}</td>
+                    <td class="font-mono">${row.win_rate}%</td>
+                    <td class="font-mono text-success">+${row.avg_return}%</td>
+                </tr>
+            `).join('');
+
+            // Monthly heatmap
+            const monthlyHeatmap = document.getElementById('monthly-heatmap');
+            monthlyHeatmap.innerHTML = MOCK_DATA.monthly_returns.map(m => `
+                <div class="heatmap-cell" style="
+                    background: ${m.return > 0 ? 'rgba(0, 230, 118, 0.1)' : 'rgba(255, 82, 82, 0.1)'};
+                    color: ${m.return > 0 ? 'var(--success)' : 'var(--danger)'};
+                    border: 1px solid ${m.return > 0 ? 'rgba(0, 230, 118, 0.2)' : 'rgba(255, 82, 82, 0.2)'};
+                ">
+                    <div style="font-size: 0.75rem; font-weight: 600; margin-bottom: 5px; color: var(--text-muted);">${m.month}</div>
+                    <div class="font-mono" style="font-weight: 700;">${m.return > 0 ? '+' : ''}${m.return}%</div>
+                </div>
+            `).join('');
+
+            // Open positions
+            const openPositionsTbody = document.getElementById('open-positions-tbody');
+            openPositionsTbody.innerHTML = MOCK_DATA.open_positions.map(pos => `
+                <tr>
+                    <td style="padding-left: 25px;" class="font-mono" style="font-weight: 700;">${pos.ticker}</td>
+                    <td class="text-muted">${pos.entry_date}</td>
+                    <td class="font-mono">${pos.days_held}d</td>
+                    <td class="font-mono">${pos.weight}</td>
+                    <td class="font-mono ${pos.unrealized_return >= 0 ? 'text-success' : 'text-danger'}">
+                        ${pos.unrealized_return >= 0 ? '+' : ''}${pos.unrealized_return}%
+                    </td>
+                    <td><span class="badge badge-high">${pos.conviction}</span></td>
+                </tr>
+            `).join('');
+
+            // Recent trades
+            const recentTradesTbody = document.getElementById('recent-trades-tbody');
+            recentTradesTbody.innerHTML = MOCK_DATA.recent_trades.map(trade => `
+                <tr>
+                    <td style="padding-left: 25px;" class="font-mono" style="font-weight: 700;">${trade.ticker}</td>
+                    <td class="text-muted">${trade.entry_date}</td>
+                    <td class="text-muted">${trade.exit_date}</td>
+                    <td class="font-mono ${trade.return_pct >= 0 ? 'text-success' : 'text-danger'}">
+                        ${trade.return_pct >= 0 ? '+' : ''}${trade.return_pct}%
+                    </td>
+                    <td style="font-size: 0.85rem;">${trade.exit_reason}</td>
+                    <td>
+                        <span class="badge ${['VERY HIGH', 'HIGH'].includes(trade.conviction) ? 'badge-high' : (trade.conviction === 'MEDIUM' ? 'badge-med' : 'badge-low')}">
+                            ${trade.conviction}
+                        </span>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
         // ===== INITIALIZE =====
         document.addEventListener('DOMContentLoaded', async () => {
+            populateDashboardTables();
             await loadPerformanceData();
             await loadSignalsData();
             await loadPaperTrades();
