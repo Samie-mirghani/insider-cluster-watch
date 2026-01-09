@@ -1217,7 +1217,7 @@
             </div>
 
             <!-- Strong Performers Table -->
-            <h2 style="font-size: 1.8rem; margin-bottom: 25px;">Strong Performers (#6-15)</h2>
+            <h2 style="font-size: 1.8rem; margin-bottom: 25px;">Strong Performers (#4-15)</h2>
             <div class="card" style="overflow-x: auto; margin-bottom: 60px;">
                 <table class="data-table" id="strong-performers-table">
                     <thead>
@@ -1391,6 +1391,7 @@
         let chartData = [];
         let performanceData = null;
         let signalsData = [];
+        let insiderPerformanceData = null;
 
         // ===== UTILITIES =====
         function formatCurrency(value) {
@@ -1835,21 +1836,17 @@
             const clustersTbody = document.getElementById('clusters-tbody');
             clustersTbody.innerHTML = '<tr><td colspan="7" class="text-muted" style="text-align: center; padding: 30px;">Loading cluster data...</td></tr>';
 
-            // Top insiders - placeholder until we have real insider ranking data
+            // Top insiders - loading placeholder
             const topInsidersGrid = document.getElementById('top-insiders-grid');
             topInsidersGrid.innerHTML = `
                 <div class="card" style="padding: 40px; text-align: center; grid-column: 1 / -1;">
-                    <div class="text-muted" style="font-size: 1.1rem;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" style="margin-bottom: 15px;"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
-                        <div style="margin-bottom: 10px;">Insider Rankings Coming Soon</div>
-                        <div style="font-size: 0.9rem; opacity: 0.7;">We're building a comprehensive insider ranking system based on historical performance.</div>
-                    </div>
+                    <div class="text-muted" style="font-size: 1.1rem;">Loading insider rankings...</div>
                 </div>
             `;
 
-            // Strong performers table - placeholder
+            // Strong performers table - loading placeholder
             const strongPerformersTbody = document.getElementById('strong-performers-tbody');
-            strongPerformersTbody.innerHTML = '<tr><td colspan="6" class="text-muted" style="text-align: center; padding: 30px;">Insider performance data coming soon</td></tr>';
+            strongPerformersTbody.innerHTML = '<tr><td colspan="6" class="text-muted" style="text-align: center; padding: 30px;">Loading insider performance data...</td></tr>';
         }
 
         // ===== UPDATE DASHBOARD WITH REAL DATA =====
@@ -1951,12 +1948,101 @@
             }
         }
 
+        // ===== LOAD INSIDER PERFORMANCE DATA =====
+        async function loadInsiderPerformanceData() {
+            try {
+                const response = await fetch('docs/insider_performance_public.json');
+                if (!response.ok) throw new Error('Failed to load insider performance data');
+                insiderPerformanceData = await response.json();
+                populateInsiderRankings();
+            } catch (error) {
+                console.error('Error loading insider performance data:', error);
+            }
+        }
+
+        function formatInsiderDisplayName(name) {
+            if (!name) return 'Unknown';
+            // Handle names in "Last First Middle" format
+            const parts = name.trim().split(/\s+/);
+            if (parts.length === 1) return name;
+            if (parts.length === 2) return parts[1] + ' ' + parts[0];
+            // For 3+ parts: First Middle Last -> First Last
+            return parts[1] + ' ' + parts[0];
+        }
+
+        function populateInsiderRankings() {
+            if (!insiderPerformanceData || !insiderPerformanceData.top_performers) return;
+
+            const performers = insiderPerformanceData.top_performers;
+
+            // Top 3 performers for the grid cards
+            const topInsidersGrid = document.getElementById('top-insiders-grid');
+            const top3 = performers.slice(0, 3);
+
+            topInsidersGrid.innerHTML = top3.map((person, i) => {
+                const avgReturn = person.avg_return > 1000 ? person.avg_return.toFixed(0) : person.avg_return.toFixed(1);
+                const displayName = formatInsiderDisplayName(person.name);
+
+                return `
+                    <div class="card insider-rank-card rank-${i+1}" style="padding: 25px;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
+                            <span class="font-mono" style="font-size: 0.8rem; font-weight: 800; color: var(--text-muted);">#${i+1} RANKED</span>
+                            <span style="font-size: 0.8rem; background: rgba(255,255,255,0.1); padding: 2px 8px; border-radius: 10px;">Score: ${person.score.toFixed(0)}</span>
+                        </div>
+                        <h3 style="font-size: 1.1rem; margin-bottom: 5px;">${displayName}</h3>
+                        <div class="text-muted" style="font-size: 0.9rem; margin-bottom: 20px;">Insider</div>
+                        <div style="text-align: center; margin-bottom: 20px;">
+                            <div style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase;">Avg Return</div>
+                            <div class="font-mono" style="font-size: 2rem; font-weight: 800; color: var(--success);">+${avgReturn}%</div>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; border-top: 1px solid var(--border); padding-top: 15px;">
+                            <div>
+                                <div style="font-size: 0.7rem; color: var(--text-muted);">WIN RATE</div>
+                                <div class="font-mono" style="font-weight: 700;">${person.win_rate.toFixed(0)}%</div>
+                            </div>
+                            <div style="text-align: right;">
+                                <div style="font-size: 0.7rem; color: var(--text-muted);">TRADES</div>
+                                <div class="font-mono" style="font-weight: 700;">${person.total_trades}</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            // Strong performers table (#4-15)
+            const strongPerformersTbody = document.getElementById('strong-performers-tbody');
+            const strongPerformers = performers.slice(3, 15);
+
+            if (strongPerformers.length > 0) {
+                strongPerformersTbody.innerHTML = strongPerformers.map((person, i) => {
+                    const rank = i + 4;
+                    const avgReturn = person.avg_return > 1000 ? person.avg_return.toFixed(0) : person.avg_return.toFixed(1);
+                    const displayName = formatInsiderDisplayName(person.name);
+
+                    return `
+                        <tr style="background: ${i % 2 !== 0 ? 'rgba(255,255,255,0.02)' : 'transparent'};">
+                            <td style="padding-left: 25px;" class="font-mono text-muted">#${rank}</td>
+                            <td>
+                                <div style="font-weight: 600;">${displayName}</div>
+                                <div style="font-size: 0.75rem; color: var(--text-muted);">Insider</div>
+                            </td>
+                            <td><span class="badge ${person.score >= 95 ? 'badge-high' : 'badge-med'}">${person.score.toFixed(0)}</span></td>
+                            <td class="font-mono">${person.win_rate.toFixed(0)}%</td>
+                            <td class="font-mono text-success">+${avgReturn}%</td>
+                            <td class="font-mono">${person.total_trades}</td>
+                        </tr>
+                    `;
+                }).join('');
+            }
+        }
+
         // ===== INITIALIZE =====
         document.addEventListener('DOMContentLoaded', async () => {
             populateDashboardTables();
             await loadPerformanceData();
             updateDashboardWithRealData();
             await loadSignalsData();
+            await loadInsiderPerformanceData();
             await loadPaperTrades();
         });
     </script>
