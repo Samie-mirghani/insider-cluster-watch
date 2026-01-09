@@ -362,6 +362,10 @@ def main(test=False, urgent_test=False, enable_paper_trading=True):
     paper_trader = None
     if enable_paper_trading:
         paper_trader = PaperTradingPortfolio.load()
+
+        # Start tracking session for accurate change reporting
+        paper_trader.start_session()
+
         portfolio_value = paper_trader.get_portfolio_value()
         total_return = ((portfolio_value - paper_trader.starting_capital) / paper_trader.starting_capital) * 100
 
@@ -1053,17 +1057,15 @@ def main(test=False, urgent_test=False, enable_paper_trading=True):
         else:
             print("   ✅ Portfolio health: HEALTHY")
 
+        # Print comprehensive session summary before saving
+        paper_trader.print_session_summary()
+
         # Save portfolio (captures both exits and new entries)
         paper_trader.save()
 
-        # Final summary
+        # Quick summary for compatibility
         final_stats = paper_trader.get_performance_summary()
-        print(f"\n📊 Paper Trading Daily Summary:")
-        print(f"   New Positions: {signals_executed}")
-        if signals_skipped > 0:
-            print(f"   Skipped Signals: {signals_skipped} (no price data)")
-        if paper_trader_closed_positions:
-            print(f"   Closed Positions: {len(paper_trader_closed_positions)}")
+        print(f"\n📊 Paper Trading Quick Summary:")
         print(f"   Portfolio Value: ${final_stats['current_value']:,.2f}")
         print(f"   Total Return: {final_stats['total_return_pct']:+.2f}%")
         print(f"   Win Rate: {final_stats['win_rate']:.1f}%")
