@@ -276,6 +276,8 @@ def _get_star_rating(score):
 
 def _format_currency(value):
     """Format currency value for display."""
+    if value is None or (isinstance(value, float) and (math.isnan(value) or math.isinf(value))):
+        return "$0"
     if value >= 1_000_000:
         return f"${value/1_000_000:.1f}M"
     elif value >= 1_000:
@@ -363,7 +365,7 @@ def _render_trading_dashboard_html(date, stats, today_pnl, today_pnl_pct, closed
                                                 <td width="25%" align="center" style="padding: 10px;">
                                                     <div style="font-size: 11px; color: {text_muted}; text-transform: uppercase; letter-spacing: 0.5px;">Cash</div>
                                                     <div style="font-size: 18px; font-weight: 700; color: {text_main};">${stats['cash']:,.2f}</div>
-                                                    <div style="font-size: 12px; color: {text_muted};">({stats['cash']/stats['current_value']*100:.1f}%)</div>
+                                                    <div style="font-size: 12px; color: {text_muted};">({(stats['cash']/stats['current_value']*100) if stats['current_value'] > 0 else 0:.1f}%)</div>
                                                 </td>
                                                 <td width="25%" align="center" style="padding: 10px;">
                                                     <div style="font-size: 11px; color: {text_muted}; text-transform: uppercase; letter-spacing: 0.5px;">Win Rate</div>
@@ -543,11 +545,11 @@ def _render_trading_dashboard_html(date, stats, today_pnl, today_pnl_pct, closed
     if top_signals:
         for i, sig in enumerate(top_signals, 1):
             ticker = sig.get('ticker', 'N/A')
-            score = sig.get('rank_score', 0)
-            cluster_count = sig.get('cluster_count', 0)
-            total_value = sig.get('total_value', 0)
+            score = sig.get('rank_score') or 0  # Handle None
+            cluster_count = sig.get('cluster_count') or 0  # Handle None
+            total_value = sig.get('total_value') or 0  # Handle None
             sector = sig.get('sector', 'Unknown')
-            price = sig.get('currentPrice', 0)
+            price = sig.get('currentPrice') or 0  # Handle None
             pattern = sig.get('pattern_detected', 'None')
 
             # Check if this signal was traded
@@ -568,7 +570,7 @@ def _render_trading_dashboard_html(date, stats, today_pnl, today_pnl_pct, closed
                                                     </div>
                                                     <div style="font-size: 13px; color: {text_muted}; margin-top: 8px; line-height: 1.6;">
                                                         Cluster: {cluster_count} insiders bought {_format_currency(total_value)}<br>
-                                                        Sector: {sector if sector and sector not in ['nan', 'None', None, 'Unknown'] else 'N/A'} | Price: ${(price if price else 0):.2f}<br>
+                                                        Sector: {sector if sector and sector not in ['nan', 'None', None, 'Unknown'] else 'N/A'} | Price: ${price:.2f}<br>
                                                         Pattern: {pattern if pattern and pattern not in ['nan', 'None', None, ''] else 'None'}
                                                     </div>
                                                 </td>
@@ -671,7 +673,7 @@ def _build_trading_dashboard_text(date, stats, today_pnl, today_pnl_pct, closed_
     lines.append("-"*40)
     lines.append(f"Portfolio Value: ${stats['current_value']:,.2f} ({'+' if stats['total_return_pct'] >= 0 else ''}{stats['total_return_pct']:.1f}% total return)")
     lines.append(f"Today's P&L:     {'+' if today_pnl >= 0 else ''}${today_pnl:,.2f} ({'+' if today_pnl_pct >= 0 else ''}{today_pnl_pct:.1f}%)")
-    lines.append(f"Cash:            ${stats['cash']:,.2f} ({stats['cash']/stats['current_value']*100:.1f}%)")
+    lines.append(f"Cash:            ${stats['cash']:,.2f} ({(stats['cash']/stats['current_value']*100) if stats['current_value'] > 0 else 0:.1f}%)")
     lines.append(f"Win Rate:        {stats['win_rate']:.1f}% ({stats['winning_trades']}W / {stats['losing_trades']}L)")
     lines.append(f"Open Positions:  {stats['open_positions']} ({stats['exposure_pct']:.1f}% exposure)")
     lines.append(f"Max Drawdown:    {stats['max_drawdown']:.1f}%")
@@ -723,9 +725,9 @@ def _build_trading_dashboard_text(date, stats, today_pnl, today_pnl_pct, closed_
     if top_signals:
         for i, sig in enumerate(top_signals, 1):
             ticker = sig.get('ticker', 'N/A')
-            score = sig.get('rank_score', 0)
-            cluster_count = sig.get('cluster_count', 0)
-            total_value = sig.get('total_value', 0)
+            score = sig.get('rank_score') or 0  # Handle None
+            cluster_count = sig.get('cluster_count') or 0  # Handle None
+            total_value = sig.get('total_value') or 0  # Handle None
             was_traded = ticker in opened_tickers
             status = "✅ TRADED" if was_traded else "⏭️ SKIPPED"
             lines.append(f"  {i}. {ticker} | Score: {score:.1f} | {status}")
