@@ -1017,15 +1017,16 @@ def main(test=False, urgent_test=False, enable_paper_trading=True):
         print(f"\n📊 Processing {len(qualified_df)} qualified signal(s)...")
         signals_executed = 0
         signals_skipped = 0
+        paper_trader_opened_positions = []  # Track opened positions for email report
 
         for _, signal_row in qualified_df.iterrows():
             entry_price = signal_row.get('currentPrice')
-            
+
             # Skip if no valid price (market data fetch failed)
             if entry_price is None or pd.isna(entry_price) or entry_price <= 0:
                 signals_skipped += 1
                 continue
-            
+
             # Execute signal if price is valid
             signal = {
                 'ticker': signal_row['ticker'],
@@ -1037,9 +1038,10 @@ def main(test=False, urgent_test=False, enable_paper_trading=True):
                 'multi_signal_tier': signal_row.get('multi_signal_tier', 'none'),
                 'has_politician_signal': signal_row.get('has_politician_signal', False)
             }
-            
+
             if paper_trader.execute_signal(signal):
                 signals_executed += 1
+                paper_trader_opened_positions.append(signal_row['ticker'])
 
         # Run health check after processing new signals (reuse monitor if available)
         if paper_trader_monitor is None:
@@ -1087,13 +1089,30 @@ def main(test=False, urgent_test=False, enable_paper_trading=True):
 
     # 9) Generate reports
     print("📧 Generating email reports...")
-    daily_html, daily_text = render_daily_html(cluster_df)
-    
+
+    # Use new personal trading dashboard format if paper trading is enabled
+    if paper_trader:
+        # Get opened positions (may be empty if no signals this run, or if paper_trader block didn't execute)
+        try:
+            opened_positions = paper_trader_opened_positions
+        except NameError:
+            opened_positions = []
+
+        daily_html, daily_text = render_daily_html(
+            cluster_df=cluster_df,
+            portfolio=paper_trader,
+            closed_positions=paper_trader_closed_positions,
+            opened_positions=opened_positions
+        )
+    else:
+        # Fall back to old newsletter format if paper trading disabled
+        daily_html, daily_text = render_daily_html(cluster_df)
+
     # Insert sell warning banner
     if not sell_warnings.empty:
         daily_html = daily_html.replace('</h2>', f'</h2>{sell_warning_html}')
         daily_text = sell_warning_text + '\n\n' + daily_text
-    
+
     # Generate urgent email if needed
     if not urgent_df.empty:
         urgent_html, urgent_text = render_urgent_html(urgent_df)
@@ -1105,14 +1124,17 @@ def main(test=False, urgent_test=False, enable_paper_trading=True):
         urgent_text = None
 
     # 10) Send emails
+    # Use "Daily Trading Report" subject when paper trading is enabled
+    daily_subject = f"Daily Trading Report — {datetime.utcnow().strftime('%Y-%m-%d')}" if paper_trader else f"Daily Insider Report — {datetime.utcnow().strftime('%Y-%m-%d')}"
+
     if test:
         print("📬 Sending TEST emails...")
-        send_email(f"TEST — Daily Insider Report — {datetime.utcnow().strftime('%Y-%m-%d')}", daily_html, daily_text)
+        send_email(f"TEST — {daily_subject}", daily_html, daily_text)
         if urgent_html:
             send_email(f"TEST — URGENT Insider Alert — {datetime.utcnow().strftime('%Y-%m-%d')}", urgent_html, urgent_text)
     else:
         print("📬 Sending daily report...")
-        send_email(f"Daily Insider Report — {datetime.utcnow().strftime('%Y-%m-%d')}", daily_html, daily_text)
+        send_email(daily_subject, daily_html, daily_text)
         if urgent_html:
             print("📬 Sending urgent alert...")
             send_email(f"URGENT Insider Alert — {datetime.utcnow().strftime('%Y-%m-%d')}", urgent_html, urgent_text)
