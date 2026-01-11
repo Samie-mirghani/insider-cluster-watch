@@ -755,58 +755,459 @@ def _build_trading_dashboard_text(date, stats, today_pnl, today_pnl_pct, closed_
 
     return "\n".join(lines)
 
-def render_urgent_html(cluster_df):
-    env = Environment(loader=FileSystemLoader(TEMPLATE_DIR))
-    # Add custom filter for checking valid values
-    env.filters['is_valid'] = is_valid_value
-    tmpl = env.get_template('urgent_alert.html')
-    rows = cluster_df.to_dict(orient='records')
-    # CRITICAL: Sanitize all dict values to prevent "nan" from appearing in emails
-    rows = sanitize_dict_for_template(rows)
-    html = tmpl.render(date=datetime.now().strftime("%B %d, %Y"), urgent_trades=rows)
-    text = build_plain_text(rows)
-    return html, text
 
-def render_no_activity_html(total_transactions=0, buy_count=0, sell_warning_html=""):
+def render_no_activity_html(
+    portfolio,
+    total_transactions=0,
+    buy_count=0,
+    sell_count=0,
+    closed_positions=None,
+    opened_positions=None
+):
     """
-    Render the enhanced no-activity report template.
+    Generate no-activity report (no signals, but may have trading activity)
+
+    Args:
+        portfolio: PaperTradingPortfolio instance
+        total_transactions: Total Form 4 filings scanned
+        buy_count: Number of buy transactions
+        sell_count: Number of sell transactions
+        closed_positions: List of (ticker, reason, exit_price) closed today
+        opened_positions: List of tickers opened (usually empty)
+
+    Returns:
+        (html, text): HTML and plain text versions
     """
-    env = Environment(loader=FileSystemLoader(TEMPLATE_DIR))
-    tmpl = env.get_template('no_activity_report.html')
-    html = tmpl.render(
+    closed_positions = closed_positions or []
+    opened_positions = opened_positions or []
+
+    # Get portfolio stats
+    stats = portfolio.get_performance_summary(validate=False)
+
+    # Calculate today's P&L from session if available
+    session_summary = portfolio.get_session_summary() if hasattr(portfolio, 'get_session_summary') else None
+    today_pnl = session_summary.get('portfolio_change', 0) if session_summary else 0
+    today_pnl_pct = session_summary.get('portfolio_change_pct', 0) if session_summary else 0
+
+    # Build closed positions data
+    closed_today = []
+    for ticker, reason, exit_price in closed_positions:
+        # Find matching trade in history
+        trade_info = None
+        for trade in reversed(portfolio.trade_history):
+            if trade.get('ticker') == ticker and trade.get('action') == 'SELL':
+                trade_info = trade
+                break
+        if trade_info:
+            closed_today.append({
+                'ticker': ticker,
+                'reason': reason,
+                'exit_price': exit_price,
+                'entry_price': trade_info.get('entry_price', 0),
+                'profit': trade_info.get('profit', 0),
+                'pnl_pct': trade_info.get('pnl_pct', 0),
+                'hold_days': trade_info.get('hold_days', 0),
+                'entry_date': trade_info.get('entry_date')
+            })
+
+    # Build open positions data with current prices
+    open_positions = []
+    for ticker, pos in portfolio.positions.items():
+        current_price = portfolio._get_current_price(ticker, pos['entry_price'])
+        unrealized_pnl = (current_price - pos['entry_price']) / pos['entry_price'] * 100
+        days_held = (datetime.now() - pos['entry_date']).days
+        open_positions.append({
+            'ticker': ticker,
+            'shares': pos['shares'],
+            'entry_price': pos['entry_price'],
+            'current_price': current_price,
+            'unrealized_pnl': unrealized_pnl,
+            'days_held': days_held
+        })
+
+    # Render HTML and text
+    html = _render_no_activity_html_email(
         date=datetime.now().strftime("%B %d, %Y"),
+        stats=stats,
+        today_pnl=today_pnl,
+        today_pnl_pct=today_pnl_pct,
+        closed_today=closed_today,
+        open_positions=open_positions,
         total_transactions=total_transactions,
         buy_count=buy_count,
-        sell_warning_html=sell_warning_html
+        sell_count=sell_count
     )
-    
-    # Plain text version
-    text_lines = [
-        f"Daily Insider Trade Report — {datetime.now().strftime('%Y-%m-%d')}",
-        "=" * 60,
-        "",
-        "📭 NO SIGNIFICANT ACTIVITY TODAY",
-        "",
-        f"Transactions Analyzed: {total_transactions}",
-        f"Buy Transactions: {buy_count}",
-        "",
-        "Why No Signals?",
-        "Our system requires:",
-        "  • Multiple insiders buying the same stock (cluster)",
-        "  • Meaningful purchase amounts ($100k+)",
-        "  • C-suite involvement for urgent alerts",
-        "  • Open-market purchases (not options/routine)",
-        "",
-        "What's Next?",
-        "Your system is monitoring correctly. We'll alert you when",
-        "significant insider buying clusters are detected.",
-        "",
-        "Next report: Tomorrow at 7:05 AM ET",
-        "=" * 60
-    ]
-    
-    text = "\n".join(text_lines)
+
+    text = _build_no_activity_text(
+        date=datetime.now().strftime("%Y-%m-%d"),
+        stats=stats,
+        today_pnl=today_pnl,
+        today_pnl_pct=today_pnl_pct,
+        closed_today=closed_today,
+        open_positions=open_positions,
+        total_transactions=total_transactions,
+        buy_count=buy_count,
+        sell_count=sell_count
+    )
+
     return html, text
+
+
+def _render_no_activity_html_email(date, stats, today_pnl, today_pnl_pct, closed_today,
+                                     open_positions, total_transactions, buy_count, sell_count):
+    """Render the no-activity HTML email matching dashboard-v2.html theme."""
+
+    # Color scheme matching dashboard-v2.html spec
+    bg_main = "#0a1929"
+    bg_card = "rgba(255, 255, 255, 0.05)"
+    primary = "#00D9FF"
+    success = "#00FF88"
+    danger = "#FF4444"
+    text_main = "#ffffff"
+    text_muted = "#94a3b8"
+    border = f"1px solid rgba(0, 217, 255, 0.2)"
+
+    # Determine P&L colors
+    total_return_color = success if stats['total_return_pct'] >= 0 else danger
+    today_pnl_color = success if today_pnl >= 0 else danger
+
+    html = f'''<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Trading Report - {date}</title>
+</head>
+<body style="margin: 0; padding: 0; background: {bg_main}; color: {text_main}; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; line-height: 1.6;">
+
+    <!-- Main Container -->
+    <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background: {bg_main};">
+        <tr>
+            <td align="center" style="padding: 20px;">
+                <table width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width: 800px;">
+
+                    <!-- Header -->
+                    <tr>
+                        <td style="padding: 20px 0; text-align: center;">
+                            <h1 style="margin: 0; font-size: 28px; font-weight: 800; color: {primary};">📊 Daily Trading Report</h1>
+                            <p style="margin: 10px 0 0 0; color: {text_muted}; font-size: 14px;">{date}</p>
+                        </td>
+                    </tr>
+
+                    <!-- Section 1: Portfolio Performance (MOST PROMINENT) -->
+                    <tr>
+                        <td style="padding: 10px 0;">
+                            <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background: {bg_card}; border: {border}; border-radius: 12px;">
+                                <tr>
+                                    <td style="padding: 25px;">
+                                        <h2 style="margin: 0 0 20px 0; font-size: 20px; font-weight: 700; color: {primary};">💰 PAPER TRADING PERFORMANCE</h2>
+
+                                        <!-- Main Stats Row -->
+                                        <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                                            <tr>
+                                                <td width="50%" style="padding: 10px;">
+                                                    <div style="font-size: 12px; color: {text_muted}; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px;">Portfolio Value</div>
+                                                    <div style="font-size: 2.5rem; font-weight: 700; color: {text_main};">${stats['current_value']:,.2f}</div>
+                                                    <div style="font-size: 16px; font-weight: 600; color: {total_return_color};">
+                                                        {'+' if stats['total_return_pct'] >= 0 else ''}{stats['total_return_pct']:.1f}% total return
+                                                    </div>
+                                                </td>
+                                                <td width="50%" style="padding: 10px;">
+                                                    <div style="font-size: 12px; color: {text_muted}; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px;">Today's P&L</div>
+                                                    <div style="font-size: 2.5rem; font-weight: 700; color: {today_pnl_color};">
+                                                        {'+' if today_pnl >= 0 else ''}${today_pnl:,.2f}
+                                                    </div>
+                                                    <div style="font-size: 16px; font-weight: 600; color: {today_pnl_color};">
+                                                        ({'+' if today_pnl_pct >= 0 else ''}{today_pnl_pct:.1f}%)
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </table>
+
+                                        <!-- Secondary Stats -->
+                                        <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px;">
+                                            <tr>
+                                                <td width="25%" align="center" style="padding: 10px;">
+                                                    <div style="font-size: 11px; color: {text_muted}; text-transform: uppercase; letter-spacing: 0.5px;">Cash</div>
+                                                    <div style="font-size: 18px; font-weight: 700; color: {text_main};">${stats['cash']:,.2f}</div>
+                                                    <div style="font-size: 12px; color: {text_muted};">({(stats['cash']/stats['current_value']*100) if stats['current_value'] > 0 else 0:.1f}%)</div>
+                                                </td>
+                                                <td width="25%" align="center" style="padding: 10px;">
+                                                    <div style="font-size: 11px; color: {text_muted}; text-transform: uppercase; letter-spacing: 0.5px;">Win Rate</div>
+                                                    <div style="font-size: 18px; font-weight: 700; color: {text_main};">{stats['win_rate']:.1f}%</div>
+                                                    <div style="font-size: 12px; color: {text_muted};">({stats['winning_trades']}W / {stats['losing_trades']}L)</div>
+                                                </td>
+                                                <td width="25%" align="center" style="padding: 10px;">
+                                                    <div style="font-size: 11px; color: {text_muted}; text-transform: uppercase; letter-spacing: 0.5px;">Open Positions</div>
+                                                    <div style="font-size: 18px; font-weight: 700; color: {text_main};">{stats['open_positions']}</div>
+                                                    <div style="font-size: 12px; color: {text_muted};"></div>
+                                                </td>
+                                                <td width="25%" align="center" style="padding: 10px;">
+                                                    <div style="font-size: 11px; color: {text_muted}; text-transform: uppercase; letter-spacing: 0.5px;">Exposure</div>
+                                                    <div style="font-size: 18px; font-weight: 700; color: {text_main};">{stats['exposure_pct']:.1f}%</div>
+                                                    <div style="font-size: 12px; color: {text_muted};"></div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <!-- Section 2: Today's Trading Activity -->
+                    <tr>
+                        <td style="padding: 10px 0;">
+                            <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background: {bg_card}; border: {border}; border-radius: 12px;">
+                                <tr>
+                                    <td style="padding: 25px;">
+                                        <h2 style="margin: 0 0 20px 0; font-size: 20px; font-weight: 700; color: {primary};">📈 TODAY'S TRADING ACTIVITY</h2>
+'''
+
+    # Closed positions section
+    if closed_today:
+        html += f'''
+                                        <div style="margin-bottom: 20px;">
+                                            <h3 style="margin: 0 0 15px 0; font-size: 14px; font-weight: 600; color: {text_muted}; text-transform: uppercase; letter-spacing: 1px;">Positions Closed ({len(closed_today)})</h3>
+'''
+        for pos in closed_today:
+            pnl_color = success if pos['profit'] >= 0 else danger
+            pnl_icon = "✅" if pos['profit'] >= 0 else "❌"
+            entry_date_str = pos['entry_date'].strftime('%b %d') if hasattr(pos['entry_date'], 'strftime') else str(pos['entry_date'])[:10] if pos['entry_date'] else 'N/A'
+            html += f'''
+                                            <div style="background: rgba(255,255,255,0.03); border-radius: 8px; padding: 15px; margin-bottom: 10px;">
+                                                <div style="margin-bottom: 8px;">
+                                                    <span style="font-size: 16px; font-weight: 700; color: {text_main};">{pnl_icon} {pos['ticker']}</span>
+                                                    <span style="float: right; font-size: 16px; font-weight: 700; color: {pnl_color};">{'+' if pos['profit'] >= 0 else ''}${pos['profit']:.2f} ({'+' if pos['pnl_pct'] >= 0 else ''}{pos['pnl_pct']:.1f}%)</span>
+                                                </div>
+                                                <div style="font-size: 13px; color: {text_muted};">
+                                                    {pos['reason']} | Hold: {pos['hold_days']} days
+                                                </div>
+                                            </div>
+'''
+        html += '''
+                                        </div>
+'''
+
+    # Opened positions section
+    if opened_positions:
+        html += f'''
+                                        <div style="margin-bottom: 10px;">
+                                            <h3 style="margin: 0 0 15px 0; font-size: 14px; font-weight: 600; color: {text_muted}; text-transform: uppercase; letter-spacing: 1px;">Positions Opened ({len(opened_positions)})</h3>
+'''
+        for ticker in opened_positions:
+            html += f'''
+                                            <div style="background: rgba(0,255,136,0.05); border-left: 3px solid {success}; border-radius: 8px; padding: 15px; margin-bottom: 10px;">
+                                                <span style="font-size: 16px; font-weight: 700; color: {text_main};">🆕 {ticker}</span>
+                                            </div>
+'''
+        html += '''
+                                        </div>
+'''
+
+    # No trades message
+    if not closed_today and not opened_positions:
+        html += f'''
+                                        <div style="text-align: center; padding: 30px; color: {text_muted};">
+                                            <p style="margin: 0; font-size: 14px;">No trades executed today - all positions holding</p>
+                                        </div>
+'''
+
+    html += '''
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+'''
+
+    # Section 3: Open Positions Overview
+    if open_positions:
+        html += f'''
+                    <tr>
+                        <td style="padding: 10px 0;">
+                            <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background: {bg_card}; border: {border}; border-radius: 12px;">
+                                <tr>
+                                    <td style="padding: 25px;">
+                                        <h2 style="margin: 0 0 20px 0; font-size: 20px; font-weight: 700; color: {primary};">🎯 OPEN POSITIONS ({len(open_positions)})</h2>
+'''
+        for pos in open_positions:
+            pnl_color = success if pos['unrealized_pnl'] > 0 else danger if pos['unrealized_pnl'] < 0 else text_main
+            html += f'''
+                                        <div style="padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                                            <div style="margin-bottom: 4px;">
+                                                <span style="font-size: 16px; font-weight: 700; color: {primary};">{pos['ticker']}</span>
+                                                <span style="float: right; font-size: 14px; font-weight: 600; color: {pnl_color};">
+                                                    ${pos['current_price']:.2f} ({'+' if pos['unrealized_pnl'] >= 0 else ''}{pos['unrealized_pnl']:.1f}%)
+                                                </span>
+                                            </div>
+                                            <div style="font-size: 13px; color: {text_muted};">
+                                                {pos['shares']} shares @ ${pos['entry_price']:.2f} | {pos['days_held']} days
+                                            </div>
+                                        </div>
+'''
+        html += '''
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+'''
+    else:
+        html += f'''
+                    <tr>
+                        <td style="padding: 10px 0;">
+                            <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background: {bg_card}; border: {border}; border-radius: 12px;">
+                                <tr>
+                                    <td style="padding: 25px;">
+                                        <h2 style="margin: 0 0 20px 0; font-size: 20px; font-weight: 700; color: {primary};">🎯 OPEN POSITIONS</h2>
+                                        <div style="text-align: center; padding: 20px; color: {text_muted};">
+                                            <p style="margin: 0; font-size: 14px;">No open positions - portfolio fully in cash</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+'''
+
+    # Section 4: No Signals Detected (Informational, Not Negative)
+    html += f'''
+                    <tr>
+                        <td style="padding: 10px 0;">
+                            <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background: rgba(0,217,255,0.1); border: 1px solid {primary}; border-radius: 12px;">
+                                <tr>
+                                    <td style="padding: 25px; text-align: center;">
+                                        <h2 style="margin: 0 0 15px 0; font-size: 20px; font-weight: 700; color: {primary};">🔍 INSIDER SIGNAL DETECTION</h2>
+                                        <div style="font-size: 48px; margin-bottom: 15px;">❌</div>
+                                        <p style="margin: 0 0 10px 0; font-size: 16px; font-weight: 600; color: {text_main};">No insider clusters detected today</p>
+                                        <p style="margin: 0 0 20px 0; font-size: 14px; color: {text_muted};">System ran successfully but found no qualified clusters meeting criteria</p>
+
+                                        <div style="text-align: left; max-width: 500px; margin: 0 auto;">
+                                            <p style="margin: 10px 0; font-size: 13px; color: {text_muted};">
+                                                <strong style="color: {text_main};">Requirements:</strong><br>
+                                                • Minimum 3 insiders buying<br>
+                                                • Minimum $50k per insider<br>
+                                                • Score above threshold (8.0+)
+                                            </p>
+                                            <p style="margin: 10px 0; font-size: 13px; color: {text_muted};">
+                                                <strong style="color: {text_main};">Market Activity Summary:</strong><br>
+                                                • Total Form 4 filings scanned: {total_transactions}<br>
+                                                • Buy transactions: {buy_count}<br>
+                                                • Sell transactions: {sell_count}
+                                            </p>
+                                            <p style="margin: 15px 0 0 0; font-size: 13px; color: {text_muted};">
+                                                <strong style="color: {primary};">Next detection: Tomorrow at 7:00 AM ET</strong>
+                                            </p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <!-- Footer -->
+                    <tr>
+                        <td style="padding: 30px 0 20px 0; text-align: center;">
+                            <p style="margin: 0; font-size: 12px; color: {text_muted};">
+                                <strong style="color: {primary};">Insider Cluster Watch</strong> — Paper Trading Dashboard
+                            </p>
+                            <p style="margin: 10px 0 0 0; font-size: 11px; color: {text_muted};">
+                                This is a simulated paper trading report. No real money is at risk.
+                            </p>
+                        </td>
+                    </tr>
+
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
+'''
+
+    return html
+
+
+def _build_no_activity_text(date, stats, today_pnl, today_pnl_pct, closed_today,
+                              open_positions, total_transactions, buy_count, sell_count):
+    """Build plain text version of the no-activity report."""
+
+    lines = []
+    lines.append(f"{'='*60}")
+    lines.append(f"📊 DAILY TRADING REPORT — {date}")
+    lines.append(f"{'='*60}")
+    lines.append("")
+
+    # Portfolio Performance
+    lines.append("💰 PAPER TRADING PERFORMANCE")
+    lines.append("-"*40)
+    lines.append(f"Portfolio Value: ${stats['current_value']:,.2f} ({'+' if stats['total_return_pct'] >= 0 else ''}{stats['total_return_pct']:.1f}% total return)")
+    lines.append(f"Today's P&L:     {'+' if today_pnl >= 0 else ''}${today_pnl:,.2f} ({'+' if today_pnl_pct >= 0 else ''}{today_pnl_pct:.1f}%)")
+    lines.append(f"Cash:            ${stats['cash']:,.2f} ({(stats['cash']/stats['current_value']*100) if stats['current_value'] > 0 else 0:.1f}%)")
+    lines.append(f"Win Rate:        {stats['win_rate']:.1f}% ({stats['winning_trades']}W / {stats['losing_trades']}L)")
+    lines.append(f"Open Positions:  {stats['open_positions']}")
+    lines.append("")
+
+    # Today's Trading Activity
+    lines.append("📈 TODAY'S TRADING ACTIVITY")
+    lines.append("-"*40)
+
+    if closed_today:
+        lines.append(f"Positions Closed ({len(closed_today)}):")
+        for pos in closed_today:
+            pnl_icon = "✅" if pos['profit'] >= 0 else "❌"
+            lines.append(f"  {pnl_icon} {pos['ticker']}: {'+' if pos['profit'] >= 0 else ''}${pos['profit']:.2f} ({'+' if pos['pnl_pct'] >= 0 else ''}{pos['pnl_pct']:.1f}%) | {pos['reason']}")
+        lines.append("")
+
+    if opened_positions:
+        lines.append(f"Positions Opened ({len(opened_positions)}):")
+        for ticker in opened_positions:
+            lines.append(f"  🆕 {ticker}")
+        lines.append("")
+
+    if not closed_today and not opened_positions:
+        lines.append("No trades executed today - all positions holding")
+        lines.append("")
+
+    # Open Positions
+    if open_positions:
+        lines.append(f"🎯 OPEN POSITIONS ({len(open_positions)})")
+        lines.append("-"*40)
+        for pos in open_positions:
+            pnl_str = f"{'+' if pos['unrealized_pnl'] >= 0 else ''}{pos['unrealized_pnl']:.1f}%"
+            lines.append(f"  {pos['ticker']}: {pos['shares']} @ ${pos['entry_price']:.2f} | Current: ${pos['current_price']:.2f} ({pnl_str}) | {pos['days_held']} days")
+        lines.append("")
+    else:
+        lines.append("🎯 OPEN POSITIONS")
+        lines.append("-"*40)
+        lines.append("  No open positions - portfolio fully in cash")
+        lines.append("")
+
+    # No Signals Detected
+    lines.append("🔍 INSIDER SIGNAL DETECTION")
+    lines.append("-"*40)
+    lines.append("  ❌ No insider clusters detected today")
+    lines.append("")
+    lines.append("  System ran successfully but found no qualified clusters meeting criteria:")
+    lines.append("    • Minimum 3 insiders buying")
+    lines.append("    • Minimum $50k per insider")
+    lines.append("    • Score above threshold (8.0+)")
+    lines.append("")
+    lines.append("  Market Activity Summary:")
+    lines.append(f"    • Total Form 4 filings scanned: {total_transactions}")
+    lines.append(f"    • Buy transactions: {buy_count}")
+    lines.append(f"    • Sell transactions: {sell_count}")
+    lines.append("")
+    lines.append("  Next detection: Tomorrow at 7:00 AM ET")
+    lines.append("")
+
+    lines.append(f"{'='*60}")
+    lines.append("Insider Cluster Watch — Paper Trading Dashboard")
+    lines.append("This is a simulated paper trading report. No real money is at risk.")
+    lines.append(f"{'='*60}")
+
+    return "\n".join(lines)
 
 def build_plain_text(rows):
     lines = []

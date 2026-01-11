@@ -13,8 +13,8 @@ logger = logging.getLogger(__name__)
 
 from fetch_openinsider import fetch_openinsider_recent
 from fetch_sec_edgar import fetch_sec_edgar_data
-from process_signals import cluster_and_score, is_urgent
-from generate_report import render_daily_html, render_urgent_html, render_no_activity_html
+from process_signals import cluster_and_score
+from generate_report import render_daily_html, render_no_activity_html
 from send_email import send_email
 from paper_trade import PaperTradingPortfolio
 from news_sentiment import check_news_for_signals
@@ -492,11 +492,14 @@ def main(test=False, urgent_test=False, enable_paper_trading=True):
         if df is None or df.empty:
             print("❌ No data available from either OpenInsider or SEC EDGAR")
             html, text = render_no_activity_html(
+                portfolio=paper_trader,
                 total_transactions=0,
                 buy_count=0,
-                sell_warning_html=""
+                sell_count=0,
+                closed_positions=paper_trader_closed_positions,
+                opened_positions=[]
             )
-            send_email(f"Daily Insider Report — {datetime.utcnow().strftime('%Y-%m-%d')}", html, text)
+            send_email(f"Daily Trading Report — {datetime.utcnow().strftime('%Y-%m-%d')}", html, text)
             return
         else:
             print(f"✅ Using SEC EDGAR data: {len(df)} transaction(s)")
@@ -556,15 +559,18 @@ def main(test=False, urgent_test=False, enable_paper_trading=True):
 
     if cluster_df is None or cluster_df.empty:
         print("ℹ️  No significant insider buying clusters detected")
-        
+
         total_tx = len(df) if df is not None and not df.empty else 0
         html, text = render_no_activity_html(
+            portfolio=paper_trader,
             total_transactions=total_tx,
             buy_count=buy_count,
-            sell_warning_html=sell_warning_html if not sell_warnings.empty else ""
+            sell_count=sell_count,
+            closed_positions=paper_trader_closed_positions,
+            opened_positions=[]
         )
-        
-        send_email(f"Daily Insider Report — {datetime.utcnow().strftime('%Y-%m-%d')}", html, text)
+
+        send_email(f"Daily Trading Report — {datetime.utcnow().strftime('%Y-%m-%d')}", html, text)
         print(f"\n{'='*60}")
         print("✅ Report complete - no-activity email sent")
         print(f"{'='*60}\n")
@@ -892,11 +898,14 @@ def main(test=False, urgent_test=False, enable_paper_trading=True):
         print("⚠️  All signals filtered out due to negative news")
         total_tx = len(df) if df is not None and not df.empty else 0
         html, text = render_no_activity_html(
+            portfolio=paper_trader,
             total_transactions=total_tx,
             buy_count=buy_count,
-            sell_warning_html=sell_warning_html if not sell_warnings.empty else ""
+            sell_count=sell_count,
+            closed_positions=paper_trader_closed_positions,
+            opened_positions=[]
         )
-        send_email(f"Daily Insider Report — {datetime.utcnow().strftime('%Y-%m-%d')}", html, text)
+        send_email(f"Daily Trading Report — {datetime.utcnow().strftime('%Y-%m-%d')}", html, text)
         print(f"\n{'='*60}")
         print("✅ Report complete - no signals passed news filter")
         print(f"{'='*60}\n")
@@ -912,15 +921,18 @@ def main(test=False, urgent_test=False, enable_paper_trading=True):
     if new_cluster_df.empty:
         print("\n⚠️  All signals are duplicates - no new insider activity")
         print("   Sending no-activity report\n")
-        
+
         total_tx = len(df) if df is not None and not df.empty else 0
         html, text = render_no_activity_html(
+            portfolio=paper_trader,
             total_transactions=total_tx,
             buy_count=buy_count,
-            sell_warning_html=sell_warning_html if not sell_warnings.empty else ""
+            sell_count=sell_count,
+            closed_positions=paper_trader_closed_positions,
+            opened_positions=[]
         )
-        
-        send_email(f"Daily Insider Report — {datetime.utcnow().strftime('%Y-%m-%d')}", html, text)
+
+        send_email(f"Daily Trading Report — {datetime.utcnow().strftime('%Y-%m-%d')}", html, text)
         print(f"{'='*60}")
         print("✅ Report complete - no new signals to report")
         print(f"{'='*60}\n")
@@ -1078,16 +1090,7 @@ def main(test=False, urgent_test=False, enable_paper_trading=True):
     append_to_history(cluster_df)
     print()
 
-    # 8) Check for urgent signals
-    urgent_df = cluster_df[cluster_df.apply(lambda r: is_urgent(r), axis=1)].copy()
-    
-    if not urgent_df.empty:
-        print(f"🚨 URGENT: {len(urgent_df)} high-conviction signal(s) detected:")
-        for _, row in urgent_df.iterrows():
-            print(f"   • {row['ticker']} - {row['suggested_action']}")
-        print()
-
-    # 9) Generate reports
+    # 8) Generate reports
     print("📧 Generating email reports...")
 
     # Use new personal trading dashboard format if paper trading is enabled
@@ -1113,31 +1116,16 @@ def main(test=False, urgent_test=False, enable_paper_trading=True):
         daily_html = daily_html.replace('</h2>', f'</h2>{sell_warning_html}')
         daily_text = sell_warning_text + '\n\n' + daily_text
 
-    # Generate urgent email if needed
-    if not urgent_df.empty:
-        urgent_html, urgent_text = render_urgent_html(urgent_df)
-        if not sell_warnings.empty:
-            urgent_html = urgent_html.replace('</h2>', f'</h2>{sell_warning_html}')
-            urgent_text = sell_warning_text + '\n\n' + urgent_text
-    else:
-        urgent_html = None
-        urgent_text = None
-
-    # 10) Send emails
+    # 9) Send emails
     # Use "Daily Trading Report" subject when paper trading is enabled
     daily_subject = f"Daily Trading Report — {datetime.utcnow().strftime('%Y-%m-%d')}" if paper_trader else f"Daily Insider Report — {datetime.utcnow().strftime('%Y-%m-%d')}"
 
     if test:
         print("📬 Sending TEST emails...")
         send_email(f"TEST — {daily_subject}", daily_html, daily_text)
-        if urgent_html:
-            send_email(f"TEST — URGENT Insider Alert — {datetime.utcnow().strftime('%Y-%m-%d')}", urgent_html, urgent_text)
     else:
         print("📬 Sending daily report...")
         send_email(daily_subject, daily_html, daily_text)
-        if urgent_html:
-            print("📬 Sending urgent alert...")
-            send_email(f"URGENT Insider Alert — {datetime.utcnow().strftime('%Y-%m-%d')}", urgent_html, urgent_text)
     
     print(f"\n{'='*60}")
     print("✅ All done! Reports sent successfully")
@@ -1159,32 +1147,7 @@ def main(test=False, urgent_test=False, enable_paper_trading=True):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--test', action='store_true', help='Send test emails and exit')
-    parser.add_argument('--urgent-test', action='store_true', help='Generate a fake urgent email for testing')
     parser.add_argument('--no-paper-trading', action='store_true', help='Disable paper trading simulation')
     args = parser.parse_args()
-    
-    if args.urgent_test:
-        # Generate a fake urgent HTML so you can test templates
-        print("🧪 Generating test urgent alert...\n")
-        fake = pd.DataFrame([{
-            'ticker':'FAKE',
-            'last_trade_date':pd.Timestamp.now(),
-            'cluster_count':4,
-            'total_value':500000,
-            'avg_conviction':20,
-            'insiders':'CEO, CFO, DIRECTOR',
-            'currentPrice': 5.25,
-            'pct_from_52wk_low': 10.0,
-            'rank_score': 15.0,
-            'suggested_action': 'URGENT: Consider small entry at open / immediate review',
-            'rationale': 'Cluster count:4 | Total reported buys: $500,000 | Current Price: $5.25 | 10.0% above 52-week low | Rank Score: 15.00',
-            'sector': 'Technology',
-            'quality_score': 8.5,
-            'pattern_detected': 'CEO Cluster',
-            'news_sentiment': 'positive'
-        }])
-        from generate_report import render_urgent_html
-        html, text = render_urgent_html(fake)
-        send_email("URGENT TEST INSIDER ALERT", html, text)
-    else:
-        main(test=args.test, enable_paper_trading=not args.no_paper_trading)
+
+    main(test=args.test, enable_paper_trading=not args.no_paper_trading)

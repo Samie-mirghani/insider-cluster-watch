@@ -1583,16 +1583,14 @@ def calculate_sector_adjustment(r):
         return 0.0  # Neutral or unknown
 
 def is_urgent(r, thresholds=URGENT_THRESHOLDS):
-    # r: a row from cluster_df
-    cond_cluster = r.get('cluster_count',0) >= thresholds['cluster_count']
-    cond_value = r.get('total_value',0) >= thresholds['total_value']
-    # detect presence of c-suite in the insidees / but we don't have role per insider here; approximate by avg_conviction > some threshold
-    cond_c_suite = r.get('avg_conviction',0) >= 7.0 if thresholds.get('has_c_suite', True) else True
-    cond_pct_low = True
-    pct_low = r.get('pct_from_52wk_low')
-    if pct_low is not None:
-        cond_pct_low = pct_low <= thresholds['pct_from_52wk_low']
-    return cond_cluster and cond_value and cond_c_suite and cond_pct_low
+    """
+    DEPRECATED: Always returns False. All signals are now captured in daily report.
+
+    The urgent email system has been removed to consolidate all signals into
+    a single daily trading report. This function is kept for backward compatibility
+    but will always return False.
+    """
+    return False
 
 def suggest_action(r):
     """
