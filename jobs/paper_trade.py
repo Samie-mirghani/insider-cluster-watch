@@ -1003,7 +1003,10 @@ class PaperTradingPortfolio:
         total_return = current_value - self.starting_capital
         total_return_pct = (total_return / self.starting_capital) * 100
 
-        win_rate = (self.winning_trades / self.total_trades * 100) if self.total_trades > 0 else 0
+        # Win rate should be based on CLOSED trades only, not total buys
+        # total_trades counts BUY orders, winning_trades + losing_trades = closed trades
+        closed_trades = self.winning_trades + self.losing_trades
+        win_rate = (self.winning_trades / closed_trades * 100) if closed_trades > 0 else 0
 
         # VALIDATION: Check for consistency issues
         if validate:
