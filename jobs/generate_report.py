@@ -756,6 +756,126 @@ def _build_trading_dashboard_text(date, stats, today_pnl, today_pnl_pct, closed_
     return "\n".join(lines)
 
 
+def _render_simple_no_activity_report(total_transactions=0, buy_count=0, sell_count=0):
+    """
+    Simplified no-activity report for when paper trading is disabled.
+    Shows only signal detection status and market activity summary.
+    """
+    date = datetime.now().strftime("%B %d, %Y")
+    date_short = datetime.now().strftime("%Y-%m-%d")
+
+    # Color scheme matching dashboard-v2.html spec
+    bg_main = "#0a1929"
+    bg_card = "rgba(255, 255, 255, 0.05)"
+    primary = "#00D9FF"
+    text_main = "#ffffff"
+    text_muted = "#94a3b8"
+    border = f"1px solid rgba(0, 217, 255, 0.2)"
+
+    html = f'''<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Trading Report - {date}</title>
+</head>
+<body style="margin: 0; padding: 0; background: {bg_main}; color: {text_main}; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; line-height: 1.6;">
+    <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background: {bg_main};">
+        <tr>
+            <td align="center" style="padding: 20px;">
+                <table width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width: 800px;">
+                    <!-- Header -->
+                    <tr>
+                        <td style="padding: 20px 0; text-align: center;">
+                            <h1 style="margin: 0; font-size: 28px; font-weight: 800; color: {primary};">📊 Daily Trading Report</h1>
+                            <p style="margin: 10px 0 0 0; color: {text_muted}; font-size: 14px;">{date}</p>
+                        </td>
+                    </tr>
+
+                    <!-- No Signals Detected -->
+                    <tr>
+                        <td style="padding: 10px 0;">
+                            <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background: rgba(0,217,255,0.1); border: 1px solid {primary}; border-radius: 12px;">
+                                <tr>
+                                    <td style="padding: 40px 25px; text-align: center;">
+                                        <h2 style="margin: 0 0 15px 0; font-size: 20px; font-weight: 700; color: {primary};">🔍 INSIDER SIGNAL DETECTION</h2>
+                                        <div style="font-size: 48px; margin-bottom: 15px;">❌</div>
+                                        <p style="margin: 0 0 10px 0; font-size: 16px; font-weight: 600; color: {text_main};">No insider clusters detected today</p>
+                                        <p style="margin: 0 0 20px 0; font-size: 14px; color: {text_muted};">System ran successfully but found no qualified clusters meeting criteria</p>
+
+                                        <div style="text-align: left; max-width: 500px; margin: 0 auto;">
+                                            <p style="margin: 10px 0; font-size: 13px; color: {text_muted};">
+                                                <strong style="color: {text_main};">Requirements:</strong><br>
+                                                • Minimum 3 insiders buying<br>
+                                                • Minimum $50k per insider<br>
+                                                • Score above threshold (8.0+)
+                                            </p>
+                                            <p style="margin: 10px 0; font-size: 13px; color: {text_muted};">
+                                                <strong style="color: {text_main};">Market Activity Summary:</strong><br>
+                                                • Total Form 4 filings scanned: {total_transactions}<br>
+                                                • Buy transactions: {buy_count}<br>
+                                                • Sell transactions: {sell_count}
+                                            </p>
+                                            <p style="margin: 15px 0 0 0; font-size: 13px; color: {text_muted};">
+                                                <strong style="color: {primary};">Next detection: Tomorrow at 7:00 AM ET</strong>
+                                            </p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <!-- Footer -->
+                    <tr>
+                        <td style="padding: 30px 0 20px 0; text-align: center;">
+                            <p style="margin: 0; font-size: 12px; color: {text_muted};">
+                                <strong style="color: {primary};">Insider Cluster Watch</strong> — Signal Detection System
+                            </p>
+                            <p style="margin: 10px 0 0 0; font-size: 11px; color: {text_muted};">
+                                Monitoring insider buying activity for qualified clusters
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>'''
+
+    # Plain text version
+    text_lines = [
+        f"{'='*60}",
+        f"📊 DAILY TRADING REPORT — {date_short}",
+        f"{'='*60}",
+        "",
+        "🔍 INSIDER SIGNAL DETECTION",
+        "-"*40,
+        "  ❌ No insider clusters detected today",
+        "",
+        "  System ran successfully but found no qualified clusters meeting criteria:",
+        "    • Minimum 3 insiders buying",
+        "    • Minimum $50k per insider",
+        "    • Score above threshold (8.0+)",
+        "",
+        "  Market Activity Summary:",
+        f"    • Total Form 4 filings scanned: {total_transactions}",
+        f"    • Buy transactions: {buy_count}",
+        f"    • Sell transactions: {sell_count}",
+        "",
+        "  Next detection: Tomorrow at 7:00 AM ET",
+        "",
+        f"{'='*60}",
+        "Insider Cluster Watch — Signal Detection System",
+        "Monitoring insider buying activity for qualified clusters",
+        f"{'='*60}",
+    ]
+
+    text = "\n".join(text_lines)
+    return html, text
+
+
 def render_no_activity_html(
     portfolio,
     total_transactions=0,
@@ -768,7 +888,7 @@ def render_no_activity_html(
     Generate no-activity report (no signals, but may have trading activity)
 
     Args:
-        portfolio: PaperTradingPortfolio instance
+        portfolio: PaperTradingPortfolio instance (can be None if paper trading disabled)
         total_transactions: Total Form 4 filings scanned
         buy_count: Number of buy transactions
         sell_count: Number of sell transactions
@@ -780,6 +900,14 @@ def render_no_activity_html(
     """
     closed_positions = closed_positions or []
     opened_positions = opened_positions or []
+
+    # Handle case when paper trading is disabled
+    if portfolio is None:
+        return _render_simple_no_activity_report(
+            total_transactions=total_transactions,
+            buy_count=buy_count,
+            sell_count=sell_count
+        )
 
     # Get portfolio stats
     stats = portfolio.get_performance_summary(validate=False)

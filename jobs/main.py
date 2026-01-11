@@ -351,7 +351,7 @@ def append_to_history(cluster_df):
     combined.to_csv(HISTORY_CSV, index=False)
     print(f"✅ Saved {len(new_df)} signal(s) to history (total: {len(combined)} signals tracked)")
 
-def main(test=False, urgent_test=False, enable_paper_trading=True):
+def main(test=False, enable_paper_trading=True):
     print(f"{'='*60}")
     print(f"🔍 Insider Cluster Watch - {datetime.utcnow().strftime('%Y-%m-%d %H:%M UTC')}")
     print(f"{'='*60}\n")
@@ -1117,8 +1117,8 @@ def main(test=False, urgent_test=False, enable_paper_trading=True):
         daily_text = sell_warning_text + '\n\n' + daily_text
 
     # 9) Send emails
-    # Use "Daily Trading Report" subject when paper trading is enabled
-    daily_subject = f"Daily Trading Report — {datetime.utcnow().strftime('%Y-%m-%d')}" if paper_trader else f"Daily Insider Report — {datetime.utcnow().strftime('%Y-%m-%d')}"
+    # Use consistent "Daily Trading Report" subject for all emails
+    daily_subject = f"Daily Trading Report — {datetime.utcnow().strftime('%Y-%m-%d')}"
 
     if test:
         print("📬 Sending TEST emails...")
