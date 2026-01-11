@@ -1526,17 +1526,32 @@
 
                 // Get best signal
                 const today = new Date().toISOString().split('T')[0];
-                let bestSignal = signalsData.find(s => s.date === today);
+                const todaySignals = signalsData.filter(s => s.date === today);
+
+                let bestSignal;
+                if (todaySignals.length > 0) {
+                    // Get highest scoring signal from today
+                    bestSignal = todaySignals.sort((a, b) =>
+                        parseFloat(b.signal_score) - parseFloat(a.signal_score)
+                    )[0];
+                } else {
+                    // No signals today - get best signal from most recent run
+                    const mostRecentDate = signalsData[0]?.date; // Already sorted by date desc
+                    if (mostRecentDate) {
+                        const recentSignals = signalsData.filter(s => s.date === mostRecentDate);
+                        bestSignal = recentSignals.sort((a, b) =>
+                            parseFloat(b.signal_score) - parseFloat(a.signal_score)
+                        )[0];
+                    }
+                }
 
                 if (bestSignal) {
                     updateBestSignal(bestSignal);
                 } else {
-                    // No signals today - show appropriate message
                     updateBestSignalNoData();
                 }
 
                 // Update hero badge with cluster count
-                const todaySignals = signalsData.filter(s => s.date === today);
                 const clusterCount = todaySignals.length;
                 if (clusterCount === 0) {
                     document.getElementById('hero-badge').textContent = 'v2.4 LIVE PIPELINE • NO CLUSTERS DETECTED TODAY';
