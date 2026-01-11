@@ -1528,20 +1528,21 @@
                 const today = new Date().toISOString().split('T')[0];
                 let bestSignal = signalsData.find(s => s.date === today);
 
-                if (!bestSignal) {
-                    bestSignal = signalsData.reduce((best, curr) =>
-                        parseFloat(curr.signal_score) > parseFloat(best.signal_score) ? curr : best
-                    , signalsData[0]);
-                }
-
                 if (bestSignal) {
                     updateBestSignal(bestSignal);
+                } else {
+                    // No signals today - show appropriate message
+                    updateBestSignalNoData();
                 }
 
                 // Update hero badge with cluster count
                 const todaySignals = signalsData.filter(s => s.date === today);
-                const clusterCount = todaySignals.length || signalsData.filter(s => s.date === signalsData[0]?.date).length;
-                document.getElementById('hero-badge').textContent = `v2.4 LIVE PIPELINE • ${clusterCount} CLUSTERS TRACKED TODAY`;
+                const clusterCount = todaySignals.length;
+                if (clusterCount === 0) {
+                    document.getElementById('hero-badge').textContent = 'v2.4 LIVE PIPELINE • NO CLUSTERS DETECTED TODAY';
+                } else {
+                    document.getElementById('hero-badge').textContent = `v2.4 LIVE PIPELINE • ${clusterCount} CLUSTER${clusterCount > 1 ? 'S' : ''} TRACKED TODAY`;
+                }
 
                 // Update total tracked value
                 const totalValue = signalsData.slice(0, 100).reduce((sum, s) => sum + (parseFloat(s.total_value) || 0), 0);
@@ -1577,7 +1578,9 @@
                 else if (diffDays > 1 && diffDays < 7) dateText = diffDays + 'd ago';
                 else if (diffDays >= 7) dateText = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
 
-                const price = signal.price ? '$' + parseFloat(signal.price).toFixed(2) : '-';
+                // Price data is not available in CSV, show N/A
+                const price = signal.currentPrice ? '$' + parseFloat(signal.currentPrice).toFixed(2) :
+                             signal.price ? '$' + parseFloat(signal.price).toFixed(2) : 'N/A';
                 const clusterCount = parseInt(signal.cluster_count) || 1;
                 const totalVal = parseFloat(signal.total_value) || 0;
 
@@ -1623,6 +1626,15 @@
             } else {
                 document.getElementById('signal-alert').innerHTML = `&#9888; HIGH CONVICTION: Top insider score ${signal.top_insider_score || 50}/100`;
             }
+        }
+
+        function updateBestSignalNoData() {
+            document.getElementById('signal-time').textContent = 'TODAY';
+            document.getElementById('signal-ticker').textContent = '---';
+            document.getElementById('signal-insider').textContent = 'No signals detected';
+            document.getElementById('signal-value').textContent = '$0';
+            document.getElementById('signal-score').textContent = '0.0';
+            document.getElementById('signal-alert').innerHTML = '&#9888; No signals detected today - monitoring continues';
         }
 
         // ===== LOAD PAPER TRADES FOR CHART =====
