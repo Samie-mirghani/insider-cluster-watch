@@ -609,7 +609,7 @@
       <div class="metrics-row">
         <div class="metric-box">
           <div class="label">Sharpe Ratio</div>
-          <div class="value {% if sharpe_ratio_1m >= 1 %}positive{% elif sharpe_ratio_1m < 0 %}negative{% endif %}">
+          <div class="value {% if sharpe_ratio_1m|float >= 1 %}positive{% elif sharpe_ratio_1m|float < 0 %}negative{% endif %}">
             {{ sharpe_ratio_1m }}
           </div>
         </div>
@@ -619,7 +619,7 @@
         </div>
         <div class="metric-box">
           <div class="label">Win/Loss Ratio</div>
-          <div class="value {% if win_loss_ratio_1m >= 1.5 %}positive{% endif %}">
+          <div class="value {% if win_loss_ratio_1m|float >= 1.5 %}positive{% endif %}">
             {{ win_loss_ratio_1m }}
           </div>
         </div>
@@ -627,7 +627,7 @@
       <div class="metrics-row">
         <div class="metric-box">
           <div class="label">Median Return</div>
-          <div class="value {% if median_return_1m > 0 %}positive{% else %}negative{% endif %}">
+          <div class="value {% if median_return_1m|float > 0 %}positive{% elif median_return_1m|float < 0 %}negative{% endif %}">
             {{ median_return_1m }}%
           </div>
         </div>
