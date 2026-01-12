@@ -1352,7 +1352,6 @@ class PaperTradingPortfolio:
 
             # Create backup of corrupted file
             import shutil
-            from datetime import datetime
             backup_path = f"{PAPER_PORTFOLIO_FILE}.corrupt.{datetime.now().strftime('%Y%m%d_%H%M%S')}.bak"
             try:
                 shutil.copy(PAPER_PORTFOLIO_FILE, backup_path)
