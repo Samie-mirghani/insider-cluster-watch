@@ -1,7 +1,7 @@
 {
   "total_api_calls": 288,
-  "total_cache_hits": 1215,
-  "total_cache_misses": 288,
+  "total_cache_hits": 1279,
+  "total_cache_misses": 540,
   "total_errors": 0,
   "daily_usage": {
     "2025-12-23": 126,
@@ -164,13 +164,20 @@
       "hit_rate_pct": 80.84,
       "total_hits": 1215,
       "total_misses": 288
+    },
+    {
+      "timestamp": "2026-01-12T20:41:04.331832",
+      "cache_size": 333,
+      "hit_rate_pct": 70.31,
+      "total_hits": 1279,
+      "total_misses": 540
     }
   ],
   "cost_tracking": {
     "total_free_calls": 288,
     "total_paid_calls": 0,
-    "estimated_cost_saved": 0.03402000000000025
+    "estimated_cost_saved": 0.03581200000000027
   },
   "created_at": "2025-12-23T11:27:31.371555",
-  "last_updated": "2026-01-12T20:24:04.649303"
+  "last_updated": "2026-01-12T20:41:04.332039"
 }

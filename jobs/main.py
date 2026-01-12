@@ -286,11 +286,18 @@ def format_sell_warning(sell_df):
 def append_to_history(cluster_df):
     """
     Append new signals to the historical tracking CSV.
-    Now includes sector, industry, quality_score, float analysis metrics, and multi-signal fields.
-    Industry data sourced from FMP API for reliable tracking and traceability.
+    Now includes sector, industry, quality_score, float analysis metrics, multi-signal fields, and current prices.
+    Industry and price data sourced from FMP API for reliable tracking and traceability.
     """
     if cluster_df is None or cluster_df.empty:
         return
+
+    # Fetch current prices for all tickers
+    print("   Fetching current prices...")
+    tickers = cluster_df['ticker'].unique().tolist()
+    profiles = fetch_profiles_batch(tickers)
+    price_map = {ticker: profile.get('price') for ticker, profile in profiles.items() if profile and 'price' in profile}
+    print(f"   ✅ Prices fetched for {len(price_map)}/{len(tickers)} tickers")
 
     rows = []
     for _, r in cluster_df.iterrows():
@@ -322,7 +329,9 @@ def append_to_history(cluster_df):
             'days_to_cover': float(r.get('days_to_cover')) if r.get('days_to_cover') is not None else None,
             'squeeze_score': float(r.get('squeeze_score', 0)),
             'squeeze_potential': bool(r.get('squeeze_potential', False)),
-            'short_interest_available': bool(r.get('short_interest_available', False))
+            'short_interest_available': bool(r.get('short_interest_available', False)),
+            # Current price from FMP API
+            'currentPrice': float(price_map.get(r.get('ticker'))) if price_map.get(r.get('ticker')) is not None else None
         })
 
     new_df = pd.DataFrame(rows)
