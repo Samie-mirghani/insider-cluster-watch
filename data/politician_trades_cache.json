@@ -1,5 +1,5 @@
 {
-  "cached_at": "2026-01-12T13:47:09.832554",
+  "cached_at": "2026-01-12T20:24:08.219446",
   "trades": [
     {
       "ticker": "CM",
@@ -143,24 +143,6 @@
       "amount_mid": 15000000.0,
       "politician_weight": 1.0,
       "weighted_amount": 15000000.0,
-      "disclosure_lag_days": NaN
-    },
-    {
-      "ticker": "LPIEP",
-      "politician": "Nicole Malliotakis",
-      "party": "Republican",
-      "trade_date": "2025-12-19",
-      "amount_range": "15K-50K",
-      "asset_name": "Icahn Enterprises",
-      "chamber": "House",
-      "transaction_type": "buy",
-      "disclosure_date": null,
-      "state": "NY",
-      "amount_min": 15000.0,
-      "amount_max": 50000.0,
-      "amount_mid": 32500.0,
-      "politician_weight": 1.0,
-      "weighted_amount": 32500.0,
       "disclosure_lag_days": NaN
     }
   ]
