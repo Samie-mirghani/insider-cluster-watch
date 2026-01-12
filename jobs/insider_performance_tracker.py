@@ -238,7 +238,17 @@ class InsiderPerformanceTracker:
     def _save_trades_history(self):
         """Save trades history to CSV file."""
         INSIDER_TRADES_HISTORY_PATH.parent.mkdir(parents=True, exist_ok=True)
-        self.trades_history.to_csv(INSIDER_TRADES_HISTORY_PATH, index=False)
+
+        # CRITICAL FIX: Ensure trade_date is always saved as date-only format (YYYY-MM-DD)
+        # This prevents mixed formats (some with timestamps, some without) that cause parsing errors
+        df_to_save = self.trades_history.copy()
+        if not df_to_save.empty and 'trade_date' in df_to_save.columns:
+            # Convert to datetime if not already, then format as date-only string
+            if not pd.api.types.is_datetime64_any_dtype(df_to_save['trade_date']):
+                df_to_save['trade_date'] = pd.to_datetime(df_to_save['trade_date'], format='mixed')
+            df_to_save['trade_date'] = df_to_save['trade_date'].dt.strftime('%Y-%m-%d')
+
+        df_to_save.to_csv(INSIDER_TRADES_HISTORY_PATH, index=False)
 
     def add_trades(self, trades_df: pd.DataFrame):
         """
@@ -353,9 +363,15 @@ class InsiderPerformanceTracker:
         today = datetime.now()
         needs_update = self.trades_history.copy()
 
+        # Ensure trade_date is datetime type
+        # CRITICAL FIX: Use format='mixed' to handle both "YYYY-MM-DD" and "YYYY-MM-DD HH:MM:SS" formats
+        # This prevents ValueError when CSV has mixed date formats due to git merges or legacy data
+        if not pd.api.types.is_datetime64_any_dtype(needs_update['trade_date']):
+            needs_update['trade_date'] = pd.to_datetime(needs_update['trade_date'], format='mixed')
+
         # Filter for trades old enough to have outcomes
         needs_update = needs_update[
-            pd.to_datetime(needs_update['trade_date']) < (today - timedelta(days=30))
+            needs_update['trade_date'] < (today - timedelta(days=30))
         ]
 
         # Prioritize trades with missing outcomes
@@ -686,7 +702,7 @@ class InsiderPerformanceTracker:
             # Calculate recency-weighted performance (last 12 months weighted 2x)
             recent_cutoff = datetime.now() - timedelta(days=365)
             recent_trades = insider_trades[
-                pd.to_datetime(insider_trades['trade_date']) >= recent_cutoff
+                insider_trades['trade_date'] >= recent_cutoff
             ]
 
             if not recent_trades.empty and recent_trades['return_90d'].notna().any():
