@@ -353,9 +353,13 @@ class InsiderPerformanceTracker:
         today = datetime.now()
         needs_update = self.trades_history.copy()
 
+        # Ensure trade_date is datetime type
+        if not pd.api.types.is_datetime64_any_dtype(needs_update['trade_date']):
+            needs_update['trade_date'] = pd.to_datetime(needs_update['trade_date'])
+
         # Filter for trades old enough to have outcomes
         needs_update = needs_update[
-            pd.to_datetime(needs_update['trade_date']) < (today - timedelta(days=30))
+            needs_update['trade_date'] < (today - timedelta(days=30))
         ]
 
         # Prioritize trades with missing outcomes
@@ -686,7 +690,7 @@ class InsiderPerformanceTracker:
             # Calculate recency-weighted performance (last 12 months weighted 2x)
             recent_cutoff = datetime.now() - timedelta(days=365)
             recent_trades = insider_trades[
-                pd.to_datetime(insider_trades['trade_date']) >= recent_cutoff
+                insider_trades['trade_date'] >= recent_cutoff
             ]
 
             if not recent_trades.empty and recent_trades['return_90d'].notna().any():
