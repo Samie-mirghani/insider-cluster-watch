@@ -23,6 +23,17 @@ jobs:
         run: |
           pip install -r requirements.txt
 
+      - name: Validate data integrity before job execution
+        run: |
+          echo "🔍 Running data integrity validation..."
+          python jobs/validate_data_integrity.py
+          if [ $? -ne 0 ]; then
+            echo "❌ Data integrity validation failed! Aborting job execution."
+            echo "🚨 This prevents running jobs with corrupted data files."
+            exit 1
+          fi
+          echo "✅ Data integrity validation passed"
+
       - name: Run report generator
         env:
           GMAIL_USER: ${{ secrets.GMAIL_USER }}
@@ -147,11 +158,34 @@ jobs:
           # Stash any remaining changes to prevent rebase errors
           git stash --include-untracked || true
 
-          # Rebase onto latest main (ignore errors if none)
-          git pull --rebase origin main || true
+          # Rebase onto latest main with proper conflict handling
+          echo "🔄 Attempting rebase onto main..."
+          if git pull --rebase origin main; then
+            echo "✅ Rebase successful"
+          else
+            echo "⚠️ Rebase had conflicts, aborting rebase"
+            git rebase --abort
+            echo "🔀 Using merge strategy instead"
+            git pull --no-rebase origin main || echo "⚠️ Merge had issues, continuing with local changes"
+          fi
 
           # Re-apply stashed changes
-          git stash pop || true
+          if git stash pop; then
+            echo "✅ Stashed changes re-applied"
+          else
+            echo "⚠️ No stash to pop or conflicts in stash, continuing"
+          fi
+
+          # CRITICAL: Validate no merge conflict markers were introduced
+          echo "🔍 Checking for merge conflict markers in data files..."
+          if grep -r "<<<<<<< HEAD" data/ 2>/dev/null; then
+            echo "🚨 CRITICAL ERROR: Merge conflict markers detected in data files!"
+            echo "This is a data corruption issue. Aborting commit and push."
+            echo "Affected files:"
+            grep -l "<<<<<<< HEAD" data/* 2>/dev/null || true
+            exit 1
+          fi
+          echo "✅ No merge conflict markers detected"
 
           # Add any reapplied files again
           git add -f data/paper_portfolio.json data/paper_trading.log data/paper_trades.csv

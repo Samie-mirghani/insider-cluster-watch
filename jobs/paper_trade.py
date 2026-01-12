@@ -1333,9 +1333,44 @@ class PaperTradingPortfolio:
             return portfolio
         
         except Exception as e:
-            logger.error(f"⚠️  Error loading portfolio: {e}")
-            logger.info("   Creating new portfolio")
-            return cls()
+            logger.error(f"🚨 CRITICAL ERROR loading portfolio: {e}")
+            logger.error(f"   Portfolio file: {PAPER_PORTFOLIO_FILE}")
+
+            # Check if file contains merge conflict markers
+            try:
+                with open(PAPER_PORTFOLIO_FILE, 'r') as f:
+                    content = f.read()
+                    if '<<<<<<< HEAD' in content or '=======' in content or '>>>>>>>' in content:
+                        logger.error("🚨 MERGE CONFLICT MARKERS DETECTED IN PORTFOLIO FILE!")
+                        logger.error("   This is a data corruption issue that requires manual intervention.")
+                        logger.error("   DO NOT reset portfolio. Aborting job execution.")
+                        raise RuntimeError("Portfolio file contains merge conflict markers - manual fix required")
+            except RuntimeError:
+                raise  # Re-raise the RuntimeError we just created
+            except Exception as check_error:
+                logger.error(f"   Error checking for conflict markers: {check_error}")
+
+            # Create backup of corrupted file
+            import shutil
+            from datetime import datetime
+            backup_path = f"{PAPER_PORTFOLIO_FILE}.corrupt.{datetime.now().strftime('%Y%m%d_%H%M%S')}.bak"
+            try:
+                shutil.copy(PAPER_PORTFOLIO_FILE, backup_path)
+                logger.error(f"   Corrupted file backed up to: {backup_path}")
+            except Exception as backup_error:
+                logger.error(f"   Failed to create backup: {backup_error}")
+
+            # Log file contents for debugging
+            try:
+                with open(PAPER_PORTFOLIO_FILE, 'r') as f:
+                    corrupted_content = f.read()[:500]  # First 500 chars
+                    logger.error(f"   File contents (first 500 chars): {corrupted_content}")
+            except Exception:
+                pass
+
+            logger.error("🚨 ABORTING: Portfolio cannot be loaded and will NOT be reset.")
+            logger.error("   Manual intervention required to fix data corruption.")
+            raise RuntimeError(f"Failed to load portfolio: {e}. File backed up to {backup_path if 'backup_path' in locals() else 'N/A'}")
 
 
 def generate_paper_trading_report(portfolio):
