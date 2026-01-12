@@ -1561,7 +1561,7 @@
                 }
 
                 // Update total tracked value
-                const totalValue = signalsData.slice(0, 100).reduce((sum, s) => sum + (parseFloat(s.total_value) || 0), 0);
+                const totalValue = signalsData.reduce((sum, s) => sum + (parseFloat(s.total_value) || 0), 0);
                 document.getElementById('stat-total-tracked').textContent = formatCompactCurrency(totalValue);
 
                 // Populate clusters table on landing page
