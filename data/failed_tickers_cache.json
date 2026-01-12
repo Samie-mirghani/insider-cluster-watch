@@ -2979,20 +2979,12 @@
         "type": "TEMPORARY"
       },
       {
-<<<<<<< HEAD
-        "date": "2026-01-12T11:33:53.523245",
-=======
         "date": "2026-01-12T13:46:44.799052",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No price data from yfinance",
         "type": "TEMPORARY"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:33:53.523236",
-=======
     "last_failure": "2026-01-12T13:46:44.799040",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No price data from yfinance",
     "failure_type": "PERMANENT"
   },
@@ -4062,2626 +4054,1471 @@
   },
   "GLGI": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:28:04.588439",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:28:04.588449",
-=======
     "first_failure": "2026-01-12T13:40:42.467395",
     "failure_history": [
       {
         "date": "2026-01-12T13:40:42.467405",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:28:04.588446",
-=======
     "last_failure": "2026-01-12T13:40:42.467402",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "SRTS": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:28:05.260221",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:28:05.260230",
-=======
     "first_failure": "2026-01-12T13:40:43.185497",
     "failure_history": [
       {
         "date": "2026-01-12T13:40:43.185507",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:28:05.260228",
-=======
     "last_failure": "2026-01-12T13:40:43.185505",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "TBRG": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:28:06.059165",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:28:06.059175",
-=======
     "first_failure": "2026-01-12T13:40:44.009267",
     "failure_history": [
       {
         "date": "2026-01-12T13:40:44.009277",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:28:06.059172",
-=======
     "last_failure": "2026-01-12T13:40:44.009275",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "SPRU": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:28:06.709306",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:28:06.709339",
-=======
     "first_failure": "2026-01-12T13:40:44.690596",
     "failure_history": [
       {
         "date": "2026-01-12T13:40:44.690606",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:28:06.709334",
-=======
     "last_failure": "2026-01-12T13:40:44.690604",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "IONQ": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:28:08.886524",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:28:08.886533",
-=======
     "first_failure": "2026-01-12T13:40:46.919131",
     "failure_history": [
       {
         "date": "2026-01-12T13:40:46.919141",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:28:08.886531",
-=======
     "last_failure": "2026-01-12T13:40:46.919139",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "EWTX": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:28:10.033820",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:28:10.033828",
-=======
     "first_failure": "2026-01-12T13:40:48.124817",
     "failure_history": [
       {
         "date": "2026-01-12T13:40:48.124827",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:28:10.033826",
-=======
     "last_failure": "2026-01-12T13:40:48.124825",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "EXFY": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:28:10.717932",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:28:10.717940",
-=======
     "first_failure": "2026-01-12T13:40:48.836270",
     "failure_history": [
       {
         "date": "2026-01-12T13:40:48.836279",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:28:10.717938",
-=======
     "last_failure": "2026-01-12T13:40:48.836277",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "MRVI": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:28:11.885190",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:28:11.885199",
-=======
     "first_failure": "2026-01-12T13:40:50.039684",
     "failure_history": [
       {
         "date": "2026-01-12T13:40:50.039693",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:28:11.885196",
-=======
     "last_failure": "2026-01-12T13:40:50.039690",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "BFS": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:28:13.276829",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:28:13.276839",
-=======
     "first_failure": "2026-01-12T13:40:51.490241",
     "failure_history": [
       {
         "date": "2026-01-12T13:40:51.490251",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:28:13.276836",
-=======
     "last_failure": "2026-01-12T13:40:51.490249",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "APLE": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:28:14.517262",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:28:14.517271",
-=======
     "first_failure": "2026-01-12T13:40:52.779444",
     "failure_history": [
       {
         "date": "2026-01-12T13:40:52.779454",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:28:14.517269",
-=======
     "last_failure": "2026-01-12T13:40:52.779451",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "UPST": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:28:15.185223",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:28:15.185232",
-=======
     "first_failure": "2026-01-12T13:40:53.460425",
     "failure_history": [
       {
         "date": "2026-01-12T13:40:53.460434",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:28:15.185230",
-=======
     "last_failure": "2026-01-12T13:40:53.460432",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "BXSL": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:28:15.915283",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:28:15.915293",
-=======
     "first_failure": "2026-01-12T13:40:54.203403",
     "failure_history": [
       {
         "date": "2026-01-12T13:40:54.203413",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:28:15.915290",
-=======
     "last_failure": "2026-01-12T13:40:54.203411",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "RGP": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:28:16.778286",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:28:16.778295",
-=======
     "first_failure": "2026-01-12T13:40:55.123620",
     "failure_history": [
       {
         "date": "2026-01-12T13:40:55.123629",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:28:16.778293",
-=======
     "last_failure": "2026-01-12T13:40:55.123627",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "MOS": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:28:18.696952",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:28:18.696961",
-=======
     "first_failure": "2026-01-12T13:40:57.138506",
     "failure_history": [
       {
         "date": "2026-01-12T13:40:57.138516",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:28:18.696959",
-=======
     "last_failure": "2026-01-12T13:40:57.138514",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "CNH": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:28:20.940689",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:28:20.940699",
-=======
     "first_failure": "2026-01-12T13:40:59.465053",
     "failure_history": [
       {
         "date": "2026-01-12T13:40:59.465064",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:28:20.940696",
-=======
     "last_failure": "2026-01-12T13:40:59.465061",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "DCTH": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:28:22.114657",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:28:22.114666",
-=======
     "first_failure": "2026-01-12T13:41:00.661181",
     "failure_history": [
       {
         "date": "2026-01-12T13:41:00.661191",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:28:22.114664",
-=======
     "last_failure": "2026-01-12T13:41:00.661189",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "MOALX": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:28:22.828072",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:28:22.828081",
-=======
     "first_failure": "2026-01-12T13:41:01.343755",
     "failure_history": [
       {
         "date": "2026-01-12T13:41:01.343765",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:28:22.828079",
-=======
     "last_failure": "2026-01-12T13:41:01.343763",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "CBNA": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:28:30.496571",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:28:30.496580",
-=======
     "first_failure": "2026-01-12T13:41:09.029022",
     "failure_history": [
       {
         "date": "2026-01-12T13:41:09.029032",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:28:30.496578",
-=======
     "last_failure": "2026-01-12T13:41:09.029030",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "CROX": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:28:31.737211",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:28:31.737220",
-=======
     "first_failure": "2026-01-12T13:41:10.271054",
     "failure_history": [
       {
         "date": "2026-01-12T13:41:10.271064",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:28:31.737217",
-=======
     "last_failure": "2026-01-12T13:41:10.271061",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "SELF": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:28:33.180118",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:28:33.180127",
-=======
     "first_failure": "2026-01-12T13:41:11.789217",
     "failure_history": [
       {
         "date": "2026-01-12T13:41:11.789227",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:28:33.180125",
-=======
     "last_failure": "2026-01-12T13:41:11.789225",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "TRS": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:28:33.927462",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:28:33.927472",
-=======
     "first_failure": "2026-01-12T13:41:12.594232",
     "failure_history": [
       {
         "date": "2026-01-12T13:41:12.594242",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:28:33.927469",
-=======
     "last_failure": "2026-01-12T13:41:12.594240",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "CERT": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:28:34.602419",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:28:34.602429",
-=======
     "first_failure": "2026-01-12T13:41:13.326719",
     "failure_history": [
       {
         "date": "2026-01-12T13:41:13.326730",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:28:34.602426",
-=======
     "last_failure": "2026-01-12T13:41:13.326727",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "SMA": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:28:35.250307",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:28:35.250336",
-=======
     "first_failure": "2026-01-12T13:41:13.997413",
     "failure_history": [
       {
         "date": "2026-01-12T13:41:13.997424",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:28:35.250334",
-=======
     "last_failure": "2026-01-12T13:41:13.997421",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "NUS": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:28:36.676847",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:28:36.676857",
-=======
     "first_failure": "2026-01-12T13:41:15.414831",
     "failure_history": [
       {
         "date": "2026-01-12T13:41:15.414841",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:28:36.676854",
-=======
     "last_failure": "2026-01-12T13:41:15.414839",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "MGY": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:28:40.394713",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:28:40.394722",
-=======
     "first_failure": "2026-01-12T13:41:19.192070",
     "failure_history": [
       {
         "date": "2026-01-12T13:41:19.192080",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:28:40.394719",
-=======
     "last_failure": "2026-01-12T13:41:19.192078",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "RNST": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:28:46.381923",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:28:46.381932",
-=======
     "first_failure": "2026-01-12T13:41:25.241670",
     "failure_history": [
       {
         "date": "2026-01-12T13:41:25.241679",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:28:46.381930",
-=======
     "last_failure": "2026-01-12T13:41:25.241677",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "SRV": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:28:48.203400",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:28:48.203410",
-=======
     "first_failure": "2026-01-12T13:41:27.097375",
     "failure_history": [
       {
         "date": "2026-01-12T13:41:27.097385",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:28:48.203408",
-=======
     "last_failure": "2026-01-12T13:41:27.097382",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "OPEN": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:28:50.369011",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:28:50.369020",
-=======
     "first_failure": "2026-01-12T13:41:29.313404",
     "failure_history": [
       {
         "date": "2026-01-12T13:41:29.313413",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:28:50.369017",
-=======
     "last_failure": "2026-01-12T13:41:29.313411",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "DKNG": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:28:52.028877",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:28:52.028886",
-=======
     "first_failure": "2026-01-12T13:41:31.035392",
     "failure_history": [
       {
         "date": "2026-01-12T13:41:31.035402",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:28:52.028884",
-=======
     "last_failure": "2026-01-12T13:41:31.035400",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "AEYE": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:28:54.737893",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:28:54.737902",
-=======
     "first_failure": "2026-01-12T13:41:33.758569",
     "failure_history": [
       {
         "date": "2026-01-12T13:41:33.758580",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:28:54.737900",
-=======
     "last_failure": "2026-01-12T13:41:33.758578",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "STSS": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:29:40.061391",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:29:40.061401",
-=======
     "first_failure": "2026-01-12T13:42:19.165565",
     "failure_history": [
       {
         "date": "2026-01-12T13:42:19.165574",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:29:40.061398",
-=======
     "last_failure": "2026-01-12T13:42:19.165572",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "NEGG": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:29:40.772249",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:29:40.772259",
-=======
     "first_failure": "2026-01-12T13:42:19.915035",
     "failure_history": [
       {
         "date": "2026-01-12T13:42:19.915045",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:29:40.772257",
-=======
     "last_failure": "2026-01-12T13:42:19.915043",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "RFMZ": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:29:41.951734",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:29:41.951743",
-=======
     "first_failure": "2026-01-12T13:42:21.166568",
     "failure_history": [
       {
         "date": "2026-01-12T13:42:21.166579",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:29:41.951740",
-=======
     "last_failure": "2026-01-12T13:42:21.166576",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "CRSP": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:29:42.626465",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:29:42.626474",
-=======
     "first_failure": "2026-01-12T13:42:21.894747",
     "failure_history": [
       {
         "date": "2026-01-12T13:42:21.894757",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:29:42.626472",
-=======
     "last_failure": "2026-01-12T13:42:21.894755",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "DLHC": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:29:43.388289",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:29:43.388298",
-=======
     "first_failure": "2026-01-12T13:42:22.698591",
     "failure_history": [
       {
         "date": "2026-01-12T13:42:22.698601",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:29:43.388296",
-=======
     "last_failure": "2026-01-12T13:42:22.698598",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "GABC": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:29:44.342813",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:29:44.342823",
-=======
     "first_failure": "2026-01-12T13:42:23.681456",
     "failure_history": [
       {
         "date": "2026-01-12T13:42:23.681465",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:29:44.342820",
-=======
     "last_failure": "2026-01-12T13:42:23.681463",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "REPX": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:29:46.653750",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:29:46.653760",
-=======
     "first_failure": "2026-01-12T13:42:26.110880",
     "failure_history": [
       {
         "date": "2026-01-12T13:42:26.110907",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:29:46.653757",
-=======
     "last_failure": "2026-01-12T13:42:26.110905",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "FIS": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:29:48.989265",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:29:48.989274",
-=======
     "first_failure": "2026-01-12T13:42:28.538227",
     "failure_history": [
       {
         "date": "2026-01-12T13:42:28.538238",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:29:48.989272",
-=======
     "last_failure": "2026-01-12T13:42:28.538235",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "YORW": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:29:52.366840",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:29:52.366849",
-=======
     "first_failure": "2026-01-12T13:42:32.009038",
     "failure_history": [
       {
         "date": "2026-01-12T13:42:32.009048",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:29:52.366847",
-=======
     "last_failure": "2026-01-12T13:42:32.009046",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "RVYL": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:29:56.068248",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:29:56.068258",
-=======
     "first_failure": "2026-01-12T13:42:35.787223",
     "failure_history": [
       {
         "date": "2026-01-12T13:42:35.787233",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:29:56.068255",
-=======
     "last_failure": "2026-01-12T13:42:35.787230",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "ISBA": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:29:56.891714",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:29:56.891723",
-=======
     "first_failure": "2026-01-12T13:42:36.660075",
     "failure_history": [
       {
         "date": "2026-01-12T13:42:36.660085",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:29:56.891721",
-=======
     "last_failure": "2026-01-12T13:42:36.660082",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "HELE": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:29:57.684036",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:29:57.684046",
-=======
     "first_failure": "2026-01-12T13:42:37.506571",
     "failure_history": [
       {
         "date": "2026-01-12T13:42:37.506581",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:29:57.684044",
-=======
     "last_failure": "2026-01-12T13:42:37.506579",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "SSGC": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:29:58.363376",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:29:58.363385",
-=======
     "first_failure": "2026-01-12T13:42:38.201568",
     "failure_history": [
       {
         "date": "2026-01-12T13:42:38.201577",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:29:58.363382",
-=======
     "last_failure": "2026-01-12T13:42:38.201575",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "KFS": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:30:00.625055",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:30:00.625064",
-=======
     "first_failure": "2026-01-12T13:42:40.499466",
     "failure_history": [
       {
         "date": "2026-01-12T13:42:40.499475",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:30:00.625062",
-=======
     "last_failure": "2026-01-12T13:42:40.499473",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "IAF": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:30:02.111844",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:30:02.111854",
-=======
     "first_failure": "2026-01-12T13:42:42.159863",
     "failure_history": [
       {
         "date": "2026-01-12T13:42:42.159872",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:30:02.111852",
-=======
     "last_failure": "2026-01-12T13:42:42.159870",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "CALC": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:30:02.764569",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:30:02.764578",
-=======
     "first_failure": "2026-01-12T13:42:42.832157",
     "failure_history": [
       {
         "date": "2026-01-12T13:42:42.832167",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:30:02.764576",
-=======
     "last_failure": "2026-01-12T13:42:42.832165",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "DYN": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:30:06.933066",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:30:06.933074",
-=======
     "first_failure": "2026-01-12T13:42:47.044911",
     "failure_history": [
       {
         "date": "2026-01-12T13:42:47.044921",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:30:06.933071",
-=======
     "last_failure": "2026-01-12T13:42:47.044919",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "HIO": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:30:07.909802",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:30:07.909824",
-=======
     "first_failure": "2026-01-12T13:42:48.182943",
     "failure_history": [
       {
         "date": "2026-01-12T13:42:48.182953",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:30:07.909822",
-=======
     "last_failure": "2026-01-12T13:42:48.182951",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "SCD": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:30:08.771157",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:30:08.771166",
-=======
     "first_failure": "2026-01-12T13:42:49.093645",
     "failure_history": [
       {
         "date": "2026-01-12T13:42:49.093656",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:30:08.771164",
-=======
     "last_failure": "2026-01-12T13:42:49.093653",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "VIRC": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:30:10.858270",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:30:10.858280",
-=======
     "first_failure": "2026-01-12T13:42:51.116765",
     "failure_history": [
       {
         "date": "2026-01-12T13:42:51.116777",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:30:10.858277",
-=======
     "last_failure": "2026-01-12T13:42:51.116774",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "NTWK": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:30:11.616956",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:30:11.616965",
-=======
     "first_failure": "2026-01-12T13:42:51.906914",
     "failure_history": [
       {
         "date": "2026-01-12T13:42:51.906924",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:30:11.616963",
-=======
     "last_failure": "2026-01-12T13:42:51.906922",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "CDNL": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:30:50.967138",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:30:50.967147",
-=======
     "first_failure": "2026-01-12T13:43:31.177738",
     "failure_history": [
       {
         "date": "2026-01-12T13:43:31.177747",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:30:50.967144",
-=======
     "last_failure": "2026-01-12T13:43:31.177745",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "KYMR": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:30:54.140012",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:30:54.140020",
-=======
     "first_failure": "2026-01-12T13:43:34.410299",
     "failure_history": [
       {
         "date": "2026-01-12T13:43:34.410309",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:30:54.140018",
-=======
     "last_failure": "2026-01-12T13:43:34.410306",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "SEVN": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:30:54.956099",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:30:54.956112",
-=======
     "first_failure": "2026-01-12T13:43:35.361831",
     "failure_history": [
       {
         "date": "2026-01-12T13:43:35.361845",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:30:54.956110",
-=======
     "last_failure": "2026-01-12T13:43:35.361842",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "CRMT": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:31:01.237734",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:31:01.237743",
-=======
     "first_failure": "2026-01-12T13:43:41.724950",
     "failure_history": [
       {
         "date": "2026-01-12T13:43:41.724960",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:31:01.237741",
-=======
     "last_failure": "2026-01-12T13:43:41.724958",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "AARD": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:31:02.036109",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:31:02.036118",
-=======
     "first_failure": "2026-01-12T13:43:42.392233",
     "failure_history": [
       {
         "date": "2026-01-12T13:43:42.392243",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:31:02.036115",
-=======
     "last_failure": "2026-01-12T13:43:42.392240",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "BLNK": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:31:04.233557",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:31:04.233565",
-=======
     "first_failure": "2026-01-12T13:43:44.631422",
     "failure_history": [
       {
         "date": "2026-01-12T13:43:44.631438",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:31:04.233563",
-=======
     "last_failure": "2026-01-12T13:43:44.631434",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "TTRX": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:31:05.358380",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:31:05.358388",
-=======
     "first_failure": "2026-01-12T13:43:45.792368",
     "failure_history": [
       {
         "date": "2026-01-12T13:43:45.792378",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:31:05.358386",
-=======
     "last_failure": "2026-01-12T13:43:45.792376",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "OXM": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:31:06.455623",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:31:06.455632",
-=======
     "first_failure": "2026-01-12T13:43:46.870951",
     "failure_history": [
       {
         "date": "2026-01-12T13:43:46.870960",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:31:06.455630",
-=======
     "last_failure": "2026-01-12T13:43:46.870958",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "MSGM": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:31:07.629007",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:31:07.629016",
-=======
     "first_failure": "2026-01-12T13:43:48.113107",
     "failure_history": [
       {
         "date": "2026-01-12T13:43:48.113117",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:31:07.629013",
-=======
     "last_failure": "2026-01-12T13:43:48.113115",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "IMVT": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:31:08.295774",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:31:08.295783",
-=======
     "first_failure": "2026-01-12T13:43:48.810551",
     "failure_history": [
       {
         "date": "2026-01-12T13:43:48.810562",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:31:08.295781",
-=======
     "last_failure": "2026-01-12T13:43:48.810559",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "WMG": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:31:09.048747",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:31:09.048756",
-=======
     "first_failure": "2026-01-12T13:43:49.628194",
     "failure_history": [
       {
         "date": "2026-01-12T13:43:49.628204",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:31:09.048754",
-=======
     "last_failure": "2026-01-12T13:43:49.628202",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "IFF": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:31:13.330533",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:31:13.330543",
-=======
     "first_failure": "2026-01-12T13:43:53.816542",
     "failure_history": [
       {
         "date": "2026-01-12T13:43:53.816553",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:31:13.330540",
-=======
     "last_failure": "2026-01-12T13:43:53.816550",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "CFBK": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:31:14.726536",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:31:14.726545",
-=======
     "first_failure": "2026-01-12T13:43:55.204091",
     "failure_history": [
       {
         "date": "2026-01-12T13:43:55.204100",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:31:14.726543",
-=======
     "last_failure": "2026-01-12T13:43:55.204098",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "FBLG": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:31:18.873207",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:31:18.873216",
-=======
     "first_failure": "2026-01-12T13:43:59.387037",
     "failure_history": [
       {
         "date": "2026-01-12T13:43:59.387046",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:31:18.873213",
-=======
     "last_failure": "2026-01-12T13:43:59.387044",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "ADGM": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:31:19.512233",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:31:19.512242",
-=======
     "first_failure": "2026-01-12T13:44:00.046217",
     "failure_history": [
       {
         "date": "2026-01-12T13:44:00.046226",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:31:19.512240",
-=======
     "last_failure": "2026-01-12T13:44:00.046224",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "LCGMF": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:31:20.250735",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:31:20.250744",
-=======
     "first_failure": "2026-01-12T13:44:00.809305",
     "failure_history": [
       {
         "date": "2026-01-12T13:44:00.809316",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:31:20.250742",
-=======
     "last_failure": "2026-01-12T13:44:00.809313",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "VERA": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:31:21.406778",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:31:21.406787",
-=======
     "first_failure": "2026-01-12T13:44:02.004321",
     "failure_history": [
       {
         "date": "2026-01-12T13:44:02.004330",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:31:21.406785",
-=======
     "last_failure": "2026-01-12T13:44:02.004328",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "CLYM": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:31:22.051404",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:31:22.051412",
-=======
     "first_failure": "2026-01-12T13:44:02.748876",
     "failure_history": [
       {
         "date": "2026-01-12T13:44:02.748886",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:31:22.051410",
-=======
     "last_failure": "2026-01-12T13:44:02.748883",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "HLIT": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:31:22.838771",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:31:22.838780",
-=======
     "first_failure": "2026-01-12T13:44:03.558861",
     "failure_history": [
       {
         "date": "2026-01-12T13:44:03.558870",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:31:22.838778",
-=======
     "last_failure": "2026-01-12T13:44:03.558868",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "IGR": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:31:23.726666",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:31:23.726675",
-=======
     "first_failure": "2026-01-12T13:44:04.461361",
     "failure_history": [
       {
         "date": "2026-01-12T13:44:04.461371",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:31:23.726673",
-=======
     "last_failure": "2026-01-12T13:44:04.461368",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "HUBG": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:31:25.554663",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:31:25.554672",
-=======
     "first_failure": "2026-01-12T13:44:06.276050",
     "failure_history": [
       {
         "date": "2026-01-12T13:44:06.276060",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:31:25.554670",
-=======
     "last_failure": "2026-01-12T13:44:06.276058",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "BFLY": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:31:26.213602",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:31:26.213611",
-=======
     "first_failure": "2026-01-12T13:44:06.958692",
     "failure_history": [
       {
         "date": "2026-01-12T13:44:06.958701",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:31:26.213609",
-=======
     "last_failure": "2026-01-12T13:44:06.958698",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "GLP": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:31:27.999573",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:31:27.999581",
-=======
     "first_failure": "2026-01-12T13:44:08.852605",
     "failure_history": [
       {
         "date": "2026-01-12T13:44:08.852615",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:31:27.999579",
-=======
     "last_failure": "2026-01-12T13:44:08.852613",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "TEAD": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:31:29.153756",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:31:29.153764",
-=======
     "first_failure": "2026-01-12T13:44:10.035657",
     "failure_history": [
       {
         "date": "2026-01-12T13:44:10.035667",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:31:29.153762",
-=======
     "last_failure": "2026-01-12T13:44:10.035664",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "VRA": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:31:29.861673",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:31:29.861682",
-=======
     "first_failure": "2026-01-12T13:44:10.782046",
     "failure_history": [
       {
         "date": "2026-01-12T13:44:10.782055",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:31:29.861680",
-=======
     "last_failure": "2026-01-12T13:44:10.782053",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "TUSK": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:31:31.039581",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:31:31.039589",
-=======
     "first_failure": "2026-01-12T13:44:12.076737",
     "failure_history": [
       {
         "date": "2026-01-12T13:44:12.076747",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:31:31.039587",
-=======
     "last_failure": "2026-01-12T13:44:12.076744",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "MAA": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:31:31.956583",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:31:31.956593",
-=======
     "first_failure": "2026-01-12T13:44:13.017434",
     "failure_history": [
       {
         "date": "2026-01-12T13:44:13.017444",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:31:31.956591",
-=======
     "last_failure": "2026-01-12T13:44:13.017442",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "AAON": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:31:32.887844",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:31:32.887854",
-=======
     "first_failure": "2026-01-12T13:44:13.906964",
     "failure_history": [
       {
         "date": "2026-01-12T13:44:13.906974",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:31:32.887852",
-=======
     "last_failure": "2026-01-12T13:44:13.906971",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "SI": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:31:33.524609",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:31:33.524618",
-=======
     "first_failure": "2026-01-12T13:44:14.581796",
     "failure_history": [
       {
         "date": "2026-01-12T13:44:14.581805",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:31:33.524616",
-=======
     "last_failure": "2026-01-12T13:44:14.581803",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "DIS": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:31:34.789536",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:31:34.789546",
-=======
     "first_failure": "2026-01-12T13:44:15.917389",
     "failure_history": [
       {
         "date": "2026-01-12T13:44:15.917399",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:31:34.789544",
-=======
     "last_failure": "2026-01-12T13:44:15.917396",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "ELAN": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:31:35.998679",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:31:35.998688",
-=======
     "first_failure": "2026-01-12T13:44:17.192597",
     "failure_history": [
       {
         "date": "2026-01-12T13:44:17.192606",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:31:35.998685",
-=======
     "last_failure": "2026-01-12T13:44:17.192604",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "WVE": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:31:37.686806",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:31:37.686815",
-=======
     "first_failure": "2026-01-12T13:44:18.927524",
     "failure_history": [
       {
         "date": "2026-01-12T13:44:18.927533",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:31:37.686813",
-=======
     "last_failure": "2026-01-12T13:44:18.927531",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "ELWT": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:31:38.323113",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:31:38.323122",
-=======
     "first_failure": "2026-01-12T13:44:19.606390",
     "failure_history": [
       {
         "date": "2026-01-12T13:44:19.606399",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:31:38.323120",
-=======
     "last_failure": "2026-01-12T13:44:19.606397",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "BMEA": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:31:39.989750",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:31:39.989758",
-=======
     "first_failure": "2026-01-12T13:44:21.317002",
     "failure_history": [
       {
         "date": "2026-01-12T13:44:21.317012",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:31:39.989756",
-=======
     "last_failure": "2026-01-12T13:44:21.317009",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "KLXE": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:31:41.158360",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:31:41.158369",
-=======
     "first_failure": "2026-01-12T13:44:22.668151",
     "failure_history": [
       {
         "date": "2026-01-12T13:44:22.668161",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:31:41.158367",
-=======
     "last_failure": "2026-01-12T13:44:22.668158",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "KVUE": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:31:42.328770",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:31:42.328780",
-=======
     "first_failure": "2026-01-12T13:44:23.873581",
     "failure_history": [
       {
         "date": "2026-01-12T13:44:23.873590",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:31:42.328777",
-=======
     "last_failure": "2026-01-12T13:44:23.873588",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "MIAX": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:31:42.965485",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:31:42.965493",
-=======
     "first_failure": "2026-01-12T13:44:24.534343",
     "failure_history": [
       {
         "date": "2026-01-12T13:44:24.534354",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:31:42.965491",
-=======
     "last_failure": "2026-01-12T13:44:24.534352",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "NZF": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:31:43.830668",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:31:43.830677",
-=======
     "first_failure": "2026-01-12T13:44:25.428227",
     "failure_history": [
       {
         "date": "2026-01-12T13:44:25.428237",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:31:43.830675",
-=======
     "last_failure": "2026-01-12T13:44:25.428235",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "AWF": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:31:44.833016",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:31:44.833026",
-=======
     "first_failure": "2026-01-12T13:44:26.565719",
     "failure_history": [
       {
         "date": "2026-01-12T13:44:26.565730",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:31:44.833023",
-=======
     "last_failure": "2026-01-12T13:44:26.565727",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "AIPG": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:31:45.534972",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:31:45.534980",
-=======
     "first_failure": "2026-01-12T13:44:27.314711",
     "failure_history": [
       {
         "date": "2026-01-12T13:44:27.314721",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:31:45.534978",
-=======
     "last_failure": "2026-01-12T13:44:27.314719",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "IRIX": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:31:46.283894",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:31:46.283903",
-=======
     "first_failure": "2026-01-12T13:44:28.111919",
     "failure_history": [
       {
         "date": "2026-01-12T13:44:28.111929",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:31:46.283901",
-=======
     "last_failure": "2026-01-12T13:44:28.111927",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "MGYR": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:31:47.018666",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:31:47.018676",
-=======
     "first_failure": "2026-01-12T13:44:28.880368",
     "failure_history": [
       {
         "date": "2026-01-12T13:44:28.880378",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:31:47.018673",
-=======
     "last_failure": "2026-01-12T13:44:28.880376",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "CCFN": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:31:48.934383",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:31:48.934393",
-=======
     "first_failure": "2026-01-12T13:44:30.859024",
     "failure_history": [
       {
         "date": "2026-01-12T13:44:30.859034",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:31:48.934391",
-=======
     "last_failure": "2026-01-12T13:44:30.859031",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "BCIC": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:31:52.805337",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:31:52.805347",
-=======
     "first_failure": "2026-01-12T13:44:34.697652",
     "failure_history": [
       {
         "date": "2026-01-12T13:44:34.697662",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:31:52.805345",
-=======
     "last_failure": "2026-01-12T13:44:34.697660",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "SPMC": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:31:54.987293",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:31:54.987301",
-=======
     "first_failure": "2026-01-12T13:44:36.908224",
     "failure_history": [
       {
         "date": "2026-01-12T13:44:36.908234",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:31:54.987299",
-=======
     "last_failure": "2026-01-12T13:44:36.908231",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "IPSC": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:31:57.156942",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:31:57.156951",
-=======
     "first_failure": "2026-01-12T13:44:39.104126",
     "failure_history": [
       {
         "date": "2026-01-12T13:44:39.104136",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:31:57.156949",
-=======
     "last_failure": "2026-01-12T13:44:39.104134",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "GOGO": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:31:57.832894",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:31:57.832902",
-=======
     "first_failure": "2026-01-12T13:44:39.836389",
     "failure_history": [
       {
         "date": "2026-01-12T13:44:39.836399",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:31:57.832900",
-=======
     "last_failure": "2026-01-12T13:44:39.836397",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "ULBI": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:32:00.096097",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:32:00.096106",
-=======
     "first_failure": "2026-01-12T13:44:42.129359",
     "failure_history": [
       {
         "date": "2026-01-12T13:44:42.129369",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:32:00.096104",
-=======
     "last_failure": "2026-01-12T13:44:42.129366",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "MRMD": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:32:03.292131",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:32:03.292139",
-=======
     "first_failure": "2026-01-12T13:44:45.355262",
     "failure_history": [
       {
         "date": "2026-01-12T13:44:45.355271",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:32:03.292137",
-=======
     "last_failure": "2026-01-12T13:44:45.355269",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "TXO": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:32:03.952228",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:32:03.952238",
-=======
     "first_failure": "2026-01-12T13:44:46.060436",
     "failure_history": [
       {
         "date": "2026-01-12T13:44:46.060446",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:32:03.952235",
-=======
     "last_failure": "2026-01-12T13:44:46.060444",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "BSBK": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:32:05.103567",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:32:05.103576",
-=======
     "first_failure": "2026-01-12T13:44:47.241985",
     "failure_history": [
       {
         "date": "2026-01-12T13:44:47.241994",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:32:05.103574",
-=======
     "last_failure": "2026-01-12T13:44:47.241992",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "SLGL": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:32:05.773249",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:32:05.773257",
-=======
     "first_failure": "2026-01-12T13:44:47.961307",
     "failure_history": [
       {
         "date": "2026-01-12T13:44:47.961317",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:32:05.773255",
-=======
     "last_failure": "2026-01-12T13:44:47.961314",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "CVR": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:32:06.825170",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:32:06.825180",
-=======
     "first_failure": "2026-01-12T13:44:49.081095",
     "failure_history": [
       {
         "date": "2026-01-12T13:44:49.081106",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:32:06.825178",
-=======
     "last_failure": "2026-01-12T13:44:49.081103",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   },
   "APTV": {
     "failure_count": 1,
-<<<<<<< HEAD
-    "first_failure": "2026-01-12T11:32:07.567833",
-    "failure_history": [
-      {
-        "date": "2026-01-12T11:32:07.567842",
-=======
     "first_failure": "2026-01-12T13:44:49.934204",
     "failure_history": [
       {
         "date": "2026-01-12T13:44:49.934213",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
         "reason": "No trading data for required time horizon",
         "type": "PERMANENT"
       }
     ],
-<<<<<<< HEAD
-    "last_failure": "2026-01-12T11:32:07.567840",
-=======
     "last_failure": "2026-01-12T13:44:49.934211",
->>>>>>> a7f22a3 (Daily data update: 2026-01-12 13:47:14)
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   }
