@@ -3934,5 +3934,41 @@
     "ipoDate": "1995-01-25",
     "updated": "2026-01-09T11:31:02.362007",
     "source": "fmp_api"
+  },
+  "MSTR": {
+    "industry": "Software - Application",
+    "sector": "Technology",
+    "price": 157.33,
+    "companyName": "Strategy Inc",
+    "currency": "USD",
+    "beta": 3.433,
+    "range": "149.75-457.22",
+    "ipoDate": "1998-06-11",
+    "updated": "2026-01-12T11:33:53.216857",
+    "source": "fmp_api"
+  },
+  "SQNS": {
+    "industry": "Semiconductors",
+    "sector": "Technology",
+    "price": 5,
+    "companyName": "Sequans Communications S.A.",
+    "currency": "USD",
+    "beta": 0.217,
+    "range": "4.44-58.3",
+    "ipoDate": "2011-04-19",
+    "updated": "2026-01-12T11:33:53.228470",
+    "source": "fmp_api"
+  },
+  "LPG": {
+    "industry": "Oil & Gas Midstream",
+    "sector": "Energy",
+    "price": 27.21,
+    "companyName": "Dorian LPG Ltd.",
+    "currency": "USD",
+    "beta": 0.739,
+    "range": "16.66-32.79",
+    "ipoDate": "2014-05-08",
+    "updated": "2026-01-12T11:33:53.229358",
+    "source": "fmp_api"
   }
 }
