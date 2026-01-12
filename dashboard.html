@@ -1277,7 +1277,7 @@
                             <th style="padding-left: 25px;">TICKER</th>
                             <th>ENTRY DATE</th>
                             <th>DAYS HELD</th>
-                            <th>WEIGHT</th>
+                            <th>CLUSTER SCORE</th>
                             <th>UNREALIZED P&L</th>
                             <th>CONVICTION</th>
                         </tr>
@@ -1392,6 +1392,7 @@
         let performanceData = null;
         let signalsData = [];
         let insiderPerformanceData = null;
+        let paperPortfolioData = null;
 
         // ===== UTILITIES =====
         function formatCurrency(value) {
@@ -1593,9 +1594,9 @@
                 else if (diffDays > 1 && diffDays < 7) dateText = diffDays + 'd ago';
                 else if (diffDays >= 7) dateText = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
 
-                // Price data is not available in CSV, show N/A
-                const price = signal.currentPrice ? '$' + parseFloat(signal.currentPrice).toFixed(2) :
-                             signal.price ? '$' + parseFloat(signal.price).toFixed(2) : 'N/A';
+                // Get price with fallback order: currentPrice → price → entry_price → N/A
+                const priceValue = signal.currentPrice || signal.price || signal.entry_price || null;
+                const price = priceValue ? '$' + parseFloat(priceValue).toFixed(2) : 'N/A';
                 const clusterCount = parseInt(signal.cluster_count) || 1;
                 const totalVal = parseFloat(signal.total_value) || 0;
 
@@ -1708,6 +1709,17 @@
                 console.error('Error loading paper trades:', error);
                 generateFallbackChartData();
                 renderChart();
+            }
+        }
+
+        async function loadPaperPortfolio() {
+            try {
+                const response = await fetch('data/paper_portfolio.json');
+                if (!response.ok) throw new Error('Failed to load paper portfolio');
+                paperPortfolioData = await response.json();
+            } catch (error) {
+                console.error('Error loading paper portfolio:', error);
+                paperPortfolioData = null;
             }
         }
 
@@ -1935,18 +1947,29 @@
             // Open positions from real data
             const openPositionsTbody = document.getElementById('open-positions-tbody');
             if (performanceData.open_positions && performanceData.open_positions.length > 0) {
-                openPositionsTbody.innerHTML = performanceData.open_positions.map(pos => `
-                    <tr>
-                        <td style="padding-left: 25px;"><span class="font-mono ticker-badge">$${pos.ticker}</span></td>
-                        <td class="text-muted">${pos.entry_date}</td>
-                        <td class="font-mono">${pos.days_held}d</td>
-                        <td class="font-mono">-</td>
-                        <td class="font-mono ${pos.unrealized_return >= 0 ? 'text-success' : 'text-danger'}">
-                            ${pos.unrealized_return >= 0 ? '+' : ''}${pos.unrealized_return.toFixed(2)}%
-                        </td>
-                        <td><span class="badge ${['VERY HIGH', 'HIGH'].includes(pos.conviction) ? 'badge-high' : (pos.conviction === 'MEDIUM' ? 'badge-med' : 'badge-low')}">${pos.conviction}</span></td>
-                    </tr>
-                `).join('');
+                openPositionsTbody.innerHTML = performanceData.open_positions.map(pos => {
+                    // Get cluster score from paper portfolio data
+                    let clusterScore = 'N/A';
+                    if (paperPortfolioData && paperPortfolioData.positions && paperPortfolioData.positions[pos.ticker]) {
+                        const portfolioPos = paperPortfolioData.positions[pos.ticker];
+                        if (portfolioPos.signal_score !== null && portfolioPos.signal_score !== undefined) {
+                            clusterScore = parseFloat(portfolioPos.signal_score).toFixed(2);
+                        }
+                    }
+
+                    return `
+                        <tr>
+                            <td style="padding-left: 25px;"><span class="font-mono ticker-badge">$${pos.ticker}</span></td>
+                            <td class="text-muted">${pos.entry_date}</td>
+                            <td class="font-mono">${pos.days_held}d</td>
+                            <td class="font-mono">${clusterScore}</td>
+                            <td class="font-mono ${pos.unrealized_return >= 0 ? 'text-success' : 'text-danger'}">
+                                ${pos.unrealized_return >= 0 ? '+' : ''}${pos.unrealized_return.toFixed(2)}%
+                            </td>
+                            <td><span class="badge ${['VERY HIGH', 'HIGH'].includes(pos.conviction) ? 'badge-high' : (pos.conviction === 'MEDIUM' ? 'badge-med' : 'badge-low')}">${pos.conviction}</span></td>
+                        </tr>
+                    `;
+                }).join('');
             } else {
                 openPositionsTbody.innerHTML = '<tr><td colspan="6" class="text-muted" style="text-align: center; padding: 20px;">No open positions</td></tr>';
             }
@@ -2067,6 +2090,7 @@
         document.addEventListener('DOMContentLoaded', async () => {
             populateDashboardTables();
             await loadPerformanceData();
+            await loadPaperPortfolio();
             updateDashboardWithRealData();
             await loadSignalsData();
             await loadInsiderPerformanceData();
