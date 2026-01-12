@@ -961,6 +961,7 @@ def render_no_activity_html(
         today_pnl_pct=today_pnl_pct,
         closed_today=closed_today,
         open_positions=open_positions,
+        opened_positions=opened_positions,
         total_transactions=total_transactions,
         buy_count=buy_count,
         sell_count=sell_count
@@ -973,6 +974,7 @@ def render_no_activity_html(
         today_pnl_pct=today_pnl_pct,
         closed_today=closed_today,
         open_positions=open_positions,
+        opened_positions=opened_positions,
         total_transactions=total_transactions,
         buy_count=buy_count,
         sell_count=sell_count
@@ -982,7 +984,7 @@ def render_no_activity_html(
 
 
 def _render_no_activity_html_email(date, stats, today_pnl, today_pnl_pct, closed_today,
-                                     open_positions, total_transactions, buy_count, sell_count):
+                                     open_positions, opened_positions, total_transactions, buy_count, sell_count):
     """Render the no-activity HTML email matching dashboard-v2.html theme."""
 
     # Color scheme matching dashboard-v2.html spec
@@ -1258,7 +1260,7 @@ def _render_no_activity_html_email(date, stats, today_pnl, today_pnl_pct, closed
 
 
 def _build_no_activity_text(date, stats, today_pnl, today_pnl_pct, closed_today,
-                              open_positions, total_transactions, buy_count, sell_count):
+                              open_positions, opened_positions, total_transactions, buy_count, sell_count):
     """Build plain text version of the no-activity report."""
 
     lines = []
