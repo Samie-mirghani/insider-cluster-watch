@@ -9,50 +9,71 @@ TEMPLATE_DIR = os.path.join(os.path.dirname(__file__), '..', 'templates')
 
 
 # =============================================================================
-# SLEEK TEXT-BASED ICONS (Maximum email client compatibility)
-# These use Unicode characters with styling for universal rendering
+# GITHUB-HOSTED ICONS (Professional PNG icons with text fallback)
+# Icons are hosted on GitHub for universal email client compatibility
 # =============================================================================
 
-# Text-based icon definitions (works in all email clients)
-_TEXT_ICONS = {
-    'logo': '◆',           # Diamond for logo
-    'dollar': '$',          # Dollar sign
-    'trending_up': '↗',     # Trending arrow
-    'target': '◎',          # Target/bullseye
-    'search': '○',          # Search circle
-    'health': '+',          # Health/medical plus
-    'check': '✓',           # Checkmark
-    'x_circle': '✗',        # X mark
-    'plus_circle': '+',     # Plus
-    'warning': '!',         # Warning exclamation
-    'skip': '»',            # Skip/fast-forward
-    'users': '●●',          # Users (two dots)
-    'flame': '●',           # Flame/hot indicator
-    'zap': '⚡',            # Lightning (widely supported)
-    'star': '★',            # Filled star
-    'star_outline': '☆',    # Empty star
-    'building': '■',        # Building square
-    'rocket': '↑',          # Rocket/up arrow
-    'bar_chart': '▊',       # Bar chart
-    'landmark': '▲',        # Landmark triangle
-    'pin': '●',             # Pin/location dot
-    'lightbulb': '◇',       # Lightbulb diamond
-    'calendar': '▪',        # Calendar square
-    'inbox': '▭',           # Inbox rectangle
-    'award': '★',           # Award star
+# Base URL for GitHub-hosted icons
+GITHUB_ICON_BASE_URL = "https://raw.githubusercontent.com/Samie-mirghani/insider-cluster-watch/main/docs/assets/icons"
+
+# Icon filename mapping
+_ICON_FILES = {
+    'logo': 'logo.png',
+    'dollar': 'dollar.png',
+    'trending_up': 'trending.png',
+    'target': 'target.png',
+    'search': 'search.png',
+    'health': 'health.png',
+    'check': 'check.png',
+    'x_circle': 'x-circle.png',
+    'plus_circle': 'plus.png',
+    'warning': 'warning.png',
+    'skip': 'skip.png',
+    'users': 'users.png',
+    'flame': 'flame.png',
+    'zap': 'zap.png',
+    'star': 'star.png',
+    'star_outline': 'star-outline.png',
+    'building': 'building.png',
+    'inbox': 'inbox.png',
+}
+
+# Text fallback icons (shown if images don't load)
+_TEXT_FALLBACKS = {
+    'logo': '◆',
+    'dollar': '$',
+    'trending_up': '↗',
+    'target': '◎',
+    'search': '○',
+    'health': '+',
+    'check': '✓',
+    'x_circle': '✗',
+    'plus_circle': '+',
+    'warning': '!',
+    'skip': '»',
+    'users': '••',
+    'flame': '●',
+    'zap': '⚡',
+    'star': '★',
+    'star_outline': '☆',
+    'building': '■',
+    'inbox': '▭',
 }
 
 
-def _get_text_icon(name, color="#38bdf8", size=14):
-    """Get a text-based icon with styling for email compatibility."""
-    char = _TEXT_ICONS.get(name, '')
-    if not char:
+def _get_hosted_icon(name, width=20, height=20):
+    """Get a GitHub-hosted PNG icon with text fallback."""
+    if name not in _ICON_FILES:
         return ""
-    return f'<span style="color: {color}; font-size: {size}px; font-weight: bold; display: inline-block; width: {size + 4}px; text-align: center;">{char}</span>'
+
+    url = f"{GITHUB_ICON_BASE_URL}/{_ICON_FILES[name]}"
+    fallback = _TEXT_FALLBACKS.get(name, '')
+
+    return f'<img src="{url}" width="{width}" height="{height}" alt="{fallback}" style="vertical-align: middle; display: inline-block;" />'
 
 
-def _get_text_star_rating(score, color="#fbbf24"):
-    """Return text-based star rating based on signal score."""
+def _get_hosted_star_rating(score):
+    """Return GitHub-hosted star rating icons based on signal score."""
     if score >= 15:
         stars = 3
     elif score >= 10:
@@ -60,15 +81,15 @@ def _get_text_star_rating(score, color="#fbbf24"):
     else:
         stars = 1
 
-    filled = f'<span style="color: {color};">★</span>'
-    empty = f'<span style="color: #64748b;">☆</span>'
+    filled = _get_hosted_icon('star', 16, 16)
+    empty = _get_hosted_icon('star_outline', 16, 16)
 
     return (filled * stars) + (empty * (3 - stars))
 
 
-def _get_text_logo():
-    """Get text-based logo for email header."""
-    return '<span style="color: #38bdf8; font-size: 24px; font-weight: bold; display: inline-block; margin-right: 8px;">◆</span>'
+def _get_hosted_logo(width=28, height=28):
+    """Get the GitHub-hosted logo icon."""
+    return _get_hosted_icon('logo', width, height)
 
 def sanitize_dict_for_template(data):
     """
@@ -170,26 +191,22 @@ def render_daily_html(cluster_df, portfolio=None, closed_positions=None, opened_
         rows = cluster_df.to_dict(orient='records') if cluster_df is not None and not cluster_df.empty else []
         rows = sanitize_dict_for_template(rows)
 
-        # Pass text-based icons to template for universal email client compatibility
+        # Pass GitHub-hosted icons to template for professional appearance
         icons = {
-            'logo': _get_text_logo(),
-            'search': _get_text_icon('search', '#00D9FF', 16),
-            'flame': _get_text_icon('flame', '#dc2626', 14),
-            'zap': _get_text_icon('zap', '#f59e0b', 14),
-            'landmark': _get_text_icon('landmark', '#8b5cf6', 14),
-            'building': _get_text_icon('building', '#64748b', 14),
-            'target': _get_text_icon('target', '#00D9FF', 14),
-            'trending_up': _get_text_icon('trending_up', '#00D9FF', 14),
-            'warning': _get_text_icon('warning', '#f59e0b', 14),
-            'award': _get_text_icon('award', '#fbbf24', 14),
-            'rocket': _get_text_icon('rocket', '#ff5722', 14),
-            'bar_chart': _get_text_icon('bar_chart', '#c2185b', 14),
-            'users': _get_text_icon('users', '#f59e0b', 14),
-            'pin': _get_text_icon('pin', '#00D9FF', 14),
-            'lightbulb': _get_text_icon('lightbulb', '#f59e0b', 14),
-            'star': _get_text_icon('star', '#fbbf24', 14),
-            'dollar': _get_text_icon('dollar', '#00D9FF', 14),
-            'inbox': _get_text_icon('inbox', '#94a3b8', 14),
+            'logo': _get_hosted_logo(24, 24),
+            'search': _get_hosted_icon('search', 18, 18),
+            'flame': _get_hosted_icon('flame', 16, 16),
+            'zap': _get_hosted_icon('zap', 16, 16),
+            'building': _get_hosted_icon('building', 16, 16),
+            'target': _get_hosted_icon('target', 16, 16),
+            'trending_up': _get_hosted_icon('trending_up', 16, 16),
+            'warning': _get_hosted_icon('warning', 16, 16),
+            'users': _get_hosted_icon('users', 16, 16),
+            'star': _get_hosted_icon('star', 16, 16),
+            'dollar': _get_hosted_icon('dollar', 16, 16),
+            'inbox': _get_hosted_icon('inbox', 16, 16),
+            'check': _get_hosted_icon('check', 16, 16),
+            'skip': _get_hosted_icon('skip', 16, 16),
         }
 
         html = tmpl.render(date=datetime.now().strftime("%B %d, %Y"), trades=rows, icons=icons)
@@ -392,18 +409,18 @@ def _render_trading_dashboard_html(date, stats, today_pnl, today_pnl_pct, closed
     total_return_color = success if stats['total_return_pct'] >= 0 else danger
     today_pnl_color = success if today_pnl >= 0 else danger
 
-    # Get text-based icons for universal email client compatibility
-    logo_icon = _get_text_logo()
-    dollar_icon = _get_text_icon('dollar', primary, 16)
-    trending_icon = _get_text_icon('trending_up', primary, 16)
-    target_icon = _get_text_icon('target', primary, 16)
-    search_icon = _get_text_icon('search', primary, 16)
-    health_icon = _get_text_icon('health', primary, 16)
-    check_icon = _get_text_icon('check', success, 14)
-    x_icon = _get_text_icon('x_circle', danger, 14)
-    plus_icon = _get_text_icon('plus_circle', success, 14)
-    warning_icon = _get_text_icon('warning', warning, 14)
-    skip_icon = _get_text_icon('skip', text_muted, 12)
+    # Get GitHub-hosted icons for professional email appearance
+    logo_icon = _get_hosted_logo(28, 28)
+    dollar_icon = _get_hosted_icon('dollar', 20, 20)
+    trending_icon = _get_hosted_icon('trending_up', 20, 20)
+    target_icon = _get_hosted_icon('target', 20, 20)
+    search_icon = _get_hosted_icon('search', 20, 20)
+    health_icon = _get_hosted_icon('health', 20, 20)
+    check_icon = _get_hosted_icon('check', 18, 18)
+    x_icon = _get_hosted_icon('x_circle', 18, 18)
+    plus_icon = _get_hosted_icon('plus_circle', 18, 18)
+    warning_icon = _get_hosted_icon('warning', 18, 18)
+    skip_icon = _get_hosted_icon('skip', 14, 14)
 
     html = f'''<!DOCTYPE html>
 <html>
@@ -510,7 +527,7 @@ def _render_trading_dashboard_html(date, stats, today_pnl, today_pnl_pct, closed
 '''
         for pos in closed_today:
             pnl_color = success if pos['profit'] >= 0 else danger
-            pnl_icon = _get_text_icon('check', success, 14) if pos['profit'] >= 0 else _get_text_icon('x_circle', danger, 14)
+            pnl_icon = _get_hosted_icon('check', 14, 14) if pos['profit'] >= 0 else _get_hosted_icon('x_circle', 14, 14)
             entry_date_str = pos['entry_date'].strftime('%b %d') if hasattr(pos['entry_date'], 'strftime') else str(pos['entry_date'])[:10] if pos['entry_date'] else 'N/A'
             html += f'''
                                             <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background: rgba(255,255,255,0.03); border-radius: 8px; margin-bottom: 10px;">
@@ -550,7 +567,7 @@ def _render_trading_dashboard_html(date, stats, today_pnl, today_pnl_pct, closed
             target_pct = (pos['take_profit'] / pos['entry_price'] - 1) * 100 if pos['entry_price'] > 0 else 8
             position_pct = (pos['cost_basis'] / stats['current_value'] * 100) if stats['current_value'] > 0 else 0
 
-            star_icons = _get_text_star_rating(pos['signal_score'])
+            star_icons = _get_hosted_star_rating(pos['signal_score'])
             html += f'''
                                             <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background: rgba(0,230,118,0.05); border-left: 3px solid {success}; border-radius: 8px; margin-bottom: 10px;">
                                                 <tr>
@@ -664,13 +681,13 @@ def _render_trading_dashboard_html(date, stats, today_pnl, today_pnl_pct, closed
             company_display = f" - {company}" if company and company != ticker and company not in ['nan', 'None', None, ''] else ""
 
             # Get star rating icons
-            star_icons = _get_text_star_rating(score)
+            star_icons = _get_hosted_star_rating(score)
 
             # Get trade status badge with icons
             if was_traded:
-                trade_badge = f"<span style='background: {success}; color: #0b1120; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 700;'>{_get_text_icon('check', '#0b1120', 12)} TRADED</span>"
+                trade_badge = f"<span style='background: {success}; color: #0b1120; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 700;'>{_get_hosted_icon('check', 12, 12)} TRADED</span>"
             else:
-                trade_badge = f"<span style='background: {text_muted}; color: #0b1120; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 700;'>{_get_text_icon('skip', '#0b1120', 12)} SKIPPED</span>"
+                trade_badge = f"<span style='background: {text_muted}; color: #0b1120; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 700;'>{_get_hosted_icon('skip', 12, 12)} SKIPPED</span>"
 
             html += f'''
                                         <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background: rgba(255,255,255,0.03); border-radius: 8px; margin-bottom: 20px;">
@@ -888,10 +905,10 @@ def _render_simple_no_activity_report(total_transactions=0, buy_count=0, sell_co
     text_muted = "#94a3b8"
     border = f"1px solid rgba(0, 217, 255, 0.2)"
 
-    # Get text-based icons for universal email client compatibility
-    logo_icon = _get_text_logo()
-    search_icon = _get_text_icon('search', primary, 18)
-    inbox_icon = '<span style="color: ' + text_muted + '; font-size: 36px; display: block; margin-bottom: 10px;">▭</span>'
+    # Get GitHub-hosted icons for universal email client compatibility
+    logo_icon = _get_hosted_logo(24, 24)
+    search_icon = _get_hosted_icon('search', 18, 18)
+    inbox_icon = _get_hosted_icon('inbox', 36, 36)
 
     html = f'''<!DOCTYPE html>
 <html>
@@ -1126,16 +1143,16 @@ def _render_no_activity_html_email(date, stats, today_pnl, today_pnl_pct, closed
     total_return_color = success if stats['total_return_pct'] >= 0 else danger
     today_pnl_color = success if today_pnl >= 0 else danger
 
-    # Get text-based icons for universal email client compatibility
-    logo_icon = _get_text_logo()
-    dollar_icon = _get_text_icon('dollar', primary, 16)
-    trending_icon = _get_text_icon('trending_up', primary, 16)
-    target_icon = _get_text_icon('target', primary, 16)
-    search_icon = _get_text_icon('search', primary, 16)
-    inbox_icon = '<span style="color: ' + text_muted + '; font-size: 36px; display: block; margin-bottom: 10px;">▭</span>'
-    check_icon = _get_text_icon('check', success, 14)
-    x_icon = _get_text_icon('x_circle', danger, 14)
-    plus_icon = _get_text_icon('plus_circle', success, 14)
+    # Get GitHub-hosted icons for universal email client compatibility
+    logo_icon = _get_hosted_logo(24, 24)
+    dollar_icon = _get_hosted_icon('dollar', 18, 18)
+    trending_icon = _get_hosted_icon('trending_up', 18, 18)
+    target_icon = _get_hosted_icon('target', 18, 18)
+    search_icon = _get_hosted_icon('search', 18, 18)
+    inbox_icon = _get_hosted_icon('inbox', 36, 36)
+    check_icon = _get_hosted_icon('check', 14, 14)
+    x_icon = _get_hosted_icon('x_circle', 14, 14)
+    plus_icon = _get_hosted_icon('plus_circle', 14, 14)
 
     html = f'''<!DOCTYPE html>
 <html>
