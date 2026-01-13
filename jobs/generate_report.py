@@ -4,8 +4,135 @@ from datetime import datetime
 import pandas as pd
 import os
 import math
+import base64
 
 TEMPLATE_DIR = os.path.join(os.path.dirname(__file__), '..', 'templates')
+
+
+# =============================================================================
+# SLEEK OUTLINE SVG ICONS (Base64 encoded for email compatibility)
+# These match the professional outline style from dashboard.html
+# =============================================================================
+
+def _svg_to_base64_img(svg_content, width=20, height=20, color="#38bdf8"):
+    """Convert SVG content to a base64-encoded img tag for email compatibility."""
+    # Replace color placeholder
+    svg = svg_content.replace("{color}", color)
+    encoded = base64.b64encode(svg.encode('utf-8')).decode('utf-8')
+    return f'<img src="data:image/svg+xml;base64,{encoded}" width="{width}" height="{height}" style="vertical-align: middle; display: inline-block;" alt="" />'
+
+
+# SVG icon definitions (outline style matching dashboard.html)
+_SVG_ICONS = {
+    # Logo - Activity/Pulse line
+    'logo': '''<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="{color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>''',
+
+    # Dollar sign - for portfolio/money
+    'dollar': '''<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="{color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>''',
+
+    # Trending up - for trading activity
+    'trending_up': '''<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="{color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>''',
+
+    # Target/Crosshair - for open positions
+    'target': '''<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="{color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>''',
+
+    # Search/Magnifying glass - for signals detected
+    'search': '''<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="{color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>''',
+
+    # Heart/Shield - for health
+    'health': '''<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="{color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>''',
+
+    # Check circle - for success/traded
+    'check': '''<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="{color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>''',
+
+    # X circle - for error/closed
+    'x_circle': '''<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="{color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>''',
+
+    # Alert triangle - for warning
+    'warning': '''<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="{color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>''',
+
+    # Star - for ratings
+    'star': '''<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="{color}" stroke="{color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>''',
+
+    # Star outline - for empty ratings
+    'star_outline': '''<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="{color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>''',
+
+    # Plus circle - for new/opened
+    'plus_circle': '''<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="{color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>''',
+
+    # Fast forward - for skipped
+    'skip': '''<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="{color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 19 22 12 13 5 13 19"></polygon><polygon points="2 19 11 12 2 5 2 19"></polygon></svg>''',
+
+    # Users - for insiders
+    'users': '''<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="{color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>''',
+
+    # Mail/Inbox - for no activity
+    'inbox': '''<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="{color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"></polyline><path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"></path></svg>''',
+
+    # Zap/Lightning - for urgent/tier
+    'zap': '''<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="{color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>''',
+
+    # Flame - for hot/tier1
+    'flame': '''<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="{color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"></path></svg>''',
+
+    # Building - for sector/company
+    'building': '''<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="{color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l8-4 8 4v14"/><path d="M9 21v-8h6v8"/></svg>''',
+
+    # Award/Medal - for quality
+    'award': '''<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="{color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>''',
+
+    # Rocket - for squeeze
+    'rocket': '''<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="{color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path><path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path></svg>''',
+
+    # Bar chart - for short interest
+    'bar_chart': '''<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="{color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"></line><line x1="18" y1="20" x2="18" y2="4"></line><line x1="6" y1="20" x2="6" y2="16"></line></svg>''',
+
+    # Landmark - for politician
+    'landmark': '''<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="{color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="22" x2="21" y2="22"></line><line x1="6" y1="18" x2="6" y2="11"></line><line x1="10" y1="18" x2="10" y2="11"></line><line x1="14" y1="18" x2="14" y2="11"></line><line x1="18" y1="18" x2="18" y2="11"></line><polygon points="12 2 20 7 4 7"></polygon></svg>''',
+
+    # Pin - for suggested action
+    'pin': '''<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="{color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>''',
+
+    # Lightbulb - for tips/explanations
+    'lightbulb': '''<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="{color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"></path><path d="M10 22h4"></path><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"></path></svg>''',
+
+    # Calendar - for dates
+    'calendar': '''<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="{color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>''',
+}
+
+
+def _get_icon(name, color="#38bdf8", width=20, height=20):
+    """Get a base64-encoded SVG icon for email compatibility."""
+    if name not in _SVG_ICONS:
+        return ""
+    svg = _SVG_ICONS[name].replace("{color}", color)
+    # Update width/height in the SVG
+    svg = svg.replace('width="20"', f'width="{width}"').replace('height="20"', f'height="{height}"')
+    svg = svg.replace('width="16"', f'width="{width}"').replace('height="16"', f'height="{height}"')
+    svg = svg.replace('width="14"', f'width="{width}"').replace('height="14"', f'height="{height}"')
+    svg = svg.replace('width="28"', f'width="{width}"').replace('height="28"', f'height="{height}"')
+    encoded = base64.b64encode(svg.encode('utf-8')).decode('utf-8')
+    return f'<img src="data:image/svg+xml;base64,{encoded}" width="{width}" height="{height}" style="vertical-align: middle; display: inline-block;" alt="" />'
+
+
+def _get_star_rating_icons(score, color="#fbbf24"):
+    """Return star rating icons based on signal score."""
+    if score >= 15:
+        stars = 3
+    elif score >= 10:
+        stars = 2
+    else:
+        stars = 1
+
+    filled = _get_icon('star', color, 14, 14)
+    empty = _get_icon('star_outline', '#64748b', 14, 14)
+
+    return (filled * stars) + (empty * (3 - stars))
+
+
+def _get_logo_img(width=28, height=28):
+    """Get the logo as a base64-encoded image for email compatibility."""
+    return _get_icon('logo', '#38bdf8', width, height)
 
 def sanitize_dict_for_template(data):
     """
@@ -106,7 +233,30 @@ def render_daily_html(cluster_df, portfolio=None, closed_positions=None, opened_
         tmpl = env.get_template('daily_report.html')
         rows = cluster_df.to_dict(orient='records') if cluster_df is not None and not cluster_df.empty else []
         rows = sanitize_dict_for_template(rows)
-        html = tmpl.render(date=datetime.now().strftime("%B %d, %Y"), trades=rows)
+
+        # Pass icons to template
+        icons = {
+            'logo': _get_logo_img(28, 28),
+            'search': _get_icon('search', '#00D9FF', 18, 18),
+            'flame': _get_icon('flame', '#dc2626', 14, 14),
+            'zap': _get_icon('zap', '#f59e0b', 14, 14),
+            'landmark': _get_icon('landmark', '#8b5cf6', 14, 14),
+            'building': _get_icon('building', '#64748b', 14, 14),
+            'target': _get_icon('target', '#00D9FF', 14, 14),
+            'trending_up': _get_icon('trending_up', '#00D9FF', 14, 14),
+            'warning': _get_icon('warning', '#f59e0b', 14, 14),
+            'award': _get_icon('award', '#fbbf24', 14, 14),
+            'rocket': _get_icon('rocket', '#ff5722', 14, 14),
+            'bar_chart': _get_icon('bar_chart', '#c2185b', 14, 14),
+            'users': _get_icon('users', '#f59e0b', 14, 14),
+            'pin': _get_icon('pin', '#00D9FF', 14, 14),
+            'lightbulb': _get_icon('lightbulb', '#f59e0b', 14, 14),
+            'star': _get_icon('star', '#fbbf24', 14, 14),
+            'dollar': _get_icon('dollar', '#00D9FF', 14, 14),
+            'inbox': _get_icon('inbox', '#94a3b8', 14, 14),
+        }
+
+        html = tmpl.render(date=datetime.now().strftime("%B %d, %Y"), trades=rows, icons=icons)
         text = build_plain_text(rows)
         return html, text
 
@@ -265,13 +415,13 @@ def render_daily_html(cluster_df, portfolio=None, closed_positions=None, opened_
 
 
 def _get_star_rating(score):
-    """Return star rating based on signal score."""
+    """Return star rating based on signal score (text fallback for plain text emails)."""
     if score >= 15:
-        return "⭐⭐⭐"
+        return "★★★"
     elif score >= 10:
-        return "⭐⭐"
+        return "★★"
     else:
-        return "⭐"
+        return "★"
 
 
 def _format_currency(value):
@@ -306,6 +456,19 @@ def _render_trading_dashboard_html(date, stats, today_pnl, today_pnl_pct, closed
     total_return_color = success if stats['total_return_pct'] >= 0 else danger
     today_pnl_color = success if today_pnl >= 0 else danger
 
+    # Get icons for use in HTML
+    logo_icon = _get_logo_img(28, 28)
+    dollar_icon = _get_icon('dollar', primary, 18, 18)
+    trending_icon = _get_icon('trending_up', primary, 18, 18)
+    target_icon = _get_icon('target', primary, 18, 18)
+    search_icon = _get_icon('search', primary, 18, 18)
+    health_icon = _get_icon('health', primary, 18, 18)
+    check_icon = _get_icon('check', success, 14, 14)
+    x_icon = _get_icon('x_circle', danger, 14, 14)
+    plus_icon = _get_icon('plus_circle', success, 14, 14)
+    warning_icon = _get_icon('warning', warning, 14, 14)
+    skip_icon = _get_icon('skip', text_muted, 12, 12)
+
     html = f'''<!DOCTYPE html>
 <html>
 <head>
@@ -325,7 +488,7 @@ def _render_trading_dashboard_html(date, stats, today_pnl, today_pnl_pct, closed
                     <tr>
                         <td style="padding: 20px 0; text-align: center;">
                             <div style="margin-bottom: 15px;">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                                {logo_icon}
                                 <span style="font-size: 20px; font-weight: 700; letter-spacing: 0.5px; color: {text_main}; vertical-align: middle; margin-left: 10px;">INSIDER CLUSTER <span style="color: {text_muted};">WATCH</span></span>
                             </div>
                             <h1 style="margin: 0; font-size: 28px; font-weight: 800; color: {primary};">Daily Trading Report</h1>
@@ -339,7 +502,7 @@ def _render_trading_dashboard_html(date, stats, today_pnl, today_pnl_pct, closed
                             <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background: {bg_card}; border: 1px solid {border}; border-radius: 12px;">
                                 <tr>
                                     <td style="padding: 25px;">
-                                        <h2 style="margin: 0 0 20px 0; font-size: 18px; font-weight: 700; color: {primary};">💰 Portfolio Performance</h2>
+                                        <h2 style="margin: 0 0 20px 0; font-size: 18px; font-weight: 700; color: {primary};">{dollar_icon} Portfolio Performance</h2>
 
                                         <!-- Main Stats Row -->
                                         <table width="100%" cellpadding="0" cellspacing="0" border="0">
@@ -400,7 +563,7 @@ def _render_trading_dashboard_html(date, stats, today_pnl, today_pnl_pct, closed
                             <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background: {bg_card}; border: 1px solid {border}; border-radius: 12px;">
                                 <tr>
                                     <td style="padding: 25px;">
-                                        <h2 style="margin: 0 0 20px 0; font-size: 18px; font-weight: 700; color: {primary};">📈 Today's Trading Activity</h2>
+                                        <h2 style="margin: 0 0 20px 0; font-size: 18px; font-weight: 700; color: {primary};">{trending_icon} Today's Trading Activity</h2>
 '''
 
     # Closed positions section
@@ -411,7 +574,7 @@ def _render_trading_dashboard_html(date, stats, today_pnl, today_pnl_pct, closed
 '''
         for pos in closed_today:
             pnl_color = success if pos['profit'] >= 0 else danger
-            pnl_icon = "✅" if pos['profit'] >= 0 else "❌"
+            pnl_icon = _get_icon('check', success, 14, 14) if pos['profit'] >= 0 else _get_icon('x_circle', danger, 14, 14)
             entry_date_str = pos['entry_date'].strftime('%b %d') if hasattr(pos['entry_date'], 'strftime') else str(pos['entry_date'])[:10] if pos['entry_date'] else 'N/A'
             html += f'''
                                             <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background: rgba(255,255,255,0.03); border-radius: 8px; margin-bottom: 10px;">
@@ -451,15 +614,16 @@ def _render_trading_dashboard_html(date, stats, today_pnl, today_pnl_pct, closed
             target_pct = (pos['take_profit'] / pos['entry_price'] - 1) * 100 if pos['entry_price'] > 0 else 8
             position_pct = (pos['cost_basis'] / stats['current_value'] * 100) if stats['current_value'] > 0 else 0
 
+            star_icons = _get_star_rating_icons(pos['signal_score'])
             html += f'''
                                             <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background: rgba(0,230,118,0.05); border-left: 3px solid {success}; border-radius: 8px; margin-bottom: 10px;">
                                                 <tr>
                                                     <td style="padding: 15px;">
                                                         <div style="font-size: 16px; font-weight: 700; color: {text_main};">
-                                                            🆕 OPENED: <span style="color: {primary}; font-family: 'Courier New', monospace;">{pos['ticker']}</span> | {pos['shares']} shares @ ${pos['entry_price']:.2f}
+                                                            {plus_icon} OPENED: <span style="color: {primary}; font-family: 'Courier New', monospace;">{pos['ticker']}</span> | {pos['shares']} shares @ ${pos['entry_price']:.2f}
                                                         </div>
                                                         <div style="font-size: 13px; color: {text_muted}; margin-top: 8px;">
-                                                            Signal Score: {pos['signal_score']:.1f} {_get_star_rating(pos['signal_score'])} | Cluster: {cluster_count} insiders<br>
+                                                            Signal Score: {pos['signal_score']:.1f} {star_icons} | Cluster: {cluster_count} insiders<br>
                                                             Stop: ${pos['stop_loss']:.2f} ({stop_pct:.1f}%) | Target: ${pos['take_profit']:.2f} (+{target_pct:.1f}%)<br>
                                                             Position Size: ${pos['cost_basis']:.2f} ({position_pct:.1f}% of portfolio)
                                                         </div>
@@ -496,7 +660,7 @@ def _render_trading_dashboard_html(date, stats, today_pnl, today_pnl_pct, closed
                             <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background: {bg_card}; border: 1px solid {border}; border-radius: 12px;">
                                 <tr>
                                     <td style="padding: 25px;">
-                                        <h2 style="margin: 0 0 20px 0; font-size: 18px; font-weight: 700; color: {primary};">🎯 Open Positions ({len(open_positions)})</h2>
+                                        <h2 style="margin: 0 0 20px 0; font-size: 18px; font-weight: 700; color: {primary};">{target_icon} Open Positions ({len(open_positions)})</h2>
                                         <table width="100%" cellpadding="0" cellspacing="0" border="0">
 '''
         for pos in open_positions:
@@ -543,12 +707,13 @@ def _render_trading_dashboard_html(date, stats, today_pnl, today_pnl_pct, closed
                             <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background: {bg_card}; border: 1px solid {border}; border-radius: 12px;">
                                 <tr>
                                     <td style="padding: 25px;">
-                                        <h2 style="margin: 0 0 20px 0; font-size: 18px; font-weight: 700; color: {primary};">🔍 Top Signals Detected</h2>
+                                        <h2 style="margin: 0 0 20px 0; font-size: 18px; font-weight: 700; color: {primary};">{search_icon} Top Signals Detected</h2>
 '''
 
     if top_signals:
         for i, sig in enumerate(top_signals, 1):
             ticker = sig.get('ticker', 'N/A')
+            company = sig.get('company', '')  # Get company name
             score = sig.get('rank_score') or 0  # Handle None
             cluster_count = sig.get('cluster_count') or 0  # Handle None
             total_value = sig.get('total_value') or 0  # Handle None
@@ -559,20 +724,31 @@ def _render_trading_dashboard_html(date, stats, today_pnl, today_pnl_pct, closed
             # Check if this signal was traded
             was_traded = ticker in opened_tickers
 
+            # Format company name display
+            company_display = f" - {company}" if company and company != ticker and company not in ['nan', 'None', None, ''] else ""
+
+            # Get star rating icons
+            star_icons = _get_star_rating_icons(score)
+
+            # Get trade status badge with icons
+            if was_traded:
+                trade_badge = f"<span style='background: {success}; color: #0b1120; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 700;'>{_get_icon('check', '#0b1120', 12, 12)} TRADED</span>"
+            else:
+                trade_badge = f"<span style='background: {text_muted}; color: #0b1120; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 700;'>{_get_icon('skip', '#0b1120', 12, 12)} SKIPPED</span>"
+
             html += f'''
-                                        <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background: rgba(255,255,255,0.03); border-radius: 8px; margin-bottom: 10px;">
+                                        <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background: rgba(255,255,255,0.03); border-radius: 8px; margin-bottom: 20px;">
                                             <tr>
-                                                <td style="padding: 15px;">
-                                                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-                                                        <div>
-                                                            <span style="font-size: 18px; font-weight: 800; color: {primary}; font-family: 'Courier New', monospace;">{i}. {ticker}</span>
-                                                            <span style="font-size: 14px; color: {text_muted}; margin-left: 10px;">Score: {score:.1f} {_get_star_rating(score)}</span>
-                                                        </div>
-                                                        <div>
-                                                            {"<span style='background: " + success + "; color: #0b1120; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 700;'>✅ TRADED</span>" if was_traded else "<span style='background: " + text_muted + "; color: #0b1120; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 700;'>⏭️ SKIPPED</span>"}
-                                                        </div>
+                                                <td style="padding: 20px;">
+                                                    <div style="margin-bottom: 12px;">
+                                                        <span style="font-size: 18px; font-weight: 800; color: {primary}; font-family: 'Courier New', monospace;">{i}. {ticker}</span>
+                                                        <span style="font-size: 14px; font-weight: 500; color: {text_main};">{company_display}</span>
                                                     </div>
-                                                    <div style="font-size: 13px; color: {text_muted}; margin-top: 8px; line-height: 1.6;">
+                                                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                                                        <span style="font-size: 14px; color: {text_muted};">Score: {score:.1f} {star_icons}</span>
+                                                        {trade_badge}
+                                                    </div>
+                                                    <div style="font-size: 13px; color: {text_muted}; line-height: 1.8;">
                                                         Cluster: {cluster_count} insiders bought {_format_currency(total_value)}<br>
                                                         Sector: {sector if sector and sector not in ['nan', 'None', None, 'Unknown'] else 'N/A'} | Price: ${price:.2f}<br>
                                                         Pattern: {pattern if pattern and pattern not in ['nan', 'None', None, ''] else 'None'}
@@ -604,7 +780,7 @@ def _render_trading_dashboard_html(date, stats, today_pnl, today_pnl_pct, closed
                             <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background: {bg_card}; border: 1px solid {border}; border-radius: 12px;">
                                 <tr>
                                     <td style="padding: 25px;">
-                                        <h2 style="margin: 0 0 15px 0; font-size: 18px; font-weight: 700; color: {primary};">🏥 Portfolio Health</h2>
+                                        <h2 style="margin: 0 0 15px 0; font-size: 18px; font-weight: 700; color: {primary};">{health_icon} Portfolio Health</h2>
 '''
 
     has_warnings = any(h['status'] == 'warning' for h in health_checks)
@@ -614,20 +790,20 @@ def _render_trading_dashboard_html(date, stats, today_pnl, today_pnl_pct, closed
     if not has_warnings:
         html += f'''
                                         <div style="color: {success}; font-size: 14px;">
-                                            <p style="margin: 0;">✅ All systems healthy</p>
+                                            <p style="margin: 0;">{check_icon} All systems healthy</p>
                                         </div>
 '''
     else:
         for check in ok_checks:
             html += f'''
                                         <div style="color: {success}; font-size: 13px; margin-bottom: 5px;">
-                                            ✅ {check['message']}
+                                            {check_icon} {check['message']}
                                         </div>
 '''
         for check in warning_checks:
             html += f'''
                                         <div style="color: {warning}; font-size: 13px; margin-bottom: 5px;">
-                                            ⚠️ {check['message']}
+                                            {warning_icon} {check['message']}
                                         </div>
 '''
 
@@ -776,6 +952,11 @@ def _render_simple_no_activity_report(total_transactions=0, buy_count=0, sell_co
     text_muted = "#94a3b8"
     border = f"1px solid rgba(0, 217, 255, 0.2)"
 
+    # Get icons
+    logo_icon = _get_logo_img(28, 28)
+    search_icon = _get_icon('search', primary, 20, 20)
+    inbox_icon = _get_icon('inbox', text_muted, 48, 48)
+
     html = f'''<!DOCTYPE html>
 <html>
 <head>
@@ -792,7 +973,7 @@ def _render_simple_no_activity_report(total_transactions=0, buy_count=0, sell_co
                     <tr>
                         <td style="padding: 20px 0; text-align: center;">
                             <div style="margin-bottom: 15px;">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                                {logo_icon}
                                 <span style="font-size: 20px; font-weight: 700; letter-spacing: 0.5px; color: {text_main}; vertical-align: middle; margin-left: 10px;">INSIDER CLUSTER <span style="color: {text_muted};">WATCH</span></span>
                             </div>
                             <h1 style="margin: 0; font-size: 28px; font-weight: 800; color: {primary};">Daily Trading Report</h1>
@@ -806,8 +987,8 @@ def _render_simple_no_activity_report(total_transactions=0, buy_count=0, sell_co
                             <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background: rgba(0,217,255,0.1); border: 1px solid {primary}; border-radius: 12px;">
                                 <tr>
                                     <td style="padding: 40px 25px; text-align: center;">
-                                        <h2 style="margin: 0 0 15px 0; font-size: 20px; font-weight: 700; color: {primary};">🔍 INSIDER SIGNAL DETECTION</h2>
-                                        <div style="font-size: 48px; margin-bottom: 15px;">❌</div>
+                                        <h2 style="margin: 0 0 15px 0; font-size: 20px; font-weight: 700; color: {primary};">{search_icon} INSIDER SIGNAL DETECTION</h2>
+                                        <div style="margin-bottom: 15px;">{inbox_icon}</div>
                                         <p style="margin: 0 0 10px 0; font-size: 16px; font-weight: 600; color: {text_main};">No insider clusters detected today</p>
                                         <p style="margin: 0 0 20px 0; font-size: 14px; color: {text_muted};">System ran successfully but found no qualified clusters meeting criteria</p>
 
@@ -1009,6 +1190,17 @@ def _render_no_activity_html_email(date, stats, today_pnl, today_pnl_pct, closed
     total_return_color = success if stats['total_return_pct'] >= 0 else danger
     today_pnl_color = success if today_pnl >= 0 else danger
 
+    # Get icons
+    logo_icon = _get_logo_img(28, 28)
+    dollar_icon = _get_icon('dollar', primary, 18, 18)
+    trending_icon = _get_icon('trending_up', primary, 18, 18)
+    target_icon = _get_icon('target', primary, 18, 18)
+    search_icon = _get_icon('search', primary, 18, 18)
+    inbox_icon = _get_icon('inbox', text_muted, 48, 48)
+    check_icon = _get_icon('check', success, 14, 14)
+    x_icon = _get_icon('x_circle', danger, 14, 14)
+    plus_icon = _get_icon('plus_circle', success, 14, 14)
+
     html = f'''<!DOCTYPE html>
 <html>
 <head>
@@ -1028,7 +1220,7 @@ def _render_no_activity_html_email(date, stats, today_pnl, today_pnl_pct, closed
                     <tr>
                         <td style="padding: 20px 0; text-align: center;">
                             <div style="margin-bottom: 15px;">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                                {logo_icon}
                                 <span style="font-size: 20px; font-weight: 700; letter-spacing: 0.5px; color: {text_main}; vertical-align: middle; margin-left: 10px;">INSIDER CLUSTER <span style="color: {text_muted};">WATCH</span></span>
                             </div>
                             <h1 style="margin: 0; font-size: 28px; font-weight: 800; color: {primary};">Daily Trading Report</h1>
@@ -1042,7 +1234,7 @@ def _render_no_activity_html_email(date, stats, today_pnl, today_pnl_pct, closed
                             <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background: {bg_card}; border: {border}; border-radius: 12px;">
                                 <tr>
                                     <td style="padding: 25px;">
-                                        <h2 style="margin: 0 0 20px 0; font-size: 20px; font-weight: 700; color: {primary};">💰 PAPER TRADING PERFORMANCE</h2>
+                                        <h2 style="margin: 0 0 20px 0; font-size: 20px; font-weight: 700; color: {primary};">{dollar_icon} PAPER TRADING PERFORMANCE</h2>
 
                                         <!-- Main Stats Row -->
                                         <table width="100%" cellpadding="0" cellspacing="0" border="0">
@@ -1103,7 +1295,7 @@ def _render_no_activity_html_email(date, stats, today_pnl, today_pnl_pct, closed
                             <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background: {bg_card}; border: {border}; border-radius: 12px;">
                                 <tr>
                                     <td style="padding: 25px;">
-                                        <h2 style="margin: 0 0 20px 0; font-size: 20px; font-weight: 700; color: {primary};">📈 TODAY'S TRADING ACTIVITY</h2>
+                                        <h2 style="margin: 0 0 20px 0; font-size: 20px; font-weight: 700; color: {primary};">{trending_icon} TODAY'S TRADING ACTIVITY</h2>
 '''
 
     # Closed positions section
@@ -1114,7 +1306,7 @@ def _render_no_activity_html_email(date, stats, today_pnl, today_pnl_pct, closed
 '''
         for pos in closed_today:
             pnl_color = success if pos['profit'] >= 0 else danger
-            pnl_icon = "✅" if pos['profit'] >= 0 else "❌"
+            pnl_icon = check_icon if pos['profit'] >= 0 else x_icon
             entry_date_str = pos['entry_date'].strftime('%b %d') if hasattr(pos['entry_date'], 'strftime') else str(pos['entry_date'])[:10] if pos['entry_date'] else 'N/A'
             html += f'''
                                             <div style="background: rgba(255,255,255,0.03); border-radius: 8px; padding: 15px; margin-bottom: 10px;">
@@ -1140,7 +1332,7 @@ def _render_no_activity_html_email(date, stats, today_pnl, today_pnl_pct, closed
         for ticker in opened_positions:
             html += f'''
                                             <div style="background: rgba(0,255,136,0.05); border-left: 3px solid {success}; border-radius: 8px; padding: 15px; margin-bottom: 10px;">
-                                                <span style="font-size: 16px; font-weight: 700; color: {text_main};">🆕 {ticker}</span>
+                                                <span style="font-size: 16px; font-weight: 700; color: {text_main};">{plus_icon} {ticker}</span>
                                             </div>
 '''
         html += '''
@@ -1171,7 +1363,7 @@ def _render_no_activity_html_email(date, stats, today_pnl, today_pnl_pct, closed
                             <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background: {bg_card}; border: {border}; border-radius: 12px;">
                                 <tr>
                                     <td style="padding: 25px;">
-                                        <h2 style="margin: 0 0 20px 0; font-size: 20px; font-weight: 700; color: {primary};">🎯 OPEN POSITIONS ({len(open_positions)})</h2>
+                                        <h2 style="margin: 0 0 20px 0; font-size: 20px; font-weight: 700; color: {primary};">{target_icon} OPEN POSITIONS ({len(open_positions)})</h2>
 '''
         for pos in open_positions:
             pnl_color = success if pos['unrealized_pnl'] > 0 else danger if pos['unrealized_pnl'] < 0 else text_main
@@ -1202,7 +1394,7 @@ def _render_no_activity_html_email(date, stats, today_pnl, today_pnl_pct, closed
                             <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background: {bg_card}; border: {border}; border-radius: 12px;">
                                 <tr>
                                     <td style="padding: 25px;">
-                                        <h2 style="margin: 0 0 20px 0; font-size: 20px; font-weight: 700; color: {primary};">🎯 OPEN POSITIONS</h2>
+                                        <h2 style="margin: 0 0 20px 0; font-size: 20px; font-weight: 700; color: {primary};">{target_icon} OPEN POSITIONS</h2>
                                         <div style="text-align: center; padding: 20px; color: {text_muted};">
                                             <p style="margin: 0; font-size: 14px;">No open positions - portfolio fully in cash</p>
                                         </div>
@@ -1220,8 +1412,8 @@ def _render_no_activity_html_email(date, stats, today_pnl, today_pnl_pct, closed
                             <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background: rgba(0,217,255,0.1); border: 1px solid {primary}; border-radius: 12px;">
                                 <tr>
                                     <td style="padding: 25px; text-align: center;">
-                                        <h2 style="margin: 0 0 15px 0; font-size: 20px; font-weight: 700; color: {primary};">🔍 INSIDER SIGNAL DETECTION</h2>
-                                        <div style="font-size: 48px; margin-bottom: 15px;">❌</div>
+                                        <h2 style="margin: 0 0 15px 0; font-size: 20px; font-weight: 700; color: {primary};">{search_icon} INSIDER SIGNAL DETECTION</h2>
+                                        <div style="margin-bottom: 15px;">{inbox_icon}</div>
                                         <p style="margin: 0 0 10px 0; font-size: 16px; font-weight: 600; color: {text_main};">No insider clusters detected today</p>
                                         <p style="margin: 0 0 20px 0; font-size: 14px; color: {text_muted};">System ran successfully but found no qualified clusters meeting criteria</p>
 
