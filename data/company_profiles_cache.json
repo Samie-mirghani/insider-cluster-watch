@@ -4042,5 +4042,29 @@
     "ipoDate": "2012-09-26",
     "updated": "2026-01-13T00:00:26.990908",
     "source": "fmp_api"
+  },
+  "PDX": {
+    "industry": "Asset Management",
+    "sector": "Financial Services",
+    "price": 19.64,
+    "companyName": "PIMCO Dynamic Income Strategy Fund",
+    "currency": "USD",
+    "beta": 0.75197816,
+    "range": "18.47-32.881",
+    "ipoDate": "2019-01-30",
+    "updated": "2026-01-13T11:34:01.878459",
+    "source": "fmp_api"
+  },
+  "ALMS": {
+    "industry": "Biotechnology",
+    "sector": "Healthcare",
+    "price": 21.09,
+    "companyName": "Alumis Inc. Common Stock",
+    "currency": "USD",
+    "beta": -2.082129,
+    "range": "2.76-22.3",
+    "ipoDate": "2021-02-22",
+    "updated": "2026-01-13T11:34:02.244424",
+    "source": "fmp_api"
   }
 }
