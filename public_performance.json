@@ -1,6 +1,6 @@
 {
-  "last_updated": "January 13, 2026 at 14:08 UTC",
-  "total_return_pct": 12.31,
+  "last_updated": "January 13, 2026 at 15:19 UTC",
+  "total_return_pct": 12.04,
   "win_rate": 76.2,
   "completed_trades": 21,
   "active_trades": 3,
@@ -10,7 +10,7 @@
   "avg_hold_days": 12,
   "best_trade_pct": 59.64,
   "worst_trade_pct": -5.75,
-  "alpha_vs_sp500": 11.26,
+  "alpha_vs_sp500": 11.31,
   "avg_winner": 13.75,
   "avg_loser": -3.31,
   "win_loss_ratio": 4.15,
@@ -242,29 +242,29 @@
       "ticker": "XZO",
       "entry_date": "Dec 23, 2025",
       "days_held": 21,
-      "unrealized_return": 2.5,
+      "unrealized_return": 2.11,
       "conviction": "HIGH"
     },
     {
       "ticker": "AKTS",
       "entry_date": "Jan 13, 2026",
       "days_held": 0,
-      "unrealized_return": 0.0,
+      "unrealized_return": -2.94,
       "conviction": "HIGH"
     },
     {
       "ticker": "ALMS",
       "entry_date": "Jan 13, 2026",
       "days_held": 0,
-      "unrealized_return": 0.0,
+      "unrealized_return": -0.95,
       "conviction": "HIGH"
     }
   ],
   "portfolio_composition": {
     "starting_capital": 10000,
-    "current_value": 11230.93,
+    "current_value": 11204.16,
     "cash": 9380.4,
-    "invested_capital": 1850.53,
-    "capital_deployed_pct": 16.48
+    "invested_capital": 1823.76,
+    "capital_deployed_pct": 16.28
   }
 }
