@@ -1,29 +1,7 @@
 {
   "starting_capital": 10000,
-  "cash": 9380.404999999997,
+  "cash": 9943.824999999997,
   "positions": {
-    "XZO": {
-      "entry_date": "2025-12-23T11:29:03.436861",
-      "entry_price": 22.03,
-      "shares": 26,
-      "cost_basis": 572.78,
-      "initial_stop_loss": 20.9285,
-      "stop_loss": 22.058999999999997,
-      "take_profit": 23.792400000000004,
-      "highest_price": 23.22,
-      "trailing_enabled": true,
-      "signal_score": 11.561315991490785,
-      "sector": null,
-      "multi_signal_tier": "none",
-      "has_politician_signal": false,
-      "tranches": [
-        {
-          "shares": 26,
-          "price": 22.03,
-          "date": "2025-12-23T11:29:03.436865"
-        }
-      ]
-    },
     "AKTS": {
       "entry_date": "2026-01-13T11:34:39.496224",
       "entry_price": 21.75,
@@ -52,10 +30,10 @@
       "shares": 30,
       "cost_basis": 632.7,
       "initial_stop_loss": 20.0355,
-      "stop_loss": 20.0355,
+      "stop_loss": 21.0045,
       "take_profit": 22.7772,
-      "highest_price": 21.09,
-      "trailing_enabled": false,
+      "highest_price": 22.11,
+      "trailing_enabled": true,
       "signal_score": 12.220177391948724,
       "sector": null,
       "multi_signal_tier": "none",
@@ -87,9 +65,9 @@
   },
   "total_trades": 23,
   "winning_trades": 16,
-  "losing_trades": 5,
-  "total_profit": 1197.08,
+  "losing_trades": 6,
+  "total_profit": 1187.72,
   "max_portfolio_value": 11790.185000000001,
   "max_drawdown": -9.109194484777545,
-  "last_updated": "2026-01-13T15:15:15.946410"
+  "last_updated": "2026-01-13T21:53:06.922119"
 }

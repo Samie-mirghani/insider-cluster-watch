@@ -1,24 +1,24 @@
 {
-  "last_updated": "January 13, 2026 at 15:19 UTC",
-  "total_return_pct": 12.04,
-  "win_rate": 76.2,
-  "completed_trades": 21,
-  "active_trades": 3,
-  "avg_return_per_trade": 9.69,
-  "sharpe_ratio": 10.43,
+  "last_updated": "January 13, 2026 at 21:56 UTC",
+  "total_return_pct": 12.26,
+  "win_rate": 72.7,
+  "completed_trades": 22,
+  "active_trades": 2,
+  "avg_return_per_trade": 9.17,
+  "sharpe_ratio": 9.98,
   "max_drawdown": -9.11,
   "avg_hold_days": 12,
   "best_trade_pct": 59.64,
   "worst_trade_pct": -5.75,
-  "alpha_vs_sp500": 11.31,
+  "alpha_vs_sp500": 12.26,
   "avg_winner": 13.75,
-  "avg_loser": -3.31,
-  "win_loss_ratio": 4.15,
-  "profit_factor": 13.29,
-  "last_30_days_return": 189.44,
-  "last_10_trades_win_rate": 90.0,
-  "current_streak": 5,
-  "current_streak_type": "wins",
+  "avg_loser": -3.03,
+  "win_loss_ratio": 4.54,
+  "profit_factor": 12.1,
+  "last_30_days_return": 187.81,
+  "last_10_trades_win_rate": 80.0,
+  "current_streak": 1,
+  "current_streak_type": "losses",
   "conviction_performance": [
     {
       "conviction": "VERY HIGH",
@@ -28,9 +28,9 @@
     },
     {
       "conviction": "HIGH",
-      "trades": 7,
-      "win_rate": 85.7,
-      "avg_return": 14.52
+      "trades": 8,
+      "win_rate": 75.0,
+      "avg_return": 12.5
     },
     {
       "conviction": "MEDIUM",
@@ -52,10 +52,19 @@
     },
     {
       "month": "2026-01",
-      "return": 76.36
+      "return": 74.73
     }
   ],
   "recent_trades": [
+    {
+      "ticker": "XZO",
+      "entry_date": "Dec 23, 2025",
+      "exit_date": "Jan 13, 2026",
+      "hold_days": 21,
+      "return_pct": -1.63,
+      "conviction": "HIGH",
+      "exit_reason": "Time Stop"
+    },
     {
       "ticker": "FGBI",
       "entry_date": "Jan 08, 2026",
@@ -226,45 +235,29 @@
       "return_pct": 14.08,
       "conviction": "HIGH",
       "exit_reason": "Take Profit"
-    },
-    {
-      "ticker": "VRSK",
-      "entry_date": "Nov 11, 2025",
-      "exit_date": "Dec 11, 2025",
-      "hold_days": 30,
-      "return_pct": 0.72,
-      "conviction": "MEDIUM",
-      "exit_reason": "Time Stop"
     }
   ],
   "open_positions": [
     {
-      "ticker": "XZO",
-      "entry_date": "Dec 23, 2025",
-      "days_held": 21,
-      "unrealized_return": 2.11,
-      "conviction": "HIGH"
-    },
-    {
       "ticker": "AKTS",
       "entry_date": "Jan 13, 2026",
       "days_held": 0,
-      "unrealized_return": -2.94,
+      "unrealized_return": -1.84,
       "conviction": "HIGH"
     },
     {
       "ticker": "ALMS",
       "entry_date": "Jan 13, 2026",
       "days_held": 0,
-      "unrealized_return": -0.95,
+      "unrealized_return": 4.84,
       "conviction": "HIGH"
     }
   ],
   "portfolio_composition": {
     "starting_capital": 10000,
-    "current_value": 11204.16,
-    "cash": 9380.4,
-    "invested_capital": 1823.76,
-    "capital_deployed_pct": 16.28
+    "current_value": 11226.27,
+    "cash": 9943.82,
+    "invested_capital": 1282.45,
+    "capital_deployed_pct": 11.42
   }
 }
