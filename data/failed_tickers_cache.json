@@ -5649,16 +5649,21 @@
     "failure_type": "PERMANENT"
   },
   "ZKP": {
-    "failure_count": 1,
+    "failure_count": 2,
     "first_failure": "2026-01-13T11:34:03.374304",
     "failure_history": [
       {
         "date": "2026-01-13T11:34:03.374315",
         "reason": "No price data from yfinance",
         "type": "TEMPORARY"
+      },
+      {
+        "date": "2026-01-13T14:07:46.608443",
+        "reason": "No price data from yfinance",
+        "type": "TEMPORARY"
       }
     ],
-    "last_failure": "2026-01-13T11:34:03.374312",
+    "last_failure": "2026-01-13T14:07:46.608432",
     "reason": "No price data from yfinance",
     "failure_type": "TEMPORARY"
   }

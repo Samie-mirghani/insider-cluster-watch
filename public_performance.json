@@ -1,9 +1,9 @@
 {
-  "last_updated": "January 13, 2026 at 00:00 UTC",
+  "last_updated": "January 13, 2026 at 14:08 UTC",
   "total_return_pct": 12.31,
   "win_rate": 76.2,
   "completed_trades": 21,
-  "active_trades": 1,
+  "active_trades": 3,
   "avg_return_per_trade": 9.69,
   "sharpe_ratio": 10.43,
   "max_drawdown": -9.11,
@@ -241,16 +241,30 @@
     {
       "ticker": "XZO",
       "entry_date": "Dec 23, 2025",
-      "days_held": 20,
+      "days_held": 21,
       "unrealized_return": 2.5,
+      "conviction": "HIGH"
+    },
+    {
+      "ticker": "AKTS",
+      "entry_date": "Jan 13, 2026",
+      "days_held": 0,
+      "unrealized_return": 0.0,
+      "conviction": "HIGH"
+    },
+    {
+      "ticker": "ALMS",
+      "entry_date": "Jan 13, 2026",
+      "days_held": 0,
+      "unrealized_return": 0.0,
       "conviction": "HIGH"
     }
   ],
   "portfolio_composition": {
     "starting_capital": 10000,
     "current_value": 11230.93,
-    "cash": 10643.85,
-    "invested_capital": 587.08,
-    "capital_deployed_pct": 5.23
+    "cash": 9380.4,
+    "invested_capital": 1850.53,
+    "capital_deployed_pct": 16.48
   }
 }
