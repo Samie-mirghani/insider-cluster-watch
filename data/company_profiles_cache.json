@@ -3994,5 +3994,53 @@
     "ipoDate": "2000-11-27",
     "updated": "2026-01-12T20:23:46.502094",
     "source": "fmp_api"
+  },
+  "IBTA": {
+    "industry": "Software - Application",
+    "sector": "Technology",
+    "price": 21.83,
+    "companyName": "Ibotta, Inc.",
+    "currency": "USD",
+    "beta": -0.87345135,
+    "range": "20.6-76",
+    "ipoDate": "2024-04-19",
+    "updated": "2026-01-13T00:00:26.964721",
+    "source": "fmp_api"
+  },
+  "AKTS": {
+    "industry": "Communication Equipment",
+    "sector": "Technology",
+    "price": 21.75,
+    "companyName": "Akoustis Technologies, Inc.",
+    "currency": "USD",
+    "beta": 1.689,
+    "range": "19.333-29.16",
+    "ipoDate": "2015-06-04",
+    "updated": "2026-01-13T00:00:26.973375",
+    "source": "fmp_api"
+  },
+  "MIGI": {
+    "industry": "Financial - Capital Markets",
+    "sector": "Financial Services",
+    "price": 4.1,
+    "companyName": "Mawson Infrastructure Group, Inc.",
+    "currency": "USD",
+    "beta": 4.15,
+    "range": "3.8-40",
+    "ipoDate": "2012-02-22",
+    "updated": "2026-01-13T00:00:26.981837",
+    "source": "fmp_api"
+  },
+  "NXG": {
+    "industry": "Asset Management - Income",
+    "sector": "Financial Services",
+    "price": 50.99,
+    "companyName": "NXG NextGen Infrastructure Income Fund",
+    "currency": "USD",
+    "beta": 1.0629324,
+    "range": "35.22-53.38",
+    "ipoDate": "2012-09-26",
+    "updated": "2026-01-13T00:00:26.990908",
+    "source": "fmp_api"
   }
 }

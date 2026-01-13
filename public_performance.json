@@ -1,6 +1,6 @@
 {
-  "last_updated": "January 12, 2026 at 20:24 UTC",
-  "total_return_pct": 12.3,
+  "last_updated": "January 13, 2026 at 00:00 UTC",
+  "total_return_pct": 12.31,
   "win_rate": 76.2,
   "completed_trades": 21,
   "active_trades": 1,
@@ -10,7 +10,7 @@
   "avg_hold_days": 12,
   "best_trade_pct": 59.64,
   "worst_trade_pct": -5.75,
-  "alpha_vs_sp500": 11.24,
+  "alpha_vs_sp500": 11.26,
   "avg_winner": 13.75,
   "avg_loser": -3.31,
   "win_loss_ratio": 4.15,
@@ -242,15 +242,15 @@
       "ticker": "XZO",
       "entry_date": "Dec 23, 2025",
       "days_held": 20,
-      "unrealized_return": 2.41,
+      "unrealized_return": 2.5,
       "conviction": "HIGH"
     }
   ],
   "portfolio_composition": {
     "starting_capital": 10000,
-    "current_value": 11230.41,
+    "current_value": 11230.93,
     "cash": 10643.85,
-    "invested_capital": 586.56,
-    "capital_deployed_pct": 5.22
+    "invested_capital": 587.08,
+    "capital_deployed_pct": 5.23
   }
 }
