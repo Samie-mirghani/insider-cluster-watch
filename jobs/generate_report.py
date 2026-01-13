@@ -324,7 +324,11 @@ def _render_trading_dashboard_html(date, stats, today_pnl, today_pnl_pct, closed
                     <!-- Header -->
                     <tr>
                         <td style="padding: 20px 0; text-align: center;">
-                            <h1 style="margin: 0; font-size: 28px; font-weight: 800; color: {primary};">📊 Daily Trading Report</h1>
+                            <div style="margin-bottom: 15px;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                                <span style="font-size: 20px; font-weight: 700; letter-spacing: 0.5px; color: {text_main}; vertical-align: middle; margin-left: 10px;">INSIDER CLUSTER <span style="color: {text_muted};">WATCH</span></span>
+                            </div>
+                            <h1 style="margin: 0; font-size: 28px; font-weight: 800; color: {primary};">Daily Trading Report</h1>
                             <p style="margin: 10px 0 0 0; color: {text_muted}; font-size: 14px;">{date}</p>
                         </td>
                     </tr>
@@ -787,7 +791,11 @@ def _render_simple_no_activity_report(total_transactions=0, buy_count=0, sell_co
                     <!-- Header -->
                     <tr>
                         <td style="padding: 20px 0; text-align: center;">
-                            <h1 style="margin: 0; font-size: 28px; font-weight: 800; color: {primary};">📊 Daily Trading Report</h1>
+                            <div style="margin-bottom: 15px;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                                <span style="font-size: 20px; font-weight: 700; letter-spacing: 0.5px; color: {text_main}; vertical-align: middle; margin-left: 10px;">INSIDER CLUSTER <span style="color: {text_muted};">WATCH</span></span>
+                            </div>
+                            <h1 style="margin: 0; font-size: 28px; font-weight: 800; color: {primary};">Daily Trading Report</h1>
                             <p style="margin: 10px 0 0 0; color: {text_muted}; font-size: 14px;">{date}</p>
                         </td>
                     </tr>
@@ -1019,7 +1027,11 @@ def _render_no_activity_html_email(date, stats, today_pnl, today_pnl_pct, closed
                     <!-- Header -->
                     <tr>
                         <td style="padding: 20px 0; text-align: center;">
-                            <h1 style="margin: 0; font-size: 28px; font-weight: 800; color: {primary};">📊 Daily Trading Report</h1>
+                            <div style="margin-bottom: 15px;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                                <span style="font-size: 20px; font-weight: 700; letter-spacing: 0.5px; color: {text_main}; vertical-align: middle; margin-left: 10px;">INSIDER CLUSTER <span style="color: {text_muted};">WATCH</span></span>
+                            </div>
+                            <h1 style="margin: 0; font-size: 28px; font-weight: 800; color: {primary};">Daily Trading Report</h1>
                             <p style="margin: 10px 0 0 0; color: {text_muted}; font-size: 14px;">{date}</p>
                         </td>
                     </tr>
