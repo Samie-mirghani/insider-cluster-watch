@@ -4,119 +4,76 @@ from datetime import datetime
 import pandas as pd
 import os
 import math
-import base64
 
 TEMPLATE_DIR = os.path.join(os.path.dirname(__file__), '..', 'templates')
 
 
 # =============================================================================
-# SLEEK OUTLINE SVG ICONS (Base64 encoded for email compatibility)
-# These match the professional outline style from dashboard.html
+# GITHUB-HOSTED ICONS (Professional PNG icons with text fallback)
+# Icons are hosted on GitHub for universal email client compatibility
 # =============================================================================
 
-def _svg_to_base64_img(svg_content, width=20, height=20, color="#38bdf8"):
-    """Convert SVG content to a base64-encoded img tag for email compatibility."""
-    # Replace color placeholder
-    svg = svg_content.replace("{color}", color)
-    encoded = base64.b64encode(svg.encode('utf-8')).decode('utf-8')
-    return f'<img src="data:image/svg+xml;base64,{encoded}" width="{width}" height="{height}" style="vertical-align: middle; display: inline-block;" alt="" />'
+# Base URL for GitHub-hosted icons
+GITHUB_ICON_BASE_URL = "https://raw.githubusercontent.com/Samie-mirghani/insider-cluster-watch/main/docs/assets/icons"
 
+# Icon filename mapping
+_ICON_FILES = {
+    'logo': 'logo.png',
+    'dollar': 'dollar.png',
+    'trending_up': 'trending.png',
+    'target': 'target.png',
+    'search': 'search.png',
+    'health': 'health.png',
+    'check': 'check.png',
+    'x_circle': 'x-circle.png',
+    'plus_circle': 'plus.png',
+    'warning': 'warning.png',
+    'skip': 'skip.png',
+    'users': 'users.png',
+    'flame': 'flame.png',
+    'zap': 'zap.png',
+    'star': 'star.png',
+    'star_outline': 'star-outline.png',
+    'building': 'building.png',
+    'inbox': 'inbox.png',
+}
 
-# SVG icon definitions (outline style matching dashboard.html)
-_SVG_ICONS = {
-    # Logo - Activity/Pulse line
-    'logo': '''<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="{color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>''',
-
-    # Dollar sign - for portfolio/money
-    'dollar': '''<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="{color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>''',
-
-    # Trending up - for trading activity
-    'trending_up': '''<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="{color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>''',
-
-    # Target/Crosshair - for open positions
-    'target': '''<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="{color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>''',
-
-    # Search/Magnifying glass - for signals detected
-    'search': '''<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="{color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>''',
-
-    # Heart/Shield - for health
-    'health': '''<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="{color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>''',
-
-    # Check circle - for success/traded
-    'check': '''<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="{color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>''',
-
-    # X circle - for error/closed
-    'x_circle': '''<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="{color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>''',
-
-    # Alert triangle - for warning
-    'warning': '''<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="{color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>''',
-
-    # Star - for ratings
-    'star': '''<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="{color}" stroke="{color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>''',
-
-    # Star outline - for empty ratings
-    'star_outline': '''<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="{color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>''',
-
-    # Plus circle - for new/opened
-    'plus_circle': '''<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="{color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>''',
-
-    # Fast forward - for skipped
-    'skip': '''<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="{color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 19 22 12 13 5 13 19"></polygon><polygon points="2 19 11 12 2 5 2 19"></polygon></svg>''',
-
-    # Users - for insiders
-    'users': '''<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="{color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>''',
-
-    # Mail/Inbox - for no activity
-    'inbox': '''<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="{color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"></polyline><path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"></path></svg>''',
-
-    # Zap/Lightning - for urgent/tier
-    'zap': '''<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="{color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>''',
-
-    # Flame - for hot/tier1
-    'flame': '''<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="{color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"></path></svg>''',
-
-    # Building - for sector/company
-    'building': '''<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="{color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l8-4 8 4v14"/><path d="M9 21v-8h6v8"/></svg>''',
-
-    # Award/Medal - for quality
-    'award': '''<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="{color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>''',
-
-    # Rocket - for squeeze
-    'rocket': '''<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="{color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path><path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path></svg>''',
-
-    # Bar chart - for short interest
-    'bar_chart': '''<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="{color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"></line><line x1="18" y1="20" x2="18" y2="4"></line><line x1="6" y1="20" x2="6" y2="16"></line></svg>''',
-
-    # Landmark - for politician
-    'landmark': '''<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="{color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="22" x2="21" y2="22"></line><line x1="6" y1="18" x2="6" y2="11"></line><line x1="10" y1="18" x2="10" y2="11"></line><line x1="14" y1="18" x2="14" y2="11"></line><line x1="18" y1="18" x2="18" y2="11"></line><polygon points="12 2 20 7 4 7"></polygon></svg>''',
-
-    # Pin - for suggested action
-    'pin': '''<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="{color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>''',
-
-    # Lightbulb - for tips/explanations
-    'lightbulb': '''<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="{color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"></path><path d="M10 22h4"></path><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"></path></svg>''',
-
-    # Calendar - for dates
-    'calendar': '''<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="{color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>''',
+# Text fallback icons (shown if images don't load)
+_TEXT_FALLBACKS = {
+    'logo': '◆',
+    'dollar': '$',
+    'trending_up': '↗',
+    'target': '◎',
+    'search': '○',
+    'health': '+',
+    'check': '✓',
+    'x_circle': '✗',
+    'plus_circle': '+',
+    'warning': '!',
+    'skip': '»',
+    'users': '••',
+    'flame': '●',
+    'zap': '⚡',
+    'star': '★',
+    'star_outline': '☆',
+    'building': '■',
+    'inbox': '▭',
 }
 
 
-def _get_icon(name, color="#38bdf8", width=20, height=20):
-    """Get a base64-encoded SVG icon for email compatibility."""
-    if name not in _SVG_ICONS:
+def _get_hosted_icon(name, width=20, height=20):
+    """Get a GitHub-hosted PNG icon with text fallback."""
+    if name not in _ICON_FILES:
         return ""
-    svg = _SVG_ICONS[name].replace("{color}", color)
-    # Update width/height in the SVG
-    svg = svg.replace('width="20"', f'width="{width}"').replace('height="20"', f'height="{height}"')
-    svg = svg.replace('width="16"', f'width="{width}"').replace('height="16"', f'height="{height}"')
-    svg = svg.replace('width="14"', f'width="{width}"').replace('height="14"', f'height="{height}"')
-    svg = svg.replace('width="28"', f'width="{width}"').replace('height="28"', f'height="{height}"')
-    encoded = base64.b64encode(svg.encode('utf-8')).decode('utf-8')
-    return f'<img src="data:image/svg+xml;base64,{encoded}" width="{width}" height="{height}" style="vertical-align: middle; display: inline-block;" alt="" />'
+
+    url = f"{GITHUB_ICON_BASE_URL}/{_ICON_FILES[name]}"
+    fallback = _TEXT_FALLBACKS.get(name, '')
+
+    return f'<img src="{url}" width="{width}" height="{height}" alt="{fallback}" style="vertical-align: middle; display: inline-block;" />'
 
 
-def _get_star_rating_icons(score, color="#fbbf24"):
-    """Return star rating icons based on signal score."""
+def _get_hosted_star_rating(score):
+    """Return GitHub-hosted star rating icons based on signal score."""
     if score >= 15:
         stars = 3
     elif score >= 10:
@@ -124,15 +81,15 @@ def _get_star_rating_icons(score, color="#fbbf24"):
     else:
         stars = 1
 
-    filled = _get_icon('star', color, 14, 14)
-    empty = _get_icon('star_outline', '#64748b', 14, 14)
+    filled = _get_hosted_icon('star', 16, 16)
+    empty = _get_hosted_icon('star_outline', 16, 16)
 
     return (filled * stars) + (empty * (3 - stars))
 
 
-def _get_logo_img(width=28, height=28):
-    """Get the logo as a base64-encoded image for email compatibility."""
-    return _get_icon('logo', '#38bdf8', width, height)
+def _get_hosted_logo(width=28, height=28):
+    """Get the GitHub-hosted logo icon."""
+    return _get_hosted_icon('logo', width, height)
 
 def sanitize_dict_for_template(data):
     """
@@ -234,26 +191,22 @@ def render_daily_html(cluster_df, portfolio=None, closed_positions=None, opened_
         rows = cluster_df.to_dict(orient='records') if cluster_df is not None and not cluster_df.empty else []
         rows = sanitize_dict_for_template(rows)
 
-        # Pass icons to template
+        # Pass GitHub-hosted icons to template for professional appearance
         icons = {
-            'logo': _get_logo_img(28, 28),
-            'search': _get_icon('search', '#00D9FF', 18, 18),
-            'flame': _get_icon('flame', '#dc2626', 14, 14),
-            'zap': _get_icon('zap', '#f59e0b', 14, 14),
-            'landmark': _get_icon('landmark', '#8b5cf6', 14, 14),
-            'building': _get_icon('building', '#64748b', 14, 14),
-            'target': _get_icon('target', '#00D9FF', 14, 14),
-            'trending_up': _get_icon('trending_up', '#00D9FF', 14, 14),
-            'warning': _get_icon('warning', '#f59e0b', 14, 14),
-            'award': _get_icon('award', '#fbbf24', 14, 14),
-            'rocket': _get_icon('rocket', '#ff5722', 14, 14),
-            'bar_chart': _get_icon('bar_chart', '#c2185b', 14, 14),
-            'users': _get_icon('users', '#f59e0b', 14, 14),
-            'pin': _get_icon('pin', '#00D9FF', 14, 14),
-            'lightbulb': _get_icon('lightbulb', '#f59e0b', 14, 14),
-            'star': _get_icon('star', '#fbbf24', 14, 14),
-            'dollar': _get_icon('dollar', '#00D9FF', 14, 14),
-            'inbox': _get_icon('inbox', '#94a3b8', 14, 14),
+            'logo': _get_hosted_logo(24, 24),
+            'search': _get_hosted_icon('search', 18, 18),
+            'flame': _get_hosted_icon('flame', 16, 16),
+            'zap': _get_hosted_icon('zap', 16, 16),
+            'building': _get_hosted_icon('building', 16, 16),
+            'target': _get_hosted_icon('target', 16, 16),
+            'trending_up': _get_hosted_icon('trending_up', 16, 16),
+            'warning': _get_hosted_icon('warning', 16, 16),
+            'users': _get_hosted_icon('users', 16, 16),
+            'star': _get_hosted_icon('star', 16, 16),
+            'dollar': _get_hosted_icon('dollar', 16, 16),
+            'inbox': _get_hosted_icon('inbox', 16, 16),
+            'check': _get_hosted_icon('check', 16, 16),
+            'skip': _get_hosted_icon('skip', 16, 16),
         }
 
         html = tmpl.render(date=datetime.now().strftime("%B %d, %Y"), trades=rows, icons=icons)
@@ -456,18 +409,18 @@ def _render_trading_dashboard_html(date, stats, today_pnl, today_pnl_pct, closed
     total_return_color = success if stats['total_return_pct'] >= 0 else danger
     today_pnl_color = success if today_pnl >= 0 else danger
 
-    # Get icons for use in HTML
-    logo_icon = _get_logo_img(28, 28)
-    dollar_icon = _get_icon('dollar', primary, 18, 18)
-    trending_icon = _get_icon('trending_up', primary, 18, 18)
-    target_icon = _get_icon('target', primary, 18, 18)
-    search_icon = _get_icon('search', primary, 18, 18)
-    health_icon = _get_icon('health', primary, 18, 18)
-    check_icon = _get_icon('check', success, 14, 14)
-    x_icon = _get_icon('x_circle', danger, 14, 14)
-    plus_icon = _get_icon('plus_circle', success, 14, 14)
-    warning_icon = _get_icon('warning', warning, 14, 14)
-    skip_icon = _get_icon('skip', text_muted, 12, 12)
+    # Get GitHub-hosted icons for professional email appearance
+    logo_icon = _get_hosted_logo(28, 28)
+    dollar_icon = _get_hosted_icon('dollar', 20, 20)
+    trending_icon = _get_hosted_icon('trending_up', 20, 20)
+    target_icon = _get_hosted_icon('target', 20, 20)
+    search_icon = _get_hosted_icon('search', 20, 20)
+    health_icon = _get_hosted_icon('health', 20, 20)
+    check_icon = _get_hosted_icon('check', 18, 18)
+    x_icon = _get_hosted_icon('x_circle', 18, 18)
+    plus_icon = _get_hosted_icon('plus_circle', 18, 18)
+    warning_icon = _get_hosted_icon('warning', 18, 18)
+    skip_icon = _get_hosted_icon('skip', 14, 14)
 
     html = f'''<!DOCTYPE html>
 <html>
@@ -574,7 +527,7 @@ def _render_trading_dashboard_html(date, stats, today_pnl, today_pnl_pct, closed
 '''
         for pos in closed_today:
             pnl_color = success if pos['profit'] >= 0 else danger
-            pnl_icon = _get_icon('check', success, 14, 14) if pos['profit'] >= 0 else _get_icon('x_circle', danger, 14, 14)
+            pnl_icon = _get_hosted_icon('check', 14, 14) if pos['profit'] >= 0 else _get_hosted_icon('x_circle', 14, 14)
             entry_date_str = pos['entry_date'].strftime('%b %d') if hasattr(pos['entry_date'], 'strftime') else str(pos['entry_date'])[:10] if pos['entry_date'] else 'N/A'
             html += f'''
                                             <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background: rgba(255,255,255,0.03); border-radius: 8px; margin-bottom: 10px;">
@@ -614,7 +567,7 @@ def _render_trading_dashboard_html(date, stats, today_pnl, today_pnl_pct, closed
             target_pct = (pos['take_profit'] / pos['entry_price'] - 1) * 100 if pos['entry_price'] > 0 else 8
             position_pct = (pos['cost_basis'] / stats['current_value'] * 100) if stats['current_value'] > 0 else 0
 
-            star_icons = _get_star_rating_icons(pos['signal_score'])
+            star_icons = _get_hosted_star_rating(pos['signal_score'])
             html += f'''
                                             <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background: rgba(0,230,118,0.05); border-left: 3px solid {success}; border-radius: 8px; margin-bottom: 10px;">
                                                 <tr>
@@ -728,13 +681,13 @@ def _render_trading_dashboard_html(date, stats, today_pnl, today_pnl_pct, closed
             company_display = f" - {company}" if company and company != ticker and company not in ['nan', 'None', None, ''] else ""
 
             # Get star rating icons
-            star_icons = _get_star_rating_icons(score)
+            star_icons = _get_hosted_star_rating(score)
 
             # Get trade status badge with icons
             if was_traded:
-                trade_badge = f"<span style='background: {success}; color: #0b1120; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 700;'>{_get_icon('check', '#0b1120', 12, 12)} TRADED</span>"
+                trade_badge = f"<span style='background: {success}; color: #0b1120; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 700;'>{_get_hosted_icon('check', 12, 12)} TRADED</span>"
             else:
-                trade_badge = f"<span style='background: {text_muted}; color: #0b1120; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 700;'>{_get_icon('skip', '#0b1120', 12, 12)} SKIPPED</span>"
+                trade_badge = f"<span style='background: {text_muted}; color: #0b1120; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 700;'>{_get_hosted_icon('skip', 12, 12)} SKIPPED</span>"
 
             html += f'''
                                         <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background: rgba(255,255,255,0.03); border-radius: 8px; margin-bottom: 20px;">
@@ -952,10 +905,10 @@ def _render_simple_no_activity_report(total_transactions=0, buy_count=0, sell_co
     text_muted = "#94a3b8"
     border = f"1px solid rgba(0, 217, 255, 0.2)"
 
-    # Get icons
-    logo_icon = _get_logo_img(28, 28)
-    search_icon = _get_icon('search', primary, 20, 20)
-    inbox_icon = _get_icon('inbox', text_muted, 48, 48)
+    # Get GitHub-hosted icons for universal email client compatibility
+    logo_icon = _get_hosted_logo(24, 24)
+    search_icon = _get_hosted_icon('search', 18, 18)
+    inbox_icon = _get_hosted_icon('inbox', 36, 36)
 
     html = f'''<!DOCTYPE html>
 <html>
@@ -1190,16 +1143,16 @@ def _render_no_activity_html_email(date, stats, today_pnl, today_pnl_pct, closed
     total_return_color = success if stats['total_return_pct'] >= 0 else danger
     today_pnl_color = success if today_pnl >= 0 else danger
 
-    # Get icons
-    logo_icon = _get_logo_img(28, 28)
-    dollar_icon = _get_icon('dollar', primary, 18, 18)
-    trending_icon = _get_icon('trending_up', primary, 18, 18)
-    target_icon = _get_icon('target', primary, 18, 18)
-    search_icon = _get_icon('search', primary, 18, 18)
-    inbox_icon = _get_icon('inbox', text_muted, 48, 48)
-    check_icon = _get_icon('check', success, 14, 14)
-    x_icon = _get_icon('x_circle', danger, 14, 14)
-    plus_icon = _get_icon('plus_circle', success, 14, 14)
+    # Get GitHub-hosted icons for universal email client compatibility
+    logo_icon = _get_hosted_logo(24, 24)
+    dollar_icon = _get_hosted_icon('dollar', 18, 18)
+    trending_icon = _get_hosted_icon('trending_up', 18, 18)
+    target_icon = _get_hosted_icon('target', 18, 18)
+    search_icon = _get_hosted_icon('search', 18, 18)
+    inbox_icon = _get_hosted_icon('inbox', 36, 36)
+    check_icon = _get_hosted_icon('check', 14, 14)
+    x_icon = _get_hosted_icon('x_circle', 14, 14)
+    plus_icon = _get_hosted_icon('plus_circle', 14, 14)
 
     html = f'''<!DOCTYPE html>
 <html>
