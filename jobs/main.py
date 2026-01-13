@@ -14,6 +14,7 @@ logger = logging.getLogger(__name__)
 from fetch_openinsider import fetch_openinsider_recent
 from fetch_sec_edgar import fetch_sec_edgar_data
 from process_signals import cluster_and_score
+from fmp_api import fetch_profiles_batch
 from generate_report import render_daily_html, render_no_activity_html
 from send_email import send_email
 from paper_trade import PaperTradingPortfolio
