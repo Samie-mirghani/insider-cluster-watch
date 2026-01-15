@@ -1,24 +1,24 @@
 {
-  "last_updated": "January 14, 2026 at 11:35 UTC",
-  "total_return_pct": 12.26,
-  "win_rate": 72.7,
-  "completed_trades": 22,
-  "active_trades": 2,
-  "avg_return_per_trade": 9.17,
-  "sharpe_ratio": 9.98,
+  "last_updated": "January 15, 2026 at 11:34 UTC",
+  "total_return_pct": 12.78,
+  "win_rate": 73.9,
+  "completed_trades": 23,
+  "active_trades": 1,
+  "avg_return_per_trade": 9.45,
+  "sharpe_ratio": 10.46,
   "max_drawdown": -9.11,
   "avg_hold_days": 12,
   "best_trade_pct": 59.64,
   "worst_trade_pct": -5.75,
-  "alpha_vs_sp500": 12.26,
-  "avg_winner": 13.75,
+  "alpha_vs_sp500": 13.27,
+  "avg_winner": 13.85,
   "avg_loser": -3.03,
-  "win_loss_ratio": 4.54,
-  "profit_factor": 12.1,
-  "last_30_days_return": 187.81,
+  "win_loss_ratio": 4.57,
+  "profit_factor": 12.95,
+  "last_30_days_return": 201.89,
   "last_10_trades_win_rate": 80.0,
   "current_streak": 1,
-  "current_streak_type": "losses",
+  "current_streak_type": "wins",
   "conviction_performance": [
     {
       "conviction": "VERY HIGH",
@@ -28,9 +28,9 @@
     },
     {
       "conviction": "HIGH",
-      "trades": 8,
-      "win_rate": 75.0,
-      "avg_return": 12.5
+      "trades": 9,
+      "win_rate": 77.8,
+      "avg_return": 12.83
     },
     {
       "conviction": "MEDIUM",
@@ -52,10 +52,19 @@
     },
     {
       "month": "2026-01",
-      "return": 74.73
+      "return": 90.14
     }
   ],
   "recent_trades": [
+    {
+      "ticker": "ALMS",
+      "entry_date": "Jan 13, 2026",
+      "exit_date": "Jan 15, 2026",
+      "hold_days": 1,
+      "return_pct": 15.41,
+      "conviction": "HIGH",
+      "exit_reason": "Take Profit"
+    },
     {
       "ticker": "XZO",
       "entry_date": "Dec 23, 2025",
@@ -226,38 +235,22 @@
       "return_pct": 1.33,
       "conviction": "VERY HIGH",
       "exit_reason": "Trailing Stop"
-    },
-    {
-      "ticker": "CBIO",
-      "entry_date": "Dec 09, 2025",
-      "exit_date": "Dec 12, 2025",
-      "hold_days": 2,
-      "return_pct": 14.08,
-      "conviction": "HIGH",
-      "exit_reason": "Take Profit"
     }
   ],
   "open_positions": [
     {
       "ticker": "AKTS",
       "entry_date": "Jan 13, 2026",
-      "days_held": 1,
-      "unrealized_return": -1.84,
-      "conviction": "HIGH"
-    },
-    {
-      "ticker": "ALMS",
-      "entry_date": "Jan 13, 2026",
-      "days_held": 1,
-      "unrealized_return": 4.84,
+      "days_held": 2,
+      "unrealized_return": -2.66,
       "conviction": "HIGH"
     }
   ],
   "portfolio_composition": {
     "starting_capital": 10000,
-    "current_value": 11226.27,
-    "cash": 9943.82,
-    "invested_capital": 1282.45,
-    "capital_deployed_pct": 11.42
+    "current_value": 11277.51,
+    "cash": 10278.63,
+    "invested_capital": 998.88,
+    "capital_deployed_pct": 8.86
   }
 }

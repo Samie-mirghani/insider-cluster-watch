@@ -1,15 +1,15 @@
 {
   "starting_capital": 10000,
-  "cash": 9943.824999999997,
+  "cash": 10278.634999999998,
   "positions": {
     "AKTS": {
       "entry_date": "2026-01-13T11:34:39.496224",
-      "entry_price": 21.75,
-      "shares": 29,
-      "cost_basis": 630.75,
+      "entry_price": 21.377916666666664,
+      "shares": 48,
+      "cost_basis": 1026.1399999999999,
       "initial_stop_loss": 20.662499999999998,
-      "stop_loss": 20.662499999999998,
-      "take_profit": 23.490000000000002,
+      "stop_loss": 20.30902083333333,
+      "take_profit": 23.08815,
       "highest_price": 21.8563,
       "trailing_enabled": false,
       "signal_score": 12.35647948306682,
@@ -21,53 +21,21 @@
           "shares": 29,
           "price": 21.75,
           "date": "2026-01-13T11:34:39.496228"
-        }
-      ]
-    },
-    "ALMS": {
-      "entry_date": "2026-01-13T11:34:40.033951",
-      "entry_price": 21.09,
-      "shares": 30,
-      "cost_basis": 632.7,
-      "initial_stop_loss": 20.0355,
-      "stop_loss": 21.0045,
-      "take_profit": 22.7772,
-      "highest_price": 22.11,
-      "trailing_enabled": true,
-      "signal_score": 12.220177391948724,
-      "sector": null,
-      "multi_signal_tier": "none",
-      "has_politician_signal": false,
-      "tranches": [
+        },
         {
-          "shares": 30,
-          "price": 21.09,
-          "date": "2026-01-13T11:34:40.033956"
+          "shares": 19,
+          "price": 20.81,
+          "date": "2026-01-15T11:31:45.848585"
         }
       ]
     }
   },
-  "pending_entries": {
-    "AKTS": {
-      "shares": 19,
-      "trigger_price": 21.315,
-      "original_entry": 21.75,
-      "expires": "2026-01-18T11:34:39.721232",
-      "signal_score": 12.35647948306682
-    },
-    "ALMS": {
-      "shares": 20,
-      "trigger_price": 20.6682,
-      "original_entry": 21.09,
-      "expires": "2026-01-18T11:34:40.446843",
-      "signal_score": 12.220177391948724
-    }
-  },
+  "pending_entries": {},
   "total_trades": 23,
-  "winning_trades": 16,
+  "winning_trades": 17,
   "losing_trades": 6,
-  "total_profit": 1187.72,
+  "total_profit": 1285.22,
   "max_portfolio_value": 11790.185000000001,
   "max_drawdown": -9.109194484777545,
-  "last_updated": "2026-01-14T11:32:23.555531"
+  "last_updated": "2026-01-15T11:31:46.426915"
 }
