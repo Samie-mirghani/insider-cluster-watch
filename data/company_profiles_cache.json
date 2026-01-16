@@ -4150,5 +4150,29 @@
     "ipoDate": "2021-07-30",
     "updated": "2026-01-15T11:34:05.108588",
     "source": "fmp_api"
+  },
+  "ACRV": {
+    "industry": "Biotechnology",
+    "sector": "Healthcare",
+    "price": 1.87,
+    "companyName": "Acrivon Therapeutics, Inc. Common Stock",
+    "currency": "USD",
+    "beta": 1.753,
+    "range": "1.05-8",
+    "ipoDate": "2022-11-15",
+    "updated": "2026-01-16T11:32:41.231351",
+    "source": "fmp_api"
+  },
+  "MU": {
+    "industry": "Semiconductors",
+    "sector": "Technology",
+    "price": 336.63,
+    "companyName": "Micron Technology, Inc.",
+    "currency": "USD",
+    "beta": 1.503,
+    "range": "61.54-351.23",
+    "ipoDate": "1984-06-01",
+    "updated": "2026-01-16T11:32:41.235164",
+    "source": "fmp_api"
   }
 }

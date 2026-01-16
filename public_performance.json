@@ -1,6 +1,6 @@
 {
-  "last_updated": "January 15, 2026 at 11:34 UTC",
-  "total_return_pct": 12.78,
+  "last_updated": "January 16, 2026 at 11:33 UTC",
+  "total_return_pct": 12.66,
   "win_rate": 73.9,
   "completed_trades": 23,
   "active_trades": 1,
@@ -10,12 +10,12 @@
   "avg_hold_days": 12,
   "best_trade_pct": 59.64,
   "worst_trade_pct": -5.75,
-  "alpha_vs_sp500": 13.27,
+  "alpha_vs_sp500": 12.88,
   "avg_winner": 13.85,
   "avg_loser": -3.03,
   "win_loss_ratio": 4.57,
   "profit_factor": 12.95,
-  "last_30_days_return": 201.89,
+  "last_30_days_return": 180.63,
   "last_10_trades_win_rate": 80.0,
   "current_streak": 1,
   "current_streak_type": "wins",
@@ -242,15 +242,15 @@
       "ticker": "AKTS",
       "entry_date": "Jan 13, 2026",
       "days_held": 2,
-      "unrealized_return": -2.66,
+      "unrealized_return": -3.83,
       "conviction": "HIGH"
     }
   ],
   "portfolio_composition": {
     "starting_capital": 10000,
-    "current_value": 11277.51,
+    "current_value": 11265.51,
     "cash": 10278.63,
-    "invested_capital": 998.88,
-    "capital_deployed_pct": 8.86
+    "invested_capital": 986.88,
+    "capital_deployed_pct": 8.76
   }
 }
