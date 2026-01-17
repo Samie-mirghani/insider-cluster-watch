@@ -209,16 +209,16 @@ class TradingEngine:
         portfolio_value: float
     ) -> float:
         """
-        Calculate position value for a signal.
+        Calculate position value for a signal using score-weighted sizing.
 
-        Applies both score-weighted sizing AND tier-based sizing multipliers.
-        Higher conviction tiers get larger positions.
+        Higher signal scores get larger positions within the configured range.
+        This allows the signal strength (not tier) to determine position size.
         """
         signal_score = signal.get('signal_score') or signal.get('rank_score', 0)
 
-        # Step 1: Calculate base position percentage from score
         if config.ENABLE_SCORE_WEIGHTED_SIZING:
             # Score-weighted position sizing
+            # Maps signal score to position size between min and max percentages
             score_range = config.SCORE_WEIGHT_MAX_SCORE - config.SCORE_WEIGHT_MIN_SCORE
             if score_range > 0:
                 clamped_score = max(
@@ -234,25 +234,14 @@ class TradingEngine:
         else:
             position_pct = config.MAX_POSITION_PCT
 
-        base_position_value = portfolio_value * position_pct
+        position_value = portfolio_value * position_pct
 
-        # Step 2: Apply tier-based position sizing multiplier
-        # Higher conviction (tier1) = larger positions (1.00x)
-        # Lower conviction (tier4) = smaller positions (0.25x)
-        tier = signal.get('multi_signal_tier', 'none')
-        if tier in config.TIER_POSITION_SIZING:
-            tier_multiplier = config.TIER_POSITION_SIZING[tier]
-            final_position_value = base_position_value * tier_multiplier
+        logger.info(
+            f"Position sizing: score={signal_score:.1f} → "
+            f"{position_pct*100:.1f}% of portfolio = ${position_value:.2f}"
+        )
 
-            logger.info(
-                f"Position sizing: base=${base_position_value:.2f} × "
-                f"tier_{tier[4:]}_multiplier({tier_multiplier:.2f}) = ${final_position_value:.2f}"
-            )
-
-            return final_position_value
-        else:
-            # No tier or unknown tier - use base position value
-            return base_position_value
+        return position_value
 
     # =========================================================================
     # Trade Execution

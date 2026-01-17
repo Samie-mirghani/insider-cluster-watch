@@ -74,22 +74,15 @@ TRAILING_TRIGGER_PCT = 0.03      # Enable trailing after +3% gain
 # - Lower conviction (tier4) = TIGHTER stops (6%) - fail fast to preserve capital
 # This is intentional: we give high-conviction signals more room to work,
 # while cutting losses quickly on lower-conviction trades.
+#
+# NOTE: Position sizing is NOT tier-based. It uses score-weighted sizing instead.
+# Since most signals are tier4 with some tier3, tier-based sizing would reduce
+# capital deployment unnecessarily. Signal score determines position size.
 MULTI_SIGNAL_STOP_LOSS = {
     'tier1': 0.12,  # -12% stop for highest conviction (widest - most room)
     'tier2': 0.10,  # -10% stop for high conviction
     'tier3': 0.08,  # -8% stop for medium conviction
     'tier4': 0.06   # -6% stop for lower conviction (tightest - fail fast)
-}
-
-# Tiered position sizing (multi-signal trades)
-# Higher conviction signals get larger position sizes.
-# These multipliers are applied to the base position size calculated from
-# score-weighted sizing or MAX_POSITION_PCT.
-TIER_POSITION_SIZING = {
-    'tier1': 1.00,  # 100% of calculated position size (highest conviction)
-    'tier2': 0.75,  # 75% of calculated position size
-    'tier3': 0.50,  # 50% of calculated position size
-    'tier4': 0.25   # 25% of calculated position size (lowest conviction)
 }
 
 # Dynamic stop tightening
