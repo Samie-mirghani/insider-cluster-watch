@@ -949,12 +949,59 @@ def main(test=False, enable_paper_trading=True):
         return
     
     print(f"\n✅ Found {len(new_cluster_df)} NEW signal(s) to report\n")
-    
+
     # Use new_cluster_df instead of cluster_df from here on
     cluster_df = new_cluster_df
-    
+
+    # ============================================================================
+    # Export all new signals for Alpaca automated trading (before filtering by score)
+    # This ensures Alpaca has access to ALL new signals for potential trading
+    # ============================================================================
+    print("\n💾 Exporting new signals for Alpaca automated trading...")
+    approved_signals_file = os.path.join(DATA_DIR, 'approved_signals.json')
+
+    if not cluster_df.empty:
+        # Convert DataFrame to list of dicts with required fields
+        approved_signals = []
+        for _, row in cluster_df.iterrows():
+            signal = {
+                'ticker': row.get('ticker'),
+                'signal_score': row.get('rank_score', 0),  # Use rank_score as signal_score
+                'entry_price': row.get('currentPrice'),
+                'company_name': row.get('companyName', ''),
+                'sector': row.get('sector', ''),
+                'industry': row.get('industry', ''),
+                'market_cap': row.get('mktCap'),
+                'quality_score': row.get('quality_score', 0),
+                'multi_signal_tier': row.get('multi_signal_tier', 'none'),
+                'politician_trades': row.get('politician_trades', 0),
+                'institutional_count': row.get('institutional_count', 0),
+                'pattern_detected': row.get('pattern_detected', 'None'),
+                'insider_count': row.get('insider_count', 0),
+                'total_shares_bought': row.get('total_shares', 0),
+                'buy_value': row.get('buy_value', 0),
+                'short_percent_float': row.get('short_percent_float'),
+                'squeeze_potential': row.get('squeeze_potential', False),
+                'date_generated': datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
+            }
+            approved_signals.append(signal)
+
+        # Write to JSON file
+        import json
+        with open(approved_signals_file, 'w') as f:
+            json.dump(approved_signals, f, indent=2, default=str)
+
+        print(f"   ✅ Exported {len(approved_signals)} new signals to approved_signals.json")
+        print(f"   📍 Location: {approved_signals_file}")
+    else:
+        # Write empty list if no new signals
+        import json
+        with open(approved_signals_file, 'w') as f:
+            json.dump([], f)
+        print(f"   ℹ️  No new signals to export (wrote empty file)")
+
     # Show top signals with enhanced info
-    print("📊 New signals:")
+    print("\n📊 New signals:")
     for idx, row in cluster_df.head(5).iterrows():
         quality = f", Quality={row.get('quality_score', 0):.1f}" if 'quality_score' in row else ""
         sector = f", {row.get('sector', 'N/A')}" if 'sector' in row else ""

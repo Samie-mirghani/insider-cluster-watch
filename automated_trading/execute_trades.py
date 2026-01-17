@@ -89,6 +89,9 @@ class TradingEngine:
         self.position_monitor: Optional[PositionMonitor] = None
         self.alert_sender: Optional[AlertSender] = None
 
+        # Track exits for EOD summary
+        self.exits_today: List[Dict[str, Any]] = []
+
         self._connect()
 
     def _connect(self):
@@ -247,12 +250,19 @@ class TradingEngine:
     # Trade Execution
     # =========================================================================
 
-    def execute_buy_signal(self, signal: Dict[str, Any]) -> Tuple[bool, str]:
+    def execute_buy_signal(
+        self,
+        signal: Dict[str, Any],
+        send_alert: bool = True,
+        is_redeployment: bool = False
+    ) -> Tuple[bool, str]:
         """
         Execute a buy signal via Alpaca.
 
         Args:
             signal: Signal dictionary with ticker, entry_price, etc.
+            send_alert: Whether to send individual email alert (default: True)
+            is_redeployment: Whether this is an intraday redeployment (default: False)
 
         Returns:
             Tuple of (success, message)
@@ -324,14 +334,26 @@ class TradingEngine:
             logger.info(f"Order submitted: {alpaca_order['order_id']}")
             logger.info(f"Status: {alpaca_order['status']}")
 
-            # Send alert
-            self.alert_sender.send_trade_executed_alert(
-                ticker=ticker,
-                action='BUY',
-                shares=shares,
-                price=limit_price,
-                total_value=shares * limit_price
-            )
+            # Send alert (only for intraday redeployment)
+            if send_alert:
+                if is_redeployment:
+                    # Use special redeployment alert
+                    self.alert_sender.send_intraday_redeployment_alert(
+                        ticker=ticker,
+                        shares=shares,
+                        price=limit_price,
+                        total_value=shares * limit_price,
+                        reason="Capital redeployed from position exit"
+                    )
+                else:
+                    # Individual trade alert (legacy - not used for morning trades)
+                    self.alert_sender.send_trade_executed_alert(
+                        ticker=ticker,
+                        action='BUY',
+                        shares=shares,
+                        price=limit_price,
+                        total_value=shares * limit_price
+                    )
 
             return True, f"Order submitted: {alpaca_order['order_id']}"
 
@@ -393,17 +415,19 @@ class TradingEngine:
             # Remove from local tracking
             self.position_monitor.remove_position(ticker)
 
-            # Send alert
-            self.alert_sender.send_trade_executed_alert(
-                ticker=ticker,
-                action='SELL',
-                shares=shares,
-                price=current_price,
-                total_value=shares * current_price,
-                reason=reason,
-                pnl=pnl,
-                pnl_pct=pnl_pct
-            )
+            # Track exit for EOD summary (replaces individual email)
+            self.exits_today.append({
+                'ticker': ticker,
+                'shares': shares,
+                'entry_price': entry_price,
+                'exit_price': current_price,
+                'pnl': pnl,
+                'pnl_pct': pnl_pct,
+                'reason': reason,
+                'time': datetime.now().isoformat()
+            })
+
+            logger.info(f"Exit tracked for EOD summary: {ticker} ({reason}) - P&L: ${pnl:+,.2f}")
 
             return True, f"Position closed"
 
@@ -487,7 +511,9 @@ class TradingEngine:
             reverse=True
         )
 
-        # Execute signals
+        # Execute signals (collect trades for batch email)
+        executed_trades = []
+
         for signal in signals:
             ticker = signal.get('ticker')
 
@@ -497,11 +523,29 @@ class TradingEngine:
             if is_valid:
                 results['signals_validated'] += 1
 
-                # Execute
-                success, message = self.execute_buy_signal(signal)
+                # Execute WITHOUT individual alert (batch email at end)
+                success, message = self.execute_buy_signal(
+                    signal,
+                    send_alert=False,  # No individual alerts for morning trades
+                    is_redeployment=False
+                )
 
                 if success:
                     results['orders_submitted'] += 1
+
+                    # Track trade for batch email
+                    entry_price = signal.get('entry_price') or signal.get('currentPrice')
+                    portfolio_value = self.alpaca_client.get_portfolio_value()
+                    position_value = self._calculate_position_value(signal, portfolio_value)
+                    limit_price = entry_price * (1 + config.LIMIT_ORDER_CUSHION_PCT / 100)
+                    shares = int(position_value / limit_price)
+
+                    executed_trades.append({
+                        'ticker': ticker,
+                        'shares': shares,
+                        'price': limit_price,
+                        'total_value': shares * limit_price
+                    })
                 else:
                     results['orders_failed'] += 1
 
@@ -511,6 +555,14 @@ class TradingEngine:
                         results['queued_for_later'] += 1
             else:
                 logger.info(f"Skipping {ticker}: {reason}")
+
+        # Send ONE consolidated batch email for all morning trades
+        if executed_trades:
+            logger.info(f"Sending batch email for {len(executed_trades)} morning trades")
+            self.alert_sender.send_morning_trades_batch_alert(
+                trades=executed_trades,
+                summary=results
+            )
 
         logger.info(f"\n{'='*60}")
         logger.info(f"MORNING EXECUTION COMPLETE")
@@ -662,8 +714,12 @@ class TradingEngine:
         ticker = candidate['ticker']
         logger.info(f"Redeployment candidate found: {ticker}")
 
-        # Execute
-        success, message = self.execute_buy_signal(candidate['signal_data'])
+        # Execute with intraday redeployment alert (separate email)
+        success, message = self.execute_buy_signal(
+            candidate['signal_data'],
+            send_alert=True,  # Send alert for redeployment
+            is_redeployment=True  # Use redeployment alert format
+        )
 
         if success:
             self.signal_queue.mark_redeployment_used(ticker)
@@ -693,13 +749,14 @@ class TradingEngine:
         self.order_manager.cleanup_expired_orders()
         self.signal_queue.cleanup_stale_signals()
 
-        # Send daily summary
+        # Send daily summary (includes exits to reduce email volume)
         self.alert_sender.send_daily_summary_alert(
             portfolio_value=portfolio_value,
             daily_pnl=daily_pnl,
             trades_executed=trades_today,
             open_positions=open_positions,
-            circuit_breaker_status=self.position_monitor.circuit_breaker.get_status()
+            circuit_breaker_status=self.position_monitor.circuit_breaker.get_status(),
+            exits_today=self.exits_today  # Include exits in EOD summary
         )
 
         summary = {
