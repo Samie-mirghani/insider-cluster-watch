@@ -142,11 +142,23 @@ export RECIPIENT_EMAIL="your-email@gmail.com"
 pip install alpaca-py yfinance pytz
 ```
 
+**Required packages**:
+- `alpaca-py` - Alpaca trading API client
+- `yfinance` - Yahoo Finance for backup price data
+- `pytz` - Timezone handling for market hours
+
 ### Step 5: Initialize Data Directory
 
 ```bash
-mkdir -p automated_trading/data
+python automated_trading/init_data_dir.py
 ```
+
+This creates all required data files:
+- `live_positions.json` - Current positions
+- `pending_orders.json` - Orders awaiting fill
+- `queued_signals.json` - Signals waiting for capital
+- `daily_state.json` - Circuit breaker state
+- `audit_log.jsonl` - Immutable audit trail
 
 ### Step 6: Test Connection
 
@@ -155,7 +167,26 @@ cd insider-cluster-watch
 python -c "from automated_trading.alpaca_client import create_alpaca_client; c = create_alpaca_client(); print(f'Connected! Portfolio: \${c.get_portfolio_value():,.2f}')"
 ```
 
-### Step 7: Set Up Cron Jobs
+### Step 7: Set Up Automation
+
+#### Option A: GitHub Actions (Recommended)
+
+GitHub Actions workflows are pre-configured and ready to use:
+
+```bash
+# See detailed setup instructions
+cat automated_trading/GITHUB_ACTIONS_SETUP.md
+```
+
+The workflows will:
+- Execute morning trades at 9:35 AM ET weekdays
+- Monitor positions every 5 min during market hours
+- Monitor hourly after hours and every 4 hours on weekends
+- Send daily summary at 4:30 PM ET
+
+**To enable**: Add GitHub Secrets (see `GITHUB_ACTIONS_SETUP.md`)
+
+#### Option B: Local Cron Jobs
 
 Add these to your crontab (`crontab -e`):
 

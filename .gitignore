@@ -15,3 +15,4 @@ automated_trading/data/*.json
 automated_trading/data/*.jsonl
 automated_trading/data/*.log
 automated_trading/data/*.csv
+!automated_trading/data/.gitkeep

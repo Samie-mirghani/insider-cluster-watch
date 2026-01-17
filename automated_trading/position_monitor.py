@@ -202,7 +202,8 @@ class PositionMonitor:
             if isinstance(pos.get('entry_date'), str):
                 try:
                     pos['entry_date'] = datetime.fromisoformat(pos['entry_date'])
-                except (ValueError, TypeError):
+                except (ValueError, TypeError) as e:
+                    logger.error(f"Failed to parse entry_date for {ticker}: {e}. Using current time as fallback.")
                     pos['entry_date'] = datetime.now()
 
         logger.info(f"Loaded {len(self.positions)} positions")

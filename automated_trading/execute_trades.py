@@ -363,7 +363,10 @@ class TradingEngine:
             logger.info(f"Position closed: {result}")
 
             # Calculate P&L (approximate - actual fill may differ)
-            current_price = self.position_monitor.get_current_price(ticker) or entry_price
+            current_price = self.position_monitor.get_current_price(ticker)
+            if current_price is None or current_price <= 0:
+                logger.warning(f"Could not get current price for {ticker}, using entry price for P&L calc")
+                current_price = entry_price
             pnl = (current_price - entry_price) * shares
             pnl_pct = ((current_price - entry_price) / entry_price * 100) if entry_price > 0 else 0
 
