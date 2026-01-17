@@ -208,9 +208,15 @@ class TradingEngine:
         signal: Dict[str, Any],
         portfolio_value: float
     ) -> float:
-        """Calculate position value for a signal."""
+        """
+        Calculate position value for a signal.
+
+        Applies both score-weighted sizing AND tier-based sizing multipliers.
+        Higher conviction tiers get larger positions.
+        """
         signal_score = signal.get('signal_score') or signal.get('rank_score', 0)
 
+        # Step 1: Calculate base position percentage from score
         if config.ENABLE_SCORE_WEIGHTED_SIZING:
             # Score-weighted position sizing
             score_range = config.SCORE_WEIGHT_MAX_SCORE - config.SCORE_WEIGHT_MIN_SCORE
@@ -228,7 +234,25 @@ class TradingEngine:
         else:
             position_pct = config.MAX_POSITION_PCT
 
-        return portfolio_value * position_pct
+        base_position_value = portfolio_value * position_pct
+
+        # Step 2: Apply tier-based position sizing multiplier
+        # Higher conviction (tier1) = larger positions (1.00x)
+        # Lower conviction (tier4) = smaller positions (0.25x)
+        tier = signal.get('multi_signal_tier', 'none')
+        if tier in config.TIER_POSITION_SIZING:
+            tier_multiplier = config.TIER_POSITION_SIZING[tier]
+            final_position_value = base_position_value * tier_multiplier
+
+            logger.info(
+                f"Position sizing: base=${base_position_value:.2f} × "
+                f"tier_{tier[4:]}_multiplier({tier_multiplier:.2f}) = ${final_position_value:.2f}"
+            )
+
+            return final_position_value
+        else:
+            # No tier or unknown tier - use base position value
+            return base_position_value
 
     # =========================================================================
     # Trade Execution
@@ -599,11 +623,16 @@ class TradingEngine:
         # Get signal data
         signal_data = order.get('signal_data', {})
 
-        # Calculate stops
+        # Calculate tier-based stop loss
+        # NOTE: Higher conviction (tier1) gets WIDER stops (12% - more room to move)
+        #       Lower conviction (tier4) gets TIGHTER stops (6% - fail fast)
+        # This is intentional risk management - we give high-conviction trades
+        # more room to work while cutting losses quickly on lower-conviction trades.
         stop_loss_pct = config.STOP_LOSS_PCT
         tier = signal_data.get('multi_signal_tier', 'none')
         if tier in config.MULTI_SIGNAL_STOP_LOSS:
             stop_loss_pct = config.MULTI_SIGNAL_STOP_LOSS[tier]
+            logger.info(f"Applied {tier} stop-loss: {stop_loss_pct*100:.0f}%")
 
         stop_loss = price * (1 - stop_loss_pct)
         take_profit = price * (1 + config.TAKE_PROFIT_PCT)
