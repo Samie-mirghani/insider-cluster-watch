@@ -16,7 +16,7 @@ import logging
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from datetime import datetime
-from typing import Dict, Any, Optional, List
+from typing import Dict, Any, Optional, List, Tuple
 
 from . import config
 from .utils import (
@@ -60,7 +60,7 @@ class AlertSender:
         self.recipient = config.RECIPIENT_EMAIL
         self.is_live = config.TRADING_MODE == 'live'
 
-    def _get_mode_indicator(self) -> tuple[str, str, str]:
+    def _get_mode_indicator(self) -> Tuple[str, str, str]:
         """
         Get the trading mode indicator for emails.
 

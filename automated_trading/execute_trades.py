@@ -180,9 +180,12 @@ class TradingEngine:
             return False, "Already have position"
 
         # Check if tradeable at Alpaca
-        is_tradeable, reason = self.alpaca_client.is_asset_tradeable(ticker)
+        is_tradeable, message = self.alpaca_client.is_asset_tradeable(ticker)
         if not is_tradeable:
-            return False, f"Not tradeable: {reason}"
+            return False, f"Not tradeable: {message}"
+        # Log warning if tradeable but with restrictions
+        if message:
+            logger.warning(f"{ticker}: {message}")
 
         # Check portfolio constraints
         portfolio_value = self.alpaca_client.get_portfolio_value()
@@ -275,7 +278,7 @@ class TradingEngine:
             return False, "Duplicate order"
 
         # Create order record
-        order = self.order_manager.create_buy_order(
+        order, error = self.order_manager.create_buy_order(
             ticker=ticker,
             shares=shares,
             limit_price=limit_price,
@@ -283,7 +286,8 @@ class TradingEngine:
         )
 
         if not order:
-            return False, "Failed to create order record"
+            logger.warning(f"❌ {ticker}: {error}")
+            return False, error
 
         try:
             # Submit to Alpaca

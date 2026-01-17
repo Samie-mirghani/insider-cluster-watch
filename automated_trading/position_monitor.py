@@ -42,6 +42,9 @@ logger = logging.getLogger(__name__)
 class CircuitBreakerState:
     """Tracks circuit breaker state for the day."""
 
+    # File-based reset flag for manual intervention
+    RESET_FLAG_FILE = os.path.join(config.DATA_DIR, 'circuit_breaker_reset.flag')
+
     def __init__(self):
         self.daily_pnl: float = 0.0
         self.consecutive_losses: int = 0
@@ -50,6 +53,7 @@ class CircuitBreakerState:
         self.trades_today: List[Dict] = []
         self.last_reset_date: Optional[str] = None
         self._load_state()
+        self.check_reset_flag()  # Check for manual reset request
 
     def _load_state(self):
         """Load daily state from disk."""
@@ -155,6 +159,77 @@ class CircuitBreakerState:
         }, outcome='CRITICAL')
 
         logger.critical(f"CIRCUIT BREAKER TRIGGERED: {reason}")
+
+    def reset(self, reason: str = "Manual reset") -> None:
+        """
+        Reset circuit breaker state.
+
+        This clears the halt flag and resets counters. Use with caution!
+        Should only be called after understanding and resolving the issue
+        that triggered the circuit breaker.
+
+        Args:
+            reason: Reason for the reset
+        """
+        old_halt_reason = self.halt_reason
+        old_daily_pnl = self.daily_pnl
+
+        self.is_halted = False
+        self.halt_reason = None
+        # Note: We do NOT reset daily_pnl or consecutive_losses
+        # This is intentional - we want to preserve the state while
+        # allowing trading to resume. A full reset only happens at midnight.
+
+        self.save_state()
+
+        log_audit_event('CIRCUIT_BREAKER_RESET', {
+            'reset_reason': reason,
+            'previous_halt_reason': old_halt_reason,
+            'daily_pnl': old_daily_pnl,
+            'consecutive_losses': self.consecutive_losses
+        }, outcome='WARNING')
+
+        logger.warning(
+            f"🔄 CIRCUIT BREAKER RESET: {reason}\n"
+            f"   Previous halt reason: {old_halt_reason}\n"
+            f"   Daily P&L: ${old_daily_pnl:+,.2f}\n"
+            f"   Consecutive losses: {self.consecutive_losses}\n"
+            f"   ⚠️ Trading will resume - monitor closely!"
+        )
+
+    def check_reset_flag(self) -> None:
+        """
+        Check if manual reset is requested via flag file.
+
+        To manually reset the circuit breaker, create a file at:
+        automated_trading/data/circuit_breaker_reset.flag
+
+        The file can contain a reason (optional). The reset will be
+        logged to the audit trail.
+
+        Example:
+            echo "Investigated and resolved issue" > automated_trading/data/circuit_breaker_reset.flag
+        """
+        if not os.path.exists(self.RESET_FLAG_FILE):
+            return
+
+        try:
+            # Read reason from file (if provided)
+            with open(self.RESET_FLAG_FILE, 'r') as f:
+                content = f.read().strip()
+                reason = content if content else "Manual reset via flag file"
+
+            # Delete the flag file
+            os.remove(self.RESET_FLAG_FILE)
+
+            # Perform reset
+            self.reset(reason)
+
+            logger.info(f"✅ Processed reset flag file successfully")
+
+        except Exception as e:
+            logger.error(f"❌ Failed to process reset flag file: {e}")
+            # Don't re-raise - we don't want to crash the system over this
 
     def get_status(self) -> Dict[str, Any]:
         """Get current circuit breaker status."""

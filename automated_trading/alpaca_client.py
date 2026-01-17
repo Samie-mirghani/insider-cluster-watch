@@ -653,7 +653,14 @@ class AlpacaTradingClient:
             symbol: Ticker symbol
 
         Returns:
-            Tuple of (is_tradeable, reason)
+            Tuple of (is_tradeable, message)
+            - (True, "") - Fully tradeable with no restrictions
+            - (True, "⚠️ warning") - Tradeable but with caveats (e.g., minimum order size)
+            - (False, "reason") - Not tradeable
+
+            Callers should check BOTH values:
+            - If is_tradeable is False, reject the trade
+            - If is_tradeable is True but message is not empty, log the warning
         """
         try:
             asset = self.client.get_asset(symbol)
@@ -662,10 +669,12 @@ class AlpacaTradingClient:
                 return False, "Asset is not tradeable"
             if asset.status != 'active':
                 return False, f"Asset status is {asset.status}"
-            if not asset.fractionable and asset.min_order_size and asset.min_order_size > 1:
-                return True, f"Minimum order size: {asset.min_order_size}"
 
-            return True, "Asset is tradeable"
+            # Check for restrictions that don't block trading but need attention
+            if not asset.fractionable and asset.min_order_size and asset.min_order_size > 1:
+                return True, f"⚠️ Minimum order size: {asset.min_order_size} shares (not fractionable)"
+
+            return True, ""  # Fully tradeable with no warnings
 
         except APIError as e:
             if '404' in str(e):

@@ -16,7 +16,7 @@ import os
 import json
 import logging
 from datetime import datetime, timedelta
-from typing import Dict, List, Optional, Any
+from typing import Dict, List, Optional, Any, Tuple
 
 from . import config
 from .utils import (
@@ -168,7 +168,7 @@ class SignalQueue:
     # Intraday Redeployment
     # =========================================================================
 
-    def can_redeploy_capital(self, freed_capital: float) -> tuple[bool, str]:
+    def can_redeploy_capital(self, freed_capital: float) -> Tuple[bool, str]:
         """
         Check if capital can be redeployed to queued signals.
 

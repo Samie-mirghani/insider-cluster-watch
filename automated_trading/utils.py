@@ -14,7 +14,7 @@ import os
 import json
 import logging
 from datetime import datetime, date, time, timedelta
-from typing import Any, Dict, Optional, List
+from typing import Any, Dict, Optional, List, Tuple
 import hashlib
 import pytz
 
@@ -337,7 +337,7 @@ def save_json_file(filepath: str, data: Any, indent: int = 2) -> bool:
 # VALIDATION FUNCTIONS
 # =============================================================================
 
-def validate_ticker(ticker: str) -> tuple[bool, str]:
+def validate_ticker(ticker: str) -> Tuple[bool, str]:
     """
     Validate a ticker symbol.
 
@@ -359,7 +359,7 @@ def validate_ticker(ticker: str) -> tuple[bool, str]:
     return True, "Valid"
 
 
-def validate_price(price: float, context: str = "price") -> tuple[bool, str]:
+def validate_price(price: float, context: str = "price") -> Tuple[bool, str]:
     """
     Validate a price value.
 
@@ -387,7 +387,7 @@ def validate_price(price: float, context: str = "price") -> tuple[bool, str]:
     return True, "Valid"
 
 
-def validate_quantity(qty: int) -> tuple[bool, str]:
+def validate_quantity(qty: int) -> Tuple[bool, str]:
     """
     Validate a share quantity.
 
@@ -480,7 +480,7 @@ def calculate_target_price(entry_price: float, target_pct: float) -> float:
 # SAFETY CHECKS
 # =============================================================================
 
-def is_safe_to_trade() -> tuple[bool, str]:
+def is_safe_to_trade() -> Tuple[bool, str]:
     """
     Check if it's safe to trade.
 

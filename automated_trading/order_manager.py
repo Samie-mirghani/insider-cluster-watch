@@ -40,6 +40,52 @@ class OrderState(str, Enum):
     FAILED = 'failed'                    # Submission failed
 
 
+def normalize_order_status(status: Any) -> str:
+    """
+    Normalize Alpaca order status to consistent lowercase format.
+
+    Handles multiple formats:
+    - 'OrderStatus.FILLED' (enum string representation)
+    - 'filled' (lowercase string)
+    - 'FILLED' (uppercase string)
+
+    Args:
+        status: Order status in any format
+
+    Returns:
+        Normalized lowercase status string
+    """
+    if status is None:
+        logger.warning("⚠️ Received None as order status")
+        return 'unknown'
+
+    # Convert to string and normalize
+    status_str = str(status).lower()
+
+    # Handle enum format: 'OrderStatus.FILLED' -> 'filled'
+    if '.' in status_str:
+        status_str = status_str.split('.')[-1]
+
+    # Map variations to standard names
+    status_mapping = {
+        'canceled': 'cancelled',  # US vs UK spelling
+    }
+
+    status_str = status_mapping.get(status_str, status_str)
+
+    # Log if we got an unexpected format
+    known_statuses = {
+        'pending', 'submitted', 'accepted', 'partially_filled',
+        'filled', 'rejected', 'cancelled', 'expired', 'failed',
+        'new', 'pending_new', 'done_for_day', 'replaced', 'suspended'
+    }
+
+    if status_str not in known_statuses:
+        logger.warning(f"⚠️ Unexpected order status format: {status} -> normalized to: {status_str}")
+
+    return status_str
+
+
 class OrderManager:
     """
     Manages order lifecycle and state tracking.
@@ -80,7 +126,7 @@ class OrderManager:
         shares: int,
         limit_price: float,
         signal_data: Dict[str, Any]
-    ) -> Dict[str, Any]:
+    ) -> Tuple[Optional[Dict[str, Any]], Optional[str]]:
         """
         Create a buy order record (before submission).
 
@@ -91,14 +137,17 @@ class OrderManager:
             signal_data: Original signal information
 
         Returns:
-            Order record with client_order_id
+            Tuple of (order_record, error_message)
+            - (order_dict, None) on success
+            - (None, error_message) on failure (e.g., duplicate order)
         """
         client_order_id = generate_client_order_id(ticker, 'BUY')
 
         # Check for existing order with same ticker today
         if self._has_pending_order_for_ticker(ticker, 'BUY'):
-            logger.warning(f"Already have pending BUY order for {ticker}")
-            return None
+            error_msg = f"Duplicate order rejected: {ticker} already has pending BUY order"
+            logger.warning(f"⚠️ {error_msg}")
+            return None, error_msg
 
         order = {
             'client_order_id': client_order_id,
@@ -118,8 +167,8 @@ class OrderManager:
             'error_message': None
         }
 
-        logger.info(f"Created BUY order: {ticker} x{shares} @ ${limit_price:.2f}")
-        return order
+        logger.info(f"✅ Created BUY order: {ticker} x{shares} @ ${limit_price:.2f}")
+        return order, None
 
     def create_sell_order(
         self,
@@ -129,7 +178,7 @@ class OrderManager:
         stop_price: Optional[float] = None,
         limit_price: Optional[float] = None,
         reason: str = 'MANUAL'
-    ) -> Dict[str, Any]:
+    ) -> Tuple[Optional[Dict[str, Any]], Optional[str]]:
         """
         Create a sell order record.
 
@@ -142,9 +191,17 @@ class OrderManager:
             reason: Exit reason (STOP_LOSS, TAKE_PROFIT, TIME_EXIT, etc.)
 
         Returns:
-            Order record with client_order_id
+            Tuple of (order_record, error_message)
+            - (order_dict, None) on success
+            - (None, error_message) on failure
         """
         client_order_id = generate_client_order_id(ticker, 'SELL')
+
+        # Check for duplicate pending sell orders
+        if self._has_pending_order_for_ticker(ticker, 'SELL'):
+            error_msg = f"Duplicate order rejected: {ticker} already has pending SELL order"
+            logger.warning(f"⚠️ {error_msg}")
+            return None, error_msg
 
         order = {
             'client_order_id': client_order_id,
@@ -165,8 +222,8 @@ class OrderManager:
             'error_message': None
         }
 
-        logger.info(f"Created SELL order: {ticker} x{shares} ({reason})")
-        return order
+        logger.info(f"✅ Created SELL order: {ticker} x{shares} ({reason})")
+        return order, None
 
     def mark_order_submitted(
         self,
@@ -471,10 +528,10 @@ class OrderManager:
                     results['unchanged'].append(order)
                     continue
 
-                status = broker_order['status']
+                status = normalize_order_status(broker_order['status'])
 
                 # Handle fill
-                if status == 'OrderStatus.FILLED' or status == 'filled':
+                if status == 'filled':
                     filled_order = self.mark_order_filled(
                         client_order_id,
                         broker_order['filled_qty'],
@@ -486,8 +543,7 @@ class OrderManager:
                         on_fill_callback(filled_order)
 
                 # Handle rejection/cancellation
-                elif status in ['OrderStatus.REJECTED', 'rejected',
-                               'OrderStatus.CANCELED', 'canceled', 'cancelled']:
+                elif status in ['rejected', 'cancelled']:
                     rejected_order = self.mark_order_rejected(
                         client_order_id,
                         f"Broker status: {status}"
@@ -495,7 +551,7 @@ class OrderManager:
                     results['rejected'].append(rejected_order)
 
                 # Handle partial fill
-                elif status == 'OrderStatus.PARTIALLY_FILLED' or status == 'partially_filled':
+                elif status == 'partially_filled':
                     order['filled_shares'] = broker_order['filled_qty']
                     order['state'] = OrderState.PARTIALLY_FILLED.value
                     results['unchanged'].append(order)
