@@ -9,3 +9,10 @@ data/paper_trading.log
 data/signals_history.csv
 data/backtest_results.csv
 *.backup_*
+
+# Automated trading data (sensitive)
+automated_trading/data/*.json
+automated_trading/data/*.jsonl
+automated_trading/data/*.log
+automated_trading/data/*.csv
+!automated_trading/data/.gitkeep

@@ -1,0 +1,64 @@
+name: Trading - Position Monitor
+
+on:
+  schedule:
+    # During market hours (9:35 AM - 4:00 PM ET = 14:35-21:00 UTC): Every 5 minutes on weekdays
+    - cron: '*/5 14-20 * * 1-5'
+
+    # After hours (4:30 PM - 8:00 PM ET = 21:30-01:00 UTC next day): Every hour on weekdays
+    - cron: '30 21-23 * * 1-5'  # 4:30 PM - 6:30 PM ET
+    - cron: '30 0 * * 2-6'      # 7:30 PM - 8:30 PM ET (next day UTC)
+
+    # Weekend safety monitoring: Every 4 hours on Saturday and Sunday
+    - cron: '0 */4 * * 0,6'
+
+  workflow_dispatch:  # Allow manual trigger for testing
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          pip install alpaca-py yfinance pytz
+
+      - name: Initialize data directory
+        run: |
+          python automated_trading/init_data_dir.py
+
+      - name: Run monitoring cycle
+        env:
+          # Alpaca API credentials
+          ALPACA_PAPER_API_KEY: ${{ secrets.ALPACA_PAPER_API_KEY }}
+          ALPACA_PAPER_SECRET_KEY: ${{ secrets.ALPACA_PAPER_SECRET_KEY }}
+          ALPACA_LIVE_API_KEY: ${{ secrets.ALPACA_LIVE_API_KEY }}
+          ALPACA_LIVE_SECRET_KEY: ${{ secrets.ALPACA_LIVE_SECRET_KEY }}
+
+          # Trading mode and controls
+          ALPACA_TRADING_MODE: paper  # Change to 'live' when ready for real trading
+          TRADING_ENABLED: "true"
+
+          # Email alerts
+          GMAIL_USER: ${{ secrets.GMAIL_USER }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          RECIPIENT_EMAIL: ${{ secrets.RECIPIENT_EMAIL }}
+        run: |
+          echo "👁️ Starting position monitoring cycle..."
+          python -m automated_trading.execute_trades monitor
+
+      - name: Upload monitoring logs
+        if: failure()  # Only upload on failure to save storage
+        uses: actions/upload-artifact@v4
+        with:
+          name: monitor-logs-failure-${{ github.run_number }}
+          path: automated_trading/data/alpaca_trading.log
+          retention-days: 7

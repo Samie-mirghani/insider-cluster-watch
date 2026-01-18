@@ -1,0 +1,56 @@
+name: Trading - Morning Execution
+
+on:
+  schedule:
+    # Run at 9:35 AM ET (14:35 UTC) on weekdays
+    - cron: '35 14 * * 1-5'
+  workflow_dispatch:  # Allow manual trigger for testing
+
+jobs:
+  morning-execution:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          pip install alpaca-py yfinance pytz
+
+      - name: Initialize data directory
+        run: |
+          python automated_trading/init_data_dir.py
+
+      - name: Run morning execution
+        env:
+          # Alpaca API credentials
+          ALPACA_PAPER_API_KEY: ${{ secrets.ALPACA_PAPER_API_KEY }}
+          ALPACA_PAPER_SECRET_KEY: ${{ secrets.ALPACA_PAPER_SECRET_KEY }}
+          ALPACA_LIVE_API_KEY: ${{ secrets.ALPACA_LIVE_API_KEY }}
+          ALPACA_LIVE_SECRET_KEY: ${{ secrets.ALPACA_LIVE_SECRET_KEY }}
+
+          # Trading mode and controls
+          ALPACA_TRADING_MODE: paper  # Change to 'live' when ready for real trading
+          TRADING_ENABLED: "true"
+
+          # Email alerts (uses existing Gmail credentials)
+          GMAIL_USER: ${{ secrets.GMAIL_USER }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          RECIPIENT_EMAIL: ${{ secrets.RECIPIENT_EMAIL }}
+        run: |
+          echo "🌅 Starting morning trade execution..."
+          python -m automated_trading.execute_trades morning
+
+      - name: Upload execution logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: morning-execution-logs-${{ github.run_number }}
+          path: automated_trading/data/alpaca_trading.log
+          retention-days: 30
