@@ -533,12 +533,12 @@ class TradingEngine:
                 if success:
                     results['orders_submitted'] += 1
 
-                    # Track trade for batch email
+                    # Track trade for batch email (match execute_buy_signal calculation)
                     entry_price = signal.get('entry_price') or signal.get('currentPrice')
                     portfolio_value = self.alpaca_client.get_portfolio_value()
                     position_value = self._calculate_position_value(signal, portfolio_value)
-                    limit_price = entry_price * (1 + config.LIMIT_ORDER_CUSHION_PCT / 100)
-                    shares = int(position_value / limit_price)
+                    shares = int(position_value / entry_price)  # Divide by entry_price (not limit_price)
+                    limit_price = round(entry_price * (1 + config.LIMIT_ORDER_CUSHION_PCT / 100), 2)
 
                     executed_trades.append({
                         'ticker': ticker,
