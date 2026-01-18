@@ -609,7 +609,7 @@
     {% if total_signals_1m > 0 %}
     <!-- Enhanced Metrics Card -->
     <div class="card">
-      <h3>📈 Advanced Risk Metrics</h3>
+      <h3>{{ icons.trending|safe }} Advanced Risk Metrics</h3>
       <div class="metrics-row">
         <div class="metric-box">
           <div class="label">Sharpe Ratio</div>
@@ -649,21 +649,21 @@
     <!-- Paper Trading Section -->
     {% if paper_trading.enabled %}
     <div class="paper-trading-section">
-      <h3>💰 Paper Trading Performance</h3>
+      <h3>{{ icons.dollar|safe }} Paper Trading Performance</h3>
 
       <!-- Health Status Badge -->
       <div style="text-align: center; margin-bottom: 20px;">
         {% if paper_trading.health_status == 'HEALTHY' %}
         <span class="health-badge healthy">
-          ✅ Portfolio Health: HEALTHY
+          {{ icons.check|safe }} Portfolio Health: HEALTHY
         </span>
         {% elif paper_trading.health_status == 'WARNING' %}
         <span class="health-badge warning">
-          ⚠️ Portfolio Health: WARNING ({{ paper_trading.health_alerts }} alert{{ 's' if paper_trading.health_alerts != 1 else '' }})
+          {{ icons.warning|safe }} Portfolio Health: WARNING ({{ paper_trading.health_alerts }} alert{{ 's' if paper_trading.health_alerts != 1 else '' }})
         </span>
         {% elif paper_trading.health_status == 'CRITICAL' %}
         <span class="health-badge critical">
-          🚨 Portfolio Health: CRITICAL ({{ paper_trading.health_alerts }} alert{{ 's' if paper_trading.health_alerts != 1 else '' }})
+          {{ icons.critical|safe }} Portfolio Health: CRITICAL ({{ paper_trading.health_alerts }} alert{{ 's' if paper_trading.health_alerts != 1 else '' }})
         </span>
         {% endif %}
       </div>
@@ -751,12 +751,12 @@
 
       <!-- Feature Highlights -->
       <div class="feature-box">
-        <div class="title">🔧 Active Features</div>
+        <div class="title">{{ icons.zap|safe }} Active Features</div>
         <div class="content">
-          ✓ Trailing Stop Loss (auto-adjusting after +3% gain)<br>
-          ✓ Score-Weighted Position Sizing (5-15% per position, 60% max total exposure)<br>
-          ✓ Partial Position Scaling (2-tranche entries on -2% pullback)<br>
-          ✓ Health Monitoring (daily risk checks)
+          {{ icons.check|safe }} Trailing Stop Loss (auto-adjusting after +3% gain)<br>
+          {{ icons.check|safe }} Score-Weighted Position Sizing (5-15% per position, 60% max total exposure)<br>
+          {{ icons.check|safe }} Partial Position Scaling (2-tranche entries on -2% pullback)<br>
+          {{ icons.check|safe }} Health Monitoring (daily risk checks)
         </div>
       </div>
     </div>
@@ -765,7 +765,7 @@
     <!-- Sector Analysis Card -->
     {% if sector_analysis %}
     <div class="card">
-      <h3>🏢 Performance by Sector</h3>
+      <h3>{{ icons.building|safe }} Performance by Sector</h3>
       <table class="analysis-table">
         <thead>
           <tr>
@@ -800,7 +800,7 @@
     <!-- Pattern Analysis Card -->
     {% if pattern_analysis %}
     <div class="card">
-      <h3>🔍 Performance by Pattern</h3>
+      <h3>{{ icons.search|safe }} Performance by Pattern</h3>
       <table class="analysis-table">
         <thead>
           <tr>
@@ -835,7 +835,7 @@
     <!-- Top Performers Card -->
     {% if top_performers %}
     <div class="card">
-      <h3>🏆 Top 3 Performers (1-Month)</h3>
+      <h3>{{ icons.trophy|safe }} Top 3 Performers (1-Month)</h3>
       {% for signal in top_performers %}
       <div class="performer-card">
         <div class="performer-left">
@@ -856,7 +856,7 @@
     <!-- Worst Performers Card -->
     {% if worst_performers %}
     <div class="card">
-      <h3>📉 Worst 3 Performers (Learn from These)</h3>
+      <h3>{{ icons.down|safe }} Worst 3 Performers (Learn from These)</h3>
       {% for signal in worst_performers %}
       <div class="performer-card">
         <div class="performer-left">
@@ -878,16 +878,16 @@
     {% set assessment_class = 'excellent' if (sharpe_ratio_1m|float >= 1.0 and avg_alpha_1m|float > 0 and hit_rate_1m|float >= 55) else ('good' if (sharpe_ratio_1m|float >= 0.5 and avg_alpha_1m|float > 0) else ('warning' if avg_alpha_1m|float > 0 else 'danger')) %}
 
     <div class="assessment-box {{ assessment_class }}">
-      <h3>📋 Strategy Assessment</h3>
+      <h3>{{ icons.inbox|safe }} Strategy Assessment</h3>
       <ul>
         {% if sharpe_ratio_1m|float >= 1.0 %}
-        <li><strong>✅ Excellent risk-adjusted returns</strong> - Sharpe ratio of {{ sharpe_ratio_1m }} indicates strong performance relative to volatility</li>
+        <li><strong>{{ icons.check|safe }} Excellent risk-adjusted returns</strong> - Sharpe ratio of {{ sharpe_ratio_1m }} indicates strong performance relative to volatility</li>
         {% elif sharpe_ratio_1m|float >= 0.5 %}
-        <li><strong>✅ Good risk-adjusted returns</strong> - Sharpe ratio of {{ sharpe_ratio_1m }} shows positive risk/reward</li>
+        <li><strong>{{ icons.check|safe }} Good risk-adjusted returns</strong> - Sharpe ratio of {{ sharpe_ratio_1m }} shows positive risk/reward</li>
         {% elif sharpe_ratio_1m|float >= 0 %}
-        <li><strong>⚠️ Moderate risk-adjusted returns</strong> - Sharpe ratio of {{ sharpe_ratio_1m }} could be improved</li>
+        <li><strong>{{ icons.warning|safe }} Moderate risk-adjusted returns</strong> - Sharpe ratio of {{ sharpe_ratio_1m }} could be improved</li>
         {% else %}
-        <li><strong>⚠️ Poor risk-adjusted returns</strong> - Negative Sharpe ratio indicates losses or excessive volatility</li>
+        <li><strong>{{ icons.warning|safe }} Poor risk-adjusted returns</strong> - Negative Sharpe ratio indicates losses or excessive volatility</li>
         {% endif %}
 
         {% if avg_alpha_1m|float > 0 %}
@@ -897,25 +897,25 @@
         {% endif %}
 
         {% if hit_rate_1m|float >= 55 %}
-        <li>Hit rate of <strong>{{ hit_rate_1m }}%</strong> exceeds the 55% target ✅</li>
+        <li>Hit rate of <strong>{{ hit_rate_1m }}%</strong> exceeds the 55% target {{ icons.check|safe }}</li>
         {% else %}
-        <li>Hit rate of <strong>{{ hit_rate_1m }}%</strong> is below the 55% target ⚠️</li>
+        <li>Hit rate of <strong>{{ hit_rate_1m }}%</strong> is below the 55% target {{ icons.warning|safe }}</li>
         {% endif %}
 
         {% if win_loss_ratio_1m|float >= 1.5 %}
-        <li><strong>✅ Strong win/loss ratio</strong> of {{ win_loss_ratio_1m }} - winners are significantly larger than losers</li>
+        <li><strong>{{ icons.check|safe }} Strong win/loss ratio</strong> of {{ win_loss_ratio_1m }} - winners are significantly larger than losers</li>
         {% elif win_loss_ratio_1m|float >= 1.0 %}
         <li><strong>Moderate win/loss ratio</strong> of {{ win_loss_ratio_1m }} - average win slightly larger than average loss</li>
         {% else %}
-        <li><strong>⚠️ Poor win/loss ratio</strong> of {{ win_loss_ratio_1m }} - losses are larger than wins on average</li>
+        <li><strong>{{ icons.warning|safe }} Poor win/loss ratio</strong> of {{ win_loss_ratio_1m }} - losses are larger than wins on average</li>
         {% endif %}
 
         {% if max_drawdown_1m|float > -10 %}
-        <li><strong>✅ Low drawdown</strong> of {{ max_drawdown_1m }}% indicates good risk management</li>
+        <li><strong>{{ icons.check|safe }} Low drawdown</strong> of {{ max_drawdown_1m }}% indicates good risk management</li>
         {% elif max_drawdown_1m|float > -20 %}
         <li><strong>Moderate drawdown</strong> of {{ max_drawdown_1m }}% - acceptable but monitor closely</li>
         {% else %}
-        <li><strong>⚠️ High drawdown</strong> of {{ max_drawdown_1m }}% - consider tighter stop losses</li>
+        <li><strong>{{ icons.warning|safe }} High drawdown</strong> of {{ max_drawdown_1m }}% - consider tighter stop losses</li>
         {% endif %}
 
         {% if total_signals_1w > 0 %}
@@ -923,13 +923,13 @@
         {% endif %}
 
         {% if sharpe_ratio_1m|float >= 1.0 and avg_alpha_1m|float > 1 and hit_rate_1m|float >= 55 %}
-        <li><strong class="positive">🎯 STRATEGY IS WORKING EXCELLENTLY</strong> - Continue with current approach</li>
+        <li><strong class="positive">{{ icons.target|safe }} STRATEGY IS WORKING EXCELLENTLY</strong> - Continue with current approach</li>
         {% elif avg_alpha_1m|float > 0 and hit_rate_1m|float >= 50 %}
         <li><strong style="color: #00D9FF;">Strategy is working</strong> - Minor optimization may help</li>
         {% elif total_signals_1m < 10 %}
-        <li>Need more data points for statistical significance - keep monitoring 📊</li>
+        <li>Need more data points for statistical significance - keep monitoring {{ icons.chart|safe }}</li>
         {% else %}
-        <li><strong class="negative">⚠️ Strategy needs review</strong> - Consider adjusting signal criteria or position sizing</li>
+        <li><strong class="negative">{{ icons.warning|safe }} Strategy needs review</strong> - Consider adjusting signal criteria or position sizing</li>
         {% endif %}
       </ul>
     </div>
@@ -937,7 +937,7 @@
     {% else %}
     <!-- Not Enough Data Card -->
     <div class="assessment-box">
-      <h3>📊 Building Your Track Record</h3>
+      <h3>{{ icons.chart|safe }} Building Your Track Record</h3>
       <ul>
         <li>Your system is actively monitoring insider filings daily</li>
         <li>Performance tracking begins after signals accumulate</li>
@@ -951,7 +951,7 @@
     <!-- Charts Note -->
     <div class="info-box">
       <p>
-        📊 <strong>Detailed Charts Available:</strong> View rolling hit rate, cumulative alpha, and sector performance visualizations
+        {{ icons.chart|safe }} <strong>Detailed Charts Available:</strong> View rolling hit rate, cumulative alpha, and sector performance visualizations
         in your GitHub repository at <code>data/plots/</code> or run <code>python jobs/visualize.py</code> locally.
       </p>
     </div>

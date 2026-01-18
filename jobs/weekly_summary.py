@@ -12,7 +12,13 @@ from jinja2 import Environment, FileSystemLoader
 from send_email import send_email
 from paper_trade import PaperTradingPortfolio
 from dotenv import load_dotenv
-from generate_report import sanitize_dict_for_template, is_valid_value
+from generate_report import (
+    sanitize_dict_for_template,
+    is_valid_value,
+    GITHUB_ICON_BASE_URL,
+    _get_hosted_icon,
+    _get_hosted_logo
+)
 
 load_dotenv()
 
@@ -342,8 +348,27 @@ def render_weekly_performance_email(stats):
     # CRITICAL: Sanitize all dict values to prevent "nan" from appearing in emails
     stats = sanitize_dict_for_template(stats)
 
+    # Pass GitHub-hosted icons to template
+    icons = {
+        'logo': _get_hosted_logo(24, 24),
+        'trending': _get_hosted_icon('trending_up', 16, 16),
+        'chart': _get_hosted_icon('trending_up', 16, 16),
+        'dollar': _get_hosted_icon('dollar', 16, 16),
+        'trophy': _get_hosted_icon('star', 16, 16),
+        'down': _get_hosted_icon('trending_up', 16, 16),  # Will be styled to point down
+        'check': _get_hosted_icon('check', 16, 16),
+        'warning': _get_hosted_icon('warning', 16, 16),
+        'critical': _get_hosted_icon('warning', 16, 16),
+        'search': _get_hosted_icon('search', 16, 16),
+        'building': _get_hosted_icon('building', 16, 16),
+        'inbox': _get_hosted_icon('inbox', 16, 16),
+        'target': _get_hosted_icon('target', 16, 16),
+        'zap': _get_hosted_icon('zap', 16, 16),
+    }
+
     html = template.render(
         date=datetime.now().strftime("%B %d, %Y"),
+        icons=icons,
         **stats
     )
     
@@ -356,14 +381,14 @@ def render_weekly_performance_email(stats):
     
     if stats['total_signals_1m'] > 0:
         text_lines.extend([
-            "📊 PERFORMANCE SUMMARY (1-Month Horizon)",
+            "PERFORMANCE SUMMARY (1-Month Horizon)",
             "=" * 60,
             f"Total Signals: {stats['total_signals_1m']}",
             f"Hit Rate: {stats['hit_rate_1m']}% ({stats['winners_1m']} winners)",
             f"Avg Return: {stats['avg_return_1m']}%",
             f"Avg Alpha: {stats['avg_alpha_1m']}%",
             "",
-            "📈 ENHANCED METRICS",
+            "ENHANCED METRICS",
             "=" * 60,
             f"Sharpe Ratio: {stats['sharpe_ratio_1m']}",
             f"Max Drawdown: {stats['max_drawdown_1m']}%",
@@ -378,7 +403,7 @@ def render_weekly_performance_email(stats):
         if stats['paper_trading']['enabled']:
             pt = stats['paper_trading']
             text_lines.extend([
-                "💰 PAPER TRADING PERFORMANCE",
+                "PAPER TRADING PERFORMANCE",
                 "=" * 60,
                 f"Portfolio Value: ${pt['portfolio_value']:,.2f}",
                 f"Total Return: {pt['total_return']:+.2f}%",
@@ -392,7 +417,7 @@ def render_weekly_performance_email(stats):
         # Sector analysis
         if stats['sector_analysis']:
             text_lines.extend([
-                "🏢 SECTOR PERFORMANCE",
+                "SECTOR PERFORMANCE",
                 "=" * 60
             ])
             for sector in stats['sector_analysis'][:5]:
@@ -405,7 +430,7 @@ def render_weekly_performance_email(stats):
         # Pattern analysis
         if stats['pattern_analysis']:
             text_lines.extend([
-                "🔍 PATTERN PERFORMANCE",
+                "PATTERN PERFORMANCE",
                 "=" * 60
             ])
             for pattern in stats['pattern_analysis']:
@@ -418,7 +443,7 @@ def render_weekly_performance_email(stats):
         # Top performers
         if stats['top_performers']:
             text_lines.extend([
-                "🏆 TOP PERFORMERS",
+                "TOP PERFORMERS",
                 "=" * 60
             ])
             for p in stats['top_performers']:
@@ -431,22 +456,22 @@ def render_weekly_performance_email(stats):
         alpha = float(stats['avg_alpha_1m'])
         
         text_lines.extend([
-            "📋 ASSESSMENT",
+            "ASSESSMENT",
             "=" * 60
         ])
-        
+
         if sharpe >= 1.0 and alpha > 0 and hit_rate >= 55:
-            text_lines.append("✅ EXCELLENT: Strong Sharpe ratio, positive alpha, good hit rate")
+            text_lines.append("[+] EXCELLENT: Strong Sharpe ratio, positive alpha, good hit rate")
         elif sharpe >= 0.5 and alpha > 0:
-            text_lines.append("✅ GOOD: Positive alpha with acceptable risk-adjusted returns")
+            text_lines.append("[+] GOOD: Positive alpha with acceptable risk-adjusted returns")
         elif alpha > 0 and hit_rate >= 50:
-            text_lines.append("⚠️  MODERATE: Positive alpha but needs improvement")
+            text_lines.append("[!] MODERATE: Positive alpha but needs improvement")
         else:
-            text_lines.append("⚠️  UNDERPERFORMING: Strategy needs review")
+            text_lines.append("[!] UNDERPERFORMING: Strategy needs review")
         
     else:
         text_lines.extend([
-            "📊 BUILDING TRACK RECORD",
+            "BUILDING TRACK RECORD",
             "=" * 60,
             "Not enough historical data yet. Keep monitoring!",
             ""
@@ -465,20 +490,20 @@ def render_weekly_performance_email(stats):
 
 def main():
     print(f"{'='*60}")
-    print(f"📊 Weekly Performance Summary - {datetime.now().strftime('%Y-%m-%d %H:%M UTC')}")
+    print(f"Weekly Performance Summary - {datetime.now().strftime('%Y-%m-%d %H:%M UTC')}")
     print(f"{'='*60}\n")
-    
+
     # Calculate performance stats
-    print("📈 Calculating enhanced performance statistics...")
+    print("Calculating enhanced performance statistics...")
     stats = calculate_performance_stats()
-    
+
     if stats is None:
-        print("⚠️  No backtest data available yet")
+        print("No backtest data available yet")
         print("   Run the backtest first: python jobs/backtest.py")
         return
-    
+
     # Display stats summary
-    print(f"\n📊 Performance Summary:")
+    print(f"\nPerformance Summary:")
     print(f"   Total Signals (1m): {stats['total_signals_1m']}")
     if stats['total_signals_1m'] > 0:
         print(f"   Hit Rate: {stats['hit_rate_1m']}%")
@@ -489,30 +514,30 @@ def main():
     
     if stats['paper_trading']['enabled']:
         pt = stats['paper_trading']
-        print(f"\n💰 Paper Trading:")
+        print(f"\nPaper Trading:")
         print(f"   Portfolio: ${pt['portfolio_value']:,.2f} ({pt['total_return']:+.2f}%)")
         print(f"   Win Rate: {pt['hit_rate']:.1f}%")
-    
+
     if stats['sector_analysis']:
-        print(f"\n🏢 Best Performing Sectors:")
+        print(f"\nBest Performing Sectors:")
         for sector in stats['sector_analysis'][:3]:
             print(f"   {sector['sector']}: {sector['hit_rate']}% hit rate")
-    
+
     if stats['pattern_analysis']:
-        print(f"\n🔍 Best Performing Patterns:")
+        print(f"\nBest Performing Patterns:")
         for pattern in stats['pattern_analysis'][:3]:
             print(f"   {pattern['pattern']}: {pattern['hit_rate']}% hit rate")
-    
+
     # Generate email
-    print(f"\n📧 Generating weekly performance email...")
+    print(f"\nGenerating weekly performance email...")
     html, text = render_weekly_performance_email(stats)
-    
+
     # Send email
     subject = f"Weekly Performance Report — {datetime.now().strftime('%B %d, %Y')}"
     send_email(subject, html, text)
-    
+
     print(f"\n{'='*60}")
-    print("✅ Weekly performance summary sent successfully!")
+    print("Weekly performance summary sent successfully!")
     print(f"{'='*60}\n")
 
 if __name__ == "__main__":
