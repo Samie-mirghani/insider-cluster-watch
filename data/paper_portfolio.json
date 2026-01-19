@@ -1,41 +1,13 @@
 {
   "starting_capital": 10000,
-  "cash": 10278.634999999998,
-  "positions": {
-    "AKTS": {
-      "entry_date": "2026-01-13T11:34:39.496224",
-      "entry_price": 21.377916666666664,
-      "shares": 48,
-      "cost_basis": 1026.1399999999999,
-      "initial_stop_loss": 20.662499999999998,
-      "stop_loss": 20.30902083333333,
-      "take_profit": 23.08815,
-      "highest_price": 21.8563,
-      "trailing_enabled": false,
-      "signal_score": 12.35647948306682,
-      "sector": null,
-      "multi_signal_tier": "none",
-      "has_politician_signal": false,
-      "tranches": [
-        {
-          "shares": 29,
-          "price": 21.75,
-          "date": "2026-01-13T11:34:39.496228"
-        },
-        {
-          "shares": 19,
-          "price": 20.81,
-          "date": "2026-01-15T11:31:45.848585"
-        }
-      ]
-    }
-  },
+  "cash": 11226.634999999998,
+  "positions": {},
   "pending_entries": {},
   "total_trades": 23,
   "winning_trades": 17,
-  "losing_trades": 6,
-  "total_profit": 1285.22,
+  "losing_trades": 7,
+  "total_profit": 1207.0800000000002,
   "max_portfolio_value": 11790.185000000001,
   "max_drawdown": -9.109194484777545,
-  "last_updated": "2026-01-16T11:30:59.924363"
+  "last_updated": "2026-01-19T11:33:51.565172"
 }

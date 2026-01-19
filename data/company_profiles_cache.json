@@ -4174,5 +4174,53 @@
     "ipoDate": "1984-06-01",
     "updated": "2026-01-16T11:32:41.235164",
     "source": "fmp_api"
+  },
+  "PK": {
+    "industry": "REIT - Hotel & Motel",
+    "sector": "Real Estate",
+    "price": 11.42,
+    "companyName": "Park Hotels & Resorts Inc.",
+    "currency": "USD",
+    "beta": 1.433,
+    "range": "8.27-13.895",
+    "ipoDate": "2017-01-04",
+    "updated": "2026-01-19T11:35:28.253564",
+    "source": "fmp_api"
+  },
+  "NEOG": {
+    "industry": "Medical - Diagnostics & Research",
+    "sector": "Healthcare",
+    "price": 9.25,
+    "companyName": "Neogen Corporation",
+    "currency": "USD",
+    "beta": 1.954,
+    "range": "3.87-12.07",
+    "ipoDate": "1989-08-23",
+    "updated": "2026-01-19T11:35:28.255687",
+    "source": "fmp_api"
+  },
+  "PRIM": {
+    "industry": "Engineering & Construction",
+    "sector": "Industrials",
+    "price": 149.39,
+    "companyName": "Primoris Services Corporation",
+    "currency": "USD",
+    "beta": 1.367,
+    "range": "49.1-155.19",
+    "ipoDate": "2008-08-06",
+    "updated": "2026-01-19T11:35:28.255858",
+    "source": "fmp_api"
+  },
+  "PW": {
+    "industry": "REIT - Specialty",
+    "sector": "Real Estate",
+    "price": 1.03,
+    "companyName": "Power REIT",
+    "currency": "USD",
+    "beta": 1.521,
+    "range": "0.59-1.96",
+    "ipoDate": "1973-02-21",
+    "updated": "2026-01-19T11:35:28.616281",
+    "source": "fmp_api"
   }
 }

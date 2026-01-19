@@ -1,24 +1,24 @@
 {
-  "last_updated": "January 16, 2026 at 11:33 UTC",
-  "total_return_pct": 12.66,
-  "win_rate": 73.9,
-  "completed_trades": 23,
-  "active_trades": 1,
-  "avg_return_per_trade": 9.45,
-  "sharpe_ratio": 10.46,
+  "last_updated": "January 19, 2026 at 11:35 UTC",
+  "total_return_pct": 12.27,
+  "win_rate": 70.8,
+  "completed_trades": 24,
+  "active_trades": 0,
+  "avg_return_per_trade": 8.73,
+  "sharpe_ratio": 9.6,
   "max_drawdown": -9.11,
   "avg_hold_days": 12,
   "best_trade_pct": 59.64,
-  "worst_trade_pct": -5.75,
-  "alpha_vs_sp500": 12.88,
+  "worst_trade_pct": -7.61,
+  "alpha_vs_sp500": 10.7,
   "avg_winner": 13.85,
-  "avg_loser": -3.03,
-  "win_loss_ratio": 4.57,
-  "profit_factor": 12.95,
-  "last_30_days_return": 180.63,
-  "last_10_trades_win_rate": 80.0,
+  "avg_loser": -3.69,
+  "win_loss_ratio": 3.75,
+  "profit_factor": 9.12,
+  "last_30_days_return": 164.47,
+  "last_10_trades_win_rate": 70.0,
   "current_streak": 1,
-  "current_streak_type": "wins",
+  "current_streak_type": "losses",
   "conviction_performance": [
     {
       "conviction": "VERY HIGH",
@@ -28,9 +28,9 @@
     },
     {
       "conviction": "HIGH",
-      "trades": 9,
-      "win_rate": 77.8,
-      "avg_return": 12.83
+      "trades": 10,
+      "win_rate": 70.0,
+      "avg_return": 10.78
     },
     {
       "conviction": "MEDIUM",
@@ -52,10 +52,19 @@
     },
     {
       "month": "2026-01",
-      "return": 90.14
+      "return": 82.52
     }
   ],
   "recent_trades": [
+    {
+      "ticker": "AKTS",
+      "entry_date": "Jan 13, 2026",
+      "exit_date": "Jan 19, 2026",
+      "hold_days": 5,
+      "return_pct": -7.61,
+      "conviction": "HIGH",
+      "exit_reason": "Stop Loss"
+    },
     {
       "ticker": "ALMS",
       "entry_date": "Jan 13, 2026",
@@ -226,31 +235,14 @@
       "return_pct": 21.26,
       "conviction": "HIGH",
       "exit_reason": "Take Profit"
-    },
-    {
-      "ticker": "FOSL",
-      "entry_date": "Dec 08, 2025",
-      "exit_date": "Dec 16, 2025",
-      "hold_days": 7,
-      "return_pct": 1.33,
-      "conviction": "VERY HIGH",
-      "exit_reason": "Trailing Stop"
     }
   ],
-  "open_positions": [
-    {
-      "ticker": "AKTS",
-      "entry_date": "Jan 13, 2026",
-      "days_held": 2,
-      "unrealized_return": -3.83,
-      "conviction": "HIGH"
-    }
-  ],
+  "open_positions": [],
   "portfolio_composition": {
     "starting_capital": 10000,
-    "current_value": 11265.51,
-    "cash": 10278.63,
-    "invested_capital": 986.88,
-    "capital_deployed_pct": 8.76
+    "current_value": 11226.63,
+    "cash": 11226.63,
+    "invested_capital": 0.0,
+    "capital_deployed_pct": 0.0
   }
 }
