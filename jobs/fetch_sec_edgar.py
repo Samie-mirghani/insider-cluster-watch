@@ -16,7 +16,11 @@ from ticker_validator import validate_and_normalize_ticker, get_failed_ticker_ca
 
 logger = logging.getLogger(__name__)
 
-SEC_RSS_URL = "https://www.sec.gov/cgi-bin/browse-edgar"
+# Try HTTPS first, fall back to HTTP if network unreachable
+SEC_RSS_URLS = [
+    "https://www.sec.gov/cgi-bin/browse-edgar",  # Preferred
+    "http://www.sec.gov/cgi-bin/browse-edgar"    # Fallback for restricted networks
+]
 SEC_HEADERS = {
     'User-Agent': 'InsiderClusterWatch samie.mirghani@gmail.com',
     'Accept-Encoding': 'gzip, deflate',
@@ -53,38 +57,65 @@ def fetch_recent_form4_filings(days_back=3, max_filings=100):
     }
     
     filing_urls = []
-    
-    try:
-        response = requests.get(
-            SEC_RSS_URL,
-            params=params,
-            headers=SEC_HEADERS,
-            timeout=30
-        )
-        response.raise_for_status()
-        
-        # Parse the ATOM/XML feed
-        root = ET.fromstring(response.content)
-        
-        # Extract filing URLs from the feed
-        namespace = {'atom': 'http://www.w3.org/2005/Atom'}
-        entries = root.findall('.//atom:entry', namespace)
-        
-        for entry in entries[:max_filings]:
-            link = entry.find('.//atom:link[@rel="alternate"]', namespace)
-            if link is not None:
-                filing_url = link.get('href')
-                if filing_url:
-                    # Convert to documents page
-                    filing_url = filing_url.replace('-index.htm', '.txt')
-                    filing_urls.append(filing_url)
-        
-        print(f"✅ Found {len(filing_urls)} Form 4 filings")
-        return filing_urls
-        
-    except Exception as e:
-        print(f"❌ Error fetching from SEC EDGAR: {e}")
-        return []
+
+    # Try HTTPS first, fall back to HTTP if needed
+    for url_index, sec_url in enumerate(SEC_RSS_URLS):
+        try:
+            protocol = "HTTPS" if sec_url.startswith("https") else "HTTP"
+            if url_index > 0:
+                print(f"   🔄 Trying {protocol} fallback...")
+
+            response = requests.get(
+                sec_url,
+                params=params,
+                headers=SEC_HEADERS,
+                timeout=30
+            )
+            response.raise_for_status()
+
+            # Parse the ATOM/XML feed
+            root = ET.fromstring(response.content)
+
+            # Extract filing URLs from the feed
+            namespace = {'atom': 'http://www.w3.org/2005/Atom'}
+            entries = root.findall('.//atom:entry', namespace)
+
+            for entry in entries[:max_filings]:
+                link = entry.find('.//atom:link[@rel="alternate"]', namespace)
+                if link is not None:
+                    filing_url = link.get('href')
+                    if filing_url:
+                        # Convert to documents page
+                        filing_url = filing_url.replace('-index.htm', '.txt')
+                        filing_urls.append(filing_url)
+
+            print(f"✅ Found {len(filing_urls)} Form 4 filings")
+            return filing_urls
+
+        except requests.exceptions.ConnectionError as e:
+            error_str = str(e)
+            if "Network is unreachable" in error_str or "Failed to establish" in error_str:
+                if url_index == 0:  # HTTPS failed
+                    print(f"⚠️  HTTPS connection to SEC failed: Network unreachable")
+                    continue  # Try HTTP
+                else:  # HTTP also failed
+                    print(f"❌ Connection error: Unable to reach SEC EDGAR")
+                    logger.error(f"SEC EDGAR connection error: {e}")
+                    return []
+            else:
+                print(f"❌ Connection error fetching from SEC EDGAR: {e}")
+                if url_index < len(SEC_RSS_URLS) - 1:
+                    continue  # Try next URL
+                return []
+
+        except Exception as e:
+            print(f"❌ Error fetching from SEC EDGAR: {type(e).__name__}: {e}")
+            logger.error(f"SEC EDGAR fetch error: {e}")
+            if url_index < len(SEC_RSS_URLS) - 1:
+                continue  # Try next URL
+            return []
+
+    return []
 
 def parse_form4_xml(filing_url, max_retries=2):
     """
