@@ -14,15 +14,15 @@ from ticker_validator import validate_and_normalize_ticker
 
 logger = logging.getLogger(__name__)
 
-OPENINS_URL = "http://openinsider.com/screener"
+OPENINS_URL = "https://openinsider.com/screener"
 
 def fetch_openinsider_recent(max_retries=3):
     """
     Fetch recent insider transactions with retry logic.
-    
+
     Args:
         max_retries: Number of retry attempts if request fails
-    
+
     Returns:
         DataFrame with insider transaction data
     """
@@ -36,19 +36,56 @@ def fetch_openinsider_recent(max_retries=3):
         'cnt': '5000',     # Max results (increased from 1000)
         'page': '1'        # First page
     }
-    
+
+    # Add browser-like headers to avoid bot detection
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+        'Accept-Language': 'en-US,en;q=0.9',
+        'Accept-Encoding': 'gzip, deflate',
+        'DNT': '1',
+        'Connection': 'keep-alive',
+        'Upgrade-Insecure-Requests': '1',
+        'Cache-Control': 'max-age=0'
+    }
+
+    # Use a session for better connection handling
+    session = requests.Session()
+    session.headers.update(headers)
+
     for attempt in range(max_retries):
         try:
             print(f"📥 Fetching from OpenInsider (attempt {attempt + 1}/{max_retries})...")
-            
-            r = requests.get(OPENINS_URL, params=params, timeout=30)
+
+            # Add a small delay between retries to avoid rate limiting
+            if attempt > 0:
+                time.sleep(2)
+
+            r = session.get(OPENINS_URL, params=params, timeout=30)
+
+            # Check for common blocking scenarios
+            if r.status_code == 403:
+                print(f"⚠️  Access forbidden (403) - OpenInsider may be blocking automated requests")
+                if 'x-deny-reason' in r.headers:
+                    print(f"   Reason: {r.headers['x-deny-reason']}")
+                if attempt < max_retries - 1:
+                    continue
+                else:
+                    return pd.DataFrame(columns=['filing_date','trade_date','ticker','insider','title','trade_type','qty','price','owned','value'])
+
             r.raise_for_status()
-            
+
             soup = BeautifulSoup(r.text, 'html.parser')
             table = soup.find('table', {'class': 'tinytable'})
-            
+
             if not table:
                 print("⚠️  Warning: Could not find data table on OpenInsider")
+                print(f"   Page length: {len(r.text)} bytes")
+                print(f"   Status code: {r.status_code}")
+                # Try to find any table to help diagnose
+                all_tables = soup.find_all('table')
+                if all_tables:
+                    print(f"   Found {len(all_tables)} table(s) with classes: {[t.get('class') for t in all_tables]}")
                 return pd.DataFrame(columns=['filing_date','trade_date','ticker','insider','title','trade_type','qty','price','owned','value'])
 
             rows = []
@@ -190,9 +227,22 @@ def fetch_openinsider_recent(max_retries=3):
             else:
                 print("❌ All retry attempts failed - OpenInsider is not responding")
                 return pd.DataFrame(columns=['filing_date','trade_date','ticker','insider','title','trade_type','qty','price','owned','value'])
-                
+
+        except requests.exceptions.HTTPError as e:
+            print(f"❌ HTTP Error {e.response.status_code}: {e}")
+            if e.response.status_code == 403:
+                print("   OpenInsider is blocking the request - may need proxy or alternative approach")
+            if attempt < max_retries - 1:
+                wait_time = (attempt + 1) * 5
+                print(f"   Waiting {wait_time} seconds before retry...")
+                time.sleep(wait_time)
+            else:
+                print("❌ All attempts failed - unable to access OpenInsider")
+                return pd.DataFrame(columns=['filing_date','trade_date','ticker','insider','title','trade_type','qty','price','owned','value'])
+
         except Exception as e:
-            print(f"❌ Error: {e}")
+            print(f"❌ Unexpected error: {type(e).__name__}: {e}")
+            logger.exception("Error fetching OpenInsider data")
             if attempt < max_retries - 1:
                 wait_time = (attempt + 1) * 5
                 print(f"   Waiting {wait_time} seconds before retry...")
