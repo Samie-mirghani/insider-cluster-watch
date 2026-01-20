@@ -14,7 +14,11 @@ from ticker_validator import validate_and_normalize_ticker
 
 logger = logging.getLogger(__name__)
 
-OPENINS_URL = "https://openinsider.com/screener"
+# Try HTTPS first, fall back to HTTP if network unreachable
+OPENINS_URLS = [
+    "https://openinsider.com/screener",  # Preferred
+    "http://openinsider.com/screener"    # Fallback for restricted networks
+]
 
 def fetch_openinsider_recent(max_retries=3):
     """
@@ -53,15 +57,27 @@ def fetch_openinsider_recent(max_retries=3):
     session = requests.Session()
     session.headers.update(headers)
 
+    # Track connection errors to trigger HTTP fallback
+    https_failed = False
+
     for attempt in range(max_retries):
+        # Determine which URL to use based on HTTPS connectivity
+        if https_failed:
+            # If HTTPS failed, use HTTP fallback
+            url = OPENINS_URLS[1]  # HTTP fallback
+        else:
+            # Try HTTPS first
+            url = OPENINS_URLS[0]  # HTTPS preferred
+
         try:
-            print(f"📥 Fetching from OpenInsider (attempt {attempt + 1}/{max_retries})...")
+            protocol = "HTTPS" if url.startswith("https") else "HTTP"
+            print(f"📥 Fetching from OpenInsider via {protocol} (attempt {attempt + 1}/{max_retries})...")
 
             # Add a small delay between retries to avoid rate limiting
             if attempt > 0:
                 time.sleep(2)
 
-            r = session.get(OPENINS_URL, params=params, timeout=30)
+            r = session.get(url, params=params, timeout=30)
 
             # Check for common blocking scenarios
             if r.status_code == 403:
@@ -238,6 +254,30 @@ def fetch_openinsider_recent(max_retries=3):
                 time.sleep(wait_time)
             else:
                 print("❌ All attempts failed - unable to access OpenInsider")
+                return pd.DataFrame(columns=['filing_date','trade_date','ticker','insider','title','trade_type','qty','price','owned','value'])
+
+        except requests.exceptions.ConnectionError as e:
+            error_str = str(e)
+
+            # Check if this is an HTTPS connectivity issue
+            if url.startswith("https") and not https_failed:
+                if "Network is unreachable" in error_str or "Failed to establish" in error_str:
+                    print(f"⚠️  HTTPS connection failed: Network unreachable")
+                    print(f"🔄 Trying HTTP fallback...")
+                    https_failed = True
+                    # Don't count this as a retry attempt, just switch protocols
+                    continue
+
+            # For HTTP failures or repeated failures, handle normally
+            print(f"❌ Connection error: {type(e).__name__}")
+            logger.error(f"Connection error details: {e}")
+
+            if attempt < max_retries - 1:
+                wait_time = (attempt + 1) * 5
+                print(f"   Waiting {wait_time} seconds before retry...")
+                time.sleep(wait_time)
+            else:
+                print("❌ All connection attempts failed - OpenInsider is unreachable")
                 return pd.DataFrame(columns=['filing_date','trade_date','ticker','insider','title','trade_type','qty','price','owned','value'])
 
         except Exception as e:
