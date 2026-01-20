@@ -7099,5 +7099,89 @@
     "last_failure": "2026-01-19T11:33:50.673240",
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
+  },
+  "FBNC": {
+    "failure_count": 1,
+    "first_failure": "2026-01-20T11:31:50.501170",
+    "failure_history": [
+      {
+        "date": "2026-01-20T11:31:50.501179",
+        "reason": "No trading data for required time horizon",
+        "type": "PERMANENT"
+      }
+    ],
+    "last_failure": "2026-01-20T11:31:50.501176",
+    "reason": "No trading data for required time horizon",
+    "failure_type": "PERMANENT"
+  },
+  "NIQ": {
+    "failure_count": 1,
+    "first_failure": "2026-01-20T11:31:51.223646",
+    "failure_history": [
+      {
+        "date": "2026-01-20T11:31:51.223654",
+        "reason": "No trading data for required time horizon",
+        "type": "PERMANENT"
+      }
+    ],
+    "last_failure": "2026-01-20T11:31:51.223652",
+    "reason": "No trading data for required time horizon",
+    "failure_type": "PERMANENT"
+  },
+  "MSCI": {
+    "failure_count": 1,
+    "first_failure": "2026-01-20T11:31:52.675796",
+    "failure_history": [
+      {
+        "date": "2026-01-20T11:31:52.675804",
+        "reason": "No trading data for required time horizon",
+        "type": "PERMANENT"
+      }
+    ],
+    "last_failure": "2026-01-20T11:31:52.675802",
+    "reason": "No trading data for required time horizon",
+    "failure_type": "PERMANENT"
+  },
+  "CSBB": {
+    "failure_count": 1,
+    "first_failure": "2026-01-20T11:31:54.029779",
+    "failure_history": [
+      {
+        "date": "2026-01-20T11:31:54.029787",
+        "reason": "No trading data for required time horizon",
+        "type": "PERMANENT"
+      }
+    ],
+    "last_failure": "2026-01-20T11:31:54.029785",
+    "reason": "No trading data for required time horizon",
+    "failure_type": "PERMANENT"
+  },
+  "CARL": {
+    "failure_count": 1,
+    "first_failure": "2026-01-20T11:32:01.743278",
+    "failure_history": [
+      {
+        "date": "2026-01-20T11:32:01.743286",
+        "reason": "No trading data for required time horizon",
+        "type": "PERMANENT"
+      }
+    ],
+    "last_failure": "2026-01-20T11:32:01.743284",
+    "reason": "No trading data for required time horizon",
+    "failure_type": "PERMANENT"
+  },
+  "RLI": {
+    "failure_count": 1,
+    "first_failure": "2026-01-20T11:32:10.977866",
+    "failure_history": [
+      {
+        "date": "2026-01-20T11:32:10.977875",
+        "reason": "No trading data for required time horizon",
+        "type": "PERMANENT"
+      }
+    ],
+    "last_failure": "2026-01-20T11:32:10.977873",
+    "reason": "No trading data for required time horizon",
+    "failure_type": "PERMANENT"
   }
 }
