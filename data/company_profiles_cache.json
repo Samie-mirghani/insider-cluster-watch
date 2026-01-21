@@ -4234,5 +4234,65 @@
     "ipoDate": "2022-03-15",
     "updated": "2026-01-20T21:08:50.466296",
     "source": "fmp_api"
+  },
+  "AHH": {
+    "industry": "REIT - Diversified",
+    "sector": "Real Estate",
+    "price": 6.85,
+    "companyName": "Armada Hoffler Properties, Inc.",
+    "currency": "USD",
+    "beta": 1.064,
+    "range": "6.01-10.26",
+    "ipoDate": "2013-05-08",
+    "updated": "2026-01-21T11:38:31.315659",
+    "source": "fmp_api"
+  },
+  "MYPS": {
+    "industry": "Electronic Gaming & Multimedia",
+    "sector": "Technology",
+    "price": 0.6087,
+    "companyName": "PLAYSTUDIOS, Inc.",
+    "currency": "USD",
+    "beta": 0.898,
+    "range": "0.572-1.91",
+    "ipoDate": "2020-12-21",
+    "updated": "2026-01-21T11:38:31.318818",
+    "source": "fmp_api"
+  },
+  "ONCY": {
+    "industry": "Biotechnology",
+    "sector": "Healthcare",
+    "price": 0.9906,
+    "companyName": "Oncolytics Biotech Inc.",
+    "currency": "USD",
+    "beta": 0.976,
+    "range": "0.33-1.51",
+    "ipoDate": "2001-10-05",
+    "updated": "2026-01-21T11:38:31.320200",
+    "source": "fmp_api"
+  },
+  "GME": {
+    "industry": "Specialty Retail",
+    "sector": "Consumer Cyclical",
+    "price": 21.1,
+    "companyName": "GameStop Corp.",
+    "currency": "USD",
+    "beta": -1.207,
+    "range": "19.93-35.81",
+    "ipoDate": "2002-02-13",
+    "updated": "2026-01-21T11:38:31.331440",
+    "source": "fmp_api"
+  },
+  "SRCO": {
+    "industry": "Software - Application",
+    "sector": "Technology",
+    "price": 0.122,
+    "companyName": "Sparta Commercial Services, Inc.",
+    "currency": "USD",
+    "beta": -0.361,
+    "range": "0.069-0.3165",
+    "ipoDate": "2001-05-29",
+    "updated": "2026-01-21T11:38:31.342387",
+    "source": "fmp_api"
   }
 }
