@@ -118,7 +118,16 @@ Automatically reduces all thresholds by 20% during historically slow trading per
 - **Why:** Insiders often make strategic buys during low-volume periods
 - **Auto-detects:** No manual configuration needed - activates automatically
 
-**Configuration:** All thresholds are tunable in `jobs/process_signals.py` (lines 31-64)
+#### 📊 Tiered Dollar Volume Thresholds (Small-Cap Friendly)
+Replaces share-based volume with dollar-volume thresholds for fair comparison across price ranges:
+- **7+ insiders:** $100k/day minimum (large clusters, distributed risk)
+- **4-6 insiders:** $150k/day minimum (medium clusters)
+- **1-3 insiders:** $200k/day minimum (small clusters, concentrated risk)
+- **Example:** 8 insiders × $37k avg = $296k total with 50k shares @ $2.34 = $117k/day now passes
+- **Why:** Share-based filters discriminate against low-priced stocks; dollar volume normalizes liquidity
+- **Impact:** Captures legitimate small-cap multi-insider signals while maintaining tradability
+
+**Configuration:** All thresholds are tunable in `jobs/process_signals.py` (lines 31-70)
 
 #### Politician Trade Tracking
 **API-based data extraction via PoliticianTradeTracker:**
@@ -280,7 +289,7 @@ cluster_df = cluster_and_score(df, window_days=5, top_n=50)
 # top_n: Max signals to include in daily report (default: 50)
 ```
 
-**Signal detection enhancements (lines 31-64):**
+**Signal detection enhancements (lines 31-70):**
 ```python
 # Mega-Cluster Exception
 MEGA_CLUSTER_MIN_INSIDERS = 3              # Min insiders for exception
@@ -300,8 +309,12 @@ HOLIDAY_THRESHOLD_REDUCTION = 0.20         # 20% reduction
 
 # Quality Filters
 MIN_STOCK_PRICE = 2.0                      # No penny stocks
-MIN_AVERAGE_VOLUME = 100_000               # Liquidity requirement
 MAX_RECENT_DRAWDOWN = -0.40                # Avoid falling knives
+
+# Tiered Dollar Volume Thresholds (NEW)
+DOLLAR_VOLUME_THRESHOLD_LARGE = 100_000    # 7+ insiders: $100k/day
+DOLLAR_VOLUME_THRESHOLD_MEDIUM = 150_000   # 4-6 insiders: $150k/day
+DOLLAR_VOLUME_THRESHOLD_SMALL = 200_000    # 1-3 insiders: $200k/day
 ```
 
 **Urgent alert thresholds:**
@@ -823,9 +836,13 @@ Built with:
 ---
 
 **Last Updated:** January 2026
-**Version:** 2.1.0
+**Version:** 2.2.0
 
 **Recent Updates:**
+- ✅ Tiered Dollar Volume Thresholds (Jan 2026)
+  - Smart small-cap filtering using daily dollar volume instead of shares
+  - Scaled thresholds by cluster size (7+: $100k, 4-6: $150k, 1-3: $200k)
+  - Fair comparison across price ranges (eliminates low-price bias)
 - ✅ Signal Detection Enhancements (Jan 2026)
   - Mega-Cluster Exception for high-conviction trades
   - Dynamic per-insider thresholds
