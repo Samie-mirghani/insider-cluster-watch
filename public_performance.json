@@ -1,16 +1,16 @@
 {
-  "last_updated": "January 22, 2026 at 18:06 UTC",
-  "total_return_pct": 12.27,
+  "last_updated": "January 22, 2026 at 18:22 UTC",
+  "total_return_pct": 16.84,
   "win_rate": 70.8,
   "completed_trades": 24,
-  "active_trades": 0,
+  "active_trades": 3,
   "avg_return_per_trade": 8.73,
   "sharpe_ratio": 9.6,
   "max_drawdown": -9.11,
   "avg_hold_days": 12,
   "best_trade_pct": 59.64,
   "worst_trade_pct": -7.61,
-  "alpha_vs_sp500": 10.8,
+  "alpha_vs_sp500": 16.84,
   "avg_winner": 13.85,
   "avg_loser": -3.69,
   "win_loss_ratio": 3.75,
@@ -237,12 +237,34 @@
       "exit_reason": "Take Profit"
     }
   ],
-  "open_positions": [],
+  "open_positions": [
+    {
+      "ticker": "CABA",
+      "entry_date": "Jan 22, 2026",
+      "days_held": 0,
+      "unrealized_return": 26.48,
+      "conviction": "VERY HIGH"
+    },
+    {
+      "ticker": "UA",
+      "entry_date": "Jan 22, 2026",
+      "days_held": 0,
+      "unrealized_return": 37.56,
+      "conviction": "MEDIUM"
+    },
+    {
+      "ticker": "MIGI",
+      "entry_date": "Jan 22, 2026",
+      "days_held": 0,
+      "unrealized_return": 10.12,
+      "conviction": "LOW"
+    }
+  ],
   "portfolio_composition": {
     "starting_capital": 10000,
-    "current_value": 11226.63,
-    "cash": 11226.63,
-    "invested_capital": 0.0,
-    "capital_deployed_pct": 0.0
+    "current_value": 11684.06,
+    "cash": 9432.73,
+    "invested_capital": 2251.32,
+    "capital_deployed_pct": 19.27
   }
 }
