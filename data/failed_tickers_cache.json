@@ -7407,5 +7407,33 @@
     "last_failure": "2026-01-21T11:36:45.897657",
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
+  },
+  "AMLX": {
+    "failure_count": 1,
+    "first_failure": "2026-01-22T11:34:53.076294",
+    "failure_history": [
+      {
+        "date": "2026-01-22T11:34:53.076303",
+        "reason": "No trading data for required time horizon",
+        "type": "PERMANENT"
+      }
+    ],
+    "last_failure": "2026-01-22T11:34:53.076301",
+    "reason": "No trading data for required time horizon",
+    "failure_type": "PERMANENT"
+  },
+  "ALNT": {
+    "failure_count": 1,
+    "first_failure": "2026-01-22T11:34:55.671653",
+    "failure_history": [
+      {
+        "date": "2026-01-22T11:34:55.671663",
+        "reason": "No trading data for required time horizon",
+        "type": "PERMANENT"
+      }
+    ],
+    "last_failure": "2026-01-22T11:34:55.671660",
+    "reason": "No trading data for required time horizon",
+    "failure_type": "PERMANENT"
   }
 }
