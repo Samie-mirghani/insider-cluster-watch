@@ -501,6 +501,50 @@ class AlpacaTradingClient:
 
         return self._format_order_response(order)
 
+    def submit_market_buy(
+        self,
+        symbol: str,
+        qty: int,
+        client_order_id: str
+    ) -> Dict[str, Any]:
+        """
+        Submit a market buy order (immediate execution at current price).
+
+        Args:
+            symbol: Ticker symbol
+            qty: Number of shares
+            client_order_id: Unique idempotency key
+
+        Returns:
+            Order response dictionary
+        """
+        order_data = MarketOrderRequest(
+            symbol=symbol,
+            qty=qty,
+            side=OrderSide.BUY,
+            type=OrderType.MARKET,
+            time_in_force=TimeInForce.DAY,
+            client_order_id=client_order_id
+        )
+
+        logger.info(f"Submitting MARKET BUY: {symbol} x{qty}")
+
+        order = self._retry_operation(
+            lambda: self.client.submit_order(order_data),
+            f"Submit market buy {symbol}"
+        )
+
+        log_audit_event('ORDER_SUBMITTED', {
+            'type': 'MARKET_BUY',
+            'symbol': symbol,
+            'qty': qty,
+            'order_id': str(order.id),
+            'client_order_id': client_order_id,
+            'status': str(order.status)
+        })
+
+        return self._format_order_response(order)
+
     def submit_market_sell(
         self,
         symbol: str,

@@ -288,9 +288,6 @@ class TradingEngine:
         if shares <= 0:
             return False, "Cannot afford any shares"
 
-        # Calculate limit price (with cushion)
-        limit_price = round(entry_price * (1 + config.LIMIT_ORDER_CUSHION_PCT / 100), 2)
-
         # Generate idempotent order ID
         client_order_id = generate_client_order_id(ticker, 'BUY')
 
@@ -300,11 +297,11 @@ class TradingEngine:
             logger.warning(f"Order {client_order_id} already exists")
             return False, "Duplicate order"
 
-        # Create order record
+        # Create order record (use entry_price for market orders)
         order, error = self.order_manager.create_buy_order(
             ticker=ticker,
             shares=shares,
-            limit_price=limit_price,
+            limit_price=entry_price,  # For tracking, using entry_price as reference
             signal_data=signal
         )
 
@@ -313,15 +310,13 @@ class TradingEngine:
             return False, error
 
         try:
-            # Submit to Alpaca
-            logger.info(f"Submitting order: {ticker} x{shares} @ ${limit_price:.2f}")
+            # Submit to Alpaca (MARKET ORDER for immediate fill)
+            logger.info(f"Submitting MARKET order: {ticker} x{shares} @ market price")
 
-            alpaca_order = self.alpaca_client.submit_limit_buy(
+            alpaca_order = self.alpaca_client.submit_market_buy(
                 symbol=ticker,
                 qty=shares,
-                limit_price=limit_price,
-                client_order_id=client_order_id,
-                time_in_force='day'
+                client_order_id=client_order_id
             )
 
             # Update order manager
@@ -341,8 +336,8 @@ class TradingEngine:
                     self.alert_sender.send_intraday_redeployment_alert(
                         ticker=ticker,
                         shares=shares,
-                        price=limit_price,
-                        total_value=shares * limit_price,
+                        price=entry_price,
+                        total_value=shares * entry_price,
                         reason="Capital redeployed from position exit"
                     )
                 else:
@@ -351,8 +346,8 @@ class TradingEngine:
                         ticker=ticker,
                         action='BUY',
                         shares=shares,
-                        price=limit_price,
-                        total_value=shares * limit_price
+                        price=entry_price,
+                        total_value=shares * entry_price
                     )
 
             return True, f"Order submitted: {alpaca_order['order_id']}"
