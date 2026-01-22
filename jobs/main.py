@@ -977,9 +977,9 @@ def main(test=False, enable_paper_trading=True):
                 'politician_trades': row.get('politician_trades', 0),
                 'institutional_count': row.get('institutional_count', 0),
                 'pattern_detected': row.get('pattern_detected', 'None'),
-                'insider_count': row.get('insider_count', 0),
+                'insider_count': row.get('cluster_count', 0),  # cluster_count is the actual field name
                 'total_shares_bought': row.get('total_shares', 0),
-                'buy_value': row.get('buy_value', 0),
+                'buy_value': row.get('total_value', 0),  # total_value is the actual field name
                 'short_percent_float': row.get('short_percent_float'),
                 'squeeze_potential': row.get('squeeze_potential', False),
                 'date_generated': datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
