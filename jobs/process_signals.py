@@ -851,6 +851,12 @@ def enrich_with_market_data(cluster_df):
                 if _is_valid_field(avg_vol_10d):
                     info[t]['averageVolume10days'] = avg_vol_10d
 
+                # Average volume - fallback if FMP didn't provide it
+                if 'averageVolume' not in info[t] or info[t].get('averageVolume', 0) == 0:
+                    avg_vol = q.get('averageVolume', 0)
+                    if _is_valid_field(avg_vol) and avg_vol > 0:
+                        info[t]['averageVolume'] = avg_vol
+
                 range_fetched += 1
 
             time.sleep(0.3)  # Rate limiting
