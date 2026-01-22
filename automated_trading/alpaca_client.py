@@ -574,8 +574,21 @@ class AlpacaTradingClient:
             Order dictionary or None if not found
         """
         try:
-            order = self.client.get_order_by_client_order_id(client_order_id)
-            return self._format_order_response(order)
+            # Alpaca SDK doesn't have get_order_by_client_order_id
+            # Instead, get all orders and filter by client_order_id
+            request = GetOrdersRequest(
+                status=QueryOrderStatus.ALL,
+                limit=500
+            )
+            orders = self.client.get_orders(request)
+
+            # Find order with matching client_order_id
+            for order in orders:
+                if order.client_order_id == client_order_id:
+                    return self._format_order_response(order)
+
+            # Not found
+            return None
         except APIError as e:
             if '404' in str(e) or 'order not found' in str(e).lower():
                 return None
