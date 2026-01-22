@@ -59,8 +59,14 @@ HOLIDAY_PERIODS = [
 
 # Quality filter thresholds (used in apply_quality_filters)
 MIN_STOCK_PRICE = 2.0                      # No penny stocks
-MIN_AVERAGE_VOLUME = 100_000               # Liquidity requirement (shares/day)
+MIN_AVERAGE_VOLUME = 100_000               # Legacy: Liquidity requirement (shares/day) - deprecated
 MAX_RECENT_DRAWDOWN = -0.40                # Don't buy falling knives (40% drop)
+
+# Fix 4: Tiered Dollar Volume Thresholds - Fair liquidity assessment across price ranges
+# Uses daily dollar volume (shares × price) instead of share volume for better normalization
+DOLLAR_VOLUME_THRESHOLD_LARGE = 100_000    # 7+ insiders: $100k/day minimum
+DOLLAR_VOLUME_THRESHOLD_MEDIUM = 150_000   # 4-6 insiders: $150k/day minimum
+DOLLAR_VOLUME_THRESHOLD_SMALL = 200_000    # 1-3 insiders: $200k/day minimum
 
 # ============================================================================
 
@@ -150,6 +156,37 @@ def get_dynamic_min_per_insider(cluster_count, total_value, apply_holiday=True):
         threshold = DYNAMIC_THRESHOLD_MEDIUM
     else:
         threshold = DYNAMIC_THRESHOLD_BASE
+
+    # Apply holiday mode if active
+    if apply_holiday:
+        is_holiday, holiday_name, days_into = is_holiday_period()
+        if is_holiday:
+            threshold = apply_holiday_adjustment(threshold)
+
+    return threshold
+
+def get_dollar_volume_threshold(cluster_count, total_value, apply_holiday=True):
+    """
+    Calculate tiered dollar volume threshold based on cluster size.
+
+    Fix 4: Larger clusters (more diversified conviction) get lower liquidity requirements.
+    Uses dollar volume (shares × price) for fair comparison across price ranges.
+
+    Args:
+        cluster_count: Number of insiders in cluster
+        total_value: Total $ value of cluster (for validation)
+        apply_holiday: Whether to apply holiday mode reduction
+
+    Returns:
+        Minimum daily dollar volume threshold
+    """
+    # Determine tier based on cluster size and total value
+    if cluster_count >= 7 and total_value >= DYNAMIC_THRESHOLD_LARGE_MIN_TOTAL:
+        threshold = DOLLAR_VOLUME_THRESHOLD_LARGE
+    elif cluster_count >= 4 and total_value >= DYNAMIC_THRESHOLD_MEDIUM_MIN_TOTAL:
+        threshold = DOLLAR_VOLUME_THRESHOLD_MEDIUM
+    else:
+        threshold = DOLLAR_VOLUME_THRESHOLD_SMALL
 
     # Apply holiday mode if active
     if apply_holiday:
@@ -956,18 +993,19 @@ def enrich_with_market_data(cluster_df):
 
 def apply_quality_filters(cluster_df):
     """
-    ENHANCED: Quality filters with dynamic thresholds and mega-cluster exceptions
+    ENHANCED: Quality filters with dynamic thresholds and tiered dollar volume
 
     Filters applied:
     1. Minimum price ($2.00) - no penny stocks
     2. DYNAMIC minimum purchase per insider (scales with cluster size)
-    3. Liquidity requirement (100k+ avg volume) - BYPASSED for mega-clusters
+    3. TIERED DOLLAR VOLUME liquidity (scales by cluster, fair across prices)
     4. Maximum recent drawdown (<40% drop in 30 days)
 
     NEW FEATURES:
     - Fix 1: Mega-cluster exception bypasses volume filter
     - Fix 2: Dynamic per-insider thresholds (lower for larger clusters)
     - Fix 3: Holiday mode automatically reduces all thresholds by 20%
+    - Fix 4: Tiered dollar volume thresholds (7+ insiders: $100k, 4-6: $150k, 1-3: $200k daily)
     """
     if cluster_df.empty:
         return cluster_df
@@ -1047,20 +1085,25 @@ def apply_quality_filters(cluster_df):
             for dt in dynamic_threshold_applied[:3]:  # Show first 3 examples
                 print(f"      • {dt['ticker']}: {dt['cluster_count']} insiders, ${dt['threshold']:,.0f} threshold (${dt['avg_per_insider']:,.0f} avg)")
 
-    # Filter 3: Liquidity check (avg volume > 100k shares/day)
+    # Filter 3: Liquidity check using tiered dollar volume thresholds
     # Fix 1: MEGA-CLUSTER EXCEPTION - Bypass for rare high-conviction clusters
+    # Fix 4: TIERED DOLLAR VOLUME - Scale requirements by cluster size, use $ volume not shares
     before = len(filtered)
 
-    # Apply mega-cluster exception
+    # Apply tiered dollar volume with mega-cluster exception
     def passes_volume_filter(row):
-        # Check if NaN (missing data - don't filter)
-        if pd.isna(row.get('averageVolume')):
+        # Check if missing data (volume or price) - don't filter
+        if pd.isna(row.get('averageVolume')) or pd.isna(row.get('currentPrice')):
             return True
 
-        volume = row.get('averageVolume', 0)
+        volume_shares = row.get('averageVolume', 0)
+        price = row.get('currentPrice', 0)
         cluster_count = row.get('cluster_count', 0)
         total_value = row.get('total_value', 0)
         avg_per_insider = row.get('avg_purchase_per_insider', 0)
+
+        # Calculate dollar volume (shares × price)
+        dollar_volume = volume_shares * price
 
         # Apply holiday adjustment to mega-cluster thresholds
         mega_cluster_min_insiders = MEGA_CLUSTER_MIN_INSIDERS  # No adjustment (count)
@@ -1075,20 +1118,27 @@ def apply_quality_filters(cluster_df):
         )
 
         if is_mega_cluster:
-            return True  # Bypass volume filter
+            return True  # Bypass volume filter entirely
 
-        # Standard volume filter
-        return volume > min_volume
+        # TIERED DOLLAR VOLUME FILTER: Scale threshold by cluster size
+        threshold = get_dollar_volume_threshold(cluster_count, total_value, apply_holiday=is_holiday)
+        return dollar_volume >= threshold
 
-    # Track mega-cluster exceptions
+    # Track mega-cluster exceptions and tiered volume passes
     mega_cluster_exceptions = []
-    for idx, row in filtered.iterrows():
-        if pd.notna(row.get('averageVolume')) and row.get('averageVolume', 0) <= min_volume:
-            # Would normally be filtered, check if mega-cluster
-            cluster_count = row.get('cluster_count', 0)
-            total_value = row.get('total_value', 0)
-            avg_per_insider = row.get('avg_purchase_per_insider', 0)
+    tiered_volume_passes = []
 
+    for idx, row in filtered.iterrows():
+        volume_shares = row.get('averageVolume', 0)
+        price = row.get('currentPrice', 0)
+        cluster_count = row.get('cluster_count', 0)
+        total_value = row.get('total_value', 0)
+        avg_per_insider = row.get('avg_purchase_per_insider', 0)
+
+        if pd.notna(volume_shares) and pd.notna(price):
+            dollar_volume = volume_shares * price
+
+            # Check if mega-cluster
             mega_cluster_min_total = apply_holiday_adjustment(MEGA_CLUSTER_MIN_TOTAL_VALUE) if is_holiday else MEGA_CLUSTER_MIN_TOTAL_VALUE
             mega_cluster_min_avg = apply_holiday_adjustment(MEGA_CLUSTER_MIN_AVG_PER_INSIDER) if is_holiday else MEGA_CLUSTER_MIN_AVG_PER_INSIDER
 
@@ -1104,8 +1154,25 @@ def apply_quality_filters(cluster_df):
                     'cluster_count': cluster_count,
                     'total_value': total_value,
                     'avg_per_insider': avg_per_insider,
-                    'volume': row.get('averageVolume', 0)
+                    'volume_shares': volume_shares,
+                    'dollar_volume': dollar_volume
                 })
+            else:
+                # Check if using tiered threshold (not base threshold)
+                threshold = get_dollar_volume_threshold(cluster_count, total_value, apply_holiday=is_holiday)
+                base_threshold = DOLLAR_VOLUME_THRESHOLD_SMALL
+                if is_holiday:
+                    base_threshold = apply_holiday_adjustment(base_threshold)
+
+                if threshold < base_threshold and dollar_volume >= threshold:
+                    tiered_volume_passes.append({
+                        'ticker': row['ticker'],
+                        'cluster_count': cluster_count,
+                        'threshold': threshold,
+                        'dollar_volume': dollar_volume,
+                        'volume_shares': volume_shares,
+                        'price': price
+                    })
 
     filtered = filtered[filtered.apply(passes_volume_filter, axis=1)]
     removed = before - len(filtered)
@@ -1113,11 +1180,15 @@ def apply_quality_filters(cluster_df):
     if mega_cluster_exceptions:
         print(f"   🚀 MEGA-CLUSTER EXCEPTION: {len(mega_cluster_exceptions)} signals bypassed volume filter")
         for mc in mega_cluster_exceptions:
-            print(f"      • {mc['ticker']}: {mc['cluster_count']} insiders × ${mc['avg_per_insider']:,.0f} = ${mc['total_value']:,.0f} total (volume: {mc['volume']:,.0f})")
+            print(f"      • {mc['ticker']}: {mc['cluster_count']} insiders × ${mc['avg_per_insider']:,.0f} = ${mc['total_value']:,.0f} total (${mc['dollar_volume']:,.0f}/day volume)")
+
+    if tiered_volume_passes:
+        print(f"   📊 TIERED VOLUME: {len(tiered_volume_passes)} signals passed via lower thresholds")
+        for tv in tiered_volume_passes[:3]:  # Show first 3 examples
+            print(f"      • {tv['ticker']}: {tv['cluster_count']} insiders, ${tv['threshold']:,.0f} threshold (${tv['dollar_volume']:,.0f}/day volume)")
 
     if removed > 0:
-        volume_display = f"{min_volume:,.0f}"
-        print(f"   ❌ Removed {removed} illiquid stocks (volume < {volume_display})")
+        print(f"   ❌ Removed {removed} illiquid stocks (below tiered dollar volume thresholds)")
     
     # Filter 4: Not down >40% in last 30 days (avoid falling knives)
     before = len(filtered)
