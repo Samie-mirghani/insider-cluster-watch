@@ -200,6 +200,22 @@ class AlpacaTradingClient:
         account = self.get_account(force_refresh=True)
         return float(account.buying_power)
 
+    def get_daily_pnl(self) -> float:
+        """
+        Get total daily P&L (realized + unrealized).
+
+        This returns the difference between current equity and previous day's equity,
+        which includes both realized P&L from closed positions and unrealized P&L
+        from open positions.
+
+        Returns:
+            Daily P&L in dollars
+        """
+        account = self.get_account(force_refresh=True)
+        current_equity = float(account.equity)
+        last_equity = float(account.last_equity)
+        return current_equity - last_equity
+
     # =========================================================================
     # Market Status
     # =========================================================================
@@ -678,6 +694,40 @@ class AlpacaTradingClient:
         )
 
         return [self._format_order_response(o) for o in orders]
+
+    def get_filled_orders_today(self) -> List[Dict[str, Any]]:
+        """
+        Get all filled orders from today.
+
+        Returns:
+            List of filled order dictionaries
+        """
+        # Get orders from last 24 hours (includes today)
+        after = datetime.now() - timedelta(days=1)
+
+        request = GetOrdersRequest(
+            status=QueryOrderStatus.CLOSED,
+            limit=500,
+            after=after
+        )
+
+        orders = self._retry_operation(
+            lambda: self.client.get_orders(request),
+            "Get filled orders"
+        )
+
+        # Filter for filled orders from today only
+        today = datetime.now().strftime('%Y-%m-%d')
+        filled_orders = []
+
+        for order in orders:
+            if order.filled_at:
+                # Check if filled today
+                filled_date = order.filled_at.strftime('%Y-%m-%d')
+                if filled_date == today and str(order.status) == 'OrderStatus.FILLED':
+                    filled_orders.append(self._format_order_response(order))
+
+        return filled_orders
 
     def _format_order_response(self, order) -> Dict[str, Any]:
         """Format order object to dictionary."""
