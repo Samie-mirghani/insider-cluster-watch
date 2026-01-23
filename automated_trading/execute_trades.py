@@ -480,47 +480,32 @@ class TradingEngine:
             logger.warning(f"Circuit breaker active: {halt_reason}")
             return results
 
-        # Run reconciliation first
+        # Sync with broker BEFORE trading to ensure positions.json is accurate
+        # This prevents duplicate investments and ensures all positions are tracked
+        logger.info("Syncing with broker before trading...")
+        sync_results = self.position_monitor.sync_with_broker()
+
+        if sync_results.get('synced') and sync_results.get('total_corrections', 0) > 0:
+            corrections = sync_results['corrections']
+            logger.info(f"✅ Position sync complete:")
+            if corrections['added']:
+                logger.info(f"   ➕ Added {len(corrections['added'])} positions")
+            if corrections['removed']:
+                logger.info(f"   ➖ Removed {len(corrections['removed'])} positions")
+            if corrections['updated']:
+                logger.info(f"   🔄 Updated {len(corrections['updated'])} quantities")
+            logger.info("This prevents duplicate investments in existing positions")
+
+        # Run reconciliation for reporting (sync already fixed any issues)
         is_synced, discrepancies = self.position_monitor.reconciler.reconcile(
             self.position_monitor.positions,
             self.alpaca_client
         )
         if not is_synced:
-            logger.warning(f"Reconciliation found {len(discrepancies)} discrepancies")
+            logger.warning(f"Reconciliation found {len(discrepancies)} discrepancies after sync")
             self.alert_sender.send_reconciliation_alert(
                 [d.to_dict() for d in discrepancies]
             )
-
-            # CRITICAL FIX: Auto-sync broker positions to prevent duplicate investments
-            # If positions exist at broker but not locally (e.g., from manual trades),
-            # sync them to local tracking BEFORE executing new trades
-            logger.info("Auto-syncing broker positions to local tracking...")
-            broker_positions = self.alpaca_client.get_all_positions()
-            synced_count = 0
-
-            for broker_pos in broker_positions:
-                ticker = broker_pos['symbol']
-
-                # Only sync if position exists at broker but not locally
-                if ticker not in self.position_monitor.positions:
-                    logger.info(f"Syncing broker position: {ticker} ({broker_pos['qty']} shares)")
-
-                    # Add to position monitor with broker data
-                    self.position_monitor.add_position(
-                        ticker=ticker,
-                        shares=broker_pos['qty'],
-                        entry_price=broker_pos['avg_entry_price'],
-                        stop_loss=broker_pos['avg_entry_price'] * (1 - config.STOP_LOSS_PCT),
-                        take_profit=broker_pos['avg_entry_price'] * (1 + config.TAKE_PROFIT_PCT),
-                        signal_data={'source': 'broker_sync', 'synced_at': datetime.now().isoformat()}
-                    )
-                    synced_count += 1
-
-            if synced_count > 0:
-                logger.info(f"✅ Synced {synced_count} broker positions to local tracking")
-                logger.info("This prevents duplicate investments in existing positions")
-
-            # Continue with trading - positions are now synced
 
         # Load signals
         signals = self.load_approved_signals()
