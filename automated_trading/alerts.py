@@ -57,7 +57,20 @@ class AlertSender:
         """Initialize alert sender."""
         self.gmail_user = config.GMAIL_USER
         self.gmail_password = config.GMAIL_APP_PASSWORD
-        self.recipient = config.RECIPIENT_EMAIL
+
+        # Clean and validate recipient email
+        raw_recipient = config.RECIPIENT_EMAIL
+        if raw_recipient:
+            # Strip whitespace and quotes
+            self.recipient = raw_recipient.strip().strip('"').strip("'").strip()
+            # Take first email if multiple provided (comma or semicolon separated)
+            if ',' in self.recipient:
+                self.recipient = self.recipient.split(',')[0].strip()
+            elif ';' in self.recipient:
+                self.recipient = self.recipient.split(';')[0].strip()
+        else:
+            self.recipient = None
+
         self.is_live = config.TRADING_MODE == 'live'
 
     def _get_mode_indicator(self) -> Tuple[str, str, str]:
@@ -91,8 +104,20 @@ class AlertSender:
         Returns:
             True if sent successfully
         """
-        if not all([self.gmail_user, self.gmail_password, self.recipient]):
-            logger.error("Email credentials not configured")
+        # Validate email configuration
+        if not self.gmail_user:
+            logger.error("GMAIL_USER not configured")
+            return False
+        if not self.gmail_password:
+            logger.error("GMAIL_APP_PASSWORD not configured")
+            return False
+        if not self.recipient:
+            logger.error("RECIPIENT_EMAIL not configured")
+            return False
+
+        # Validate recipient email format
+        if '@' not in self.recipient or ' ' in self.recipient:
+            logger.error(f"Invalid recipient email format: '{self.recipient}'")
             return False
 
         try:
@@ -118,13 +143,34 @@ class AlertSender:
                 'recipient': self.recipient
             })
 
-            logger.info(f"Alert sent: {subject}")
+            logger.info(f"✅ Alert sent successfully: {subject}")
             return True
 
-        except Exception as e:
-            logger.error(f"Failed to send alert: {e}")
+        except smtplib.SMTPRecipientsRefused as e:
+            logger.error(f"❌ Invalid recipient email address: {self.recipient}")
+            logger.error(f"   SMTP error: {e}")
             log_audit_event('ALERT_FAILED', {
                 'subject': subject,
+                'error': f"Invalid recipient: {str(e)}"
+            }, outcome='ERROR')
+            return False
+
+        except smtplib.SMTPAuthenticationError as e:
+            logger.error(f"❌ Gmail authentication failed - check GMAIL_USER and GMAIL_APP_PASSWORD")
+            logger.error(f"   SMTP error: {e}")
+            log_audit_event('ALERT_FAILED', {
+                'subject': subject,
+                'error': f"Authentication failed: {str(e)}"
+            }, outcome='ERROR')
+            return False
+
+        except Exception as e:
+            logger.error(f"❌ Failed to send alert: {e}")
+            logger.error(f"   Subject: {subject}")
+            logger.error(f"   Recipient: {self.recipient}")
+            log_audit_event('ALERT_FAILED', {
+                'subject': subject,
+                'recipient': self.recipient,
                 'error': str(e)
             }, outcome='ERROR')
             return False
