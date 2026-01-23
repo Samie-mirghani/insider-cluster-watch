@@ -751,8 +751,17 @@ class TradingEngine:
 
         # Get final stats
         portfolio_value = self.alpaca_client.get_portfolio_value()
-        daily_pnl = self.position_monitor.circuit_breaker.daily_pnl
-        trades_today = len(self.position_monitor.circuit_breaker.trades_today)
+
+        # Get total daily P&L (realized + unrealized)
+        # This uses Alpaca's equity difference which includes both
+        # - Realized P&L from closed positions
+        # - Unrealized P&L changes from open positions
+        daily_pnl = self.alpaca_client.get_daily_pnl()
+
+        # Get actual trades count (all filled orders today)
+        filled_orders_today = self.alpaca_client.get_filled_orders_today()
+        trades_today = len(filled_orders_today)
+
         open_positions = len(self.position_monitor.positions)
 
         # Cleanup
