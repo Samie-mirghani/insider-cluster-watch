@@ -72,6 +72,14 @@ jobs:
           # Add paper trading data files (always exist)
           git add -f data/paper_portfolio.json data/paper_trading.log data/paper_trades.csv
 
+          # Add approved signals JSON (always exists - either signals or empty array)
+          if [ -f "data/approved_signals.json" ]; then
+            git add -f data/approved_signals.json
+            echo "✅ Added approved_signals.json"
+          else
+            echo "⚠️ approved_signals.json not found!"
+          fi
+
           # Add signals history only if it exists (might not exist if no signals)
           if [ -f "data/signals_history.csv" ]; then
             git add -f data/signals_history.csv
@@ -189,6 +197,11 @@ jobs:
 
           # Add any reapplied files again
           git add -f data/paper_portfolio.json data/paper_trading.log data/paper_trades.csv
+
+          # Add approved signals JSON if it exists
+          if [ -f "data/approved_signals.json" ]; then
+            git add -f data/approved_signals.json
+          fi
 
           # Add signals history if it exists
           if [ -f "data/signals_history.csv" ]; then
