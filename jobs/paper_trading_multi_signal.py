@@ -133,8 +133,9 @@ class MultiSignalPaperTrader:
         reasons = []
 
         if signal['has_insider']:
+            insider_word = "insider" if signal['insider_count'] == 1 else "insiders"
             reasons.append(
-                f"{signal['insider_count']} insiders bought "
+                f"{signal['insider_count']} {insider_word} bought "
                 f"${signal['insider_value']:,.0f}"
             )
 

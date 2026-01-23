@@ -576,7 +576,7 @@ def _render_trading_dashboard_html(date, stats, today_pnl, today_pnl_pct, closed
                                                             {plus_icon} OPENED: <span style="color: {primary}; font-family: 'Courier New', monospace;">{pos['ticker']}</span> | {pos['shares']} shares @ ${pos['entry_price']:.2f}
                                                         </div>
                                                         <div style="font-size: 13px; color: {text_muted}; margin-top: 8px;">
-                                                            Signal Score: {pos['signal_score']:.1f} {star_icons} | Cluster: {cluster_count} insiders<br>
+                                                            Signal Score: {pos['signal_score']:.1f} {star_icons} | Cluster: {cluster_count} {'insider' if cluster_count == 1 else 'insiders'}<br>
                                                             Stop: ${pos['stop_loss']:.2f} ({stop_pct:.1f}%) | Target: ${pos['take_profit']:.2f} (+{target_pct:.1f}%)<br>
                                                             Position Size: ${pos['cost_basis']:.2f} ({position_pct:.1f}% of portfolio)
                                                         </div>
@@ -702,7 +702,7 @@ def _render_trading_dashboard_html(date, stats, today_pnl, today_pnl_pct, closed
                                                         {trade_badge}
                                                     </div>
                                                     <div style="font-size: 13px; color: {text_muted}; line-height: 1.8;">
-                                                        Cluster: {cluster_count} insiders bought {_format_currency(total_value)}<br>
+                                                        Cluster: {cluster_count} {'insider' if cluster_count == 1 else 'insiders'} bought {_format_currency(total_value)}<br>
                                                         Sector: {sector if sector and sector not in ['nan', 'None', None, 'Unknown'] else 'N/A'} | Price: ${price:.2f}<br>
                                                         Pattern: {pattern if pattern and pattern not in ['nan', 'None', None, ''] else 'None'}
                                                     </div>
@@ -835,7 +835,7 @@ def _build_trading_dashboard_text(date, stats, today_pnl, today_pnl_pct, closed_
                     cluster_count = sig.get('cluster_count', 0)
                     break
             lines.append(f"  🆕 {pos['ticker']}: {pos['shares']} shares @ ${pos['entry_price']:.2f}")
-            lines.append(f"     Signal Score: {pos['signal_score']:.1f} | Cluster: {cluster_count} insiders")
+            lines.append(f"     Signal Score: {pos['signal_score']:.1f} | Cluster: {cluster_count} {'insider' if cluster_count == 1 else 'insiders'}")
             lines.append(f"     Stop: ${pos['stop_loss']:.2f} | Target: ${pos['take_profit']:.2f}")
         lines.append("")
 
@@ -864,7 +864,7 @@ def _build_trading_dashboard_text(date, stats, today_pnl, today_pnl_pct, closed_
             was_traded = ticker in opened_tickers
             status = "✅ TRADED" if was_traded else "⏭️ SKIPPED"
             lines.append(f"  {i}. {ticker} | Score: {score:.1f} | {status}")
-            lines.append(f"     Cluster: {cluster_count} insiders bought {_format_currency(total_value)}")
+            lines.append(f"     Cluster: {cluster_count} {'insider' if cluster_count == 1 else 'insiders'} bought {_format_currency(total_value)}")
     else:
         lines.append("  No insider clusters detected today")
     lines.append("")
