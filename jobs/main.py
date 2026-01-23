@@ -781,8 +781,103 @@ def main(test=False, enable_paper_trading=True):
             )
 
             # Enrich cluster_df with multi-signal data
+            tier0_signals = multi_signal_results.get('tier0', [])
             tier1_tickers = [s['ticker'] for s in multi_signal_results['tier1']]
             tier2_tickers = [s['ticker'] for s in multi_signal_results['tier2']]
+
+            # Process politician-only signals (tier0) - these are standalone signals without insider clusters
+            if tier0_signals:
+                print(f"\n🏛️  Processing {len(tier0_signals)} politician-only signals (Tier 0)...")
+
+                politician_only_rows = []
+                for signal in tier0_signals:
+                    # Extract politician details with trade amounts
+                    politician_names = []
+                    politician_details = []
+                    pol_data = signal.get('politician_data')
+                    if pol_data is not None and 'trades' in pol_data:
+                        for trade in pol_data['trades'][:5]:  # Top 5 politicians
+                            name = trade.get('politician', 'Unknown')
+                            trade_type = trade.get('transaction_type', 'trade').upper()
+                            amount = trade.get('amount', 0)
+                            politician_names.append(name)
+                            if amount > 0:
+                                politician_details.append(f"{name} ({trade_type}, ${amount:,})")
+                            else:
+                                politician_details.append(f"{name} ({trade_type})")
+                    else:
+                        # Fallback if trades data not available
+                        politician_names = signal.get('politician_list', [])
+                        politician_details = [f"{pol}" for pol in politician_names[:5]]
+
+                    # Extract trade dates from politician data for duplicate filtering
+                    last_trade_date = None
+                    first_trade_date = None
+                    if pol_data is not None:
+                        last_trade_date = pol_data.get('last_trade')
+                        first_trade_date = pol_data.get('first_trade')
+
+                    # Create a row similar to cluster_df structure
+                    pol_row = {
+                        'ticker': signal['ticker'],
+                        'company': signal['company'],
+                        'cluster_count': 0,  # No insider cluster
+                        'total_value': 0,  # No insider value
+                        'rank_score': signal['politician_score'] * 1.0,  # Use politician score as base
+                        'multi_signal_tier': 'tier0',
+                        'has_politician_signal': True,
+                        'politician_count': signal['politician_count'],
+                        'politician_names': politician_names,
+                        'politician_details': politician_details,
+                        'institutional_names': [],
+                        'institutional_details': [],
+                        'multi_signal_explanation': f"Politician-Only Signal ({signal['politician_count']} politicians)",
+                        'institutional_count': 0,
+                        'signal_type': 'politician_only',
+                        'is_bipartisan': signal.get('is_bipartisan', False),
+                        'high_conviction_count': signal.get('high_conviction_count', 0),
+                        'conviction_level': signal.get('conviction_level', 'MODERATE'),
+                        # Trade dates for duplicate filtering
+                        'last_trade_date': last_trade_date,
+                        'first_trade_date': first_trade_date,
+                        # Will need market data fetched later
+                        'currentPrice': None,
+                        'marketCap': None,
+                        'sector': 'Unknown'
+                    }
+                    politician_only_rows.append(pol_row)
+
+                # Convert to DataFrame and append to cluster_df
+                if politician_only_rows:
+                    tier0_df = pd.DataFrame(politician_only_rows)
+
+                    # Fetch market data for politician-only signals
+                    print(f"   📊 Fetching market data for {len(tier0_df)} politician-only tickers...")
+                    from fetch_market_data import fetch_market_data
+                    tier0_df = fetch_market_data(tier0_df)
+
+                    # Fetch sector data if available
+                    if ENABLE_SECTOR_ANALYSIS:
+                        try:
+                            from get_industry_classification import enrich_with_industry
+                            tier0_df = enrich_with_industry(tier0_df)
+                            print(f"   ✅ Enriched with industry/sector data")
+                        except Exception as e:
+                            print(f"   ⚠️  Could not enrich with industry data: {e}")
+
+                    # Append to cluster_df
+                    cluster_df = pd.concat([cluster_df, tier0_df], ignore_index=True)
+
+                    print(f"   ✅ Added {len(tier0_df)} politician-only signals to signal pool")
+
+                    # Log top politician-only signals
+                    top_tier0 = tier0_df.nlargest(3, 'rank_score')
+                    for _, row in top_tier0.iterrows():
+                        bipartisan_flag = "🤝" if row.get('is_bipartisan', False) else ""
+                        high_conv = row.get('high_conviction_count', 0)
+                        conv_flag = f"⭐{high_conv}" if high_conv > 0 else ""
+                        print(f"      • {row['ticker']}: {row['politician_count']} pols, "
+                              f"score {row['rank_score']:.1f} {bipartisan_flag} {conv_flag}")
 
             # Create lookup dictionary for detailed multi-signal data
             multi_signal_lookup = {}
@@ -849,6 +944,11 @@ def main(test=False, enable_paper_trading=True):
             # Apply multi-signal data to cluster_df
             def enrich_with_multi_signal(row):
                 ticker = row['ticker']
+
+                # Skip tier0 signals - they're already properly configured
+                if row.get('multi_signal_tier') == 'tier0':
+                    return row
+
                 if ticker in multi_signal_lookup:
                     ms_data = multi_signal_lookup[ticker]
                     row['multi_signal_tier'] = ms_data['tier']
@@ -882,16 +982,20 @@ def main(test=False, enable_paper_trading=True):
             cluster_df = cluster_df.sort_values('rank_score', ascending=False)
 
             # Log results
-            total_multi = len(tier1_tickers) + len(tier2_tickers)
+            total_multi = len(tier0_signals) + len(tier1_tickers) + len(tier2_tickers)
             if total_multi > 0:
-                print(f"   ✅ Found {total_multi} stocks with multiple signals!")
+                print(f"   ✅ Found {total_multi} multi-signal stocks!")
+                print(f"      • Tier 0 (politician-only): {len(tier0_signals)}")
                 print(f"      • Tier 1 (3+ signals): {len(tier1_tickers)}")
                 print(f"      • Tier 2 (2 signals): {len(tier2_tickers)}")
 
                 if tier1_tickers:
                     print(f"      • Tier 1 tickers: {', '.join(tier1_tickers[:5])}")
+                if tier0_signals:
+                    tier0_tickers = [s['ticker'] for s in tier0_signals[:5]]
+                    print(f"      • Tier 0 tickers: {', '.join(tier0_tickers)}")
             else:
-                print(f"   ℹ️  No multi-signal overlaps detected")
+                print(f"   ℹ️  No multi-signal overlaps or politician-only signals detected")
 
             multi_signal_data = multi_signal_results
 
@@ -1011,20 +1115,28 @@ def main(test=False, enable_paper_trading=True):
         multi_tier = ""
         if 'multi_signal_tier' in row and row.get('multi_signal_tier') != 'none':
             tier = row['multi_signal_tier'].upper()
-            emoji = "🔥" if tier == "TIER1" else "⚡"
-            multi_tier = f" {emoji} {tier}"
+            if tier == "TIER0":
+                label = "[POL-ONLY]"
+            elif tier == "TIER1":
+                label = "[T1:3+]"
+            else:
+                label = "[T2:2]"
+            multi_tier = f" {label}"
 
-        politician_flag = " 🏛️ POLITICIAN" if row.get('has_politician_signal', False) else ""
+        # Only show politician flag for non-tier0 (tier0 already shows politician indicator)
+        politician_flag = ""
+        if row.get('has_politician_signal', False) and row.get('multi_signal_tier') != 'tier0':
+            politician_flag = " [POL]"
 
         # Add short interest and squeeze potential flags
         squeeze_flag = ""
         if row.get('squeeze_potential', False):
             squeeze_score = row.get('squeeze_score', 0)
-            squeeze_flag = f" 🚀 SQUEEZE ({squeeze_score:.0f}/100)"
+            squeeze_flag = f" [SQUEEZE:{squeeze_score:.0f}/100]"
         elif row.get('short_interest_available', False) and row.get('short_percent_float') is not None:
             si_pct = row.get('short_percent_float', 0) * 100
             if si_pct >= 20:
-                squeeze_flag = f" 📊 SI:{si_pct:.0f}%"
+                squeeze_flag = f" [SI:{si_pct:.0f}%]"
 
         print(f"   {row['ticker']}: Cluster={row['cluster_count']}, Score={row['rank_score']:.2f}{quality}{sector}{pattern}, ${int(row['total_value']):,}{multi_tier}{politician_flag}{squeeze_flag}")
     print()

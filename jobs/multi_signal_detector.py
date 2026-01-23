@@ -40,6 +40,16 @@ class MultiSignalDetector:
     TIER_1_MIN_SIGNALS = 3  # Need 3+ signals for Tier 1
     TIER_2_MIN_SIGNALS = 2  # Need 2+ signals for Tier 2
 
+    # Politician-only tier requirements
+    POLITICIAN_ONLY_MIN_POLITICIANS = 3  # Need 3+ politicians for standalone signal
+
+    # High-conviction politicians (track record of strong performance)
+    HIGH_CONVICTION_POLITICIANS = {
+        'Nancy Pelosi', 'Paul Pelosi', 'Josh Gottheimer',
+        'Mark Green', 'Dan Crenshaw', 'Marjorie Taylor Greene',
+        'Tommy Tuberville', 'Austin Scott', 'Michael McCaul'
+    }
+
     # Conviction scoring weights
     WEIGHTS = {
         'insider': 0.35,
@@ -100,13 +110,25 @@ class MultiSignalDetector:
             politician_trades
         )
 
-        # Step 2: For each insider cluster, check other signals
+        # Step 2: Detect politician-only clusters (standalone signals without insider overlap)
+        logger.info("\nStep 2: Detecting politician-only clusters...")
+        insider_tickers = set(insider_clusters['ticker'].tolist()) if not insider_clusters.empty else set()
+        politician_only_signals = self._detect_politician_only_clusters(
+            politician_clusters,
+            insider_tickers
+        )
+
+        # Step 3: For each insider cluster, check other signals
         results = {
+            'tier0': [],  # Politician-only signals (standalone high-conviction)
             'tier1': [],  # 3+ signals (HIGHEST)
             'tier2': [],  # 2 signals (HIGH)
             'tier3': [],  # 1 strong signal (MODERATE)
             'tier4': []   # Watch list
         }
+
+        # Add politician-only signals to tier0
+        results['tier0'] = politician_only_signals
 
         # Tracking for diagnostics
         signal_distribution = {
@@ -274,6 +296,7 @@ class MultiSignalDetector:
         logger.info(f"   Short interest flags: {signal_distribution['short_interest_flags']}")
         logger.info("")
         logger.info(f"🎯 Tier Classification:")
+        logger.info(f"   Tier 0 (politician-only): {len(results['tier0'])}")
         logger.info(f"   Tier 1 (3+ signals): {len(results['tier1'])}")
         logger.info(f"   Tier 2 (2 signals):  {len(results['tier2'])}")
         logger.info(f"   Tier 3 (1 signal):   {len(results['tier3'])}")
@@ -288,6 +311,8 @@ class MultiSignalDetector:
                          f"Classified: {total_classified}")
 
         # Show top signals from each tier
+        if results['tier0']:
+            logger.info(f"🏛️  Tier 0 stocks (politician-only): {', '.join([s['ticker'] for s in results['tier0'][:5]])}")
         if results['tier1']:
             logger.info(f"🔥 Tier 1 stocks: {', '.join([s['ticker'] for s in results['tier1'][:5]])}")
         if results['tier2']:
@@ -311,6 +336,162 @@ class MultiSignalDetector:
         value_score = min(total_value / 5000000 * 5, 5)  # $5M = 5 points
 
         return count_score + value_score
+
+    def _calculate_politician_score(self, politician_data: pd.Series) -> float:
+        """
+        Calculate normalized politician conviction score
+        Similar methodology to insider scoring but adapted for politician trades
+
+        Args:
+            politician_data: Series with politician cluster data
+
+        Returns:
+            Score from 0-10
+        """
+        num_politicians = politician_data.get('num_politicians', 0)
+        weighted_total = politician_data.get('weighted_total', 0)
+        is_bipartisan = politician_data.get('is_bipartisan', False)
+
+        # Count score: 3 politicians = 3 points, 5+ = 5 points
+        count_score = min(num_politicians / 5 * 5, 5)
+
+        # Value score: weighted amounts (already factored in politician performance)
+        # $100K weighted = 2.5 points, $200K+ = 5 points
+        value_score = min(weighted_total / 200000 * 5, 5)
+
+        # Bipartisan bonus: +2 points (shows cross-party conviction)
+        bipartisan_bonus = 2.0 if is_bipartisan else 0
+
+        # Calculate base score
+        base_score = count_score + value_score + bipartisan_bonus
+
+        # Check for high-conviction politicians
+        politician_list = politician_data.get('politician_list', [])
+        high_conviction_count = sum(
+            1 for pol in politician_list
+            if pol in self.HIGH_CONVICTION_POLITICIANS
+        )
+
+        # High-conviction bonus: +1 point per high-conviction politician (max +3)
+        high_conviction_bonus = min(high_conviction_count * 1.0, 3.0)
+
+        total_score = base_score + high_conviction_bonus
+
+        # Cap at 10
+        return min(total_score, 10.0)
+
+    def _detect_politician_only_clusters(self, politician_clusters: pd.DataFrame,
+                                        insider_tickers: set) -> List[Dict]:
+        """
+        Detect politician-only clusters that meet high conviction criteria
+        These are politician clusters WITHOUT corresponding insider clusters
+
+        Args:
+            politician_clusters: All politician clusters
+            insider_tickers: Set of tickers that already have insider clusters
+
+        Returns:
+            List of politician-only signals meeting criteria
+        """
+        if politician_clusters.empty:
+            logger.info("No politician clusters to evaluate for politician-only signals")
+            return []
+
+        politician_only_signals = []
+
+        # Filter to politician-only clusters (no insider overlap)
+        standalone = politician_clusters[
+            ~politician_clusters['ticker'].isin(insider_tickers)
+        ].copy()
+
+        if standalone.empty:
+            logger.info("No politician-only clusters found (all overlap with insider signals)")
+            return []
+
+        logger.info(f"\nEvaluating {len(standalone)} politician-only clusters...")
+
+        for _, cluster in standalone.iterrows():
+            ticker = cluster['ticker']
+            num_politicians = cluster.get('num_politicians', 0)
+
+            # Requirement 1: Minimum 3 politicians
+            if num_politicians < self.POLITICIAN_ONLY_MIN_POLITICIANS:
+                logger.debug(f"  {ticker}: Only {num_politicians} politicians (need {self.POLITICIAN_ONLY_MIN_POLITICIANS}+)")
+                continue
+
+            # Calculate politician score
+            politician_score = self._calculate_politician_score(cluster)
+
+            # Requirement 2: High conviction score (at least 5.0/10)
+            if politician_score < 5.0:
+                logger.debug(f"  {ticker}: Low conviction score ({politician_score:.1f}/10)")
+                continue
+
+            # Check for high-conviction politicians
+            politician_list = cluster.get('politician_list', [])
+            high_conviction_count = sum(
+                1 for pol in politician_list
+                if pol in self.HIGH_CONVICTION_POLITICIANS
+            )
+
+            # Additional quality checks
+            is_bipartisan = cluster.get('is_bipartisan', False)
+            weighted_total = cluster.get('weighted_total', 0)
+
+            # Requirement 3: Either bipartisan OR has high-conviction politician OR high value
+            quality_check = (
+                is_bipartisan or
+                high_conviction_count > 0 or
+                weighted_total > 150000
+            )
+
+            if not quality_check:
+                logger.debug(f"  {ticker}: Failed quality check (not bipartisan, no high-conviction pols, low value)")
+                continue
+
+            # This cluster qualifies!
+            signal = {
+                'ticker': ticker,
+                'company': cluster.get('company', ticker),
+                'signal_type': 'politician_only',
+                'signal_count': 1,  # Only politician signal
+                'politician_score': politician_score,
+
+                # Politician data
+                'politician_count': num_politicians,
+                'politician_amount': weighted_total,
+                'politician_list': politician_list,
+                'is_bipartisan': is_bipartisan,
+                'high_conviction_count': high_conviction_count,
+                'politician_data': cluster,
+
+                # Metadata
+                'detected_at': datetime.now(),
+                'conviction_level': self._get_conviction_level(politician_score)
+            }
+
+            politician_only_signals.append(signal)
+
+            # Log detection
+            bipartisan_flag = "🤝 BIPARTISAN" if is_bipartisan else ""
+            high_conv_flag = f"⭐ {high_conviction_count} HIGH-CONVICTION" if high_conviction_count > 0 else ""
+            logger.info(f"  ✓ {ticker}: {num_politicians} politicians, score {politician_score:.1f}/10 "
+                       f"{bipartisan_flag} {high_conv_flag}")
+
+        logger.info(f"\n🏛️  Detected {len(politician_only_signals)} politician-only signals\n")
+
+        return politician_only_signals
+
+    def _get_conviction_level(self, score: float) -> str:
+        """Map score to conviction level"""
+        if score >= 8.0:
+            return "VERY_HIGH"
+        elif score >= 6.5:
+            return "HIGH"
+        elif score >= 5.0:
+            return "MODERATE"
+        else:
+            return "LOW"
 
 
 def combine_insider_and_politician_signals(

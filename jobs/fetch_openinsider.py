@@ -216,8 +216,20 @@ def fetch_openinsider_recent(max_retries=3):
             df = df[df['ticker'].isin(ticker_mapping.values())].copy()
 
             if invalid_tickers:
-                logger.info(f"Filtered out {len(invalid_tickers)} invalid tickers from OpenInsider data")
-                for ticker, reason in invalid_tickers[:5]:  # Log first 5
+                # Categorize failures for better logging
+                failure_categories = {}
+                for ticker, reason in invalid_tickers:
+                    if reason not in failure_categories:
+                        failure_categories[reason] = []
+                    failure_categories[reason].append(ticker)
+
+                logger.info(f"Filtered out {len(invalid_tickers)} tickers from OpenInsider data:")
+                for reason, tickers in failure_categories.items():
+                    logger.info(f"  {len(tickers)} ticker(s) - {reason}")
+                    logger.debug(f"    Examples: {', '.join(tickers[:3])}")
+
+                # Show first few examples at debug level
+                for ticker, reason in invalid_tickers[:5]:
                     logger.debug(f"  Skipped '{ticker}': {reason}")
 
             print(f"✅ Successfully fetched {len(df)} records from OpenInsider ({initial_count - len(df)} invalid tickers filtered)")

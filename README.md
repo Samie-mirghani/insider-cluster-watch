@@ -15,7 +15,8 @@ Automated pipeline to detect and score insider open-market buys (Form 4), genera
 - **Scores** signals based on cluster size, dollar amounts, and insider roles (CEO/CFO weighted higher)
 - **Enriches** with market data via yfinance (current price, 52-week low distance)
 - **Multi-Signal Detection** - Combines insider trades with politician trades (Capitol Trades) and institutional holdings (SEC 13F) for confirmation
-- **Tiered Signals** - Classifies signals into 4 tiers based on confirmation count (Tier 1 = 3+ signals, Tier 2 = 2 signals)
+- **Politician-Only Signals** - Detects standalone high-conviction politician clusters (Tier 0) without requiring insider confirmation
+- **Tiered Signals** - Classifies signals into 5 tiers based on confirmation count (Tier 0 = politician-only, Tier 1 = 3+ signals, Tier 2 = 2 signals)
 - **Detects** concerning insider selling patterns and adds warning banners to reports
 - **Generates** daily HTML + plain-text email reports with ranked buy signals and multi-signal badges
 - **Sends** urgent alerts when high-conviction clusters are detected (3+ insiders, $250k+)
@@ -83,12 +84,19 @@ Enhances insider signals by checking for confirmation from other data sources:
   - Active: Full weight | Retiring: 1.5x boost | Retired: Exponential decay (never deleted)
   - Preserves historical data for analysis
 - **Institutional Holdings:** Validates with SEC 13F filings from 15 priority funds (Berkshire, Bridgewater, etc.)
+- **Politician-Only Signals (Tier 0):** Standalone politician clusters without insider overlap
+  - Requires 3+ politicians (vs 2 for multi-signal enhancement)
+  - Quality gates: Bipartisan support OR high-conviction politician OR high aggregate value (>$150K)
+  - Sophisticated scoring: Count + Value + Bipartisan bonus (+2) + High-conviction bonus (+3)
+  - Conservative sizing: 40% position (~2-3% of portfolio vs 5-6% for full positions)
+  - Allows discovery of new high-performing politicians while maintaining quality standards
 - **Tiered Classification:** Assigns signals to tiers based on confirmation count
+  - **Tier 0** (politician-only): 40% positions (~2-3%), 8% stops - standalone political signals
   - **Tier 1** (3+ signals): Largest positions (100%), widest stops (12%)
   - **Tier 2** (2 signals): 75% positions, 10% stops
   - **Tier 3** (1 signal): 50% positions, 8% stops
   - **Tier 4** (watch list): 25% positions, 6% stops
-- **Email Badges:** Shows 🔥 TIER 1, ⚡ TIER 2, and 🏛️ POLITICIAN indicators in reports
+- **Email Badges:** Shows 🏛️ TIER 0, 🔥 TIER 1, ⚡ TIER 2, and 🏛️ POLITICIAN indicators in reports
 
 ### 11. Intelligent Signal Detection Enhancements
 Advanced filtering system that catches high-quality trades while maintaining signal standards:
