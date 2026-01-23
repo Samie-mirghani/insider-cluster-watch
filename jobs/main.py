@@ -1115,10 +1115,18 @@ def main(test=False, enable_paper_trading=True):
         multi_tier = ""
         if 'multi_signal_tier' in row and row.get('multi_signal_tier') != 'none':
             tier = row['multi_signal_tier'].upper()
-            emoji = "🔥" if tier == "TIER1" else "⚡"
+            if tier == "TIER0":
+                emoji = "🏛️"
+            elif tier == "TIER1":
+                emoji = "🔥"
+            else:
+                emoji = "⚡"
             multi_tier = f" {emoji} {tier}"
 
-        politician_flag = " 🏛️ POLITICIAN" if row.get('has_politician_signal', False) else ""
+        # Only show politician flag for non-tier0 (tier0 already shows politician indicator)
+        politician_flag = ""
+        if row.get('has_politician_signal', False) and row.get('multi_signal_tier') != 'tier0':
+            politician_flag = " 🏛️ POLITICIAN"
 
         # Add short interest and squeeze potential flags
         squeeze_flag = ""

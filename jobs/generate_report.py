@@ -1504,13 +1504,15 @@ def build_plain_text(rows):
         ticker_line = f"{r.get('ticker')}: cluster={r.get('cluster_count')} | total=${int(r.get('total_value',0)):,} | score={r.get('rank_score'):.2f}"
 
         # Add multi-signal tier indicator
-        if r.get('multi_signal_tier') == 'tier1':
+        if r.get('multi_signal_tier') == 'tier0':
+            ticker_line += " 🏛️ TIER 0 (POLITICIAN-ONLY)"
+        elif r.get('multi_signal_tier') == 'tier1':
             ticker_line += " 🔥 TIER 1 (3+ SIGNALS)"
         elif r.get('multi_signal_tier') == 'tier2':
             ticker_line += " ⚡ TIER 2 (2 SIGNALS)"
 
-        # Add politician flag
-        if r.get('has_politician_signal'):
+        # Add politician flag (for tier1/tier2 with politician overlap)
+        if r.get('has_politician_signal') and r.get('multi_signal_tier') not in ['tier0']:
             ticker_line += " 🏛️ POLITICIAN"
 
         lines.append(ticker_line)

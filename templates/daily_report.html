@@ -298,13 +298,15 @@
                 <tr>
                   <td>
                     <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                      {% if item.multi_signal_tier and item.multi_signal_tier == 'tier1' %}
+                      {% if item.multi_signal_tier and item.multi_signal_tier == 'tier0' %}
+                      <span style="background: #8b5cf6; color: white; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 600; display: inline-block;" title="Standalone politician cluster signal: 3+ politicians buying without insider confirmation">🏛️ TIER 0 (POLITICIAN-ONLY)</span>
+                      {% elif item.multi_signal_tier and item.multi_signal_tier == 'tier1' %}
                       <span style="background: #dc2626; color: white; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 600; display: inline-block;" title="Three or more confirming signals detected: Insider + Politician + 13F Holdings">{% if icons and icons.flame %}{{ icons.flame|safe }}{% endif %} TIER 1 (3+ SIGNALS)</span>
                       {% elif item.multi_signal_tier and item.multi_signal_tier == 'tier2' %}
                       <span style="background: #fef3c7; color: #92400e; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 600; display: inline-block;" title="Two confirming signals detected: Insider Buying + Politician Trading OR Insider Buying + 13F Holdings">⚡ TIER 2 (2 SIGNALS)</span>
                       {% endif %}
 
-                      {% if item.has_politician_signal %}
+                      {% if item.has_politician_signal and item.multi_signal_tier != 'tier0' %}
                       <span style="background: #8b5cf6; color: white; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 600; display: inline-block;" title="Confirmed by recent politician trading activity">🏛️ POLITICIAN</span>
                       {% endif %}
 
@@ -355,12 +357,14 @@
               </table>
 
               <!-- Multi-Signal Details Section -->
-              {% if item.multi_signal_tier and item.multi_signal_tier in ['tier1', 'tier2'] %}
-              <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background: #fef3c7; border-left: 4px solid #f59e0b; border-radius: 5px; margin: 15px 0;">
+              {% if item.multi_signal_tier and item.multi_signal_tier in ['tier0', 'tier1', 'tier2'] %}
+              <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background: {% if item.multi_signal_tier == 'tier0' %}#ede9fe{% else %}#fef3c7{% endif %}; border-left: 4px solid {% if item.multi_signal_tier == 'tier0' %}#8b5cf6{% else %}#f59e0b{% endif %}; border-radius: 5px; margin: 15px 0;">
                 <tr>
                   <td style="padding: 12px;">
-                    <div style="font-size: 12px; color: #92400e; font-weight: 600; margin-bottom: 8px;">
-                      {% if item.multi_signal_tier == 'tier1' %}
+                    <div style="font-size: 12px; color: {% if item.multi_signal_tier == 'tier0' %}#6b21a8{% else %}#92400e{% endif %}; font-weight: 600; margin-bottom: 8px;">
+                      {% if item.multi_signal_tier == 'tier0' %}
+                      🏛️ TIER 0 POLITICIAN-ONLY SIGNAL
+                      {% elif item.multi_signal_tier == 'tier1' %}
                       🔥 TIER 1 CONFIRMATION
                       {% else %}
                       ⚡ TIER 2 CONFIRMATION
