@@ -93,6 +93,7 @@ SEC_USER_AGENT = "InsiderClusterWatch samie.mirghani@gmail.com"  # Required by S
 
 # Multi-Signal Position Sizing (overrides standard sizing for multi-signal trades)
 MULTI_SIGNAL_POSITION_SIZES = {
+    'tier0': 0.40,  # 40% position (politician-only: ~2-3% of portfolio vs 5-6% for full position)
     'tier1': 1.0,   # Full position (3+ signals)
     'tier2': 0.75,  # 75% position (2 signals)
     'tier3': 0.50,  # 50% position (1 strong signal)
@@ -101,6 +102,7 @@ MULTI_SIGNAL_POSITION_SIZES = {
 
 # Multi-Signal Risk Management
 MULTI_SIGNAL_STOP_LOSS = {
+    'tier0': 0.08,  # -8% stop for politician-only (tighter due to lower conviction)
     'tier1': 0.12,  # -12% stop for highest conviction
     'tier2': 0.10,  # -10% stop
     'tier3': 0.08,  # -8% stop
