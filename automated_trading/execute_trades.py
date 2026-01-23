@@ -490,7 +490,37 @@ class TradingEngine:
             self.alert_sender.send_reconciliation_alert(
                 [d.to_dict() for d in discrepancies]
             )
-            # Continue anyway - discrepancies don't block trading
+
+            # CRITICAL FIX: Auto-sync broker positions to prevent duplicate investments
+            # If positions exist at broker but not locally (e.g., from manual trades),
+            # sync them to local tracking BEFORE executing new trades
+            logger.info("Auto-syncing broker positions to local tracking...")
+            broker_positions = self.alpaca_client.get_all_positions()
+            synced_count = 0
+
+            for broker_pos in broker_positions:
+                ticker = broker_pos['symbol']
+
+                # Only sync if position exists at broker but not locally
+                if ticker not in self.position_monitor.positions:
+                    logger.info(f"Syncing broker position: {ticker} ({broker_pos['qty']} shares)")
+
+                    # Add to position monitor with broker data
+                    self.position_monitor.add_position(
+                        ticker=ticker,
+                        shares=broker_pos['qty'],
+                        entry_price=broker_pos['avg_entry_price'],
+                        stop_loss=broker_pos['avg_entry_price'] * (1 - config.STOP_LOSS_PCT),
+                        take_profit=broker_pos['avg_entry_price'] * (1 + config.TAKE_PROFIT_PCT),
+                        signal_data={'source': 'broker_sync', 'synced_at': datetime.now().isoformat()}
+                    )
+                    synced_count += 1
+
+            if synced_count > 0:
+                logger.info(f"✅ Synced {synced_count} broker positions to local tracking")
+                logger.info("This prevents duplicate investments in existing positions")
+
+            # Continue with trading - positions are now synced
 
         # Load signals
         signals = self.load_approved_signals()

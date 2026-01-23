@@ -267,6 +267,11 @@ class PositionMonitor:
         self.reconciler = Reconciler()
         self._load_positions()
 
+        # CRITICAL: Sync from broker if local positions are empty
+        # This ensures we monitor positions even after system restart or data loss
+        if len(self.positions) == 0 and self.alpaca_client is not None:
+            self._sync_positions_from_broker()
+
     def _load_positions(self):
         """Load positions from disk."""
         data = load_json_file(config.LIVE_POSITIONS_FILE, default={})
@@ -282,6 +287,65 @@ class PositionMonitor:
                     pos['entry_date'] = datetime.now()
 
         logger.info(f"Loaded {len(self.positions)} positions")
+
+    def _sync_positions_from_broker(self):
+        """
+        Sync positions from broker to local tracking.
+
+        Called automatically when local positions are empty but broker has positions.
+        This ensures positions are protected even after system restart or data loss.
+        """
+        try:
+            logger.warning("Local positions empty - syncing from broker...")
+            broker_positions = self.alpaca_client.get_all_positions()
+
+            if not broker_positions:
+                logger.info("No positions at broker to sync")
+                return
+
+            logger.info(f"Found {len(broker_positions)} positions at broker")
+
+            synced_count = 0
+            for broker_pos in broker_positions:
+                ticker = broker_pos['symbol']
+                shares = broker_pos['qty']
+                avg_entry = broker_pos['avg_entry_price']
+
+                # Calculate stop loss and take profit from config defaults
+                stop_loss = avg_entry * (1 - config.STOP_LOSS_PCT)
+                take_profit = avg_entry * (1 + config.TAKE_PROFIT_PCT)
+
+                # Add position with broker data
+                self.positions[ticker] = {
+                    'shares': shares,
+                    'entry_price': avg_entry,
+                    'entry_date': datetime.now(),  # Unknown, use current time
+                    'cost_basis': shares * avg_entry,
+                    'stop_loss': stop_loss,
+                    'initial_stop_loss': stop_loss,
+                    'take_profit': take_profit,
+                    'highest_price': broker_pos.get('current_price', avg_entry),
+                    'trailing_enabled': False,
+                    'signal_score': 0,  # Unknown
+                    'multi_signal_tier': 'none',  # Unknown
+                    'sector': 'Unknown',
+                    'source': 'broker_sync',
+                    'synced_at': datetime.now().isoformat()
+                }
+
+                logger.info(
+                    f"  Synced: {ticker} ({shares} shares @ ${avg_entry:.2f}) "
+                    f"- Stop: ${stop_loss:.2f}, Target: ${take_profit:.2f}"
+                )
+                synced_count += 1
+
+            self.save_positions()
+            logger.info(f"✅ Synced {synced_count} positions from broker - NOW MONITORING")
+            logger.info("Stop losses and take profits are now ACTIVE")
+
+        except Exception as e:
+            logger.error(f"Failed to sync positions from broker: {e}")
+            # Don't raise - we want monitoring to continue even if sync fails
 
     def save_positions(self):
         """Save positions to disk."""
