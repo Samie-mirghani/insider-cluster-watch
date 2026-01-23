@@ -1116,27 +1116,27 @@ def main(test=False, enable_paper_trading=True):
         if 'multi_signal_tier' in row and row.get('multi_signal_tier') != 'none':
             tier = row['multi_signal_tier'].upper()
             if tier == "TIER0":
-                emoji = "🏛️"
+                label = "[POL-ONLY]"
             elif tier == "TIER1":
-                emoji = "🔥"
+                label = "[T1:3+]"
             else:
-                emoji = "⚡"
-            multi_tier = f" {emoji} {tier}"
+                label = "[T2:2]"
+            multi_tier = f" {label}"
 
         # Only show politician flag for non-tier0 (tier0 already shows politician indicator)
         politician_flag = ""
         if row.get('has_politician_signal', False) and row.get('multi_signal_tier') != 'tier0':
-            politician_flag = " 🏛️ POLITICIAN"
+            politician_flag = " [POL]"
 
         # Add short interest and squeeze potential flags
         squeeze_flag = ""
         if row.get('squeeze_potential', False):
             squeeze_score = row.get('squeeze_score', 0)
-            squeeze_flag = f" 🚀 SQUEEZE ({squeeze_score:.0f}/100)"
+            squeeze_flag = f" [SQUEEZE:{squeeze_score:.0f}/100]"
         elif row.get('short_interest_available', False) and row.get('short_percent_float') is not None:
             si_pct = row.get('short_percent_float', 0) * 100
             if si_pct >= 20:
-                squeeze_flag = f" 📊 SI:{si_pct:.0f}%"
+                squeeze_flag = f" [SI:{si_pct:.0f}%]"
 
         print(f"   {row['ticker']}: Cluster={row['cluster_count']}, Score={row['rank_score']:.2f}{quality}{sector}{pattern}, ${int(row['total_value']):,}{multi_tier}{politician_flag}{squeeze_flag}")
     print()
