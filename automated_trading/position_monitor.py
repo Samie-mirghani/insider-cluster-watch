@@ -267,10 +267,13 @@ class PositionMonitor:
         self.reconciler = Reconciler()
         self._load_positions()
 
-        # CRITICAL: Sync from broker if local positions are empty
+        # CRITICAL: Sync from broker on initialization
         # This ensures we monitor positions even after system restart or data loss
-        if len(self.positions) == 0 and self.alpaca_client is not None:
-            self._sync_positions_from_broker()
+        if self.alpaca_client is not None:
+            # Always sync on startup to ensure positions.json is accurate
+            sync_results = self.sync_with_broker()
+            if sync_results.get('total_corrections', 0) > 0:
+                logger.info("Position sync completed on initialization")
 
     def _load_positions(self):
         """Load positions from disk."""
@@ -666,6 +669,111 @@ class PositionMonitor:
         return updated
 
     # =========================================================================
+    # Position Synchronization
+    # =========================================================================
+
+    def sync_with_broker(self) -> Dict[str, Any]:
+        """
+        Cross-check and sync positions with broker.
+
+        This ensures positions.json always matches broker state by:
+        - Adding positions that exist at broker but not locally
+        - Removing positions that exist locally but not at broker
+        - Updating quantities that differ
+
+        Returns:
+            Sync results with corrections made
+        """
+        if not self.alpaca_client:
+            return {'synced': False, 'reason': 'No alpaca client'}
+
+        try:
+            broker_positions = self.alpaca_client.get_all_positions()
+            broker_tickers = {pos['symbol']: pos for pos in broker_positions}
+            local_tickers = set(self.positions.keys())
+
+            corrections = {
+                'added': [],
+                'removed': [],
+                'updated': []
+            }
+
+            # Find positions at broker but not local (ADD)
+            for ticker, broker_pos in broker_tickers.items():
+                if ticker not in local_tickers:
+                    # Add missing position
+                    shares = broker_pos['qty']
+                    avg_entry = broker_pos['avg_entry_price']
+                    stop_loss = avg_entry * (1 - config.STOP_LOSS_PCT)
+                    take_profit = avg_entry * (1 + config.TAKE_PROFIT_PCT)
+
+                    self.positions[ticker] = {
+                        'shares': shares,
+                        'entry_price': avg_entry,
+                        'entry_date': datetime.now(),
+                        'cost_basis': shares * avg_entry,
+                        'stop_loss': stop_loss,
+                        'initial_stop_loss': stop_loss,
+                        'take_profit': take_profit,
+                        'highest_price': broker_pos.get('current_price', avg_entry),
+                        'trailing_enabled': False,
+                        'signal_score': 0,
+                        'multi_signal_tier': 'none',
+                        'sector': 'Unknown',
+                        'source': 'broker_sync',
+                        'synced_at': datetime.now().isoformat()
+                    }
+
+                    corrections['added'].append({
+                        'ticker': ticker,
+                        'shares': shares,
+                        'entry_price': avg_entry
+                    })
+                    logger.info(f"  ➕ Added {ticker}: {shares} shares @ ${avg_entry:.2f}")
+
+                elif self.positions[ticker]['shares'] != broker_pos['qty']:
+                    # Update quantity mismatch
+                    old_qty = self.positions[ticker]['shares']
+                    new_qty = broker_pos['qty']
+                    self.positions[ticker]['shares'] = new_qty
+                    self.positions[ticker]['cost_basis'] = new_qty * self.positions[ticker]['entry_price']
+
+                    corrections['updated'].append({
+                        'ticker': ticker,
+                        'old_qty': old_qty,
+                        'new_qty': new_qty
+                    })
+                    logger.info(f"  🔄 Updated {ticker}: {old_qty} → {new_qty} shares")
+
+            # Find positions local but not at broker (REMOVE)
+            for ticker in local_tickers:
+                if ticker not in broker_tickers:
+                    removed_pos = self.positions[ticker]
+                    del self.positions[ticker]
+
+                    corrections['removed'].append({
+                        'ticker': ticker,
+                        'shares': removed_pos['shares']
+                    })
+                    logger.info(f"  ➖ Removed {ticker}: no longer at broker")
+
+            # Save if any corrections were made
+            total_corrections = len(corrections['added']) + len(corrections['removed']) + len(corrections['updated'])
+            if total_corrections > 0:
+                self.save_positions()
+                logger.info(f"✅ Synced {total_corrections} corrections to positions.json")
+
+            return {
+                'synced': True,
+                'corrections': corrections,
+                'total_corrections': total_corrections
+            }
+
+        except Exception as e:
+            logger.error(f"Failed to sync with broker: {e}")
+            return {'synced': False, 'error': str(e)}
+
+    # =========================================================================
     # Monitoring Cycle
     # =========================================================================
 
@@ -694,6 +802,7 @@ class PositionMonitor:
             'exits_triggered': [],
             'stops_updated': [],
             'reconciliation': None,
+            'sync': None,
             'circuit_breaker': None,
             'errors': []
         }
@@ -724,7 +833,18 @@ class PositionMonitor:
             except Exception as e:
                 results['errors'].append(f"Circuit breaker check failed: {e}")
 
-        # Run reconciliation periodically
+        # Sync with broker to ensure positions.json is accurate
+        if self.alpaca_client:
+            try:
+                sync_results = self.sync_with_broker()
+                results['sync'] = sync_results
+
+                if sync_results.get('total_corrections', 0) > 0:
+                    logger.info(f"📊 Position sync: {sync_results['total_corrections']} corrections made")
+            except Exception as e:
+                results['errors'].append(f"Broker sync failed: {e}")
+
+        # Run reconciliation periodically (for reporting only now, sync handles corrections)
         if self.alpaca_client:
             try:
                 is_synced, discrepancies = self.reconciler.reconcile(
