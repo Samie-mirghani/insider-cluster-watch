@@ -1,102 +1,44 @@
 {
   "starting_capital": 10000,
-  "cash": 9432.734999999999,
+  "cash": 11276.595,
   "positions": {
-    "CABA": {
-      "entry_date": "2026-01-22T18:21:56.090344",
-      "entry_price": 2.34,
-      "shares": 431,
-      "cost_basis": 1008.54,
-      "initial_stop_loss": 2.223,
-      "stop_loss": 2.223,
-      "take_profit": 2.5272,
-      "highest_price": 2.34,
+    "IMRX": {
+      "entry_date": "2026-01-23T11:35:52.168968",
+      "entry_price": 4.43,
+      "shares": 87,
+      "cost_basis": 385.40999999999997,
+      "initial_stop_loss": 4.2085,
+      "stop_loss": 4.2085,
+      "take_profit": 4.7844,
+      "highest_price": 4.43,
       "trailing_enabled": false,
-      "signal_score": 20.551636620341633,
-      "sector": null,
+      "signal_score": 6.7530976618752625,
+      "sector": "Semiconductors",
       "multi_signal_tier": "none",
       "has_politician_signal": false,
       "tranches": [
         {
-          "shares": 431,
-          "price": 2.34,
-          "date": "2026-01-22T18:21:56.090347"
-        }
-      ]
-    },
-    "UA": {
-      "entry_date": "2026-01-22T18:21:56.473243",
-      "entry_price": 4.54,
-      "shares": 89,
-      "cost_basis": 404.06,
-      "initial_stop_loss": 4.313,
-      "stop_loss": 4.313,
-      "take_profit": 4.9032,
-      "highest_price": 4.54,
-      "trailing_enabled": false,
-      "signal_score": 7.215150514328305,
-      "sector": null,
-      "multi_signal_tier": "none",
-      "has_politician_signal": false,
-      "tranches": [
-        {
-          "shares": 89,
-          "price": 4.54,
-          "date": "2026-01-22T18:21:56.473247"
-        }
-      ]
-    },
-    "MIGI": {
-      "entry_date": "2026-01-22T18:21:57.021496",
-      "entry_price": 4.1,
-      "shares": 93,
-      "cost_basis": 381.29999999999995,
-      "initial_stop_loss": 3.8949999999999996,
-      "stop_loss": 3.8949999999999996,
-      "take_profit": 4.428,
-      "highest_price": 4.1,
-      "trailing_enabled": false,
-      "signal_score": 6.67408716722142,
-      "sector": null,
-      "multi_signal_tier": "none",
-      "has_politician_signal": false,
-      "tranches": [
-        {
-          "shares": 93,
-          "price": 4.1,
-          "date": "2026-01-22T18:21:57.021501"
+          "shares": 87,
+          "price": 4.43,
+          "date": "2026-01-23T11:35:52.168972"
         }
       ]
     }
   },
   "pending_entries": {
-    "CABA": {
-      "shares": 287,
-      "trigger_price": 2.2931999999999997,
-      "original_entry": 2.34,
-      "expires": "2026-01-27T18:21:56.293104",
-      "signal_score": 20.551636620341633
-    },
-    "UA": {
-      "shares": 59,
-      "trigger_price": 4.4492,
-      "original_entry": 4.54,
-      "expires": "2026-01-27T18:21:56.657895",
-      "signal_score": 7.215150514328305
-    },
-    "MIGI": {
-      "shares": 62,
-      "trigger_price": 4.018,
-      "original_entry": 4.1,
-      "expires": "2026-01-27T18:21:57.423652",
-      "signal_score": 6.67408716722142
+    "IMRX": {
+      "shares": 58,
+      "trigger_price": 4.341399999999999,
+      "original_entry": 4.43,
+      "expires": "2026-01-28T11:35:52.263511",
+      "signal_score": 6.7530976618752625
     }
   },
-  "total_trades": 26,
-  "winning_trades": 17,
+  "total_trades": 27,
+  "winning_trades": 20,
   "losing_trades": 7,
-  "total_profit": 1207.0800000000002,
+  "total_profit": 1642.45,
   "max_portfolio_value": 11790.185000000001,
   "max_drawdown": -9.109194484777545,
-  "last_updated": "2026-01-22T18:21:58.599713"
+  "last_updated": "2026-01-23T11:35:52.337694"
 }

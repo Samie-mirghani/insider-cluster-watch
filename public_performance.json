@@ -1,30 +1,30 @@
 {
-  "last_updated": "January 22, 2026 at 18:22 UTC",
-  "total_return_pct": 16.84,
-  "win_rate": 70.8,
-  "completed_trades": 24,
-  "active_trades": 3,
-  "avg_return_per_trade": 8.73,
-  "sharpe_ratio": 9.6,
+  "last_updated": "January 23, 2026 at 11:35 UTC",
+  "total_return_pct": 17.41,
+  "win_rate": 74.1,
+  "completed_trades": 27,
+  "active_trades": 1,
+  "avg_return_per_trade": 10.35,
+  "sharpe_ratio": 11.09,
   "max_drawdown": -9.11,
-  "avg_hold_days": 12,
+  "avg_hold_days": 10,
   "best_trade_pct": 59.64,
   "worst_trade_pct": -7.61,
-  "alpha_vs_sp500": 16.84,
-  "avg_winner": 13.85,
+  "alpha_vs_sp500": 17.41,
+  "avg_winner": 15.27,
   "avg_loser": -3.69,
-  "win_loss_ratio": 3.75,
-  "profit_factor": 9.12,
-  "last_30_days_return": 91.63,
-  "last_10_trades_win_rate": 70.0,
-  "current_streak": 1,
-  "current_streak_type": "losses",
+  "win_loss_ratio": 4.14,
+  "profit_factor": 11.83,
+  "last_30_days_return": 161.51,
+  "last_10_trades_win_rate": 80.0,
+  "current_streak": 3,
+  "current_streak_type": "wins",
   "conviction_performance": [
     {
       "conviction": "VERY HIGH",
-      "trades": 9,
-      "win_rate": 66.7,
-      "avg_return": 8.09
+      "trades": 10,
+      "win_rate": 70.0,
+      "avg_return": 9.84
     },
     {
       "conviction": "HIGH",
@@ -34,15 +34,15 @@
     },
     {
       "conviction": "MEDIUM",
-      "trades": 4,
-      "win_rate": 75.0,
-      "avg_return": 4.37
+      "trades": 5,
+      "win_rate": 80.0,
+      "avg_return": 10.59
     },
     {
       "conviction": "LOW",
-      "trades": 1,
+      "trades": 2,
       "win_rate": 100.0,
-      "avg_return": 11.53
+      "avg_return": 10.15
     }
   ],
   "monthly_returns": [
@@ -52,10 +52,37 @@
     },
     {
       "month": "2026-01",
-      "return": 82.52
+      "return": 152.41
     }
   ],
   "recent_trades": [
+    {
+      "ticker": "MIGI",
+      "entry_date": "Jan 22, 2026",
+      "exit_date": "Jan 23, 2026",
+      "hold_days": 0,
+      "return_pct": 8.78,
+      "conviction": "LOW",
+      "exit_reason": "Take Profit"
+    },
+    {
+      "ticker": "UA",
+      "entry_date": "Jan 22, 2026",
+      "exit_date": "Jan 23, 2026",
+      "hold_days": 0,
+      "return_pct": 35.46,
+      "conviction": "MEDIUM",
+      "exit_reason": "Take Profit"
+    },
+    {
+      "ticker": "CABA",
+      "entry_date": "Jan 22, 2026",
+      "exit_date": "Jan 23, 2026",
+      "hold_days": 0,
+      "return_pct": 25.64,
+      "conviction": "VERY HIGH",
+      "exit_reason": "Take Profit"
+    },
     {
       "ticker": "AKTS",
       "entry_date": "Jan 13, 2026",
@@ -208,63 +235,22 @@
       "return_pct": 8.43,
       "conviction": "HIGH",
       "exit_reason": "Take Profit"
-    },
-    {
-      "ticker": "KYMR",
-      "entry_date": "Dec 12, 2025",
-      "exit_date": "Dec 18, 2025",
-      "hold_days": 5,
-      "return_pct": -5.62,
-      "conviction": "VERY HIGH",
-      "exit_reason": "Stop Loss"
-    },
-    {
-      "ticker": "CBC",
-      "entry_date": "Nov 26, 2025",
-      "exit_date": "Dec 18, 2025",
-      "hold_days": 22,
-      "return_pct": -2.45,
-      "conviction": "VERY HIGH",
-      "exit_reason": "Time Stop"
-    },
-    {
-      "ticker": "CLYM",
-      "entry_date": "Dec 16, 2025",
-      "exit_date": "Dec 17, 2025",
-      "hold_days": 1,
-      "return_pct": 21.26,
-      "conviction": "HIGH",
-      "exit_reason": "Take Profit"
     }
   ],
   "open_positions": [
     {
-      "ticker": "CABA",
-      "entry_date": "Jan 22, 2026",
+      "ticker": "IMRX",
+      "entry_date": "Jan 23, 2026",
       "days_held": 0,
-      "unrealized_return": 26.48,
-      "conviction": "VERY HIGH"
-    },
-    {
-      "ticker": "UA",
-      "entry_date": "Jan 22, 2026",
-      "days_held": 0,
-      "unrealized_return": 37.56,
-      "conviction": "MEDIUM"
-    },
-    {
-      "ticker": "MIGI",
-      "entry_date": "Jan 22, 2026",
-      "days_held": 0,
-      "unrealized_return": 10.12,
+      "unrealized_return": 20.54,
       "conviction": "LOW"
     }
   ],
   "portfolio_composition": {
     "starting_capital": 10000,
-    "current_value": 11684.06,
-    "cash": 9432.73,
-    "invested_capital": 2251.32,
-    "capital_deployed_pct": 19.27
+    "current_value": 11741.17,
+    "cash": 11276.59,
+    "invested_capital": 464.58,
+    "capital_deployed_pct": 3.96
   }
 }
