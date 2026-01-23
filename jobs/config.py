@@ -30,8 +30,8 @@ SCORE_WEIGHT_MIN_SCORE = 6.0  # Minimum score in range (signals below this are f
 SCORE_WEIGHT_MAX_SCORE = 20.0  # Maximum score in range (adjust based on actual max scores)
 
 # Risk Management
-STOP_LOSS_PCT = 0.05  # 5% initial stop loss
-TAKE_PROFIT_PCT = 0.08  # 8% profit target
+STOP_LOSS_PCT = 0.08  # 8% initial stop loss (matches automated trading)
+TAKE_PROFIT_PCT = 0.12  # 12% profit target (matches automated trading)
 TRAILING_STOP_PCT = 0.05  # 5% trailing stop
 TRAILING_TRIGGER_PCT = 0.03  # Enable trailing after +3% gain
 
