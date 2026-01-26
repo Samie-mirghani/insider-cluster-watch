@@ -115,6 +115,9 @@ class CapitolTradesScraper:
             if data['month'] != current_month or data['year'] != current_year:
                 data = {'month': current_month, 'year': current_year, 'calls': 0}
                 logger.info(f"📅 New month detected - rate limit counter reset")
+                # Save the reset data immediately
+                with open(self.rate_limit_file, 'w') as f:
+                    json.dump(data, f, indent=2)
 
             # Check limit (100 calls/month)
             if data['calls'] >= 100:
