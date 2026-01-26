@@ -1,5 +1,5 @@
 {
-  "cached_at": "2026-01-23T11:35:27.209668",
+  "cached_at": "2026-01-26T11:36:20.173288",
   "trades": [
     {
       "ticker": "IBM",
@@ -125,24 +125,6 @@
       "amount_mid": 32500.0,
       "politician_weight": 1.0,
       "weighted_amount": 32500.0,
-      "disclosure_lag_days": NaN
-    },
-    {
-      "ticker": "GOOGL",
-      "politician": "Cleo Fields",
-      "party": "Democrat",
-      "trade_date": "2025-12-26",
-      "amount_range": "50K-100K",
-      "asset_name": "Alphabet Inc",
-      "chamber": "House",
-      "transaction_type": "buy",
-      "disclosure_date": null,
-      "state": "LA",
-      "amount_min": 50000.0,
-      "amount_max": 100000.0,
-      "amount_mid": 75000.0,
-      "politician_weight": 1.0,
-      "weighted_amount": 75000.0,
       "disclosure_lag_days": NaN
     },
     {

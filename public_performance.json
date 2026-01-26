@@ -1,23 +1,23 @@
 {
-  "last_updated": "January 23, 2026 at 11:35 UTC",
-  "total_return_pct": 17.41,
-  "win_rate": 74.1,
-  "completed_trades": 27,
+  "last_updated": "January 26, 2026 at 11:36 UTC",
+  "total_return_pct": 17.43,
+  "win_rate": 75.0,
+  "completed_trades": 28,
   "active_trades": 1,
-  "avg_return_per_trade": 10.35,
-  "sharpe_ratio": 11.09,
+  "avg_return_per_trade": 10.73,
+  "sharpe_ratio": 11.6,
   "max_drawdown": -9.11,
   "avg_hold_days": 10,
   "best_trade_pct": 59.64,
   "worst_trade_pct": -7.61,
-  "alpha_vs_sp500": 17.41,
-  "avg_winner": 15.27,
+  "alpha_vs_sp500": 17.43,
+  "avg_winner": 15.54,
   "avg_loser": -3.69,
-  "win_loss_ratio": 4.14,
-  "profit_factor": 11.83,
-  "last_30_days_return": 161.51,
+  "win_loss_ratio": 4.21,
+  "profit_factor": 12.65,
+  "last_30_days_return": 173.4,
   "last_10_trades_win_rate": 80.0,
-  "current_streak": 3,
+  "current_streak": 4,
   "current_streak_type": "wins",
   "conviction_performance": [
     {
@@ -40,9 +40,9 @@
     },
     {
       "conviction": "LOW",
-      "trades": 2,
+      "trades": 3,
       "win_rate": 100.0,
-      "avg_return": 10.15
+      "avg_return": 13.77
     }
   ],
   "monthly_returns": [
@@ -52,10 +52,19 @@
     },
     {
       "month": "2026-01",
-      "return": 152.41
+      "return": 173.4
     }
   ],
   "recent_trades": [
+    {
+      "ticker": "IMRX",
+      "entry_date": "Jan 23, 2026",
+      "exit_date": "Jan 26, 2026",
+      "hold_days": 2,
+      "return_pct": 20.99,
+      "conviction": "LOW",
+      "exit_reason": "Take Profit"
+    },
     {
       "ticker": "MIGI",
       "entry_date": "Jan 22, 2026",
@@ -226,31 +235,22 @@
       "return_pct": 8.19,
       "conviction": "VERY HIGH",
       "exit_reason": "Take Profit"
-    },
-    {
-      "ticker": "ARX",
-      "entry_date": "Nov 27, 2025",
-      "exit_date": "Dec 19, 2025",
-      "hold_days": 21,
-      "return_pct": 8.43,
-      "conviction": "HIGH",
-      "exit_reason": "Take Profit"
     }
   ],
   "open_positions": [
     {
-      "ticker": "IMRX",
-      "entry_date": "Jan 23, 2026",
+      "ticker": "ALLY",
+      "entry_date": "Jan 26, 2026",
       "days_held": 0,
-      "unrealized_return": 20.54,
-      "conviction": "LOW"
+      "unrealized_return": 0.0,
+      "conviction": "MEDIUM"
     }
   ],
   "portfolio_composition": {
     "starting_capital": 10000,
-    "current_value": 11741.17,
-    "cash": 11276.59,
-    "invested_capital": 464.58,
-    "capital_deployed_pct": 3.96
+    "current_value": 11742.91,
+    "cash": 11331.81,
+    "invested_capital": 411.1,
+    "capital_deployed_pct": 3.5
   }
 }
