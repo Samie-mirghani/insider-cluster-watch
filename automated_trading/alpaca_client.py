@@ -170,9 +170,8 @@ class AlpacaTradingClient:
             Account object with balance, buying power, etc.
         """
         # Use cache if recent (< 60 seconds)
-        if not force_refresh and self._cached_account:
-            if self._last_account_fetch and \
-               (datetime.now() - self._last_account_fetch).seconds < 60:
+        if not force_refresh and self._cached_account and self._last_account_fetch:
+            if (datetime.now() - self._last_account_fetch).total_seconds() < 60:
                 return self._cached_account
 
         account = self._retry_operation(
@@ -252,6 +251,76 @@ class AlpacaTradingClient:
             "Get market clock"
         )
         return clock.next_open
+
+    def is_trading_day(self, check_date: Optional[datetime] = None) -> bool:
+        """
+        Check if a specific date is a trading day (accounts for holidays).
+
+        Uses Alpaca's calendar API which knows about all market holidays
+        (Thanksgiving, Christmas, MLK Day, etc.)
+
+        Args:
+            check_date: Date to check (defaults to today)
+
+        Returns:
+            True if the market is open on that day
+        """
+        if check_date is None:
+            check_date = datetime.now()
+
+        try:
+            # Get calendar for the date range (just one day)
+            start_date = check_date.strftime('%Y-%m-%d')
+            end_date = check_date.strftime('%Y-%m-%d')
+
+            calendar = self._retry_operation(
+                lambda: self.client.get_calendar(
+                    filters={'start': start_date, 'end': end_date}
+                ),
+                "Get market calendar"
+            )
+
+            # If calendar has an entry for this date, it's a trading day
+            return len(calendar) > 0
+
+        except Exception as e:
+            logger.warning(f"Failed to check trading calendar: {e}. Falling back to weekday check.")
+            # Fallback to simple weekday check if API fails
+            return check_date.weekday() < 5
+
+    def get_trading_calendar(self, start_date: datetime, end_date: datetime) -> List[Dict[str, Any]]:
+        """
+        Get the trading calendar for a date range.
+
+        Args:
+            start_date: Start of range
+            end_date: End of range
+
+        Returns:
+            List of trading days with open/close times
+        """
+        try:
+            calendar = self._retry_operation(
+                lambda: self.client.get_calendar(
+                    filters={
+                        'start': start_date.strftime('%Y-%m-%d'),
+                        'end': end_date.strftime('%Y-%m-%d')
+                    }
+                ),
+                "Get market calendar"
+            )
+
+            return [
+                {
+                    'date': day.date.strftime('%Y-%m-%d'),
+                    'open': day.open,
+                    'close': day.close
+                }
+                for day in calendar
+            ]
+        except Exception as e:
+            logger.error(f"Failed to get trading calendar: {e}")
+            return []
 
     # =========================================================================
     # Position Operations

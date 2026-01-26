@@ -139,8 +139,11 @@ REDEPLOYMENT_MIN_FREED_CAPITAL = 100  # Minimum freed capital to trigger ($100)
 # ORDER EXECUTION PARAMETERS
 # =============================================================================
 # Order types and timing
-USE_LIMIT_ORDERS = True          # Use limit orders (safer than market)
-LIMIT_ORDER_CUSHION_PCT = 0.5    # 0.5% above signal price for buys
+# NOTE: Using market orders for immediate execution at current market price.
+# This ensures orders are filled quickly during volatile market conditions.
+# The system already has stop losses and circuit breakers for risk management.
+USE_LIMIT_ORDERS = False         # Use market orders for immediate execution
+LIMIT_ORDER_CUSHION_PCT = 0.5    # (Not used with market orders, kept for reference)
 STOP_LIMIT_SPREAD_PCT = 2.0      # 2% below stop for stop-limit orders
 
 # Time in force
