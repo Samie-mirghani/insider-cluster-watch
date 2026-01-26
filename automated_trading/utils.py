@@ -13,6 +13,8 @@ Provides common utilities including:
 import os
 import json
 import logging
+import fcntl
+import tempfile
 from datetime import datetime, date, time, timedelta
 from typing import Any, Dict, Optional, List, Tuple
 import hashlib
@@ -24,6 +26,16 @@ logger = logging.getLogger(__name__)
 
 # Timezone for market hours
 EASTERN = pytz.timezone('US/Eastern')
+
+# Cache for trading calendar (populated from Alpaca API)
+# Format: {'YYYY-MM-DD': True/False}
+_trading_calendar_cache: Dict[str, bool] = {}
+_calendar_cache_updated: Optional[datetime] = None
+
+
+def _get_lock_file(filepath: str) -> str:
+    """Get the lock file path for a given file."""
+    return f"{filepath}.lock"
 
 
 # =============================================================================
@@ -40,6 +52,7 @@ def log_audit_event(
 
     Uses JSONL format (one JSON object per line) for append-only efficiency.
     Audit logs should NEVER be deleted or rotated for compliance.
+    Uses file locking to prevent corruption from concurrent writes.
 
     Args:
         event_type: Type of event (ORDER_SUBMITTED, POSITION_CLOSED, etc.)
@@ -57,9 +70,17 @@ def log_audit_event(
         'data': data
     }
 
+    lock_file = _get_lock_file(config.AUDIT_LOG_FILE)
+
     try:
-        with open(config.AUDIT_LOG_FILE, 'a') as f:
-            f.write(json.dumps(event) + '\n')
+        with open(lock_file, 'w') as lf:
+            # Acquire exclusive lock for appending
+            fcntl.flock(lf.fileno(), fcntl.LOCK_EX)
+            try:
+                with open(config.AUDIT_LOG_FILE, 'a') as f:
+                    f.write(json.dumps(event) + '\n')
+            finally:
+                fcntl.flock(lf.fileno(), fcntl.LOCK_UN)
     except Exception as e:
         logger.error(f"Failed to write audit log: {e}")
         # Don't raise - audit failure shouldn't stop trading
@@ -177,17 +198,102 @@ def get_eastern_now() -> datetime:
     return datetime.now(EASTERN)
 
 
+def update_trading_calendar(alpaca_client) -> None:
+    """
+    Update the trading calendar cache from Alpaca API.
+
+    This should be called once at startup when the alpaca_client is available.
+    The calendar is cached for the current month to avoid repeated API calls.
+
+    Args:
+        alpaca_client: AlpacaTradingClient instance
+    """
+    global _trading_calendar_cache, _calendar_cache_updated
+
+    try:
+        # Get calendar for current month plus next month
+        now = get_eastern_now()
+        start_date = now.replace(day=1)
+        # Get next month's end (handle year boundary for Nov/Dec)
+        next_month_2 = now.month + 2
+        if next_month_2 > 12:
+            end_date = now.replace(year=now.year + 1, month=next_month_2 - 12, day=1) - timedelta(days=1)
+        else:
+            end_date = now.replace(month=next_month_2, day=1) - timedelta(days=1)
+
+        calendar = alpaca_client.get_trading_calendar(start_date, end_date)
+
+        # Clear and update cache
+        _trading_calendar_cache = {}
+        for day in calendar:
+            _trading_calendar_cache[day['date']] = True
+
+        _calendar_cache_updated = now
+        logger.info(f"Trading calendar updated: {len(_trading_calendar_cache)} trading days cached")
+
+    except Exception as e:
+        logger.warning(f"Failed to update trading calendar: {e}. Using weekday fallback.")
+
+
+def is_trading_day(check_date: Optional[date] = None) -> bool:
+    """
+    Check if a date is a trading day (accounts for market holidays).
+
+    Uses cached Alpaca calendar if available, otherwise falls back to weekday check.
+    Call update_trading_calendar() at startup to enable holiday detection.
+
+    Args:
+        check_date: Date to check (defaults to today)
+
+    Returns:
+        True if the market is open on that day
+    """
+    if check_date is None:
+        check_date = get_eastern_now().date()
+
+    date_str = check_date.strftime('%Y-%m-%d')
+
+    # Check cache first (if populated)
+    if _trading_calendar_cache:
+        # If date is in cache, it's a trading day
+        # If not in cache but within cached range, it's NOT a trading day (holiday)
+        if date_str in _trading_calendar_cache:
+            return True
+
+        # Check if date is within our cached range
+        if _calendar_cache_updated:
+            cache_start = _calendar_cache_updated.replace(day=1).date()
+            # Handle year boundary for Nov/Dec
+            next_month_2 = _calendar_cache_updated.month + 2
+            if next_month_2 > 12:
+                cache_end = _calendar_cache_updated.replace(year=_calendar_cache_updated.year + 1, month=next_month_2 - 12, day=1).date() - timedelta(days=1)
+            else:
+                cache_end = _calendar_cache_updated.replace(month=next_month_2, day=1).date() - timedelta(days=1)
+
+            if cache_start <= check_date <= cache_end:
+                # Date is in range but not in cache - it's a holiday/weekend
+                return False
+
+    # Fallback to simple weekday check
+    return check_date.weekday() < 5
+
+
 def is_market_hours() -> bool:
     """
     Check if current time is within regular market hours.
 
+    Accounts for:
+    - Weekends (Saturday/Sunday)
+    - Market holidays (if calendar cache is populated)
+    - Regular market hours (9:30 AM - 4:00 PM ET)
+
     Returns:
-        True if between 9:30 AM and 4:00 PM ET on a weekday
+        True if market is currently open
     """
     now = get_eastern_now()
 
-    # Check if weekday
-    if now.weekday() >= 5:  # Saturday=5, Sunday=6
+    # Check if it's a trading day (includes holiday check)
+    if not is_trading_day(now.date()):
         return False
 
     current_time = now.time()
@@ -199,14 +305,15 @@ def is_trading_window() -> bool:
     Check if current time is within our trading execution window.
 
     We don't trade in the first 5 minutes or last 30 minutes.
+    Also checks for holidays via is_trading_day().
 
     Returns:
         True if within trading window
     """
     now = get_eastern_now()
 
-    # Check if weekday
-    if now.weekday() >= 5:
+    # Check if it's a trading day (includes holiday check)
+    if not is_trading_day(now.date()):
         return False
 
     current_time = now.time()
@@ -235,26 +342,6 @@ def minutes_until_market_close() -> int:
     return int(delta.total_seconds() / 60)
 
 
-def is_trading_day(check_date: Optional[date] = None) -> bool:
-    """
-    Check if a date is a trading day (weekday, not a holiday).
-
-    Note: This doesn't check for market holidays - for that,
-    use the Alpaca calendar API.
-
-    Args:
-        check_date: Date to check (defaults to today)
-
-    Returns:
-        True if likely a trading day
-    """
-    if check_date is None:
-        check_date = get_eastern_now().date()
-
-    # Check if weekday
-    return check_date.weekday() < 5
-
-
 def format_datetime_for_display(dt: datetime) -> str:
     """Format datetime for display in logs/emails."""
     if dt.tzinfo is None:
@@ -268,12 +355,14 @@ def format_date_for_display(d: date) -> str:
 
 
 # =============================================================================
-# FILE OPERATIONS
+# FILE OPERATIONS (with file locking for concurrent access safety)
 # =============================================================================
 
 def load_json_file(filepath: str, default: Any = None) -> Any:
     """
-    Safely load a JSON file.
+    Safely load a JSON file with file locking.
+
+    Uses shared (read) lock to prevent reading while another process is writing.
 
     Args:
         filepath: Path to JSON file
@@ -285,9 +374,21 @@ def load_json_file(filepath: str, default: Any = None) -> Any:
     if not os.path.exists(filepath):
         return default
 
+    lock_file = _get_lock_file(filepath)
+
     try:
-        with open(filepath, 'r') as f:
-            return json.load(f)
+        # Create lock file if it doesn't exist
+        os.makedirs(os.path.dirname(filepath), exist_ok=True)
+
+        with open(lock_file, 'w') as lf:
+            # Acquire shared lock (allows multiple readers)
+            fcntl.flock(lf.fileno(), fcntl.LOCK_SH)
+            try:
+                with open(filepath, 'r') as f:
+                    return json.load(f)
+            finally:
+                fcntl.flock(lf.fileno(), fcntl.LOCK_UN)
+
     except json.JSONDecodeError as e:
         logger.error(f"Invalid JSON in {filepath}: {e}")
         return default
@@ -298,9 +399,10 @@ def load_json_file(filepath: str, default: Any = None) -> Any:
 
 def save_json_file(filepath: str, data: Any, indent: int = 2) -> bool:
     """
-    Safely save data to a JSON file.
+    Safely save data to a JSON file with file locking.
 
-    Creates backup before overwriting for safety.
+    Uses exclusive lock and atomic write (write to temp, then rename).
+    Creates backup before overwriting for additional safety.
 
     Args:
         filepath: Path to JSON file
@@ -311,23 +413,50 @@ def save_json_file(filepath: str, data: Any, indent: int = 2) -> bool:
         True if successful
     """
     # Ensure directory exists
-    os.makedirs(os.path.dirname(filepath), exist_ok=True)
+    dir_path = os.path.dirname(filepath)
+    os.makedirs(dir_path, exist_ok=True)
 
-    # Create backup if file exists
-    if os.path.exists(filepath):
-        backup_path = f"{filepath}.bak"
-        try:
-            with open(filepath, 'r') as f:
-                backup_data = f.read()
-            with open(backup_path, 'w') as f:
-                f.write(backup_data)
-        except Exception as e:
-            logger.warning(f"Failed to create backup of {filepath}: {e}")
+    lock_file = _get_lock_file(filepath)
 
     try:
-        with open(filepath, 'w') as f:
-            json.dump(data, f, indent=indent, default=str)
-        return True
+        with open(lock_file, 'w') as lf:
+            # Acquire exclusive lock (blocks other readers and writers)
+            fcntl.flock(lf.fileno(), fcntl.LOCK_EX)
+            try:
+                # Create backup if file exists
+                if os.path.exists(filepath):
+                    backup_path = f"{filepath}.bak"
+                    try:
+                        with open(filepath, 'r') as f:
+                            backup_data = f.read()
+                        with open(backup_path, 'w') as f:
+                            f.write(backup_data)
+                    except Exception as e:
+                        logger.warning(f"Failed to create backup of {filepath}: {e}")
+
+                # Write to temp file first (atomic write pattern)
+                temp_fd, temp_path = tempfile.mkstemp(
+                    dir=dir_path,
+                    prefix='.tmp_',
+                    suffix='.json'
+                )
+                try:
+                    with os.fdopen(temp_fd, 'w') as f:
+                        json.dump(data, f, indent=indent, default=str)
+
+                    # Atomic rename (on same filesystem)
+                    os.replace(temp_path, filepath)
+                    return True
+
+                except Exception:
+                    # Clean up temp file on error
+                    if os.path.exists(temp_path):
+                        os.unlink(temp_path)
+                    raise
+
+            finally:
+                fcntl.flock(lf.fileno(), fcntl.LOCK_UN)
+
     except Exception as e:
         logger.error(f"Failed to save {filepath}: {e}")
         return False

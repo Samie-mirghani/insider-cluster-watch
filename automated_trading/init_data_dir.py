@@ -48,6 +48,10 @@ def initialize_data_directory():
             'halt_reason': None,
             'trades_today': [],
             'last_updated': datetime.now().isoformat()
+        },
+        'signal_history.json': {
+            'signals': {},
+            'last_updated': datetime.now().isoformat()
         }
     }
 

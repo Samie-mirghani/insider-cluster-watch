@@ -139,8 +139,11 @@ REDEPLOYMENT_MIN_FREED_CAPITAL = 100  # Minimum freed capital to trigger ($100)
 # ORDER EXECUTION PARAMETERS
 # =============================================================================
 # Order types and timing
-USE_LIMIT_ORDERS = True          # Use limit orders (safer than market)
-LIMIT_ORDER_CUSHION_PCT = 0.5    # 0.5% above signal price for buys
+# NOTE: Using market orders for immediate execution at current market price.
+# This ensures orders are filled quickly during volatile market conditions.
+# The system already has stop losses and circuit breakers for risk management.
+USE_LIMIT_ORDERS = False         # Use market orders for immediate execution
+LIMIT_ORDER_CUSHION_PCT = 0.5    # (Not used with market orders, kept for reference)
 STOP_LIMIT_SPREAD_PCT = 2.0      # 2% below stop for stop-limit orders
 
 # Time in force
@@ -185,6 +188,11 @@ QUEUED_SIGNALS_FILE = os.path.join(DATA_DIR, 'queued_signals.json')
 DAILY_STATE_FILE = os.path.join(DATA_DIR, 'daily_state.json')
 AUDIT_LOG_FILE = os.path.join(DATA_DIR, 'audit_log.jsonl')
 TRADE_HISTORY_FILE = os.path.join(DATA_DIR, 'trade_history.csv')
+SIGNAL_HISTORY_FILE = os.path.join(DATA_DIR, 'signal_history.json')
+
+# Path to approved signals from main pipeline (for tier lookup during broker sync)
+# Note: This is in the main data/ directory, not automated_trading/data/
+APPROVED_SIGNALS_FILE = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'approved_signals.json')
 
 # =============================================================================
 # EMAIL ALERTS

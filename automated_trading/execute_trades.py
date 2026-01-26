@@ -40,7 +40,8 @@ from .utils import (
     is_trading_window,
     generate_client_order_id,
     format_currency,
-    format_percentage
+    format_percentage,
+    update_trading_calendar
 )
 
 # Configure logging
@@ -107,6 +108,9 @@ class TradingEngine:
             logger.info(f"  Portfolio Value: ${float(account.portfolio_value):,.2f}")
             logger.info(f"  Cash: ${float(account.cash):,.2f}")
             logger.info(f"  Buying Power: ${float(account.buying_power):,.2f}")
+
+            # Update trading calendar cache for holiday detection
+            update_trading_calendar(self.alpaca_client)
 
             # Initialize other components
             self.order_manager = create_order_manager()
