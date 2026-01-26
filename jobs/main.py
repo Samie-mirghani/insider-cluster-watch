@@ -853,8 +853,17 @@ def main(test=False, enable_paper_trading=True):
 
                     # Fetch market data for politician-only signals
                     print(f"   📊 Fetching market data for {len(tier0_df)} politician-only tickers...")
-                    from fetch_market_data import fetch_market_data
-                    tier0_df = fetch_market_data(tier0_df)
+                    tier0_tickers = tier0_df['ticker'].unique().tolist()
+                    tier0_profiles = fetch_profiles_batch(tier0_tickers)
+
+                    # Populate market data from profiles
+                    for idx, row in tier0_df.iterrows():
+                        ticker = row['ticker']
+                        profile = tier0_profiles.get(ticker)
+                        if profile:
+                            tier0_df.at[idx, 'currentPrice'] = profile.get('price')
+                            tier0_df.at[idx, 'marketCap'] = profile.get('marketCap')
+                            tier0_df.at[idx, 'sector'] = profile.get('sector', 'Unknown')
 
                     # Fetch sector data if available
                     if ENABLE_SECTOR_ANALYSIS:

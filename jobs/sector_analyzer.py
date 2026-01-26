@@ -27,7 +27,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
-# Sector to ETF mapping
+# Sector to ETF mapping (11 major sectors)
 SECTOR_ETFS = {
     'Technology': 'XLK',
     'Healthcare': 'XLV',
@@ -43,6 +43,182 @@ SECTOR_ETFS = {
     'Communication': 'XLC',  # Alternative name
     'Basic Materials': 'XLB',
     'Materials': 'XLB',  # Alternative name
+}
+
+# Industry-specific ETFs (for more granular analysis)
+INDUSTRY_SPECIFIC_ETFS = {
+    # Technology sub-sectors
+    'Semiconductors': 'SOXX',  # iShares Semiconductor ETF
+    'Software': 'IGV',  # iShares Expanded Tech-Software Sector ETF
+    'Cybersecurity': 'HACK',  # ETFMG Prime Cyber Security ETF
+
+    # Healthcare sub-sectors
+    'Biotechnology': 'XBI',  # SPDR S&P Biotech ETF
+    'Pharmaceuticals': 'XPH',  # SPDR S&P Pharmaceuticals ETF
+
+    # Financials sub-sectors
+    'Financial - Capital Markets': 'IAI',  # iShares U.S. Broker-Dealers & Securities Exchanges ETF
+    'Financial - Credit Services': 'XLF',  # Use broad financials ETF
+    'Banks': 'KBE',  # SPDR S&P Bank ETF
+    'Insurance': 'KIE',  # SPDR S&P Insurance ETF
+
+    # Consumer sub-sectors
+    'Apparel - Manufacturers': 'XRT',  # SPDR S&P Retail ETF
+    'Specialty Retail': 'XRT',  # SPDR S&P Retail ETF
+    'Auto Manufacturers': 'CARZ',  # First Trust NASDAQ Global Auto Index Fund
+
+    # Materials sub-sectors
+    'Steel': 'SLX',  # VanEck Steel ETF
+    'Gold': 'GDX',  # VanEck Gold Miners ETF
+    'Copper': 'COPX',  # Global X Copper Miners ETF
+
+    # Real Estate sub-sectors
+    'REIT': 'VNQ',  # Vanguard Real Estate ETF
+
+    # Other
+    'Airlines': 'JETS',  # U.S. Global Jets ETF
+    'Defense': 'ITA',  # iShares U.S. Aerospace & Defense ETF
+}
+
+# Industry to Sector mapping (maps FMP granular industries to broad sectors)
+INDUSTRY_TO_SECTOR = {
+    # Technology industries
+    'Semiconductors': 'Technology',
+    'Software': 'Technology',
+    'Software - Application': 'Technology',
+    'Software - Infrastructure': 'Technology',
+    'Hardware': 'Technology',
+    'Computer Hardware': 'Technology',
+    'Consumer Electronics': 'Technology',
+    'Electronic Components': 'Technology',
+    'Electronics & Computer Distribution': 'Technology',
+    'Information Technology Services': 'Technology',
+    'Cybersecurity': 'Technology',
+    'Semiconductor Equipment & Materials': 'Technology',
+
+    # Healthcare industries
+    'Biotechnology': 'Healthcare',
+    'Pharmaceuticals': 'Healthcare',
+    'Drug Manufacturers': 'Healthcare',
+    'Drug Manufacturers - General': 'Healthcare',
+    'Drug Manufacturers - Specialty & Generic': 'Healthcare',
+    'Medical Devices': 'Healthcare',
+    'Medical Instruments & Supplies': 'Healthcare',
+    'Healthcare Plans': 'Healthcare',
+    'Health Information Services': 'Healthcare',
+    'Medical Distribution': 'Healthcare',
+    'Diagnostics & Research': 'Healthcare',
+
+    # Financial industries
+    'Financial - Capital Markets': 'Financials',
+    'Financial - Credit Services': 'Financials',
+    'Banks': 'Financials',
+    'Banks - Regional': 'Financials',
+    'Banks - Diversified': 'Financials',
+    'Insurance': 'Financials',
+    'Insurance - Life': 'Financials',
+    'Insurance - Property & Casualty': 'Financials',
+    'Insurance - Diversified': 'Financials',
+    'Asset Management': 'Financials',
+    'Credit Services': 'Financials',
+    'Financial Services': 'Financials',
+
+    # Energy industries
+    'Oil & Gas': 'Energy',
+    'Oil & Gas E&P': 'Energy',
+    'Oil & Gas Integrated': 'Energy',
+    'Oil & Gas Midstream': 'Energy',
+    'Oil & Gas Refining & Marketing': 'Energy',
+    'Oil & Gas Equipment & Services': 'Energy',
+    'Uranium': 'Energy',
+    'Renewable Energy': 'Energy',
+    'Solar': 'Energy',
+
+    # Consumer Cyclical industries
+    'Apparel - Manufacturers': 'Consumer Cyclical',
+    'Apparel - Retail': 'Consumer Cyclical',
+    'Auto Manufacturers': 'Consumer Cyclical',
+    'Auto Parts': 'Consumer Cyclical',
+    'Specialty Retail': 'Consumer Cyclical',
+    'Department Stores': 'Consumer Cyclical',
+    'Home Improvement': 'Consumer Cyclical',
+    'Restaurants': 'Consumer Cyclical',
+    'Travel Services': 'Consumer Cyclical',
+    'Leisure': 'Consumer Cyclical',
+    'Lodging': 'Consumer Cyclical',
+    'Resorts & Casinos': 'Consumer Cyclical',
+    'Textile Manufacturing': 'Consumer Cyclical',
+    'Furnishings, Fixtures & Appliances': 'Consumer Cyclical',
+
+    # Consumer Defensive industries
+    'Food': 'Consumer Defensive',
+    'Beverages': 'Consumer Defensive',
+    'Beverages - Non-Alcoholic': 'Consumer Defensive',
+    'Beverages - Alcoholic': 'Consumer Defensive',
+    'Packaged Foods': 'Consumer Defensive',
+    'Grocery Stores': 'Consumer Defensive',
+    'Tobacco': 'Consumer Defensive',
+    'Household & Personal Products': 'Consumer Defensive',
+    'Discount Stores': 'Consumer Defensive',
+
+    # Industrials industries
+    'Aerospace & Defense': 'Industrials',
+    'Defense': 'Industrials',
+    'Airlines': 'Industrials',
+    'Railroads': 'Industrials',
+    'Trucking': 'Industrials',
+    'Marine Shipping': 'Industrials',
+    'Industrial Distribution': 'Industrials',
+    'Building Products & Equipment': 'Industrials',
+    'Machinery': 'Industrials',
+    'Engineering & Construction': 'Industrials',
+    'Electrical Equipment & Parts': 'Industrials',
+    'Waste Management': 'Industrials',
+    'Consulting Services': 'Industrials',
+    'Conglomerates': 'Industrials',
+
+    # Materials industries
+    'Steel': 'Basic Materials',
+    'Aluminum': 'Basic Materials',
+    'Copper': 'Basic Materials',
+    'Gold': 'Basic Materials',
+    'Silver': 'Basic Materials',
+    'Other Precious Metals & Mining': 'Basic Materials',
+    'Chemicals': 'Basic Materials',
+    'Specialty Chemicals': 'Basic Materials',
+    'Agricultural Inputs': 'Basic Materials',
+    'Building Materials': 'Basic Materials',
+    'Lumber & Wood Production': 'Basic Materials',
+    'Paper & Paper Products': 'Basic Materials',
+
+    # Real Estate industries
+    'REIT': 'Real Estate',
+    'REIT - Healthcare Facilities': 'Real Estate',
+    'REIT - Residential': 'Real Estate',
+    'REIT - Retail': 'Real Estate',
+    'REIT - Office': 'Real Estate',
+    'REIT - Industrial': 'Real Estate',
+    'REIT - Diversified': 'Real Estate',
+    'Real Estate Services': 'Real Estate',
+    'Real Estate - Development': 'Real Estate',
+
+    # Utilities industries
+    'Utilities - Regulated Electric': 'Utilities',
+    'Utilities - Regulated Gas': 'Utilities',
+    'Utilities - Regulated Water': 'Utilities',
+    'Utilities - Diversified': 'Utilities',
+    'Utilities - Independent Power Producers': 'Utilities',
+    'Utilities - Renewable': 'Utilities',
+
+    # Communication Services industries
+    'Telecom Services': 'Communication Services',
+    'Telecommunications': 'Communication Services',
+    'Broadcasting': 'Communication Services',
+    'Entertainment': 'Communication Services',
+    'Internet Content & Information': 'Communication Services',
+    'Electronic Gaming & Multimedia': 'Communication Services',
+    'Publishing': 'Communication Services',
+    'Advertising Agencies': 'Communication Services',
 }
 
 # Concentration thresholds
@@ -68,9 +244,12 @@ class SectorAnalyzer:
         """
         self.cache_dir = Path(cache_dir)
         self.cache_file = self.cache_dir / 'sector_performance_cache.json'
+        self.mapping_cache_file = self.cache_dir / 'industry_mapping_cache.json'
         self.cache_hours = cache_hours
         self.performance_data = None
+        self.custom_industry_mappings = {}
         self._load_cache()
+        self._load_custom_mappings()
 
     def _load_cache(self):
         """Load cached sector performance data if valid."""
@@ -111,19 +290,177 @@ class SectorAnalyzer:
         except Exception as e:
             logger.warning(f"Failed to save cache: {e}")
 
+    def _load_custom_mappings(self):
+        """Load custom industry-to-sector mappings learned over time."""
+        try:
+            if self.mapping_cache_file.exists():
+                with open(self.mapping_cache_file, 'r') as f:
+                    self.custom_industry_mappings = json.load(f)
+                logger.info(f"Loaded {len(self.custom_industry_mappings)} custom industry mappings")
+        except Exception as e:
+            logger.warning(f"Failed to load custom mappings: {e}")
+            self.custom_industry_mappings = {}
+
+    def _save_custom_mapping(self, industry, sector, etf):
+        """
+        Save a newly discovered industry mapping for future use.
+
+        Args:
+            industry: Industry name
+            sector: Mapped sector name
+            etf: ETF ticker
+        """
+        try:
+            self.custom_industry_mappings[industry] = {
+                'sector': sector,
+                'etf': etf,
+                'discovered_at': datetime.now().isoformat()
+            }
+
+            self.cache_dir.mkdir(exist_ok=True)
+            with open(self.mapping_cache_file, 'w') as f:
+                json.dump(self.custom_industry_mappings, f, indent=2)
+
+            logger.debug(f"Saved custom mapping: {industry} -> {sector} ({etf})")
+        except Exception as e:
+            logger.warning(f"Failed to save custom mapping: {e}")
+
+    def get_etf_for_industry(self, industry):
+        """
+        Get the appropriate ETF for an industry using multi-tier lookup.
+
+        Lookup order:
+        1. Industry-specific ETFs (e.g., Biotechnology -> XBI)
+        2. Exact match in SECTOR_ETFS (e.g., Technology -> XLK)
+        3. Industry-to-Sector mapping (e.g., Semiconductors -> Technology -> XLK)
+        4. Custom learned mappings
+        5. Intelligent parsing of industry name
+
+        Args:
+            industry: Industry or sector name
+
+        Returns:
+            tuple: (etf_ticker, mapped_sector, mapping_source)
+        """
+        if not industry or industry == 'Unknown':
+            return None, None, 'unknown'
+
+        # 1. Check for industry-specific ETF
+        if industry in INDUSTRY_SPECIFIC_ETFS:
+            etf = INDUSTRY_SPECIFIC_ETFS[industry]
+            # Map industry to parent sector for context
+            parent_sector = INDUSTRY_TO_SECTOR.get(industry, industry)
+            self._save_custom_mapping(industry, parent_sector, etf)
+            return etf, industry, 'industry_specific'
+
+        # 2. Check for exact sector match
+        if industry in SECTOR_ETFS:
+            return SECTOR_ETFS[industry], industry, 'exact_sector'
+
+        # 3. Check industry-to-sector mapping
+        if industry in INDUSTRY_TO_SECTOR:
+            parent_sector = INDUSTRY_TO_SECTOR[industry]
+            etf = SECTOR_ETFS.get(parent_sector)
+            if etf:
+                self._save_custom_mapping(industry, parent_sector, etf)
+                return etf, parent_sector, 'industry_mapped'
+
+        # 4. Check custom learned mappings
+        if industry in self.custom_industry_mappings:
+            mapping = self.custom_industry_mappings[industry]
+            return mapping['etf'], mapping['sector'], 'custom_learned'
+
+        # 5. Intelligent parsing - try to infer sector from industry name
+        etf, sector = self._infer_sector_from_name(industry)
+        if etf:
+            self._save_custom_mapping(industry, sector, etf)
+            return etf, sector, 'inferred'
+
+        # No mapping found
+        return None, None, 'not_found'
+
+    def _infer_sector_from_name(self, industry):
+        """
+        Intelligently infer sector from industry name using keyword matching.
+
+        Args:
+            industry: Industry name
+
+        Returns:
+            tuple: (etf_ticker, sector_name) or (None, None)
+        """
+        industry_lower = industry.lower()
+
+        # Technology keywords
+        if any(kw in industry_lower for kw in ['tech', 'software', 'hardware', 'semiconductor',
+                                                  'computer', 'internet', 'electronic', 'cyber']):
+            return 'XLK', 'Technology'
+
+        # Healthcare keywords
+        if any(kw in industry_lower for kw in ['health', 'medical', 'pharma', 'biotech', 'drug',
+                                                  'hospital', 'diagnostic']):
+            return 'XLV', 'Healthcare'
+
+        # Financial keywords
+        if any(kw in industry_lower for kw in ['financial', 'bank', 'insurance', 'credit',
+                                                  'capital', 'asset management']):
+            return 'XLF', 'Financials'
+
+        # Energy keywords
+        if any(kw in industry_lower for kw in ['oil', 'gas', 'energy', 'petroleum', 'renewable',
+                                                  'solar', 'uranium']):
+            return 'XLE', 'Energy'
+
+        # Consumer keywords
+        if any(kw in industry_lower for kw in ['retail', 'apparel', 'restaurant', 'hotel',
+                                                  'auto', 'consumer']):
+            if any(kw in industry_lower for kw in ['food', 'beverage', 'grocery', 'tobacco']):
+                return 'XLP', 'Consumer Defensive'
+            return 'XLY', 'Consumer Cyclical'
+
+        # Industrial keywords
+        if any(kw in industry_lower for kw in ['industrial', 'aerospace', 'defense', 'airline',
+                                                  'machinery', 'construction', 'transport']):
+            return 'XLI', 'Industrials'
+
+        # Materials keywords
+        if any(kw in industry_lower for kw in ['steel', 'metal', 'mining', 'chemical', 'material',
+                                                  'gold', 'silver', 'copper', 'aluminum']):
+            return 'XLB', 'Basic Materials'
+
+        # Real Estate keywords
+        if any(kw in industry_lower for kw in ['real estate', 'reit', 'property']):
+            return 'XLRE', 'Real Estate'
+
+        # Utilities keywords
+        if any(kw in industry_lower for kw in ['utility', 'utilities', 'electric', 'water', 'power']):
+            return 'XLU', 'Utilities'
+
+        # Communication keywords
+        if any(kw in industry_lower for kw in ['telecom', 'communication', 'broadcasting',
+                                                  'entertainment', 'media']):
+            return 'XLC', 'Communication Services'
+
+        return None, None
+
     def update_sector_performance(self):
         """
         Fetch and cache sector ETF performance vs SPY.
         Called once per day to minimize API calls.
+        Now includes industry-specific ETFs for more granular analysis.
 
         Returns:
             dict: Performance data for all sector ETFs
         """
         logger.info("Updating sector performance data...")
 
-        # Get all unique ETFs to fetch
+        # Get all unique ETFs to fetch (sector ETFs + industry-specific ETFs)
         etfs = list(set(SECTOR_ETFS.values()))
+        etfs.extend(list(set(INDUSTRY_SPECIFIC_ETFS.values())))
+        etfs = list(set(etfs))  # Remove duplicates
         etfs.append('SPY')  # Add benchmark
+
+        logger.info(f"Fetching performance data for {len(etfs)} ETFs...")
 
         performance = {}
 
@@ -209,29 +546,35 @@ class SectorAnalyzer:
 
         Args:
             ticker: Stock ticker symbol
-            sector: Sector name (optional, will fetch if not provided)
+            sector: Sector/Industry name (optional, will fetch if not provided)
 
         Returns:
             dict: Sector analysis with timing signals
         """
-        # Get sector if not provided
+        # Get sector/industry if not provided
         if sector is None or sector == 'Unknown':
             sector = self.get_stock_sector(ticker)
 
-        # Get ETF for this sector
-        sector_etf = SECTOR_ETFS.get(sector)
+        # Get ETF for this industry/sector using multi-tier lookup
+        sector_etf, mapped_sector, mapping_source = self.get_etf_for_industry(sector)
 
         if not sector_etf:
             logger.warning(f"No ETF mapping for sector: {sector}")
             return {
                 'sector': sector,
                 'sector_etf': None,
+                'mapped_sector': None,
+                'mapping_source': 'not_found',
                 'relative_performance_30d': None,
                 'relative_performance_60d': None,
                 'relative_performance_90d': None,
                 'sector_signal': 'UNKNOWN',
                 'sector_context': 'No sector ETF mapping available'
             }
+
+        # Log the successful mapping
+        if mapping_source in ['industry_specific', 'industry_mapped', 'inferred']:
+            logger.info(f"Mapped {sector} -> {mapped_sector} ({sector_etf}) via {mapping_source}")
 
         # Get performance data
         performance = self.get_sector_performance()
@@ -241,6 +584,8 @@ class SectorAnalyzer:
             return {
                 'sector': sector,
                 'sector_etf': sector_etf,
+                'mapped_sector': mapped_sector,
+                'mapping_source': mapping_source,
                 'relative_performance_30d': None,
                 'relative_performance_60d': None,
                 'relative_performance_90d': None,
@@ -256,6 +601,8 @@ class SectorAnalyzer:
             return {
                 'sector': sector,
                 'sector_etf': sector_etf,
+                'mapped_sector': mapped_sector,
+                'mapping_source': mapping_source,
                 'relative_performance_30d': None,
                 'relative_performance_60d': None,
                 'relative_performance_90d': None,
@@ -277,13 +624,15 @@ class SectorAnalyzer:
         # Generate timing signal based on 30-day relative performance
         sector_signal, sector_context = self._generate_timing_signal(
             rel_perf['30d'],
-            sector,
+            mapped_sector if mapped_sector else sector,
             sector_etf
         )
 
         return {
             'sector': sector,
             'sector_etf': sector_etf,
+            'mapped_sector': mapped_sector,
+            'mapping_source': mapping_source,
             'relative_performance_30d': rel_perf['30d'],
             'relative_performance_60d': rel_perf['60d'],
             'relative_performance_90d': rel_perf['90d'],
