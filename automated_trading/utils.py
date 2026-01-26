@@ -214,11 +214,12 @@ def update_trading_calendar(alpaca_client) -> None:
         # Get calendar for current month plus next month
         now = get_eastern_now()
         start_date = now.replace(day=1)
-        # Get next month's end
-        if now.month == 12:
-            end_date = now.replace(year=now.year + 1, month=2, day=1) - timedelta(days=1)
+        # Get next month's end (handle year boundary for Nov/Dec)
+        next_month_2 = now.month + 2
+        if next_month_2 > 12:
+            end_date = now.replace(year=now.year + 1, month=next_month_2 - 12, day=1) - timedelta(days=1)
         else:
-            end_date = now.replace(month=now.month + 2, day=1) - timedelta(days=1)
+            end_date = now.replace(month=next_month_2, day=1) - timedelta(days=1)
 
         calendar = alpaca_client.get_trading_calendar(start_date, end_date)
 
@@ -262,10 +263,12 @@ def is_trading_day(check_date: Optional[date] = None) -> bool:
         # Check if date is within our cached range
         if _calendar_cache_updated:
             cache_start = _calendar_cache_updated.replace(day=1).date()
-            if _calendar_cache_updated.month == 12:
-                cache_end = _calendar_cache_updated.replace(year=_calendar_cache_updated.year + 1, month=2, day=1).date() - timedelta(days=1)
+            # Handle year boundary for Nov/Dec
+            next_month_2 = _calendar_cache_updated.month + 2
+            if next_month_2 > 12:
+                cache_end = _calendar_cache_updated.replace(year=_calendar_cache_updated.year + 1, month=next_month_2 - 12, day=1).date() - timedelta(days=1)
             else:
-                cache_end = _calendar_cache_updated.replace(month=_calendar_cache_updated.month + 2, day=1).date() - timedelta(days=1)
+                cache_end = _calendar_cache_updated.replace(month=next_month_2, day=1).date() - timedelta(days=1)
 
             if cache_start <= check_date <= cache_end:
                 # Date is in range but not in cache - it's a holiday/weekend

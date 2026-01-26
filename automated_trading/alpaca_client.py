@@ -24,7 +24,8 @@ try:
         MarketOrderRequest,
         LimitOrderRequest,
         StopLimitOrderRequest,
-        GetOrdersRequest
+        GetOrdersRequest,
+        GetCalendarRequest
     )
     from alpaca.trading.enums import (
         OrderSide,
@@ -270,13 +271,12 @@ class AlpacaTradingClient:
 
         try:
             # Get calendar for the date range (just one day)
-            start_date = check_date.strftime('%Y-%m-%d')
-            end_date = check_date.strftime('%Y-%m-%d')
+            start_str = check_date.strftime('%Y-%m-%d')
+            end_str = check_date.strftime('%Y-%m-%d')
 
+            request = GetCalendarRequest(start=start_str, end=end_str)
             calendar = self._retry_operation(
-                lambda: self.client.get_calendar(
-                    filters={'start': start_date, 'end': end_date}
-                ),
+                lambda: self.client.get_calendar(request),
                 "Get market calendar"
             )
 
@@ -300,21 +300,20 @@ class AlpacaTradingClient:
             List of trading days with open/close times
         """
         try:
+            request = GetCalendarRequest(
+                start=start_date.strftime('%Y-%m-%d'),
+                end=end_date.strftime('%Y-%m-%d')
+            )
             calendar = self._retry_operation(
-                lambda: self.client.get_calendar(
-                    filters={
-                        'start': start_date.strftime('%Y-%m-%d'),
-                        'end': end_date.strftime('%Y-%m-%d')
-                    }
-                ),
+                lambda: self.client.get_calendar(request),
                 "Get market calendar"
             )
 
             return [
                 {
-                    'date': day.date.strftime('%Y-%m-%d'),
-                    'open': day.open,
-                    'close': day.close
+                    'date': day.date.strftime('%Y-%m-%d') if hasattr(day.date, 'strftime') else str(day.date),
+                    'open': str(day.open) if day.open else None,
+                    'close': str(day.close) if day.close else None
                 }
                 for day in calendar
             ]

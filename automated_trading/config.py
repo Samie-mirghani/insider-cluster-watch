@@ -191,7 +191,8 @@ TRADE_HISTORY_FILE = os.path.join(DATA_DIR, 'trade_history.csv')
 SIGNAL_HISTORY_FILE = os.path.join(DATA_DIR, 'signal_history.json')
 
 # Path to approved signals from main pipeline (for tier lookup during broker sync)
-APPROVED_SIGNALS_FILE = os.path.join(os.path.dirname(DATA_DIR), 'data', 'approved_signals.json')
+# Note: This is in the main data/ directory, not automated_trading/data/
+APPROVED_SIGNALS_FILE = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'approved_signals.json')
 
 # =============================================================================
 # EMAIL ALERTS
