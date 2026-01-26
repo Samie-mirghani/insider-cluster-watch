@@ -263,9 +263,11 @@ class PositionMonitor:
         """
         self.alpaca_client = alpaca_client
         self.positions: Dict[str, Dict] = {}
+        self.signal_history: Dict[str, Dict] = {}
         self.circuit_breaker = CircuitBreakerState()
         self.reconciler = Reconciler()
         self._load_positions()
+        self._load_signal_history()
 
         # CRITICAL: Sync from broker on initialization
         # This ensures we monitor positions even after system restart or data loss
@@ -291,6 +293,76 @@ class PositionMonitor:
 
         logger.info(f"Loaded {len(self.positions)} positions")
 
+    def _load_signal_history(self):
+        """Load signal history from disk."""
+        data = load_json_file(config.SIGNAL_HISTORY_FILE, default={})
+        self.signal_history = data.get('signals', {})
+        logger.info(f"Loaded signal history for {len(self.signal_history)} tickers")
+
+    def _save_signal_history(self):
+        """Save signal history to disk."""
+        data = {
+            'signals': self.signal_history,
+            'last_updated': datetime.now().isoformat()
+        }
+        save_json_file(config.SIGNAL_HISTORY_FILE, data)
+
+    def _save_to_signal_history(self, ticker: str, signal_data: Dict) -> None:
+        """
+        Save signal data to history for future reference.
+
+        This allows us to preserve tier/signal information when syncing from broker.
+
+        Args:
+            ticker: Stock ticker
+            signal_data: Original signal data dictionary
+        """
+        if not signal_data:
+            return
+
+        self.signal_history[ticker] = {
+            'signal_score': signal_data.get('signal_score', 0),
+            'multi_signal_tier': signal_data.get('multi_signal_tier', 'none'),
+            'sector': signal_data.get('sector', 'Unknown'),
+            'entry_price': signal_data.get('entry_price') or signal_data.get('currentPrice', 0),
+            'saved_at': datetime.now().isoformat()
+        }
+        self._save_signal_history()
+        logger.debug(f"Saved signal history for {ticker}")
+
+    def _lookup_signal_info(self, ticker: str) -> Optional[Dict]:
+        """
+        Look up signal information for a ticker.
+
+        Checks signal history first, then approved signals file.
+
+        Args:
+            ticker: Stock ticker
+
+        Returns:
+            Signal info dict or None
+        """
+        # First check signal history
+        if ticker in self.signal_history:
+            return self.signal_history[ticker]
+
+        # Then check approved signals file
+        try:
+            signals = load_json_file(config.APPROVED_SIGNALS_FILE, default=[])
+            if isinstance(signals, list):
+                for signal in signals:
+                    if signal.get('ticker') == ticker:
+                        return {
+                            'signal_score': signal.get('signal_score', 0),
+                            'multi_signal_tier': signal.get('multi_signal_tier', 'none'),
+                            'sector': signal.get('sector', 'Unknown'),
+                            'entry_price': signal.get('entry_price', 0)
+                        }
+        except Exception as e:
+            logger.debug(f"Could not lookup signal for {ticker}: {e}")
+
+        return None
+
     def _sync_positions_from_broker(self):
         """
         Sync positions from broker to local tracking.
@@ -314,8 +386,27 @@ class PositionMonitor:
                 shares = broker_pos['qty']
                 avg_entry = broker_pos['avg_entry_price']
 
-                # Calculate stop loss and take profit from config defaults
-                stop_loss = avg_entry * (1 - config.STOP_LOSS_PCT)
+                # Look up signal history for tier-based stops
+                signal_info = self._lookup_signal_info(ticker)
+
+                if signal_info:
+                    tier = signal_info.get('multi_signal_tier', 'none')
+                    signal_score = signal_info.get('signal_score', 0)
+                    sector = signal_info.get('sector', 'Unknown')
+
+                    # Use tier-based stop loss if available
+                    if tier in config.MULTI_SIGNAL_STOP_LOSS:
+                        stop_loss_pct = config.MULTI_SIGNAL_STOP_LOSS[tier]
+                        logger.info(f"  Using {tier} stop-loss ({stop_loss_pct*100:.0f}%) for {ticker}")
+                    else:
+                        stop_loss_pct = config.STOP_LOSS_PCT
+                else:
+                    tier = 'none'
+                    signal_score = 0
+                    sector = 'Unknown'
+                    stop_loss_pct = config.STOP_LOSS_PCT
+
+                stop_loss = avg_entry * (1 - stop_loss_pct)
                 take_profit = avg_entry * (1 + config.TAKE_PROFIT_PCT)
 
                 # Add position with broker data
@@ -329,16 +420,16 @@ class PositionMonitor:
                     'take_profit': take_profit,
                     'highest_price': broker_pos.get('current_price', avg_entry),
                     'trailing_enabled': False,
-                    'signal_score': 0,  # Unknown
-                    'multi_signal_tier': 'none',  # Unknown
-                    'sector': 'Unknown',
+                    'signal_score': signal_score,
+                    'multi_signal_tier': tier,
+                    'sector': sector,
                     'source': 'broker_sync',
                     'synced_at': datetime.now().isoformat()
                 }
 
                 logger.info(
                     f"  Synced: {ticker} ({shares} shares @ ${avg_entry:.2f}) "
-                    f"- Stop: ${stop_loss:.2f}, Target: ${take_profit:.2f}"
+                    f"- Stop: ${stop_loss:.2f}, Target: ${take_profit:.2f}, Tier: {tier}"
                 )
                 synced_count += 1
 
@@ -404,6 +495,10 @@ class PositionMonitor:
             'multi_signal_tier': signal_data.get('multi_signal_tier', 'none') if signal_data else 'none',
             'sector': signal_data.get('sector', 'Unknown') if signal_data else 'Unknown'
         }
+
+        # Save to signal history for future broker sync reference
+        if signal_data:
+            self._save_to_signal_history(ticker, signal_data)
 
         self.save_positions()
         logger.info(f"Position added: {ticker} x{shares} @ ${entry_price:.2f}")
@@ -633,6 +728,15 @@ class PositionMonitor:
                     pos['trailing_enabled'] = True
                     logger.info(f"{ticker}: Trailing stop ENABLED at +{pnl_pct:.1f}%")
 
+                    # Audit log trailing stop activation
+                    log_audit_event('TRAILING_STOP_ENABLED', {
+                        'ticker': ticker,
+                        'trigger_pnl_pct': round(pnl_pct, 2),
+                        'current_price': round(current_price, 2),
+                        'entry_price': round(entry_price, 2),
+                        'current_stop': round(pos['stop_loss'], 2)
+                    })
+
             # Update trailing stop
             if pos.get('trailing_enabled'):
                 # Determine trailing percentage based on gain
@@ -662,6 +766,18 @@ class PositionMonitor:
                         f"{ticker}: Stop raised ${old_stop:.2f} -> ${new_stop:.2f} "
                         f"(trailing {trailing_pct*100:.0f}%)"
                     )
+
+                    # Audit log the trailing stop update for historical tracking
+                    log_audit_event('TRAILING_STOP_UPDATED', {
+                        'ticker': ticker,
+                        'old_stop': round(old_stop, 2),
+                        'new_stop': round(new_stop, 2),
+                        'trailing_pct': round(trailing_pct * 100, 1),
+                        'current_price': round(current_price, 2),
+                        'highest_price': round(pos.get('highest_price', current_price), 2),
+                        'entry_price': round(entry_price, 2),
+                        'pnl_pct': round(pnl_pct, 2)
+                    })
 
         if updated:
             self.save_positions()
@@ -704,7 +820,29 @@ class PositionMonitor:
                     # Add missing position
                     shares = broker_pos['qty']
                     avg_entry = broker_pos['avg_entry_price']
-                    stop_loss = avg_entry * (1 - config.STOP_LOSS_PCT)
+
+                    # Look up signal history for tier-based stops
+                    signal_info = self._lookup_signal_info(ticker)
+
+                    if signal_info:
+                        tier = signal_info.get('multi_signal_tier', 'none')
+                        signal_score = signal_info.get('signal_score', 0)
+                        sector = signal_info.get('sector', 'Unknown')
+
+                        # Use tier-based stop loss if available
+                        if tier in config.MULTI_SIGNAL_STOP_LOSS:
+                            stop_loss_pct = config.MULTI_SIGNAL_STOP_LOSS[tier]
+                            logger.info(f"  Using {tier} stop-loss ({stop_loss_pct*100:.0f}%) for {ticker}")
+                        else:
+                            stop_loss_pct = config.STOP_LOSS_PCT
+                    else:
+                        tier = 'none'
+                        signal_score = 0
+                        sector = 'Unknown'
+                        stop_loss_pct = config.STOP_LOSS_PCT
+                        logger.info(f"  No signal history for {ticker}, using default {stop_loss_pct*100:.0f}% stop")
+
+                    stop_loss = avg_entry * (1 - stop_loss_pct)
                     take_profit = avg_entry * (1 + config.TAKE_PROFIT_PCT)
 
                     self.positions[ticker] = {
@@ -717,9 +855,9 @@ class PositionMonitor:
                         'take_profit': take_profit,
                         'highest_price': broker_pos.get('current_price', avg_entry),
                         'trailing_enabled': False,
-                        'signal_score': 0,
-                        'multi_signal_tier': 'none',
-                        'sector': 'Unknown',
+                        'signal_score': signal_score,
+                        'multi_signal_tier': tier,
+                        'sector': sector,
                         'source': 'broker_sync',
                         'synced_at': datetime.now().isoformat()
                     }
@@ -727,9 +865,11 @@ class PositionMonitor:
                     corrections['added'].append({
                         'ticker': ticker,
                         'shares': shares,
-                        'entry_price': avg_entry
+                        'entry_price': avg_entry,
+                        'tier': tier,
+                        'stop_loss_pct': stop_loss_pct * 100
                     })
-                    logger.info(f"  ➕ Added {ticker}: {shares} shares @ ${avg_entry:.2f}")
+                    logger.info(f"  ➕ Added {ticker}: {shares} shares @ ${avg_entry:.2f} (stop: ${stop_loss:.2f})")
 
                 elif self.positions[ticker]['shares'] != broker_pos['qty']:
                     # Update quantity mismatch

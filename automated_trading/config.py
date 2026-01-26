@@ -185,6 +185,10 @@ QUEUED_SIGNALS_FILE = os.path.join(DATA_DIR, 'queued_signals.json')
 DAILY_STATE_FILE = os.path.join(DATA_DIR, 'daily_state.json')
 AUDIT_LOG_FILE = os.path.join(DATA_DIR, 'audit_log.jsonl')
 TRADE_HISTORY_FILE = os.path.join(DATA_DIR, 'trade_history.csv')
+SIGNAL_HISTORY_FILE = os.path.join(DATA_DIR, 'signal_history.json')
+
+# Path to approved signals from main pipeline (for tier lookup during broker sync)
+APPROVED_SIGNALS_FILE = os.path.join(os.path.dirname(DATA_DIR), 'data', 'approved_signals.json')
 
 # =============================================================================
 # EMAIL ALERTS
