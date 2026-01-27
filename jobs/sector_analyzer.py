@@ -788,16 +788,22 @@ class SectorAnalyzer:
         # Convert to DataFrame and merge
         sector_df = pd.DataFrame(sector_data)
 
+        # CRITICAL FIX: Use .values to avoid DataFrame index alignment bugs
+        # signals_df may have non-sequential index after filtering/sorting
+        # sector_df has default sequential index [0, 1, 2, ...]
+        # Direct assignment causes pandas to align by index, resulting in wrong sectors!
+        # Using .values forces positional assignment to maintain correct order
+
         # Update sector if we got better data
         if 'sector' in sector_df.columns:
-            signals_df['sector'] = sector_df['sector']
+            signals_df['sector'] = sector_df['sector'].values
 
-        # Add new columns
+        # Add new columns (also use .values to maintain alignment)
         for col in ['sector_etf', 'relative_performance_30d',
                     'relative_performance_60d', 'relative_performance_90d',
                     'sector_signal', 'sector_context']:
             if col in sector_df.columns:
-                signals_df[col] = sector_df[col]
+                signals_df[col] = sector_df[col].values
 
         logger.info("Sector analysis complete")
 
