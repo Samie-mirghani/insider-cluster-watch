@@ -5,10 +5,10 @@
       "entry_price": 41.65,
       "entry_date": "2026-01-26T20:14:30.929305",
       "cost_basis": 5706.05,
-      "stop_loss": 40.949749999999995,
+      "stop_loss": 40.95925,
       "initial_stop_loss": 38.318,
       "take_profit": 46.648,
-      "highest_price": 43.105,
+      "highest_price": 43.115,
       "trailing_enabled": true,
       "signal_score": 7.17775449233638,
       "multi_signal_tier": "none",
@@ -40,7 +40,7 @@
       "stop_loss": 4.781895960000001,
       "initial_stop_loss": 4.781895960000001,
       "take_profit": 5.821438560000001,
-      "highest_price": 5.245,
+      "highest_price": 5.265,
       "trailing_enabled": false,
       "signal_score": 0,
       "multi_signal_tier": "none",
@@ -56,7 +56,7 @@
       "stop_loss": 4.39688792,
       "initial_stop_loss": 4.39688792,
       "take_profit": 5.352733120000001,
-      "highest_price": 4.82,
+      "highest_price": 4.85,
       "trailing_enabled": false,
       "signal_score": 0,
       "multi_signal_tier": "none",
@@ -109,5 +109,5 @@
       "sector": "Steel"
     }
   },
-  "last_updated": "2026-01-27T19:59:46.693011"
+  "last_updated": "2026-01-27T20:27:41.233461"
 }
