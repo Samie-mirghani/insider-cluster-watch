@@ -639,7 +639,12 @@ class TradingEngine:
                 )
 
             # Update trailing stops
-            self.position_monitor.update_trailing_stops()
+            trailing_updates = self.position_monitor.update_trailing_stops()
+            if trailing_updates:
+                results['trailing_stop_updates'] = trailing_updates
+
+            # Build position dashboard (comprehensive risk snapshot)
+            results['position_dashboard'] = self.position_monitor.get_position_dashboard()
 
             # Check for exits
             exits = self.position_monitor.check_exits()
