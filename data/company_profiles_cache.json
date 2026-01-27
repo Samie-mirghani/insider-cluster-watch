@@ -350,13 +350,13 @@
   "ABT": {
     "industry": "Medical - Devices",
     "sector": "Healthcare",
-    "price": 125.2,
+    "price": 108.77,
     "companyName": "Abbott Laboratories",
     "currency": "USD",
-    "beta": 0.714,
-    "range": "110.86-141.23",
+    "beta": 0.72,
+    "range": "105.78-141.23",
     "ipoDate": "1980-03-17",
-    "updated": "2025-12-23T12:41:31.230684",
+    "updated": "2026-01-27T11:38:28.594503",
     "source": "fmp_api"
   },
   "NFLX": {
@@ -4341,6 +4341,42 @@
     "range": "29.52-47.27",
     "ipoDate": "2014-01-28",
     "updated": "2026-01-26T11:36:08.342576",
+    "source": "fmp_api"
+  },
+  "UAA": {
+    "industry": "Apparel - Manufacturers",
+    "sector": "Consumer Cyclical",
+    "price": 6.32,
+    "companyName": "Under Armour, Inc.",
+    "currency": "USD",
+    "beta": 1.817,
+    "range": "4.13-8.72",
+    "ipoDate": "2005-11-18",
+    "updated": "2026-01-27T11:38:28.576644",
+    "source": "fmp_api"
+  },
+  "CXH": {
+    "industry": "Asset Management",
+    "sector": "Financial Services",
+    "price": 8.01,
+    "companyName": "MFS Investment Grade Municipal Trust",
+    "currency": "USD",
+    "beta": 0.728,
+    "range": "7.34-8.21",
+    "ipoDate": "1989-05-19",
+    "updated": "2026-01-27T11:38:28.583512",
+    "source": "fmp_api"
+  },
+  "BDSX": {
+    "industry": "Medical - Diagnostics & Research",
+    "sector": "Healthcare",
+    "price": 10.09,
+    "companyName": "Biodesix, Inc.",
+    "currency": "USD",
+    "beta": 0.597,
+    "range": "3.44-21.6",
+    "ipoDate": "2020-10-28",
+    "updated": "2026-01-27T11:38:28.609283",
     "source": "fmp_api"
   }
 }

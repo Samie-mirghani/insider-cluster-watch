@@ -1,6 +1,6 @@
 {
   "starting_capital": 10000,
-  "cash": 11331.814999999999,
+  "cash": 9555.214999999998,
   "positions": {
     "ALLY": {
       "entry_date": "2026-01-26T11:36:47.241122",
@@ -10,7 +10,7 @@
       "initial_stop_loss": 37.821200000000005,
       "stop_loss": 37.821200000000005,
       "take_profit": 46.043200000000006,
-      "highest_price": 41.11,
+      "highest_price": 42.21,
       "trailing_enabled": false,
       "signal_score": 7.17775449233638,
       "sector": null,
@@ -23,6 +23,72 @@
           "date": "2026-01-26T11:36:47.241126"
         }
       ]
+    },
+    "BDSX": {
+      "entry_date": "2026-01-27T11:39:20.846318",
+      "entry_price": 10.09,
+      "shares": 81,
+      "cost_basis": 817.29,
+      "initial_stop_loss": 9.2828,
+      "stop_loss": 9.2828,
+      "take_profit": 11.3008,
+      "highest_price": 10.09,
+      "trailing_enabled": false,
+      "signal_score": 15.262947352462337,
+      "sector": null,
+      "multi_signal_tier": "none",
+      "has_politician_signal": false,
+      "tranches": [
+        {
+          "shares": 81,
+          "price": 10.09,
+          "date": "2026-01-27T11:39:20.846321"
+        }
+      ]
+    },
+    "GME": {
+      "entry_date": "2026-01-27T11:39:21.108560",
+      "entry_price": 21.1,
+      "shares": 30,
+      "cost_basis": 633.0,
+      "initial_stop_loss": 19.412000000000003,
+      "stop_loss": 19.412000000000003,
+      "take_profit": 23.632000000000005,
+      "highest_price": 21.1,
+      "trailing_enabled": false,
+      "signal_score": 11.864374420633428,
+      "sector": "Steel",
+      "multi_signal_tier": "none",
+      "has_politician_signal": false,
+      "tranches": [
+        {
+          "shares": 30,
+          "price": 21.1,
+          "date": "2026-01-27T11:39:21.108564"
+        }
+      ]
+    },
+    "ABT": {
+      "entry_date": "2026-01-27T11:39:21.361467",
+      "entry_price": 108.77,
+      "shares": 3,
+      "cost_basis": 326.31,
+      "initial_stop_loss": 100.0684,
+      "stop_loss": 100.0684,
+      "take_profit": 121.8224,
+      "highest_price": 108.77,
+      "trailing_enabled": false,
+      "signal_score": 7.44335654875845,
+      "sector": null,
+      "multi_signal_tier": "none",
+      "has_politician_signal": false,
+      "tranches": [
+        {
+          "shares": 3,
+          "price": 108.77,
+          "date": "2026-01-27T11:39:21.361469"
+        }
+      ]
     }
   },
   "pending_entries": {
@@ -32,13 +98,34 @@
       "original_entry": 41.11,
       "expires": "2026-01-31T11:36:47.345037",
       "signal_score": 7.17775449233638
+    },
+    "BDSX": {
+      "shares": 54,
+      "trigger_price": 9.8882,
+      "original_entry": 10.09,
+      "expires": "2026-02-01T11:39:20.987518",
+      "signal_score": 15.262947352462337
+    },
+    "GME": {
+      "shares": 20,
+      "trigger_price": 20.678,
+      "original_entry": 21.1,
+      "expires": "2026-02-01T11:39:21.258441",
+      "signal_score": 11.864374420633428
+    },
+    "ABT": {
+      "shares": 2,
+      "trigger_price": 106.5946,
+      "original_entry": 108.77,
+      "expires": "2026-02-01T11:39:21.527878",
+      "signal_score": 7.44335654875845
     }
   },
-  "total_trades": 28,
+  "total_trades": 31,
   "winning_trades": 21,
   "losing_trades": 7,
   "total_profit": 1723.3600000000001,
-  "max_portfolio_value": 11790.185000000001,
+  "max_portfolio_value": 11841.214999999998,
   "max_drawdown": -9.109194484777545,
-  "last_updated": "2026-01-26T11:36:47.471321"
+  "last_updated": "2026-01-27T11:39:21.766665"
 }

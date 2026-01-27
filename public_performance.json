@@ -1,16 +1,16 @@
 {
-  "last_updated": "January 26, 2026 at 11:36 UTC",
-  "total_return_pct": 17.43,
+  "last_updated": "January 27, 2026 at 11:39 UTC",
+  "total_return_pct": 18.41,
   "win_rate": 75.0,
   "completed_trades": 28,
-  "active_trades": 1,
+  "active_trades": 4,
   "avg_return_per_trade": 10.73,
   "sharpe_ratio": 11.6,
   "max_drawdown": -9.11,
   "avg_hold_days": 10,
   "best_trade_pct": 59.64,
   "worst_trade_pct": -7.61,
-  "alpha_vs_sp500": 17.43,
+  "alpha_vs_sp500": 18.41,
   "avg_winner": 15.54,
   "avg_loser": -3.69,
   "win_loss_ratio": 4.21,
@@ -241,6 +241,27 @@
     {
       "ticker": "ALLY",
       "entry_date": "Jan 26, 2026",
+      "days_held": 1,
+      "unrealized_return": 2.68,
+      "conviction": "MEDIUM"
+    },
+    {
+      "ticker": "BDSX",
+      "entry_date": "Jan 27, 2026",
+      "days_held": 0,
+      "unrealized_return": 0.0,
+      "conviction": "VERY HIGH"
+    },
+    {
+      "ticker": "GME",
+      "entry_date": "Jan 27, 2026",
+      "days_held": 0,
+      "unrealized_return": 13.79,
+      "conviction": "HIGH"
+    },
+    {
+      "ticker": "ABT",
+      "entry_date": "Jan 27, 2026",
       "days_held": 0,
       "unrealized_return": 0.0,
       "conviction": "MEDIUM"
@@ -248,9 +269,9 @@
   ],
   "portfolio_composition": {
     "starting_capital": 10000,
-    "current_value": 11742.91,
-    "cash": 11331.81,
-    "invested_capital": 411.1,
-    "capital_deployed_pct": 3.5
+    "current_value": 11841.21,
+    "cash": 9555.21,
+    "invested_capital": 2286.0,
+    "capital_deployed_pct": 19.31
   }
 }
