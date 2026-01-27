@@ -2,14 +2,14 @@ name: Trading - Position Monitor
 
 on:
   schedule:
-    # During market hours (9:35 AM - 4:00 PM ET = 14:35-21:00 UTC): Every 5 minutes on weekdays
-    - cron: '*/5 14-20 * * 1-5'
-
-    # After hours (4:30 PM - 8:00 PM ET = 21:30-01:00 UTC next day): Every hour on weekdays
-    - cron: '30 21-23 * * 1-5'  # 4:30 PM - 6:30 PM ET
-    - cron: '30 0 * * 2-6'      # 7:30 PM - 8:30 PM ET (next day UTC)
-
-    # Weekend safety monitoring: Every 4 hours on Saturday and Sunday
+    # Market hours (9:35 AM - 4:00 PM ET): Every 5 minutes on weekdays
+    - cron: '35-59/5 14 * * 1-5'   # 9:35–9:55 ET
+    - cron: '*/5 15-20 * * 1-5'    # 10:00–3:55 ET
+    - cron: '0 21 * * 1-5'         # 4:00 PM ET exactly ← ADD THIS
+    # After hours (4:30 PM - 8:30 PM ET): Every hour on weekdays
+    - cron: '30 21-23 * * 1-5'     # 4:30–6:30 PM ET
+    - cron: '30 0,1 * * 2-6'       # 7:30–8:30 PM ET
+    # Weekend safety monitoring: Every 4 hours
     - cron: '0 */4 * * 0,6'
 
   workflow_dispatch:  # Allow manual trigger for testing
