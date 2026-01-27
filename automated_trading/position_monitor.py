@@ -1024,6 +1024,97 @@ class PositionMonitor:
     # Status and Statistics
     # =========================================================================
 
+    def get_position_dashboard(self) -> Dict[str, Any]:
+        """
+        Build a comprehensive dashboard of all positions with risk levels.
+
+        Includes for each position:
+        - Current price, entry price, P&L
+        - Stop loss (absolute and % from current price)
+        - Take profit (absolute and % from current price)
+        - Trailing stop status and highest price tracked
+        - Days held and time-based exit proximity
+        - Dynamic stop tier (big/huge winner)
+
+        Returns:
+            Dashboard dict with position_details list and portfolio summary.
+        """
+        position_details = []
+
+        for ticker, pos in self.positions.items():
+            current_price = self.get_current_price(ticker)
+            if not current_price:
+                current_price = pos['entry_price']
+
+            entry_price = pos['entry_price']
+            shares = pos['shares']
+            pnl_pct = calculate_pnl_pct(entry_price, current_price)
+            pnl_dollars = (current_price - entry_price) * shares
+            days_held = (datetime.now() - pos['entry_date']).days if isinstance(pos.get('entry_date'), datetime) else 0
+
+            stop_loss = pos.get('stop_loss', entry_price * (1 - config.STOP_LOSS_PCT))
+            take_profit = pos.get('take_profit', entry_price * (1 + config.TAKE_PROFIT_PCT))
+            highest_price = pos.get('highest_price', current_price)
+            trailing_enabled = pos.get('trailing_enabled', False)
+
+            # Distance to stop/target from current price
+            stop_distance_pct = ((current_price - stop_loss) / current_price * 100) if current_price > 0 else 0
+            target_distance_pct = ((take_profit - current_price) / current_price * 100) if current_price > 0 else 0
+
+            # Determine active trailing tier
+            trailing_tier = None
+            if trailing_enabled:
+                if pnl_pct > config.HUGE_WINNER_THRESHOLD:
+                    trailing_tier = f'huge_winner ({config.HUGE_WINNER_STOP_PCT*100:.0f}% trail)'
+                elif pnl_pct > config.BIG_WINNER_THRESHOLD:
+                    trailing_tier = f'big_winner ({config.BIG_WINNER_STOP_PCT*100:.0f}% trail)'
+                else:
+                    trailing_tier = f'standard ({config.TRAILING_STOP_PCT*100:.0f}% trail)'
+
+            # Time-based exit warnings
+            time_warnings = []
+            if pnl_pct < 0 and days_held >= config.MAX_HOLD_LOSS_DAYS - 5:
+                remaining = config.MAX_HOLD_LOSS_DAYS - days_held
+                time_warnings.append(f'loss_exit in {remaining}d' if remaining > 0 else 'loss_exit DUE')
+            if 0 <= pnl_pct < config.MAX_HOLD_STAGNANT_THRESHOLD and days_held >= config.MAX_HOLD_STAGNANT_DAYS - 7:
+                remaining = config.MAX_HOLD_STAGNANT_DAYS - days_held
+                time_warnings.append(f'stagnant_exit in {remaining}d' if remaining > 0 else 'stagnant_exit DUE')
+            if days_held >= config.MAX_HOLD_EXTREME_DAYS - 7 and pnl_pct < config.MAX_HOLD_EXTREME_EXCEPTION:
+                remaining = config.MAX_HOLD_EXTREME_DAYS - days_held
+                time_warnings.append(f'max_hold_exit in {remaining}d' if remaining > 0 else 'max_hold_exit DUE')
+
+            detail = {
+                'ticker': ticker,
+                'shares': shares,
+                'entry_price': round(entry_price, 2),
+                'current_price': round(current_price, 2),
+                'pnl_pct': round(pnl_pct, 2),
+                'pnl_dollars': round(pnl_dollars, 2),
+                'days_held': days_held,
+                'stop_loss': round(stop_loss, 2),
+                'stop_distance_pct': round(stop_distance_pct, 2),
+                'take_profit': round(take_profit, 2),
+                'target_distance_pct': round(target_distance_pct, 2),
+                'trailing_stop': {
+                    'enabled': trailing_enabled,
+                    'tier': trailing_tier,
+                    'highest_price': round(highest_price, 2)
+                },
+                'tier': pos.get('tier', 'unknown'),
+            }
+            if time_warnings:
+                detail['time_warnings'] = time_warnings
+
+            position_details.append(detail)
+
+        # Sort by P&L descending
+        position_details.sort(key=lambda x: x['pnl_pct'], reverse=True)
+
+        return {
+            'position_count': len(position_details),
+            'positions': position_details
+        }
+
     def get_status(self) -> Dict[str, Any]:
         """Get comprehensive monitor status."""
         total_pnl = self.calculate_total_pnl()
