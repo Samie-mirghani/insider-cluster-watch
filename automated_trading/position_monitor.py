@@ -1024,22 +1024,29 @@ class PositionMonitor:
     # Status and Statistics
     # =========================================================================
 
-    def get_position_dashboard(self) -> Dict[str, Any]:
+    def format_position_dashboard(self) -> str:
         """
-        Build a comprehensive dashboard of all positions with risk levels.
-
-        Includes for each position:
-        - Current price, entry price, P&L
-        - Stop loss (absolute and % from current price)
-        - Take profit (absolute and % from current price)
-        - Trailing stop status and highest price tracked
-        - Days held and time-based exit proximity
-        - Dynamic stop tier (big/huge winner)
+        Build a human-readable position dashboard for monitor job logs.
 
         Returns:
-            Dashboard dict with position_details list and portfolio summary.
+            Formatted multi-line string with portfolio summary and per-position
+            breakdown of price, P&L, stops, targets, trailing status, and warnings.
         """
-        position_details = []
+        if not self.positions:
+            return (
+                "\n"
+                "=" * 70 + "\n"
+                "  POSITION DASHBOARD\n"
+                "=" * 70 + "\n"
+                f"  {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}  |  No open positions\n"
+                "=" * 70 + "\n"
+            )
+
+        # Gather per-position data
+        rows = []
+        total_cost = 0.0
+        total_value = 0.0
+        total_pnl = 0.0
 
         for ticker, pos in self.positions.items():
             current_price = self.get_current_price(ticker)
@@ -1050,6 +1057,8 @@ class PositionMonitor:
             shares = pos['shares']
             pnl_pct = calculate_pnl_pct(entry_price, current_price)
             pnl_dollars = (current_price - entry_price) * shares
+            cost = entry_price * shares
+            value = current_price * shares
             days_held = (datetime.now() - pos['entry_date']).days if isinstance(pos.get('entry_date'), datetime) else 0
 
             stop_loss = pos.get('stop_loss', entry_price * (1 - config.STOP_LOSS_PCT))
@@ -1057,63 +1066,119 @@ class PositionMonitor:
             highest_price = pos.get('highest_price', current_price)
             trailing_enabled = pos.get('trailing_enabled', False)
 
-            # Distance to stop/target from current price
-            stop_distance_pct = ((current_price - stop_loss) / current_price * 100) if current_price > 0 else 0
-            target_distance_pct = ((take_profit - current_price) / current_price * 100) if current_price > 0 else 0
+            stop_dist = ((current_price - stop_loss) / current_price * 100) if current_price > 0 else 0
+            target_dist = ((take_profit - current_price) / current_price * 100) if current_price > 0 else 0
 
-            # Determine active trailing tier
-            trailing_tier = None
+            # Trailing tier label
             if trailing_enabled:
                 if pnl_pct > config.HUGE_WINNER_THRESHOLD:
-                    trailing_tier = f'huge_winner ({config.HUGE_WINNER_STOP_PCT*100:.0f}% trail)'
+                    trail_label = f"ACTIVE  {config.HUGE_WINNER_STOP_PCT*100:.0f}% huge-winner"
                 elif pnl_pct > config.BIG_WINNER_THRESHOLD:
-                    trailing_tier = f'big_winner ({config.BIG_WINNER_STOP_PCT*100:.0f}% trail)'
+                    trail_label = f"ACTIVE  {config.BIG_WINNER_STOP_PCT*100:.0f}% big-winner"
                 else:
-                    trailing_tier = f'standard ({config.TRAILING_STOP_PCT*100:.0f}% trail)'
+                    trail_label = f"ACTIVE  {config.TRAILING_STOP_PCT*100:.0f}% standard"
+            else:
+                pct_to_trigger = config.TRAILING_TRIGGER_PCT * 100 - pnl_pct
+                if pct_to_trigger > 0:
+                    trail_label = f"OFF  (need +{pct_to_trigger:.1f}% to activate)"
+                else:
+                    trail_label = "OFF"
 
-            # Time-based exit warnings
-            time_warnings = []
+            # Time-based warnings
+            warnings = []
             if pnl_pct < 0 and days_held >= config.MAX_HOLD_LOSS_DAYS - 5:
                 remaining = config.MAX_HOLD_LOSS_DAYS - days_held
-                time_warnings.append(f'loss_exit in {remaining}d' if remaining > 0 else 'loss_exit DUE')
+                warnings.append(f"LOSS EXIT in {remaining}d" if remaining > 0 else "LOSS EXIT DUE")
             if 0 <= pnl_pct < config.MAX_HOLD_STAGNANT_THRESHOLD and days_held >= config.MAX_HOLD_STAGNANT_DAYS - 7:
                 remaining = config.MAX_HOLD_STAGNANT_DAYS - days_held
-                time_warnings.append(f'stagnant_exit in {remaining}d' if remaining > 0 else 'stagnant_exit DUE')
+                warnings.append(f"STAGNANT EXIT in {remaining}d" if remaining > 0 else "STAGNANT EXIT DUE")
             if days_held >= config.MAX_HOLD_EXTREME_DAYS - 7 and pnl_pct < config.MAX_HOLD_EXTREME_EXCEPTION:
                 remaining = config.MAX_HOLD_EXTREME_DAYS - days_held
-                time_warnings.append(f'max_hold_exit in {remaining}d' if remaining > 0 else 'max_hold_exit DUE')
+                warnings.append(f"MAX HOLD EXIT in {remaining}d" if remaining > 0 else "MAX HOLD EXIT DUE")
 
-            detail = {
+            total_cost += cost
+            total_value += value
+            total_pnl += pnl_dollars
+
+            rows.append({
                 'ticker': ticker,
                 'shares': shares,
-                'entry_price': round(entry_price, 2),
-                'current_price': round(current_price, 2),
-                'pnl_pct': round(pnl_pct, 2),
-                'pnl_dollars': round(pnl_dollars, 2),
-                'days_held': days_held,
-                'stop_loss': round(stop_loss, 2),
-                'stop_distance_pct': round(stop_distance_pct, 2),
-                'take_profit': round(take_profit, 2),
-                'target_distance_pct': round(target_distance_pct, 2),
-                'trailing_stop': {
-                    'enabled': trailing_enabled,
-                    'tier': trailing_tier,
-                    'highest_price': round(highest_price, 2)
-                },
-                'tier': pos.get('tier', 'unknown'),
-            }
-            if time_warnings:
-                detail['time_warnings'] = time_warnings
+                'entry': entry_price,
+                'current': current_price,
+                'pnl_pct': pnl_pct,
+                'pnl_dollars': pnl_dollars,
+                'cost': cost,
+                'value': value,
+                'days': days_held,
+                'stop': stop_loss,
+                'stop_dist': stop_dist,
+                'target': take_profit,
+                'target_dist': target_dist,
+                'trail_label': trail_label,
+                'trailing_enabled': trailing_enabled,
+                'highest': highest_price,
+                'tier': pos.get('tier', '?'),
+                'warnings': warnings,
+            })
 
-            position_details.append(detail)
+        # Sort best to worst
+        rows.sort(key=lambda r: r['pnl_pct'], reverse=True)
 
-        # Sort by P&L descending
-        position_details.sort(key=lambda x: x['pnl_pct'], reverse=True)
+        total_pnl_pct = (total_pnl / total_cost * 100) if total_cost > 0 else 0
+        now_str = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
-        return {
-            'position_count': len(position_details),
-            'positions': position_details
-        }
+        # Build output
+        w = 70
+        lines = []
+        lines.append("")
+        lines.append("=" * w)
+        lines.append("  POSITION DASHBOARD")
+        lines.append("=" * w)
+        lines.append(f"  {now_str}  |  {len(rows)} position(s)")
+        lines.append(f"  Portfolio Value: ${total_value:,.2f}  |  "
+                      f"Cost Basis: ${total_cost:,.2f}")
+        pnl_sign = "+" if total_pnl >= 0 else ""
+        lines.append(f"  Total P&L: {pnl_sign}${total_pnl:,.2f}  "
+                      f"({pnl_sign}{total_pnl_pct:.2f}%)")
+        lines.append("=" * w)
+
+        for i, r in enumerate(rows):
+            if i > 0:
+                lines.append("-" * w)
+
+            sign = "+" if r['pnl_pct'] >= 0 else ""
+            dsign = "+" if r['pnl_dollars'] >= 0 else ""
+
+            lines.append(
+                f"  {r['ticker']:<6}  "
+                f"{r['shares']} shares  |  "
+                f"Tier: {r['tier']}  |  "
+                f"Day {r['days']}"
+            )
+            lines.append(
+                f"    Price    : ${r['entry']:.2f} -> ${r['current']:.2f}  "
+                f"({sign}{r['pnl_pct']:.2f}% / {dsign}${r['pnl_dollars']:.2f})"
+            )
+            lines.append(
+                f"    Stop Loss: ${r['stop']:.2f}  "
+                f"({r['stop_dist']:.1f}% below current)"
+            )
+            lines.append(
+                f"    Target   : ${r['target']:.2f}  "
+                f"({r['target_dist']:.1f}% above current)"
+            )
+            trail_line = f"    Trailing : {r['trail_label']}"
+            if r['trailing_enabled']:
+                trail_line += f"  |  High: ${r['highest']:.2f}"
+            lines.append(trail_line)
+
+            if r['warnings']:
+                lines.append(f"    *** {' | '.join(r['warnings'])} ***")
+
+        lines.append("=" * w)
+        lines.append("")
+
+        return "\n".join(lines)
 
     def get_status(self) -> Dict[str, Any]:
         """Get comprehensive monitor status."""

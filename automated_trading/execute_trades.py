@@ -643,9 +643,6 @@ class TradingEngine:
             if trailing_updates:
                 results['trailing_stop_updates'] = trailing_updates
 
-            # Build position dashboard (comprehensive risk snapshot)
-            results['position_dashboard'] = self.position_monitor.get_position_dashboard()
-
             # Check for exits
             exits = self.position_monitor.check_exits()
 
@@ -827,6 +824,7 @@ def main():
         elif args.command == 'monitor':
             results = engine.run_monitoring_cycle()
             print(json.dumps(results, indent=2, default=str))
+            print(engine.position_monitor.format_position_dashboard())
 
         elif args.command == 'eod':
             results = engine.run_end_of_day()
