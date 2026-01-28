@@ -1,42 +1,6 @@
 {
-  "cached_at": "2026-01-27T11:38:49.379184",
+  "cached_at": "2026-01-28T11:39:24.432946",
   "trades": [
-    {
-      "ticker": "HON",
-      "politician": "Angus KingOtherSenateME",
-      "party": "N/A",
-      "trade_date": "2025-12-29",
-      "amount_range": "1K-15K",
-      "asset_name": "Honeywell International Inc",
-      "chamber": "N/A",
-      "transaction_type": "buy",
-      "disclosure_date": null,
-      "state": "N/A",
-      "amount_min": 1000.0,
-      "amount_max": 15000.0,
-      "amount_mid": 8000.0,
-      "politician_weight": 1.0,
-      "weighted_amount": 8000.0,
-      "disclosure_lag_days": NaN
-    },
-    {
-      "ticker": "LLY",
-      "politician": "Angus KingOtherSenateME",
-      "party": "N/A",
-      "trade_date": "2025-12-29",
-      "amount_range": "1K-15K",
-      "asset_name": "Eli Lilly and Co",
-      "chamber": "N/A",
-      "transaction_type": "buy",
-      "disclosure_date": null,
-      "state": "N/A",
-      "amount_min": 1000.0,
-      "amount_max": 15000.0,
-      "amount_mid": 8000.0,
-      "politician_weight": 1.0,
-      "weighted_amount": 8000.0,
-      "disclosure_lag_days": NaN
-    },
     {
       "ticker": "LPAB",
       "politician": "Nancy Pelosi",

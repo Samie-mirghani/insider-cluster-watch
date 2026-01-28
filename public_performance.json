@@ -1,23 +1,23 @@
 {
-  "last_updated": "January 27, 2026 at 11:39 UTC",
-  "total_return_pct": 18.41,
-  "win_rate": 75.0,
-  "completed_trades": 28,
-  "active_trades": 4,
-  "avg_return_per_trade": 10.73,
-  "sharpe_ratio": 11.6,
+  "last_updated": "January 28, 2026 at 11:40 UTC",
+  "total_return_pct": 19.33,
+  "win_rate": 75.9,
+  "completed_trades": 29,
+  "active_trades": 5,
+  "avg_return_per_trade": 10.87,
+  "sharpe_ratio": 11.94,
   "max_drawdown": -9.11,
   "avg_hold_days": 10,
   "best_trade_pct": 59.64,
   "worst_trade_pct": -7.61,
-  "alpha_vs_sp500": 18.41,
-  "avg_winner": 15.54,
+  "alpha_vs_sp500": 18.93,
+  "avg_winner": 15.5,
   "avg_loser": -3.69,
-  "win_loss_ratio": 4.21,
-  "profit_factor": 12.65,
-  "last_30_days_return": 173.4,
+  "win_loss_ratio": 4.2,
+  "profit_factor": 13.22,
+  "last_30_days_return": 188.14,
   "last_10_trades_win_rate": 80.0,
-  "current_streak": 4,
+  "current_streak": 5,
   "current_streak_type": "wins",
   "conviction_performance": [
     {
@@ -28,9 +28,9 @@
     },
     {
       "conviction": "HIGH",
-      "trades": 10,
-      "win_rate": 70.0,
-      "avg_return": 10.78
+      "trades": 11,
+      "win_rate": 72.7,
+      "avg_return": 11.14
     },
     {
       "conviction": "MEDIUM",
@@ -52,10 +52,19 @@
     },
     {
       "month": "2026-01",
-      "return": 173.4
+      "return": 188.14
     }
   ],
   "recent_trades": [
+    {
+      "ticker": "GME",
+      "entry_date": "Jan 27, 2026",
+      "exit_date": "Jan 28, 2026",
+      "hold_days": 0,
+      "return_pct": 14.74,
+      "conviction": "HIGH",
+      "exit_reason": "Take Profit"
+    },
     {
       "ticker": "IMRX",
       "entry_date": "Jan 23, 2026",
@@ -226,52 +235,50 @@
       "return_pct": 8.53,
       "conviction": "VERY HIGH",
       "exit_reason": "Take Profit"
-    },
-    {
-      "ticker": "WSBC",
-      "entry_date": "Dec 03, 2025",
-      "exit_date": "Dec 19, 2025",
-      "hold_days": 15,
-      "return_pct": 8.19,
-      "conviction": "VERY HIGH",
-      "exit_reason": "Take Profit"
     }
   ],
   "open_positions": [
     {
       "ticker": "ALLY",
       "entry_date": "Jan 26, 2026",
-      "days_held": 1,
-      "unrealized_return": 2.68,
+      "days_held": 2,
+      "unrealized_return": 4.33,
       "conviction": "MEDIUM"
     },
     {
       "ticker": "BDSX",
       "entry_date": "Jan 27, 2026",
-      "days_held": 0,
-      "unrealized_return": 0.0,
+      "days_held": 1,
+      "unrealized_return": 9.81,
       "conviction": "VERY HIGH"
-    },
-    {
-      "ticker": "GME",
-      "entry_date": "Jan 27, 2026",
-      "days_held": 0,
-      "unrealized_return": 13.79,
-      "conviction": "HIGH"
     },
     {
       "ticker": "ABT",
       "entry_date": "Jan 27, 2026",
+      "days_held": 1,
+      "unrealized_return": -0.46,
+      "conviction": "MEDIUM"
+    },
+    {
+      "ticker": "TCBI",
+      "entry_date": "Jan 28, 2026",
       "days_held": 0,
       "unrealized_return": 0.0,
       "conviction": "MEDIUM"
+    },
+    {
+      "ticker": "THM",
+      "entry_date": "Jan 28, 2026",
+      "days_held": 0,
+      "unrealized_return": 0.0,
+      "conviction": "LOW"
     }
   ],
   "portfolio_composition": {
     "starting_capital": 10000,
-    "current_value": 11841.21,
-    "cash": 9555.21,
-    "invested_capital": 2286.0,
-    "capital_deployed_pct": 19.31
+    "current_value": 11932.7,
+    "cash": 9403.04,
+    "invested_capital": 2529.66,
+    "capital_deployed_pct": 21.2
   }
 }
