@@ -90,10 +90,37 @@ class TradingEngine:
         self.position_monitor: Optional[PositionMonitor] = None
         self.alert_sender: Optional[AlertSender] = None
 
-        # Track exits for EOD summary
-        self.exits_today: List[Dict[str, Any]] = []
+        # Track exits for EOD summary (persisted to disk)
+        self.exits_today: List[Dict[str, Any]] = self._load_exits_today()
 
         self._connect()
+
+    def _load_exits_today(self) -> List[Dict[str, Any]]:
+        """Load today's exits from disk (persisted across job runs)."""
+        data = load_json_file(config.EXITS_TODAY_FILE, default={'date': None, 'exits': []})
+        today = datetime.now().strftime('%Y-%m-%d')
+
+        # Only load exits from today; if it's a new day, start fresh
+        if data.get('date') == today:
+            logger.info(f"Loaded {len(data.get('exits', []))} exits from today")
+            return data.get('exits', [])
+        else:
+            logger.info("New trading day - starting with fresh exits list")
+            return []
+
+    def _save_exits_today(self):
+        """Save today's exits to disk for persistence across job runs."""
+        data = {
+            'date': datetime.now().strftime('%Y-%m-%d'),
+            'exits': self.exits_today
+        }
+        save_json_file(config.EXITS_TODAY_FILE, data)
+
+    def _clear_exits_today(self):
+        """Clear exits after EOD summary is sent."""
+        self.exits_today = []
+        self._save_exits_today()
+        logger.info("Cleared exits_today after EOD summary")
 
     def _connect(self):
         """Connect to Alpaca and initialize components."""
@@ -414,7 +441,7 @@ class TradingEngine:
             # Remove from local tracking
             self.position_monitor.remove_position(ticker)
 
-            # Track exit for EOD summary (replaces individual email)
+            # Track exit for EOD summary (persisted to disk for cross-job continuity)
             self.exits_today.append({
                 'ticker': ticker,
                 'shares': shares,
@@ -425,6 +452,7 @@ class TradingEngine:
                 'reason': reason,
                 'time': datetime.now().isoformat()
             })
+            self._save_exits_today()  # Persist immediately
 
             logger.info(f"Exit tracked for EOD summary: {ticker} ({reason}) - P&L: ${pnl:+,.2f}")
 
@@ -775,6 +803,7 @@ class TradingEngine:
         self.signal_queue.cleanup_stale_signals()
 
         # Send daily summary (includes exits to reduce email volume)
+        logger.info(f"Sending EOD summary with {len(self.exits_today)} exits")
         self.alert_sender.send_daily_summary_alert(
             portfolio_value=portfolio_value,
             daily_pnl=daily_pnl,
@@ -784,12 +813,17 @@ class TradingEngine:
             exits_today=self.exits_today  # Include exits in EOD summary
         )
 
+        # Clear exits after EOD email is sent (they've been reported)
+        exits_count = len(self.exits_today)
+        self._clear_exits_today()
+
         summary = {
             'date': datetime.now().strftime('%Y-%m-%d'),
             'portfolio_value': portfolio_value,
             'daily_pnl': daily_pnl,
             'trades_executed': trades_today,
             'open_positions': open_positions,
+            'exits_reported': exits_count,
             'circuit_breaker': self.position_monitor.circuit_breaker.get_status()
         }
 

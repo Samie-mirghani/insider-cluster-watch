@@ -52,6 +52,10 @@ def initialize_data_directory():
         'signal_history.json': {
             'signals': {},
             'last_updated': datetime.now().isoformat()
+        },
+        'exits_today.json': {
+            'date': None,
+            'exits': []
         }
     }
 
