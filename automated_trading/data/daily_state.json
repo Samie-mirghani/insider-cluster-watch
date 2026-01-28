@@ -1,7 +1,7 @@
 {
   "date": "2026-01-28",
-  "daily_pnl": -142.20000000000033,
-  "consecutive_losses": 1,
+  "daily_pnl": -638.5750000000002,
+  "consecutive_losses": 2,
   "is_halted": false,
   "halt_reason": null,
   "trades_today": [
@@ -9,7 +9,12 @@
       "ticker": "BDSX",
       "pnl": -142.20000000000033,
       "time": "2026-01-28T15:00:38.037276"
+    },
+    {
+      "ticker": "THM",
+      "pnl": -496.37499999999983,
+      "time": "2026-01-28T19:03:27.692872"
     }
   ],
-  "last_updated": "2026-01-28T15:00:38.037311"
+  "last_updated": "2026-01-28T19:03:27.692899"
 }
