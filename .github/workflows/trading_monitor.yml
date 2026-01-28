@@ -67,6 +67,7 @@ jobs:
           git add -f automated_trading/data/pending_orders.json || true
           git add -f automated_trading/data/queued_signals.json || true
           git add -f automated_trading/data/signal_history.json || true
+          git add -f automated_trading/data/exits_today.json || true
 
           # Only commit if there are changes
           if git diff --staged --quiet; then
