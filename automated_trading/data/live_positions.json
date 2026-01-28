@@ -77,7 +77,35 @@
       "signal_score": 11.864374420633428,
       "multi_signal_tier": "none",
       "sector": "Steel"
+    },
+    "TCBI": {
+      "shares": 66,
+      "entry_price": 97.45,
+      "entry_date": "2026-01-28T17:00:20.350076",
+      "cost_basis": 6431.7,
+      "stop_loss": 89.65400000000001,
+      "initial_stop_loss": 89.65400000000001,
+      "take_profit": 109.14400000000002,
+      "highest_price": 97.45,
+      "trailing_enabled": false,
+      "signal_score": 9.424636760288086,
+      "multi_signal_tier": "none",
+      "sector": "Banks - Regional"
+    },
+    "THM": {
+      "shares": 1805,
+      "entry_price": 3.01,
+      "entry_date": "2026-01-28T17:00:20.384840",
+      "cost_basis": 5433.049999999999,
+      "stop_loss": 2.7692,
+      "initial_stop_loss": 2.7692,
+      "take_profit": 3.3712,
+      "highest_price": 3.01,
+      "trailing_enabled": false,
+      "signal_score": 6.688048754634776,
+      "multi_signal_tier": "none",
+      "sector": "Gold"
     }
   },
-  "last_updated": "2026-01-28T16:24:47.338533"
+  "last_updated": "2026-01-28T17:00:20.385231"
 }
