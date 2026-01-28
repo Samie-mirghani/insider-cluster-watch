@@ -80,20 +80,6 @@
       "source": "broker_sync",
       "synced_at": "2026-01-26T20:14:30.930484"
     },
-    "BDSX": {
-      "shares": 948,
-      "entry_price": 10.73,
-      "entry_date": "2026-01-27T15:21:52.210060",
-      "cost_basis": 10172.04,
-      "stop_loss": 10.606749999999998,
-      "initial_stop_loss": 9.8716,
-      "take_profit": 12.017600000000002,
-      "highest_price": 11.165,
-      "trailing_enabled": true,
-      "signal_score": 15.262947352462337,
-      "multi_signal_tier": "none",
-      "sector": null
-    },
     "GME": {
       "shares": 373,
       "entry_price": 23.48,
@@ -109,5 +95,5 @@
       "sector": "Steel"
     }
   },
-  "last_updated": "2026-01-27T20:27:41.233461"
+  "last_updated": "2026-01-28T15:00:38.038032"
 }
