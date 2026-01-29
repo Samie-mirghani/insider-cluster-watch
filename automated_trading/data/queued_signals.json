@@ -1,36 +1,6 @@
 {
-  "signals": {
-    "ABT": {
-      "ticker": "ABT",
-      "signal_score": 7.44335654875845,
-      "entry_price": 108.77,
-      "original_price": 108.77,
-      "queued_at": "2026-01-27T15:00:11.004977",
-      "queued_reason": "Insufficient cash (need $5687.56, have $4545.15)",
-      "signal_data": {
-        "ticker": "ABT",
-        "signal_score": 7.44335654875845,
-        "entry_price": 108.77,
-        "company_name": "",
-        "sector": null,
-        "industry": "Medical - Devices",
-        "market_cap": null,
-        "quality_score": 0,
-        "multi_signal_tier": "none",
-        "politician_trades": 0,
-        "institutional_count": 0,
-        "pattern_detected": null,
-        "insider_count": 1,
-        "total_shares_bought": 0,
-        "buy_value": 2013967.0,
-        "short_percent_float": 0.0101,
-        "squeeze_potential": false,
-        "date_generated": "2026-01-27 11:39:20"
-      },
-      "eligible_for_redeployment": true
-    }
-  },
+  "signals": {},
   "daily_redeployments": 0,
   "last_reset_date": "2026-01-29",
-  "last_updated": "2026-01-29T03:08:41.795648"
+  "last_updated": "2026-01-29T21:51:54.854177"
 }
