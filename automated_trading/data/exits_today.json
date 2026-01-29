@@ -1,4 +1,25 @@
 {
-  "date": "2026-01-28",
-  "exits": []
+  "date": "2026-01-29",
+  "exits": [
+    {
+      "ticker": "CABA",
+      "shares": 8615,
+      "entry_price": 3.001707,
+      "exit_price": 2.71,
+      "pnl": -2513.0558050000013,
+      "pnl_pct": -9.718037103554748,
+      "reason": "STOP_LOSS",
+      "time": "2026-01-29T15:08:48.248456"
+    },
+    {
+      "ticker": "GME",
+      "shares": 373,
+      "entry_price": 23.48,
+      "exit_price": 22.9555,
+      "pnl": -195.6384999999999,
+      "pnl_pct": -2.233816013628619,
+      "reason": "STOP_LOSS (TRAILING)",
+      "time": "2026-01-29T15:08:48.421892"
+    }
+  ]
 }

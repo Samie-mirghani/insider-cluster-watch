@@ -16,22 +16,6 @@
       "source": "broker_sync",
       "synced_at": "2026-01-26T20:14:30.929307"
     },
-    "CABA": {
-      "shares": 8615,
-      "entry_price": 3.001707,
-      "entry_date": "2026-01-26T20:14:30.929625",
-      "cost_basis": 25859.705805,
-      "stop_loss": 2.7615704400000003,
-      "initial_stop_loss": 2.7615704400000003,
-      "take_profit": 3.3619118400000003,
-      "highest_price": 3.045,
-      "trailing_enabled": false,
-      "signal_score": 0,
-      "multi_signal_tier": "none",
-      "sector": "Unknown",
-      "source": "broker_sync",
-      "synced_at": "2026-01-26T20:14:30.929626"
-    },
     "MIGI": {
       "shares": 2829,
       "entry_price": 4.779226,
@@ -64,20 +48,6 @@
       "source": "broker_sync",
       "synced_at": "2026-01-26T20:14:30.930484"
     },
-    "GME": {
-      "shares": 373,
-      "entry_price": 23.48,
-      "entry_date": "2026-01-27T15:21:52.286877",
-      "cost_basis": 8758.04,
-      "stop_loss": 23.132405000000002,
-      "initial_stop_loss": 21.6016,
-      "take_profit": 26.297600000000003,
-      "highest_price": 24.3499,
-      "trailing_enabled": true,
-      "signal_score": 11.864374420633428,
-      "multi_signal_tier": "none",
-      "sector": "Steel"
-    },
     "TCBI": {
       "shares": 66,
       "entry_price": 97.45,
@@ -86,12 +56,40 @@
       "stop_loss": 89.65400000000001,
       "initial_stop_loss": 89.65400000000001,
       "take_profit": 109.14400000000002,
-      "highest_price": 97.59,
+      "highest_price": 99.37,
       "trailing_enabled": false,
       "signal_score": 9.424636760288086,
       "multi_signal_tier": "none",
       "sector": "Banks - Regional"
+    },
+    "GDV": {
+      "shares": 195,
+      "entry_price": 28.68,
+      "entry_date": "2026-01-29T15:08:46.949029",
+      "cost_basis": 5592.6,
+      "stop_loss": 26.3856,
+      "initial_stop_loss": 26.3856,
+      "take_profit": 32.1216,
+      "highest_price": 28.68,
+      "trailing_enabled": false,
+      "signal_score": 7.388243095394204,
+      "multi_signal_tier": "none",
+      "sector": "Asset Management - Income"
+    },
+    "HLXC": {
+      "shares": 554,
+      "entry_price": 10.35,
+      "entry_date": "2026-01-29T15:08:46.889116",
+      "cost_basis": 5733.9,
+      "stop_loss": 9.522,
+      "initial_stop_loss": 9.522,
+      "take_profit": 11.592,
+      "highest_price": 10.35,
+      "trailing_enabled": false,
+      "signal_score": 7.960607084241539,
+      "multi_signal_tier": "none",
+      "sector": "Shell Companies"
     }
   },
-  "last_updated": "2026-01-28T19:03:27.693558"
+  "last_updated": "2026-01-29T15:08:48.421314"
 }
