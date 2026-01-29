@@ -1,7 +1,7 @@
 {
   "date": "2026-01-29",
-  "daily_pnl": -2708.6943050000013,
-  "consecutive_losses": 2,
+  "daily_pnl": -4007.8446590000017,
+  "consecutive_losses": 3,
   "is_halted": false,
   "halt_reason": null,
   "trades_today": [
@@ -14,7 +14,12 @@
       "ticker": "GME",
       "pnl": -195.6384999999999,
       "time": "2026-01-29T15:08:48.420641"
+    },
+    {
+      "ticker": "MIGI",
+      "pnl": -1299.1503540000003,
+      "time": "2026-01-29T19:46:42.392562"
     }
   ],
-  "last_updated": "2026-01-29T15:08:48.420658"
+  "last_updated": "2026-01-29T19:46:42.392575"
 }

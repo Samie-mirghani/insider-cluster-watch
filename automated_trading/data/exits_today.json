@@ -20,6 +20,16 @@
       "pnl_pct": -2.233816013628619,
       "reason": "STOP_LOSS (TRAILING)",
       "time": "2026-01-29T15:08:48.421892"
+    },
+    {
+      "ticker": "MIGI",
+      "shares": 2829,
+      "entry_price": 4.779226,
+      "exit_price": 4.32,
+      "pnl": -1299.1503540000003,
+      "pnl_pct": -9.608794394740908,
+      "reason": "STOP_LOSS",
+      "time": "2026-01-29T19:46:42.393546"
     }
   ]
 }
