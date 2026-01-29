@@ -4546,5 +4546,65 @@
     "ipoDate": "1980-03-17",
     "updated": "2026-01-28T11:38:57.000919",
     "source": "fmp_api"
+  },
+  "HLXC": {
+    "industry": "Shell Companies",
+    "sector": "Financial Services",
+    "price": 10.26,
+    "companyName": "Helix Acquisition Corp. III Class A Ordinary Shares",
+    "currency": "USD",
+    "beta": 0,
+    "range": "10.17-10.355",
+    "ipoDate": "2025-12-11",
+    "updated": "2026-01-29T11:47:50.874998",
+    "source": "fmp_api"
+  },
+  "SMBK": {
+    "industry": "Banks - Regional",
+    "sector": "Financial Services",
+    "price": 39.1,
+    "companyName": "SmartFinancial, Inc.",
+    "currency": "USD",
+    "beta": 0.752,
+    "range": "26.31-42.96",
+    "ipoDate": "2003-10-07",
+    "updated": "2026-01-29T11:47:51.095621",
+    "source": "fmp_api"
+  },
+  "LOB": {
+    "industry": "Banks - Regional",
+    "sector": "Financial Services",
+    "price": 38.31,
+    "companyName": "Live Oak Bancshares, Inc.",
+    "currency": "USD",
+    "beta": 2.027,
+    "range": "22.68-42.89",
+    "ipoDate": "2015-07-23",
+    "updated": "2026-01-29T11:47:51.123959",
+    "source": "fmp_api"
+  },
+  "AASP": {
+    "industry": "Shell Companies",
+    "sector": "Financial Services",
+    "price": 5.25,
+    "companyName": "Agassi Sports Entertainment Corp.",
+    "currency": "USD",
+    "beta": 0.123,
+    "range": "1.7-8.4",
+    "ipoDate": "2005-03-09",
+    "updated": "2026-01-29T11:47:51.164099",
+    "source": "fmp_api"
+  },
+  "UBSI": {
+    "industry": "Banks - Regional",
+    "sector": "Financial Services",
+    "price": 41.74,
+    "companyName": "United Bankshares, Inc.",
+    "currency": "USD",
+    "beta": 0.796,
+    "range": "30.51-43.78",
+    "ipoDate": "1987-06-04",
+    "updated": "2026-01-29T11:47:51.311151",
+    "source": "fmp_api"
   }
 }

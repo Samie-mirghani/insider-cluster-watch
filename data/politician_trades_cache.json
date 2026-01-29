@@ -1,5 +1,5 @@
 {
-  "cached_at": "2026-01-28T11:39:24.432946",
+  "cached_at": "2026-01-29T11:48:30.274915",
   "trades": [
     {
       "ticker": "LPAB",
@@ -38,42 +38,6 @@
       "disclosure_lag_days": NaN
     },
     {
-      "ticker": "GOOGL",
-      "politician": "Nancy Pelosi",
-      "party": "Democrat",
-      "trade_date": "2025-12-30",
-      "amount_range": "250K-500K",
-      "asset_name": "Alphabet Inc",
-      "chamber": "House",
-      "transaction_type": "buy",
-      "disclosure_date": null,
-      "state": "CA",
-      "amount_min": 250000.0,
-      "amount_max": 500000.0,
-      "amount_mid": 375000.0,
-      "politician_weight": 0.4,
-      "weighted_amount": 150000.0,
-      "disclosure_lag_days": NaN
-    },
-    {
-      "ticker": "AMZN",
-      "politician": "Nancy Pelosi",
-      "party": "Democrat",
-      "trade_date": "2025-12-30",
-      "amount_range": "100K-250K",
-      "asset_name": "Amazon.com Inc",
-      "chamber": "House",
-      "transaction_type": "buy",
-      "disclosure_date": null,
-      "state": "CA",
-      "amount_min": 100000.0,
-      "amount_max": 250000.0,
-      "amount_mid": 175000.0,
-      "politician_weight": 0.4,
-      "weighted_amount": 70000.0,
-      "disclosure_lag_days": NaN
-    },
-    {
       "ticker": "AMZN",
       "politician": "Nancy Pelosi",
       "party": "Democrat",
@@ -89,42 +53,6 @@
       "amount_mid": 750000.0,
       "politician_weight": 0.4,
       "weighted_amount": 300000.0,
-      "disclosure_lag_days": NaN
-    },
-    {
-      "ticker": "AAPL",
-      "politician": "Nancy Pelosi",
-      "party": "Democrat",
-      "trade_date": "2025-12-30",
-      "amount_range": "250K-500K",
-      "asset_name": "Apple Inc",
-      "chamber": "House",
-      "transaction_type": "buy",
-      "disclosure_date": null,
-      "state": "CA",
-      "amount_min": 250000.0,
-      "amount_max": 500000.0,
-      "amount_mid": 375000.0,
-      "politician_weight": 0.4,
-      "weighted_amount": 150000.0,
-      "disclosure_lag_days": NaN
-    },
-    {
-      "ticker": "NVDA",
-      "politician": "Nancy Pelosi",
-      "party": "Democrat",
-      "trade_date": "2025-12-30",
-      "amount_range": "100K-250K",
-      "asset_name": "NVIDIA Corporation",
-      "chamber": "House",
-      "transaction_type": "buy",
-      "disclosure_date": null,
-      "state": "CA",
-      "amount_min": 100000.0,
-      "amount_max": 250000.0,
-      "amount_mid": 175000.0,
-      "politician_weight": 0.4,
-      "weighted_amount": 70000.0,
       "disclosure_lag_days": NaN
     },
     {
