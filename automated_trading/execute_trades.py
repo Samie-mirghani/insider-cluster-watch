@@ -32,6 +32,7 @@ from .signal_queue import SignalQueue, create_signal_queue
 from .position_monitor import PositionMonitor, create_position_monitor, CircuitBreakerState
 from .reconciliation import Reconciler
 from .alerts import AlertSender, create_alert_sender
+from .execution_metrics import ExecutionMetrics, create_execution_metrics
 from .utils import (
     load_json_file,
     save_json_file,
@@ -89,6 +90,7 @@ class TradingEngine:
         self.signal_queue: Optional[SignalQueue] = None
         self.position_monitor: Optional[PositionMonitor] = None
         self.alert_sender: Optional[AlertSender] = None
+        self.execution_metrics: Optional[ExecutionMetrics] = None
 
         # Track exits for EOD summary (persisted to disk)
         self.exits_today: List[Dict[str, Any]] = self._load_exits_today()
@@ -144,6 +146,7 @@ class TradingEngine:
             self.signal_queue = create_signal_queue()
             self.position_monitor = create_position_monitor(self.alpaca_client)
             self.alert_sender = create_alert_sender()
+            self.execution_metrics = create_execution_metrics()
 
             logger.info("All components initialized successfully")
 
@@ -328,11 +331,21 @@ class TradingEngine:
             logger.warning(f"Order {client_order_id} already exists")
             return False, "Duplicate order"
 
-        # Create order record (use entry_price for market orders)
+        # Determine order type and limit price
+        if config.USE_LIMIT_ORDERS:
+            # Use limit order with cushion to protect against slippage
+            limit_price = entry_price * (1 + config.LIMIT_ORDER_CUSHION_PCT / 100)
+            order_type_label = "LIMIT"
+        else:
+            # Market order (immediate fill, no price protection)
+            limit_price = entry_price
+            order_type_label = "MARKET"
+
+        # Create order record
         order, error = self.order_manager.create_buy_order(
             ticker=ticker,
             shares=shares,
-            limit_price=entry_price,  # For tracking, using entry_price as reference
+            limit_price=limit_price,
             signal_data=signal
         )
 
@@ -341,14 +354,25 @@ class TradingEngine:
             return False, error
 
         try:
-            # Submit to Alpaca (MARKET ORDER for immediate fill)
-            logger.info(f"Submitting MARKET order: {ticker} x{shares} @ market price")
-
-            alpaca_order = self.alpaca_client.submit_market_buy(
-                symbol=ticker,
-                qty=shares,
-                client_order_id=client_order_id
-            )
+            # Submit to Alpaca
+            if config.USE_LIMIT_ORDERS:
+                logger.info(
+                    f"Submitting LIMIT order: {ticker} x{shares} @ ${limit_price:.2f} "
+                    f"(signal: ${entry_price:.2f}, cushion: {config.LIMIT_ORDER_CUSHION_PCT}%)"
+                )
+                alpaca_order = self.alpaca_client.submit_limit_buy(
+                    symbol=ticker,
+                    qty=shares,
+                    limit_price=limit_price,
+                    client_order_id=client_order_id
+                )
+            else:
+                logger.info(f"Submitting MARKET order: {ticker} x{shares} @ market price")
+                alpaca_order = self.alpaca_client.submit_market_buy(
+                    symbol=ticker,
+                    qty=shares,
+                    client_order_id=client_order_id
+                )
 
             # Update order manager
             self.order_manager.mark_order_submitted(
@@ -650,10 +674,11 @@ class TradingEngine:
             return results
 
         try:
-            # Update pending orders
+            # Update pending orders and track execution metrics
             order_results = self.order_manager.update_orders_from_broker(
                 self.alpaca_client,
-                on_fill_callback=self._on_order_filled
+                on_fill_callback=self._on_order_filled,
+                execution_metrics=self.execution_metrics
             )
             results['orders_filled'] = [o['ticker'] for o in order_results['filled']]
 
@@ -813,8 +838,8 @@ class TradingEngine:
 
         open_positions = len(self.position_monitor.positions)
 
-        # Cleanup
-        self.order_manager.cleanup_expired_orders()
+        # Cleanup and track unfilled orders
+        self.order_manager.cleanup_expired_orders(execution_metrics=self.execution_metrics)
         self.signal_queue.cleanup_stale_signals()
 
         # Send daily summary (includes exits to reduce email volume)
