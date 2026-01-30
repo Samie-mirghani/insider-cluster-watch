@@ -120,6 +120,9 @@ MAX_DRAWDOWN_WARNING_PCT = 10.0  # Warning if drawdown > 10%
 MAX_CONSECUTIVE_LOSSES = 5       # Pause after 5 consecutive losers
 CONSECUTIVE_LOSS_COOLDOWN_HOURS = 24  # Wait 24 hours before resuming
 
+# Daily trade limit - prevents overtrading in volatile markets
+MAX_TRADES_PER_DAY = 15          # Maximum 15 trades (buys + sells) per day
+
 # Slippage monitoring
 MAX_SLIPPAGE_ALERT_PCT = 3.0     # Alert if execution differs > 3% from signal
 
@@ -132,18 +135,19 @@ ENABLE_INTRADAY_REDEPLOYMENT = True
 # Safeguards for intraday redeployment
 REDEPLOYMENT_PRICE_TOLERANCE_PCT = 3.0  # Only if price within ±3% of signal
 REDEPLOYMENT_MIN_TIME_BEFORE_CLOSE = 30  # Minutes before close (don't trade last 30 min)
-REDEPLOYMENT_MAX_PER_DAY = 1     # Max 1 intraday redeployment per day
+REDEPLOYMENT_MAX_PER_DAY = 5     # Max 5 intraday redeployments per day
 REDEPLOYMENT_MIN_FREED_CAPITAL = 100  # Minimum freed capital to trigger ($100)
 
 # =============================================================================
 # ORDER EXECUTION PARAMETERS
 # =============================================================================
 # Order types and timing
-# NOTE: Using market orders for immediate execution at current market price.
-# This ensures orders are filled quickly during volatile market conditions.
-# The system already has stop losses and circuit breakers for risk management.
-USE_LIMIT_ORDERS = False         # Use market orders for immediate execution
-LIMIT_ORDER_CUSHION_PCT = 0.5    # (Not used with market orders, kept for reference)
+# CRITICAL FIX: Using limit orders with 1.5% cushion to protect against slippage
+# Analysis shows common slippage of 2-5% on market orders, which immediately puts
+# positions at a disadvantage. Limit orders prevent bad fills at the cost of some
+# unfilled orders (which get queued for redeployment).
+USE_LIMIT_ORDERS = True          # Use limit orders for price protection
+LIMIT_ORDER_CUSHION_PCT = 1.5    # 1.5% cushion above signal price for buys
 STOP_LIMIT_SPREAD_PCT = 2.0      # 2% below stop for stop-limit orders
 
 # Time in force
@@ -167,7 +171,9 @@ PRE_MARKET_START = time(4, 0)    # 4:00 AM ET
 AFTER_HOURS_END = time(20, 0)    # 8:00 PM ET
 
 # Trading window (when we execute)
-EXECUTION_START_TIME = time(9, 35)  # Start 5 min after open (avoid volatility)
+# NOTE: Executing at 10:00 AM (30 min after open) allows volatility to settle
+# and spreads to tighten, improving limit order fill rates
+EXECUTION_START_TIME = time(10, 0)  # Start 30 min after open for better fills
 EXECUTION_END_TIME = time(15, 30)   # Stop 30 min before close
 
 # =============================================================================
@@ -190,6 +196,7 @@ EXITS_TODAY_FILE = os.path.join(DATA_DIR, 'exits_today.json')
 AUDIT_LOG_FILE = os.path.join(DATA_DIR, 'audit_log.jsonl')
 TRADE_HISTORY_FILE = os.path.join(DATA_DIR, 'trade_history.csv')
 SIGNAL_HISTORY_FILE = os.path.join(DATA_DIR, 'signal_history.json')
+EXECUTION_METRICS_FILE = os.path.join(DATA_DIR, 'execution_metrics.json')
 
 # Path to approved signals from main pipeline (for tier lookup during broker sync)
 # Note: This is in the main data/ directory, not automated_trading/data/

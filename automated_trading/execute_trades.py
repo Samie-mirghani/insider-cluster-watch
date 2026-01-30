@@ -32,6 +32,7 @@ from .signal_queue import SignalQueue, create_signal_queue
 from .position_monitor import PositionMonitor, create_position_monitor, CircuitBreakerState
 from .reconciliation import Reconciler
 from .alerts import AlertSender, create_alert_sender
+from .execution_metrics import ExecutionMetrics, create_execution_metrics
 from .utils import (
     load_json_file,
     save_json_file,
@@ -89,6 +90,7 @@ class TradingEngine:
         self.signal_queue: Optional[SignalQueue] = None
         self.position_monitor: Optional[PositionMonitor] = None
         self.alert_sender: Optional[AlertSender] = None
+        self.execution_metrics: Optional[ExecutionMetrics] = None
 
         # Track exits for EOD summary (persisted to disk)
         self.exits_today: List[Dict[str, Any]] = self._load_exits_today()
@@ -144,6 +146,7 @@ class TradingEngine:
             self.signal_queue = create_signal_queue()
             self.position_monitor = create_position_monitor(self.alpaca_client)
             self.alert_sender = create_alert_sender()
+            self.execution_metrics = create_execution_metrics()
 
             logger.info("All components initialized successfully")
 
@@ -328,12 +331,23 @@ class TradingEngine:
             logger.warning(f"Order {client_order_id} already exists")
             return False, "Duplicate order"
 
-        # Create order record (use entry_price for market orders)
+        # Determine order type and limit price
+        if config.USE_LIMIT_ORDERS:
+            # Use limit order with cushion to protect against slippage
+            limit_price = entry_price * (1 + config.LIMIT_ORDER_CUSHION_PCT / 100)
+            order_type = "LIMIT"
+        else:
+            # Market order (immediate fill, no price protection)
+            limit_price = entry_price
+            order_type = "MARKET"
+
+        # Create order record
         order, error = self.order_manager.create_buy_order(
             ticker=ticker,
             shares=shares,
-            limit_price=entry_price,  # For tracking, using entry_price as reference
-            signal_data=signal
+            limit_price=limit_price,
+            signal_data=signal,
+            order_type=order_type
         )
 
         if not order:
@@ -341,14 +355,25 @@ class TradingEngine:
             return False, error
 
         try:
-            # Submit to Alpaca (MARKET ORDER for immediate fill)
-            logger.info(f"Submitting MARKET order: {ticker} x{shares} @ market price")
-
-            alpaca_order = self.alpaca_client.submit_market_buy(
-                symbol=ticker,
-                qty=shares,
-                client_order_id=client_order_id
-            )
+            # Submit to Alpaca
+            if config.USE_LIMIT_ORDERS:
+                logger.info(
+                    f"Submitting LIMIT order: {ticker} x{shares} @ ${limit_price:.2f} "
+                    f"(signal: ${entry_price:.2f}, cushion: {config.LIMIT_ORDER_CUSHION_PCT}%)"
+                )
+                alpaca_order = self.alpaca_client.submit_limit_buy(
+                    symbol=ticker,
+                    qty=shares,
+                    limit_price=limit_price,
+                    client_order_id=client_order_id
+                )
+            else:
+                logger.info(f"Submitting MARKET order: {ticker} x{shares} @ market price")
+                alpaca_order = self.alpaca_client.submit_market_buy(
+                    symbol=ticker,
+                    qty=shares,
+                    client_order_id=client_order_id
+                )
 
             # Update order manager
             self.order_manager.mark_order_submitted(
@@ -356,6 +381,9 @@ class TradingEngine:
                 alpaca_order['order_id'],
                 alpaca_order['status']
             )
+
+            # Record order execution for daily trade limit tracking
+            self.position_monitor.circuit_breaker.record_order_executed(ticker, 'BUY')
 
             logger.info(f"Order submitted: {alpaca_order['order_id']}")
             logger.info(f"Status: {alpaca_order['status']}")
@@ -424,6 +452,9 @@ class TradingEngine:
         try:
             # Use close_position for simplicity (market order)
             result = self.alpaca_client.close_position(ticker)
+
+            # Record order execution for daily trade limit tracking
+            self.position_monitor.circuit_breaker.record_order_executed(ticker, 'SELL')
 
             logger.info(f"Position closed: {result}")
 
@@ -504,8 +535,12 @@ class TradingEngine:
 
         # Check circuit breaker
         portfolio_value = self.alpaca_client.get_portfolio_value()
+        # CRITICAL FIX: Pass daily_pnl which includes both realized AND unrealized P&L
+        # This ensures circuit breaker catches losses from open positions, not just closed ones
+        daily_pnl = self.alpaca_client.get_daily_pnl()
         is_halted, halt_reason = self.position_monitor.circuit_breaker.check_circuit_breakers(
-            portfolio_value
+            portfolio_value,
+            daily_pnl=daily_pnl
         )
         if is_halted:
             results['errors'].append(f"Circuit breaker active: {halt_reason}")
@@ -640,17 +675,22 @@ class TradingEngine:
             return results
 
         try:
-            # Update pending orders
+            # Update pending orders and track execution metrics
             order_results = self.order_manager.update_orders_from_broker(
                 self.alpaca_client,
-                on_fill_callback=self._on_order_filled
+                on_fill_callback=self._on_order_filled,
+                execution_metrics=self.execution_metrics
             )
             results['orders_filled'] = [o['ticker'] for o in order_results['filled']]
 
             # Check circuit breaker
             portfolio_value = self.alpaca_client.get_portfolio_value()
+            # CRITICAL FIX: Pass daily_pnl which includes both realized AND unrealized P&L
+            # This ensures circuit breaker catches losses from open positions, not just closed ones
+            daily_pnl = self.alpaca_client.get_daily_pnl()
             is_halted, halt_reason = self.position_monitor.circuit_breaker.check_circuit_breakers(
-                portfolio_value
+                portfolio_value,
+                daily_pnl=daily_pnl
             )
 
             if is_halted:
@@ -661,7 +701,7 @@ class TradingEngine:
 
                 self.alert_sender.send_circuit_breaker_alert(
                     reason=halt_reason,
-                    daily_pnl=self.position_monitor.circuit_breaker.daily_pnl,
+                    daily_pnl=daily_pnl,  # Use actual daily P&L instead of only realized
                     portfolio_value=portfolio_value,
                     action_taken="New positions blocked, monitoring continues"
                 )
@@ -748,7 +788,8 @@ class TradingEngine:
         candidate = self.signal_queue.get_best_redeployment_candidate(
             available_capital=cash,
             current_price_func=self.position_monitor.get_current_price,
-            excluded_tickers=excluded
+            excluded_tickers=excluded,
+            is_asset_tradeable_func=self.alpaca_client.is_asset_tradeable
         )
 
         if not candidate:
@@ -798,8 +839,8 @@ class TradingEngine:
 
         open_positions = len(self.position_monitor.positions)
 
-        # Cleanup
-        self.order_manager.cleanup_expired_orders()
+        # Cleanup and track unfilled orders
+        self.order_manager.cleanup_expired_orders(execution_metrics=self.execution_metrics)
         self.signal_queue.cleanup_stale_signals()
 
         # Send daily summary (includes exits to reduce email volume)

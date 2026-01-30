@@ -125,7 +125,8 @@ class OrderManager:
         ticker: str,
         shares: int,
         limit_price: float,
-        signal_data: Dict[str, Any]
+        signal_data: Dict[str, Any],
+        order_type: str = 'MARKET'
     ) -> Tuple[Optional[Dict[str, Any]], Optional[str]]:
         """
         Create a buy order record (before submission).
@@ -133,8 +134,9 @@ class OrderManager:
         Args:
             ticker: Stock ticker
             shares: Number of shares
-            limit_price: Limit price for buy
+            limit_price: Limit price for buy (or reference price for market orders)
             signal_data: Original signal information
+            order_type: 'MARKET' or 'LIMIT'
 
         Returns:
             Tuple of (order_record, error_message)
@@ -154,6 +156,7 @@ class OrderManager:
             'order_id': None,  # Set after submission
             'ticker': ticker,
             'side': 'BUY',
+            'order_type': order_type,
             'shares': shares,
             'limit_price': limit_price,
             'filled_shares': 0,
@@ -167,7 +170,7 @@ class OrderManager:
             'error_message': None
         }
 
-        logger.info(f"✅ Created BUY order: {ticker} x{shares} @ ${limit_price:.2f}")
+        logger.info(f"✅ Created {order_type} BUY order: {ticker} x{shares} @ ${limit_price:.2f}")
         return order, None
 
     def create_sell_order(
@@ -273,15 +276,17 @@ class OrderManager:
         self,
         client_order_id: str,
         filled_shares: int,
-        filled_price: float
+        filled_price: float,
+        execution_metrics=None
     ) -> Dict[str, Any]:
         """
-        Mark an order as filled.
+        Mark an order as filled and track execution metrics.
 
         Args:
             client_order_id: Our client order ID
             filled_shares: Number of shares filled
             filled_price: Average fill price
+            execution_metrics: Optional ExecutionMetrics instance for tracking
 
         Returns:
             Updated order record
@@ -295,6 +300,36 @@ class OrderManager:
         order['filled_price'] = filled_price
         order['filled_at'] = datetime.now().isoformat()
         order['state'] = OrderState.FILLED.value
+
+        # Track execution metrics if available
+        if execution_metrics:
+            try:
+                # Get signal price from order
+                signal_price = None
+                if order['side'] == 'BUY':
+                    # For buys, use signal data entry price
+                    signal_price = order.get('signal_data', {}).get('entry_price')
+                    if not signal_price:
+                        signal_price = order.get('signal_data', {}).get('currentPrice')
+                else:
+                    # For sells, use entry_price from the original position
+                    # This will be the price we bought at, so we can track sell slippage
+                    signal_price = filled_price  # For sells, just track the execution without slippage calc for now
+
+                if signal_price:
+                    execution_metrics.record_execution(
+                        ticker=order['ticker'],
+                        side=order['side'],
+                        signal_price=signal_price,
+                        limit_price=order.get('limit_price'),
+                        filled_price=filled_price,
+                        shares=filled_shares,
+                        order_type=order.get('order_type', 'MARKET'),
+                        submitted_at=order.get('submitted_at', order['created_at']),
+                        filled_at=order['filled_at']
+                    )
+            except Exception as e:
+                logger.warning(f"Failed to record execution metrics: {e}")
 
         # Remove from pending
         del self.pending_orders[client_order_id]
@@ -465,9 +500,12 @@ class OrderManager:
     # Order Cleanup
     # =========================================================================
 
-    def cleanup_expired_orders(self) -> List[Dict[str, Any]]:
+    def cleanup_expired_orders(self, execution_metrics=None) -> List[Dict[str, Any]]:
         """
-        Remove orders that are older than 24 hours.
+        Remove orders that are older than 24 hours and track unfilled orders.
+
+        Args:
+            execution_metrics: Optional ExecutionMetrics instance for tracking unfilled orders
 
         Returns:
             List of removed orders
@@ -482,6 +520,31 @@ class OrderManager:
             if created < cutoff:
                 order['state'] = OrderState.EXPIRED.value
                 removed.append(order)
+
+                # Track unfilled limit orders for fill rate analysis
+                if execution_metrics and order.get('order_type') == 'LIMIT':
+                    signal_price = None
+                    if order['side'] == 'BUY' and order.get('signal_data'):
+                        signal_price = order['signal_data'].get('entry_price') or order['signal_data'].get('currentPrice')
+                    elif order['side'] == 'SELL':
+                        # For sells, use the limit price as reference
+                        signal_price = order.get('limit_price')
+
+                    if signal_price:
+                        try:
+                            execution_metrics.record_unfilled_order(
+                                ticker=order['ticker'],
+                                side=order['side'],
+                                signal_price=signal_price,
+                                limit_price=order.get('limit_price', signal_price),
+                                shares=order['shares'],
+                                reason='EXPIRED',
+                                submitted_at=order.get('submitted_at', order['created_at']),
+                                expired_at=datetime.now().isoformat()
+                            )
+                        except Exception as e:
+                            logger.warning(f"Failed to record unfilled order: {e}")
+
                 del self.pending_orders[client_order_id]
                 logger.info(f"Expired order removed: {order['ticker']} {order['side']}")
 
@@ -493,7 +556,8 @@ class OrderManager:
     def update_orders_from_broker(
         self,
         alpaca_client,
-        on_fill_callback=None
+        on_fill_callback=None,
+        execution_metrics=None
     ) -> Dict[str, List[Dict]]:
         """
         Update pending orders from broker status.
@@ -501,6 +565,7 @@ class OrderManager:
         Args:
             alpaca_client: AlpacaTradingClient instance
             on_fill_callback: Callback function(order) when order fills
+            execution_metrics: Optional ExecutionMetrics instance for tracking
 
         Returns:
             Dictionary with 'filled', 'rejected', 'unchanged' lists
@@ -535,7 +600,8 @@ class OrderManager:
                     filled_order = self.mark_order_filled(
                         client_order_id,
                         broker_order['filled_qty'],
-                        broker_order['filled_avg_price']
+                        broker_order['filled_avg_price'],
+                        execution_metrics=execution_metrics
                     )
                     results['filled'].append(filled_order)
 
@@ -592,12 +658,16 @@ if __name__ == '__main__':
     manager = OrderManager()
 
     # Create test order
-    test_order = manager.create_buy_order(
+    test_order, error = manager.create_buy_order(
         ticker='AAPL',
         shares=10,
         limit_price=150.00,
-        signal_data={'signal_score': 12.5}
+        signal_data={'signal_score': 12.5},
+        order_type='LIMIT'
     )
 
-    print(f"Created order: {test_order['client_order_id']}")
-    print(f"Pending orders: {manager.get_order_stats()}")
+    if test_order:
+        print(f"Created order: {test_order['client_order_id']}")
+        print(f"Pending orders: {manager.get_order_stats()}")
+    else:
+        print(f"Error: {error}")

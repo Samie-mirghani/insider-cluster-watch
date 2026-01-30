@@ -209,7 +209,8 @@ class SignalQueue:
         self,
         available_capital: float,
         current_price_func,
-        excluded_tickers: Optional[List[str]] = None
+        excluded_tickers: Optional[List[str]] = None,
+        is_asset_tradeable_func=None
     ) -> Optional[Dict[str, Any]]:
         """
         Get the best queued signal for capital redeployment.
@@ -218,6 +219,7 @@ class SignalQueue:
             available_capital: Capital available for redeployment
             current_price_func: Function to get current price for ticker
             excluded_tickers: Tickers to exclude (e.g., already held positions)
+            is_asset_tradeable_func: Optional function to check if asset is tradeable
 
         Returns:
             Best candidate signal or None
@@ -239,6 +241,19 @@ class SignalQueue:
             if datetime.now() - queued_at > timedelta(hours=24):
                 logger.debug(f"Skipping stale signal: {ticker}")
                 continue
+
+            # Check if asset is still tradeable (prevents deploying to halted/delisted stocks)
+            if is_asset_tradeable_func:
+                try:
+                    is_tradeable, tradeable_msg = is_asset_tradeable_func(ticker)
+                    if not is_tradeable:
+                        logger.debug(f"Skipping {ticker}: not tradeable - {tradeable_msg}")
+                        continue
+                    if tradeable_msg:
+                        logger.warning(f"{ticker} tradeable but with restrictions: {tradeable_msg}")
+                except Exception as e:
+                    logger.warning(f"Could not check tradeability for {ticker}: {e}")
+                    continue
 
             # Get current price
             original_price = signal.get('original_price', 0)

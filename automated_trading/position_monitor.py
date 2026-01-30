@@ -51,6 +51,7 @@ class CircuitBreakerState:
         self.is_halted: bool = False
         self.halt_reason: Optional[str] = None
         self.trades_today: List[Dict] = []
+        self.total_trades_today: int = 0  # Total buys + sells (for daily trade limit)
         self.last_reset_date: Optional[str] = None
         self._load_state()
         self.check_reset_flag()  # Check for manual reset request
@@ -68,6 +69,7 @@ class CircuitBreakerState:
             self.is_halted = False
             self.halt_reason = None
             self.trades_today = []
+            self.total_trades_today = 0
             self.last_reset_date = today
             logger.info("New trading day - circuit breakers reset")
         else:
@@ -76,6 +78,7 @@ class CircuitBreakerState:
             self.is_halted = data.get('is_halted', False)
             self.halt_reason = data.get('halt_reason')
             self.trades_today = data.get('trades_today', [])
+            self.total_trades_today = data.get('total_trades_today', 0)
             self.last_reset_date = data.get('date')
 
     def save_state(self):
@@ -87,6 +90,7 @@ class CircuitBreakerState:
             'is_halted': self.is_halted,
             'halt_reason': self.halt_reason,
             'trades_today': self.trades_today,
+            'total_trades_today': self.total_trades_today,
             'last_updated': datetime.now().isoformat()
         }
         save_json_file(config.DAILY_STATE_FILE, data)
@@ -115,12 +119,33 @@ class CircuitBreakerState:
         self.save_state()
         logger.info(f"Trade recorded: {ticker} ${pnl:+,.2f} | Daily P&L: ${self.daily_pnl:+,.2f}")
 
-    def check_circuit_breakers(self, portfolio_value: float) -> Tuple[bool, Optional[str]]:
+    def record_order_executed(self, ticker: str, order_type: str) -> None:
+        """
+        Record that an order was executed (for daily trade limit tracking).
+
+        Args:
+            ticker: Stock ticker
+            order_type: 'BUY' or 'SELL'
+        """
+        self.total_trades_today += 1
+        self.save_state()
+        logger.info(
+            f"Order executed: {order_type} {ticker} | "
+            f"Total trades today: {self.total_trades_today}/{config.MAX_TRADES_PER_DAY}"
+        )
+
+    def check_circuit_breakers(
+        self,
+        portfolio_value: float,
+        daily_pnl: Optional[float] = None
+    ) -> Tuple[bool, Optional[str]]:
         """
         Check if any circuit breakers are triggered.
 
         Args:
             portfolio_value: Current portfolio value
+            daily_pnl: Total daily P&L (realized + unrealized). If None, uses self.daily_pnl
+                      CRITICAL: Pass alpaca_client.get_daily_pnl() to include unrealized losses
 
         Returns:
             Tuple of (is_triggered, reason)
@@ -129,11 +154,22 @@ class CircuitBreakerState:
         if self.is_halted:
             return True, self.halt_reason
 
+        # Use provided daily_pnl (which includes unrealized) or fall back to self.daily_pnl (realized only)
+        # IMPORTANT: Caller should pass alpaca_client.get_daily_pnl() to include unrealized P&L
+        pnl_to_check = daily_pnl if daily_pnl is not None else self.daily_pnl
+
         # Daily loss limit
         daily_loss_limit = config.get_daily_loss_limit_dollars(portfolio_value)
-        if self.daily_pnl <= -daily_loss_limit:
+        if pnl_to_check <= -daily_loss_limit:
             self._trigger_halt(
-                f"DAILY_LOSS_LIMIT: ${abs(self.daily_pnl):,.2f} loss exceeds ${daily_loss_limit:,.2f} limit"
+                f"DAILY_LOSS_LIMIT: ${abs(pnl_to_check):,.2f} loss (realized + unrealized) exceeds ${daily_loss_limit:,.2f} limit"
+            )
+            return True, self.halt_reason
+
+        # Daily trade limit
+        if self.total_trades_today >= config.MAX_TRADES_PER_DAY:
+            self._trigger_halt(
+                f"MAX_TRADES_PER_DAY: {self.total_trades_today} trades executed (limit: {config.MAX_TRADES_PER_DAY})"
             )
             return True, self.halt_reason
 
@@ -238,7 +274,9 @@ class CircuitBreakerState:
             'halt_reason': self.halt_reason,
             'daily_pnl': self.daily_pnl,
             'consecutive_losses': self.consecutive_losses,
-            'trades_today': len(self.trades_today)
+            'trades_today': len(self.trades_today),
+            'total_trades_today': self.total_trades_today,
+            'trades_remaining': max(0, config.MAX_TRADES_PER_DAY - self.total_trades_today)
         }
 
 
@@ -956,7 +994,12 @@ class PositionMonitor:
         if self.alpaca_client:
             try:
                 portfolio_value = self.alpaca_client.get_portfolio_value()
-                is_halted, halt_reason = self.circuit_breaker.check_circuit_breakers(portfolio_value)
+                # CRITICAL FIX: Pass daily_pnl which includes both realized AND unrealized P&L
+                daily_pnl = self.alpaca_client.get_daily_pnl()
+                is_halted, halt_reason = self.circuit_breaker.check_circuit_breakers(
+                    portfolio_value,
+                    daily_pnl=daily_pnl
+                )
 
                 if is_halted:
                     results['circuit_breaker'] = {
