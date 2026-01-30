@@ -335,18 +335,19 @@ class TradingEngine:
         if config.USE_LIMIT_ORDERS:
             # Use limit order with cushion to protect against slippage
             limit_price = entry_price * (1 + config.LIMIT_ORDER_CUSHION_PCT / 100)
-            order_type_label = "LIMIT"
+            order_type = "LIMIT"
         else:
             # Market order (immediate fill, no price protection)
             limit_price = entry_price
-            order_type_label = "MARKET"
+            order_type = "MARKET"
 
         # Create order record
         order, error = self.order_manager.create_buy_order(
             ticker=ticker,
             shares=shares,
             limit_price=limit_price,
-            signal_data=signal
+            signal_data=signal,
+            order_type=order_type
         )
 
         if not order:

@@ -125,7 +125,8 @@ class OrderManager:
         ticker: str,
         shares: int,
         limit_price: float,
-        signal_data: Dict[str, Any]
+        signal_data: Dict[str, Any],
+        order_type: str = 'MARKET'
     ) -> Tuple[Optional[Dict[str, Any]], Optional[str]]:
         """
         Create a buy order record (before submission).
@@ -133,8 +134,9 @@ class OrderManager:
         Args:
             ticker: Stock ticker
             shares: Number of shares
-            limit_price: Limit price for buy
+            limit_price: Limit price for buy (or reference price for market orders)
             signal_data: Original signal information
+            order_type: 'MARKET' or 'LIMIT'
 
         Returns:
             Tuple of (order_record, error_message)
@@ -154,6 +156,7 @@ class OrderManager:
             'order_id': None,  # Set after submission
             'ticker': ticker,
             'side': 'BUY',
+            'order_type': order_type,
             'shares': shares,
             'limit_price': limit_price,
             'filled_shares': 0,
@@ -167,7 +170,7 @@ class OrderManager:
             'error_message': None
         }
 
-        logger.info(f"✅ Created BUY order: {ticker} x{shares} @ ${limit_price:.2f}")
+        logger.info(f"✅ Created {order_type} BUY order: {ticker} x{shares} @ ${limit_price:.2f}")
         return order, None
 
     def create_sell_order(
@@ -308,6 +311,10 @@ class OrderManager:
                     signal_price = order.get('signal_data', {}).get('entry_price')
                     if not signal_price:
                         signal_price = order.get('signal_data', {}).get('currentPrice')
+                else:
+                    # For sells, use entry_price from the original position
+                    # This will be the price we bought at, so we can track sell slippage
+                    signal_price = filled_price  # For sells, just track the execution without slippage calc for now
 
                 if signal_price:
                     execution_metrics.record_execution(
@@ -317,7 +324,7 @@ class OrderManager:
                         limit_price=order.get('limit_price'),
                         filled_price=filled_price,
                         shares=filled_shares,
-                        order_type='LIMIT' if order.get('limit_price') else 'MARKET',
+                        order_type=order.get('order_type', 'MARKET'),
                         submitted_at=order.get('submitted_at', order['created_at']),
                         filled_at=order['filled_at']
                     )
@@ -515,10 +522,13 @@ class OrderManager:
                 removed.append(order)
 
                 # Track unfilled limit orders for fill rate analysis
-                if execution_metrics and order.get('limit_price') and order['side'] == 'BUY':
+                if execution_metrics and order.get('order_type') == 'LIMIT':
                     signal_price = None
-                    if order.get('signal_data'):
+                    if order['side'] == 'BUY' and order.get('signal_data'):
                         signal_price = order['signal_data'].get('entry_price') or order['signal_data'].get('currentPrice')
+                    elif order['side'] == 'SELL':
+                        # For sells, use the limit price as reference
+                        signal_price = order.get('limit_price')
 
                     if signal_price:
                         try:
@@ -526,7 +536,7 @@ class OrderManager:
                                 ticker=order['ticker'],
                                 side=order['side'],
                                 signal_price=signal_price,
-                                limit_price=order['limit_price'],
+                                limit_price=order.get('limit_price', signal_price),
                                 shares=order['shares'],
                                 reason='EXPIRED',
                                 submitted_at=order.get('submitted_at', order['created_at']),
@@ -648,12 +658,16 @@ if __name__ == '__main__':
     manager = OrderManager()
 
     # Create test order
-    test_order = manager.create_buy_order(
+    test_order, error = manager.create_buy_order(
         ticker='AAPL',
         shares=10,
         limit_price=150.00,
-        signal_data={'signal_score': 12.5}
+        signal_data={'signal_score': 12.5},
+        order_type='LIMIT'
     )
 
-    print(f"Created order: {test_order['client_order_id']}")
-    print(f"Pending orders: {manager.get_order_stats()}")
+    if test_order:
+        print(f"Created order: {test_order['client_order_id']}")
+        print(f"Pending orders: {manager.get_order_stats()}")
+    else:
+        print(f"Error: {error}")
