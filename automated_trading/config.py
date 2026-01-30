@@ -6,6 +6,9 @@ This module contains all configuration parameters for the live trading system.
 Parameters are designed for safety-first operation with conservative defaults.
 """
 
+from dotenv import load_dotenv
+load_dotenv()
+
 import os
 from datetime import time
 

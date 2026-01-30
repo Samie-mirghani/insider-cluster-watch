@@ -1,5 +1,8 @@
 # automated_trading/alpaca_client.py
 """
+Alpaca Trading API Client with comprehensive order management
+...
+
 Alpaca API Client Wrapper
 
 Provides a safe, robust interface to Alpaca trading API with:
@@ -9,6 +12,18 @@ Provides a safe, robust interface to Alpaca trading API with:
 - Rate limiting protection
 - Audit logging
 """
+
+
+# Load .env file automatically
+try:
+    from dotenv import load_dotenv
+    from pathlib import Path
+    config_dir = Path(__file__).parent
+    env_file = config_dir / '.env'
+    if env_file.exists():
+        load_dotenv(env_file)
+except:
+    pass
 
 import os
 import time

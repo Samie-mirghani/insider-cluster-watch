@@ -11,6 +11,11 @@ Alert Levels:
 - INFO: Informational only (trade executed, position closed)
 """
 
+# Load .env file
+from pathlib import Path
+from dotenv import load_dotenv
+load_dotenv(Path(__file__).parent / '.env')
+from . import config
 import smtplib
 import logging
 from email.mime.text import MIMEText
