@@ -1,5 +1,5 @@
 {
-  "cached_at": "2026-01-29T11:48:30.274915",
+  "cached_at": "2026-01-30T11:45:39.752517",
   "trades": [
     {
       "ticker": "LPAB",
@@ -116,24 +116,6 @@
       "trade_date": "2026-01-09",
       "amount_range": "15K-50K",
       "asset_name": "AT&T Inc",
-      "chamber": "House",
-      "transaction_type": "buy",
-      "disclosure_date": null,
-      "state": "NC",
-      "amount_min": 15000.0,
-      "amount_max": 50000.0,
-      "amount_mid": 32500.0,
-      "politician_weight": 1.0,
-      "weighted_amount": 32500.0,
-      "disclosure_lag_days": NaN
-    },
-    {
-      "ticker": "INCHY",
-      "politician": "Tim Moore",
-      "party": "Republican",
-      "trade_date": "2025-12-31",
-      "amount_range": "15K-50K",
-      "asset_name": "HYSTER YALE",
       "chamber": "House",
       "transaction_type": "buy",
       "disclosure_date": null,

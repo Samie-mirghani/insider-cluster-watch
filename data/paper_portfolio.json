@@ -1,6 +1,6 @@
 {
   "starting_capital": 10000,
-  "cash": 9159.534999999996,
+  "cash": 8762.274999999996,
   "positions": {
     "ALLY": {
       "entry_date": "2026-01-26T11:36:47.241122",
@@ -8,9 +8,9 @@
       "shares": 10,
       "cost_basis": 411.1,
       "initial_stop_loss": 37.821200000000005,
-      "stop_loss": 40.7455,
+      "stop_loss": 40.812,
       "take_profit": 46.043200000000006,
-      "highest_price": 42.89,
+      "highest_price": 42.96,
       "trailing_enabled": true,
       "signal_score": 7.17775449233638,
       "sector": null,
@@ -57,10 +57,10 @@
       "shares": 5,
       "cost_basis": 488.15,
       "initial_stop_loss": 89.8196,
-      "stop_loss": 89.8196,
+      "stop_loss": 95.9785,
       "take_profit": 109.3456,
-      "highest_price": 98.87,
-      "trailing_enabled": false,
+      "highest_price": 101.03,
+      "trailing_enabled": true,
       "signal_score": 9.424636760288086,
       "sector": "Banks - Regional",
       "multi_signal_tier": "none",
@@ -125,7 +125,7 @@
       "initial_stop_loss": 25.5576,
       "stop_loss": 25.5576,
       "take_profit": 31.113600000000005,
-      "highest_price": 27.78,
+      "highest_price": 28.48,
       "trailing_enabled": false,
       "signal_score": 7.388243095394204,
       "sector": "Asset Management - Income",
@@ -136,6 +136,28 @@
           "shares": 15,
           "price": 27.78,
           "date": "2026-01-29T11:49:25.508599"
+        }
+      ]
+    },
+    "USAR": {
+      "entry_date": "2026-01-30T11:46:36.328635",
+      "entry_price": 22.07,
+      "shares": 18,
+      "cost_basis": 397.26,
+      "initial_stop_loss": 20.3044,
+      "stop_loss": 20.3044,
+      "take_profit": 24.718400000000003,
+      "highest_price": 22.07,
+      "trailing_enabled": false,
+      "signal_score": 6.954136776044342,
+      "sector": "Industrial Materials",
+      "multi_signal_tier": "none",
+      "has_politician_signal": false,
+      "tranches": [
+        {
+          "shares": 18,
+          "price": 22.07,
+          "date": "2026-01-30T11:46:36.328639"
         }
       ]
     }
@@ -175,13 +197,20 @@
       "original_entry": 27.78,
       "expires": "2026-02-03T11:49:25.889098",
       "signal_score": 7.388243095394204
+    },
+    "USAR": {
+      "shares": 12,
+      "trigger_price": 21.6286,
+      "original_entry": 22.07,
+      "expires": "2026-02-04T11:46:36.521557",
+      "signal_score": 6.954136776044342
     }
   },
-  "total_trades": 35,
+  "total_trades": 36,
   "winning_trades": 23,
   "losing_trades": 7,
   "total_profit": 1836.1000000000004,
   "max_portfolio_value": 11932.704999999998,
   "max_drawdown": -9.109194484777545,
-  "last_updated": "2026-01-29T11:49:30.118649"
+  "last_updated": "2026-01-30T11:46:37.277479"
 }

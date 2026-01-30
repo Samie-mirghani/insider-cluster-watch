@@ -4606,5 +4606,65 @@
     "ipoDate": "1987-06-04",
     "updated": "2026-01-29T11:47:51.311151",
     "source": "fmp_api"
+  },
+  "NFJ": {
+    "industry": "Asset Management",
+    "sector": "Financial Services",
+    "price": 13.48,
+    "companyName": "Virtus Dividend, Interest & Premium Strategy Fund",
+    "currency": "USD",
+    "beta": 1.087,
+    "range": "10.02-13.56",
+    "ipoDate": "2005-03-01",
+    "updated": "2026-01-30T11:45:08.930164",
+    "source": "fmp_api"
+  },
+  "NBTB": {
+    "industry": "Banks - Regional",
+    "sector": "Financial Services",
+    "price": 44.11,
+    "companyName": "NBT Bancorp Inc.",
+    "currency": "USD",
+    "beta": 0.502,
+    "range": "37.31-49.18",
+    "ipoDate": "1992-03-17",
+    "updated": "2026-01-30T11:45:08.933739",
+    "source": "fmp_api"
+  },
+  "USAR": {
+    "industry": "Industrial Materials",
+    "sector": "Basic Materials",
+    "price": 22.07,
+    "companyName": "USA Rare Earth Inc",
+    "currency": "USD",
+    "beta": 0.983,
+    "range": "5.56-43.98",
+    "ipoDate": "2025-03-14",
+    "updated": "2026-01-30T11:45:09.015513",
+    "source": "fmp_api"
+  },
+  "WS": {
+    "industry": "Steel",
+    "sector": "Basic Materials",
+    "price": 40.15,
+    "companyName": "Worthington Steel, Inc.",
+    "currency": "USD",
+    "beta": 1.662,
+    "range": "21.3-44",
+    "ipoDate": "2023-12-04",
+    "updated": "2026-01-30T11:45:09.016185",
+    "source": "fmp_api"
+  },
+  "BY": {
+    "industry": "Banks - Regional",
+    "sector": "Financial Services",
+    "price": 31.84,
+    "companyName": "Byline Bancorp, Inc.",
+    "currency": "USD",
+    "beta": 0.859,
+    "range": "22.63-32.14",
+    "ipoDate": "2017-06-30",
+    "updated": "2026-01-30T11:45:09.260441",
+    "source": "fmp_api"
   }
 }

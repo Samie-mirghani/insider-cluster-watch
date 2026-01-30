@@ -1,16 +1,16 @@
 {
-  "last_updated": "January 29, 2026 at 11:49 UTC",
-  "total_return_pct": 19.07,
+  "last_updated": "January 30, 2026 at 11:46 UTC",
+  "total_return_pct": 19.09,
   "win_rate": 76.7,
   "completed_trades": 30,
-  "active_trades": 6,
+  "active_trades": 7,
   "avg_return_per_trade": 10.59,
   "sharpe_ratio": 11.76,
   "max_drawdown": -9.11,
   "avg_hold_days": 9,
   "best_trade_pct": 59.64,
   "worst_trade_pct": -7.61,
-  "alpha_vs_sp500": 18.68,
+  "alpha_vs_sp500": 18.9,
   "avg_winner": 14.93,
   "avg_loser": -3.69,
   "win_loss_ratio": 4.05,
@@ -241,51 +241,58 @@
     {
       "ticker": "ALLY",
       "entry_date": "Jan 26, 2026",
-      "days_held": 3,
-      "unrealized_return": 2.89,
+      "days_held": 4,
+      "unrealized_return": 4.5,
       "conviction": "MEDIUM"
     },
     {
       "ticker": "ABT",
       "entry_date": "Jan 27, 2026",
-      "days_held": 2,
-      "unrealized_return": -1.52,
+      "days_held": 3,
+      "unrealized_return": -1.48,
       "conviction": "MEDIUM"
     },
     {
       "ticker": "TCBI",
       "entry_date": "Jan 28, 2026",
-      "days_held": 1,
-      "unrealized_return": 1.27,
+      "days_held": 2,
+      "unrealized_return": 3.48,
       "conviction": "MEDIUM"
     },
     {
       "ticker": "THM",
       "entry_date": "Jan 28, 2026",
-      "days_held": 1,
-      "unrealized_return": 7.32,
+      "days_held": 2,
+      "unrealized_return": 4.18,
       "conviction": "LOW"
     },
     {
       "ticker": "HLXC",
       "entry_date": "Jan 29, 2026",
       "days_held": 0,
-      "unrealized_return": 0.0,
+      "unrealized_return": -0.29,
       "conviction": "MEDIUM"
     },
     {
       "ticker": "GDV",
       "entry_date": "Jan 29, 2026",
       "days_held": 0,
-      "unrealized_return": 3.13,
+      "unrealized_return": 2.52,
       "conviction": "MEDIUM"
+    },
+    {
+      "ticker": "USAR",
+      "entry_date": "Jan 30, 2026",
+      "days_held": 0,
+      "unrealized_return": 0.0,
+      "conviction": "LOW"
     }
   ],
   "portfolio_composition": {
     "starting_capital": 10000,
-    "current_value": 11907.2,
-    "cash": 9159.53,
-    "invested_capital": 2747.67,
-    "capital_deployed_pct": 23.08
+    "current_value": 11908.69,
+    "cash": 8762.27,
+    "invested_capital": 3146.42,
+    "capital_deployed_pct": 26.42
   }
 }
