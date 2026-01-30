@@ -1,41 +1,4 @@
 {
-  "orders": {
-    "USAR-BUY-20260130-150521-015781": {
-      "client_order_id": "USAR-BUY-20260130-150521-015781",
-      "order_id": "9bb7515a-3019-4992-baf8-f1b6566b393a",
-      "ticker": "USAR",
-      "side": "BUY",
-      "shares": 235,
-      "limit_price": 22.07,
-      "filled_shares": 0,
-      "filled_price": null,
-      "state": "submitted",
-      "created_at": "2026-01-30T15:05:21.487930",
-      "submitted_at": "2026-01-30T15:05:21.565093",
-      "filled_at": null,
-      "signal_score": 6.954136776044342,
-      "signal_data": {
-        "ticker": "USAR",
-        "signal_score": 6.954136776044342,
-        "entry_price": 22.07,
-        "company_name": "",
-        "sector": "Industrial Materials",
-        "industry": "Industrial Materials",
-        "market_cap": null,
-        "quality_score": 0,
-        "multi_signal_tier": "none",
-        "politician_trades": 0,
-        "institutional_count": 0,
-        "pattern_detected": null,
-        "insider_count": 2,
-        "total_shares_bought": 0,
-        "buy_value": 2173239.0,
-        "short_percent_float": 0.1926,
-        "squeeze_potential": false,
-        "date_generated": "2026-01-30 11:46:35"
-      },
-      "error_message": null
-    }
-  },
-  "last_updated": "2026-01-30T15:05:21.565104"
+  "orders": {},
+  "last_updated": "2026-01-30T15:23:43.500966"
 }
