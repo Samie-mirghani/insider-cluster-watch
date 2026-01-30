@@ -120,6 +120,9 @@ MAX_DRAWDOWN_WARNING_PCT = 10.0  # Warning if drawdown > 10%
 MAX_CONSECUTIVE_LOSSES = 5       # Pause after 5 consecutive losers
 CONSECUTIVE_LOSS_COOLDOWN_HOURS = 24  # Wait 24 hours before resuming
 
+# Daily trade limit - prevents overtrading in volatile markets
+MAX_TRADES_PER_DAY = 15          # Maximum 15 trades (buys + sells) per day
+
 # Slippage monitoring
 MAX_SLIPPAGE_ALERT_PCT = 3.0     # Alert if execution differs > 3% from signal
 
@@ -132,7 +135,7 @@ ENABLE_INTRADAY_REDEPLOYMENT = True
 # Safeguards for intraday redeployment
 REDEPLOYMENT_PRICE_TOLERANCE_PCT = 3.0  # Only if price within ±3% of signal
 REDEPLOYMENT_MIN_TIME_BEFORE_CLOSE = 30  # Minutes before close (don't trade last 30 min)
-REDEPLOYMENT_MAX_PER_DAY = 1     # Max 1 intraday redeployment per day
+REDEPLOYMENT_MAX_PER_DAY = 5     # Max 5 intraday redeployments per day
 REDEPLOYMENT_MIN_FREED_CAPITAL = 100  # Minimum freed capital to trigger ($100)
 
 # =============================================================================

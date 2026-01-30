@@ -357,6 +357,9 @@ class TradingEngine:
                 alpaca_order['status']
             )
 
+            # Record order execution for daily trade limit tracking
+            self.position_monitor.circuit_breaker.record_order_executed(ticker, 'BUY')
+
             logger.info(f"Order submitted: {alpaca_order['order_id']}")
             logger.info(f"Status: {alpaca_order['status']}")
 
@@ -424,6 +427,9 @@ class TradingEngine:
         try:
             # Use close_position for simplicity (market order)
             result = self.alpaca_client.close_position(ticker)
+
+            # Record order execution for daily trade limit tracking
+            self.position_monitor.circuit_breaker.record_order_executed(ticker, 'SELL')
 
             logger.info(f"Position closed: {result}")
 
@@ -504,8 +510,12 @@ class TradingEngine:
 
         # Check circuit breaker
         portfolio_value = self.alpaca_client.get_portfolio_value()
+        # CRITICAL FIX: Pass daily_pnl which includes both realized AND unrealized P&L
+        # This ensures circuit breaker catches losses from open positions, not just closed ones
+        daily_pnl = self.alpaca_client.get_daily_pnl()
         is_halted, halt_reason = self.position_monitor.circuit_breaker.check_circuit_breakers(
-            portfolio_value
+            portfolio_value,
+            daily_pnl=daily_pnl
         )
         if is_halted:
             results['errors'].append(f"Circuit breaker active: {halt_reason}")
@@ -649,8 +659,12 @@ class TradingEngine:
 
             # Check circuit breaker
             portfolio_value = self.alpaca_client.get_portfolio_value()
+            # CRITICAL FIX: Pass daily_pnl which includes both realized AND unrealized P&L
+            # This ensures circuit breaker catches losses from open positions, not just closed ones
+            daily_pnl = self.alpaca_client.get_daily_pnl()
             is_halted, halt_reason = self.position_monitor.circuit_breaker.check_circuit_breakers(
-                portfolio_value
+                portfolio_value,
+                daily_pnl=daily_pnl
             )
 
             if is_halted:
@@ -661,7 +675,7 @@ class TradingEngine:
 
                 self.alert_sender.send_circuit_breaker_alert(
                     reason=halt_reason,
-                    daily_pnl=self.position_monitor.circuit_breaker.daily_pnl,
+                    daily_pnl=daily_pnl,  # Use actual daily P&L instead of only realized
                     portfolio_value=portfolio_value,
                     action_taken="New positions blocked, monitoring continues"
                 )
@@ -748,7 +762,8 @@ class TradingEngine:
         candidate = self.signal_queue.get_best_redeployment_candidate(
             available_capital=cash,
             current_price_func=self.position_monitor.get_current_price,
-            excluded_tickers=excluded
+            excluded_tickers=excluded,
+            is_asset_tradeable_func=self.alpaca_client.is_asset_tradeable
         )
 
         if not candidate:
