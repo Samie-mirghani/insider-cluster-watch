@@ -16,3 +16,45 @@ automated_trading/data/*.jsonl
 automated_trading/data/*.log
 automated_trading/data/*.csv
 !automated_trading/data/.gitkeep
+
+# Runtime data files (VM only)
+automated_trading/data/*.json
+automated_trading/data/*.jsonl
+automated_trading/data/*.lock
+automated_trading/data/*.bak
+
+# Log files
+logs/
+*.log
+
+# Backup files
+*.backup
+*.backup.*
+
+# Environment files (contains secrets)
+automated_trading/.env
+.env
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+
+# Virtual environment
+venv/
+env/
+ENV/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
