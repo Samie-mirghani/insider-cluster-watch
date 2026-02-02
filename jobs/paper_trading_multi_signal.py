@@ -139,7 +139,7 @@ class MultiSignalPaperTrader:
                 f"${signal['insider_value']:,.0f}"
             )
 
-        if signal['has_politician']:
+        if signal['has_politician'] and signal['politician_data'] is not None:
             pol_data = signal['politician_data']
             pols = pol_data['num_politicians']
             bipartisan = " (BIPARTISAN)" if pol_data.get('is_bipartisan') else ""

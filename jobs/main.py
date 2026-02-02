@@ -896,7 +896,7 @@ def main(test=False, enable_paper_trading=True):
                 # Extract politician details
                 politician_names = []
                 politician_details = []
-                if signal['has_politician'] and signal['politician_data']:
+                if signal['has_politician'] and signal['politician_data'] is not None:
                     pol_data = signal['politician_data']
                     if 'trades' in pol_data:
                         for trade in pol_data['trades'][:5]:  # Top 5 politicians
