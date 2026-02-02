@@ -1,6 +1,6 @@
 {
   "starting_capital": 10000,
-  "cash": 8762.274999999996,
+  "cash": 7804.624999999994,
   "positions": {
     "ALLY": {
       "entry_date": "2026-01-26T11:36:47.241122",
@@ -32,7 +32,7 @@
       "initial_stop_loss": 100.0684,
       "stop_loss": 99.06743999999999,
       "take_profit": 120.60383999999999,
-      "highest_price": 108.77,
+      "highest_price": 109.3,
       "trailing_enabled": false,
       "signal_score": 7.44335654875845,
       "sector": null,
@@ -57,9 +57,9 @@
       "shares": 5,
       "cost_basis": 488.15,
       "initial_stop_loss": 89.8196,
-      "stop_loss": 95.9785,
+      "stop_loss": 96.11149999999999,
       "take_profit": 109.3456,
-      "highest_price": 101.03,
+      "highest_price": 101.17,
       "trailing_enabled": true,
       "signal_score": 9.424636760288086,
       "sector": "Banks - Regional",
@@ -70,28 +70,6 @@
           "shares": 5,
           "price": 97.63,
           "date": "2026-01-28T11:40:09.548199"
-        }
-      ]
-    },
-    "THM": {
-      "entry_date": "2026-01-28T11:40:09.924122",
-      "entry_price": 2.87,
-      "shares": 136,
-      "cost_basis": 390.32,
-      "initial_stop_loss": 2.6404,
-      "stop_loss": 2.9259999999999997,
-      "take_profit": 3.2144000000000004,
-      "highest_price": 3.08,
-      "trailing_enabled": true,
-      "signal_score": 6.688048754634776,
-      "sector": "Gold",
-      "multi_signal_tier": "none",
-      "has_politician_signal": false,
-      "tranches": [
-        {
-          "shares": 136,
-          "price": 2.87,
-          "date": "2026-01-28T11:40:09.924126"
         }
       ]
     },
@@ -147,7 +125,7 @@
       "initial_stop_loss": 20.3044,
       "stop_loss": 20.3044,
       "take_profit": 24.718400000000003,
-      "highest_price": 22.07,
+      "highest_price": 22.42,
       "trailing_enabled": false,
       "signal_score": 6.954136776044342,
       "sector": "Industrial Materials",
@@ -160,30 +138,75 @@
           "date": "2026-01-30T11:46:36.328639"
         }
       ]
+    },
+    "LIFE": {
+      "entry_date": "2026-02-02T11:52:02.348030",
+      "entry_price": 15.05,
+      "shares": 34,
+      "cost_basis": 511.70000000000005,
+      "initial_stop_loss": 13.846000000000002,
+      "stop_loss": 13.846000000000002,
+      "take_profit": 16.856,
+      "highest_price": 15.05,
+      "trailing_enabled": false,
+      "signal_score": 9.182987421926157,
+      "sector": "Biotechnology",
+      "multi_signal_tier": "none",
+      "has_politician_signal": false,
+      "tranches": [
+        {
+          "shares": 34,
+          "price": 15.05,
+          "date": "2026-02-02T11:52:02.348037"
+        }
+      ]
+    },
+    "IP": {
+      "entry_date": "2026-02-02T11:52:03.420382",
+      "entry_price": 40.32,
+      "shares": 10,
+      "cost_basis": 403.2,
+      "initial_stop_loss": 37.0944,
+      "stop_loss": 37.0944,
+      "take_profit": 45.15840000000001,
+      "highest_price": 40.32,
+      "trailing_enabled": false,
+      "signal_score": 7.440552726812614,
+      "sector": "Packaging & Containers",
+      "multi_signal_tier": "none",
+      "has_politician_signal": false,
+      "tranches": [
+        {
+          "shares": 10,
+          "price": 40.32,
+          "date": "2026-02-02T11:52:03.420388"
+        }
+      ]
+    },
+    "EMPD": {
+      "entry_date": "2026-02-02T11:52:04.536758",
+      "entry_price": 4.91,
+      "shares": 81,
+      "cost_basis": 397.71000000000004,
+      "initial_stop_loss": 4.517200000000001,
+      "stop_loss": 4.517200000000001,
+      "take_profit": 5.499200000000001,
+      "highest_price": 4.91,
+      "trailing_enabled": false,
+      "signal_score": 6.820613748990597,
+      "sector": "Auto - Recreational Vehicles",
+      "multi_signal_tier": "none",
+      "has_politician_signal": false,
+      "tranches": [
+        {
+          "shares": 81,
+          "price": 4.91,
+          "date": "2026-02-02T11:52:04.536764"
+        }
+      ]
     }
   },
   "pending_entries": {
-    "ALLY": {
-      "shares": 6,
-      "trigger_price": 40.2878,
-      "original_entry": 41.11,
-      "expires": "2026-01-31T11:36:47.345037",
-      "signal_score": 7.17775449233638
-    },
-    "TCBI": {
-      "shares": 3,
-      "trigger_price": 95.67739999999999,
-      "original_entry": 97.63,
-      "expires": "2026-02-02T11:40:09.678717",
-      "signal_score": 9.424636760288086
-    },
-    "THM": {
-      "shares": 91,
-      "trigger_price": 2.8126,
-      "original_entry": 2.87,
-      "expires": "2026-02-02T11:40:10.047740",
-      "signal_score": 6.688048754634776
-    },
     "HLXC": {
       "shares": 29,
       "trigger_price": 10.0548,
@@ -204,13 +227,34 @@
       "original_entry": 22.07,
       "expires": "2026-02-04T11:46:36.521557",
       "signal_score": 6.954136776044342
+    },
+    "LIFE": {
+      "shares": 22,
+      "trigger_price": 14.749,
+      "original_entry": 15.05,
+      "expires": "2026-02-07T11:52:02.518209",
+      "signal_score": 9.182987421926157
+    },
+    "IP": {
+      "shares": 7,
+      "trigger_price": 39.5136,
+      "original_entry": 40.32,
+      "expires": "2026-02-07T11:52:03.699076",
+      "signal_score": 7.440552726812614
+    },
+    "EMPD": {
+      "shares": 54,
+      "trigger_price": 4.8118,
+      "original_entry": 4.91,
+      "expires": "2026-02-07T11:52:04.754453",
+      "signal_score": 6.820613748990597
     }
   },
-  "total_trades": 36,
+  "total_trades": 39,
   "winning_trades": 23,
-  "losing_trades": 7,
-  "total_profit": 1836.1000000000004,
+  "losing_trades": 8,
+  "total_profit": 1800.7400000000002,
   "max_portfolio_value": 11932.704999999998,
   "max_drawdown": -9.109194484777545,
-  "last_updated": "2026-01-30T11:46:37.277479"
+  "last_updated": "2026-02-02T11:52:05.961562"
 }

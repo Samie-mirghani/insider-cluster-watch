@@ -674,13 +674,13 @@
   "IBM": {
     "industry": "Information Technology Services",
     "sector": "Technology",
-    "price": 302.79,
+    "price": 306.7,
     "companyName": "International Business Machines Corporation",
     "currency": "USD",
-    "beta": 0.689,
+    "beta": 0.698,
     "range": "214.5-324.9",
     "ipoDate": "1915-09-24",
-    "updated": "2025-12-23T12:41:32.774099",
+    "updated": "2026-02-02T11:50:30.061334",
     "source": "fmp_api"
   },
   "GE": {
@@ -4665,6 +4665,90 @@
     "range": "22.63-32.14",
     "ipoDate": "2017-06-30",
     "updated": "2026-01-30T11:45:09.260441",
+    "source": "fmp_api"
+  },
+  "BFC": {
+    "industry": "Banks - Regional",
+    "sector": "Financial Services",
+    "price": 139.54,
+    "companyName": "Bank First Corporation",
+    "currency": "USD",
+    "beta": 0.411,
+    "range": "93-142.12",
+    "ipoDate": "2003-10-15",
+    "updated": "2026-02-02T11:50:29.944463",
+    "source": "fmp_api"
+  },
+  "RMBI": {
+    "industry": "Banks - Regional",
+    "sector": "Financial Services",
+    "price": 14.03,
+    "companyName": "Richmond Mutual Bancorporation, Inc.",
+    "currency": "USD",
+    "beta": 0.255,
+    "range": "11.369-15.24",
+    "ipoDate": "2019-07-02",
+    "updated": "2026-02-02T11:50:29.965791",
+    "source": "fmp_api"
+  },
+  "CBK": {
+    "industry": "Banks",
+    "sector": "Financial Services",
+    "price": 26.34,
+    "companyName": "Commercial Bancgroup, Inc. Common Stock",
+    "currency": "USD",
+    "beta": 5.353515,
+    "range": "23.235-26.5",
+    "ipoDate": "2025-10-02",
+    "updated": "2026-02-02T11:50:29.973372",
+    "source": "fmp_api"
+  },
+  "CWBC": {
+    "industry": "Banks - Regional",
+    "sector": "Financial Services",
+    "price": 23.97,
+    "companyName": "Community West Bancshares",
+    "currency": "USD",
+    "beta": 0.904,
+    "range": "15.57-24.67",
+    "ipoDate": "1996-11-19",
+    "updated": "2026-02-02T11:50:29.974687",
+    "source": "fmp_api"
+  },
+  "IP": {
+    "industry": "Packaging & Containers",
+    "sector": "Consumer Cyclical",
+    "price": 40.32,
+    "companyName": "International Paper Company",
+    "currency": "USD",
+    "beta": 1.06,
+    "range": "35.56-57.55",
+    "ipoDate": "1970-01-02",
+    "updated": "2026-02-02T11:50:30.060576",
+    "source": "fmp_api"
+  },
+  "LIFE": {
+    "industry": "Biotechnology",
+    "sector": "Healthcare",
+    "price": 15.05,
+    "companyName": "aTyr Pharma, Inc.",
+    "currency": "USD",
+    "beta": 1.188,
+    "range": "15.05-17.8",
+    "ipoDate": "2015-05-07",
+    "updated": "2026-02-02T11:50:30.091419",
+    "source": "fmp_api"
+  },
+  "EMPD": {
+    "industry": "Auto - Recreational Vehicles",
+    "sector": "Consumer Cyclical",
+    "price": 4.91,
+    "companyName": "Empery Digital Inc.",
+    "currency": "USD",
+    "beta": -0.608,
+    "range": "4.035-80.8",
+    "ipoDate": "2021-10-06",
+    "updated": "2026-02-02T11:50:30.709291",
     "source": "fmp_api"
   }
 }

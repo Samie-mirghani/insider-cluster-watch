@@ -1,24 +1,24 @@
 {
-  "last_updated": "January 30, 2026 at 11:46 UTC",
-  "total_return_pct": 19.09,
-  "win_rate": 76.7,
-  "completed_trades": 30,
-  "active_trades": 7,
-  "avg_return_per_trade": 10.59,
-  "sharpe_ratio": 11.76,
+  "last_updated": "February 02, 2026 at 11:52 UTC",
+  "total_return_pct": 18.71,
+  "win_rate": 74.2,
+  "completed_trades": 31,
+  "active_trades": 9,
+  "avg_return_per_trade": 9.95,
+  "sharpe_ratio": 10.91,
   "max_drawdown": -9.11,
   "avg_hold_days": 9,
   "best_trade_pct": 59.64,
-  "worst_trade_pct": -7.61,
-  "alpha_vs_sp500": 18.9,
+  "worst_trade_pct": -9.06,
+  "alpha_vs_sp500": 18.82,
   "avg_winner": 14.93,
-  "avg_loser": -3.69,
-  "win_loss_ratio": 4.05,
-  "profit_factor": 13.31,
-  "last_30_days_return": 190.52,
-  "last_10_trades_win_rate": 80.0,
-  "current_streak": 6,
-  "current_streak_type": "wins",
+  "avg_loser": -4.36,
+  "win_loss_ratio": 3.42,
+  "profit_factor": 9.85,
+  "last_30_days_return": 181.46,
+  "last_10_trades_win_rate": 70.0,
+  "current_streak": 1,
+  "current_streak_type": "losses",
   "conviction_performance": [
     {
       "conviction": "VERY HIGH",
@@ -40,9 +40,9 @@
     },
     {
       "conviction": "LOW",
-      "trades": 3,
-      "win_rate": 100.0,
-      "avg_return": 13.77
+      "trades": 4,
+      "win_rate": 75.0,
+      "avg_return": 8.06
     }
   ],
   "monthly_returns": [
@@ -53,9 +53,22 @@
     {
       "month": "2026-01",
       "return": 190.52
+    },
+    {
+      "month": "2026-02",
+      "return": -9.06
     }
   ],
   "recent_trades": [
+    {
+      "ticker": "THM",
+      "entry_date": "Jan 28, 2026",
+      "exit_date": "Feb 02, 2026",
+      "hold_days": 5,
+      "return_pct": -9.06,
+      "conviction": "LOW",
+      "exit_reason": "Stop Loss"
+    },
     {
       "ticker": "BDSX",
       "entry_date": "Jan 27, 2026",
@@ -226,63 +239,68 @@
       "return_pct": 59.64,
       "conviction": "VERY HIGH",
       "exit_reason": "Take Profit"
-    },
-    {
-      "ticker": "BRR",
-      "entry_date": "Dec 18, 2025",
-      "exit_date": "Dec 23, 2025",
-      "hold_days": 4,
-      "return_pct": -5.75,
-      "conviction": "MEDIUM",
-      "exit_reason": "Stop Loss"
     }
   ],
   "open_positions": [
     {
       "ticker": "ALLY",
       "entry_date": "Jan 26, 2026",
-      "days_held": 4,
-      "unrealized_return": 4.5,
+      "days_held": 7,
+      "unrealized_return": 2.85,
       "conviction": "MEDIUM"
     },
     {
       "ticker": "ABT",
       "entry_date": "Jan 27, 2026",
-      "days_held": 3,
-      "unrealized_return": -1.48,
+      "days_held": 6,
+      "unrealized_return": 1.5,
       "conviction": "MEDIUM"
     },
     {
       "ticker": "TCBI",
       "entry_date": "Jan 28, 2026",
-      "days_held": 2,
-      "unrealized_return": 3.48,
+      "days_held": 5,
+      "unrealized_return": 3.63,
       "conviction": "MEDIUM"
-    },
-    {
-      "ticker": "THM",
-      "entry_date": "Jan 28, 2026",
-      "days_held": 2,
-      "unrealized_return": 4.18,
-      "conviction": "LOW"
     },
     {
       "ticker": "HLXC",
       "entry_date": "Jan 29, 2026",
-      "days_held": 0,
-      "unrealized_return": -0.29,
+      "days_held": 4,
+      "unrealized_return": -0.49,
       "conviction": "MEDIUM"
     },
     {
       "ticker": "GDV",
       "entry_date": "Jan 29, 2026",
-      "days_held": 0,
-      "unrealized_return": 2.52,
+      "days_held": 4,
+      "unrealized_return": 2.23,
       "conviction": "MEDIUM"
     },
     {
       "ticker": "USAR",
       "entry_date": "Jan 30, 2026",
+      "days_held": 3,
+      "unrealized_return": 1.59,
+      "conviction": "LOW"
+    },
+    {
+      "ticker": "LIFE",
+      "entry_date": "Feb 02, 2026",
+      "days_held": 0,
+      "unrealized_return": 0.0,
+      "conviction": "MEDIUM"
+    },
+    {
+      "ticker": "IP",
+      "entry_date": "Feb 02, 2026",
+      "days_held": 0,
+      "unrealized_return": 0.0,
+      "conviction": "MEDIUM"
+    },
+    {
+      "ticker": "EMPD",
+      "entry_date": "Feb 02, 2026",
       "days_held": 0,
       "unrealized_return": 0.0,
       "conviction": "LOW"
@@ -290,9 +308,9 @@
   ],
   "portfolio_composition": {
     "starting_capital": 10000,
-    "current_value": 11908.69,
-    "cash": 8762.27,
-    "invested_capital": 3146.42,
-    "capital_deployed_pct": 26.42
+    "current_value": 11871.18,
+    "cash": 7804.62,
+    "invested_capital": 4066.56,
+    "capital_deployed_pct": 34.26
   }
 }
