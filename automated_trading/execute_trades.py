@@ -631,7 +631,13 @@ class TradingEngine:
                         self.signal_queue.add_signal(signal, reason=message)
                         results['queued_for_later'] += 1
             else:
-                logger.info(f"Skipping {ticker}: {reason}")
+                # Queue signal if it was rejected due to max positions
+                if 'Max positions' in reason:
+                    logger.info(f"Queuing {ticker}: Max positions reached - added to queue for redeployment")
+                    self.signal_queue.add_signal(signal, reason=reason)
+                    results['queued_for_later'] += 1
+                else:
+                    logger.info(f"Skipping {ticker}: {reason}")
 
         # Send ONE consolidated batch email for all morning trades
         if executed_trades:
