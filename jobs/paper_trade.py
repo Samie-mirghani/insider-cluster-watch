@@ -503,6 +503,88 @@ class PaperTradingPortfolio:
             logger.warning(f"   ❌ REJECTED: Invalid price (value: {entry_price})")
             return False
 
+        # NEW FILTERS: Cooldown, Single-Insider, Downtrend
+        # Extract signal fields (handle both dict and Series)
+        insider_count = signal.get('cluster_count', 0) if isinstance(signal, dict) else signal.get('cluster_count', 0)
+        market_cap = signal.get('market_cap') if isinstance(signal, dict) else signal.get('market_cap')
+        buy_value = signal.get('buy_value', 0) if isinstance(signal, dict) else signal.get('buy_value', 0)
+
+        # Filter 1: Repeat Trade Cooldown (7 calendar days)
+        cutoff_date = datetime.now() - timedelta(days=7)
+        for entry in self.trade_history:
+            if entry.get('action') == 'SELL' and entry.get('ticker') == ticker:
+                # Handle both datetime objects and ISO strings
+                entry_date = entry.get('date')
+                if isinstance(entry_date, str):
+                    try:
+                        entry_date = datetime.fromisoformat(entry_date)
+                    except:
+                        continue
+                elif isinstance(entry_date, datetime):
+                    pass  # Already datetime
+                else:
+                    continue  # Unknown type
+
+                if entry_date >= cutoff_date:
+                    close_date = entry_date.strftime('%Y-%m-%d')
+                    logger.warning(f"   ❌ REJECTED: Cooldown: {ticker} closed on {close_date}, 7-day cooldown required")
+                    return False
+
+        # Filter 2: Single Insider Micro-Cap
+        if insider_count == 1:
+            # Check 1: Micro-cap with low score
+            if market_cap is not None and market_cap < 100_000_000:
+                if signal_score < 9.0:
+                    logger.warning(
+                        f"   ❌ REJECTED: Single insider micro-cap: score {signal_score:.2f} < 9.0 required "
+                        f"(mkt cap ${market_cap/1e6:.1f}M)"
+                    )
+                    return False
+
+            # Check 2: Weak conviction (low buy value)
+            if buy_value < 500_000:
+                logger.warning(
+                    f"   ❌ REJECTED: Single insider weak conviction: buy_value ${buy_value:,.0f} < $500K minimum"
+                )
+                return False
+
+            # Check 3: Likely go-private transaction
+            if market_cap and market_cap > 0 and buy_value > 10_000_000:
+                pct_of_cap = buy_value / market_cap
+                if pct_of_cap > 0.3:
+                    logger.warning(
+                        f"   ❌ REJECTED: Likely go-private: single insider buying {pct_of_cap*100:.0f}% of market cap — skipping"
+                    )
+                    return False
+
+        # Filter 3: Downtrend Detection
+        try:
+            # Get 7 days of history
+            end_date = datetime.now()
+            start_date = end_date - timedelta(days=7)
+            hist = yf.download(ticker, start=start_date, end=end_date, progress=False)
+
+            if not hist.empty and len(hist) >= 5:
+                # Compute 5-day SMA of closing prices
+                last_5_closes = hist['Close'].tail(5)
+                sma_5 = last_5_closes.mean()
+
+                if sma_5 and entry_price < sma_5 * 0.97:
+                    # Price is >3% below 5-day SMA - downtrend
+                    pct_below = ((entry_price - sma_5) / sma_5) * 100
+                    logger.warning(
+                        f"   ❌ REJECTED: Downtrend: {ticker} price ${entry_price:.2f} is {abs(pct_below):.1f}% "
+                        f"below 5-day SMA ${sma_5:.2f}"
+                    )
+                    return False
+            # If yfinance call fails or insufficient data, log warning but DO NOT block
+            elif hist.empty:
+                logger.warning(f"   ⚠️  {ticker}: No price history available for downtrend check, allowing trade")
+
+        except Exception as e:
+            # yfinance call failed - log warning but DO NOT block the trade
+            logger.warning(f"   ⚠️  {ticker}: Downtrend check failed ({str(e)}), allowing trade")
+
         # Validation 2: Signal score threshold (defensive check)
         # Note: Signals should already be filtered in main.py, but we check again here
         # in case execute_signal is called directly from other code paths

@@ -1084,7 +1084,7 @@ def main(test=False, enable_paper_trading=True):
                 'company_name': row.get('companyName', ''),
                 'sector': row.get('sector', ''),
                 'industry': row.get('industry', ''),
-                'market_cap': row.get('mktCap'),
+                'market_cap': row.get('marketCap'),
                 'quality_score': row.get('quality_score', 0),
                 'multi_signal_tier': row.get('multi_signal_tier', 'none'),
                 'politician_trades': row.get('politician_trades', 0),
@@ -1226,7 +1226,9 @@ def main(test=False, enable_paper_trading=True):
                 'cluster_count': signal_row.get('cluster_count', 0),
                 'sector': signal_row.get('sector', 'Unknown'),
                 'multi_signal_tier': signal_row.get('multi_signal_tier', 'none'),
-                'has_politician_signal': signal_row.get('has_politician_signal', False)
+                'has_politician_signal': signal_row.get('has_politician_signal', False),
+                'market_cap': signal_row.get('marketCap'),
+                'buy_value': signal_row.get('total_value', 0)
             }
 
             if paper_trader.execute_signal(signal):

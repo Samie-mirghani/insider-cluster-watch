@@ -1031,6 +1031,94 @@ def apply_quality_filters(cluster_df):
     min_price = apply_holiday_adjustment(MIN_STOCK_PRICE) if is_holiday else MIN_STOCK_PRICE
     min_volume = apply_holiday_adjustment(MIN_AVERAGE_VOLUME) if is_holiday else MIN_AVERAGE_VOLUME
 
+    # Filter 0a: Repeat Trade Cooldown (7 calendar days)
+    # Block re-entry into a ticker if it was sold/closed within the last 7 calendar days
+    before = len(filtered)
+    cooldown_rejections = []
+
+    try:
+        # Attempt to read paper_trades.csv
+        trades_file = os.path.join(os.path.dirname(__file__), '..', 'data', 'paper_trades.csv')
+        if os.path.exists(trades_file):
+            trades_df = pd.read_csv(trades_file, parse_dates=['date'])
+
+            # Filter for SELL actions within last 7 days
+            cutoff_date = datetime.now() - timedelta(days=7)
+            recent_sells = trades_df[
+                (trades_df['action'] == 'SELL') &
+                (trades_df['date'] >= cutoff_date)
+            ]
+
+            if not recent_sells.empty:
+                # Check each signal against recent sells
+                for idx, row in filtered.iterrows():
+                    ticker = row['ticker']
+                    ticker_sells = recent_sells[recent_sells['ticker'] == ticker]
+
+                    if not ticker_sells.empty:
+                        # Found recent sell - reject with cooldown message
+                        close_date = ticker_sells['date'].max().strftime('%Y-%m-%d')
+                        cooldown_rejections.append({
+                            'ticker': ticker,
+                            'close_date': close_date
+                        })
+                        filtered = filtered.drop(idx)
+
+                if cooldown_rejections:
+                    print(f"   ❌ Removed {len(cooldown_rejections)} signals due to 7-day cooldown")
+                    for rej in cooldown_rejections[:3]:  # Show first 3 examples
+                        print(f"      • Cooldown: {rej['ticker']} closed on {rej['close_date']}, 7-day cooldown required")
+    except Exception as e:
+        # File doesn't exist or can't be parsed - skip cooldown check silently
+        # This is expected on fresh clones or if no trades have occurred yet
+        logger.debug(f"Cooldown check skipped: {e}")
+        pass
+
+    # Filter 0b: Single Insider Micro-Cap
+    # When conviction is low, require a higher bar
+    before = len(filtered)
+    single_insider_rejections = []
+
+    for idx, row in list(filtered.iterrows()):
+        insider_count = row.get('cluster_count', 0)
+        market_cap = row.get('marketCap')
+        buy_value = row.get('total_value', 0)
+        score = row.get('rank_score', 0)
+        ticker = row['ticker']
+
+        if insider_count == 1:
+            # Check 1: Micro-cap with low score
+            if market_cap is not None and market_cap < 100_000_000:
+                if score < 9.0:
+                    single_insider_rejections.append(
+                        f"Single insider micro-cap: {ticker} score {score:.2f} < 9.0 required (mkt cap ${market_cap/1e6:.1f}M)"
+                    )
+                    filtered = filtered.drop(idx)
+                    continue
+
+            # Check 2: Weak conviction (low buy value)
+            if buy_value < 500_000:
+                single_insider_rejections.append(
+                    f"Single insider weak conviction: {ticker} buy_value ${buy_value:,.0f} < $500K minimum"
+                )
+                filtered = filtered.drop(idx)
+                continue
+
+            # Check 3: Likely go-private transaction
+            if market_cap and market_cap > 0 and buy_value > 10_000_000:
+                pct_of_cap = buy_value / market_cap
+                if pct_of_cap > 0.3:
+                    single_insider_rejections.append(
+                        f"Likely go-private: {ticker} single insider buying {pct_of_cap*100:.0f}% of market cap — skipping"
+                    )
+                    filtered = filtered.drop(idx)
+                    continue
+
+    if single_insider_rejections:
+        print(f"   ❌ Removed {len(single_insider_rejections)} single-insider micro-cap signals")
+        for rej in single_insider_rejections[:3]:  # Show first 3 examples
+            print(f"      • {rej}")
+
     # Filter 1: No penny stocks (price > $2.00, or $1.60 in holiday mode)
     before = len(filtered)
     filtered = filtered[
@@ -1196,41 +1284,86 @@ def apply_quality_filters(cluster_df):
     if removed > 0:
         print(f"   ❌ Removed {removed} illiquid stocks (below tiered dollar volume thresholds)")
     
-    # Filter 4: Not down >40% in last 30 days (avoid falling knives)
+    # Filter 4: Price health check (drawdown + downtrend)
     before = len(filtered)
-    
-    def check_recent_drawdown(row):
-        """Check if stock is down >40% in last 30 days"""
+
+    def check_price_health(row):
+        """
+        Check if stock passes price health filters:
+        1. Not down >40% in last 30 days (drawdown check)
+        2. Not in downtrend (price >3% below 5-day SMA)
+
+        Returns: (passes_bool, reason_string)
+        """
         ticker = row['ticker']
+        current_price = row.get('currentPrice')
+
+        if not current_price:
+            return (True, "")  # No price data, don't filter
+
         try:
-            # Get 30 days of data
+            # Get 35 days of data (enough for 30-day drawdown + 5-day SMA)
             end_date = datetime.now()
             start_date = end_date - timedelta(days=35)
             hist = yf.download(ticker, start=start_date, end=end_date, progress=False)
-            
+
             if hist.empty or len(hist) < 5:
-                return True  # No data, don't filter
-            
+                # No data - log warning but DO NOT block the trade
+                logger.warning(f"{ticker}: Insufficient price history for health checks, allowing trade")
+                return (True, "")
+
+            # Check 1: 30-day drawdown (existing logic)
             high_30d = hist['High'].max()
-            current = row.get('currentPrice')
-            
-            if not current or not high_30d:
-                return True
-            
-            drawdown = (current - high_30d) / high_30d
-            
-            # Filter out if down more than 40%
-            return drawdown > -0.40
-            
-        except Exception:
-            return True  # Error, don't filter
-    
-    # Apply drawdown filter (this takes time, so we do it last after other filters)
+            if high_30d and current_price:
+                drawdown = (current_price - high_30d) / high_30d
+                if drawdown <= -0.40:
+                    return (False, f"Drawdown: {ticker} down {abs(drawdown)*100:.1f}% from 30-day high")
+
+            # Check 2: Downtrend detection (NEW)
+            # Use last 5 close prices for SMA
+            if len(hist) >= 5:
+                last_5_closes = hist['Close'].tail(5)
+                sma_5 = last_5_closes.mean()
+
+                if sma_5 and current_price < sma_5 * 0.97:
+                    # Price is >3% below 5-day SMA - downtrend
+                    pct_below = ((current_price - sma_5) / sma_5) * 100
+                    return (False, f"Downtrend: {ticker} price ${current_price:.2f} is {abs(pct_below):.1f}% below 5-day SMA ${sma_5:.2f}")
+
+            return (True, "")  # Passed all checks
+
+        except Exception as e:
+            # Data fetch failed - log warning but DO NOT block the trade
+            logger.warning(f"{ticker}: Price health check failed ({str(e)}), allowing trade")
+            return (True, "")  # Never reject on data-fetch failure
+
+    # Apply price health filter (this takes time, so we do it last after other filters)
+    drawdown_rejections = []
+    downtrend_rejections = []
+
     if len(filtered) <= 20:  # Only check if we have reasonable number of signals
-        filtered = filtered[filtered.apply(check_recent_drawdown, axis=1)]
+        health_results = []
+        for idx, row in filtered.iterrows():
+            passes, reason = check_price_health(row)
+            if passes:
+                health_results.append(idx)
+            else:
+                # Track rejection reason
+                if "Drawdown" in reason:
+                    drawdown_rejections.append(reason)
+                elif "Downtrend" in reason:
+                    downtrend_rejections.append(reason)
+
+        filtered = filtered.loc[health_results]
         removed = before - len(filtered)
+
         if removed > 0:
-            print(f"   ❌ Removed {removed} stocks down >40% in 30 days")
+            if drawdown_rejections:
+                print(f"   ❌ Removed {len(drawdown_rejections)} stocks with >40% drawdown")
+            if downtrend_rejections:
+                print(f"   ❌ Removed {len(downtrend_rejections)} stocks in downtrend (>3% below 5-day SMA)")
+                for rej in downtrend_rejections[:3]:  # Show first 3 examples
+                    print(f"      • {rej}")
     
     total_removed = original_count - len(filtered)
     print(f"   ✅ Quality filters: {len(filtered)} signals remaining ({total_removed} removed)")
