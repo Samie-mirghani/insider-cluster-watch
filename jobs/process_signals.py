@@ -1051,7 +1051,7 @@ def apply_quality_filters(cluster_df):
 
             if not recent_sells.empty:
                 # Check each signal against recent sells
-                for idx, row in filtered.iterrows():
+                for idx, row in list(filtered.iterrows()):
                     ticker = row['ticker']
                     ticker_sells = recent_sells[recent_sells['ticker'] == ticker]
 
