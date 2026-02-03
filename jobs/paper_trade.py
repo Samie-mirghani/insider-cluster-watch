@@ -530,7 +530,7 @@ class PaperTradingPortfolio:
                     logger.warning(f"   ❌ REJECTED: Cooldown: {ticker} closed on {close_date}, 7-day cooldown required")
                     return False
 
-        # Filter 2: Single Insider Micro-Cap
+        # Filter 2: Single Insider Micro-Cap & Go-Private Detection
         if insider_count == 1:
             # Check 1: Micro-cap with low score
             if market_cap is not None and market_cap < 100_000_000:
@@ -548,7 +548,7 @@ class PaperTradingPortfolio:
                 )
                 return False
 
-            # Check 3: Likely go-private transaction
+            # Check 3: Likely go-private transaction (basic check from main prompt)
             if market_cap and market_cap > 0 and buy_value > 10_000_000:
                 pct_of_cap = buy_value / market_cap
                 if pct_of_cap > 0.3:
@@ -556,6 +556,46 @@ class PaperTradingPortfolio:
                         f"   ❌ REJECTED: Likely go-private: single insider buying {pct_of_cap*100:.0f}% of market cap — skipping"
                     )
                     return False
+
+            # === LEVEL 1: Enhanced Go-Private Hard Rejections (Numerical Thresholds Only) ===
+            if market_cap and market_cap > 0:
+                pct_of_cap = buy_value / market_cap
+
+                # Hard Rejection 1: Single insider buying >50% of company
+                if pct_of_cap > 0.5:
+                    logger.warning(
+                        f"   ❌ REJECTED: Go-private: single insider buying {pct_of_cap*100:.0f}% of company (likely acquisition)"
+                    )
+                    return False
+
+                # Hard Rejection 2: >$50M buying >20% of company
+                if buy_value > 50_000_000 and pct_of_cap > 0.2:
+                    logger.warning(
+                        f"   ❌ REJECTED: Go-private: ${buy_value/1e6:.0f}M purchase = {pct_of_cap*100:.0f}% "
+                        f"of ${market_cap/1e6:.0f}M company (likely M&A)"
+                    )
+                    return False
+
+                # === LEVEL 2: Manual Review Alerts (Numerical Thresholds Only) ===
+                # These DO NOT reject - just log warnings
+
+                # Alert 1: Moderate Single-Insider Stakes (15-30% of company, >$20M)
+                if 0.15 <= pct_of_cap < 0.3 and buy_value > 20_000_000:
+                    logger.warning(f"   ⚠️  LARGE SINGLE-INSIDER PURCHASE - Manual review recommended")
+                    logger.warning(f"      Buy Amount: ${buy_value/1e6:.1f}M")
+                    logger.warning(f"      Market Cap: ${market_cap/1e6:.1f}M")
+                    logger.warning(f"      % of Company: {pct_of_cap*100:.1f}%")
+                    logger.warning(f"      Risk: Possible M&A activity or go-private transaction")
+                    logger.warning(f"      Action: Signal ALLOWED but flagged for investigation")
+
+                # Alert 2: Very Large Transaction (any single insider >$100M)
+                if buy_value > 100_000_000:
+                    logger.warning(f"   ⚠️  EXCEPTIONALLY LARGE PURCHASE - Manual review recommended")
+                    logger.warning(f"      Buy Amount: ${buy_value/1e6:.1f}M")
+                    logger.warning(f"      Market Cap: ${market_cap/1e6:.1f}M")
+                    logger.warning(f"      % of Company: {pct_of_cap*100:.1f}%")
+                    logger.warning(f"      Risk: Exceptional transaction size warrants investigation")
+                    logger.warning(f"      Action: Signal ALLOWED but flagged for investigation")
 
         # Filter 3: Downtrend Detection
         try:

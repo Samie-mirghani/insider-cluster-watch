@@ -492,6 +492,33 @@ def _should_group_entities(name1, name2):
 
     return False
 
+def is_institutional_entity(insider_name):
+    """
+    Check if insider name suggests institutional/M&A entity.
+
+    Returns: (is_entity, entity_type)
+    """
+    if not insider_name or not isinstance(insider_name, str):
+        return False, None
+
+    name_upper = insider_name.upper()
+
+    patterns = {
+        'Private Equity': ['PE', 'PRIVATE EQUITY'],
+        'Investment Fund': ['FUND', 'FUNDS', 'INVESTMENT', 'INVESTMENTS'],
+        'LLC': ['LLC', 'L.L.C', 'L.L.C.', 'LIMITED LIABILITY'],
+        'Partnership': ['PARTNERS', 'PARTNERSHIP', 'LP', 'L.P.'],
+        'Capital': ['CAPITAL', 'CAPITAL MANAGEMENT'],
+        'Holdings': ['HOLDINGS', 'HOLDING COMPANY', 'HOLDING CO'],
+        'Acquisition Entity': ['ACQUISITION', 'ACQUISITIONS', 'ACQUIRER']
+    }
+
+    for entity_type, keywords in patterns.items():
+        if any(kw in name_upper for kw in keywords):
+            return True, entity_type
+
+    return False, None
+
 def format_insiders_structured(window_df, limit=3):
     """
     Create a structured list of insiders with proper formatting.
@@ -1074,7 +1101,7 @@ def apply_quality_filters(cluster_df):
         logger.debug(f"Cooldown check skipped: {e}")
         pass
 
-    # Filter 0b: Single Insider Micro-Cap
+    # Filter 0b: Single Insider Micro-Cap & Go-Private Detection
     # When conviction is low, require a higher bar
     before = len(filtered)
     single_insider_rejections = []
@@ -1104,7 +1131,7 @@ def apply_quality_filters(cluster_df):
                 filtered = filtered.drop(idx)
                 continue
 
-            # Check 3: Likely go-private transaction
+            # Check 3: Likely go-private transaction (basic check from main prompt)
             if market_cap and market_cap > 0 and buy_value > 10_000_000:
                 pct_of_cap = buy_value / market_cap
                 if pct_of_cap > 0.3:
@@ -1118,6 +1145,153 @@ def apply_quality_filters(cluster_df):
         print(f"   ❌ Removed {len(single_insider_rejections)} single-insider micro-cap signals")
         for rej in single_insider_rejections[:3]:  # Show first 3 examples
             print(f"      • {rej}")
+
+    # === LEVEL 1: Go-Private Hard Rejections (Enhanced Detection) ===
+    before = len(filtered)
+    go_private_rejections = []
+
+    for idx, row in list(filtered.iterrows()):
+        insider_count = row.get('cluster_count', 0)
+        market_cap = row.get('marketCap')
+        buy_value = row.get('total_value', 0)
+        ticker = row['ticker']
+
+        # Only apply to single-insider transactions
+        if insider_count != 1:
+            continue
+
+        # Skip if missing required data
+        if not market_cap or market_cap <= 0:
+            continue
+
+        pct_of_cap = buy_value / market_cap if market_cap > 0 else 0
+
+        # Extract insider name for entity detection
+        insider_name = None
+        insiders_data = row.get('insiders_data', [])
+        if insiders_data and len(insiders_data) > 0:
+            insider_name = insiders_data[0].get('name', '')
+        else:
+            # Fallback to plain text insiders field
+            insiders_plain = row.get('insiders', '')
+            if insiders_plain:
+                # Parse first insider from plain text (format: "Name (Title)")
+                import re
+                match = re.match(r'^([^(]+)', insiders_plain)
+                if match:
+                    insider_name = match.group(1).strip()
+
+        # Check entity pattern
+        is_entity, entity_type = is_institutional_entity(insider_name)
+
+        # Hard Rejection 1: Single insider buying >50% of company
+        if pct_of_cap > 0.5:
+            go_private_rejections.append({
+                'ticker': ticker,
+                'reason': f"Go-private: single insider buying {pct_of_cap*100:.0f}% of company (likely acquisition)",
+                'pct': pct_of_cap * 100,
+                'value': buy_value,
+                'market_cap': market_cap
+            })
+            filtered = filtered.drop(idx)
+            continue
+
+        # Hard Rejection 2: >$50M buying >20% of company
+        if buy_value > 50_000_000 and pct_of_cap > 0.2:
+            go_private_rejections.append({
+                'ticker': ticker,
+                'reason': f"Go-private: ${buy_value/1e6:.0f}M purchase = {pct_of_cap*100:.0f}% of ${market_cap/1e6:.0f}M company (likely M&A)",
+                'pct': pct_of_cap * 100,
+                'value': buy_value,
+                'market_cap': market_cap
+            })
+            filtered = filtered.drop(idx)
+            continue
+
+        # Hard Rejection 3: Entity name pattern + >$20M + >15%
+        if is_entity and buy_value > 20_000_000 and pct_of_cap > 0.15:
+            go_private_rejections.append({
+                'ticker': ticker,
+                'reason': f"Go-private: institutional entity ({entity_type}) buying {pct_of_cap*100:.0f}% of company (likely M&A)",
+                'pct': pct_of_cap * 100,
+                'value': buy_value,
+                'market_cap': market_cap,
+                'entity': insider_name
+            })
+            filtered = filtered.drop(idx)
+            continue
+
+    # Log hard rejections
+    if go_private_rejections:
+        print(f"   ❌ Removed {len(go_private_rejections)} likely go-private transactions:")
+        for rej in go_private_rejections:
+            print(f"      • {rej['ticker']}: {rej['reason']}")
+
+    # === LEVEL 2: Manual Review Alerts (Suspicious Patterns) ===
+    # These DO NOT reject the signal - they just log warnings for manual review
+    for idx, row in filtered.iterrows():
+        insider_count = row.get('cluster_count', 0)
+        market_cap = row.get('marketCap')
+        buy_value = row.get('total_value', 0)
+        ticker = row['ticker']
+
+        # Only apply to single-insider transactions
+        if insider_count != 1:
+            continue
+
+        # Skip if missing required data
+        if not market_cap or market_cap <= 0:
+            continue
+
+        pct_of_cap = buy_value / market_cap if market_cap > 0 else 0
+
+        # Extract insider name for entity detection
+        insider_name = None
+        insiders_data = row.get('insiders_data', [])
+        if insiders_data and len(insiders_data) > 0:
+            insider_name = insiders_data[0].get('name', '')
+        else:
+            # Fallback to plain text insiders field
+            insiders_plain = row.get('insiders', '')
+            if insiders_plain:
+                # Parse first insider from plain text (format: "Name (Title)")
+                import re
+                match = re.match(r'^([^(]+)', insiders_plain)
+                if match:
+                    insider_name = match.group(1).strip()
+
+        # Check entity pattern
+        is_entity, entity_type = is_institutional_entity(insider_name)
+
+        # Alert 1: Moderate Single-Insider Stakes (15-30% of company, >$20M)
+        if 0.15 <= pct_of_cap < 0.3 and buy_value > 20_000_000:
+            logger.warning(f"⚠️  {ticker}: LARGE SINGLE-INSIDER PURCHASE - Manual review recommended")
+            logger.warning(f"   Insider: {insider_name or 'Unknown'}")
+            logger.warning(f"   Buy Amount: ${buy_value/1e6:.1f}M")
+            logger.warning(f"   Market Cap: ${market_cap/1e6:.1f}M")
+            logger.warning(f"   % of Company: {pct_of_cap*100:.1f}%")
+            logger.warning(f"   Risk: Possible M&A activity or go-private transaction")
+            logger.warning(f"   Action: Signal ALLOWED but flagged for investigation")
+
+        # Alert 2: Large Institutional Entity (>$10M + >10% stake)
+        if is_entity and buy_value > 10_000_000 and pct_of_cap > 0.1:
+            logger.warning(f"⚠️  {ticker}: INSTITUTIONAL ENTITY PURCHASE - Manual review recommended")
+            logger.warning(f"   Entity: {insider_name or 'Unknown'} ({entity_type})")
+            logger.warning(f"   Buy Amount: ${buy_value/1e6:.1f}M")
+            logger.warning(f"   Market Cap: ${market_cap/1e6:.1f}M")
+            logger.warning(f"   % of Company: {pct_of_cap*100:.1f}%")
+            logger.warning(f"   Risk: Possible M&A activity or go-private transaction")
+            logger.warning(f"   Action: Signal ALLOWED but flagged for investigation")
+
+        # Alert 3: Very Large Transaction (any single insider >$100M)
+        if buy_value > 100_000_000:
+            logger.warning(f"⚠️  {ticker}: EXCEPTIONALLY LARGE PURCHASE - Manual review recommended")
+            logger.warning(f"   Insider: {insider_name or 'Unknown'}")
+            logger.warning(f"   Buy Amount: ${buy_value/1e6:.1f}M")
+            logger.warning(f"   Market Cap: ${market_cap/1e6:.1f}M")
+            logger.warning(f"   % of Company: {pct_of_cap*100:.1f}%")
+            logger.warning(f"   Risk: Exceptional transaction size warrants investigation")
+            logger.warning(f"   Action: Signal ALLOWED but flagged for investigation")
 
     # Filter 1: No penny stocks (price > $2.00, or $1.60 in holiday mode)
     before = len(filtered)
