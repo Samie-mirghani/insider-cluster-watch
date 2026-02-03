@@ -19,6 +19,7 @@ import os
 import sys
 import json
 import logging
+import yfinance as yf
 from datetime import datetime, timedelta
 from typing import Dict, List, Optional, Any, Tuple
 
@@ -211,6 +212,82 @@ class TradingEngine:
 
         if signal_score < config.MIN_SIGNAL_SCORE_THRESHOLD:
             return False, f"Score {signal_score} below threshold {config.MIN_SIGNAL_SCORE_THRESHOLD}"
+
+        # NEW FILTERS: Cooldown, Single-Insider, Downtrend
+        # Extract signal fields
+        insider_count = signal.get('insider_count', 0)
+        market_cap = signal.get('market_cap')
+        buy_value = signal.get('buy_value', 0)
+
+        # Filter 1: Repeat Trade Cooldown (7 calendar days)
+        # Read audit log to check for recent position closes
+        try:
+            audit_log_path = os.path.join(os.path.dirname(__file__), 'data', 'audit_log.jsonl')
+            if os.path.exists(audit_log_path):
+                cutoff_date = datetime.now() - timedelta(days=7)
+
+                with open(audit_log_path, 'r') as f:
+                    for line in f:
+                        try:
+                            event = json.loads(line.strip())
+                            if event.get('event_type') == 'POSITION_CLOSED' and event.get('ticker') == ticker:
+                                # Parse timestamp
+                                timestamp_str = event.get('timestamp', '')
+                                try:
+                                    event_date = datetime.fromisoformat(timestamp_str.replace('Z', '+00:00'))
+                                except:
+                                    continue
+
+                                if event_date >= cutoff_date:
+                                    close_date = event_date.strftime('%Y-%m-%d')
+                                    return False, f"Cooldown: {ticker} closed on {close_date}, 7-day cooldown required"
+                        except json.JSONDecodeError:
+                            continue
+        except Exception as e:
+            # File doesn't exist or can't be parsed - skip cooldown check
+            logger.debug(f"Cooldown check skipped for {ticker}: {e}")
+            pass
+
+        # Filter 2: Single Insider Micro-Cap
+        if insider_count == 1:
+            # Check 1: Micro-cap with low score
+            if market_cap is not None and market_cap < 100_000_000:
+                if signal_score < 9.0:
+                    return False, f"Single insider micro-cap: score {signal_score:.2f} < 9.0 required (mkt cap ${market_cap/1e6:.1f}M)"
+
+            # Check 2: Weak conviction (low buy value)
+            if buy_value < 500_000:
+                return False, f"Single insider weak conviction: buy_value ${buy_value:,.0f} < $500K minimum"
+
+            # Check 3: Likely go-private transaction
+            if market_cap and market_cap > 0 and buy_value > 10_000_000:
+                pct_of_cap = buy_value / market_cap
+                if pct_of_cap > 0.3:
+                    return False, f"Likely go-private: single insider buying {pct_of_cap*100:.0f}% of market cap — skipping"
+
+        # Filter 3: Downtrend Detection
+        try:
+            # Get 7 days of history
+            end_date = datetime.now()
+            start_date = end_date - timedelta(days=7)
+            hist = yf.download(ticker, start=start_date, end=end_date, progress=False)
+
+            if not hist.empty and len(hist) >= 5:
+                # Compute 5-day SMA of closing prices
+                last_5_closes = hist['Close'].tail(5)
+                sma_5 = last_5_closes.mean()
+
+                if sma_5 and entry_price < sma_5 * 0.97:
+                    # Price is >3% below 5-day SMA - downtrend
+                    pct_below = ((entry_price - sma_5) / sma_5) * 100
+                    return False, f"Downtrend: {ticker} price ${entry_price:.2f} is {abs(pct_below):.1f}% below 5-day SMA ${sma_5:.2f}"
+            # If yfinance call fails or insufficient data, log warning but DO NOT block
+            elif hist.empty:
+                logger.warning(f"{ticker}: No price history available for downtrend check, allowing trade")
+
+        except Exception as e:
+            # yfinance call failed - log warning but DO NOT block the trade
+            logger.warning(f"{ticker}: Downtrend check failed ({str(e)}), allowing trade")
 
         # Check if already have position
         if ticker in self.position_monitor.positions:
@@ -631,13 +708,13 @@ class TradingEngine:
                         self.signal_queue.add_signal(signal, reason=message)
                         results['queued_for_later'] += 1
             else:
-                # Queue signal if it was rejected due to max positions
+                logger.info(f"Skipping {ticker}: {reason}")
+                # Queue signals rejected ONLY due to max positions — they become
+                # redeployment candidates if a position exits intraday
                 if 'Max positions' in reason:
-                    logger.info(f"Queuing {ticker}: Max positions reached - added to queue for redeployment")
                     self.signal_queue.add_signal(signal, reason=reason)
                     results['queued_for_later'] += 1
-                else:
-                    logger.info(f"Skipping {ticker}: {reason}")
+                    logger.info(f"  Queued {ticker} for intraday redeployment")
 
         # Send ONE consolidated batch email for all morning trades
         if executed_trades:
