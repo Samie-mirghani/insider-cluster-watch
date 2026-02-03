@@ -4750,5 +4750,65 @@
     "ipoDate": "2021-10-06",
     "updated": "2026-02-02T11:50:30.709291",
     "source": "fmp_api"
+  },
+  "CR": {
+    "industry": "Industrial - Machinery",
+    "sector": "Industrials",
+    "price": 185.27,
+    "companyName": "Crane Company",
+    "currency": "USD",
+    "beta": 1.167,
+    "range": "127.04-214.31",
+    "ipoDate": "2023-03-29",
+    "updated": "2026-02-03T11:51:02.458616",
+    "source": "fmp_api"
+  },
+  "SHCO": {
+    "industry": "Travel Lodging",
+    "sector": "Consumer Cyclical",
+    "price": 8.99,
+    "companyName": "Soho House & Co Inc.",
+    "currency": "USD",
+    "beta": 0.685,
+    "range": "4.77-9",
+    "ipoDate": "2021-07-15",
+    "updated": "2026-02-03T11:51:02.463959",
+    "source": "fmp_api"
+  },
+  "ADX": {
+    "industry": "Asset Management",
+    "sector": "Financial Services",
+    "price": 23.42,
+    "companyName": "Adams Diversified Equity Fund, Inc.",
+    "currency": "USD",
+    "beta": 0.913,
+    "range": "16.5-23.85",
+    "ipoDate": "1980-03-17",
+    "updated": "2026-02-03T11:51:02.488523",
+    "source": "fmp_api"
+  },
+  "FCCO": {
+    "industry": "Banks - Regional",
+    "sector": "Financial Services",
+    "price": 30.21,
+    "companyName": "First Community Corporation",
+    "currency": "USD",
+    "beta": 0.388,
+    "range": "19.46-31.5",
+    "ipoDate": "1999-03-09",
+    "updated": "2026-02-03T11:51:02.491806",
+    "source": "fmp_api"
+  },
+  "CCNE": {
+    "industry": "Banks - Regional",
+    "sector": "Financial Services",
+    "price": 28.29,
+    "companyName": "CNB Financial Corporation",
+    "currency": "USD",
+    "beta": 0.711,
+    "range": "19.32-28.74",
+    "ipoDate": "1994-04-04",
+    "updated": "2026-02-03T11:51:02.698407",
+    "source": "fmp_api"
   }
 }
