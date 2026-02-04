@@ -15,7 +15,7 @@ set -u  # Exit on undefined variable
 # CONSTANTS AND CONFIGURATION
 ################################################################################
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
 DATA_DIR="$PROJECT_ROOT/data"
 TRADING_DIR="$PROJECT_ROOT/automated_trading/data"
@@ -167,11 +167,16 @@ prompt_scope() {
     scope=$(echo "$scope" | tr '[:upper:]' '[:lower:]')
     if [ -z "$scope" ] || [ "$scope" = "all" ]; then
         SCOPE="all"
-    elif [[ "$scope" =~ ^(signals|paper|live|recent)$ ]]; then
-        SCOPE="$scope"
     else
-        echo "Invalid scope, using 'all'"
-        SCOPE="all"
+        case "$scope" in
+            signals|paper|live|recent)
+                SCOPE="$scope"
+                ;;
+            *)
+                echo "Invalid scope, using 'all'"
+                SCOPE="all"
+                ;;
+        esac
     fi
 }
 
@@ -196,11 +201,16 @@ prompt_output_format() {
     format=$(echo "$format" | tr '[:upper:]' '[:lower:]')
     if [ -z "$format" ] || [ "$format" = "terminal" ]; then
         OUTPUT_FORMAT="terminal"
-    elif [[ "$format" =~ ^(file|both)$ ]]; then
-        OUTPUT_FORMAT="$format"
     else
-        echo "Invalid format, using 'terminal'"
-        OUTPUT_FORMAT="terminal"
+        case "$format" in
+            file|both)
+                OUTPUT_FORMAT="$format"
+                ;;
+            *)
+                echo "Invalid format, using 'terminal'"
+                OUTPUT_FORMAT="terminal"
+                ;;
+        esac
     fi
 }
 
@@ -209,11 +219,16 @@ prompt_detail_level() {
     level=$(echo "$level" | tr '[:upper:]' '[:lower:]')
     if [ -z "$level" ] || [ "$level" = "standard" ]; then
         DETAIL_LEVEL="standard"
-    elif [[ "$level" =~ ^(summary|verbose)$ ]]; then
-        DETAIL_LEVEL="$level"
     else
-        echo "Invalid level, using 'standard'"
-        DETAIL_LEVEL="standard"
+        case "$level" in
+            summary|verbose)
+                DETAIL_LEVEL="$level"
+                ;;
+            *)
+                echo "Invalid level, using 'standard'"
+                DETAIL_LEVEL="standard"
+                ;;
+        esac
     fi
 }
 
@@ -223,7 +238,6 @@ prompt_detail_level() {
 
 collect_signal_history() {
     local ticker="$1"
-    local signals=()
 
     if ! file_exists "$SIGNALS_HISTORY"; then
         echo "[]"
