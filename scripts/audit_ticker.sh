@@ -124,24 +124,86 @@ format_date() {
 # Format currency
 format_currency() {
     local amount="$1"
-    printf "\$%.2f" "$amount"
+    # Handle N/A, null, empty, or non-numeric values
+    if [ -z "$amount" ] || [ "$amount" = "N/A" ] || [ "$amount" = "null" ]; then
+        echo "N/A"
+        return
+    fi
+    # Check if it's a valid number
+    if [[ "$amount" =~ ^-?[0-9]+\.?[0-9]*$ ]]; then
+        printf "\$%.2f" "$amount"
+    else
+        echo "N/A"
+    fi
 }
 
 # Format percentage
 format_percentage() {
     local value="$1"
-    printf "%.2f%%" "$value"
+    # Handle N/A, null, empty, or non-numeric values
+    if [ -z "$value" ] || [ "$value" = "N/A" ] || [ "$value" = "null" ]; then
+        echo "N/A"
+        return
+    fi
+    # Check if it's a valid number
+    if [[ "$value" =~ ^-?[0-9]+\.?[0-9]*$ ]]; then
+        printf "%.2f%%" "$value"
+    else
+        echo "N/A"
+    fi
 }
 
 # Calculate percentage change
 calc_percentage() {
     local initial="$1"
     local final="$2"
-    if [ "$initial" != "0" ] && [ -n "$initial" ]; then
-        echo "scale=2; (($final - $initial) / $initial) * 100" | bc
-    else
+    # Handle invalid inputs
+    if [ -z "$initial" ] || [ -z "$final" ] || [ "$initial" = "0" ] || [ "$initial" = "null" ] || [ "$final" = "null" ]; then
         echo "0"
+        return
     fi
+    # Use awk for floating point calculation
+    awk -v init="$initial" -v fin="$final" 'BEGIN { printf "%.2f", ((fin - init) / init) * 100 }'
+}
+
+# Compare floating point numbers (returns 0 for false, 1 for true)
+# Usage: compare_numbers value1 operator value2
+# Operators: gt (>), lt (<), ge (>=), le (<=), eq (==), ne (!=)
+compare_numbers() {
+    local val1="$1"
+    local op="$2"
+    local val2="$3"
+
+    # Handle invalid inputs
+    if [ -z "$val1" ] || [ -z "$val2" ] || [ "$val1" = "null" ] || [ "$val2" = "null" ] || [ "$val1" = "N/A" ] || [ "$val2" = "N/A" ]; then
+        echo "0"
+        return
+    fi
+
+    # Use awk for comparison
+    awk -v v1="$val1" -v v2="$val2" -v operator="$op" 'BEGIN {
+        if (operator == "gt" && v1 > v2) print 1
+        else if (operator == "lt" && v1 < v2) print 1
+        else if (operator == "ge" && v1 >= v2) print 1
+        else if (operator == "le" && v1 <= v2) print 1
+        else if (operator == "eq" && v1 == v2) print 1
+        else if (operator == "ne" && v1 != v2) print 1
+        else print 0
+    }'
+}
+
+# Multiply two numbers
+multiply_numbers() {
+    local val1="$1"
+    local val2="$2"
+    awk -v v1="$val1" -v v2="$val2" 'BEGIN { printf "%.2f", v1 * v2 }'
+}
+
+# Subtract two numbers
+subtract_numbers() {
+    local val1="$1"
+    local val2="$2"
+    awk -v v1="$val1" -v v2="$val2" 'BEGIN { printf "%.2f", v1 - v2 }'
 }
 
 ################################################################################
@@ -652,9 +714,9 @@ generate_executive_summary() {
         local paper_pnl_formatted=$(format_currency "$paper_pnl")
         local paper_pnl_pct_formatted=$(format_percentage "$paper_pnl_pct")
 
-        if (( $(echo "$paper_pnl > 0" | bc -l) )); then
+        if [ "$(compare_numbers "$paper_pnl" "gt" "0")" = "1" ]; then
             add_to_report "  Paper Trading P&L:       ${GREEN}+${paper_pnl_formatted} (+${paper_pnl_pct_formatted})${NC}" "$GREEN"
-        elif (( $(echo "$paper_pnl < 0" | bc -l) )); then
+        elif [ "$(compare_numbers "$paper_pnl" "lt" "0")" = "1" ]; then
             add_to_report "  Paper Trading P&L:       ${RED}${paper_pnl_formatted} (${paper_pnl_pct_formatted})${NC}" "$RED"
         else
             add_to_report "  Paper Trading P&L:       ${paper_pnl_formatted} (${paper_pnl_pct_formatted})"
@@ -707,7 +769,7 @@ generate_signal_timeline() {
         if [ "$approved_signal" != "null" ]; then
             add_to_report "  ${GREEN}→ APPROVED for trading${NC}" "$GREEN"
         else
-            if (( $(echo "$score < 7.0" | bc -l) )); then
+            if [ "$(compare_numbers "$score" "lt" "7.0")" = "1" ]; then
                 add_to_report "  ${RED}→ REJECTED: Score below threshold ($score < 7.0)${NC}" "$RED"
             fi
         fi
@@ -751,7 +813,7 @@ generate_paper_trading_history() {
         add_to_report "  Entry:  $(format_date "$entry_date") | $entry_shares shares @ $(format_currency "$entry_price") | Cost: $(format_currency "$entry_cost")"
         add_to_report "  Exit:   $(format_date "$exit_date") | $exit_shares shares @ $(format_currency "$exit_price") | Proceeds: $(format_currency "$exit_proceeds")"
 
-        if (( $(echo "$pnl > 0" | bc -l) )); then
+        if [ "$(compare_numbers "$pnl" "gt" "0")" = "1" ]; then
             add_to_report "  Result: ${GREEN}+$(format_currency "$pnl") (+$(format_percentage "$pnl_pct"))${NC}" "$GREEN"
         else
             add_to_report "  Result: ${RED}$(format_currency "$pnl") ($(format_percentage "$pnl_pct"))${NC}" "$RED"
@@ -785,7 +847,7 @@ generate_paper_trading_history() {
         add_to_report "  Wins:               $wins ($(format_percentage "$win_rate"))"
         add_to_report "  Losses:             $losses"
 
-        if (( $(echo "$total_pnl > 0" | bc -l) )); then
+        if [ "$(compare_numbers "$total_pnl" "gt" "0")" = "1" ]; then
             add_to_report "  Total P&L:          ${GREEN}+$(format_currency "$total_pnl") (+$(format_percentage "$total_pnl_pct"))${NC}" "$GREEN"
         else
             add_to_report "  Total P&L:          ${RED}$(format_currency "$total_pnl") ($(format_percentage "$total_pnl_pct"))${NC}" "$RED"
@@ -841,54 +903,89 @@ generate_live_trading_history() {
 
         case "$event_type" in
             "SIGNAL_RECEIVED")
-                local score=$(echo "$details" | jq -r '.signal_score // "N/A"')
-                local entry_price=$(echo "$details" | jq -r '.entry_price // "N/A"')
-                add_to_report "  Signal Score: $score"
-                add_to_report "  Entry Price: $(format_currency "$entry_price")"
+                local score=$(echo "$details" | jq -r '.signal_score // .score // .rank_score // empty')
+                local entry_price=$(echo "$details" | jq -r '.entry_price // .price // empty')
+
+                if [ -n "$score" ]; then
+                    add_to_report "  Signal Score: $score"
+                fi
+                if [ -n "$entry_price" ]; then
+                    add_to_report "  Entry Price: $(format_currency "$entry_price")"
+                fi
                 ;;
             "ORDER_SUBMITTED")
-                local order_id=$(echo "$details" | jq -r '.order_id // "N/A"')
-                local order_type=$(echo "$details" | jq -r '.order_type // "N/A"')
-                local quantity=$(echo "$details" | jq -r '.quantity // "N/A"')
-                local limit_price=$(echo "$details" | jq -r '.limit_price // "N/A"')
-                add_to_report "  Order ID: $order_id"
-                add_to_report "  Type: $order_type"
-                add_to_report "  Quantity: $quantity shares"
-                add_to_report "  Limit Price: $(format_currency "$limit_price")"
+                local order_id=$(echo "$details" | jq -r '.order_id // empty')
+                local order_type=$(echo "$details" | jq -r '.order_type // .type // empty')
+                local quantity=$(echo "$details" | jq -r '.quantity // .shares // empty')
+                local limit_price=$(echo "$details" | jq -r '.limit_price // .price // empty')
+
+                if [ -n "$order_id" ]; then
+                    add_to_report "  Order ID: $order_id"
+                fi
+                if [ -n "$order_type" ]; then
+                    add_to_report "  Type: $order_type"
+                fi
+                if [ -n "$quantity" ]; then
+                    add_to_report "  Quantity: $quantity shares"
+                fi
+                if [ -n "$limit_price" ]; then
+                    add_to_report "  Limit Price: $(format_currency "$limit_price")"
+                fi
                 ;;
             "ORDER_FILLED")
-                local fill_price=$(echo "$details" | jq -r '.fill_price // "N/A"')
-                local fill_qty=$(echo "$details" | jq -r '.fill_quantity // "N/A"')
-                local slippage=$(echo "$details" | jq -r '.slippage // "N/A"')
-                local total_cost=$(echo "$details" | jq -r '.total_cost // "N/A"')
-                add_to_report "  Fill Price: $(format_currency "$fill_price")"
-                add_to_report "  Fill Quantity: $fill_qty shares"
-                add_to_report "  Total Cost: $(format_currency "$total_cost")"
-                if [ "$slippage" != "N/A" ]; then
+                local fill_price=$(echo "$details" | jq -r '.fill_price // .filled_avg_price // .price // empty')
+                local fill_qty=$(echo "$details" | jq -r '.fill_quantity // .filled_qty // .quantity // .shares // empty')
+                local slippage=$(echo "$details" | jq -r '.slippage // empty')
+                local total_cost=$(echo "$details" | jq -r '.total_cost // empty')
+
+                if [ -n "$fill_price" ]; then
+                    add_to_report "  Fill Price: $(format_currency "$fill_price")"
+                fi
+                if [ -n "$fill_qty" ]; then
+                    add_to_report "  Fill Quantity: $fill_qty shares"
+                fi
+                if [ -n "$total_cost" ]; then
+                    add_to_report "  Total Cost: $(format_currency "$total_cost")"
+                fi
+                if [ -n "$slippage" ]; then
                     add_to_report "  Slippage: $(format_currency "$slippage")"
                 fi
                 ;;
             "POSITION_OPENED")
-                local entry_price=$(echo "$details" | jq -r '.entry_price // "N/A"')
-                local shares=$(echo "$details" | jq -r '.shares // "N/A"')
-                local stop_loss=$(echo "$details" | jq -r '.stop_loss // "N/A"')
-                local take_profit=$(echo "$details" | jq -r '.take_profit // "N/A"')
-                add_to_report "  Entry Price: $(format_currency "$entry_price")"
-                add_to_report "  Shares: $shares"
-                add_to_report "  Stop Loss: $(format_currency "$stop_loss")"
-                add_to_report "  Take Profit: $(format_currency "$take_profit")"
+                local entry_price=$(echo "$details" | jq -r '.entry_price // .price // empty')
+                local shares=$(echo "$details" | jq -r '.shares // .quantity // empty')
+                local stop_loss=$(echo "$details" | jq -r '.stop_loss // empty')
+                local take_profit=$(echo "$details" | jq -r '.take_profit // empty')
+
+                if [ -n "$entry_price" ]; then
+                    add_to_report "  Entry Price: $(format_currency "$entry_price")"
+                fi
+                if [ -n "$shares" ]; then
+                    add_to_report "  Shares: $shares"
+                fi
+                if [ -n "$stop_loss" ]; then
+                    add_to_report "  Stop Loss: $(format_currency "$stop_loss")"
+                fi
+                if [ -n "$take_profit" ]; then
+                    add_to_report "  Take Profit: $(format_currency "$take_profit")"
+                fi
                 ;;
             "POSITION_CLOSED")
-                local exit_price=$(echo "$details" | jq -r '.exit_price // "N/A"')
-                local pnl=$(echo "$details" | jq -r '.pnl // "N/A"')
-                local reason=$(echo "$details" | jq -r '.reason // "N/A"')
-                add_to_report "  Exit Price: $(format_currency "$exit_price")"
-                if (( $(echo "$pnl > 0" | bc -l) 2>/dev/null )); then
+                local exit_price=$(echo "$details" | jq -r '.exit_price // .price // empty')
+                local pnl=$(echo "$details" | jq -r '.pnl // .profit_loss // empty')
+                local reason=$(echo "$details" | jq -r '.reason // .exit_reason // empty')
+
+                if [ -n "$exit_price" ]; then
+                    add_to_report "  Exit Price: $(format_currency "$exit_price")"
+                fi
+                if [ -n "$pnl" ] && [ "$(compare_numbers "$pnl" "gt" "0")" = "1" ]; then
                     add_to_report "  P&L: ${GREEN}+$(format_currency "$pnl")${NC}" "$GREEN"
-                else
+                elif [ -n "$pnl" ]; then
                     add_to_report "  P&L: ${RED}$(format_currency "$pnl")${NC}" "$RED"
                 fi
-                add_to_report "  Reason: $reason"
+                if [ -n "$reason" ]; then
+                    add_to_report "  Reason: $reason"
+                fi
                 ;;
         esac
     done
@@ -912,12 +1009,12 @@ generate_live_trading_history() {
 
         # Calculate unrealized P&L
         if [ "$current_price" != "0" ] && [ "$current_price" != "null" ]; then
-            local cost=$(echo "$shares * $entry_price" | bc)
-            local value=$(echo "$shares * $current_price" | bc)
-            local unrealized_pnl=$(echo "$value - $cost" | bc)
+            local cost=$(multiply_numbers "$shares" "$entry_price")
+            local value=$(multiply_numbers "$shares" "$current_price")
+            local unrealized_pnl=$(subtract_numbers "$value" "$cost")
             local unrealized_pct=$(calc_percentage "$entry_price" "$current_price")
 
-            if (( $(echo "$unrealized_pnl > 0" | bc -l) )); then
+            if [ "$(compare_numbers "$unrealized_pnl" "gt" "0")" = "1" ]; then
                 add_to_report "  Unrealized P&L: ${GREEN}+$(format_currency "$unrealized_pnl") (+$(format_percentage "$unrealized_pct"))${NC}" "$GREEN"
             else
                 add_to_report "  Unrealized P&L: ${RED}$(format_currency "$unrealized_pnl") ($(format_percentage "$unrealized_pct"))${NC}" "$RED"
@@ -980,9 +1077,9 @@ generate_price_analysis() {
     fi
 
     # Compare to SMAs
-    if [ "$sma_5" != "0" ]; then
+    if [ "$sma_5" != "0" ] && [ "$sma_5" != "null" ]; then
         local vs_sma5=$(calc_percentage "$sma_5" "$current_price")
-        if (( $(echo "$current_price > $sma_5" | bc -l) )); then
+        if [ "$(compare_numbers "$current_price" "gt" "$sma_5")" = "1" ]; then
             add_to_report "  vs 5-day SMA:       ${GREEN}+$(format_percentage "$vs_sma5") (above)${NC}" "$GREEN"
         else
             add_to_report "  vs 5-day SMA:       ${RED}$(format_percentage "$vs_sma5") (below)${NC}" "$RED"
@@ -991,7 +1088,7 @@ generate_price_analysis() {
 
     if [ "$sma_20" != "0" ] && [ "$sma_20" != "null" ]; then
         local vs_sma20=$(calc_percentage "$sma_20" "$current_price")
-        if (( $(echo "$current_price > $sma_20" | bc -l) )); then
+        if [ "$(compare_numbers "$current_price" "gt" "$sma_20")" = "1" ]; then
             add_to_report "  vs 20-day SMA:      ${GREEN}+$(format_percentage "$vs_sma20") (above)${NC}" "$GREEN"
         else
             add_to_report "  vs 20-day SMA:      ${RED}$(format_percentage "$vs_sma20") (below)${NC}" "$RED"
@@ -1023,56 +1120,121 @@ generate_recommendations() {
     print_subsection "What Went Right"
 
     local wins=$(echo "$paper_summary_json" | jq -r '.wins // 0')
+    local total_positions=$(echo "$paper_summary_json" | jq -r '.total_positions // 0')
+    local has_insights=false
+
     if [ "$wins" -gt 0 ]; then
         add_to_report "  ${GREEN}✅ Signal detection identified trading opportunities${NC}" "$GREEN"
-        add_to_report "  ${GREEN}✅ Paper trading captured profitable trades${NC}" "$GREEN"
+        add_to_report "  ${GREEN}✅ Paper trading captured $wins profitable trade(s)${NC}" "$GREEN"
+        has_insights=true
     fi
 
     if [ "$live_position" != "null" ]; then
         add_to_report "  ${GREEN}✅ Live trading position successfully opened${NC}" "$GREEN"
+        has_insights=true
+    fi
+
+    local current_price=$(echo "$price_data" | jq -r '.current_price // 0')
+    local sma_5=$(echo "$price_data" | jq -r '.sma_5 // 0')
+    if [ "$current_price" != "0" ] && [ "$sma_5" != "0" ] && [ "$(compare_numbers "$current_price" "gt" "$sma_5")" = "1" ]; then
+        add_to_report "  ${GREEN}✅ Price trending above short-term moving average${NC}" "$GREEN"
+        has_insights=true
+    fi
+
+    if [ "$has_insights" = false ]; then
+        add_to_report "  Limited trading history - accumulating data for analysis"
     fi
 
     # Analyze what went wrong
     add_to_report ""
     print_subsection "What Went Wrong"
+    has_insights=false
 
     local losses=$(echo "$paper_summary_json" | jq -r '.losses // 0')
     if [ "$losses" -gt 0 ]; then
-        add_to_report "  ${RED}❌ Some positions resulted in losses${NC}" "$RED"
+        add_to_report "  ${RED}❌ $losses position(s) resulted in losses${NC}" "$RED"
+        has_insights=true
     fi
 
     local win_rate=$(echo "$paper_summary_json" | jq -r '.win_rate // 0')
-    if (( $(echo "$win_rate < 50" | bc -l) )); then
+    if [ "$total_positions" -gt 0 ] && [ "$(compare_numbers "$win_rate" "lt" "50")" = "1" ]; then
         add_to_report "  ${RED}❌ Win rate below 50% ($(format_percentage "$win_rate"))${NC}" "$RED"
+        has_insights=true
+    fi
+
+    local sma_20=$(echo "$price_data" | jq -r '.sma_20 // 0')
+    if [ "$current_price" != "0" ] && [ "$sma_20" != "0" ] && [ "$(compare_numbers "$current_price" "lt" "$sma_20")" = "1" ]; then
+        local pct_below=$(calc_percentage "$current_price" "$sma_20")
+        add_to_report "  ${RED}❌ Price is $(format_percentage "$pct_below") below 20-day SMA${NC}" "$RED"
+        has_insights=true
+    fi
+
+    if [ "$has_insights" = false ]; then
+        add_to_report "  No significant issues detected"
     fi
 
     # Recommendations
     add_to_report ""
     print_subsection "Recommendations"
+    has_insights=false
 
     if [ "$live_position" != "null" ]; then
-        add_to_report "  ${BLUE}💡 Monitor live position closely${NC}" "$BLUE"
-        add_to_report "  ${BLUE}💡 Consider adjusting stops if position moves favorably${NC}" "$BLUE"
+        add_to_report "  ${BLUE}💡 Monitor live position closely for price action${NC}" "$BLUE"
+        add_to_report "  ${BLUE}💡 Consider adjusting trailing stops to lock in profits${NC}" "$BLUE"
+        has_insights=true
     fi
 
     if [ "$losses" -gt 0 ]; then
-        add_to_report "  ${BLUE}💡 Review entry criteria to avoid unfavorable entries${NC}" "$BLUE"
-        add_to_report "  ${BLUE}💡 Consider implementing cooldown period between trades${NC}" "$BLUE"
+        add_to_report "  ${BLUE}💡 Review entry timing - consider waiting for stronger confirmation${NC}" "$BLUE"
+        add_to_report "  ${BLUE}💡 Analyze losing trades to identify common patterns${NC}" "$BLUE"
+        has_insights=true
+    fi
+
+    if [ "$current_price" != "0" ] && [ "$sma_20" != "0" ] && [ "$(compare_numbers "$current_price" "gt" "$sma_20")" = "1" ]; then
+        add_to_report "  ${BLUE}💡 Price above 20-day SMA suggests bullish momentum${NC}" "$BLUE"
+        has_insights=true
+    fi
+
+    local high_30d=$(echo "$price_data" | jq -r '.high_30d // 0')
+    local low_30d=$(echo "$price_data" | jq -r '.low_30d // 0')
+    if [ "$current_price" != "0" ] && [ "$high_30d" != "0" ] && [ "$low_30d" != "0" ]; then
+        local range_pct=$(awk -v high="$high_30d" -v low="$low_30d" 'BEGIN { printf "%.1f", ((high - low) / low) * 100 }')
+        if [ "$(compare_numbers "$range_pct" "gt" "50")" = "1" ]; then
+            add_to_report "  ${BLUE}💡 High volatility ($(format_percentage "$range_pct") 30-day range) - use wider stops${NC}" "$BLUE"
+            has_insights=true
+        fi
+    fi
+
+    if [ "$has_insights" = false ]; then
+        add_to_report "  Continue monitoring for new opportunities"
+        add_to_report "  Review signal criteria if no trades in extended period"
     fi
 
     # Risk flags
     add_to_report ""
     print_subsection "Risk Flags"
+    has_insights=false
 
-    local current_price=$(echo "$price_data" | jq -r '.current_price // 0')
-    local sma_20=$(echo "$price_data" | jq -r '.sma_20 // 0')
-
-    if [ "$current_price" != "0" ] && [ "$sma_20" != "0" ] && (( $(echo "$current_price < $sma_20" | bc -l) )); then
-        add_to_report "  ${YELLOW}⚠️  Current price below 20-day SMA (potential weakness)${NC}" "$YELLOW"
+    if [ "$current_price" != "0" ] && [ "$sma_20" != "0" ] && [ "$(compare_numbers "$current_price" "lt" "$sma_20")" = "1" ]; then
+        add_to_report "  ${YELLOW}⚠️  Current price below 20-day SMA (potential downtrend)${NC}" "$YELLOW"
+        has_insights=true
     fi
 
-    if [ "$win_rate" != "0" ] && (( $(echo "$win_rate < 50" | bc -l) )); then
+    if [ "$total_positions" -gt 0 ] && [ "$(compare_numbers "$win_rate" "lt" "50")" = "1" ]; then
         add_to_report "  ${YELLOW}⚠️  Win rate below 50% in paper trading${NC}" "$YELLOW"
+        has_insights=true
+    fi
+
+    if [ "$current_price" != "0" ] && [ "$low_30d" != "0" ]; then
+        local dist_from_low=$(calc_percentage "$low_30d" "$current_price")
+        if [ "$(compare_numbers "$dist_from_low" "lt" "10")" = "1" ]; then
+            add_to_report "  ${YELLOW}⚠️  Price near 30-day low - potential support test${NC}" "$YELLOW"
+            has_insights=true
+        fi
+    fi
+
+    if [ "$has_insights" = false ]; then
+        add_to_report "  No significant risk flags detected"
     fi
 
     # Next steps
@@ -1080,14 +1242,20 @@ generate_recommendations() {
     print_subsection "Next Steps"
 
     if [ "$live_position" != "null" ]; then
-        local stop_loss=$(echo "$live_position" | jq -r '.stop_loss')
-        add_to_report "  1. Monitor live position for stop loss trigger at $(format_currency "$stop_loss")"
-        add_to_report "  2. Watch for additional insider activity"
+        local stop_loss=$(echo "$live_position" | jq -r '.stop_loss // empty')
+        if [ -n "$stop_loss" ]; then
+            add_to_report "  1. Monitor live position for stop loss trigger at $(format_currency "$stop_loss")"
+        else
+            add_to_report "  1. Monitor live position closely (no stop loss set)"
+        fi
+        add_to_report "  2. Watch for additional insider activity that may confirm thesis"
         add_to_report "  3. Review position sizing if volatility increases"
+        add_to_report "  4. Consider taking partial profits at key resistance levels"
     else
-        add_to_report "  1. Wait for new signals to generate"
-        add_to_report "  2. Monitor market conditions"
-        add_to_report "  3. Review filter criteria if needed"
+        add_to_report "  1. Wait for new signals meeting your criteria"
+        add_to_report "  2. Monitor $ticker for additional insider buying activity"
+        add_to_report "  3. Review market conditions and sector performance"
+        add_to_report "  4. Check if signal score threshold needs adjustment"
     fi
 }
 
