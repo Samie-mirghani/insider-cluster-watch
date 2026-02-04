@@ -49,11 +49,30 @@ class SignalQueue:
         self._load_state()
 
     def _load_state(self):
-        """Load queued signals from disk."""
+        """Load queued signals from disk with automatic schema migration."""
         data = load_json_file(config.QUEUED_SIGNALS_FILE, default={})
         self.queued_signals = data.get('signals', {})
         self.daily_redeployments = data.get('daily_redeployments', 0)
         self.last_reset_date = data.get('last_reset_date')
+
+        # Migrate signals missing queued_at field (fix for legacy data)
+        migrated_count = 0
+        current_time = datetime.now().isoformat()
+
+        for ticker, signal in self.queued_signals.items():
+            if 'queued_at' not in signal:
+                # Set to current time as best guess for legacy signals
+                signal['queued_at'] = current_time
+                migrated_count += 1
+                logger.warning(
+                    f"Migrated signal {ticker}: added missing queued_at timestamp"
+                )
+
+        if migrated_count > 0:
+            logger.info(f"Auto-migrated {migrated_count} signal(s) with missing timestamps")
+            # Save immediately to persist the migration
+            self.queued_signals = self.queued_signals  # Ensure it's set
+            self._save_state()
 
         # Reset daily counter if new day
         today = datetime.now().strftime('%Y-%m-%d')
@@ -237,9 +256,17 @@ class SignalQueue:
                 continue
 
             # Check if signal is still fresh (queued within last 24 hours)
-            queued_at = datetime.fromisoformat(signal['queued_at'])
-            if datetime.now() - queued_at > timedelta(hours=24):
-                logger.debug(f"Skipping stale signal: {ticker}")
+            if 'queued_at' not in signal:
+                logger.warning(f"Skipping {ticker}: missing queued_at timestamp")
+                continue
+
+            try:
+                queued_at = datetime.fromisoformat(signal['queued_at'])
+                if datetime.now() - queued_at > timedelta(hours=24):
+                    logger.debug(f"Skipping stale signal: {ticker}")
+                    continue
+            except (ValueError, TypeError) as e:
+                logger.warning(f"Skipping {ticker}: invalid queued_at format - {e}")
                 continue
 
             # Check if asset is still tradeable (prevents deploying to halted/delisted stocks)
@@ -327,7 +354,7 @@ class SignalQueue:
 
     def cleanup_stale_signals(self, max_age_hours: int = 48) -> List[Dict[str, Any]]:
         """
-        Remove signals older than max_age_hours.
+        Remove signals older than max_age_hours with defensive error handling.
 
         Args:
             max_age_hours: Maximum age in hours
@@ -340,13 +367,40 @@ class SignalQueue:
 
         for ticker in list(self.queued_signals.keys()):
             signal = self.queued_signals[ticker]
-            queued_at = datetime.fromisoformat(signal['queued_at'])
 
-            if queued_at < cutoff:
-                removed_signal = self.remove_signal(ticker, reason='STALE')
+            try:
+                # Check if queued_at exists
+                if 'queued_at' not in signal:
+                    logger.warning(
+                        f"Signal {ticker} missing queued_at timestamp - "
+                        f"removing from queue as potentially corrupted"
+                    )
+                    removed_signal = self.remove_signal(ticker, reason='CORRUPTED')
+                    if removed_signal:
+                        removed.append(removed_signal)
+                    continue
+
+                # Parse timestamp
+                queued_at = datetime.fromisoformat(signal['queued_at'])
+
+                # Remove if stale
+                if queued_at < cutoff:
+                    removed_signal = self.remove_signal(ticker, reason='STALE')
+                    if removed_signal:
+                        removed.append(removed_signal)
+                        logger.info(f"Removed stale signal: {ticker}")
+
+            except (ValueError, TypeError, KeyError) as e:
+                logger.error(
+                    f"Error processing signal {ticker}: {e} - removing from queue"
+                )
+                removed_signal = self.remove_signal(ticker, reason='ERROR')
                 if removed_signal:
                     removed.append(removed_signal)
-                    logger.info(f"Removed stale signal: {ticker}")
+                continue
+
+        if removed:
+            logger.info(f"Cleanup removed {len(removed)} signal(s)")
 
         return removed
 

@@ -955,9 +955,18 @@ class TradingEngine:
 
         open_positions = len(self.position_monitor.positions)
 
-        # Cleanup and track unfilled orders
-        self.order_manager.cleanup_expired_orders(execution_metrics=self.execution_metrics)
-        self.signal_queue.cleanup_stale_signals()
+        # Cleanup and track unfilled orders with error isolation
+        try:
+            self.order_manager.cleanup_expired_orders(execution_metrics=self.execution_metrics)
+        except Exception as e:
+            logger.error(f"Error during order cleanup: {e}", exc_info=True)
+            # Continue - not critical for EOD summary
+
+        try:
+            self.signal_queue.cleanup_stale_signals()
+        except Exception as e:
+            logger.error(f"Error during signal queue cleanup: {e}", exc_info=True)
+            # Continue - not critical for EOD summary
 
         # Send daily summary (includes exits to reduce email volume)
         logger.info(f"Sending EOD summary with {len(self.exits_today)} exits")
