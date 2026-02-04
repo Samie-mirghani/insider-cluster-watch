@@ -1488,7 +1488,11 @@ def apply_quality_filters(cluster_df):
 
             # Check 1: 30-day drawdown (existing logic)
             high_30d = hist['High'].max()
-            if high_30d and current_price:
+            # Ensure scalar value (handle edge cases where pandas might return Series)
+            if isinstance(high_30d, pd.Series):
+                high_30d = high_30d.iloc[0] if len(high_30d) > 0 else None
+
+            if high_30d is not None and current_price is not None:
                 drawdown = (current_price - high_30d) / high_30d
                 if drawdown <= -0.40:
                     return (False, f"Drawdown: {ticker} down {abs(drawdown)*100:.1f}% from 30-day high")
@@ -1498,8 +1502,11 @@ def apply_quality_filters(cluster_df):
             if len(hist) >= 5:
                 last_5_closes = hist['Close'].tail(5)
                 sma_5 = last_5_closes.mean()
+                # Ensure scalar value (handle edge cases where pandas might return Series)
+                if isinstance(sma_5, pd.Series):
+                    sma_5 = sma_5.iloc[0] if len(sma_5) > 0 else None
 
-                if sma_5 and current_price < sma_5 * 0.97:
+                if sma_5 is not None and current_price < sma_5 * 0.97:
                     # Price is >3% below 5-day SMA - downtrend
                     pct_below = ((current_price - sma_5) / sma_5) * 100
                     return (False, f"Downtrend: {ticker} price ${current_price:.2f} is {abs(pct_below):.1f}% below 5-day SMA ${sma_5:.2f}")
