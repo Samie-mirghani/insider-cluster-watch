@@ -1,6 +1,6 @@
 {
   "starting_capital": 10000,
-  "cash": 6272.434999999993,
+  "cash": 7452.774999999993,
   "positions": {
     "ALLY": {
       "entry_date": "2026-01-26T11:36:47.241122",
@@ -57,9 +57,9 @@
       "shares": 5,
       "cost_basis": 488.15,
       "initial_stop_loss": 89.8196,
-      "stop_loss": 97.356,
+      "stop_loss": 100.681,
       "take_profit": 109.3456,
-      "highest_price": 102.48,
+      "highest_price": 105.98,
       "trailing_enabled": true,
       "signal_score": 9.424636760288086,
       "sector": "Banks - Regional",
@@ -101,10 +101,10 @@
       "shares": 15,
       "cost_basis": 416.70000000000005,
       "initial_stop_loss": 25.5576,
-      "stop_loss": 25.5576,
+      "stop_loss": 27.208,
       "take_profit": 31.113600000000005,
-      "highest_price": 28.54,
-      "trailing_enabled": false,
+      "highest_price": 28.64,
+      "trailing_enabled": true,
       "signal_score": 7.388243095394204,
       "sector": "Asset Management - Income",
       "multi_signal_tier": "none",
@@ -117,65 +117,16 @@
         }
       ]
     },
-    "USAR": {
-      "entry_date": "2026-01-30T11:46:36.328635",
-      "entry_price": 22.07,
-      "shares": 18,
-      "cost_basis": 397.26,
-      "initial_stop_loss": 20.3044,
-      "stop_loss": 20.3044,
-      "take_profit": 24.718400000000003,
-      "highest_price": 22.42,
-      "trailing_enabled": false,
-      "signal_score": 6.954136776044342,
-      "sector": "Industrial Materials",
-      "multi_signal_tier": "none",
-      "has_politician_signal": false,
-      "tranches": [
-        {
-          "shares": 18,
-          "price": 22.07,
-          "date": "2026-01-30T11:46:36.328639"
-        }
-      ]
-    },
-    "LIFE": {
-      "entry_date": "2026-02-02T11:52:02.348030",
-      "entry_price": 14.598214285714286,
-      "shares": 56,
-      "cost_basis": 817.5,
-      "initial_stop_loss": 13.846000000000002,
-      "stop_loss": 13.430357142857144,
-      "take_profit": 16.35,
-      "highest_price": 15.05,
-      "trailing_enabled": false,
-      "signal_score": 9.182987421926157,
-      "sector": "Biotechnology",
-      "multi_signal_tier": "none",
-      "has_politician_signal": false,
-      "tranches": [
-        {
-          "shares": 34,
-          "price": 15.05,
-          "date": "2026-02-02T11:52:02.348037"
-        },
-        {
-          "shares": 22,
-          "price": 13.9,
-          "date": "2026-02-03T11:49:05.905394"
-        }
-      ]
-    },
     "IP": {
       "entry_date": "2026-02-02T11:52:03.420382",
       "entry_price": 40.32,
       "shares": 10,
       "cost_basis": 403.2,
       "initial_stop_loss": 37.0944,
-      "stop_loss": 37.0944,
+      "stop_loss": 39.957,
       "take_profit": 45.15840000000001,
-      "highest_price": 40.69,
-      "trailing_enabled": false,
+      "highest_price": 42.06,
+      "trailing_enabled": true,
       "signal_score": 7.440552726812614,
       "sector": "Packaging & Containers",
       "multi_signal_tier": "none",
@@ -223,7 +174,7 @@
       "initial_stop_loss": 170.44840000000002,
       "stop_loss": 170.44840000000002,
       "take_profit": 207.50240000000002,
-      "highest_price": 185.27,
+      "highest_price": 190.4,
       "trailing_enabled": false,
       "signal_score": 11.807230145187502,
       "sector": "Industrial - Machinery",
@@ -261,27 +212,6 @@
     }
   },
   "pending_entries": {
-    "HLXC": {
-      "shares": 29,
-      "trigger_price": 10.0548,
-      "original_entry": 10.26,
-      "expires": "2026-02-03T11:49:23.309355",
-      "signal_score": 7.960607084241539
-    },
-    "GDV": {
-      "shares": 10,
-      "trigger_price": 27.2244,
-      "original_entry": 27.78,
-      "expires": "2026-02-03T11:49:25.889098",
-      "signal_score": 7.388243095394204
-    },
-    "USAR": {
-      "shares": 12,
-      "trigger_price": 21.6286,
-      "original_entry": 22.07,
-      "expires": "2026-02-04T11:46:36.521557",
-      "signal_score": 6.954136776044342
-    },
     "IP": {
       "shares": 7,
       "trigger_price": 39.5136,
@@ -305,10 +235,10 @@
     }
   },
   "total_trades": 41,
-  "winning_trades": 23,
-  "losing_trades": 8,
-  "total_profit": 1800.7400000000002,
+  "winning_trades": 24,
+  "losing_trades": 9,
+  "total_profit": 1766.3200000000002,
   "max_portfolio_value": 11932.704999999998,
   "max_drawdown": -9.109194484777545,
-  "last_updated": "2026-02-03T11:52:42.646394"
+  "last_updated": "2026-02-04T11:49:21.363066"
 }
