@@ -227,6 +227,72 @@ class AutomatedPoliticianStatusChecker:
 
         return name
 
+    def _check_term_ended_dates(self, registry: Dict) -> List[Dict]:
+        """
+        Check if any 'retiring' politicians have passed their term_ended date
+        and auto-transition them to 'retired' status.
+
+        This is critical for proper time-decay weighting calculation:
+        - Retiring politicians get 1.5x boost (lame duck multiplier)
+        - Retired politicians get exponential decay based on days since retirement
+
+        Without this check, politicians can stay in 'retiring' status indefinitely
+        after their term ends, receiving incorrect 1.5x boost instead of decay.
+
+        Args:
+            registry: The politician registry dictionary
+
+        Returns:
+            List of changes made (for logging)
+        """
+        changes = []
+        politicians = registry.get('politicians', {})
+        today = datetime.utcnow().date()
+
+        for politician_name, politician_data in politicians.items():
+            # Only check politicians marked as 'retiring'
+            if politician_data.get('current_status') != 'retiring':
+                continue
+
+            term_ended = politician_data.get('term_ended')
+            if not term_ended:
+                logger.debug(f"{politician_name} is retiring but has no term_ended date")
+                continue
+
+            try:
+                # Parse the term_ended date
+                end_date = datetime.fromisoformat(term_ended).date()
+
+                # If term has ended, transition to 'retired'
+                if end_date < today:
+                    days_since_ended = (today - end_date).days
+
+                    # Update status to retired
+                    politician_data['current_status'] = 'retired'
+                    politician_data['last_updated'] = datetime.utcnow().strftime('%Y-%m-%d')
+
+                    changes.append({
+                        'politician': politician_name,
+                        'old_status': 'retiring',
+                        'new_status': 'retired',
+                        'date': term_ended,
+                        'days_since_ended': days_since_ended,
+                        'reason': 'term_ended_date_passed'
+                    })
+
+                    logger.info(f"Auto-transitioned: {politician_name} (retiring → retired, "
+                              f"term ended {term_ended}, {days_since_ended} days ago)")
+                else:
+                    # Term hasn't ended yet - still retiring
+                    days_until_end = (end_date - today).days
+                    logger.debug(f"{politician_name} still retiring (term ends in {days_until_end} days)")
+
+            except (ValueError, TypeError) as e:
+                logger.warning(f"Invalid term_ended date for {politician_name}: {e}")
+                continue
+
+        return changes
+
     def check_and_update_statuses(self, registry_path: Optional[Path] = None) -> Dict:
         """
         Check politician statuses and update registry automatically.
@@ -276,19 +342,35 @@ class AutomatedPoliticianStatusChecker:
             with open(path, 'r') as f:
                 registry = json.load(f)
 
-            # Fetch current members from Congress.gov
+            # FIRST: Check for retiring politicians who have passed their term_ended date
+            # This ensures correct time-decay weighting calculation
+            logger.info("Checking for retiring politicians past their term_ended date...")
+            date_based_changes = self._check_term_ended_dates(registry)
+            changes = date_based_changes
+
+            if date_based_changes:
+                logger.info(f"Found {len(date_based_changes)} politicians to auto-transition based on term_ended dates")
+
+            # SECOND: Fetch current members from Congress.gov
             current_members = self.fetch_current_congress_members()
 
             if not current_members:
                 logger.warning("No current members fetched - API may be unavailable")
+                # Still return date_based_changes even if API fails
+                if changes:
+                    # Save changes made from date checks
+                    registry['last_automated_check'] = datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
+                    with open(path, 'w') as f:
+                        json.dump(registry, f, indent=2)
+                    logger.info(f"Registry updated with {len(changes)} status changes (date-based only)")
+
                 return {
-                    'status': 'error',
-                    'reason': 'no_members_fetched',
-                    'changes': []
+                    'status': 'partial' if changes else 'error',
+                    'reason': 'no_members_fetched_but_date_checks_completed' if changes else 'no_members_fetched',
+                    'changes': changes
                 }
 
-            # Check each politician in registry
-            changes = []
+            # THIRD: Check each politician in registry against Congress.gov API
             politicians = registry.get('politicians', {})
 
             for politician_name, politician_data in politicians.items():

@@ -147,7 +147,7 @@
     "Brian Higgins": {
       "full_name": "Brian Higgins",
       "party": "D",
-      "current_status": "retiring",
+      "current_status": "retired",
       "office": "House",
       "state": "NY",
       "district": "26",
@@ -158,7 +158,8 @@
       "performance_score": 74.0,
       "last_trade_date": null,
       "total_trades_tracked": 19,
-      "notes": "Recently announced early retirement February 2025"
+      "last_updated": "2026-02-05",
+      "notes": "Retired February 2025 (early retirement)"
     },
     "Ro Khanna": {
       "full_name": "Ro Khanna",
@@ -178,7 +179,7 @@
     }
   },
   "metadata": {
-    "last_updated": "2025-11-24",
+    "last_updated": "2026-02-05",
     "version": "1.0.0",
     "description": "Registry of tracked politicians with retirement status for time-decay weighting system"
   }
