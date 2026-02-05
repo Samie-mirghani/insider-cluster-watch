@@ -1,21 +1,21 @@
 {
-  "last_updated": "February 04, 2026 at 11:51 UTC",
-  "total_return_pct": 18.59,
+  "last_updated": "February 05, 2026 at 11:52 UTC",
+  "total_return_pct": 18.71,
   "win_rate": 72.7,
   "completed_trades": 33,
-  "active_trades": 9,
+  "active_trades": 8,
   "avg_return_per_trade": 9.5,
   "sharpe_ratio": 10.3,
   "max_drawdown": -9.11,
   "avg_hold_days": 9,
   "best_trade_pct": 59.64,
   "worst_trade_pct": -12.8,
-  "alpha_vs_sp500": 19.05,
+  "alpha_vs_sp500": 19.65,
   "avg_winner": 15.05,
   "avg_loser": -5.3,
   "win_loss_ratio": 2.84,
   "profit_factor": 7.58,
-  "last_30_days_return": 186.33,
+  "last_30_days_return": 174.8,
   "last_10_trades_win_rate": 70.0,
   "current_streak": 1,
   "current_streak_type": "losses",
@@ -245,72 +245,65 @@
     {
       "ticker": "ALLY",
       "entry_date": "Jan 26, 2026",
-      "days_held": 9,
-      "unrealized_return": 2.31,
+      "days_held": 10,
+      "unrealized_return": 5.42,
       "conviction": "MEDIUM"
     },
     {
       "ticker": "ABT",
       "entry_date": "Jan 27, 2026",
-      "days_held": 8,
-      "unrealized_return": 1.24,
+      "days_held": 9,
+      "unrealized_return": 0.48,
       "conviction": "MEDIUM"
     },
     {
       "ticker": "TCBI",
       "entry_date": "Jan 28, 2026",
-      "days_held": 7,
-      "unrealized_return": 8.55,
+      "days_held": 8,
+      "unrealized_return": 7.58,
       "conviction": "MEDIUM"
     },
     {
       "ticker": "HLXC",
       "entry_date": "Jan 29, 2026",
-      "days_held": 6,
+      "days_held": 7,
       "unrealized_return": -0.58,
       "conviction": "MEDIUM"
     },
     {
       "ticker": "GDV",
       "entry_date": "Jan 29, 2026",
-      "days_held": 6,
-      "unrealized_return": 3.1,
+      "days_held": 7,
+      "unrealized_return": 3.67,
       "conviction": "MEDIUM"
     },
     {
       "ticker": "IP",
       "entry_date": "Feb 02, 2026",
-      "days_held": 1,
-      "unrealized_return": 4.32,
+      "days_held": 3,
+      "unrealized_return": 10.84,
       "conviction": "MEDIUM"
     },
     {
       "ticker": "EMPD",
       "entry_date": "Feb 02, 2026",
-      "days_held": 1,
-      "unrealized_return": -4.33,
+      "days_held": 3,
+      "unrealized_return": -7.22,
       "conviction": "LOW"
     },
     {
       "ticker": "CR",
       "entry_date": "Feb 03, 2026",
-      "days_held": 0,
-      "unrealized_return": 2.77,
+      "days_held": 1,
+      "unrealized_return": 2.46,
       "conviction": "HIGH"
-    },
-    {
-      "ticker": "SHCO",
-      "entry_date": "Feb 03, 2026",
-      "days_held": 0,
-      "unrealized_return": 0.0,
-      "conviction": "MEDIUM"
     }
   ],
   "portfolio_composition": {
     "starting_capital": 10000,
-    "current_value": 11858.51,
-    "cash": 7452.77,
-    "invested_capital": 4405.74,
-    "capital_deployed_pct": 37.15
+    "current_value": 11870.52,
+    "cash": 7866.31,
+    "invested_capital": 4004.21,
+    "capital_deployed_pct": 33.73
   }
 }
