@@ -66,7 +66,12 @@ class CapitolTradesScraper:
         self.politician_tracker = politician_tracker
 
         # API configuration
-        self.api_key = os.getenv('RAPIDAPI_KEY', '59830176c3mshfac6f973142e69cp19567ejsn91aff23fd15d')
+        self.api_key = os.getenv('RAPIDAPI_KEY')
+        if not self.api_key:
+            logger.warning("⚠️  RAPIDAPI_KEY environment variable not set")
+            logger.warning("    Politician trade fetching will fail")
+            logger.warning("    Please set RAPIDAPI_KEY in GitHub Secrets or environment")
+
         self.headers = {
             'x-rapidapi-host': 'politician-trade-tracker1.p.rapidapi.com',
             'x-rapidapi-key': self.api_key
@@ -224,6 +229,11 @@ class CapitolTradesScraper:
             List of trade dictionaries
         """
         try:
+            # Check if API key is set
+            if not self.api_key:
+                logger.error("Cannot fetch trades: RAPIDAPI_KEY not set")
+                return []
+
             logger.info(f"📡 Fetching politician trades via API (last {days_back} days)")
 
             # Make API request
@@ -549,7 +559,7 @@ class CapitolTradesScraper:
 
         # Group by ticker
         clusters = df.groupby('ticker').agg({
-            'politician': ['count', lambda x: list(x)],
+            'politician': ['nunique', lambda x: list(x)],  # Fixed: nunique counts unique politicians, not all rows
             'trade_date': ['min', 'max'],
             'amount_mid': ['sum', lambda x: list(x)],
             'weighted_amount': 'sum',
