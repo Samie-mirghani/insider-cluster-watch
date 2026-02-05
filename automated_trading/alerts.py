@@ -1065,12 +1065,13 @@ Insider Cluster Watch — Automated Trading System
         trades_executed: int,
         open_positions: int,
         circuit_breaker_status: Dict[str, Any],
-        exits_today: Optional[List[Dict[str, Any]]] = None
+        exits_today: Optional[List[Dict[str, Any]]] = None,
+        ai_insights: Optional[Dict[str, Any]] = None
     ) -> bool:
         """
         Send daily summary alert at end of trading day.
 
-        Now includes exit details (positions closed) to reduce email volume.
+        Now includes exit details (positions closed) and AI insights to reduce email volume.
         """
         mode_emoji, mode_label, mode_color = self._get_mode_indicator()
         date_str = datetime.now().strftime('%B %d, %Y')
@@ -1126,6 +1127,95 @@ Insider Cluster Watch — Automated Trading System
                 exit_sign = '+' if exit_pnl >= 0 else ''
                 exits_text += f"  {e.get('ticker', 'N/A'):<6} {e.get('reason', 'N/A'):<20} {exit_sign}${exit_pnl:,.2f}\n"
 
+        # Build AI insights section
+        ai_html = ""
+        ai_text = ""
+        if ai_insights and ai_insights.get('available'):
+            data = ai_insights.get('data', {})
+            narrative = ai_insights.get('narrative', '')
+
+            # Build data points for HTML
+            ai_data_rows = ""
+
+            # Filters
+            filters = data.get('filters', {})
+            if not filters.get('error'):
+                ai_data_rows += f'''
+                <tr>
+                    <td style="padding: 8px; color: {COLORS['text_muted']};">Filter Blocks:</td>
+                    <td style="padding: 8px; color: {COLORS['text_main']}; font-weight: 600;">{filters.get('total_blocks_today', 0)} signals blocked</td>
+                </tr>
+                '''
+                if filters.get('key_rejection'):
+                    key_rej = filters['key_rejection']
+                    ai_data_rows += f'''
+                <tr>
+                    <td style="padding: 8px; color: {COLORS['text_muted']};">Key Rejection:</td>
+                    <td style="padding: 8px; color: {COLORS['warning']};">{key_rej.get('reason', 'N/A')}</td>
+                </tr>
+                '''
+
+            # Sectors
+            sectors = data.get('sectors', {})
+            if not sectors.get('error') and sectors.get('warning'):
+                ai_data_rows += f'''
+                <tr>
+                    <td style="padding: 8px; color: {COLORS['text_muted']};">Risk Alert:</td>
+                    <td style="padding: 8px; color: {COLORS['danger']}; font-weight: 600;">⚠️  {sectors['warning']}</td>
+                </tr>
+                '''
+
+            # Execution
+            execution = data.get('execution', {})
+            if not execution.get('error'):
+                quality_score = execution.get('quality_score', 0)
+                quality_color = COLORS['success'] if quality_score >= 8 else COLORS['warning'] if quality_score >= 6 else COLORS['danger']
+                ai_data_rows += f'''
+                <tr>
+                    <td style="padding: 8px; color: {COLORS['text_muted']};">Execution Quality:</td>
+                    <td style="padding: 8px; color: {quality_color}; font-weight: 600;">{quality_score}/10</td>
+                </tr>
+                '''
+
+            ai_html = f'''
+            <tr>
+                <td style="background: {COLORS['bg_card']}; padding: 25px; border: 1px solid {COLORS['border']}; border-top: none;">
+                    <h2 style="margin: 0 0 15px 0; font-size: 16px; color: {COLORS['primary']};">AI Analysis & Insights</h2>
+
+                    <!-- AI Narrative -->
+                    <div style="background: rgba(56, 189, 248, 0.1); padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+                        <p style="margin: 0; color: {COLORS['text_main']}; font-size: 14px; line-height: 1.6; white-space: pre-wrap;">{narrative}</p>
+                    </div>
+
+                    <!-- Key Metrics -->
+                    <table width="100%" cellpadding="0" cellspacing="0" style="font-size: 13px;">
+                        {ai_data_rows}
+                    </table>
+
+                    <p style="margin: 15px 0 0 0; font-size: 11px; color: {COLORS['text_muted']}; text-align: center;">
+                        Powered by Groq ({ai_insights.get('model', 'N/A')})
+                    </p>
+                </td>
+            </tr>
+            '''
+
+            # Text version
+            ai_text = f"\n\n{'='*50}\nAI ANALYSIS & INSIGHTS\n{'='*50}\n\n{narrative}\n\n"
+
+            # Add data points
+            if not filters.get('error'):
+                ai_text += f"Filter Blocks: {filters.get('total_blocks_today', 0)} signals blocked\n"
+                if filters.get('key_rejection'):
+                    ai_text += f"  Key rejection: {filters['key_rejection'].get('reason', 'N/A')}\n"
+
+            if not sectors.get('error') and sectors.get('warning'):
+                ai_text += f"\n⚠️  Risk: {sectors['warning']}\n"
+
+            if not execution.get('error'):
+                ai_text += f"\nExecution Quality: {execution.get('quality_score', 0)}/10\n"
+
+            ai_text += f"\nPowered by Groq ({ai_insights.get('model', 'N/A')})\n"
+
         html = f'''<!DOCTYPE html>
 <html>
 <head><meta charset="UTF-8"></head>
@@ -1168,6 +1258,7 @@ Insider Cluster Watch — Automated Trading System
                         </td>
                     </tr>
                     {exits_html}
+                    {ai_html}
                     <tr>
                         <td style="padding: 20px; text-align: center;">
                             <p style="margin: 0; font-size: 11px; color: {COLORS['text_muted']};">
@@ -1191,6 +1282,7 @@ Portfolio Value: ${portfolio_value:,.2f}
 Trades Today: {trades_executed}
 Open Positions: {open_positions}
 {exits_text}
+{ai_text}
 {'='*50}
 Insider Cluster Watch — Automated Trading System
 """
