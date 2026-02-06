@@ -7,6 +7,7 @@ This module is optimized for:
 - Fast execution (<5 seconds)
 - Low memory usage (<100MB)
 - Graceful failure (never blocks EOD email)
+- Groq free tier: <3,000 tokens input, <800 tokens output
 """
 
 import os
@@ -28,7 +29,11 @@ from scripts.analyzers import (
     FilterAnalyzer,
     PerformanceAnalyzer,
     SectorAnalyzer,
-    ExecutionAnalyzer
+    ExecutionAnalyzer,
+    HistoricalAnalyzer,
+    TrendAnalyzer,
+    AttributionAnalyzer,
+    AnomalyAnalyzer
 )
 
 
@@ -57,7 +62,7 @@ def generate_ai_insights():
         }
 
     try:
-        # Run analyzers (fast, <1 second total)
+        # Run analyzers (fast, <2 seconds total)
         analysis_results = _run_analyzers()
 
         # Generate narrative (Groq API, ~2 seconds)
@@ -89,7 +94,11 @@ def _run_analyzers():
                 'filters': {...},
                 'performance': {...},
                 'sectors': {...},
-                'execution': {...}
+                'execution': {...},
+                'historical': {...},
+                'trends': {...},
+                'attribution': {...},
+                'anomalies': {...}
             }
     """
 
@@ -99,7 +108,11 @@ def _run_analyzers():
         ('filters', FilterAnalyzer),
         ('performance', PerformanceAnalyzer),
         ('sectors', SectorAnalyzer),
-        ('execution', ExecutionAnalyzer)
+        ('execution', ExecutionAnalyzer),
+        ('historical', HistoricalAnalyzer),
+        ('trends', TrendAnalyzer),
+        ('attribution', AttributionAnalyzer),
+        ('anomalies', AnomalyAnalyzer)
     ]
 
     for name, AnalyzerClass in analyzers:
@@ -114,7 +127,10 @@ def _run_analyzers():
 
 def _generate_narrative(analysis_results):
     """
-    Call Groq API for concise narrative.
+    Call Groq API with enriched insights for concise narrative.
+
+    Sends only computed insights (not raw data) to stay within
+    Groq free tier limits (~2,500 input + ~600 output = ~3,100 tokens).
 
     Args:
         analysis_results: Dictionary of analyzer results
@@ -127,19 +143,59 @@ def _generate_narrative(analysis_results):
     if not api_key:
         return "AI analysis unavailable (API key not set)"
 
-    # Build CONCISE prompt (<3000 tokens)
-    prompt = f"""You are a trading analyst. Provide a brief daily summary for an email.
+    # Extract computed insights for concise prompt
+    perf = analysis_results.get('performance', {})
+    filters = analysis_results.get('filters', {})
+    sectors = analysis_results.get('sectors', {})
+    historical = analysis_results.get('historical', {})
+    trends = analysis_results.get('trends', {})
+    attribution = analysis_results.get('attribution', {})
+    anomalies = analysis_results.get('anomalies', {})
 
-DATA:
-{json.dumps(analysis_results, indent=1)}
+    # Build anomalies text concisely
+    anomaly_text = "None detected"
+    anomaly_list = anomalies.get('anomalies', [])
+    if anomaly_list:
+        anomaly_text = "; ".join(
+            a.get('message', '') for a in anomaly_list[:2]
+        )
 
-Generate a CONCISE analysis with:
-1. One-sentence summary
-2. 2-3 key insights (bullet points)
-3. 1-2 actionable recommendations
+    # Build CONCISE but INFORMATION-RICH prompt
+    prompt = f"""You are a quantitative trading analyst. Provide today's analysis with historical context.
 
-Keep total response under 200 words. Be direct and actionable.
-Format as plain text (no markdown headers)."""
+TODAY'S METRICS:
+- Exits: {perf.get('exits_today', 0)}
+- Filters blocked: {filters.get('total_blocks_today', 0)}
+- Top sector: {sectors.get('top_sector', 'N/A')} ({sectors.get('top_sector_pct', 0)}%)
+
+HISTORICAL CONTEXT (30-day):
+- Win rate: Today {historical.get('win_rate', {}).get('today', 0)}% vs Avg {historical.get('win_rate', {}).get('avg_30d', 0)}% ({historical.get('win_rate', {}).get('status', 'unknown')})
+- Daily P&L: Today ${historical.get('daily_pnl', {}).get('today', 0)} vs Avg ${historical.get('daily_pnl', {}).get('avg_30d', 0)} ({historical.get('daily_pnl', {}).get('status', 'unknown')})
+
+TRENDS (7-day):
+- Win rate: {trends.get('win_rate_trend', {}).get('direction', 'stable')} ({trends.get('win_rate_trend', {}).get('change', 0):+.1f}%)
+- P&L: {trends.get('pnl_trend', {}).get('direction', 'stable')} ({trends.get('pnl_trend', {}).get('change', 0):+.1f}%)
+
+ATTRIBUTION (30-day):
+- Best sector: {attribution.get('best_sector', {}).get('sector', 'N/A')} (${attribution.get('best_sector', {}).get('pnl', 0):+,.0f})
+- Worst sector: {attribution.get('worst_sector', {}).get('sector', 'N/A')} (${attribution.get('worst_sector', {}).get('pnl', 0):+,.0f})
+
+ANOMALIES:
+{anomaly_text}
+
+TASK: Write a concise analysis (under 200 words):
+
+VERDICT: [one sentence - how today went vs expectations]
+
+KEY INSIGHTS (2-3 bullets):
+- [Historical context insight]
+- [Trend insight]
+- [Attribution or anomaly insight]
+
+PRIORITY ACTIONS (1-2 specific):
+1. [HIGH/MEDIUM] [specific action with target numbers]
+
+Format exactly as shown. Be quantitative and actionable."""
 
     try:
         client = Groq(api_key=api_key)
@@ -147,7 +203,7 @@ Format as plain text (no markdown headers)."""
         response = client.chat.completions.create(
             messages=[{"role": "user", "content": prompt}],
             model="llama-3.3-70b-versatile",
-            max_tokens=500,  # Short response
+            max_tokens=600,  # Concise output
             temperature=0.3
         )
 
