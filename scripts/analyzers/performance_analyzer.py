@@ -53,21 +53,77 @@ class PerformanceAnalyzer:
                 } if worst else None
             }
         except Exception as e:
-            return {'error': str(e)}
+            import traceback
+            return {'error': str(e), 'traceback': traceback.format_exc()}
 
     def _load_exits_today(self):
         """
-        Load today's exits.
+        Load today's exits - with fallback to audit log.
 
         Returns:
             list: List of exit dictionaries
         """
+        # Try exits_today.json first (preferred)
         exits_file = self.base_dir / 'automated_trading' / 'data' / 'exits_today.json'
 
-        if not exits_file.exists():
+        if exits_file.exists():
+            try:
+                with open(exits_file, 'r') as f:
+                    data = json.load(f)
+
+                exits = data.get('exits', [])
+
+                # Check if exits are from today
+                today = datetime.now().strftime('%Y-%m-%d')
+                file_date = data.get('date', '')
+
+                if file_date == today and exits:
+                    print(f"  [DEBUG] Loaded {len(exits)} exits from exits_today.json")
+                    return exits
+                else:
+                    print(f"  [DEBUG] exits_today.json date mismatch or empty: file_date={file_date}, today={today}, exits={len(exits)}")
+            except Exception as e:
+                print(f"  [DEBUG] Error loading exits_today.json: {e}")
+
+        # Fallback: parse audit log for today's POSITION_CLOSED events
+        print("  [DEBUG] Falling back to audit log for exits")
+        return self._load_exits_from_audit_log()
+
+    def _load_exits_from_audit_log(self):
+        """
+        Extract exits from audit log for today.
+
+        Returns:
+            list: List of exit dictionaries
+        """
+        audit_file = self.base_dir / 'automated_trading' / 'data' / 'audit_log.jsonl'
+
+        if not audit_file.exists():
             return []
 
-        with open(exits_file, 'r') as f:
-            data = json.load(f)
+        today = datetime.now().strftime('%Y-%m-%d')
+        exits = []
 
-        return data.get('exits', [])
+        with open(audit_file, 'r') as f:
+            for line in f:
+                try:
+                    event = json.loads(line)
+
+                    if event.get('timestamp', '').startswith(today):
+                        if event.get('event_type') == 'POSITION_CLOSED':
+                            details = event.get('details', {})
+                            if not isinstance(details, dict):
+                                details = {}
+
+                            exits.append({
+                                'ticker': details.get('ticker', 'UNKNOWN'),
+                                'pnl': details.get('pnl', 0),
+                                'pnl_pct': details.get('pnl_pct', 0),
+                                'reason': details.get('reason', 'UNKNOWN'),
+                                'time': event.get('timestamp')
+                            })
+                except Exception:
+                    continue
+
+        print(f"  [DEBUG] Found {len(exits)} exits in audit log for {today}")
+        return exits

@@ -39,12 +39,12 @@ def generate_ai_insights():
     This is the main entry point called by execute_trades.py.
 
     Returns:
-        dict: Structured insights or None if failed
+        dict: Structured insights dictionary
             {
                 'available': bool,
-                'narrative': str (AI-generated summary),
-                'data': dict (analyzer results),
-                'model': str,
+                'narrative': str (AI-generated summary, if available),
+                'data': dict (analyzer results, if available),
+                'model': str (if available),
                 'reason': str (if unavailable)
             }
     """
