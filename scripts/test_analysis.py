@@ -41,7 +41,7 @@ def test_data_files():
 
 
 def test_analyzers():
-    """Test each analyzer."""
+    """Test each analyzer with detailed output."""
     print("\nTesting analyzers...")
 
     from scripts.analyzers import (
@@ -57,21 +57,30 @@ def test_analyzers():
     ]:
         try:
             result = Analyzer().analyze()
+
+            # Check for errors
             if 'error' in result:
-                print(f"  ⚠️  {name}: {result['error']}")
+                print(f"  ❌ {name}: {result['error']}")
+                if 'traceback' in result:
+                    print(f"     Traceback: {result['traceback'][:200]}")
             else:
                 print(f"  ✅ {name}")
-                # Print key metrics
+
+                # Show key metrics
                 if name == 'FilterAnalyzer':
                     print(f"     Total blocks: {result.get('total_blocks_today', 0)}")
                 elif name == 'PerformanceAnalyzer':
                     print(f"     Exits today: {result.get('exits_today', 0)}")
                 elif name == 'SectorAnalyzer':
                     print(f"     Positions: {result.get('total_positions', 0)}")
+                    print(f"     Top sector: {result.get('top_sector', 'N/A')} ({result.get('top_sector_pct', 0)}%)")
                 elif name == 'ExecutionAnalyzer':
                     print(f"     Orders today: {result.get('orders_today', 0)}")
+
         except Exception as e:
+            import traceback
             print(f"  ❌ {name}: {e}")
+            print(f"     {traceback.format_exc()[:200]}")
 
 
 def test_orchestrator():

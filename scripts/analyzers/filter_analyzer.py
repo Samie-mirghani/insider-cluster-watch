@@ -56,18 +56,35 @@ class FilterAnalyzer:
         if not audit_file.exists():
             return rejections
 
+        rejection_count = 0
+        total_lines = 0
+
         with open(audit_file, 'r') as f:
             for line in f:
+                total_lines += 1
                 try:
                     event = json.loads(line)
-                    # Check if event is from today and is a rejection
-                    if event.get('timestamp', '').startswith(today):
-                        if event.get('event_type') == 'SIGNAL_REJECTED':
-                            reason = event.get('data', {}).get('reason', '')
+                    timestamp = event.get('timestamp', '')
+
+                    # Check if today
+                    if timestamp.startswith(today):
+                        event_type = event.get('event_type', '').lower()
+
+                        # Look for various rejection patterns
+                        if any(word in event_type for word in ['reject', 'skip', 'block', 'invalid']):
+                            reason = event.get('details', {}).get('reason', '')
                             if reason:
                                 rejections.append(reason)
-                except:
+                                rejection_count += 1
+
+                except Exception:
                     continue
+
+        # Debug logging
+        if total_lines == 0:
+            print("  [DEBUG] Audit log is empty")
+        else:
+            print(f"  [DEBUG] Scanned {total_lines} audit log lines, found {rejection_count} rejections for {today}")
 
         return rejections
 
