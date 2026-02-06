@@ -1,6 +1,6 @@
 """Attribution analyzer - attributes P&L to sectors and signal score brackets."""
 
-import csv
+import json
 import traceback
 from datetime import datetime, timedelta
 from pathlib import Path
@@ -54,71 +54,87 @@ class AttributionAnalyzer:
         except Exception as e:
             return {'error': str(e), 'traceback': traceback.format_exc()}
 
-    def _load_trades_30d(self):
-        """Load trades from last 30 days with sector info."""
-        trades_file = self.base_dir / 'data' / 'paper_trades.csv'
-        signals_file = self.base_dir / 'data' / 'signals_history.csv'
+    def _load_sector_map(self):
+        """Load sector data from live_positions.json."""
+        positions_file = self.base_dir / 'automated_trading' / 'data' / 'live_positions.json'
 
-        if not trades_file.exists() or not signals_file.exists():
+        sector_map = {}
+        if positions_file.exists():
+            try:
+                with open(positions_file, 'r') as f:
+                    data = json.load(f)
+
+                positions = data.get('positions', {})
+                for ticker, pos in positions.items():
+                    sector = pos.get('sector', '')
+                    if sector:
+                        sector_map[ticker] = sector
+            except Exception:
+                pass
+
+        return sector_map
+
+    def _load_trades_30d(self):
+        """Load trades from last 30 days using LIVE audit log and live_positions.json for sectors."""
+        audit_file = self.base_dir / 'automated_trading' / 'data' / 'audit_log.jsonl'
+
+        if not audit_file.exists():
             return []
 
         cutoff_date = (datetime.now() - timedelta(days=30)).strftime('%Y-%m-%d')
 
-        # Load signals to get sector info, keyed by ticker+date
-        signal_sectors = {}
-        signal_scores = {}
+        # Load sector map from live_positions.json
+        sector_map = self._load_sector_map()
 
-        with open(signals_file, 'r') as f:
-            reader = csv.DictReader(f)
-            for row in reader:
-                ticker = row.get('ticker')
-                date = row.get('date', '')
-                if date >= cutoff_date:
-                    key = f"{ticker}_{date}"
-                    sector = row.get('sector', '') or 'Unknown'
-                    signal_sectors[key] = sector if sector else 'Unknown'
-                    try:
-                        signal_scores[key] = float(row.get('signal_score', 0))
-                    except (ValueError, TypeError):
-                        signal_scores[key] = 0
-
-        # Load trades and enrich with sector using entry_date
-        # (entry typically occurs on signal day)
+        # Load POSITION_CLOSED events from audit log
         trades = []
-        with open(trades_file, 'r') as f:
-            reader = csv.DictReader(f)
-            for row in reader:
-                if row.get('action') != 'SELL':
-                    continue
-                exit_date = row.get('exit_date', '')[:10]
-                if exit_date < cutoff_date:
-                    continue
-
-                ticker = row.get('ticker')
-                entry_date = row.get('entry_date', '')[:10]
-
-                # Match on entry_date (when the signal was acted on)
-                key = f"{ticker}_{entry_date}"
-                sector = signal_sectors.get(key, 'Unknown')
-                score = signal_scores.get(key, 0)
-
+        with open(audit_file, 'r') as f:
+            for line in f:
                 try:
-                    profit = float(row.get('profit', 0) or 0)
-                except (ValueError, TypeError):
-                    profit = 0.0
+                    event = json.loads(line)
 
-                try:
-                    pnl_pct = float(row.get('pnl_pct', 0) or 0)
-                except (ValueError, TypeError):
-                    pnl_pct = 0.0
+                    if event.get('event_type') != 'POSITION_CLOSED':
+                        continue
 
-                trades.append({
-                    'ticker': ticker,
-                    'pnl': profit,
-                    'pnl_pct': pnl_pct,
-                    'sector': sector,
-                    'score': score
-                })
+                    timestamp = event.get('timestamp', '')
+                    if timestamp[:10] < cutoff_date:
+                        continue
+
+                    details = event.get('details', {})
+                    if not isinstance(details, dict):
+                        details = {}
+
+                    ticker = details.get('ticker', 'UNKNOWN')
+
+                    # Get sector: first from event details, then from live_positions
+                    sector = details.get('sector', '') or sector_map.get(ticker, 'Unknown')
+                    if not sector:
+                        sector = 'Unknown'
+
+                    try:
+                        pnl = float(details.get('pnl', 0))
+                    except (ValueError, TypeError):
+                        pnl = 0.0
+
+                    try:
+                        pnl_pct = float(details.get('pnl_pct', 0))
+                    except (ValueError, TypeError):
+                        pnl_pct = 0.0
+
+                    try:
+                        score = float(details.get('signal_score', 0))
+                    except (ValueError, TypeError):
+                        score = 0
+
+                    trades.append({
+                        'ticker': ticker,
+                        'pnl': pnl,
+                        'pnl_pct': pnl_pct,
+                        'sector': sector,
+                        'score': score
+                    })
+                except Exception:
+                    continue
 
         return trades
 

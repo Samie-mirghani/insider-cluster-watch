@@ -58,35 +58,13 @@ class PerformanceAnalyzer:
 
     def _load_exits_today(self):
         """
-        Load today's exits - with fallback to audit log.
+        Load today's exits from audit log (LIVE trade data).
 
         Returns:
             list: List of exit dictionaries
         """
-        # Try exits_today.json first (preferred)
-        exits_file = self.base_dir / 'automated_trading' / 'data' / 'exits_today.json'
-
-        if exits_file.exists():
-            try:
-                with open(exits_file, 'r') as f:
-                    data = json.load(f)
-
-                exits = data.get('exits', [])
-
-                # Check if exits are from today
-                today = datetime.now().strftime('%Y-%m-%d')
-                file_date = data.get('date', '')
-
-                if file_date == today and exits:
-                    print(f"  [DEBUG] Loaded {len(exits)} exits from exits_today.json")
-                    return exits
-                else:
-                    print(f"  [DEBUG] exits_today.json date mismatch or empty: file_date={file_date}, today={today}, exits={len(exits)}")
-            except Exception as e:
-                print(f"  [DEBUG] Error loading exits_today.json: {e}")
-
-        # Fallback: parse audit log for today's POSITION_CLOSED events
-        print("  [DEBUG] Falling back to audit log for exits")
+        # Use audit log directly - this is the source of truth for LIVE trades
+        print("  [DEBUG] Loading exits from audit log (LIVE trades)")
         return self._load_exits_from_audit_log()
 
     def _load_exits_from_audit_log(self):

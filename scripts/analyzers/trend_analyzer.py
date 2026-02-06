@@ -1,6 +1,6 @@
 """Trend analyzer - detects 7-day trends in key metrics."""
 
-import csv
+import json
 import statistics
 import traceback
 from datetime import datetime, timedelta
@@ -52,10 +52,10 @@ class TrendAnalyzer:
             return {'error': str(e), 'traceback': traceback.format_exc()}
 
     def _compute_daily_metrics_7d(self):
-        """Compute metrics for each of last 7 days."""
-        trades_file = self.base_dir / 'data' / 'paper_trades.csv'
+        """Compute metrics for each of last 7 days from LIVE audit log."""
+        audit_file = self.base_dir / 'automated_trading' / 'data' / 'audit_log.jsonl'
 
-        if not trades_file.exists():
+        if not audit_file.exists():
             return []
 
         today = datetime.now()
@@ -66,18 +66,29 @@ class TrendAnalyzer:
 
         daily_data = defaultdict(lambda: {'wins': 0, 'total': 0, 'pnl': 0.0})
 
-        with open(trades_file, 'r') as f:
-            reader = csv.DictReader(f)
-            for row in reader:
-                if row.get('action') != 'SELL':
-                    continue
-                exit_date = row.get('exit_date', '')[:10]
-                if exit_date in date_set:
-                    profit = float(row.get('profit', 0) or 0)
+        with open(audit_file, 'r') as f:
+            for line in f:
+                try:
+                    event = json.loads(line)
+
+                    if event.get('event_type') != 'POSITION_CLOSED':
+                        continue
+
+                    exit_date = event.get('timestamp', '')[:10]
+                    if exit_date not in date_set:
+                        continue
+
+                    details = event.get('details', {})
+                    if not isinstance(details, dict):
+                        details = {}
+
+                    pnl = details.get('pnl', 0)
                     daily_data[exit_date]['total'] += 1
-                    daily_data[exit_date]['pnl'] += profit
-                    if profit > 0:
+                    daily_data[exit_date]['pnl'] += pnl
+                    if pnl > 0:
                         daily_data[exit_date]['wins'] += 1
+                except Exception:
+                    continue
 
         metrics = []
         for date in sorted(dates):
@@ -103,12 +114,13 @@ class TrendAnalyzer:
 
         change = second_half_avg - first_half_avg
 
-        # Use absolute change when first half is zero to avoid
-        # masking a real trend as "stable"
-        if first_half_avg != 0:
+        # Handle division by zero: if both halves are near zero, no trend
+        if abs(first_half_avg) < 0.01 and abs(second_half_avg) < 0.01:
+            change_pct = 0
+        elif abs(first_half_avg) >= 0.01:
             change_pct = (change / abs(first_half_avg)) * 100
         elif change != 0:
-            # First half was zero but second half isn't - significant change
+            # First half was ~zero but second half isn't - use absolute change
             change_pct = 100.0 if change > 0 else -100.0
         else:
             change_pct = 0
