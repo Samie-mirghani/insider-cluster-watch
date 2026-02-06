@@ -1,6 +1,6 @@
 """Historical context analyzer - compares today's metrics against 30-day averages."""
 
-import csv
+import json
 import traceback
 from datetime import datetime, timedelta
 from pathlib import Path
@@ -22,9 +22,12 @@ class HistoricalAnalyzer:
     def analyze(self):
         """Compute historical context - today vs 30-day averages."""
         try:
-            win_rate_30d = self._compute_win_rate_30d()
-            avg_pnl_30d = self._compute_avg_daily_pnl_30d()
-            today_metrics = self._get_today_metrics()
+            # Load all exits from audit log once for efficiency
+            exits_30d = self._load_exits_from_audit_log(days=30)
+
+            win_rate_30d = self._compute_win_rate(exits_30d)
+            avg_pnl_30d = self._compute_avg_daily_pnl(exits_30d)
+            today_metrics = self._get_today_metrics(exits_30d)
 
             today_wr = today_metrics['win_rate']
             delta = round(today_wr - win_rate_30d, 1)
@@ -64,80 +67,77 @@ class HistoricalAnalyzer:
         except Exception as e:
             return {'error': str(e), 'traceback': traceback.format_exc()}
 
-    def _compute_win_rate_30d(self):
-        """Calculate 30-day win rate from paper trades."""
-        trades_file = self.base_dir / 'data' / 'paper_trades.csv'
+    def _load_exits_from_audit_log(self, days=30):
+        """Load POSITION_CLOSED events from audit log for last N days."""
+        audit_file = self.base_dir / 'automated_trading' / 'data' / 'audit_log.jsonl'
 
-        if not trades_file.exists():
+        if not audit_file.exists():
+            return []
+
+        cutoff_date = (datetime.now() - timedelta(days=days)).strftime('%Y-%m-%d')
+        exits = []
+
+        with open(audit_file, 'r') as f:
+            for line in f:
+                try:
+                    event = json.loads(line)
+
+                    if event.get('event_type') != 'POSITION_CLOSED':
+                        continue
+
+                    timestamp = event.get('timestamp', '')
+                    if timestamp[:10] < cutoff_date:
+                        continue
+
+                    details = event.get('details', {})
+                    if not isinstance(details, dict):
+                        details = {}
+
+                    exits.append({
+                        'date': timestamp[:10],
+                        'ticker': details.get('ticker', 'UNKNOWN'),
+                        'pnl': details.get('pnl', 0),
+                        'pnl_pct': details.get('pnl_pct', 0),
+                        'reason': details.get('reason', 'UNKNOWN'),
+                        'time': timestamp
+                    })
+                except Exception:
+                    continue
+
+        return exits
+
+    def _compute_win_rate(self, exits):
+        """Calculate win rate from LIVE trade exits."""
+        if not exits:
             return 0.0
 
-        cutoff_date = (datetime.now() - timedelta(days=30)).strftime('%Y-%m-%d')
-
-        wins = 0
-        total = 0
-
-        with open(trades_file, 'r') as f:
-            reader = csv.DictReader(f)
-            for row in reader:
-                if row.get('action') != 'SELL':
-                    continue
-                exit_date = row.get('exit_date', '')[:10]
-                if exit_date >= cutoff_date:
-                    total += 1
-                    profit = float(row.get('profit', 0) or 0)
-                    if profit > 0:
-                        wins += 1
+        wins = sum(1 for e in exits if e.get('pnl', 0) > 0)
+        total = len(exits)
 
         return round((wins / total * 100) if total > 0 else 0, 1)
 
-    def _compute_avg_daily_pnl_30d(self):
-        """Calculate average daily P&L from paper trades."""
-        trades_file = self.base_dir / 'data' / 'paper_trades.csv'
-
-        if not trades_file.exists():
+    def _compute_avg_daily_pnl(self, exits):
+        """Calculate average daily P&L from LIVE trade exits."""
+        if not exits:
             return 0.0
 
-        cutoff_date = (datetime.now() - timedelta(days=30)).strftime('%Y-%m-%d')
-
         daily_pnl = defaultdict(float)
-
-        with open(trades_file, 'r') as f:
-            reader = csv.DictReader(f)
-            for row in reader:
-                if row.get('action') != 'SELL':
-                    continue
-                exit_date = row.get('exit_date', '')[:10]
-                if exit_date >= cutoff_date:
-                    profit = float(row.get('profit', 0) or 0)
-                    daily_pnl[exit_date] += profit
+        for e in exits:
+            daily_pnl[e['date']] += e.get('pnl', 0)
 
         if not daily_pnl:
             return 0.0
 
         return round(sum(daily_pnl.values()) / len(daily_pnl), 2)
 
-    def _get_today_metrics(self):
-        """Get today's performance metrics."""
-        trades_file = self.base_dir / 'data' / 'paper_trades.csv'
+    def _get_today_metrics(self, all_exits):
+        """Get today's performance metrics from LIVE trade exits."""
         today = datetime.now().strftime('%Y-%m-%d')
+        today_exits = [e for e in all_exits if e.get('date') == today]
 
-        wins = 0
-        total = 0
-        pnl = 0.0
-
-        if trades_file.exists():
-            with open(trades_file, 'r') as f:
-                reader = csv.DictReader(f)
-                for row in reader:
-                    if row.get('action') != 'SELL':
-                        continue
-                    exit_date = row.get('exit_date', '')[:10]
-                    if exit_date == today:
-                        total += 1
-                        trade_pnl = float(row.get('profit', 0) or 0)
-                        pnl += trade_pnl
-                        if trade_pnl > 0:
-                            wins += 1
+        wins = sum(1 for e in today_exits if e.get('pnl', 0) > 0)
+        total = len(today_exits)
+        pnl = sum(e.get('pnl', 0) for e in today_exits)
 
         win_rate = (wins / total * 100) if total > 0 else 0
 

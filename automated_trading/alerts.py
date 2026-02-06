@@ -1235,7 +1235,7 @@ Insider Cluster Watch — Automated Trading System
                     anomaly_items += f'''
                     <div style="padding: 8px 12px; margin-bottom: 5px; background: rgba(239, 68, 68, 0.1); border-radius: 4px; border-left: 3px solid {sev_color};">
                         <span style="color: {sev_color}; font-weight: 600; font-size: 12px;">[{severity.upper()}]</span>
-                        <span style="color: {COLORS['text_main']}; font-size: 13px;"> {anomaly.get('message', 'Unknown')}</span>
+                        <span style="color: {COLORS['text_main']}; font-size: 13px;"> {str(anomaly.get('message', 'Unknown')).replace(chr(10), '<br>')}</span>
                     </div>
                     '''
                 anomaly_html = f'''
@@ -1252,7 +1252,7 @@ Insider Cluster Watch — Automated Trading System
 
                     <!-- AI Narrative -->
                     <div style="background: rgba(56, 189, 248, 0.1); padding: 15px; border-radius: 8px; margin-bottom: 15px;">
-                        <p style="margin: 0; color: {COLORS['text_main']}; font-size: 14px; line-height: 1.6; white-space: pre-wrap;">{narrative}</p>
+                        <p style="margin: 0; color: {COLORS['text_main']}; font-size: 14px; line-height: 1.6;">{narrative.replace(chr(10), '<br>')}</p>
                     </div>
 
                     <!-- Key Metrics -->
