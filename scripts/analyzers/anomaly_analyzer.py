@@ -3,6 +3,7 @@
 import csv
 import json
 import statistics
+import traceback
 from datetime import datetime, timedelta
 from pathlib import Path
 from collections import defaultdict
@@ -41,7 +42,7 @@ class AnomalyAnalyzer:
                 'anomalies': anomalies
             }
         except Exception as e:
-            return {'error': str(e)}
+            return {'error': str(e), 'traceback': traceback.format_exc()}
 
     def _check_slippage_anomaly(self):
         """Check if today's slippage is unusual."""
@@ -103,11 +104,12 @@ class AnomalyAnalyzer:
         with open(trades_file, 'r') as f:
             reader = csv.DictReader(f)
             for row in reader:
-                if (row.get('action') == 'SELL'
-                        and row.get('date', '') >= cutoff_date):
-                    date = row.get('date')
-                    pnl = float(row.get('pnl', 0))
-                    daily_pnl[date] += pnl
+                if row.get('action') != 'SELL':
+                    continue
+                exit_date = row.get('exit_date', '')[:10]
+                if exit_date >= cutoff_date:
+                    profit = float(row.get('profit', 0) or 0)
+                    daily_pnl[exit_date] += profit
 
         if len(daily_pnl) < 10:
             return None
@@ -163,10 +165,15 @@ class AnomalyAnalyzer:
         with open(trades_file, 'r') as f:
             reader = csv.DictReader(f)
             for row in reader:
-                if (row.get('action') == 'SELL'
-                        and row.get('date', '') >= cutoff_date):
-                    pnl = float(row.get('pnl', 0))
-                    trades.append({'date': row.get('date'), 'pnl': pnl})
+                if row.get('action') != 'SELL':
+                    continue
+                exit_date = row.get('exit_date', '')[:10]
+                if exit_date >= cutoff_date:
+                    profit = float(row.get('profit', 0) or 0)
+                    trades.append({
+                        'date': exit_date,
+                        'pnl': profit
+                    })
 
         trades.sort(key=lambda x: x['date'])
 

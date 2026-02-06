@@ -160,6 +160,14 @@ def _generate_narrative(analysis_results):
             a.get('message', '') for a in anomaly_list[:2]
         )
 
+    # Safely extract nested values (guard against None)
+    best_sector = attribution.get('best_sector') or {}
+    worst_sector = attribution.get('worst_sector') or {}
+    wr_trend = trends.get('win_rate_trend') or {}
+    pnl_trend_data = trends.get('pnl_trend') or {}
+    win_rate = historical.get('win_rate') or {}
+    daily_pnl = historical.get('daily_pnl') or {}
+
     # Build CONCISE but INFORMATION-RICH prompt
     prompt = f"""You are a quantitative trading analyst. Provide today's analysis with historical context.
 
@@ -169,16 +177,16 @@ TODAY'S METRICS:
 - Top sector: {sectors.get('top_sector', 'N/A')} ({sectors.get('top_sector_pct', 0)}%)
 
 HISTORICAL CONTEXT (30-day):
-- Win rate: Today {historical.get('win_rate', {}).get('today', 0)}% vs Avg {historical.get('win_rate', {}).get('avg_30d', 0)}% ({historical.get('win_rate', {}).get('status', 'unknown')})
-- Daily P&L: Today ${historical.get('daily_pnl', {}).get('today', 0)} vs Avg ${historical.get('daily_pnl', {}).get('avg_30d', 0)} ({historical.get('daily_pnl', {}).get('status', 'unknown')})
+- Win rate: Today {win_rate.get('today', 0)}% vs Avg {win_rate.get('avg_30d', 0)}% ({win_rate.get('status', 'unknown')})
+- Daily P&L: Today ${daily_pnl.get('today', 0)} vs Avg ${daily_pnl.get('avg_30d', 0)} ({daily_pnl.get('status', 'unknown')})
 
 TRENDS (7-day):
-- Win rate: {trends.get('win_rate_trend', {}).get('direction', 'stable')} ({trends.get('win_rate_trend', {}).get('change', 0):+.1f}%)
-- P&L: {trends.get('pnl_trend', {}).get('direction', 'stable')} ({trends.get('pnl_trend', {}).get('change', 0):+.1f}%)
+- Win rate: {wr_trend.get('direction', 'stable')} ({wr_trend.get('change', 0):+.1f}%)
+- P&L: {pnl_trend_data.get('direction', 'stable')} ({pnl_trend_data.get('change', 0):+.1f}%)
 
 ATTRIBUTION (30-day):
-- Best sector: {attribution.get('best_sector', {}).get('sector', 'N/A')} (${attribution.get('best_sector', {}).get('pnl', 0):+,.0f})
-- Worst sector: {attribution.get('worst_sector', {}).get('sector', 'N/A')} (${attribution.get('worst_sector', {}).get('pnl', 0):+,.0f})
+- Best sector: {best_sector.get('sector', 'N/A')} (${best_sector.get('pnl', 0):+,.0f})
+- Worst sector: {worst_sector.get('sector', 'N/A')} (${worst_sector.get('pnl', 0):+,.0f})
 
 ANOMALIES:
 {anomaly_text}

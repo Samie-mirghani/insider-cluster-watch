@@ -2,6 +2,7 @@
 
 import csv
 import statistics
+import traceback
 from datetime import datetime, timedelta
 from pathlib import Path
 from collections import defaultdict
@@ -48,7 +49,7 @@ class TrendAnalyzer:
                 'days_analyzed': len(daily_metrics)
             }
         except Exception as e:
-            return {'error': str(e)}
+            return {'error': str(e), 'traceback': traceback.format_exc()}
 
     def _compute_daily_metrics_7d(self):
         """Compute metrics for each of last 7 days."""
@@ -68,13 +69,15 @@ class TrendAnalyzer:
         with open(trades_file, 'r') as f:
             reader = csv.DictReader(f)
             for row in reader:
-                date = row.get('date', '')
-                if date in date_set and row.get('action') == 'SELL':
-                    pnl = float(row.get('pnl', 0))
-                    daily_data[date]['total'] += 1
-                    daily_data[date]['pnl'] += pnl
-                    if pnl > 0:
-                        daily_data[date]['wins'] += 1
+                if row.get('action') != 'SELL':
+                    continue
+                exit_date = row.get('exit_date', '')[:10]
+                if exit_date in date_set:
+                    profit = float(row.get('profit', 0) or 0)
+                    daily_data[exit_date]['total'] += 1
+                    daily_data[exit_date]['pnl'] += profit
+                    if profit > 0:
+                        daily_data[exit_date]['wins'] += 1
 
         metrics = []
         for date in sorted(dates):
@@ -99,7 +102,16 @@ class TrendAnalyzer:
         second_half_avg = statistics.mean(values[mid:]) if values[mid:] else 0
 
         change = second_half_avg - first_half_avg
-        change_pct = (change / first_half_avg * 100) if first_half_avg != 0 else 0
+
+        # Use absolute change when first half is zero to avoid
+        # masking a real trend as "stable"
+        if first_half_avg != 0:
+            change_pct = (change / abs(first_half_avg)) * 100
+        elif change != 0:
+            # First half was zero but second half isn't - significant change
+            change_pct = 100.0 if change > 0 else -100.0
+        else:
+            change_pct = 0
 
         if abs(change_pct) < 5:
             direction = 'stable'

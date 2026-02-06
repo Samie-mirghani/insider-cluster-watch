@@ -1,6 +1,7 @@
 """Attribution analyzer - attributes P&L to sectors and signal score brackets."""
 
 import csv
+import traceback
 from datetime import datetime, timedelta
 from pathlib import Path
 from collections import defaultdict
@@ -51,7 +52,7 @@ class AttributionAnalyzer:
                 } if worst_sector else None
             }
         except Exception as e:
-            return {'error': str(e)}
+            return {'error': str(e), 'traceback': traceback.format_exc()}
 
     def _load_trades_30d(self):
         """Load trades from last 30 days with sector info."""
@@ -63,7 +64,7 @@ class AttributionAnalyzer:
 
         cutoff_date = (datetime.now() - timedelta(days=30)).strftime('%Y-%m-%d')
 
-        # Load signals to get sector info
+        # Load signals to get sector info, keyed by ticker+date
         signal_sectors = {}
         signal_scores = {}
 
@@ -73,34 +74,51 @@ class AttributionAnalyzer:
                 ticker = row.get('ticker')
                 date = row.get('date', '')
                 if date >= cutoff_date:
-                    signal_sectors[f"{ticker}_{date}"] = row.get(
-                        'sector', 'Unknown'
-                    )
-                    signal_scores[f"{ticker}_{date}"] = float(
-                        row.get('signal_score', 0)
-                    )
+                    key = f"{ticker}_{date}"
+                    sector = row.get('sector', '') or 'Unknown'
+                    signal_sectors[key] = sector if sector else 'Unknown'
+                    try:
+                        signal_scores[key] = float(row.get('signal_score', 0))
+                    except (ValueError, TypeError):
+                        signal_scores[key] = 0
 
-        # Load trades and enrich with sector
+        # Load trades and enrich with sector using entry_date
+        # (entry typically occurs on signal day)
         trades = []
         with open(trades_file, 'r') as f:
             reader = csv.DictReader(f)
             for row in reader:
-                if (row.get('action') == 'SELL'
-                        and row.get('date', '') >= cutoff_date):
-                    ticker = row.get('ticker')
-                    date = row.get('date')
+                if row.get('action') != 'SELL':
+                    continue
+                exit_date = row.get('exit_date', '')[:10]
+                if exit_date < cutoff_date:
+                    continue
 
-                    key = f"{ticker}_{date}"
-                    sector = signal_sectors.get(key, 'Unknown')
-                    score = signal_scores.get(key, 0)
+                ticker = row.get('ticker')
+                entry_date = row.get('entry_date', '')[:10]
 
-                    trades.append({
-                        'ticker': ticker,
-                        'pnl': float(row.get('pnl', 0)),
-                        'pnl_pct': float(row.get('pnl_pct', 0)),
-                        'sector': sector,
-                        'score': score
-                    })
+                # Match on entry_date (when the signal was acted on)
+                key = f"{ticker}_{entry_date}"
+                sector = signal_sectors.get(key, 'Unknown')
+                score = signal_scores.get(key, 0)
+
+                try:
+                    profit = float(row.get('profit', 0) or 0)
+                except (ValueError, TypeError):
+                    profit = 0.0
+
+                try:
+                    pnl_pct = float(row.get('pnl_pct', 0) or 0)
+                except (ValueError, TypeError):
+                    pnl_pct = 0.0
+
+                trades.append({
+                    'ticker': ticker,
+                    'pnl': profit,
+                    'pnl_pct': pnl_pct,
+                    'sector': sector,
+                    'score': score
+                })
 
         return trades
 
