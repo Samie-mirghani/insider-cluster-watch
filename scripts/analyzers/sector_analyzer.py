@@ -33,8 +33,11 @@ class SectorAnalyzer:
             # Extract sectors - sector is a direct field, NOT nested in signal_data
             sectors = []
             for ticker, position in positions.items():
-                # Try both locations for compatibility
-                sector = position.get('sector') or position.get('signal_data', {}).get('sector', 'Unknown')
+                # Try direct field first, fall back to signal_data nesting
+                sector = position.get('sector')
+                if sector is None:
+                    signal_data = position.get('signal_data', {})
+                    sector = signal_data.get('sector', 'Unknown') if isinstance(signal_data, dict) else 'Unknown'
                 sectors.append(sector)
 
             sector_counts = Counter(sectors)

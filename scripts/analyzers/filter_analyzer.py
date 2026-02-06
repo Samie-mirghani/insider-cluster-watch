@@ -40,7 +40,8 @@ class FilterAnalyzer:
                 'key_rejection': key_rejection
             }
         except Exception as e:
-            return {'error': str(e)}
+            import traceback
+            return {'error': str(e), 'traceback': traceback.format_exc()}
 
     def _count_todays_rejections(self):
         """
@@ -72,7 +73,8 @@ class FilterAnalyzer:
 
                         # Look for various rejection patterns
                         if any(word in event_type for word in ['reject', 'skip', 'block', 'invalid']):
-                            reason = event.get('details', {}).get('reason', '')
+                            details = event.get('details', {})
+                            reason = details.get('reason', '') if isinstance(details, dict) else ''
                             if reason:
                                 rejections.append(reason)
                                 rejection_count += 1

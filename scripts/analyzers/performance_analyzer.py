@@ -53,7 +53,8 @@ class PerformanceAnalyzer:
                 } if worst else None
             }
         except Exception as e:
-            return {'error': str(e)}
+            import traceback
+            return {'error': str(e), 'traceback': traceback.format_exc()}
 
     def _load_exits_today(self):
         """
@@ -111,9 +112,11 @@ class PerformanceAnalyzer:
                     if event.get('timestamp', '').startswith(today):
                         if event.get('event_type') == 'POSITION_CLOSED':
                             details = event.get('details', {})
+                            if not isinstance(details, dict):
+                                details = {}
 
                             exits.append({
-                                'ticker': details.get('ticker'),
+                                'ticker': details.get('ticker', 'UNKNOWN'),
                                 'pnl': details.get('pnl', 0),
                                 'pnl_pct': details.get('pnl_pct', 0),
                                 'reason': details.get('reason', 'UNKNOWN'),

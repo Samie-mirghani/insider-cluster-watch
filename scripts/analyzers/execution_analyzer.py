@@ -48,7 +48,8 @@ class ExecutionAnalyzer:
                 'quality_score': round(max(quality, 0), 1)
             }
         except Exception as e:
-            return {'error': str(e)}
+            import traceback
+            return {'error': str(e), 'traceback': traceback.format_exc()}
 
     def _get_today_executions(self):
         """
@@ -78,9 +79,10 @@ class ExecutionAnalyzer:
             if not today_execs:
                 return {'total_orders': 0}
 
-            # Calculate metrics
-            filled = [e for e in today_execs if e.get('filled', True)]
-            unfilled = [e for e in today_execs if not e.get('filled', True)]
+            # Calculate metrics - only count as filled if explicitly True
+            filled = [e for e in today_execs if e.get('filled') is True]
+            unfilled = [e for e in today_execs if e.get('filled') is False]
+            unknown = [e for e in today_execs if 'filled' not in e]
 
             total_orders = len(today_execs)
             filled_count = len(filled)
@@ -96,9 +98,12 @@ class ExecutionAnalyzer:
                 'total_orders': total_orders,
                 'filled_orders': filled_count,
                 'unfilled_orders': len(unfilled),
+                'unknown_status': len(unknown),
                 'fill_rate_pct': fill_rate,
                 'avg_slippage_pct': avg_slippage
             }
 
-        except Exception:
+        except Exception as e:
+            import traceback
+            print(f"  [DEBUG] Error loading execution metrics: {e}")
             return {}
