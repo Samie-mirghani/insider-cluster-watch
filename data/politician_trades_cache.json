@@ -1,5 +1,5 @@
 {
-  "cached_at": "2026-02-05T11:51:53.538291",
+  "cached_at": "2026-02-06T11:53:12.873558",
   "trades": [
     {
       "ticker": "GOOGL",
@@ -503,42 +503,6 @@
       "amount_mid": 8000.0,
       "politician_weight": 1.0,
       "weighted_amount": 8000.0,
-      "disclosure_lag_days": NaN
-    },
-    {
-      "ticker": "LPAB",
-      "politician": "Nancy Pelosi",
-      "party": "Democrat",
-      "trade_date": "2026-01-16",
-      "amount_range": "1M-5M",
-      "asset_name": "AllianceBernstein Holding",
-      "chamber": "House",
-      "transaction_type": "buy",
-      "disclosure_date": null,
-      "state": "CA",
-      "amount_min": 1000000.0,
-      "amount_max": 5000000.0,
-      "amount_mid": 3000000.0,
-      "politician_weight": 0.4,
-      "weighted_amount": 1200000.0,
-      "disclosure_lag_days": NaN
-    },
-    {
-      "ticker": "GOOGL",
-      "politician": "Nancy Pelosi",
-      "party": "Democrat",
-      "trade_date": "2026-01-16",
-      "amount_range": "500K-1M",
-      "asset_name": "Alphabet Inc",
-      "chamber": "House",
-      "transaction_type": "buy",
-      "disclosure_date": null,
-      "state": "CA",
-      "amount_min": 500000.0,
-      "amount_max": 1000000.0,
-      "amount_mid": 750000.0,
-      "politician_weight": 0.4,
-      "weighted_amount": 300000.0,
       "disclosure_lag_days": NaN
     }
   ]

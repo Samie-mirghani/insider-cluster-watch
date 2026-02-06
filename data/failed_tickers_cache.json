@@ -10857,5 +10857,61 @@
     "last_failure": "2026-02-05T11:49:54.720436",
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
+  },
+  "LPG": {
+    "failure_count": 1,
+    "first_failure": "2026-02-06T11:49:44.449243",
+    "failure_history": [
+      {
+        "date": "2026-02-06T11:49:44.449253",
+        "reason": "No trading data for required time horizon",
+        "type": "PERMANENT"
+      }
+    ],
+    "last_failure": "2026-02-06T11:49:44.449251",
+    "reason": "No trading data for required time horizon",
+    "failure_type": "PERMANENT"
+  },
+  "SQNS": {
+    "failure_count": 1,
+    "first_failure": "2026-02-06T11:49:45.351098",
+    "failure_history": [
+      {
+        "date": "2026-02-06T11:49:45.351108",
+        "reason": "No trading data for required time horizon",
+        "type": "PERMANENT"
+      }
+    ],
+    "last_failure": "2026-02-06T11:49:45.351106",
+    "reason": "No trading data for required time horizon",
+    "failure_type": "PERMANENT"
+  },
+  "IRAB": {
+    "failure_count": 1,
+    "first_failure": "2026-02-06T11:52:42.893111",
+    "failure_history": [
+      {
+        "date": "2026-02-06T11:52:42.893126",
+        "reason": "No price data from yfinance",
+        "type": "TEMPORARY"
+      }
+    ],
+    "last_failure": "2026-02-06T11:52:42.893124",
+    "reason": "No price data from yfinance",
+    "failure_type": "TEMPORARY"
+  },
+  "CLBRU": {
+    "failure_count": 1,
+    "first_failure": "2026-02-06T11:52:43.671205",
+    "failure_history": [
+      {
+        "date": "2026-02-06T11:52:43.671219",
+        "reason": "No price data from yfinance",
+        "type": "TEMPORARY"
+      }
+    ],
+    "last_failure": "2026-02-06T11:52:43.671217",
+    "reason": "No price data from yfinance",
+    "failure_type": "TEMPORARY"
   }
 }

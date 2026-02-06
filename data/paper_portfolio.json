@@ -1,6 +1,6 @@
 {
   "starting_capital": 10000,
-  "cash": 7866.314999999993,
+  "cash": 7563.214999999994,
   "positions": {
     "ALLY": {
       "entry_date": "2026-01-26T11:36:47.241122",
@@ -139,33 +139,6 @@
         }
       ]
     },
-    "EMPD": {
-      "entry_date": "2026-02-02T11:52:04.536758",
-      "entry_price": 4.85,
-      "shares": 135,
-      "cost_basis": 654.75,
-      "initial_stop_loss": 4.517200000000001,
-      "stop_loss": 4.462,
-      "take_profit": 5.432,
-      "highest_price": 4.91,
-      "trailing_enabled": false,
-      "signal_score": 6.820613748990597,
-      "sector": "Auto - Recreational Vehicles",
-      "multi_signal_tier": "none",
-      "has_politician_signal": false,
-      "tranches": [
-        {
-          "shares": 81,
-          "price": 4.91,
-          "date": "2026-02-02T11:52:04.536764"
-        },
-        {
-          "shares": 54,
-          "price": 4.76,
-          "date": "2026-02-03T11:49:06.006258"
-        }
-      ]
-    },
     "CR": {
       "entry_date": "2026-02-03T11:52:37.722038",
       "entry_price": 185.27,
@@ -187,6 +160,28 @@
           "date": "2026-02-03T11:52:37.722042"
         }
       ]
+    },
+    "MANE": {
+      "entry_date": "2026-02-06T11:53:49.074003",
+      "entry_price": 37.16,
+      "shares": 20,
+      "cost_basis": 743.1999999999999,
+      "initial_stop_loss": 34.1872,
+      "stop_loss": 34.1872,
+      "take_profit": 41.6192,
+      "highest_price": 37.16,
+      "trailing_enabled": false,
+      "signal_score": 14.230490154547619,
+      "sector": "Biotechnology",
+      "multi_signal_tier": "none",
+      "has_politician_signal": false,
+      "tranches": [
+        {
+          "shares": 20,
+          "price": 37.16,
+          "date": "2026-02-06T11:53:49.074009"
+        }
+      ]
     }
   },
   "pending_entries": {
@@ -203,13 +198,20 @@
       "original_entry": 185.27,
       "expires": "2026-02-08T11:52:37.916805",
       "signal_score": 11.807230145187502
+    },
+    "MANE": {
+      "shares": 13,
+      "trigger_price": 36.416799999999995,
+      "original_entry": 37.16,
+      "expires": "2026-02-11T11:53:50.658579",
+      "signal_score": 14.230490154547619
     }
   },
-  "total_trades": 41,
+  "total_trades": 42,
   "winning_trades": 24,
-  "losing_trades": 9,
-  "total_profit": 1766.3200000000002,
+  "losing_trades": 10,
+  "total_profit": 1551.67,
   "max_portfolio_value": 11932.704999999998,
   "max_drawdown": -9.109194484777545,
-  "last_updated": "2026-02-05T11:49:59.753929"
+  "last_updated": "2026-02-06T11:53:57.475991"
 }

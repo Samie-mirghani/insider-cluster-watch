@@ -4810,5 +4810,101 @@
     "ipoDate": "1994-04-04",
     "updated": "2026-02-03T11:51:02.698407",
     "source": "fmp_api"
+  },
+  "BCAL": {
+    "industry": "Banks - Regional",
+    "sector": "Financial Services",
+    "price": 18.85,
+    "companyName": "Southern California Bancorp",
+    "currency": "USD",
+    "beta": 0.29,
+    "range": "11.87-20.47",
+    "ipoDate": "2005-11-10",
+    "updated": "2026-02-06T11:52:42.066043",
+    "source": "fmp_api"
+  },
+  "SWZ": {
+    "industry": "Asset Management",
+    "sector": "Financial Services",
+    "price": 6.02,
+    "companyName": "Total Return Securities, Inc.",
+    "currency": "USD",
+    "beta": 0.81285185,
+    "range": "5.84-9.43",
+    "ipoDate": "1987-08-19",
+    "updated": "2026-02-06T11:52:42.175160",
+    "source": "fmp_api"
+  },
+  "PMN": {
+    "industry": "Biotechnology",
+    "sector": "Healthcare",
+    "price": 13.1,
+    "companyName": "ProMIS Neurosciences, Inc.",
+    "currency": "USD",
+    "beta": -0.093,
+    "range": "6.27-39.75",
+    "ipoDate": "2007-01-10",
+    "updated": "2026-02-06T11:52:42.187096",
+    "source": "fmp_api"
+  },
+  "HYT": {
+    "industry": "Asset Management",
+    "sector": "Financial Services",
+    "price": 8.8,
+    "companyName": "BlackRock Corporate High Yield Fund, Inc.",
+    "currency": "USD",
+    "beta": 0.633,
+    "range": "7.84-10.02",
+    "ipoDate": "2003-05-29",
+    "updated": "2026-02-06T11:52:42.188595",
+    "source": "fmp_api"
+  },
+  "SOFI": {
+    "industry": "Financial - Credit Services",
+    "sector": "Financial Services",
+    "price": 19.46,
+    "companyName": "SoFi Technologies, Inc.",
+    "currency": "USD",
+    "beta": 2.178,
+    "range": "8.6-32.73",
+    "ipoDate": "2021-01-04",
+    "updated": "2026-02-06T11:52:42.201448",
+    "source": "fmp_api"
+  },
+  "JCI": {
+    "industry": "Construction",
+    "sector": "Industrials",
+    "price": 132.52,
+    "companyName": "Johnson Controls International plc",
+    "currency": "USD",
+    "beta": 1.428,
+    "range": "68.03-136.24",
+    "ipoDate": "1987-09-28",
+    "updated": "2026-02-06T11:52:42.243397",
+    "source": "fmp_api"
+  },
+  "MANE": {
+    "industry": "Biotechnology",
+    "sector": "Healthcare",
+    "price": 37.16,
+    "companyName": "Veradermics Inc.",
+    "currency": "USD",
+    "beta": 0,
+    "range": "32-40.11",
+    "ipoDate": "2008-12-30",
+    "updated": "2026-02-06T11:52:42.256779",
+    "source": "fmp_api"
+  },
+  "NTRS": {
+    "industry": "Asset Management",
+    "sector": "Financial Services",
+    "price": 147.48,
+    "companyName": "Northern Trust Corporation",
+    "currency": "USD",
+    "beta": 1.276,
+    "range": "81.62-157.6",
+    "ipoDate": "1980-03-17",
+    "updated": "2026-02-06T11:52:42.259816",
+    "source": "fmp_api"
   }
 }
