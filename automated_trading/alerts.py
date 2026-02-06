@@ -1161,7 +1161,7 @@ Insider Cluster Watch — Automated Trading System
                 ai_data_rows += f'''
                 <tr>
                     <td style="padding: 8px; color: {COLORS['text_muted']};">Risk Alert:</td>
-                    <td style="padding: 8px; color: {COLORS['danger']}; font-weight: 600;">⚠️  {sectors['warning']}</td>
+                    <td style="padding: 8px; color: {COLORS['danger']}; font-weight: 600;">&#9888;&#65039; {sectors['warning']}</td>
                 </tr>
                 '''
 
@@ -1177,10 +1177,78 @@ Insider Cluster Watch — Automated Trading System
                 </tr>
                 '''
 
+            # Historical comparison
+            historical = data.get('historical', {})
+            if not historical.get('error'):
+                wr = historical.get('win_rate', {})
+                wr_delta = wr.get('delta', 0)
+                wr_color = COLORS['success'] if wr_delta >= 0 else COLORS['danger']
+                ai_data_rows += f'''
+                <tr>
+                    <td style="padding: 8px; color: {COLORS['text_muted']};">Win Rate vs 30d Avg:</td>
+                    <td style="padding: 8px; color: {wr_color}; font-weight: 600;">{wr.get('today', 0)}% vs {wr.get('avg_30d', 0)}% ({wr_delta:+.1f}%)</td>
+                </tr>
+                '''
+
+            # Trends
+            trends = data.get('trends', {})
+            if not trends.get('error') and not trends.get('insufficient_data'):
+                wr_trend = trends.get('win_rate_trend', {})
+                if wr_trend.get('significance') != 'none':
+                    trend_dir = wr_trend.get('direction', 'stable')
+                    trend_color = COLORS['success'] if trend_dir == 'improving' else COLORS['danger'] if trend_dir == 'declining' else COLORS['text_main']
+                    ai_data_rows += f'''
+                <tr>
+                    <td style="padding: 8px; color: {COLORS['text_muted']};">7-Day Win Rate Trend:</td>
+                    <td style="padding: 8px; color: {trend_color}; font-weight: 600;">{trend_dir.capitalize()} ({wr_trend.get('change', 0):+.1f}%)</td>
+                </tr>
+                '''
+
+            # Attribution
+            attribution = data.get('attribution', {})
+            if not attribution.get('error') and not attribution.get('insufficient_data'):
+                best = attribution.get('best_sector')
+                worst = attribution.get('worst_sector')
+                if best:
+                    ai_data_rows += f'''
+                <tr>
+                    <td style="padding: 8px; color: {COLORS['text_muted']};">Best Sector (30d):</td>
+                    <td style="padding: 8px; color: {COLORS['success']}; font-weight: 600;">{best.get('sector', 'N/A')} (${best.get('pnl', 0):+,.0f}, {best.get('trades', 0)} trades)</td>
+                </tr>
+                '''
+                if worst and worst.get('pnl', 0) < 0:
+                    ai_data_rows += f'''
+                <tr>
+                    <td style="padding: 8px; color: {COLORS['text_muted']};">Worst Sector (30d):</td>
+                    <td style="padding: 8px; color: {COLORS['danger']}; font-weight: 600;">{worst.get('sector', 'N/A')} (${worst.get('pnl', 0):+,.0f}, {worst.get('trades', 0)} trades)</td>
+                </tr>
+                '''
+
+            # Anomalies warning section
+            anomalies = data.get('anomalies', {})
+            anomaly_html = ""
+            if anomalies.get('anomalies_detected', 0) > 0:
+                anomaly_items = ""
+                for anomaly in anomalies.get('anomalies', [])[:2]:
+                    severity = anomaly.get('severity', 'medium')
+                    sev_color = COLORS['danger'] if severity == 'high' else COLORS['warning']
+                    anomaly_items += f'''
+                    <div style="padding: 8px 12px; margin-bottom: 5px; background: rgba(239, 68, 68, 0.1); border-radius: 4px; border-left: 3px solid {sev_color};">
+                        <span style="color: {sev_color}; font-weight: 600; font-size: 12px;">[{severity.upper()}]</span>
+                        <span style="color: {COLORS['text_main']}; font-size: 13px;"> {anomaly.get('message', 'Unknown')}</span>
+                    </div>
+                    '''
+                anomaly_html = f'''
+                    <div style="margin-top: 15px;">
+                        <h3 style="margin: 0 0 10px 0; font-size: 14px; color: {COLORS['warning']};">&#9888;&#65039; Anomalies Detected ({anomalies.get('anomalies_detected', 0)})</h3>
+                        {anomaly_items}
+                    </div>
+                '''
+
             ai_html = f'''
             <tr>
                 <td style="background: {COLORS['bg_card']}; padding: 25px; border: 1px solid {COLORS['border']}; border-top: none;">
-                    <h2 style="margin: 0 0 15px 0; font-size: 16px; color: {COLORS['primary']};">AI Analysis & Insights</h2>
+                    <h2 style="margin: 0 0 15px 0; font-size: 16px; color: {COLORS['primary']};">AI Analysis &amp; Insights</h2>
 
                     <!-- AI Narrative -->
                     <div style="background: rgba(56, 189, 248, 0.1); padding: 15px; border-radius: 8px; margin-bottom: 15px;">
@@ -1192,6 +1260,8 @@ Insider Cluster Watch — Automated Trading System
                         {ai_data_rows}
                     </table>
 
+                    {anomaly_html}
+
                     <p style="margin: 15px 0 0 0; font-size: 11px; color: {COLORS['text_muted']}; text-align: center;">
                         Powered by Groq ({ai_insights.get('model', 'N/A')})
                     </p>
@@ -1200,7 +1270,7 @@ Insider Cluster Watch — Automated Trading System
             '''
 
             # Text version
-            ai_text = f"\n\n{'='*50}\nAI ANALYSIS & INSIGHTS\n{'='*50}\n\n{narrative}\n\n"
+            ai_text = f"\n\n{'='*60}\nAI ANALYSIS & INSIGHTS\n{'='*60}\n\n{narrative}\n\n"
 
             # Add data points
             if not filters.get('error'):
@@ -1209,10 +1279,27 @@ Insider Cluster Watch — Automated Trading System
                     ai_text += f"  Key rejection: {filters['key_rejection'].get('reason', 'N/A')}\n"
 
             if not sectors.get('error') and sectors.get('warning'):
-                ai_text += f"\n⚠️  Risk: {sectors['warning']}\n"
+                ai_text += f"\n  Risk: {sectors['warning']}\n"
 
             if not execution.get('error'):
                 ai_text += f"\nExecution Quality: {execution.get('quality_score', 0)}/10\n"
+
+            # Historical comparison
+            if not historical.get('error'):
+                wr = historical.get('win_rate', {})
+                ai_text += f"\nHistorical: Win rate {wr.get('status', 'unknown')} avg by {abs(wr.get('delta', 0)):.1f}%\n"
+
+            # Trends
+            if not trends.get('error') and not trends.get('insufficient_data'):
+                wr_trend = trends.get('win_rate_trend', {})
+                if wr_trend.get('significance') != 'none':
+                    ai_text += f"Trend: Win rate {wr_trend.get('direction', 'stable')} ({wr_trend.get('change', 0):+.1f}%)\n"
+
+            # Anomalies
+            if anomalies.get('anomalies_detected', 0) > 0:
+                ai_text += f"\n  ANOMALIES DETECTED: {anomalies.get('anomalies_detected', 0)}\n"
+                for anomaly in anomalies.get('anomalies', [])[:2]:
+                    ai_text += f"   - {anomaly.get('message', 'Unknown')}\n"
 
             ai_text += f"\nPowered by Groq ({ai_insights.get('model', 'N/A')})\n"
 
