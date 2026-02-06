@@ -230,7 +230,9 @@ class TradingEngine:
                     for line in f:
                         try:
                             event = json.loads(line.strip())
-                            if event.get('event_type') == 'POSITION_CLOSED' and event.get('ticker') == ticker:
+                            event_data = event.get('data', {})
+                            event_ticker = event_data.get('ticker') or event_data.get('symbol', '')
+                            if event.get('event_type') == 'POSITION_CLOSED' and event_ticker == ticker:
                                 # Parse timestamp
                                 timestamp_str = event.get('timestamp', '')
                                 try:
@@ -604,6 +606,20 @@ class TradingEngine:
                 'time': datetime.now().isoformat()
             })
             self._save_exits_today()  # Persist immediately
+
+            # Log enriched audit event with P&L data for AI analyzers
+            log_audit_event('POSITION_CLOSED', {
+                'ticker': ticker,
+                'symbol': ticker,
+                'shares': shares,
+                'entry_price': entry_price,
+                'exit_price': current_price,
+                'pnl': round(pnl, 2),
+                'pnl_pct': round(pnl_pct, 2),
+                'reason': reason,
+                'sector': pos.get('sector', 'Unknown'),
+                'signal_score': pos.get('signal_score', 0),
+            })
 
             logger.info(f"Exit tracked for EOD summary: {ticker} ({reason}) - P&L: ${pnl:+,.2f}")
 

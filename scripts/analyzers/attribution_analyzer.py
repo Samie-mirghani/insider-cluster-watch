@@ -100,29 +100,29 @@ class AttributionAnalyzer:
                     if timestamp[:10] < cutoff_date:
                         continue
 
-                    details = event.get('details', {})
-                    if not isinstance(details, dict):
-                        details = {}
+                    data = event.get('data', {})
+                    if not isinstance(data, dict):
+                        data = {}
 
-                    ticker = details.get('ticker', 'UNKNOWN')
+                    ticker = data.get('ticker') or data.get('symbol', 'UNKNOWN')
 
-                    # Get sector: first from event details, then from live_positions
-                    sector = details.get('sector', '') or sector_map.get(ticker, 'Unknown')
+                    # Get sector: first from event data, then from live_positions
+                    sector = data.get('sector', '') or sector_map.get(ticker, 'Unknown')
                     if not sector:
                         sector = 'Unknown'
 
                     try:
-                        pnl = float(details.get('pnl', 0))
+                        pnl = float(data.get('pnl', 0))
                     except (ValueError, TypeError):
                         pnl = 0.0
 
                     try:
-                        pnl_pct = float(details.get('pnl_pct', 0))
+                        pnl_pct = float(data.get('pnl_pct', 0))
                     except (ValueError, TypeError):
                         pnl_pct = 0.0
 
                     try:
-                        score = float(details.get('signal_score', 0))
+                        score = float(data.get('signal_score', 0))
                     except (ValueError, TypeError):
                         score = 0
 
