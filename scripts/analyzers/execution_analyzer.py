@@ -24,25 +24,22 @@ class ExecutionAnalyzer:
             dict: Execution quality metrics
         """
         try:
-            metrics = self._load_metrics()
+            # Get today's execution data
+            today_data = self._get_today_executions()
 
-            if not metrics:
+            if not today_data:
                 return {'orders_today': 0}
 
-            # Get today's metrics
-            today = metrics.get('daily_metrics', {}).get('today', {})
-
-            orders = today.get('orders_submitted', 0)
-            filled = today.get('orders_filled', 0)
-            fill_rate = (filled / orders * 100) if orders > 0 else 0
-
-            slippage = today.get('avg_slippage_pct', 0)
+            orders = today_data.get('total_orders', 0)
+            filled = today_data.get('filled_orders', 0)
+            fill_rate = today_data.get('fill_rate_pct', 0)
+            slippage = today_data.get('avg_slippage_pct', 0)
 
             # Simple quality score (10 = perfect)
             quality = 10.0
             if fill_rate < 100:
                 quality -= (100 - fill_rate) / 10
-            quality -= min(slippage * 10, 3)  # Penalty for slippage
+            quality -= min(abs(slippage) * 10, 3)  # Penalty for slippage
 
             return {
                 'orders_today': orders,
@@ -53,17 +50,55 @@ class ExecutionAnalyzer:
         except Exception as e:
             return {'error': str(e)}
 
-    def _load_metrics(self):
+    def _get_today_executions(self):
         """
-        Load execution metrics.
+        Get today's execution statistics.
 
         Returns:
-            dict: Execution metrics dictionary
+            dict: Today's execution metrics or empty dict
         """
+        from datetime import datetime
+
         metrics_file = self.base_dir / 'automated_trading' / 'data' / 'execution_metrics.json'
 
         if not metrics_file.exists():
             return {}
 
-        with open(metrics_file, 'r') as f:
-            return json.load(f)
+        try:
+            with open(metrics_file, 'r') as f:
+                data = json.load(f)
+
+            # Get today's date
+            today = datetime.now().strftime('%Y-%m-%d')
+
+            # Get all executions for today
+            executions = data.get('executions', [])
+            today_execs = [e for e in executions if e.get('date') == today]
+
+            if not today_execs:
+                return {'total_orders': 0}
+
+            # Calculate metrics
+            filled = [e for e in today_execs if e.get('filled', True)]
+            unfilled = [e for e in today_execs if not e.get('filled', True)]
+
+            total_orders = len(today_execs)
+            filled_count = len(filled)
+            fill_rate = (filled_count / total_orders * 100) if total_orders > 0 else 0
+
+            # Calculate average slippage from filled orders
+            avg_slippage = 0
+            if filled:
+                slippages = [e.get('slippage_pct', 0) for e in filled]
+                avg_slippage = sum(slippages) / len(slippages)
+
+            return {
+                'total_orders': total_orders,
+                'filled_orders': filled_count,
+                'unfilled_orders': len(unfilled),
+                'fill_rate_pct': fill_rate,
+                'avg_slippage_pct': avg_slippage
+            }
+
+        except Exception:
+            return {}

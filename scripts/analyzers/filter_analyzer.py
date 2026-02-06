@@ -60,9 +60,12 @@ class FilterAnalyzer:
             for line in f:
                 try:
                     event = json.loads(line)
+                    # Check if event is from today and is a rejection
                     if event.get('timestamp', '').startswith(today):
-                        if 'reject' in event.get('event_type', '').lower():
-                            rejections.append(event.get('details', {}).get('reason', ''))
+                        if event.get('event_type') == 'SIGNAL_REJECTED':
+                            reason = event.get('data', {}).get('reason', '')
+                            if reason:
+                                rejections.append(reason)
                 except:
                     continue
 

@@ -422,6 +422,16 @@ class TradingEngine:
         is_valid, reason = self.validate_signal(signal)
         if not is_valid:
             logger.warning(f"Signal rejected: {reason}")
+
+            # Log rejection to audit trail for analysis
+            log_audit_event('SIGNAL_REJECTED', {
+                'ticker': ticker,
+                'reason': reason,
+                'signal_score': signal.get('signal_score') or signal.get('rank_score', 0),
+                'sector': signal.get('sector', 'Unknown'),
+                'context': 'redeployment' if is_redeployment else 'morning'
+            })
+
             return False, reason
 
         # Calculate position size
@@ -742,6 +752,15 @@ class TradingEngine:
                         results['queued_for_later'] += 1
             else:
                 logger.info(f"Skipping {ticker}: {reason}")
+
+                # Log rejection to audit trail for analysis
+                log_audit_event('SIGNAL_REJECTED', {
+                    'ticker': ticker,
+                    'reason': reason,
+                    'signal_score': signal.get('signal_score') or signal.get('rank_score', 0),
+                    'sector': signal.get('sector', 'Unknown')
+                })
+
                 # Queue signals rejected ONLY due to max positions — they become
                 # redeployment candidates if a position exits intraday
                 if 'Max positions' in reason:
