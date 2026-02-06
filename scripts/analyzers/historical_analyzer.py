@@ -89,16 +89,16 @@ class HistoricalAnalyzer:
                     if timestamp[:10] < cutoff_date:
                         continue
 
-                    details = event.get('details', {})
-                    if not isinstance(details, dict):
-                        details = {}
+                    data = event.get('data', {})
+                    if not isinstance(data, dict):
+                        data = {}
 
                     exits.append({
                         'date': timestamp[:10],
-                        'ticker': details.get('ticker', 'UNKNOWN'),
-                        'pnl': details.get('pnl', 0),
-                        'pnl_pct': details.get('pnl_pct', 0),
-                        'reason': details.get('reason', 'UNKNOWN'),
+                        'ticker': data.get('ticker') or data.get('symbol', 'UNKNOWN'),
+                        'pnl': data.get('pnl', 0),
+                        'pnl_pct': data.get('pnl_pct', 0),
+                        'reason': data.get('reason', 'UNKNOWN'),
                         'time': timestamp
                     })
                 except Exception:

@@ -89,15 +89,15 @@ class PerformanceAnalyzer:
 
                     if event.get('timestamp', '').startswith(today):
                         if event.get('event_type') == 'POSITION_CLOSED':
-                            details = event.get('details', {})
-                            if not isinstance(details, dict):
-                                details = {}
+                            data = event.get('data', {})
+                            if not isinstance(data, dict):
+                                data = {}
 
                             exits.append({
-                                'ticker': details.get('ticker', 'UNKNOWN'),
-                                'pnl': details.get('pnl', 0),
-                                'pnl_pct': details.get('pnl_pct', 0),
-                                'reason': details.get('reason', 'UNKNOWN'),
+                                'ticker': data.get('ticker') or data.get('symbol', 'UNKNOWN'),
+                                'pnl': data.get('pnl', 0),
+                                'pnl_pct': data.get('pnl_pct', 0),
+                                'reason': data.get('reason', 'UNKNOWN'),
                                 'time': event.get('timestamp')
                             })
                 except Exception:

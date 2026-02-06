@@ -73,8 +73,8 @@ class FilterAnalyzer:
 
                         # Look for various rejection patterns
                         if any(word in event_type for word in ['reject', 'skip', 'block', 'invalid']):
-                            details = event.get('details', {})
-                            reason = details.get('reason', '') if isinstance(details, dict) else ''
+                            data = event.get('data', {})
+                            reason = data.get('reason', '') if isinstance(data, dict) else ''
                             if reason:
                                 rejections.append(reason)
                                 rejection_count += 1

@@ -78,11 +78,11 @@ class TrendAnalyzer:
                     if exit_date not in date_set:
                         continue
 
-                    details = event.get('details', {})
-                    if not isinstance(details, dict):
-                        details = {}
+                    data = event.get('data', {})
+                    if not isinstance(data, dict):
+                        data = {}
 
-                    pnl = details.get('pnl', 0)
+                    pnl = data.get('pnl', 0)
                     daily_data[exit_date]['total'] += 1
                     daily_data[exit_date]['pnl'] += pnl
                     if pnl > 0:
