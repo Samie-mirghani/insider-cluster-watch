@@ -422,6 +422,16 @@ class TradingEngine:
         is_valid, reason = self.validate_signal(signal)
         if not is_valid:
             logger.warning(f"Signal rejected: {reason}")
+
+            # Log rejection to audit trail for analysis
+            log_audit_event('SIGNAL_REJECTED', {
+                'ticker': ticker,
+                'reason': reason,
+                'signal_score': signal.get('signal_score') or signal.get('rank_score', 0),
+                'sector': signal.get('sector', 'Unknown'),
+                'context': 'redeployment' if is_redeployment else 'morning'
+            })
+
             return False, reason
 
         # Calculate position size
@@ -742,6 +752,15 @@ class TradingEngine:
                         results['queued_for_later'] += 1
             else:
                 logger.info(f"Skipping {ticker}: {reason}")
+
+                # Log rejection to audit trail for analysis
+                log_audit_event('SIGNAL_REJECTED', {
+                    'ticker': ticker,
+                    'reason': reason,
+                    'signal_score': signal.get('signal_score') or signal.get('rank_score', 0),
+                    'sector': signal.get('sector', 'Unknown')
+                })
+
                 # Queue signals rejected ONLY due to max positions — they become
                 # redeployment candidates if a position exits intraday
                 if 'Max positions' in reason:
@@ -968,7 +987,22 @@ class TradingEngine:
             logger.error(f"Error during signal queue cleanup: {e}", exc_info=True)
             # Continue - not critical for EOD summary
 
-        # Send daily summary (includes exits to reduce email volume)
+        # Generate AI insights (graceful failure - never blocks EOD email)
+        ai_insights = None
+        try:
+            logger.info("Generating AI insights...")
+            from scripts.ai_orchestrator import generate_ai_insights
+            ai_insights = generate_ai_insights()
+
+            if ai_insights and ai_insights.get('available'):
+                logger.info("✅ AI insights generated")
+            else:
+                logger.warning(f"⚠️  AI insights unavailable: {ai_insights.get('reason') if ai_insights else 'Unknown'}")
+        except Exception as e:
+            logger.error(f"AI insights failed: {e}")
+            # Continue without AI insights - never block EOD email
+
+        # Send daily summary (includes exits and AI insights to reduce email volume)
         logger.info(f"Sending EOD summary with {len(self.exits_today)} exits")
         self.alert_sender.send_daily_summary_alert(
             portfolio_value=portfolio_value,
@@ -976,7 +1010,8 @@ class TradingEngine:
             trades_executed=trades_today,
             open_positions=open_positions,
             circuit_breaker_status=self.position_monitor.circuit_breaker.get_status(),
-            exits_today=self.exits_today  # Include exits in EOD summary
+            exits_today=self.exits_today,  # Include exits in EOD summary
+            ai_insights=ai_insights  # Include AI insights if available
         )
 
         # Clear exits after EOD email is sent (they've been reported)
