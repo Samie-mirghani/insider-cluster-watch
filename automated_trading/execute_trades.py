@@ -109,6 +109,8 @@ class TradingEngine:
             return data.get('exits', [])
         else:
             logger.info("New trading day - starting with fresh exits list")
+            # Persist the empty structure so the file always exists for analyzers
+            save_json_file(config.EXITS_TODAY_FILE, {'date': today, 'exits': []})
             return []
 
     def _save_exits_today(self):
@@ -148,6 +150,12 @@ class TradingEngine:
             self.position_monitor = create_position_monitor(self.alpaca_client)
             self.alert_sender = create_alert_sender()
             self.execution_metrics = create_execution_metrics()
+
+            # Ensure data directory and audit log exist for analyzers
+            os.makedirs(config.DATA_DIR, exist_ok=True)
+            if not os.path.exists(config.AUDIT_LOG_FILE):
+                with open(config.AUDIT_LOG_FILE, 'a'):
+                    pass  # Create empty file if missing
 
             logger.info("All components initialized successfully")
 
