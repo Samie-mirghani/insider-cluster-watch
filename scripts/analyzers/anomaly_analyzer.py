@@ -87,29 +87,76 @@ class AnomalyAnalyzer:
 
         return None
 
-    def _check_pnl_anomaly(self):
-        """Check if today's P&L is unusual."""
-        trades_file = self.base_dir / 'data' / 'paper_trades.csv'
+    def _load_closed_trades(self, days):
+        """
+        Load POSITION_CLOSED events from audit log for the last N days.
 
-        if not trades_file.exists():
+        Uses the same data source as all other analyzers (audit_log.jsonl)
+        for consistency. Falls back to paper_trades.csv if audit log
+        has insufficient data.
+
+        Returns:
+            list: List of {'date': str, 'pnl': float} dicts
+        """
+        audit_file = (
+            self.base_dir / 'automated_trading' / 'data' / 'audit_log.jsonl'
+        )
+        cutoff_date = (
+            datetime.now() - timedelta(days=days)
+        ).strftime('%Y-%m-%d')
+
+        trades = []
+
+        # Primary source: audit log (live trades)
+        if audit_file.exists():
+            with open(audit_file, 'r') as f:
+                for line in f:
+                    try:
+                        event = json.loads(line)
+                        if event.get('event_type') != 'POSITION_CLOSED':
+                            continue
+                        timestamp = event.get('timestamp', '')
+                        exit_date = timestamp[:10]
+                        if exit_date < cutoff_date:
+                            continue
+                        data = event.get('data', {})
+                        if not isinstance(data, dict):
+                            data = {}
+                        pnl = float(data.get('pnl', 0))
+                        trades.append({'date': exit_date, 'pnl': pnl})
+                    except Exception:
+                        continue
+
+        # Fallback: paper_trades.csv if audit log had no data
+        if not trades:
+            trades_file = self.base_dir / 'data' / 'paper_trades.csv'
+            if trades_file.exists():
+                with open(trades_file, 'r') as f:
+                    reader = csv.DictReader(f)
+                    for row in reader:
+                        if row.get('action') != 'SELL':
+                            continue
+                        exit_date = row.get('exit_date', '')[:10]
+                        if exit_date >= cutoff_date:
+                            profit = float(row.get('profit', 0) or 0)
+                            trades.append({
+                                'date': exit_date,
+                                'pnl': profit
+                            })
+
+        return trades
+
+    def _check_pnl_anomaly(self):
+        """Check if today's P&L is unusual vs 30-day baseline."""
+        trades = self._load_closed_trades(days=30)
+
+        if not trades:
             return None
 
-        cutoff_date = (
-            datetime.now() - timedelta(days=30)
-        ).strftime('%Y-%m-%d')
         today = datetime.now().strftime('%Y-%m-%d')
-
         daily_pnl = defaultdict(float)
-
-        with open(trades_file, 'r') as f:
-            reader = csv.DictReader(f)
-            for row in reader:
-                if row.get('action') != 'SELL':
-                    continue
-                exit_date = row.get('exit_date', '')[:10]
-                if exit_date >= cutoff_date:
-                    profit = float(row.get('profit', 0) or 0)
-                    daily_pnl[exit_date] += profit
+        for t in trades:
+            daily_pnl[t['date']] += t['pnl']
 
         if len(daily_pnl) < 10:
             return None
@@ -151,29 +198,11 @@ class AnomalyAnalyzer:
         return None
 
     def _check_loss_streak(self):
-        """Check for concerning loss streaks."""
-        trades_file = self.base_dir / 'data' / 'paper_trades.csv'
+        """Check for concerning loss streaks in last 7 days."""
+        trades = self._load_closed_trades(days=7)
 
-        if not trades_file.exists():
+        if not trades:
             return None
-
-        cutoff_date = (
-            datetime.now() - timedelta(days=7)
-        ).strftime('%Y-%m-%d')
-
-        trades = []
-        with open(trades_file, 'r') as f:
-            reader = csv.DictReader(f)
-            for row in reader:
-                if row.get('action') != 'SELL':
-                    continue
-                exit_date = row.get('exit_date', '')[:10]
-                if exit_date >= cutoff_date:
-                    profit = float(row.get('profit', 0) or 0)
-                    trades.append({
-                        'date': exit_date,
-                        'pnl': profit
-                    })
 
         trades.sort(key=lambda x: x['date'])
 

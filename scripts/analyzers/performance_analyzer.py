@@ -28,7 +28,7 @@ class PerformanceAnalyzer:
             exits = self._load_exits_today()
 
             if not exits:
-                return {'exits_today': 0}
+                return {'exits_today': 0, 'no_data': True}
 
             winners = [e for e in exits if e.get('pnl', 0) > 0]
             losers = [e for e in exits if e.get('pnl', 0) <= 0]

@@ -25,6 +25,9 @@ class HistoricalAnalyzer:
             # Load all exits from audit log once for efficiency
             exits_30d = self._load_exits_from_audit_log(days=30)
 
+            if not exits_30d:
+                return {'insufficient_data': True, 'sample_size_30d': 0}
+
             win_rate_30d = self._compute_win_rate(exits_30d)
             avg_pnl_30d = self._compute_avg_daily_pnl(exits_30d)
             today_metrics = self._get_today_metrics(exits_30d)

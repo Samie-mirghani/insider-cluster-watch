@@ -28,7 +28,7 @@ class ExecutionAnalyzer:
             today_data = self._get_today_executions()
 
             if not today_data:
-                return {'orders_today': 0}
+                return {'orders_today': 0, 'no_data': True}
 
             orders = today_data.get('total_orders', 0)
             filled = today_data.get('filled_orders', 0)

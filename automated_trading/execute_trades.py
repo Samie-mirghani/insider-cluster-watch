@@ -1008,7 +1008,17 @@ class TradingEngine:
         try:
             logger.info("Generating AI insights...")
             from scripts.ai_orchestrator import generate_ai_insights
-            ai_insights = generate_ai_insights()
+
+            # Pass real Alpaca-sourced metrics so AI analysis is consistent
+            # with the email header (avoids zero-data when audit log is empty)
+            broker_context = {
+                'daily_pnl': daily_pnl,
+                'portfolio_value': portfolio_value,
+                'trades_today': trades_today,
+                'open_positions': open_positions,
+                'exits_today': self.exits_today,
+            }
+            ai_insights = generate_ai_insights(broker_context=broker_context)
 
             if ai_insights and ai_insights.get('available'):
                 logger.info("✅ AI insights generated")
