@@ -1,6 +1,6 @@
 {
   "starting_capital": 10000,
-  "cash": 7563.214999999994,
+  "cash": 5760.584999999994,
   "positions": {
     "ALLY": {
       "entry_date": "2026-01-26T11:36:47.241122",
@@ -32,7 +32,7 @@
       "initial_stop_loss": 100.0684,
       "stop_loss": 99.06743999999999,
       "take_profit": 120.60383999999999,
-      "highest_price": 109.41,
+      "highest_price": 110.83,
       "trailing_enabled": false,
       "signal_score": 7.44335654875845,
       "sector": null,
@@ -101,9 +101,9 @@
       "shares": 15,
       "cost_basis": 416.70000000000005,
       "initial_stop_loss": 25.5576,
-      "stop_loss": 27.36,
+      "stop_loss": 27.549999999999997,
       "take_profit": 31.113600000000005,
-      "highest_price": 28.8,
+      "highest_price": 29.0,
       "trailing_enabled": true,
       "signal_score": 7.388243095394204,
       "sector": "Asset Management - Income",
@@ -117,38 +117,16 @@
         }
       ]
     },
-    "IP": {
-      "entry_date": "2026-02-02T11:52:03.420382",
-      "entry_price": 40.32,
-      "shares": 10,
-      "cost_basis": 403.2,
-      "initial_stop_loss": 37.0944,
-      "stop_loss": 42.455499999999994,
-      "take_profit": 45.15840000000001,
-      "highest_price": 44.69,
-      "trailing_enabled": true,
-      "signal_score": 7.440552726812614,
-      "sector": "Packaging & Containers",
-      "multi_signal_tier": "none",
-      "has_politician_signal": false,
-      "tranches": [
-        {
-          "shares": 10,
-          "price": 40.32,
-          "date": "2026-02-02T11:52:03.420388"
-        }
-      ]
-    },
     "CR": {
       "entry_date": "2026-02-03T11:52:37.722038",
       "entry_price": 185.27,
       "shares": 3,
       "cost_basis": 555.8100000000001,
       "initial_stop_loss": 170.44840000000002,
-      "stop_loss": 170.44840000000002,
+      "stop_loss": 186.409,
       "take_profit": 207.50240000000002,
-      "highest_price": 190.4,
-      "trailing_enabled": false,
+      "highest_price": 196.22,
+      "trailing_enabled": true,
       "signal_score": 11.807230145187502,
       "sector": "Industrial - Machinery",
       "multi_signal_tier": "none",
@@ -167,10 +145,10 @@
       "shares": 20,
       "cost_basis": 743.1999999999999,
       "initial_stop_loss": 34.1872,
-      "stop_loss": 34.1872,
+      "stop_loss": 36.556,
       "take_profit": 41.6192,
-      "highest_price": 37.16,
-      "trailing_enabled": false,
+      "highest_price": 38.48,
+      "trailing_enabled": true,
       "signal_score": 14.230490154547619,
       "sector": "Biotechnology",
       "multi_signal_tier": "none",
@@ -182,36 +160,109 @@
           "date": "2026-02-06T11:53:49.074009"
         }
       ]
+    },
+    "BOBS": {
+      "entry_date": "2026-02-09T12:07:12.150883",
+      "entry_price": 16.95,
+      "shares": 45,
+      "cost_basis": 762.75,
+      "initial_stop_loss": 15.594,
+      "stop_loss": 15.594,
+      "take_profit": 18.984,
+      "highest_price": 16.95,
+      "trailing_enabled": false,
+      "signal_score": 14.122897028336965,
+      "sector": "Specialty Retail",
+      "multi_signal_tier": "none",
+      "has_politician_signal": false,
+      "tranches": [
+        {
+          "shares": 45,
+          "price": 16.95,
+          "date": "2026-02-09T12:07:12.150889"
+        }
+      ]
+    },
+    "EIKN": {
+      "entry_date": "2026-02-09T12:07:14.547570",
+      "entry_price": 14.5,
+      "shares": 52,
+      "cost_basis": 754.0,
+      "initial_stop_loss": 13.34,
+      "stop_loss": 13.34,
+      "take_profit": 16.240000000000002,
+      "highest_price": 14.5,
+      "trailing_enabled": false,
+      "signal_score": 14.099188854287693,
+      "sector": "Biotechnology",
+      "multi_signal_tier": "none",
+      "has_politician_signal": false,
+      "tranches": [
+        {
+          "shares": 52,
+          "price": 14.5,
+          "date": "2026-02-09T12:07:14.547575"
+        }
+      ]
+    },
+    "FEAM": {
+      "entry_date": "2026-02-09T12:07:16.714291",
+      "entry_price": 2.16,
+      "shares": 348,
+      "cost_basis": 751.6800000000001,
+      "initial_stop_loss": 1.9872000000000003,
+      "stop_loss": 1.9872000000000003,
+      "take_profit": 2.4192000000000005,
+      "highest_price": 2.16,
+      "trailing_enabled": false,
+      "signal_score": 13.957096089853213,
+      "sector": "Construction Materials",
+      "multi_signal_tier": "none",
+      "has_politician_signal": false,
+      "tranches": [
+        {
+          "shares": 348,
+          "price": 2.16,
+          "date": "2026-02-09T12:07:16.714296"
+        }
+      ]
     }
   },
   "pending_entries": {
-    "IP": {
-      "shares": 7,
-      "trigger_price": 39.5136,
-      "original_entry": 40.32,
-      "expires": "2026-02-07T11:52:03.699076",
-      "signal_score": 7.440552726812614
-    },
-    "CR": {
-      "shares": 2,
-      "trigger_price": 181.5646,
-      "original_entry": 185.27,
-      "expires": "2026-02-08T11:52:37.916805",
-      "signal_score": 11.807230145187502
-    },
     "MANE": {
       "shares": 13,
       "trigger_price": 36.416799999999995,
       "original_entry": 37.16,
       "expires": "2026-02-11T11:53:50.658579",
       "signal_score": 14.230490154547619
+    },
+    "BOBS": {
+      "shares": 30,
+      "trigger_price": 16.611,
+      "original_entry": 16.95,
+      "expires": "2026-02-14T12:07:12.702427",
+      "signal_score": 14.122897028336965
+    },
+    "EIKN": {
+      "shares": 34,
+      "trigger_price": 14.209999999999999,
+      "original_entry": 14.5,
+      "expires": "2026-02-14T12:07:14.718994",
+      "signal_score": 14.099188854287693
+    },
+    "FEAM": {
+      "shares": 232,
+      "trigger_price": 2.1168,
+      "original_entry": 2.16,
+      "expires": "2026-02-14T12:07:16.925421",
+      "signal_score": 13.957096089853213
     }
   },
-  "total_trades": 42,
-  "winning_trades": 24,
+  "total_trades": 45,
+  "winning_trades": 25,
   "losing_trades": 10,
-  "total_profit": 1551.67,
+  "total_profit": 1614.27,
   "max_portfolio_value": 11932.704999999998,
   "max_drawdown": -9.109194484777545,
-  "last_updated": "2026-02-06T11:53:57.475991"
+  "last_updated": "2026-02-09T12:07:19.653067"
 }
