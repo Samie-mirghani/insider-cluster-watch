@@ -27,8 +27,8 @@ class ExecutionAnalyzer:
             # Get today's execution data
             today_data = self._get_today_executions()
 
-            if not today_data:
-                return {'orders_today': 0}
+            if not today_data or today_data.get('no_data'):
+                return {'orders_today': 0, 'no_data': True}
 
             orders = today_data.get('total_orders', 0)
             filled = today_data.get('filled_orders', 0)
@@ -77,12 +77,14 @@ class ExecutionAnalyzer:
             today_execs = [e for e in executions if e.get('date') == today]
 
             if not today_execs:
-                return {'total_orders': 0}
+                return {'total_orders': 0, 'no_data': True}
 
-            # Calculate metrics - only count as filled if explicitly True
-            filled = [e for e in today_execs if e.get('filled') is True]
-            unfilled = [e for e in today_execs if e.get('filled') is False]
-            unknown = [e for e in today_execs if 'filled' not in e]
+            # Determine fill status: records from record_execution() have
+            # filled=True (or lack the field for legacy records, default True).
+            # Records from record_unfilled_order() have filled=False.
+            # This matches the convention in execution_metrics.py's own methods.
+            filled = [e for e in today_execs if e.get('filled', True)]
+            unfilled = [e for e in today_execs if not e.get('filled', True)]
 
             total_orders = len(today_execs)
             filled_count = len(filled)
@@ -98,7 +100,6 @@ class ExecutionAnalyzer:
                 'total_orders': total_orders,
                 'filled_orders': filled_count,
                 'unfilled_orders': len(unfilled),
-                'unknown_status': len(unknown),
                 'fill_rate_pct': fill_rate,
                 'avg_slippage_pct': avg_slippage
             }

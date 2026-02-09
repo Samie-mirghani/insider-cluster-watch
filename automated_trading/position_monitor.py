@@ -935,10 +935,10 @@ class PositionMonitor:
                     })
                     logger.info(f"  ➖ Removed {ticker}: no longer at broker")
 
-            # Save if any corrections were made
+            # Always save after sync so live_positions.json exists for analyzers
             total_corrections = len(corrections['added']) + len(corrections['removed']) + len(corrections['updated'])
+            self.save_positions()
             if total_corrections > 0:
-                self.save_positions()
                 logger.info(f"✅ Synced {total_corrections} corrections to positions.json")
 
             return {

@@ -1165,9 +1165,9 @@ Insider Cluster Watch — Automated Trading System
                 </tr>
                 '''
 
-            # Execution
+            # Execution - only show when real data exists
             execution = data.get('execution', {})
-            if not execution.get('error'):
+            if not execution.get('error') and not execution.get('no_data') and execution.get('orders_today', 0) > 0:
                 quality_score = execution.get('quality_score', 0)
                 quality_color = COLORS['success'] if quality_score >= 8 else COLORS['warning'] if quality_score >= 6 else COLORS['danger']
                 ai_data_rows += f'''
@@ -1177,9 +1177,9 @@ Insider Cluster Watch — Automated Trading System
                 </tr>
                 '''
 
-            # Historical comparison
+            # Historical comparison - only show when real data exists
             historical = data.get('historical', {})
-            if not historical.get('error'):
+            if not historical.get('error') and not historical.get('insufficient_data') and historical.get('sample_size_30d', 0) > 0:
                 wr = historical.get('win_rate', {})
                 wr_delta = wr.get('delta', 0)
                 wr_color = COLORS['success'] if wr_delta >= 0 else COLORS['danger']
@@ -1281,11 +1281,11 @@ Insider Cluster Watch — Automated Trading System
             if not sectors.get('error') and sectors.get('warning'):
                 ai_text += f"\n  Risk: {sectors['warning']}\n"
 
-            if not execution.get('error'):
+            if not execution.get('error') and not execution.get('no_data') and execution.get('orders_today', 0) > 0:
                 ai_text += f"\nExecution Quality: {execution.get('quality_score', 0)}/10\n"
 
-            # Historical comparison
-            if not historical.get('error'):
+            # Historical comparison - only when real data exists
+            if not historical.get('error') and not historical.get('insufficient_data') and historical.get('sample_size_30d', 0) > 0:
                 wr = historical.get('win_rate', {})
                 ai_text += f"\nHistorical: Win rate {wr.get('status', 'unknown')} avg by {abs(wr.get('delta', 0)):.1f}%\n"
 

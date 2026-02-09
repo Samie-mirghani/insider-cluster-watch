@@ -47,6 +47,7 @@ class ExecutionMetrics:
 
     def _load_state(self):
         """Load execution history from disk."""
+        file_exists = os.path.exists(config.EXECUTION_METRICS_FILE)
         data = load_json_file(config.EXECUTION_METRICS_FILE, default={})
         self.executions = data.get('executions', [])
         self.daily_stats = data.get('daily_stats', {})
@@ -57,6 +58,10 @@ class ExecutionMetrics:
             e for e in self.executions
             if e.get('timestamp', '') >= cutoff
         ]
+
+        # Ensure file exists on disk so analyzers can find it
+        if not file_exists:
+            self._save_state()
 
         logger.info(f"Loaded {len(self.executions)} execution records")
 
@@ -132,6 +137,7 @@ class ExecutionMetrics:
             'shares': shares,
             'signal_price': signal_price,
             'limit_price': limit_price,
+            'filled': True,
             'filled_price': filled_price,
             'slippage_dollars': slippage_dollars,
             'slippage_pct': slippage_pct,
