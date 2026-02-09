@@ -27,7 +27,7 @@ class ExecutionAnalyzer:
             # Get today's execution data
             today_data = self._get_today_executions()
 
-            if not today_data:
+            if not today_data or today_data.get('no_data'):
                 return {'orders_today': 0, 'no_data': True}
 
             orders = today_data.get('total_orders', 0)
@@ -77,7 +77,7 @@ class ExecutionAnalyzer:
             today_execs = [e for e in executions if e.get('date') == today]
 
             if not today_execs:
-                return {'total_orders': 0}
+                return {'total_orders': 0, 'no_data': True}
 
             # Determine fill status: records from record_execution() have
             # filled=True (or lack the field for legacy records, default True).

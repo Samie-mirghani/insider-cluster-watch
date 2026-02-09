@@ -183,7 +183,7 @@ def _generate_narrative(analysis_results):
     broker_exits = broker.get('exits_today', [])
     actual_exits = len(broker_exits)
     actual_winners = sum(1 for e in broker_exits if e.get('pnl', 0) > 0)
-    actual_losers = sum(1 for e in broker_exits if e.get('pnl', 0) <= 0)
+    actual_losers = sum(1 for e in broker_exits if e.get('pnl', 0) < 0)
 
     # Build anomalies text concisely
     anomaly_text = "None detected"

@@ -57,17 +57,33 @@ class AnomalyAnalyzer:
         with open(exec_metrics_file, 'r') as f:
             metrics = json.load(f)
 
-        today_slippage = metrics.get(
-            'daily_metrics', {}
-        ).get('today', {}).get('avg_slippage_pct', 0)
-
-        historical = metrics.get('historical_slippage', [])
-
-        if len(historical) < 10:
+        # execution_metrics.py stores executions as a flat list with
+        # 'date', 'slippage_pct', and 'filled' fields
+        executions = metrics.get('executions', [])
+        if not executions:
             return None
 
-        mean = statistics.mean(historical)
-        stdev = statistics.stdev(historical) if len(historical) > 1 else 0
+        today = datetime.now().strftime('%Y-%m-%d')
+
+        # Collect slippage from filled orders only
+        today_slippages = [
+            e.get('slippage_pct', 0) for e in executions
+            if e.get('date') == today and e.get('filled', True)
+        ]
+        historical_slippages = [
+            e.get('slippage_pct', 0) for e in executions
+            if e.get('date') != today and e.get('filled', True)
+        ]
+
+        if not today_slippages or len(historical_slippages) < 10:
+            return None
+
+        today_slippage = statistics.mean(today_slippages)
+        mean = statistics.mean(historical_slippages)
+        stdev = (
+            statistics.stdev(historical_slippages)
+            if len(historical_slippages) > 1 else 0
+        )
 
         if stdev == 0:
             return None
