@@ -38,6 +38,7 @@ from .utils import (
     load_json_file,
     save_json_file,
     log_audit_event,
+    read_recent_audit_events,
     is_market_hours,
     is_trading_window,
     generate_client_order_id,
@@ -70,8 +71,14 @@ class TradingEngine:
     - Alerts
     """
 
-    def __init__(self):
-        """Initialize trading engine."""
+    def __init__(self, command=None):
+        """Initialize trading engine.
+
+        Args:
+            command: The job mode being run (morning, monitor, eod, status)
+        """
+        self.command = command or 'unknown'
+
         logger.info(f"{'='*60}")
         logger.info(f"INITIALIZING TRADING ENGINE")
         logger.info(f"Mode: {config.TRADING_MODE.upper()}")
@@ -156,6 +163,17 @@ class TradingEngine:
             if not os.path.exists(config.AUDIT_LOG_FILE):
                 with open(config.AUDIT_LOG_FILE, 'a'):
                     pass  # Create empty file if missing
+
+            # Log startup event to audit trail — guarantees at least one entry
+            # per job run, enabling health monitoring and diagnosing missed runs
+            log_audit_event('SYSTEM_STARTUP', {
+                'command': self.command,
+                'trading_mode': config.TRADING_MODE,
+                'portfolio_value': float(account.portfolio_value),
+                'cash': float(account.cash),
+                'positions_count': len(self.position_monitor.positions),
+                'positions': list(self.position_monitor.positions.keys()),
+            })
 
             logger.info("All components initialized successfully")
 
@@ -970,6 +988,109 @@ class TradingEngine:
             results['redeployments'].append(ticker)
             logger.info(f"Capital redeployed to {ticker}")
 
+    def _backfill_audit_log_from_broker(self, filled_orders_today: List[Dict]) -> None:
+        """
+        Backfill audit_log.jsonl from Alpaca order history if today's data is missing.
+
+        If the monitor job didn't run (cron failure, server reboot, etc.), the audit
+        log will have no POSITION_CLOSED events for today even though trades happened.
+        This method reconstructs those events from Alpaca's filled sell orders so that
+        the AI analyzers have real data instead of zeros.
+
+        Also backfills exits_today list if it's empty but sells occurred.
+
+        Args:
+            filled_orders_today: List of filled order dicts from Alpaca (already fetched)
+        """
+        today = datetime.now().strftime('%Y-%m-%d')
+
+        # Check if audit log already has POSITION_CLOSED events for today
+        recent_events = read_recent_audit_events(event_type='POSITION_CLOSED', limit=50)
+        today_closes = [e for e in recent_events if e.get('timestamp', '')[:10] == today]
+
+        if today_closes:
+            logger.info(f"Audit log has {len(today_closes)} POSITION_CLOSED events for today - no backfill needed")
+            return
+
+        # Find today's sell orders from Alpaca
+        sell_orders = [
+            o for o in filled_orders_today
+            if 'sell' in str(o.get('side', '')).lower()
+        ]
+
+        if not sell_orders:
+            logger.info("No sell orders today - no backfill needed")
+            return
+
+        logger.info(f"Backfilling {len(sell_orders)} POSITION_CLOSED events from Alpaca order history")
+
+        for order in sell_orders:
+            ticker = order.get('symbol', 'UNKNOWN')
+            filled_price = order.get('filled_avg_price', 0)
+            shares = order.get('filled_qty', 0)
+
+            if not filled_price or not shares:
+                continue
+
+            # Look up entry price and signal data from position monitor's signal history
+            signal_info = self.position_monitor._lookup_signal_info(ticker)
+            entry_price = 0
+            sector = 'Unknown'
+            signal_score = 0
+
+            if signal_info:
+                entry_price = signal_info.get('entry_price') or signal_info.get('currentPrice', 0)
+                sector = signal_info.get('sector', 'Unknown')
+                signal_score = signal_info.get('signal_score', 0)
+
+            # If no signal history, try to estimate from order client ID
+            if entry_price == 0:
+                # Can't determine entry price - use filled price (P&L = 0)
+                entry_price = filled_price
+                logger.warning(f"  {ticker}: No entry price found, P&L will be approximate")
+
+            pnl = (filled_price - entry_price) * shares
+            pnl_pct = ((filled_price - entry_price) / entry_price * 100) if entry_price > 0 else 0
+
+            # Write reconstructed POSITION_CLOSED event
+            filled_at = order.get('filled_at')
+            timestamp = filled_at.isoformat() if hasattr(filled_at, 'isoformat') else str(filled_at or datetime.now().isoformat())
+
+            log_audit_event('POSITION_CLOSED', {
+                'ticker': ticker,
+                'symbol': ticker,
+                'shares': shares,
+                'entry_price': round(entry_price, 2),
+                'exit_price': round(filled_price, 2),
+                'pnl': round(pnl, 2),
+                'pnl_pct': round(pnl_pct, 2),
+                'reason': 'backfilled_from_broker',
+                'sector': sector,
+                'signal_score': signal_score,
+                'backfilled': True,
+                'source_order_id': order.get('order_id', ''),
+            })
+
+            logger.info(f"  Backfilled: {ticker} x{shares} @ ${filled_price:.2f} (P&L: ${pnl:+,.2f})")
+
+            # Also backfill exits_today if missing
+            if not any(e.get('ticker') == ticker for e in self.exits_today):
+                self.exits_today.append({
+                    'ticker': ticker,
+                    'shares': shares,
+                    'entry_price': round(entry_price, 2),
+                    'exit_price': round(filled_price, 2),
+                    'pnl': round(pnl, 2),
+                    'pnl_pct': round(pnl_pct, 2),
+                    'reason': 'backfilled_from_broker',
+                    'time': timestamp,
+                })
+
+        if self.exits_today:
+            self._save_exits_today()
+
+        logger.info(f"Backfill complete: {len(sell_orders)} events reconstructed")
+
     def run_end_of_day(self) -> Dict[str, Any]:
         """
         Run end of day tasks.
@@ -1009,6 +1130,16 @@ class TradingEngine:
             self.signal_queue.cleanup_stale_signals()
         except Exception as e:
             logger.error(f"Error during signal queue cleanup: {e}", exc_info=True)
+            # Continue - not critical for EOD summary
+
+        # Backfill audit log from Alpaca if today's data is missing
+        # This makes the system self-healing: if monitor jobs didn't run or
+        # data was lost, we reconstruct POSITION_CLOSED events from broker
+        # history so the AI analyzers have real data to work with
+        try:
+            self._backfill_audit_log_from_broker(filled_orders_today)
+        except Exception as e:
+            logger.error(f"Audit log backfill failed: {e}", exc_info=True)
             # Continue - not critical for EOD summary
 
         # Generate AI insights (graceful failure - never blocks EOD email)
@@ -1084,7 +1215,7 @@ def main():
     args = parser.parse_args()
 
     try:
-        engine = TradingEngine()
+        engine = TradingEngine(command=args.command)
 
         if args.command == 'morning':
             results = engine.execute_morning_trades()
