@@ -1,6 +1,6 @@
 {
   "starting_capital": 10000,
-  "cash": 5760.584999999994,
+  "cash": 4935.774999999994,
   "positions": {
     "ALLY": {
       "entry_date": "2026-01-26T11:36:47.241122",
@@ -30,10 +30,10 @@
       "shares": 5,
       "cost_basis": 538.41,
       "initial_stop_loss": 100.0684,
-      "stop_loss": 99.06743999999999,
+      "stop_loss": 105.5165,
       "take_profit": 120.60383999999999,
-      "highest_price": 110.83,
-      "trailing_enabled": false,
+      "highest_price": 111.07,
+      "trailing_enabled": true,
       "signal_score": 7.44335654875845,
       "sector": null,
       "multi_signal_tier": "none",
@@ -101,9 +101,9 @@
       "shares": 15,
       "cost_basis": 416.70000000000005,
       "initial_stop_loss": 25.5576,
-      "stop_loss": 27.549999999999997,
+      "stop_loss": 27.7495,
       "take_profit": 31.113600000000005,
-      "highest_price": 29.0,
+      "highest_price": 29.21,
       "trailing_enabled": true,
       "signal_score": 7.388243095394204,
       "sector": "Asset Management - Income",
@@ -123,9 +123,9 @@
       "shares": 3,
       "cost_basis": 555.8100000000001,
       "initial_stop_loss": 170.44840000000002,
-      "stop_loss": 186.409,
+      "stop_loss": 189.9905,
       "take_profit": 207.50240000000002,
-      "highest_price": 196.22,
+      "highest_price": 199.99,
       "trailing_enabled": true,
       "signal_score": 11.807230145187502,
       "sector": "Industrial - Machinery",
@@ -167,10 +167,10 @@
       "shares": 45,
       "cost_basis": 762.75,
       "initial_stop_loss": 15.594,
-      "stop_loss": 15.594,
+      "stop_loss": 16.6535,
       "take_profit": 18.984,
-      "highest_price": 16.95,
-      "trailing_enabled": false,
+      "highest_price": 17.53,
+      "trailing_enabled": true,
       "signal_score": 14.122897028336965,
       "sector": "Specialty Retail",
       "multi_signal_tier": "none",
@@ -191,7 +191,7 @@
       "initial_stop_loss": 13.34,
       "stop_loss": 13.34,
       "take_profit": 16.240000000000002,
-      "highest_price": 14.5,
+      "highest_price": 14.55,
       "trailing_enabled": false,
       "signal_score": 14.099188854287693,
       "sector": "Biotechnology",
@@ -205,25 +205,69 @@
         }
       ]
     },
-    "FEAM": {
-      "entry_date": "2026-02-09T12:07:16.714291",
-      "entry_price": 2.16,
-      "shares": 348,
-      "cost_basis": 751.6800000000001,
-      "initial_stop_loss": 1.9872000000000003,
-      "stop_loss": 1.9872000000000003,
-      "take_profit": 2.4192000000000005,
-      "highest_price": 2.16,
+    "ARCC": {
+      "entry_date": "2026-02-10T12:11:12.626189",
+      "entry_price": 19.48,
+      "shares": 32,
+      "cost_basis": 623.36,
+      "initial_stop_loss": 17.9216,
+      "stop_loss": 17.9216,
+      "take_profit": 21.817600000000002,
+      "highest_price": 19.48,
       "trailing_enabled": false,
-      "signal_score": 13.957096089853213,
-      "sector": "Construction Materials",
+      "signal_score": 11.465973717749318,
+      "sector": "Asset Management",
       "multi_signal_tier": "none",
       "has_politician_signal": false,
       "tranches": [
         {
-          "shares": 348,
-          "price": 2.16,
-          "date": "2026-02-09T12:07:16.714296"
+          "shares": 32,
+          "price": 19.48,
+          "date": "2026-02-10T12:11:12.626193"
+        }
+      ]
+    },
+    "HCIC": {
+      "entry_date": "2026-02-10T12:11:14.899190",
+      "entry_price": 10.05,
+      "shares": 61,
+      "cost_basis": 613.0500000000001,
+      "initial_stop_loss": 9.246,
+      "stop_loss": 9.246,
+      "take_profit": 11.256000000000002,
+      "highest_price": 10.05,
+      "trailing_enabled": false,
+      "signal_score": 11.179777414494788,
+      "sector": "Shell Companies",
+      "multi_signal_tier": "none",
+      "has_politician_signal": false,
+      "tranches": [
+        {
+          "shares": 61,
+          "price": 10.05,
+          "date": "2026-02-10T12:11:14.899194"
+        }
+      ]
+    },
+    "CBC": {
+      "entry_date": "2026-02-10T12:11:17.997180",
+      "entry_price": 24.5,
+      "shares": 18,
+      "cost_basis": 441.0,
+      "initial_stop_loss": 22.540000000000003,
+      "stop_loss": 22.540000000000003,
+      "take_profit": 27.44,
+      "highest_price": 24.5,
+      "trailing_enabled": false,
+      "signal_score": 8.073194905513356,
+      "sector": "Banks - Regional",
+      "multi_signal_tier": "none",
+      "has_politician_signal": false,
+      "tranches": [
+        {
+          "shares": 18,
+          "price": 24.5,
+          "date": "2026-02-10T12:11:17.997184"
         }
       ]
     }
@@ -250,19 +294,33 @@
       "expires": "2026-02-14T12:07:14.718994",
       "signal_score": 14.099188854287693
     },
-    "FEAM": {
-      "shares": 232,
-      "trigger_price": 2.1168,
-      "original_entry": 2.16,
-      "expires": "2026-02-14T12:07:16.925421",
-      "signal_score": 13.957096089853213
+    "ARCC": {
+      "shares": 21,
+      "trigger_price": 19.0904,
+      "original_entry": 19.48,
+      "expires": "2026-02-15T12:11:12.795775",
+      "signal_score": 11.465973717749318
+    },
+    "HCIC": {
+      "shares": 41,
+      "trigger_price": 9.849,
+      "original_entry": 10.05,
+      "expires": "2026-02-15T12:11:15.094749",
+      "signal_score": 11.179777414494788
+    },
+    "CBC": {
+      "shares": 12,
+      "trigger_price": 24.009999999999998,
+      "original_entry": 24.5,
+      "expires": "2026-02-15T12:11:18.801056",
+      "signal_score": 8.073194905513356
     }
   },
-  "total_trades": 45,
-  "winning_trades": 25,
+  "total_trades": 48,
+  "winning_trades": 26,
   "losing_trades": 10,
-  "total_profit": 1614.27,
+  "total_profit": 1715.19,
   "max_portfolio_value": 11932.704999999998,
   "max_drawdown": -9.109194484777545,
-  "last_updated": "2026-02-09T12:07:19.653067"
+  "last_updated": "2026-02-10T12:11:22.886351"
 }
