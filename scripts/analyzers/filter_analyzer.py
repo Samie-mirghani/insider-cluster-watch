@@ -104,12 +104,22 @@ class FilterAnalyzer:
             return None
 
         # Prioritize go-private > downtrend > cooldown > micro-cap
+        # Return the actual rejection reason for context instead of generic labels
         for r in rejections:
             if 'go-private' in r.lower() or 'likely' in r.lower():
-                return {'reason': 'go-private', 'impact': 'prevented false positive'}
+                return {'reason': r[:80], 'impact': 'prevented false positive'}
 
         for r in rejections:
             if 'downtrend' in r.lower():
-                return {'reason': 'downtrend', 'impact': 'likely saved loss'}
+                return {'reason': r[:80], 'impact': 'avoided declining stock'}
 
-        return {'reason': 'various', 'impact': 'maintained quality'}
+        for r in rejections:
+            if 'cooldown' in r.lower():
+                return {'reason': r[:80], 'impact': 'prevented re-entry too soon'}
+
+        for r in rejections:
+            if 'micro' in r.lower():
+                return {'reason': r[:80], 'impact': 'filtered low-conviction signal'}
+
+        # Fallback: use the actual first rejection reason instead of "various"
+        return {'reason': rejections[0][:80], 'impact': 'maintained signal quality'}
