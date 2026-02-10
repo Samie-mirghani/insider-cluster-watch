@@ -606,8 +606,12 @@ class PaperTradingPortfolio:
 
             if not hist.empty and len(hist) >= 5:
                 # Compute 5-day SMA of closing prices
-                last_5_closes = hist['Close'].tail(5)
-                sma_5 = last_5_closes.mean()
+                close_col = hist['Close']
+                # Newer yfinance returns multi-level columns; squeeze to 1-D Series
+                if isinstance(close_col, pd.DataFrame):
+                    close_col = close_col.squeeze()
+                last_5_closes = close_col.tail(5)
+                sma_5 = float(last_5_closes.mean())
 
                 if sma_5 and entry_price < sma_5 * 0.97:
                     # Price is >3% below 5-day SMA - downtrend

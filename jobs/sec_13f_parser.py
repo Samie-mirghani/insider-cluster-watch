@@ -40,9 +40,8 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # Parallel execution constants
-# HIGH PRIORITY FIX #6: Increased from 5 to 10 for 2x performance improvement
-MAX_PARALLEL_WORKERS = 10  # Max concurrent fund lookups (rate limit allows 10 req/s)
-RATE_LIMIT_CALLS_PER_SECOND = 10  # SEC API rate limit
+MAX_PARALLEL_WORKERS = 4   # Reduced from 10: fewer concurrent workers prevents burst flooding SEC
+RATE_LIMIT_CALLS_PER_SECOND = 5  # Reduced from 10: conservative rate to avoid 429s across ticker batches
 
 # Fuzzy matching constants
 FUZZY_MATCH_THRESHOLD = 85  # Minimum match score (0-100)
@@ -134,6 +133,12 @@ class SEC13FParser:
 
         # Rate limiter for parallel requests
         self.rate_limiter = RateLimiter(RATE_LIMIT_CALLS_PER_SECOND)
+
+        # In-memory CIK filing cache: avoids re-fetching the same fund's filing list
+        # for each of the N tickers being checked in one pipeline run.
+        # 15 funds × 33 tickers = 495 requests without this; 15 with it.
+        self._cik_filings_cache: dict = {}
+        self._cik_filings_cache_lock = threading.Lock()
 
     def _get_session(self) -> requests.Session:
         """Get thread-local session for thread-safe API calls"""
@@ -354,6 +359,15 @@ class SEC13FParser:
         # Pad CIK to 10 digits
         cik_padded = cik.zfill(10)
 
+        # Check in-memory CIK filings cache first.
+        # The same 15 fund CIKs are looked up for every ticker in the batch, so
+        # caching here reduces ~(N_tickers × 15) SEC requests to just 15 per run.
+        cache_key = (cik_padded, count)
+        with self._cik_filings_cache_lock:
+            if cache_key in self._cik_filings_cache:
+                logger.debug(f"CIK {cik}: returning cached filings (in-memory)")
+                return self._cik_filings_cache[cache_key]
+
         url = f"{self.BASE_URL}/cgi-bin/browse-edgar"
         params = {
             'action': 'getcompany',
@@ -400,7 +414,9 @@ class SEC13FParser:
                             'url': filing_url.attrib['href']
                         })
 
-                # HIGH PRIORITY FIX #7: Removed redundant sleep - RateLimiter handles rate limiting
+                # Store in in-memory cache so subsequent ticker checks reuse this result
+                with self._cik_filings_cache_lock:
+                    self._cik_filings_cache[cache_key] = filings
                 return filings
 
             except requests.exceptions.Timeout:
