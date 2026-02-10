@@ -414,11 +414,9 @@ class AlpacaTradingClient:
             f"Close position {symbol}"
         )
 
-        log_audit_event('POSITION_CLOSED', {
-            'symbol': symbol,
-            'order_id': str(order.id),
-            'client_order_id': order.client_order_id
-        })
+        # NOTE: POSITION_CLOSED audit event is logged by execute_sell() in
+        # execute_trades.py with full P&L data. Do NOT log it here to avoid
+        # duplicate events that inflate trade counts and deflate win rate.
 
         return {
             'order_id': str(order.id),

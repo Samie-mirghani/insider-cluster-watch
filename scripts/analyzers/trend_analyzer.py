@@ -120,8 +120,10 @@ class TrendAnalyzer:
         elif abs(first_half_avg) >= 0.01:
             change_pct = (change / abs(first_half_avg)) * 100
         elif change != 0:
-            # First half was ~zero but second half isn't - use absolute change
-            change_pct = 100.0 if change > 0 else -100.0
+            # First half was ~zero but second half isn't - percentage change
+            # is undefined. Use the absolute change directly (capped at ±100)
+            # so e.g. win rate going from 0% to 33% shows "+33.0%" not "+100.0%"
+            change_pct = max(min(change, 100.0), -100.0)
         else:
             change_pct = 0
 

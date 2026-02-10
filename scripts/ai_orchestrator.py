@@ -11,6 +11,7 @@ This module is optimized for:
 """
 
 import os
+import re
 import sys
 import json
 from pathlib import Path
@@ -276,7 +277,7 @@ ANOMALIES:
 
 TASK: Write a concise analysis (under 200 words):
 
-VERDICT: [one sentence - how today went, referencing the confirmed daily P&L]
+VERDICT: [one sentence - how today went. You MUST use the EXACT daily P&L figure ${actual_daily_pnl:+,.2f} — do NOT round, recompute, or change this number]
 
 KEY INSIGHTS (2-3 bullets):
 - [Today's performance insight using confirmed data]
@@ -298,10 +299,35 @@ Format exactly as shown. Be quantitative and actionable. Never fabricate numbers
             temperature=0.3
         )
 
-        return response.choices[0].message.content
+        narrative = response.choices[0].message.content
+
+        # Post-process: fix any P&L hallucination in the VERDICT line.
+        # LLMs sometimes fabricate dollar amounts even when told the exact figure.
+        # Replace any dollar amount in the VERDICT line with the actual broker P&L.
+        correct_pnl = f"${actual_daily_pnl:+,.2f}"
+        narrative = _fix_verdict_pnl(narrative, correct_pnl)
+
+        return narrative
 
     except Exception as e:
         return f"AI analysis failed: {str(e)}"
+
+
+def _fix_verdict_pnl(narrative, correct_pnl):
+    """
+    Replace hallucinated P&L figures in the VERDICT line with the actual value.
+
+    Finds dollar amounts (e.g. $-1,353.50, $+500.00) in the VERDICT section
+    and replaces them with the correct broker-sourced P&L.
+    """
+    lines = narrative.split('\n')
+    fixed_lines = []
+    for line in lines:
+        if line.strip().upper().startswith('VERDICT'):
+            # Replace all dollar amounts in the verdict line with the correct P&L
+            line = re.sub(r'\$[+-]?[\d,]+\.?\d*', correct_pnl, line)
+        fixed_lines.append(line)
+    return '\n'.join(fixed_lines)
 
 
 # For testing
