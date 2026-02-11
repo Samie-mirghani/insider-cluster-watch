@@ -1,6 +1,6 @@
 {
   "starting_capital": 10000,
-  "cash": 4935.774999999994,
+  "cash": 4473.714999999994,
   "positions": {
     "ALLY": {
       "entry_date": "2026-01-26T11:36:47.241122",
@@ -30,9 +30,9 @@
       "shares": 5,
       "cost_basis": 538.41,
       "initial_stop_loss": 100.0684,
-      "stop_loss": 105.5165,
+      "stop_loss": 106.666,
       "take_profit": 120.60383999999999,
-      "highest_price": 111.07,
+      "highest_price": 112.28,
       "trailing_enabled": true,
       "signal_score": 7.44335654875845,
       "sector": null,
@@ -101,9 +101,9 @@
       "shares": 15,
       "cost_basis": 416.70000000000005,
       "initial_stop_loss": 25.5576,
-      "stop_loss": 27.7495,
+      "stop_loss": 27.7685,
       "take_profit": 31.113600000000005,
-      "highest_price": 29.21,
+      "highest_price": 29.23,
       "trailing_enabled": true,
       "signal_score": 7.388243095394204,
       "sector": "Asset Management - Income",
@@ -145,9 +145,9 @@
       "shares": 20,
       "cost_basis": 743.1999999999999,
       "initial_stop_loss": 34.1872,
-      "stop_loss": 36.556,
+      "stop_loss": 38.4275,
       "take_profit": 41.6192,
-      "highest_price": 38.48,
+      "highest_price": 40.45,
       "trailing_enabled": true,
       "signal_score": 14.230490154547619,
       "sector": "Biotechnology",
@@ -167,9 +167,9 @@
       "shares": 45,
       "cost_basis": 762.75,
       "initial_stop_loss": 15.594,
-      "stop_loss": 16.6535,
+      "stop_loss": 17.3375,
       "take_profit": 18.984,
-      "highest_price": 17.53,
+      "highest_price": 18.25,
       "trailing_enabled": true,
       "signal_score": 14.122897028336965,
       "sector": "Specialty Retail",
@@ -185,12 +185,12 @@
     },
     "EIKN": {
       "entry_date": "2026-02-09T12:07:14.547570",
-      "entry_price": 14.5,
-      "shares": 52,
-      "cost_basis": 754.0,
+      "entry_price": 14.140232558139534,
+      "shares": 86,
+      "cost_basis": 1216.06,
       "initial_stop_loss": 13.34,
-      "stop_loss": 13.34,
-      "take_profit": 16.240000000000002,
+      "stop_loss": 13.009013953488372,
+      "take_profit": 15.837060465116279,
       "highest_price": 14.55,
       "trailing_enabled": false,
       "signal_score": 14.099188854287693,
@@ -202,6 +202,11 @@
           "shares": 52,
           "price": 14.5,
           "date": "2026-02-09T12:07:14.547575"
+        },
+        {
+          "shares": 34,
+          "price": 13.59,
+          "date": "2026-02-11T12:02:35.515464"
         }
       ]
     },
@@ -213,7 +218,7 @@
       "initial_stop_loss": 17.9216,
       "stop_loss": 17.9216,
       "take_profit": 21.817600000000002,
-      "highest_price": 19.48,
+      "highest_price": 19.96,
       "trailing_enabled": false,
       "signal_score": 11.465973717749318,
       "sector": "Asset Management",
@@ -257,7 +262,7 @@
       "initial_stop_loss": 22.540000000000003,
       "stop_loss": 22.540000000000003,
       "take_profit": 27.44,
-      "highest_price": 24.5,
+      "highest_price": 24.61,
       "trailing_enabled": false,
       "signal_score": 8.073194905513356,
       "sector": "Banks - Regional",
@@ -273,26 +278,12 @@
     }
   },
   "pending_entries": {
-    "MANE": {
-      "shares": 13,
-      "trigger_price": 36.416799999999995,
-      "original_entry": 37.16,
-      "expires": "2026-02-11T11:53:50.658579",
-      "signal_score": 14.230490154547619
-    },
     "BOBS": {
       "shares": 30,
       "trigger_price": 16.611,
       "original_entry": 16.95,
       "expires": "2026-02-14T12:07:12.702427",
       "signal_score": 14.122897028336965
-    },
-    "EIKN": {
-      "shares": 34,
-      "trigger_price": 14.209999999999999,
-      "original_entry": 14.5,
-      "expires": "2026-02-14T12:07:14.718994",
-      "signal_score": 14.099188854287693
     },
     "ARCC": {
       "shares": 21,
@@ -320,7 +311,7 @@
   "winning_trades": 26,
   "losing_trades": 10,
   "total_profit": 1715.19,
-  "max_portfolio_value": 11932.704999999998,
+  "max_portfolio_value": 11956.824999999995,
   "max_drawdown": -9.109194484777545,
-  "last_updated": "2026-02-10T12:11:22.886351"
+  "last_updated": "2026-02-11T12:07:40.406246"
 }

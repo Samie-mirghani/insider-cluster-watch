@@ -3314,13 +3314,13 @@
   "GDV": {
     "industry": "Asset Management - Income",
     "sector": "Financial Services",
-    "price": 27.78,
+    "price": 29.23,
     "companyName": "The Gabelli Dividend & Income Trust",
     "currency": "USD",
-    "beta": 1.037,
-    "range": "20.1-27.93",
+    "beta": 1.034,
+    "range": "20.1-29.45",
     "ipoDate": "2003-11-25",
-    "updated": "2026-01-05T11:32:44.424246",
+    "updated": "2026-02-11T12:04:23.428661",
     "source": "fmp_api"
   },
   "FBRX": {
@@ -5421,6 +5421,90 @@
     "range": "20.11-26.0399",
     "ipoDate": "2015-01-01",
     "updated": "2026-02-10T12:07:06.549229",
+    "source": "fmp_api"
+  },
+  "CING": {
+    "industry": "Biotechnology",
+    "sector": "Healthcare",
+    "price": 6.82,
+    "companyName": "Cingulate Inc.",
+    "currency": "USD",
+    "beta": -0.752,
+    "range": "3.2-7.92",
+    "ipoDate": "2021-12-08",
+    "updated": "2026-02-11T12:04:23.410861",
+    "source": "fmp_api"
+  },
+  "LADR": {
+    "industry": "REIT - Mortgage",
+    "sector": "Real Estate",
+    "price": 10.38,
+    "companyName": "Ladder Capital Corp",
+    "currency": "USD",
+    "beta": 1.024,
+    "range": "9.68-11.92",
+    "ipoDate": "2014-02-06",
+    "updated": "2026-02-11T12:04:23.412890",
+    "source": "fmp_api"
+  },
+  "ARES": {
+    "industry": "Asset Management",
+    "sector": "Financial Services",
+    "price": 136.99,
+    "companyName": "Ares Management Corporation",
+    "currency": "USD",
+    "beta": 1.524,
+    "range": "110.63-195.26",
+    "ipoDate": "2014-05-02",
+    "updated": "2026-02-11T12:04:23.413690",
+    "source": "fmp_api"
+  },
+  "LEE": {
+    "industry": "Publishing",
+    "sector": "Communication Services",
+    "price": 5.59,
+    "companyName": "Lee Enterprises, Incorporated",
+    "currency": "USD",
+    "beta": 0.55835825,
+    "range": "3.34-11.69",
+    "ipoDate": "1980-03-17",
+    "updated": "2026-02-11T12:04:23.427117",
+    "source": "fmp_api"
+  },
+  "VRNS": {
+    "industry": "Software - Infrastructure",
+    "sector": "Technology",
+    "price": 26.26,
+    "companyName": "Varonis Systems, Inc.",
+    "currency": "USD",
+    "beta": 0.575,
+    "range": "20.06-63.9",
+    "ipoDate": "2014-02-28",
+    "updated": "2026-02-11T12:04:23.428159",
+    "source": "fmp_api"
+  },
+  "SGP": {
+    "industry": "Biotechnology",
+    "sector": "Healthcare",
+    "price": 27.83,
+    "companyName": "SpyGlass Pharma, Inc. Common Stock",
+    "currency": "USD",
+    "beta": 0,
+    "range": "20.16-32.44",
+    "ipoDate": "2008-01-08",
+    "updated": "2026-02-11T12:04:23.432963",
+    "source": "fmp_api"
+  },
+  "BANC": {
+    "industry": "Banks - Regional",
+    "sector": "Financial Services",
+    "price": 20.66,
+    "companyName": "Banc of California, Inc.",
+    "currency": "USD",
+    "beta": 1.056,
+    "range": "11.52-21.61",
+    "ipoDate": "2002-08-23",
+    "updated": "2026-02-11T12:04:23.446049",
     "source": "fmp_api"
   }
 }
