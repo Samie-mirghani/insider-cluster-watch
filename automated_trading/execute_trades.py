@@ -1111,6 +1111,16 @@ class TradingEngine:
             )
             for e in self.exits_today
         }
+        legacy_exit_signatures = {
+            (
+                str(e.get('ticker', 'UNKNOWN')),
+                int(float(e.get('shares', 0) or 0)),
+                round(float(e.get('exit_price', 0) or 0), 4),
+                str(e.get('time', ''))[:10],
+            )
+            for e in self.exits_today
+            if not e.get('source_order_id')
+        }
         added = 0
 
         for order in sell_orders:
@@ -1128,9 +1138,20 @@ class TradingEngine:
             filled_at = order.get('filled_at')
             timestamp = filled_at.isoformat() if hasattr(filled_at, 'isoformat') else str(filled_at or datetime.now().isoformat())
             exit_key = (ticker, int(float(shares)), timestamp[:19])
+            legacy_exit_signature = (
+                ticker,
+                int(float(shares)),
+                round(float(filled_price), 4),
+                timestamp[:10],
+            )
 
             # Skip if already tracked (e.g., by monitoring job's execute_sell)
             if exit_key in existing_exit_keys:
+                continue
+
+            # Backward-compatible dedupe for historical exits persisted before
+            # source_order_id was tracked.
+            if legacy_exit_signature in legacy_exit_signatures:
                 continue
 
             # Look up entry price from signal history or position data
@@ -1158,6 +1179,7 @@ class TradingEngine:
                 'source_order_id': source_order_id or None,
             })
             existing_exit_keys.add(exit_key)
+            legacy_exit_signatures.add(legacy_exit_signature)
             if source_order_id:
                 existing_order_ids.add(source_order_id)
             added += 1
