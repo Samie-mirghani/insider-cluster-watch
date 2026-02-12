@@ -1,6 +1,6 @@
 {
   "starting_capital": 10000,
-  "cash": 4473.714999999994,
+  "cash": 5396.024999999994,
   "positions": {
     "ALLY": {
       "entry_date": "2026-01-26T11:36:47.241122",
@@ -30,9 +30,9 @@
       "shares": 5,
       "cost_basis": 538.41,
       "initial_stop_loss": 100.0684,
-      "stop_loss": 106.666,
+      "stop_loss": 107.9105,
       "take_profit": 120.60383999999999,
-      "highest_price": 112.28,
+      "highest_price": 113.59,
       "trailing_enabled": true,
       "signal_score": 7.44335654875845,
       "sector": null,
@@ -123,9 +123,9 @@
       "shares": 3,
       "cost_basis": 555.8100000000001,
       "initial_stop_loss": 170.44840000000002,
-      "stop_loss": 189.9905,
+      "stop_loss": 190.5795,
       "take_profit": 207.50240000000002,
-      "highest_price": 199.99,
+      "highest_price": 200.61,
       "trailing_enabled": true,
       "signal_score": 11.807230145187502,
       "sector": "Industrial - Machinery",
@@ -136,50 +136,6 @@
           "shares": 3,
           "price": 185.27,
           "date": "2026-02-03T11:52:37.722042"
-        }
-      ]
-    },
-    "MANE": {
-      "entry_date": "2026-02-06T11:53:49.074003",
-      "entry_price": 37.16,
-      "shares": 20,
-      "cost_basis": 743.1999999999999,
-      "initial_stop_loss": 34.1872,
-      "stop_loss": 38.4275,
-      "take_profit": 41.6192,
-      "highest_price": 40.45,
-      "trailing_enabled": true,
-      "signal_score": 14.230490154547619,
-      "sector": "Biotechnology",
-      "multi_signal_tier": "none",
-      "has_politician_signal": false,
-      "tranches": [
-        {
-          "shares": 20,
-          "price": 37.16,
-          "date": "2026-02-06T11:53:49.074009"
-        }
-      ]
-    },
-    "BOBS": {
-      "entry_date": "2026-02-09T12:07:12.150883",
-      "entry_price": 16.95,
-      "shares": 45,
-      "cost_basis": 762.75,
-      "initial_stop_loss": 15.594,
-      "stop_loss": 17.3375,
-      "take_profit": 18.984,
-      "highest_price": 18.25,
-      "trailing_enabled": true,
-      "signal_score": 14.122897028336965,
-      "sector": "Specialty Retail",
-      "multi_signal_tier": "none",
-      "has_politician_signal": false,
-      "tranches": [
-        {
-          "shares": 45,
-          "price": 16.95,
-          "date": "2026-02-09T12:07:12.150889"
         }
       ]
     },
@@ -256,12 +212,12 @@
     },
     "CBC": {
       "entry_date": "2026-02-10T12:11:17.997180",
-      "entry_price": 24.5,
-      "shares": 18,
-      "cost_basis": 441.0,
+      "entry_price": 24.3,
+      "shares": 30,
+      "cost_basis": 729.0,
       "initial_stop_loss": 22.540000000000003,
-      "stop_loss": 22.540000000000003,
-      "take_profit": 27.44,
+      "stop_loss": 22.356,
+      "take_profit": 27.216000000000005,
       "highest_price": 24.61,
       "trailing_enabled": false,
       "signal_score": 8.073194905513356,
@@ -273,18 +229,38 @@
           "shares": 18,
           "price": 24.5,
           "date": "2026-02-10T12:11:17.997184"
+        },
+        {
+          "shares": 12,
+          "price": 24.0,
+          "date": "2026-02-12T11:57:21.221320"
+        }
+      ]
+    },
+    "MMS": {
+      "entry_date": "2026-02-12T12:03:27.651227",
+      "entry_price": 75.07,
+      "shares": 7,
+      "cost_basis": 525.49,
+      "initial_stop_loss": 69.06439999999999,
+      "stop_loss": 69.06439999999999,
+      "take_profit": 84.0784,
+      "highest_price": 75.07,
+      "trailing_enabled": false,
+      "signal_score": 9.585031303842138,
+      "sector": "Specialty Business Services",
+      "multi_signal_tier": "none",
+      "has_politician_signal": false,
+      "tranches": [
+        {
+          "shares": 7,
+          "price": 75.07,
+          "date": "2026-02-12T12:03:27.651232"
         }
       ]
     }
   },
   "pending_entries": {
-    "BOBS": {
-      "shares": 30,
-      "trigger_price": 16.611,
-      "original_entry": 16.95,
-      "expires": "2026-02-14T12:07:12.702427",
-      "signal_score": 14.122897028336965
-    },
     "ARCC": {
       "shares": 21,
       "trigger_price": 19.0904,
@@ -299,19 +275,19 @@
       "expires": "2026-02-15T12:11:15.094749",
       "signal_score": 11.179777414494788
     },
-    "CBC": {
-      "shares": 12,
-      "trigger_price": 24.009999999999998,
-      "original_entry": 24.5,
-      "expires": "2026-02-15T12:11:18.801056",
-      "signal_score": 8.073194905513356
+    "MMS": {
+      "shares": 4,
+      "trigger_price": 73.56859999999999,
+      "original_entry": 75.07,
+      "expires": "2026-02-17T12:03:29.532360",
+      "signal_score": 9.585031303842138
     }
   },
-  "total_trades": 48,
-  "winning_trades": 26,
+  "total_trades": 49,
+  "winning_trades": 28,
   "losing_trades": 10,
-  "total_profit": 1715.19,
-  "max_portfolio_value": 11956.824999999995,
+  "total_profit": 1945.04,
+  "max_portfolio_value": 12130.984999999993,
   "max_drawdown": -9.109194484777545,
-  "last_updated": "2026-02-11T12:07:40.406246"
+  "last_updated": "2026-02-12T12:03:40.927063"
 }
