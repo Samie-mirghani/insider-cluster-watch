@@ -12639,7 +12639,7 @@
     "failure_type": "PERMANENT"
   },
   "CAQ": {
-    "failure_count": 2,
+    "failure_count": 3,
     "first_failure": "2026-02-11T12:04:23.589871",
     "failure_history": [
       {
@@ -12651,11 +12651,16 @@
         "date": "2026-02-12T12:00:29.320576",
         "reason": "No price data from yfinance",
         "type": "TEMPORARY"
+      },
+      {
+        "date": "2026-02-13T11:50:33.173459",
+        "reason": "No price data from yfinance",
+        "type": "TEMPORARY"
       }
     ],
-    "last_failure": "2026-02-12T12:00:29.320566",
+    "last_failure": "2026-02-13T11:50:33.173450",
     "reason": "No price data from yfinance",
-    "failure_type": "TEMPORARY"
+    "failure_type": "PERMANENT"
   },
   "CLNN": {
     "failure_count": 1,
@@ -12710,6 +12715,48 @@
       }
     ],
     "last_failure": "2026-02-12T11:57:11.580029",
+    "reason": "No trading data for required time horizon",
+    "failure_type": "PERMANENT"
+  },
+  "GLV": {
+    "failure_count": 1,
+    "first_failure": "2026-02-13T11:48:45.311856",
+    "failure_history": [
+      {
+        "date": "2026-02-13T11:48:45.311865",
+        "reason": "No trading data for required time horizon",
+        "type": "PERMANENT"
+      }
+    ],
+    "last_failure": "2026-02-13T11:48:45.311863",
+    "reason": "No trading data for required time horizon",
+    "failure_type": "PERMANENT"
+  },
+  "PW": {
+    "failure_count": 1,
+    "first_failure": "2026-02-13T11:48:50.795807",
+    "failure_history": [
+      {
+        "date": "2026-02-13T11:48:50.795817",
+        "reason": "No trading data for required time horizon",
+        "type": "PERMANENT"
+      }
+    ],
+    "last_failure": "2026-02-13T11:48:50.795815",
+    "reason": "No trading data for required time horizon",
+    "failure_type": "PERMANENT"
+  },
+  "PK": {
+    "failure_count": 1,
+    "first_failure": "2026-02-13T11:48:51.527677",
+    "failure_history": [
+      {
+        "date": "2026-02-13T11:48:51.527686",
+        "reason": "No trading data for required time horizon",
+        "type": "PERMANENT"
+      }
+    ],
+    "last_failure": "2026-02-13T11:48:51.527684",
     "reason": "No trading data for required time horizon",
     "failure_type": "PERMANENT"
   }

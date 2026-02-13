@@ -1,29 +1,7 @@
 {
   "starting_capital": 10000,
-  "cash": 5396.024999999994,
+  "cash": 5032.464999999995,
   "positions": {
-    "ALLY": {
-      "entry_date": "2026-01-26T11:36:47.241122",
-      "entry_price": 41.11,
-      "shares": 10,
-      "cost_basis": 411.1,
-      "initial_stop_loss": 37.821200000000005,
-      "stop_loss": 41.173,
-      "take_profit": 46.043200000000006,
-      "highest_price": 43.34,
-      "trailing_enabled": true,
-      "signal_score": 7.17775449233638,
-      "sector": null,
-      "multi_signal_tier": "none",
-      "has_politician_signal": false,
-      "tranches": [
-        {
-          "shares": 10,
-          "price": 41.11,
-          "date": "2026-01-26T11:36:47.241126"
-        }
-      ]
-    },
     "ABT": {
       "entry_date": "2026-01-27T11:39:21.361467",
       "entry_price": 107.68199999999999,
@@ -145,10 +123,10 @@
       "shares": 86,
       "cost_basis": 1216.06,
       "initial_stop_loss": 13.34,
-      "stop_loss": 13.009013953488372,
+      "stop_loss": 14.0885,
       "take_profit": 15.837060465116279,
-      "highest_price": 14.55,
-      "trailing_enabled": false,
+      "highest_price": 14.83,
+      "trailing_enabled": true,
       "signal_score": 14.099188854287693,
       "sector": "Biotechnology",
       "multi_signal_tier": "none",
@@ -258,6 +236,50 @@
           "date": "2026-02-12T12:03:27.651232"
         }
       ]
+    },
+    "FIEE": {
+      "entry_date": "2026-02-13T11:53:31.728947",
+      "entry_price": 5.71,
+      "shares": 71,
+      "cost_basis": 405.41,
+      "initial_stop_loss": 5.2532000000000005,
+      "stop_loss": 5.2532000000000005,
+      "take_profit": 6.395200000000001,
+      "highest_price": 5.71,
+      "trailing_enabled": false,
+      "signal_score": 6.853763553602047,
+      "sector": "Communication Equipment",
+      "multi_signal_tier": "none",
+      "has_politician_signal": false,
+      "tranches": [
+        {
+          "shares": 71,
+          "price": 5.71,
+          "date": "2026-02-13T11:53:31.728952"
+        }
+      ]
+    },
+    "THS": {
+      "entry_date": "2026-02-13T11:53:34.241802",
+      "entry_price": 24.43,
+      "shares": 15,
+      "cost_basis": 366.45,
+      "initial_stop_loss": 22.4756,
+      "stop_loss": 22.4756,
+      "take_profit": 27.361600000000003,
+      "highest_price": 24.43,
+      "trailing_enabled": false,
+      "signal_score": 6.398545115946184,
+      "sector": "Packaged Foods",
+      "multi_signal_tier": "none",
+      "has_politician_signal": false,
+      "tranches": [
+        {
+          "shares": 15,
+          "price": 24.43,
+          "date": "2026-02-13T11:53:34.241807"
+        }
+      ]
     }
   },
   "pending_entries": {
@@ -281,13 +303,27 @@
       "original_entry": 75.07,
       "expires": "2026-02-17T12:03:29.532360",
       "signal_score": 9.585031303842138
+    },
+    "FIEE": {
+      "shares": 47,
+      "trigger_price": 5.5958,
+      "original_entry": 5.71,
+      "expires": "2026-02-18T11:53:31.917413",
+      "signal_score": 6.853763553602047
+    },
+    "THS": {
+      "shares": 10,
+      "trigger_price": 23.941399999999998,
+      "original_entry": 24.43,
+      "expires": "2026-02-18T11:53:35.004545",
+      "signal_score": 6.398545115946184
     }
   },
-  "total_trades": 49,
+  "total_trades": 51,
   "winning_trades": 28,
-  "losing_trades": 10,
-  "total_profit": 1945.04,
+  "losing_trades": 11,
+  "total_profit": 1942.2399999999998,
   "max_portfolio_value": 12130.984999999993,
   "max_drawdown": -9.109194484777545,
-  "last_updated": "2026-02-12T12:03:40.927063"
+  "last_updated": "2026-02-13T11:53:38.888879"
 }
