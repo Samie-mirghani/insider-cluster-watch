@@ -1066,12 +1066,15 @@ Insider Cluster Watch — Automated Trading System
         open_positions: int,
         circuit_breaker_status: Dict[str, Any],
         exits_today: Optional[List[Dict[str, Any]]] = None,
-        ai_insights: Optional[Dict[str, Any]] = None
+        ai_insights: Optional[Dict[str, Any]] = None,
+        broker_summary: Optional[Dict[str, Any]] = None,
     ) -> bool:
         """
         Send daily summary alert at end of trading day.
 
         Now includes exit details (positions closed) and AI insights to reduce email volume.
+        Core execution metrics (win rate, order breakdown, notional) come from broker_summary,
+        which is derived entirely from Alpaca filled orders (source of truth).
         """
         mode_emoji, mode_label, mode_color = self._get_mode_indicator()
         date_str = datetime.now().strftime('%B %d, %Y')
@@ -1081,6 +1084,53 @@ Insider Cluster Watch — Automated Trading System
         # Simplified HTML for daily summary
         pnl_color = COLORS['success'] if daily_pnl >= 0 else COLORS['danger']
         pnl_sign = '+' if daily_pnl >= 0 else ''
+
+        # Build broker execution stats section (source of truth: Alpaca filled orders)
+        broker_html = ""
+        broker_text = ""
+        if broker_summary:
+            closed = broker_summary.get('closed_positions', 0)
+            win_rate = broker_summary.get('win_rate', 0.0)
+            wins = broker_summary.get('wins', 0)
+            buys = broker_summary.get('buy_orders', 0)
+            sells = broker_summary.get('sell_orders', 0)
+            notional = broker_summary.get('executed_notional', 0.0)
+            wr_color = COLORS['success'] if win_rate >= 50 else COLORS['danger']
+
+            broker_html = f'''
+            <tr>
+                <td style="background: {COLORS['bg_card']}; padding: 20px 25px; border: 1px solid {COLORS['border']}; border-top: none;">
+                    <h2 style="margin: 0 0 12px 0; font-size: 14px; color: {COLORS['text_muted']}; text-transform: uppercase; letter-spacing: 1px;">Execution (Alpaca)</h2>
+                    <table width="100%" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td width="25%" style="text-align: center;">
+                                <div style="font-size: 22px; font-weight: 700; color: {wr_color};">{win_rate:.0f}%</div>
+                                <div style="font-size: 11px; color: {COLORS['text_muted']};">Win Rate ({wins}/{closed})</div>
+                            </td>
+                            <td width="25%" style="text-align: center;">
+                                <div style="font-size: 22px; font-weight: 700;">{buys}</div>
+                                <div style="font-size: 11px; color: {COLORS['text_muted']};">Buys Filled</div>
+                            </td>
+                            <td width="25%" style="text-align: center;">
+                                <div style="font-size: 22px; font-weight: 700;">{sells}</div>
+                                <div style="font-size: 11px; color: {COLORS['text_muted']};">Sells Filled</div>
+                            </td>
+                            <td width="25%" style="text-align: center;">
+                                <div style="font-size: 22px; font-weight: 700;">${notional:,.0f}</div>
+                                <div style="font-size: 11px; color: {COLORS['text_muted']};">Notional</div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            '''
+
+            broker_text = (
+                f"\nExecution (Alpaca source of truth):\n"
+                f"  Win Rate:  {win_rate:.0f}% ({wins}/{closed} exits)\n"
+                f"  Buys:      {buys}  |  Sells: {sells}\n"
+                f"  Notional:  ${notional:,.2f}\n"
+            )
 
         # Build exits section if any
         exits_html = ""
@@ -1344,6 +1394,7 @@ Insider Cluster Watch — Automated Trading System
                             </table>
                         </td>
                     </tr>
+                    {broker_html}
                     {exits_html}
                     {ai_html}
                     <tr>
@@ -1368,7 +1419,7 @@ Daily P&L: {pnl_sign}${daily_pnl:,.2f}
 Portfolio Value: ${portfolio_value:,.2f}
 Trades Today: {trades_executed}
 Open Positions: {open_positions}
-{exits_text}
+{broker_text}{exits_text}
 {ai_text}
 {'='*50}
 Insider Cluster Watch — Automated Trading System

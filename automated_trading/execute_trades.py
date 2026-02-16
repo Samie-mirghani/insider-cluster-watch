@@ -1346,7 +1346,8 @@ class TradingEngine:
             open_positions=open_positions,
             circuit_breaker_status=self.position_monitor.circuit_breaker.get_status(),
             exits_today=self.exits_today,  # Include exits in EOD summary
-            ai_insights=ai_insights  # Include AI insights if available
+            ai_insights=ai_insights,  # Include AI insights if available
+            broker_summary=broker_summary,  # Broker-sourced execution metrics
         )
 
         # Clear exits after EOD email is sent (they've been reported)
