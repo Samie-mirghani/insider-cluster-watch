@@ -600,6 +600,7 @@ class TradingEngine:
         try:
             # Use close_position for simplicity (market order)
             result = self.alpaca_client.close_position(ticker)
+            source_order_id = result.get('order_id') if isinstance(result, dict) else None
 
             # Record order execution for daily trade limit tracking
             self.position_monitor.circuit_breaker.record_order_executed(ticker, 'SELL')
@@ -629,7 +630,8 @@ class TradingEngine:
                 'pnl': pnl,
                 'pnl_pct': pnl_pct,
                 'reason': reason,
-                'time': datetime.now().isoformat()
+                'time': datetime.now().isoformat(),
+                'source_order_id': source_order_id,
             })
             self._save_exits_today()  # Persist immediately
 
@@ -1096,7 +1098,29 @@ class TradingEngine:
         if not sell_orders:
             return
 
-        existing_tickers = {e.get('ticker') for e in self.exits_today}
+        existing_order_ids = {
+            str(e.get('source_order_id'))
+            for e in self.exits_today
+            if e.get('source_order_id')
+        }
+        existing_exit_keys = {
+            (
+                e.get('ticker'),
+                int(float(e.get('shares', 0) or 0)),
+                str(e.get('time', ''))[:19],
+            )
+            for e in self.exits_today
+        }
+        legacy_exit_signatures = {
+            (
+                str(e.get('ticker', 'UNKNOWN')),
+                int(float(e.get('shares', 0) or 0)),
+                round(float(e.get('exit_price', 0) or 0), 4),
+                str(e.get('time', ''))[:10],
+            )
+            for e in self.exits_today
+            if not e.get('source_order_id')
+        }
         added = 0
 
         for order in sell_orders:
@@ -1107,8 +1131,27 @@ class TradingEngine:
             if not filled_price or not shares:
                 continue
 
+            source_order_id = str(order.get('order_id') or '')
+            if source_order_id and source_order_id in existing_order_ids:
+                continue
+
+            filled_at = order.get('filled_at')
+            timestamp = filled_at.isoformat() if hasattr(filled_at, 'isoformat') else str(filled_at or datetime.now().isoformat())
+            exit_key = (ticker, int(float(shares)), timestamp[:19])
+            legacy_exit_signature = (
+                ticker,
+                int(float(shares)),
+                round(float(filled_price), 4),
+                timestamp[:10],
+            )
+
             # Skip if already tracked (e.g., by monitoring job's execute_sell)
-            if ticker in existing_tickers:
+            if exit_key in existing_exit_keys:
+                continue
+
+            # Backward-compatible dedupe for historical exits persisted before
+            # source_order_id was tracked.
+            if legacy_exit_signature in legacy_exit_signatures:
                 continue
 
             # Look up entry price from signal history or position data
@@ -1124,9 +1167,6 @@ class TradingEngine:
             pnl = (filled_price - entry_price) * shares
             pnl_pct = ((filled_price - entry_price) / entry_price * 100) if entry_price > 0 else 0
 
-            filled_at = order.get('filled_at')
-            timestamp = filled_at.isoformat() if hasattr(filled_at, 'isoformat') else str(filled_at or datetime.now().isoformat())
-
             self.exits_today.append({
                 'ticker': ticker,
                 'shares': shares,
@@ -1136,13 +1176,63 @@ class TradingEngine:
                 'pnl_pct': round(pnl_pct, 2),
                 'reason': 'broker_exit',
                 'time': timestamp,
+                'source_order_id': source_order_id or None,
             })
-            existing_tickers.add(ticker)
+            existing_exit_keys.add(exit_key)
+            legacy_exit_signatures.add(legacy_exit_signature)
+            if source_order_id:
+                existing_order_ids.add(source_order_id)
             added += 1
 
         if added:
             self._save_exits_today()
             logger.info(f"Populated {added} exits from Alpaca sell orders (total: {len(self.exits_today)})")
+
+    def _summarize_broker_activity(self, filled_orders_today: List[Dict[str, Any]]) -> Dict[str, Any]:
+        """
+        Build end-of-day execution metrics directly from Alpaca filled orders.
+
+        This intentionally treats broker data as source-of-truth for facts:
+        order counts, sides, and executed notional. Local files are only used
+        elsewhere for explanatory context.
+
+        Args:
+            filled_orders_today: Filled orders already fetched from Alpaca
+
+        Returns:
+            Dictionary with broker-derived execution metrics
+        """
+        total_orders = len(filled_orders_today)
+        buy_orders = 0
+        sell_orders = 0
+        executed_notional = 0.0
+
+        for order in filled_orders_today:
+            side = str(order.get('side', '')).lower()
+            qty = float(order.get('filled_qty') or 0)
+            price = float(order.get('filled_avg_price') or 0)
+
+            if 'buy' in side:
+                buy_orders += 1
+            elif 'sell' in side:
+                sell_orders += 1
+
+            if qty > 0 and price > 0:
+                executed_notional += qty * price
+
+        closed_positions = len(self.exits_today)
+        wins = len([e for e in self.exits_today if float(e.get('pnl', 0)) > 0])
+        win_rate = (wins / closed_positions * 100) if closed_positions > 0 else 0.0
+
+        return {
+            'total_filled_orders': total_orders,
+            'buy_orders': buy_orders,
+            'sell_orders': sell_orders,
+            'executed_notional': round(executed_notional, 2),
+            'closed_positions': closed_positions,
+            'wins': wins,
+            'win_rate': round(win_rate, 1),
+        }
 
     def run_end_of_day(self) -> Dict[str, Any]:
         """
@@ -1170,7 +1260,12 @@ class TradingEngine:
         filled_orders_today = self.alpaca_client.get_filled_orders_today()
         trades_today = len(filled_orders_today)
 
-        open_positions = len(self.position_monitor.positions)
+        try:
+            # Broker is the source of truth for current open positions
+            open_positions = len(self.alpaca_client.get_all_positions())
+        except Exception as e:
+            logger.warning(f"Failed to fetch broker positions for EOD summary, falling back to local state: {e}")
+            open_positions = len(self.position_monitor.positions)
 
         # Cleanup and track unfilled orders with error isolation
         try:
@@ -1204,6 +1299,18 @@ class TradingEngine:
         except Exception as e:
             logger.error(f"Exit population from broker failed: {e}", exc_info=True)
             # Continue - best effort
+
+        # Build core execution metrics from broker data (source-of-truth)
+        broker_summary = self._summarize_broker_activity(filled_orders_today)
+        logger.info(
+            "Broker EOD metrics | filled=%s buys=%s sells=%s closed=%s win_rate=%s%% notional=$%s",
+            broker_summary['total_filled_orders'],
+            broker_summary['buy_orders'],
+            broker_summary['sell_orders'],
+            broker_summary['closed_positions'],
+            broker_summary['win_rate'],
+            f"{broker_summary['executed_notional']:,.2f}"
+        )
 
         # Generate AI insights (graceful failure - never blocks EOD email)
         ai_insights = None
@@ -1239,7 +1346,8 @@ class TradingEngine:
             open_positions=open_positions,
             circuit_breaker_status=self.position_monitor.circuit_breaker.get_status(),
             exits_today=self.exits_today,  # Include exits in EOD summary
-            ai_insights=ai_insights  # Include AI insights if available
+            ai_insights=ai_insights,  # Include AI insights if available
+            broker_summary=broker_summary,  # Broker-sourced execution metrics
         )
 
         # Clear exits after EOD email is sent (they've been reported)
@@ -1253,7 +1361,8 @@ class TradingEngine:
             'trades_executed': trades_today,
             'open_positions': open_positions,
             'exits_reported': exits_count,
-            'circuit_breaker': self.position_monitor.circuit_breaker.get_status()
+            'circuit_breaker': self.position_monitor.circuit_breaker.get_status(),
+            'broker_summary': broker_summary,
         }
 
         logger.info(f"Portfolio Value: ${portfolio_value:,.2f}")
