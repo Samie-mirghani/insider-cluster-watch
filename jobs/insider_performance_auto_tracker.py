@@ -337,9 +337,11 @@ class AutoInsiderTracker:
             # Check per-run failure cache: if this ticker already failed
             # (blacklisted, delisted, etc.) earlier in this run, reuse the
             # failure result without calling yfinance again.
+            made_api_call = False
             if ticker in _ticker_failure_cache:
                 result = _ticker_failure_cache[ticker]
             else:
+                made_api_call = True
                 # Fetch price data with retry
                 result = self._fetch_outcomes_with_retry(
                     ticker, trade_date, entry_price, horizons_to_check, max_retries
@@ -443,9 +445,9 @@ class AutoInsiderTracker:
                 consecutive_failures += 1
 
             # Adaptive rate limiting: back off when seeing consecutive failures
-            # (likely yfinance rate limiting or outage). Cached failures skip
-            # the sleep since no yfinance call was made.
-            if ticker not in _ticker_failure_cache or (result and result.get('outcomes')):
+            # (likely yfinance rate limiting or outage). Only sleep when a real
+            # yfinance API call was made; cached failures need no throttle.
+            if made_api_call:
                 if consecutive_failures >= 10:
                     time.sleep(5.0)  # Heavy backoff after 10+ consecutive failures
                 elif consecutive_failures >= 5:

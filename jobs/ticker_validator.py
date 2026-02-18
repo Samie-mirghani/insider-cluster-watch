@@ -70,9 +70,9 @@ class FailedTickerCache:
 
     def _save_cache(self) -> None:
         """Save failed tickers cache to disk using atomic write (temp + rename)"""
+        tmp_file = self.cache_file + '.tmp'
         try:
             os.makedirs(os.path.dirname(self.cache_file), exist_ok=True)
-            tmp_file = self.cache_file + '.tmp'
             with open(tmp_file, 'w') as f:
                 json.dump(self.cache, f, indent=2)
             os.replace(tmp_file, self.cache_file)
