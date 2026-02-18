@@ -13,6 +13,9 @@ Key Features:
 Failure Handling:
 • DELISTED: Stock no longer trades (marked as FAILED, no retry)
 • INVALID_TICKER: Bad ticker format or non-stock (marked as FAILED, no retry)
+• NO_HORIZON_DATA: Stock has price history but specific horizon dates not yet available
+  (temporary - retries until cache expiry, e.g. weekends/holidays/data gaps)
+• BLACKLISTED: Ticker temporarily blacklisted in cache (retries when cache expires)
 • RATE_LIMIT: API rate limiting (retries tomorrow)
 • NETWORK_ERROR: Temporary network issues (retries tomorrow)
 
@@ -315,7 +318,7 @@ class AutoInsiderTracker:
                 self._update_tracker_outcomes(track)
 
                 # Check if all outcomes complete (matured)
-                if all(track['outcomes'][h] is not None for h in ['30d', '90d', '180d']):
+                if all(track['outcomes'][h] is not None for h in ['30d', '60d', '90d', '180d']):
                     track['status'] = 'MATURED'
                     matured_count += 1
                     if self.verbose:
@@ -332,6 +335,7 @@ class AutoInsiderTracker:
 
                 # Categorize permanent vs temporary failures
                 if failure_type in ['DELISTED', 'INVALID_TICKER']:
+                    # Genuinely dead tickers - mark as permanently FAILED
                     track['status'] = 'FAILED'
                     track['failure_type'] = failure_type
                     track['failure_reason'] = failure_reason
@@ -343,6 +347,19 @@ class AutoInsiderTracker:
                         'type': failure_type,
                         'reason': failure_reason,
                         'permanent': True
+                    })
+                elif failure_type in ['NO_HORIZON_DATA', 'BLACKLISTED']:
+                    # Horizon data not yet available or ticker temporarily
+                    # blacklisted - will retry when cache expires
+                    track['failure_type'] = failure_type
+                    track['failure_reason'] = failure_reason
+                    track['last_updated'] = datetime.now().isoformat()
+
+                    failure_details.append({
+                        'ticker': ticker,
+                        'type': failure_type,
+                        'reason': failure_reason,
+                        'permanent': False
                     })
                 elif failure_type == 'RATE_LIMIT':
                     # Temporary - will retry tomorrow
@@ -442,8 +459,18 @@ class AutoInsiderTracker:
         is_blacklisted, blacklist_reason = failed_ticker_cache.is_blacklisted(ticker)
         if is_blacklisted:
             logger.debug(f"Skipping blacklisted ticker {ticker}: {blacklist_reason}")
+            # Determine the appropriate failure type from the blacklist reason
+            # so the caller can categorize it correctly
+            if blacklist_reason and 'delisted' in blacklist_reason.lower():
+                bl_failure_type = 'DELISTED'
+            elif blacklist_reason and 'invalid' in blacklist_reason.lower():
+                bl_failure_type = 'INVALID_TICKER'
+            elif blacklist_reason and 'no trading data' in blacklist_reason.lower():
+                bl_failure_type = 'NO_HORIZON_DATA'
+            else:
+                bl_failure_type = 'BLACKLISTED'
             return {
-                'failure_type': 'PERMANENT',
+                'failure_type': bl_failure_type,
                 'failure_reason': f'Blacklisted: {blacklist_reason}'
             }
 
@@ -474,6 +501,11 @@ class AutoInsiderTracker:
                                     'failure_reason': f'Invalid ticker format: {ticker}'
                                 }
                             # Empty history could mean delisted
+                            failed_ticker_cache.record_failure(
+                                ticker,
+                                'No trading history available (possibly delisted)',
+                                failure_type='PERMANENT'
+                            )
                             return {
                                 'failure_type': 'DELISTED',
                                 'failure_reason': 'No trading history available (possibly delisted)'
@@ -481,6 +513,11 @@ class AutoInsiderTracker:
                         # Check quote type - mutual funds/ETFs may have different data availability
                         quote_type = info.get('quoteType', '').upper()
                         if quote_type in ['MUTUALFUND', 'INDEX']:
+                            failed_ticker_cache.record_failure(
+                                ticker,
+                                f'Ticker is {quote_type}, not a stock',
+                                failure_type='PERMANENT'
+                            )
                             return {
                                 'failure_type': 'INVALID_TICKER',
                                 'failure_reason': f'Ticker is {quote_type}, not a stock'
@@ -559,16 +596,21 @@ class AutoInsiderTracker:
                     failed_ticker_cache.record_success(ticker)
                     return {'outcomes': outcomes}
                 else:
-                    # No data for the required horizons (trade too recent)
-                    #Record failure
+                    # No data for the required horizons yet - stock has price
+                    # history (hist was non-empty) but the specific horizon
+                    # target dates aren't available (weekends, holidays, data
+                    # gaps). This is a temporary data-availability issue, NOT
+                    # evidence of delisting. Use TEMPORARY so the ticker gets
+                    # retried (up to MAX_RETRY_ATTEMPTS before auto-promoting
+                    # to permanent, with 30-day cache expiry allowing retries).
                     failed_ticker_cache.record_failure(
                         ticker,
                         'No trading data for required time horizon',
-                        failure_type='PERMANENT'
+                        failure_type='TEMPORARY'
                     )
                     return {
-                        'failure_type': 'DELISTED',
-                        'failure_reason': 'No trading data for required time horizon'
+                        'failure_type': 'NO_HORIZON_DATA',
+                        'failure_reason': 'No trading data for required time horizon (will retry)'
                     }
 
             except Exception as e:
