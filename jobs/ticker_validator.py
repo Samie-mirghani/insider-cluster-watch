@@ -69,14 +69,20 @@ class FailedTickerCache:
             return {}
 
     def _save_cache(self) -> None:
-        """Save failed tickers cache to disk"""
+        """Save failed tickers cache to disk using atomic write (temp + rename)"""
+        tmp_file = self.cache_file + '.tmp'
         try:
             os.makedirs(os.path.dirname(self.cache_file), exist_ok=True)
-            with open(self.cache_file, 'w') as f:
+            with open(tmp_file, 'w') as f:
                 json.dump(self.cache, f, indent=2)
+            os.replace(tmp_file, self.cache_file)
             logger.debug(f"Saved {len(self.cache)} failed tickers to cache")
         except Exception as e:
             logger.error(f"Error saving failed ticker cache: {e}")
+            try:
+                os.remove(tmp_file)
+            except OSError:
+                pass
 
     def is_blacklisted(self, ticker: str) -> Tuple[bool, Optional[str]]:
         """
