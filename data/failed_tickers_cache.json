@@ -234,7 +234,7 @@
     "failure_type": "PERMANENT"
   },
   "NRX": {
-    "failure_count": 2,
+    "failure_count": 3,
     "first_failure": "2026-02-16T12:00:21.148944",
     "failure_history": [
       {
@@ -246,14 +246,19 @@
         "date": "2026-02-17T11:58:56.490855",
         "reason": "No price data from yfinance",
         "type": "TEMPORARY"
+      },
+      {
+        "date": "2026-02-18T12:09:33.953844",
+        "reason": "No price data from yfinance",
+        "type": "TEMPORARY"
       }
     ],
-    "last_failure": "2026-02-17T11:58:56.490843",
+    "last_failure": "2026-02-18T12:09:33.953831",
     "reason": "No price data from yfinance",
-    "failure_type": "TEMPORARY"
+    "failure_type": "PERMANENT"
   },
   "UACU": {
-    "failure_count": 2,
+    "failure_count": 3,
     "first_failure": "2026-02-16T12:00:21.932417",
     "failure_history": [
       {
@@ -265,9 +270,742 @@
         "date": "2026-02-17T11:58:57.238290",
         "reason": "No price data from yfinance",
         "type": "TEMPORARY"
+      },
+      {
+        "date": "2026-02-18T12:09:34.661154",
+        "reason": "No price data from yfinance",
+        "type": "TEMPORARY"
       }
     ],
-    "last_failure": "2026-02-17T11:58:57.238278",
+    "last_failure": "2026-02-18T12:09:34.661112",
+    "reason": "No price data from yfinance",
+    "failure_type": "PERMANENT"
+  },
+  "GPUS": {
+    "failure_count": 1,
+    "first_failure": "2026-02-18T11:46:43.972396",
+    "failure_history": [
+      {
+        "date": "2026-02-18T11:46:43.972404",
+        "reason": "No trading data for required time horizon",
+        "type": "TEMPORARY"
+      }
+    ],
+    "last_failure": "2026-02-18T11:46:43.972402",
+    "reason": "No trading data for required time horizon",
+    "failure_type": "TEMPORARY"
+  },
+  "STSS": {
+    "failure_count": 1,
+    "first_failure": "2026-02-18T11:46:44.633920",
+    "failure_history": [
+      {
+        "date": "2026-02-18T11:46:44.633929",
+        "reason": "No trading data for required time horizon",
+        "type": "TEMPORARY"
+      }
+    ],
+    "last_failure": "2026-02-18T11:46:44.633927",
+    "reason": "No trading data for required time horizon",
+    "failure_type": "TEMPORARY"
+  },
+  "LAB": {
+    "failure_count": 1,
+    "first_failure": "2026-02-18T11:46:45.349229",
+    "failure_history": [
+      {
+        "date": "2026-02-18T11:46:45.349238",
+        "reason": "No trading data for required time horizon",
+        "type": "TEMPORARY"
+      }
+    ],
+    "last_failure": "2026-02-18T11:46:45.349236",
+    "reason": "No trading data for required time horizon",
+    "failure_type": "TEMPORARY"
+  },
+  "BKYI": {
+    "failure_count": 1,
+    "first_failure": "2026-02-18T11:46:47.631881",
+    "failure_history": [
+      {
+        "date": "2026-02-18T11:46:47.631891",
+        "reason": "No trading data for required time horizon",
+        "type": "TEMPORARY"
+      }
+    ],
+    "last_failure": "2026-02-18T11:46:47.631888",
+    "reason": "No trading data for required time horizon",
+    "failure_type": "TEMPORARY"
+  },
+  "TPVG": {
+    "failure_count": 1,
+    "first_failure": "2026-02-18T11:46:49.922294",
+    "failure_history": [
+      {
+        "date": "2026-02-18T11:46:49.922303",
+        "reason": "No trading data for required time horizon",
+        "type": "TEMPORARY"
+      }
+    ],
+    "last_failure": "2026-02-18T11:46:49.922301",
+    "reason": "No trading data for required time horizon",
+    "failure_type": "TEMPORARY"
+  },
+  "SST": {
+    "failure_count": 1,
+    "first_failure": "2026-02-18T11:46:55.097878",
+    "failure_history": [
+      {
+        "date": "2026-02-18T11:46:55.097887",
+        "reason": "No trading data for required time horizon",
+        "type": "TEMPORARY"
+      }
+    ],
+    "last_failure": "2026-02-18T11:46:55.097885",
+    "reason": "No trading data for required time horizon",
+    "failure_type": "TEMPORARY"
+  },
+  "REZI": {
+    "failure_count": 1,
+    "first_failure": "2026-02-18T11:47:00.240298",
+    "failure_history": [
+      {
+        "date": "2026-02-18T11:47:00.240307",
+        "reason": "No trading data for required time horizon",
+        "type": "TEMPORARY"
+      }
+    ],
+    "last_failure": "2026-02-18T11:47:00.240305",
+    "reason": "No trading data for required time horizon",
+    "failure_type": "TEMPORARY"
+  },
+  "COTY": {
+    "failure_count": 1,
+    "first_failure": "2026-02-18T11:47:05.485621",
+    "failure_history": [
+      {
+        "date": "2026-02-18T11:47:05.485630",
+        "reason": "No trading data for required time horizon",
+        "type": "TEMPORARY"
+      }
+    ],
+    "last_failure": "2026-02-18T11:47:05.485628",
+    "reason": "No trading data for required time horizon",
+    "failure_type": "TEMPORARY"
+  },
+  "HTH": {
+    "failure_count": 1,
+    "first_failure": "2026-02-18T11:47:10.890330",
+    "failure_history": [
+      {
+        "date": "2026-02-18T11:47:10.890340",
+        "reason": "No trading data for required time horizon",
+        "type": "TEMPORARY"
+      }
+    ],
+    "last_failure": "2026-02-18T11:47:10.890338",
+    "reason": "No trading data for required time horizon",
+    "failure_type": "TEMPORARY"
+  },
+  "AFCG": {
+    "failure_count": 1,
+    "first_failure": "2026-02-18T11:47:16.415814",
+    "failure_history": [
+      {
+        "date": "2026-02-18T11:47:16.415823",
+        "reason": "No trading data for required time horizon",
+        "type": "TEMPORARY"
+      }
+    ],
+    "last_failure": "2026-02-18T11:47:16.415821",
+    "reason": "No trading data for required time horizon",
+    "failure_type": "TEMPORARY"
+  },
+  "SUNS": {
+    "failure_count": 1,
+    "first_failure": "2026-02-18T11:47:21.579959",
+    "failure_history": [
+      {
+        "date": "2026-02-18T11:47:21.579969",
+        "reason": "No trading data for required time horizon",
+        "type": "TEMPORARY"
+      }
+    ],
+    "last_failure": "2026-02-18T11:47:21.579966",
+    "reason": "No trading data for required time horizon",
+    "failure_type": "TEMPORARY"
+  },
+  "PODC": {
+    "failure_count": 1,
+    "first_failure": "2026-02-18T11:47:26.762867",
+    "failure_history": [
+      {
+        "date": "2026-02-18T11:47:26.762876",
+        "reason": "No trading data for required time horizon",
+        "type": "TEMPORARY"
+      }
+    ],
+    "last_failure": "2026-02-18T11:47:26.762874",
+    "reason": "No trading data for required time horizon",
+    "failure_type": "TEMPORARY"
+  },
+  "SHEN": {
+    "failure_count": 1,
+    "first_failure": "2026-02-18T11:47:32.137995",
+    "failure_history": [
+      {
+        "date": "2026-02-18T11:47:32.138004",
+        "reason": "No trading data for required time horizon",
+        "type": "TEMPORARY"
+      }
+    ],
+    "last_failure": "2026-02-18T11:47:32.138002",
+    "reason": "No trading data for required time horizon",
+    "failure_type": "TEMPORARY"
+  },
+  "UPS": {
+    "failure_count": 1,
+    "first_failure": "2026-02-18T11:47:37.535199",
+    "failure_history": [
+      {
+        "date": "2026-02-18T11:47:37.535208",
+        "reason": "No trading data for required time horizon",
+        "type": "TEMPORARY"
+      }
+    ],
+    "last_failure": "2026-02-18T11:47:37.535206",
+    "reason": "No trading data for required time horizon",
+    "failure_type": "TEMPORARY"
+  },
+  "MX": {
+    "failure_count": 1,
+    "first_failure": "2026-02-18T11:47:42.763946",
+    "failure_history": [
+      {
+        "date": "2026-02-18T11:47:42.763955",
+        "reason": "No trading data for required time horizon",
+        "type": "TEMPORARY"
+      }
+    ],
+    "last_failure": "2026-02-18T11:47:42.763953",
+    "reason": "No trading data for required time horizon",
+    "failure_type": "TEMPORARY"
+  },
+  "TSQ": {
+    "failure_count": 1,
+    "first_failure": "2026-02-18T11:47:48.015892",
+    "failure_history": [
+      {
+        "date": "2026-02-18T11:47:48.015901",
+        "reason": "No trading data for required time horizon",
+        "type": "TEMPORARY"
+      }
+    ],
+    "last_failure": "2026-02-18T11:47:48.015899",
+    "reason": "No trading data for required time horizon",
+    "failure_type": "TEMPORARY"
+  },
+  "ES": {
+    "failure_count": 1,
+    "first_failure": "2026-02-18T11:47:53.741777",
+    "failure_history": [
+      {
+        "date": "2026-02-18T11:47:53.741787",
+        "reason": "No trading data for required time horizon",
+        "type": "TEMPORARY"
+      }
+    ],
+    "last_failure": "2026-02-18T11:47:53.741785",
+    "reason": "No trading data for required time horizon",
+    "failure_type": "TEMPORARY"
+  },
+  "AVBC": {
+    "failure_count": 1,
+    "first_failure": "2026-02-18T11:47:58.858611",
+    "failure_history": [
+      {
+        "date": "2026-02-18T11:47:58.858621",
+        "reason": "No trading data for required time horizon",
+        "type": "TEMPORARY"
+      }
+    ],
+    "last_failure": "2026-02-18T11:47:58.858619",
+    "reason": "No trading data for required time horizon",
+    "failure_type": "TEMPORARY"
+  },
+  "GIFT": {
+    "failure_count": 1,
+    "first_failure": "2026-02-18T11:48:04.041503",
+    "failure_history": [
+      {
+        "date": "2026-02-18T11:48:04.041513",
+        "reason": "No trading data for required time horizon",
+        "type": "TEMPORARY"
+      }
+    ],
+    "last_failure": "2026-02-18T11:48:04.041511",
+    "reason": "No trading data for required time horizon",
+    "failure_type": "TEMPORARY"
+  },
+  "WVVI": {
+    "failure_count": 1,
+    "first_failure": "2026-02-18T11:48:09.323153",
+    "failure_history": [
+      {
+        "date": "2026-02-18T11:48:09.323163",
+        "reason": "No trading data for required time horizon",
+        "type": "TEMPORARY"
+      }
+    ],
+    "last_failure": "2026-02-18T11:48:09.323160",
+    "reason": "No trading data for required time horizon",
+    "failure_type": "TEMPORARY"
+  },
+  "RNXT": {
+    "failure_count": 1,
+    "first_failure": "2026-02-18T11:48:14.511624",
+    "failure_history": [
+      {
+        "date": "2026-02-18T11:48:14.511634",
+        "reason": "No trading data for required time horizon",
+        "type": "TEMPORARY"
+      }
+    ],
+    "last_failure": "2026-02-18T11:48:14.511632",
+    "reason": "No trading data for required time horizon",
+    "failure_type": "TEMPORARY"
+  },
+  "ISPO": {
+    "failure_count": 1,
+    "first_failure": "2026-02-18T11:48:23.269588",
+    "failure_history": [
+      {
+        "date": "2026-02-18T11:48:23.269597",
+        "reason": "No trading data for required time horizon",
+        "type": "TEMPORARY"
+      }
+    ],
+    "last_failure": "2026-02-18T11:48:23.269595",
+    "reason": "No trading data for required time horizon",
+    "failure_type": "TEMPORARY"
+  },
+  "SCKT": {
+    "failure_count": 1,
+    "first_failure": "2026-02-18T11:48:24.708476",
+    "failure_history": [
+      {
+        "date": "2026-02-18T11:48:24.708485",
+        "reason": "No trading data for required time horizon",
+        "type": "TEMPORARY"
+      }
+    ],
+    "last_failure": "2026-02-18T11:48:24.708484",
+    "reason": "No trading data for required time horizon",
+    "failure_type": "TEMPORARY"
+  },
+  "ICU": {
+    "failure_count": 1,
+    "first_failure": "2026-02-18T11:48:25.375299",
+    "failure_history": [
+      {
+        "date": "2026-02-18T11:48:25.375308",
+        "reason": "No trading data for required time horizon",
+        "type": "TEMPORARY"
+      }
+    ],
+    "last_failure": "2026-02-18T11:48:25.375306",
+    "reason": "No trading data for required time horizon",
+    "failure_type": "TEMPORARY"
+  },
+  "MDRR": {
+    "failure_count": 1,
+    "first_failure": "2026-02-18T11:48:26.959217",
+    "failure_history": [
+      {
+        "date": "2026-02-18T11:48:26.959226",
+        "reason": "No trading data for required time horizon",
+        "type": "TEMPORARY"
+      }
+    ],
+    "last_failure": "2026-02-18T11:48:26.959224",
+    "reason": "No trading data for required time horizon",
+    "failure_type": "TEMPORARY"
+  },
+  "FUSB": {
+    "failure_count": 1,
+    "first_failure": "2026-02-18T11:48:28.583665",
+    "failure_history": [
+      {
+        "date": "2026-02-18T11:48:28.583675",
+        "reason": "No trading data for required time horizon",
+        "type": "TEMPORARY"
+      }
+    ],
+    "last_failure": "2026-02-18T11:48:28.583673",
+    "reason": "No trading data for required time horizon",
+    "failure_type": "TEMPORARY"
+  },
+  "MDT": {
+    "failure_count": 1,
+    "first_failure": "2026-02-18T11:48:30.505815",
+    "failure_history": [
+      {
+        "date": "2026-02-18T11:48:30.505834",
+        "reason": "No trading data for required time horizon",
+        "type": "TEMPORARY"
+      }
+    ],
+    "last_failure": "2026-02-18T11:48:30.505832",
+    "reason": "No trading data for required time horizon",
+    "failure_type": "TEMPORARY"
+  },
+  "SINT": {
+    "failure_count": 1,
+    "first_failure": "2026-02-18T11:48:31.210531",
+    "failure_history": [
+      {
+        "date": "2026-02-18T11:48:31.210540",
+        "reason": "No trading data for required time horizon",
+        "type": "TEMPORARY"
+      }
+    ],
+    "last_failure": "2026-02-18T11:48:31.210538",
+    "reason": "No trading data for required time horizon",
+    "failure_type": "TEMPORARY"
+  },
+  "AMRZ": {
+    "failure_count": 1,
+    "first_failure": "2026-02-18T11:48:32.547856",
+    "failure_history": [
+      {
+        "date": "2026-02-18T11:48:32.547865",
+        "reason": "No trading data for required time horizon",
+        "type": "TEMPORARY"
+      }
+    ],
+    "last_failure": "2026-02-18T11:48:32.547863",
+    "reason": "No trading data for required time horizon",
+    "failure_type": "TEMPORARY"
+  },
+  "MBIN": {
+    "failure_count": 1,
+    "first_failure": "2026-02-18T11:48:33.292407",
+    "failure_history": [
+      {
+        "date": "2026-02-18T11:48:33.292418",
+        "reason": "No trading data for required time horizon",
+        "type": "TEMPORARY"
+      }
+    ],
+    "last_failure": "2026-02-18T11:48:33.292416",
+    "reason": "No trading data for required time horizon",
+    "failure_type": "TEMPORARY"
+  },
+  "HBNC": {
+    "failure_count": 1,
+    "first_failure": "2026-02-18T11:48:35.094486",
+    "failure_history": [
+      {
+        "date": "2026-02-18T11:48:35.094497",
+        "reason": "No trading data for required time horizon",
+        "type": "TEMPORARY"
+      }
+    ],
+    "last_failure": "2026-02-18T11:48:35.094495",
+    "reason": "No trading data for required time horizon",
+    "failure_type": "TEMPORARY"
+  },
+  "INR": {
+    "failure_count": 1,
+    "first_failure": "2026-02-18T11:48:36.410452",
+    "failure_history": [
+      {
+        "date": "2026-02-18T11:48:36.410461",
+        "reason": "No trading data for required time horizon",
+        "type": "TEMPORARY"
+      }
+    ],
+    "last_failure": "2026-02-18T11:48:36.410459",
+    "reason": "No trading data for required time horizon",
+    "failure_type": "TEMPORARY"
+  },
+  "SMRT": {
+    "failure_count": 1,
+    "first_failure": "2026-02-18T11:48:38.822988",
+    "failure_history": [
+      {
+        "date": "2026-02-18T11:48:38.822998",
+        "reason": "No trading data for required time horizon",
+        "type": "TEMPORARY"
+      }
+    ],
+    "last_failure": "2026-02-18T11:48:38.822996",
+    "reason": "No trading data for required time horizon",
+    "failure_type": "TEMPORARY"
+  },
+  "HKHC": {
+    "failure_count": 1,
+    "first_failure": "2026-02-18T11:48:40.398822",
+    "failure_history": [
+      {
+        "date": "2026-02-18T11:48:40.398831",
+        "reason": "No trading data for required time horizon",
+        "type": "TEMPORARY"
+      }
+    ],
+    "last_failure": "2026-02-18T11:48:40.398829",
+    "reason": "No trading data for required time horizon",
+    "failure_type": "TEMPORARY"
+  },
+  "IRIX": {
+    "failure_count": 1,
+    "first_failure": "2026-02-18T11:48:41.182475",
+    "failure_history": [
+      {
+        "date": "2026-02-18T11:48:41.182485",
+        "reason": "No trading data for required time horizon",
+        "type": "TEMPORARY"
+      }
+    ],
+    "last_failure": "2026-02-18T11:48:41.182482",
+    "reason": "No trading data for required time horizon",
+    "failure_type": "TEMPORARY"
+  },
+  "SWIM": {
+    "failure_count": 1,
+    "first_failure": "2026-02-18T11:48:43.321443",
+    "failure_history": [
+      {
+        "date": "2026-02-18T11:48:43.321452",
+        "reason": "No trading data for required time horizon",
+        "type": "TEMPORARY"
+      }
+    ],
+    "last_failure": "2026-02-18T11:48:43.321450",
+    "reason": "No trading data for required time horizon",
+    "failure_type": "TEMPORARY"
+  },
+  "TPL": {
+    "failure_count": 1,
+    "first_failure": "2026-02-18T11:48:49.544208",
+    "failure_history": [
+      {
+        "date": "2026-02-18T11:48:49.544217",
+        "reason": "No trading data for required time horizon",
+        "type": "TEMPORARY"
+      }
+    ],
+    "last_failure": "2026-02-18T11:48:49.544215",
+    "reason": "No trading data for required time horizon",
+    "failure_type": "TEMPORARY"
+  },
+  "RCG": {
+    "failure_count": 1,
+    "first_failure": "2026-02-18T11:48:51.180984",
+    "failure_history": [
+      {
+        "date": "2026-02-18T11:48:51.180994",
+        "reason": "No trading data for required time horizon",
+        "type": "TEMPORARY"
+      }
+    ],
+    "last_failure": "2026-02-18T11:48:51.180992",
+    "reason": "No trading data for required time horizon",
+    "failure_type": "TEMPORARY"
+  },
+  "BCDA": {
+    "failure_count": 1,
+    "first_failure": "2026-02-18T11:48:52.918627",
+    "failure_history": [
+      {
+        "date": "2026-02-18T11:48:52.918636",
+        "reason": "No trading data for required time horizon",
+        "type": "TEMPORARY"
+      }
+    ],
+    "last_failure": "2026-02-18T11:48:52.918634",
+    "reason": "No trading data for required time horizon",
+    "failure_type": "TEMPORARY"
+  },
+  "DVAX": {
+    "failure_count": 1,
+    "first_failure": "2026-02-18T11:48:54.421874",
+    "failure_history": [
+      {
+        "date": "2026-02-18T11:48:54.421884",
+        "reason": "No trading data for required time horizon",
+        "type": "TEMPORARY"
+      }
+    ],
+    "last_failure": "2026-02-18T11:48:54.421881",
+    "reason": "No trading data for required time horizon",
+    "failure_type": "TEMPORARY"
+  },
+  "PSTV": {
+    "failure_count": 1,
+    "first_failure": "2026-02-18T11:48:55.153035",
+    "failure_history": [
+      {
+        "date": "2026-02-18T11:48:55.153044",
+        "reason": "No trading data for required time horizon",
+        "type": "TEMPORARY"
+      }
+    ],
+    "last_failure": "2026-02-18T11:48:55.153042",
+    "reason": "No trading data for required time horizon",
+    "failure_type": "TEMPORARY"
+  },
+  "ENOV": {
+    "failure_count": 1,
+    "first_failure": "2026-02-18T11:48:55.918292",
+    "failure_history": [
+      {
+        "date": "2026-02-18T11:48:55.918301",
+        "reason": "No trading data for required time horizon",
+        "type": "TEMPORARY"
+      }
+    ],
+    "last_failure": "2026-02-18T11:48:55.918299",
+    "reason": "No trading data for required time horizon",
+    "failure_type": "TEMPORARY"
+  },
+  "CEPF": {
+    "failure_count": 1,
+    "first_failure": "2026-02-18T11:48:57.549382",
+    "failure_history": [
+      {
+        "date": "2026-02-18T11:48:57.549392",
+        "reason": "No trading data for required time horizon",
+        "type": "TEMPORARY"
+      }
+    ],
+    "last_failure": "2026-02-18T11:48:57.549390",
+    "reason": "No trading data for required time horizon",
+    "failure_type": "TEMPORARY"
+  },
+  "JUVF": {
+    "failure_count": 1,
+    "first_failure": "2026-02-18T11:49:08.483350",
+    "failure_history": [
+      {
+        "date": "2026-02-18T11:49:08.483359",
+        "reason": "No trading data for required time horizon",
+        "type": "TEMPORARY"
+      }
+    ],
+    "last_failure": "2026-02-18T11:49:08.483357",
+    "reason": "No trading data for required time horizon",
+    "failure_type": "TEMPORARY"
+  },
+  "EMYB": {
+    "failure_count": 1,
+    "first_failure": "2026-02-18T11:49:09.297229",
+    "failure_history": [
+      {
+        "date": "2026-02-18T11:49:09.297239",
+        "reason": "No trading data for required time horizon",
+        "type": "TEMPORARY"
+      }
+    ],
+    "last_failure": "2026-02-18T11:49:09.297236",
+    "reason": "No trading data for required time horizon",
+    "failure_type": "TEMPORARY"
+  },
+  "PRGO": {
+    "failure_count": 1,
+    "first_failure": "2026-02-18T11:49:11.165577",
+    "failure_history": [
+      {
+        "date": "2026-02-18T11:49:11.165587",
+        "reason": "No trading data for required time horizon",
+        "type": "TEMPORARY"
+      }
+    ],
+    "last_failure": "2026-02-18T11:49:11.165585",
+    "reason": "No trading data for required time horizon",
+    "failure_type": "TEMPORARY"
+  },
+  "CMTV": {
+    "failure_count": 1,
+    "first_failure": "2026-02-18T11:49:14.429495",
+    "failure_history": [
+      {
+        "date": "2026-02-18T11:49:14.429505",
+        "reason": "No trading data for required time horizon",
+        "type": "TEMPORARY"
+      }
+    ],
+    "last_failure": "2026-02-18T11:49:14.429503",
+    "reason": "No trading data for required time horizon",
+    "failure_type": "TEMPORARY"
+  },
+  "SNV": {
+    "failure_count": 1,
+    "first_failure": "2026-02-18T11:55:06.945016",
+    "failure_history": [
+      {
+        "date": "2026-02-18T11:55:06.945026",
+        "reason": "No trading data for required time horizon",
+        "type": "TEMPORARY"
+      }
+    ],
+    "last_failure": "2026-02-18T11:55:06.945024",
+    "reason": "No trading data for required time horizon",
+    "failure_type": "TEMPORARY"
+  },
+  "PBBK": {
+    "failure_count": 1,
+    "first_failure": "2026-02-18T11:56:41.185912",
+    "failure_history": [
+      {
+        "date": "2026-02-18T11:56:41.185922",
+        "reason": "No trading data for required time horizon",
+        "type": "TEMPORARY"
+      }
+    ],
+    "last_failure": "2026-02-18T11:56:41.185919",
+    "reason": "No trading data for required time horizon",
+    "failure_type": "TEMPORARY"
+  },
+  "MRUS": {
+    "failure_count": 1,
+    "first_failure": "2026-02-18T12:01:32.812537",
+    "failure_history": [
+      {
+        "date": "2026-02-18T12:01:32.812550",
+        "reason": "No trading data for required time horizon",
+        "type": "TEMPORARY"
+      }
+    ],
+    "last_failure": "2026-02-18T12:01:32.812547",
+    "reason": "No trading data for required time horizon",
+    "failure_type": "TEMPORARY"
+  },
+  "NWWP": {
+    "failure_count": 1,
+    "first_failure": "2026-02-18T12:09:35.356368",
+    "failure_history": [
+      {
+        "date": "2026-02-18T12:09:35.356381",
+        "reason": "No price data from yfinance",
+        "type": "TEMPORARY"
+      }
+    ],
+    "last_failure": "2026-02-18T12:09:35.356379",
+    "reason": "No price data from yfinance",
+    "failure_type": "TEMPORARY"
+  },
+  "XFLH": {
+    "failure_count": 1,
+    "first_failure": "2026-02-18T12:09:36.062626",
+    "failure_history": [
+      {
+        "date": "2026-02-18T12:09:36.062641",
+        "reason": "No price data from yfinance",
+        "type": "TEMPORARY"
+      }
+    ],
+    "last_failure": "2026-02-18T12:09:36.062638",
     "reason": "No price data from yfinance",
     "failure_type": "TEMPORARY"
   }
