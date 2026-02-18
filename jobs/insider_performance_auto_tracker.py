@@ -109,12 +109,19 @@ class AutoInsiderTracker:
         return []
 
     def _save_tracking_queue(self):
-        """Save the tracking queue to disk"""
+        """Save the tracking queue to disk using atomic write (temp + rename)"""
+        tmp_file = str(self.tracking_db_file) + '.tmp'
         try:
-            with open(self.tracking_db_file, 'w') as f:
+            with open(tmp_file, 'w') as f:
                 json.dump(self.tracking_queue, f, indent=2, default=str)
+            os.replace(tmp_file, self.tracking_db_file)
         except Exception as e:
             print(f"❌ Error saving tracking queue: {e}")
+            # Clean up temp file on failure
+            try:
+                os.remove(tmp_file)
+            except OSError:
+                pass
 
     def _get_active_tracks(self) -> List[Dict]:
         """Get all actively tracked trades (excluding failed)"""
@@ -263,6 +270,21 @@ class AutoInsiderTracker:
         failed_count = 0
         permanently_failed_count = 0
         failure_details = []  # Collect failure info for summary logging
+        consecutive_failures = 0  # Track consecutive failures for adaptive sleep
+
+        # Per-ticker yfinance result cache for this run.
+        # Avoids calling yfinance N times for the same ticker when multiple
+        # insiders bought the same stock. Stores the raw result dict from
+        # _fetch_outcomes_with_retry keyed by (ticker, trade_date, entry_price,
+        # horizons_tuple) since outcomes depend on these parameters.
+        # For blacklisted/failed tickers, we cache by ticker alone since
+        # the failure is ticker-level, not trade-level.
+        _ticker_failure_cache = {}  # ticker -> failure result dict
+
+        # Hard cap: if a track has failed too many times across all runs,
+        # promote it to FAILED to stop the infinite retry cycle.
+        # 30 failures = ~30 days of daily retries (or 10 blacklist cycles).
+        MAX_TRACK_FAILURE_COUNT = 30
 
         for track in active_tracks:
             trade_date = pd.to_datetime(track['trade_date'])
@@ -270,6 +292,25 @@ class AutoInsiderTracker:
 
             # Skip permanently failed trades (no point retrying)
             if track.get('failure_type') in ['DELISTED', 'INVALID_TICKER']:
+                continue
+
+            # Promote zombie tracks that have exceeded the hard failure cap
+            if track.get('failure_count', 0) >= MAX_TRACK_FAILURE_COUNT:
+                track['status'] = 'FAILED'
+                track['failure_type'] = track.get('failure_type', 'ZOMBIE')
+                track['failure_reason'] = (
+                    f"Exceeded {MAX_TRACK_FAILURE_COUNT} cumulative failures: "
+                    f"{track.get('failure_reason', 'unknown')}"
+                )
+                track['last_updated'] = datetime.now().isoformat()
+                permanently_failed_count += 1
+                failure_details.append({
+                    'ticker': track['ticker'],
+                    'type': 'ZOMBIE',
+                    'reason': track['failure_reason'],
+                    'permanent': True
+                })
+                failed_count += 1
                 continue
 
             # Check which time horizons need updating
@@ -293,10 +334,21 @@ class AutoInsiderTracker:
                 print(f"\n📊 {ticker} - {days_elapsed} days elapsed")
                 print(f"   Checking horizons: {[h[0] for h in horizons_to_check]}")
 
-            # Fetch price data with retry
-            result = self._fetch_outcomes_with_retry(
-                ticker, trade_date, entry_price, horizons_to_check, max_retries
-            )
+            # Check per-run failure cache: if this ticker already failed
+            # (blacklisted, delisted, etc.) earlier in this run, reuse the
+            # failure result without calling yfinance again.
+            if ticker in _ticker_failure_cache:
+                result = _ticker_failure_cache[ticker]
+            else:
+                # Fetch price data with retry
+                result = self._fetch_outcomes_with_retry(
+                    ticker, trade_date, entry_price, horizons_to_check, max_retries
+                )
+                # Cache failures at the ticker level so other tracks for the
+                # same ticker skip the yfinance call. Don't cache successes
+                # because outcome calculations are trade-date-specific.
+                if not (result and result.get('outcomes')):
+                    _ticker_failure_cache[ticker] = result
 
             if result and result.get('outcomes'):
                 outcomes = result['outcomes']
@@ -313,6 +365,7 @@ class AutoInsiderTracker:
                 track.pop('failure_reason', None)
                 track.pop('failure_count', None)
                 updated_count += 1
+                consecutive_failures = 0  # Reset on success
 
                 # Update main tracker's database
                 self._update_tracker_outcomes(track)
@@ -387,9 +440,18 @@ class AutoInsiderTracker:
                     })
 
                 failed_count += 1
+                consecutive_failures += 1
 
-            # Rate limiting
-            time.sleep(0.5)
+            # Adaptive rate limiting: back off when seeing consecutive failures
+            # (likely yfinance rate limiting or outage). Cached failures skip
+            # the sleep since no yfinance call was made.
+            if ticker not in _ticker_failure_cache or (result and result.get('outcomes')):
+                if consecutive_failures >= 10:
+                    time.sleep(5.0)  # Heavy backoff after 10+ consecutive failures
+                elif consecutive_failures >= 5:
+                    time.sleep(2.0)  # Moderate backoff
+                else:
+                    time.sleep(0.5)  # Normal rate limiting
 
         # Save updated queue
         self._save_tracking_queue()

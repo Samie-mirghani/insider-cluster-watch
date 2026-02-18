@@ -628,7 +628,7 @@ class InsiderPerformanceTracker:
             }
 
             # Calculate performance metrics for each time horizon
-            for horizon in ['30d', '90d', '180d']:
+            for horizon in ['30d', '60d', '90d', '180d']:
                 returns_col = f'return_{horizon}'
                 valid_trades = insider_trades[insider_trades[returns_col].notna()].copy()
 
@@ -902,7 +902,7 @@ class InsiderPerformanceTracker:
         report.append("PERFORMANCE BY TIME HORIZON:")
         report.append("-" * 70)
 
-        for horizon, days in [('30d', 30), ('90d', 90), ('180d', 180)]:
+        for horizon, days in [('30d', 30), ('60d', 60), ('90d', 90), ('180d', 180)]:
             report.append(f"\n{days}-Day Performance:")
             sample_size = profile.get(f'sample_size_{horizon}', 0)
             if sample_size > 0:
