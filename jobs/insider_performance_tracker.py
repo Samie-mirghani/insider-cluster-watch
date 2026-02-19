@@ -641,7 +641,6 @@ class InsiderPerformanceTracker:
         Updates self.profiles with comprehensive statistics for each insider.
 
         Filters applied before profile calculation:
-        - Institutional entities (company names) are excluded
         - Penny stock trades (entry_price < MIN_ENTRY_PRICE_FOR_PROFILE) are excluded
         """
         if self.trades_history.empty:
@@ -659,19 +658,7 @@ class InsiderPerformanceTracker:
             print("No trades with outcome data available")
             return
 
-        # Filter out institutional entities (company names masquerading as insiders)
-        entity_mask = trades_with_outcomes['insider_name'].apply(self._is_institutional_entity)
-        num_entities = entity_mask.sum()
-        if num_entities > 0:
-            entity_names = trades_with_outcomes.loc[entity_mask, 'insider_name'].unique()
-            logger.info(
-                f"Excluded {num_entities} trades from {len(entity_names)} "
-                f"institutional entities: {', '.join(entity_names[:5])}"
-                + (f" (and {len(entity_names) - 5} more)" if len(entity_names) > 5 else "")
-            )
-            trades_with_outcomes = trades_with_outcomes[~entity_mask]
-
-        # Filter out penny stock trades (unreliable returns)
+        # Filter out penny stock trades (unreliable returns at sub-dollar prices)
         if 'entry_price' in trades_with_outcomes.columns:
             penny_mask = (
                 trades_with_outcomes['entry_price'].notna() &
@@ -695,7 +682,7 @@ class InsiderPerformanceTracker:
         qualifying_insiders = set(trades_with_outcomes['insider_name'].unique())
 
         # Purge stale profiles for insiders who no longer qualify
-        # (e.g., filtered out as institutional entities or penny-stock-only)
+        # (e.g., all trades were penny stocks, or below min_trades threshold)
         stale_names = [
             name for name in list(self.profiles.keys())
             if name not in qualifying_insiders
