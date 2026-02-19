@@ -29,11 +29,15 @@ import logging
 # yfinance logs ERROR for every delisted ticker, which clutters logs
 # These are expected failures and don't break the pipeline
 logging.getLogger('yfinance').setLevel(logging.WARNING)
+logger = logging.getLogger(__name__)
 
 # Data paths
 DATA_DIR = Path(__file__).parent.parent / 'data'
 INSIDER_PROFILES_PATH = DATA_DIR / 'insider_profiles.json'
 INSIDER_TRADES_HISTORY_PATH = DATA_DIR / 'insider_trades_history.csv'
+
+# Minimum entry price for profile inclusion (filters penny stocks)
+MIN_ENTRY_PRICE_FOR_PROFILE = 1.00
 
 
 class InsiderPerformanceTracker:
@@ -593,6 +597,9 @@ class InsiderPerformanceTracker:
         Calculate performance profiles for all insiders based on their trade history.
 
         Updates self.profiles with comprehensive statistics for each insider.
+
+        Filters applied before profile calculation:
+        - Penny stock trades (entry_price < MIN_ENTRY_PRICE_FOR_PROFILE) are excluded
         """
         if self.trades_history.empty:
             print("No trade history available to calculate profiles")
@@ -609,6 +616,38 @@ class InsiderPerformanceTracker:
             print("No trades with outcome data available")
             return
 
+        # Filter out penny stock trades (unreliable returns at sub-dollar prices)
+        if 'entry_price' in trades_with_outcomes.columns:
+            # Defensive: coerce to numeric in case of corrupted CSV data
+            trades_with_outcomes['entry_price'] = pd.to_numeric(
+                trades_with_outcomes['entry_price'], errors='coerce'
+            )
+            penny_mask = (
+                trades_with_outcomes['entry_price'].notna() &
+                (trades_with_outcomes['entry_price'] < MIN_ENTRY_PRICE_FOR_PROFILE)
+            )
+            num_penny = penny_mask.sum()
+            if num_penny > 0:
+                penny_tickers = trades_with_outcomes.loc[penny_mask, 'ticker'].unique()
+                logger.info(
+                    f"Excluded {num_penny} penny stock trades "
+                    f"(entry_price < ${MIN_ENTRY_PRICE_FOR_PROFILE:.2f}): "
+                    f"{', '.join(penny_tickers[:10])}"
+                )
+                trades_with_outcomes = trades_with_outcomes[~penny_mask]
+
+        if trades_with_outcomes.empty:
+            # All trades were filtered — purge any stale profiles
+            if self.profiles:
+                logger.info(f"Purged all {len(self.profiles)} profiles (no qualifying trades remain)")
+                self.profiles.clear()
+                self._save_profiles()
+            print("No qualifying trades after filtering")
+            return
+
+        # Track which insiders actually get a profile this run
+        profiled_this_run = set()
+
         # Group by insider
         for insider_name in trades_with_outcomes['insider_name'].unique():
             insider_trades = trades_with_outcomes[
@@ -617,6 +656,8 @@ class InsiderPerformanceTracker:
 
             if len(insider_trades) < self.min_trades_for_score:
                 continue  # Not enough trades for reliable statistics
+
+            profiled_this_run.add(insider_name)
 
             profile = {
                 'name': insider_name,
@@ -759,6 +800,17 @@ class InsiderPerformanceTracker:
 
             # Store profile
             self.profiles[insider_name] = profile
+
+        # Purge stale profiles for insiders who no longer qualify
+        # (e.g., all trades were penny stocks, or dropped below min_trades threshold)
+        stale_names = [
+            name for name in list(self.profiles.keys())
+            if name not in profiled_this_run
+        ]
+        if stale_names:
+            for name in stale_names:
+                del self.profiles[name]
+            logger.info(f"Purged {len(stale_names)} stale profiles (no longer qualifying)")
 
         # Calculate percentiles
         if self.profiles:
