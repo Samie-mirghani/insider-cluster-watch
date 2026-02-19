@@ -29,11 +29,28 @@ import logging
 # yfinance logs ERROR for every delisted ticker, which clutters logs
 # These are expected failures and don't break the pipeline
 logging.getLogger('yfinance').setLevel(logging.WARNING)
+logger = logging.getLogger(__name__)
 
 # Data paths
 DATA_DIR = Path(__file__).parent.parent / 'data'
 INSIDER_PROFILES_PATH = DATA_DIR / 'insider_profiles.json'
 INSIDER_TRADES_HISTORY_PATH = DATA_DIR / 'insider_trades_history.csv'
+
+# Minimum entry price for profile inclusion (filters penny stocks)
+MIN_ENTRY_PRICE_FOR_PROFILE = 1.00
+
+# Institutional entity keywords — names containing these are companies, not people
+INSTITUTIONAL_KEYWORDS = [
+    'LLC', 'L.L.C', 'LP', 'L.P.', 'LTD', 'LIMITED',
+    'INC', 'INCORPORATED', 'CORP', 'CORPORATION',
+    'HOLDINGS', 'HOLDING CO', 'PARTNERS', 'PARTNERSHIP',
+    'FUND', 'FUNDS', 'INVESTMENT', 'INVESTMENTS',
+    'CAPITAL', 'CAPITAL MANAGEMENT', 'ASSET MANAGEMENT',
+    'PRIVATE EQUITY', 'ACQUISITION', 'ACQUISITIONS',
+    'MANAGEMENT', 'ADVISORS', 'ADVISORY', 'TRUST',
+    'VENTURE', 'VENTURES', 'EQUITY', 'SECURITIES',
+    'GROUP', 'ASSOCIATES', 'COMPANY', 'CO.',
+]
 
 
 class InsiderPerformanceTracker:
@@ -196,6 +213,35 @@ class InsiderPerformanceTracker:
             "timothy d cook" → "Timothy D Cook"
         """
         return ' '.join(word.capitalize() for word in normalized_name.split())
+
+    @staticmethod
+    def _is_institutional_entity(name: str) -> bool:
+        """
+        Check if a name is an institutional/corporate entity rather than a person.
+
+        Detects company names like "Ctt Pharmaceutical Holdings, Inc." that
+        sometimes appear in Form 4 filings as the reporting owner.
+
+        Uses word-boundary matching to avoid false positives like "LP" matching
+        inside "Ralph" or "Inc" matching inside "Prince".
+
+        Args:
+            name: Insider name (normalized or raw)
+
+        Returns:
+            True if the name appears to be a company/institution
+        """
+        if not name or not isinstance(name, str):
+            return False
+
+        name_upper = name.upper()
+        for kw in INSTITUTIONAL_KEYWORDS:
+            # Use word-boundary regex to avoid false positives
+            # e.g., "LP" should match "Saba Capital LP" but not "Ralph"
+            pattern = r'\b' + re.escape(kw) + r'\b'
+            if re.search(pattern, name_upper):
+                return True
+        return False
 
     def _load_trades_history(self) -> pd.DataFrame:
         """Load historical trades from CSV file."""
@@ -593,6 +639,10 @@ class InsiderPerformanceTracker:
         Calculate performance profiles for all insiders based on their trade history.
 
         Updates self.profiles with comprehensive statistics for each insider.
+
+        Filters applied before profile calculation:
+        - Institutional entities (company names) are excluded
+        - Penny stock trades (entry_price < MIN_ENTRY_PRICE_FOR_PROFILE) are excluded
         """
         if self.trades_history.empty:
             print("No trade history available to calculate profiles")
@@ -609,8 +659,54 @@ class InsiderPerformanceTracker:
             print("No trades with outcome data available")
             return
 
+        # Filter out institutional entities (company names masquerading as insiders)
+        entity_mask = trades_with_outcomes['insider_name'].apply(self._is_institutional_entity)
+        num_entities = entity_mask.sum()
+        if num_entities > 0:
+            entity_names = trades_with_outcomes.loc[entity_mask, 'insider_name'].unique()
+            logger.info(
+                f"Excluded {num_entities} trades from {len(entity_names)} "
+                f"institutional entities: {', '.join(entity_names[:5])}"
+                + (f" (and {len(entity_names) - 5} more)" if len(entity_names) > 5 else "")
+            )
+            trades_with_outcomes = trades_with_outcomes[~entity_mask]
+
+        # Filter out penny stock trades (unreliable returns)
+        if 'entry_price' in trades_with_outcomes.columns:
+            penny_mask = (
+                trades_with_outcomes['entry_price'].notna() &
+                (trades_with_outcomes['entry_price'] < MIN_ENTRY_PRICE_FOR_PROFILE)
+            )
+            num_penny = penny_mask.sum()
+            if num_penny > 0:
+                penny_tickers = trades_with_outcomes.loc[penny_mask, 'ticker'].unique()
+                logger.info(
+                    f"Excluded {num_penny} penny stock trades "
+                    f"(entry_price < ${MIN_ENTRY_PRICE_FOR_PROFILE:.2f}): "
+                    f"{', '.join(penny_tickers[:10])}"
+                )
+                trades_with_outcomes = trades_with_outcomes[~penny_mask]
+
+        if trades_with_outcomes.empty:
+            print("No qualifying trades after filtering")
+            return
+
+        # Build set of qualifying insider names from filtered data
+        qualifying_insiders = set(trades_with_outcomes['insider_name'].unique())
+
+        # Purge stale profiles for insiders who no longer qualify
+        # (e.g., filtered out as institutional entities or penny-stock-only)
+        stale_names = [
+            name for name in list(self.profiles.keys())
+            if name not in qualifying_insiders
+        ]
+        if stale_names:
+            for name in stale_names:
+                del self.profiles[name]
+            logger.info(f"Purged {len(stale_names)} stale profiles (no longer qualifying)")
+
         # Group by insider
-        for insider_name in trades_with_outcomes['insider_name'].unique():
+        for insider_name in qualifying_insiders:
             insider_trades = trades_with_outcomes[
                 trades_with_outcomes['insider_name'] == insider_name
             ].copy()
