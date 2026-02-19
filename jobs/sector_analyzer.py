@@ -147,6 +147,8 @@ INDUSTRY_TO_SECTOR = {
     'Leisure': 'Consumer Cyclical',
     'Lodging': 'Consumer Cyclical',
     'Resorts & Casinos': 'Consumer Cyclical',
+    'Gambling, Resorts & Casinos': 'Consumer Cyclical',
+    'Gambling': 'Consumer Cyclical',
     'Textile Manufacturing': 'Consumer Cyclical',
     'Furnishings, Fixtures & Appliances': 'Consumer Cyclical',
 
@@ -176,6 +178,8 @@ INDUSTRY_TO_SECTOR = {
     'Waste Management': 'Industrials',
     'Consulting Services': 'Industrials',
     'Conglomerates': 'Industrials',
+    'Integrated Freight & Logistics': 'Industrials',
+    'Freight & Logistics Services': 'Industrials',
 
     # Materials industries
     'Steel': 'Basic Materials',
@@ -413,14 +417,16 @@ class SectorAnalyzer:
 
         # Consumer keywords
         if any(kw in industry_lower for kw in ['retail', 'apparel', 'restaurant', 'hotel',
-                                                  'auto', 'consumer']):
+                                                  'auto', 'consumer', 'casino', 'gambling',
+                                                  'resort', 'leisure']):
             if any(kw in industry_lower for kw in ['food', 'beverage', 'grocery', 'tobacco']):
                 return 'XLP', 'Consumer Defensive'
             return 'XLY', 'Consumer Cyclical'
 
         # Industrial keywords
         if any(kw in industry_lower for kw in ['industrial', 'aerospace', 'defense', 'airline',
-                                                  'machinery', 'construction', 'transport']):
+                                                  'machinery', 'construction', 'transport',
+                                                  'freight', 'logistics', 'shipping']):
             return 'XLI', 'Industrials'
 
         # Materials keywords
