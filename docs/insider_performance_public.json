@@ -1,19 +1,9 @@
 {
-  "last_updated": "2026-02-18T12:13:20.917327",
+  "last_updated": "2026-02-19T12:05:45.067016",
   "status": "OK",
-  "total_insiders_tracked": 218,
-  "qualified_performers": 31,
+  "total_insiders_tracked": 254,
+  "qualified_performers": 36,
   "top_performers": [
-    {
-      "name": "Klass Russell Kevin",
-      "score": 100.0,
-      "win_rate": 100.0,
-      "avg_return": 126.2,
-      "total_trades": 5,
-      "best_trade": 142.5,
-      "worst_trade": 110.0,
-      "sharpe_ratio": 5.49
-    },
     {
       "name": "Piconi Robert",
       "score": 100.0,
@@ -23,16 +13,6 @@
       "best_trade": 94.7,
       "worst_trade": 79.2,
       "sharpe_ratio": 7.9
-    },
-    {
-      "name": "Billingsley Chester",
-      "score": 100.0,
-      "win_rate": 100.0,
-      "avg_return": 74.5,
-      "total_trades": 28,
-      "best_trade": 120.0,
-      "worst_trade": 12.5,
-      "sharpe_ratio": 2.18
     },
     {
       "name": "Inc Ctt Pharmaceutical Holdings",
@@ -85,6 +65,16 @@
       "sharpe_ratio": 1.7
     },
     {
+      "name": "Klass Russell Kevin",
+      "score": 98.4,
+      "win_rate": 100.0,
+      "avg_return": 93.5,
+      "total_trades": 5,
+      "best_trade": 142.5,
+      "worst_trade": 28.0,
+      "sharpe_ratio": 1.58
+    },
+    {
       "name": "Odowd William",
       "score": 98.2,
       "win_rate": 100.0,
@@ -93,6 +83,16 @@
       "best_trade": 56.5,
       "worst_trade": 8.3,
       "sharpe_ratio": 1.65
+    },
+    {
+      "name": "Sprott Eric",
+      "score": 97.7,
+      "win_rate": 100.0,
+      "avg_return": 191.9,
+      "total_trades": 7,
+      "best_trade": 343.0,
+      "worst_trade": 69.1,
+      "sharpe_ratio": 1.38
     },
     {
       "name": "Carson William H",
@@ -115,11 +115,21 @@
       "sharpe_ratio": 1.49
     },
     {
+      "name": "Billingsley Chester",
+      "score": 94.9,
+      "win_rate": 86.7,
+      "avg_return": 61.8,
+      "total_trades": 31,
+      "best_trade": 120.0,
+      "worst_trade": -30.8,
+      "sharpe_ratio": 1.34
+    },
+    {
       "name": "Galkin Vladimir",
       "score": 94.4,
       "win_rate": 88.9,
       "avg_return": 57.0,
-      "total_trades": 9,
+      "total_trades": 12,
       "best_trade": 170.8,
       "worst_trade": -25.1,
       "sharpe_ratio": 1.09
@@ -129,7 +139,7 @@
       "score": 92.5,
       "win_rate": 100.0,
       "avg_return": 55.6,
-      "total_trades": 7,
+      "total_trades": 8,
       "best_trade": 55.6,
       "worst_trade": 55.6,
       "sharpe_ratio": null
@@ -143,16 +153,6 @@
       "best_trade": 117.4,
       "worst_trade": -15.6,
       "sharpe_ratio": 0.85
-    },
-    {
-      "name": "Shaw Thomas J",
-      "score": 92.0,
-      "win_rate": 100.0,
-      "avg_return": 18.9,
-      "total_trades": 30,
-      "best_trade": 58.5,
-      "worst_trade": 2.4,
-      "sharpe_ratio": 1.18
     }
   ]
 }

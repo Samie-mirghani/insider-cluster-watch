@@ -1,6 +1,6 @@
 {
   "starting_capital": 10000,
-  "cash": 5013.514999999994,
+  "cash": 5369.834999999994,
   "positions": {
     "ABT": {
       "entry_date": "2026-01-27T11:39:21.361467",
@@ -51,28 +51,6 @@
         }
       ]
     },
-    "HLXC": {
-      "entry_date": "2026-01-29T11:49:22.909093",
-      "entry_price": 10.26,
-      "shares": 44,
-      "cost_basis": 451.44,
-      "initial_stop_loss": 9.4392,
-      "stop_loss": 9.4392,
-      "take_profit": 11.491200000000001,
-      "highest_price": 10.26,
-      "trailing_enabled": false,
-      "signal_score": 7.960607084241539,
-      "sector": "Shell Companies",
-      "multi_signal_tier": "none",
-      "has_politician_signal": false,
-      "tranches": [
-        {
-          "shares": 44,
-          "price": 10.26,
-          "date": "2026-01-29T11:49:22.909099"
-        }
-      ]
-    },
     "GDV": {
       "entry_date": "2026-01-29T11:49:25.508593",
       "entry_price": 27.78,
@@ -114,33 +92,6 @@
           "shares": 3,
           "price": 185.27,
           "date": "2026-02-03T11:52:37.722042"
-        }
-      ]
-    },
-    "EIKN": {
-      "entry_date": "2026-02-09T12:07:14.547570",
-      "entry_price": 14.140232558139534,
-      "shares": 86,
-      "cost_basis": 1216.06,
-      "initial_stop_loss": 13.34,
-      "stop_loss": 14.934,
-      "take_profit": 15.837060465116279,
-      "highest_price": 15.72,
-      "trailing_enabled": true,
-      "signal_score": 14.099188854287693,
-      "sector": "Biotechnology",
-      "multi_signal_tier": "none",
-      "has_politician_signal": false,
-      "tranches": [
-        {
-          "shares": 52,
-          "price": 14.5,
-          "date": "2026-02-09T12:07:14.547575"
-        },
-        {
-          "shares": 34,
-          "price": 13.59,
-          "date": "2026-02-11T12:02:35.515464"
         }
       ]
     },
@@ -194,10 +145,10 @@
       "shares": 30,
       "cost_basis": 729.0,
       "initial_stop_loss": 22.540000000000003,
-      "stop_loss": 22.356,
+      "stop_loss": 23.9115,
       "take_profit": 27.216000000000005,
-      "highest_price": 24.63,
-      "trailing_enabled": false,
+      "highest_price": 25.17,
+      "trailing_enabled": true,
       "signal_score": 8.073194905513356,
       "sector": "Banks - Regional",
       "multi_signal_tier": "none",
@@ -223,7 +174,7 @@
       "initial_stop_loss": 69.06439999999999,
       "stop_loss": 69.06439999999999,
       "take_profit": 84.0784,
-      "highest_price": 75.07,
+      "highest_price": 75.28,
       "trailing_enabled": false,
       "signal_score": 9.585031303842138,
       "sector": "Specialty Business Services",
@@ -280,6 +231,72 @@
           "date": "2026-02-16T12:02:56.131997"
         }
       ]
+    },
+    "KKR": {
+      "entry_date": "2026-02-19T12:04:34.712927",
+      "entry_price": 105.06,
+      "shares": 6,
+      "cost_basis": 630.36,
+      "initial_stop_loss": 96.65520000000001,
+      "stop_loss": 96.65520000000001,
+      "take_profit": 117.66720000000001,
+      "highest_price": 105.06,
+      "trailing_enabled": false,
+      "signal_score": 12.279752448469551,
+      "sector": "Asset Management",
+      "multi_signal_tier": "none",
+      "has_politician_signal": false,
+      "tranches": [
+        {
+          "shares": 6,
+          "price": 105.06,
+          "date": "2026-02-19T12:04:34.712932"
+        }
+      ]
+    },
+    "DEI": {
+      "entry_date": "2026-02-19T12:04:48.588149",
+      "entry_price": 9.83,
+      "shares": 48,
+      "cost_basis": 471.84000000000003,
+      "initial_stop_loss": 9.0436,
+      "stop_loss": 9.0436,
+      "take_profit": 11.0096,
+      "highest_price": 9.83,
+      "trailing_enabled": false,
+      "signal_score": 8.079930789177563,
+      "sector": "REIT - Office",
+      "multi_signal_tier": "none",
+      "has_politician_signal": false,
+      "tranches": [
+        {
+          "shares": 48,
+          "price": 9.83,
+          "date": "2026-02-19T12:04:48.588153"
+        }
+      ]
+    },
+    "VERX": {
+      "entry_date": "2026-02-19T12:05:07.059371",
+      "entry_price": 12.09,
+      "shares": 32,
+      "cost_basis": 386.88,
+      "initial_stop_loss": 11.1228,
+      "stop_loss": 11.1228,
+      "take_profit": 13.5408,
+      "highest_price": 12.09,
+      "trailing_enabled": false,
+      "signal_score": 6.331114736840234,
+      "sector": "Software - Application",
+      "multi_signal_tier": "none",
+      "has_politician_signal": false,
+      "tranches": [
+        {
+          "shares": 32,
+          "price": 12.09,
+          "date": "2026-02-19T12:05:07.059375"
+        }
+      ]
     }
   },
   "pending_entries": {
@@ -289,13 +306,34 @@
       "original_entry": 17.59,
       "expires": "2026-02-21T12:02:57.014303",
       "signal_score": 8.511079977582686
+    },
+    "KKR": {
+      "shares": 4,
+      "trigger_price": 102.9588,
+      "original_entry": 105.06,
+      "expires": "2026-02-24T12:04:37.133086",
+      "signal_score": 12.279752448469551
+    },
+    "DEI": {
+      "shares": 32,
+      "trigger_price": 9.6334,
+      "original_entry": 9.83,
+      "expires": "2026-02-24T12:04:50.033263",
+      "signal_score": 8.079930789177563
+    },
+    "VERX": {
+      "shares": 21,
+      "trigger_price": 11.8482,
+      "original_entry": 12.09,
+      "expires": "2026-02-24T12:05:09.170177",
+      "signal_score": 6.331114736840234
     }
   },
-  "total_trades": 52,
-  "winning_trades": 29,
-  "losing_trades": 11,
-  "total_profit": 2010.3999999999996,
-  "max_portfolio_value": 12286.142999999995,
+  "total_trades": 55,
+  "winning_trades": 30,
+  "losing_trades": 12,
+  "total_profit": 2188.2999999999997,
+  "max_portfolio_value": 12369.874999999995,
   "max_drawdown": -9.109194484777545,
-  "last_updated": "2026-02-18T12:13:14.928150"
+  "last_updated": "2026-02-19T12:05:23.780750"
 }
