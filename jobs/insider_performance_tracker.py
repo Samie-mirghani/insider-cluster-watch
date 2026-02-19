@@ -39,19 +39,6 @@ INSIDER_TRADES_HISTORY_PATH = DATA_DIR / 'insider_trades_history.csv'
 # Minimum entry price for profile inclusion (filters penny stocks)
 MIN_ENTRY_PRICE_FOR_PROFILE = 1.00
 
-# Institutional entity keywords — names containing these are companies, not people
-INSTITUTIONAL_KEYWORDS = [
-    'LLC', 'L.L.C', 'LP', 'L.P.', 'LTD', 'LIMITED',
-    'INC', 'INCORPORATED', 'CORP', 'CORPORATION',
-    'HOLDINGS', 'HOLDING CO', 'PARTNERS', 'PARTNERSHIP',
-    'FUND', 'FUNDS', 'INVESTMENT', 'INVESTMENTS',
-    'CAPITAL', 'CAPITAL MANAGEMENT', 'ASSET MANAGEMENT',
-    'PRIVATE EQUITY', 'ACQUISITION', 'ACQUISITIONS',
-    'MANAGEMENT', 'ADVISORS', 'ADVISORY', 'TRUST',
-    'VENTURE', 'VENTURES', 'EQUITY', 'SECURITIES',
-    'GROUP', 'ASSOCIATES', 'COMPANY', 'CO.',
-]
-
 
 class InsiderPerformanceTracker:
     """
@@ -213,35 +200,6 @@ class InsiderPerformanceTracker:
             "timothy d cook" → "Timothy D Cook"
         """
         return ' '.join(word.capitalize() for word in normalized_name.split())
-
-    @staticmethod
-    def _is_institutional_entity(name: str) -> bool:
-        """
-        Check if a name is an institutional/corporate entity rather than a person.
-
-        Detects company names like "Ctt Pharmaceutical Holdings, Inc." that
-        sometimes appear in Form 4 filings as the reporting owner.
-
-        Uses word-boundary matching to avoid false positives like "LP" matching
-        inside "Ralph" or "Inc" matching inside "Prince".
-
-        Args:
-            name: Insider name (normalized or raw)
-
-        Returns:
-            True if the name appears to be a company/institution
-        """
-        if not name or not isinstance(name, str):
-            return False
-
-        name_upper = name.upper()
-        for kw in INSTITUTIONAL_KEYWORDS:
-            # Use word-boundary regex to avoid false positives
-            # e.g., "LP" should match "Saba Capital LP" but not "Ralph"
-            pattern = r'\b' + re.escape(kw) + r'\b'
-            if re.search(pattern, name_upper):
-                return True
-        return False
 
     def _load_trades_history(self) -> pd.DataFrame:
         """Load historical trades from CSV file."""
@@ -660,6 +618,10 @@ class InsiderPerformanceTracker:
 
         # Filter out penny stock trades (unreliable returns at sub-dollar prices)
         if 'entry_price' in trades_with_outcomes.columns:
+            # Defensive: coerce to numeric in case of corrupted CSV data
+            trades_with_outcomes['entry_price'] = pd.to_numeric(
+                trades_with_outcomes['entry_price'], errors='coerce'
+            )
             penny_mask = (
                 trades_with_outcomes['entry_price'].notna() &
                 (trades_with_outcomes['entry_price'] < MIN_ENTRY_PRICE_FOR_PROFILE)
@@ -675,31 +637,27 @@ class InsiderPerformanceTracker:
                 trades_with_outcomes = trades_with_outcomes[~penny_mask]
 
         if trades_with_outcomes.empty:
+            # All trades were filtered — purge any stale profiles
+            if self.profiles:
+                logger.info(f"Purged all {len(self.profiles)} profiles (no qualifying trades remain)")
+                self.profiles.clear()
+                self._save_profiles()
             print("No qualifying trades after filtering")
             return
 
-        # Build set of qualifying insider names from filtered data
-        qualifying_insiders = set(trades_with_outcomes['insider_name'].unique())
-
-        # Purge stale profiles for insiders who no longer qualify
-        # (e.g., all trades were penny stocks, or below min_trades threshold)
-        stale_names = [
-            name for name in list(self.profiles.keys())
-            if name not in qualifying_insiders
-        ]
-        if stale_names:
-            for name in stale_names:
-                del self.profiles[name]
-            logger.info(f"Purged {len(stale_names)} stale profiles (no longer qualifying)")
+        # Track which insiders actually get a profile this run
+        profiled_this_run = set()
 
         # Group by insider
-        for insider_name in qualifying_insiders:
+        for insider_name in trades_with_outcomes['insider_name'].unique():
             insider_trades = trades_with_outcomes[
                 trades_with_outcomes['insider_name'] == insider_name
             ].copy()
 
             if len(insider_trades) < self.min_trades_for_score:
                 continue  # Not enough trades for reliable statistics
+
+            profiled_this_run.add(insider_name)
 
             profile = {
                 'name': insider_name,
@@ -842,6 +800,17 @@ class InsiderPerformanceTracker:
 
             # Store profile
             self.profiles[insider_name] = profile
+
+        # Purge stale profiles for insiders who no longer qualify
+        # (e.g., all trades were penny stocks, or dropped below min_trades threshold)
+        stale_names = [
+            name for name in list(self.profiles.keys())
+            if name not in profiled_this_run
+        ]
+        if stale_names:
+            for name in stale_names:
+                del self.profiles[name]
+            logger.info(f"Purged {len(stale_names)} stale profiles (no longer qualifying)")
 
         # Calculate percentiles
         if self.profiles:
