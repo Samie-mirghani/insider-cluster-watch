@@ -2,8 +2,9 @@ name: Trading - Morning Execution
 
 on:
   schedule:
-    # Run at 9:36 AM EST (14:36 UTC) on weekdays
-    - cron: '36 14 * * 1-5'
+    # Run at 10:06 AM EST (15:06 UTC) on weekdays - aligned with EXECUTION_START_TIME
+    # Waiting 36 min after open allows volatility to settle and spreads to tighten
+    - cron: '6 15 * * 1-5'
   workflow_dispatch:  # Allow manual trigger for testing
 
 jobs:
