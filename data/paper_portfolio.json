@@ -1,6 +1,6 @@
 {
   "starting_capital": 10000,
-  "cash": 5369.834999999994,
+  "cash": 4963.274999999993,
   "positions": {
     "ABT": {
       "entry_date": "2026-01-27T11:39:21.361467",
@@ -79,9 +79,9 @@
       "shares": 3,
       "cost_basis": 555.8100000000001,
       "initial_stop_loss": 170.44840000000002,
-      "stop_loss": 190.5795,
+      "stop_loss": 194.617,
       "take_profit": 207.50240000000002,
-      "highest_price": 200.61,
+      "highest_price": 204.86,
       "trailing_enabled": true,
       "signal_score": 11.807230145187502,
       "sector": "Industrial - Machinery",
@@ -234,12 +234,12 @@
     },
     "KKR": {
       "entry_date": "2026-02-19T12:04:34.712927",
-      "entry_price": 105.06,
-      "shares": 6,
-      "cost_basis": 630.36,
+      "entry_price": 103.69200000000001,
+      "shares": 10,
+      "cost_basis": 1036.92,
       "initial_stop_loss": 96.65520000000001,
-      "stop_loss": 96.65520000000001,
-      "take_profit": 117.66720000000001,
+      "stop_loss": 95.39664,
+      "take_profit": 116.13504000000002,
       "highest_price": 105.06,
       "trailing_enabled": false,
       "signal_score": 12.279752448469551,
@@ -251,6 +251,11 @@
           "shares": 6,
           "price": 105.06,
           "date": "2026-02-19T12:04:34.712932"
+        },
+        {
+          "shares": 4,
+          "price": 101.64,
+          "date": "2026-02-20T11:43:40.235750"
         }
       ]
     },
@@ -260,10 +265,10 @@
       "shares": 48,
       "cost_basis": 471.84000000000003,
       "initial_stop_loss": 9.0436,
-      "stop_loss": 9.0436,
+      "stop_loss": 9.6615,
       "take_profit": 11.0096,
-      "highest_price": 9.83,
-      "trailing_enabled": false,
+      "highest_price": 10.17,
+      "trailing_enabled": true,
       "signal_score": 8.079930789177563,
       "sector": "REIT - Office",
       "multi_signal_tier": "none",
@@ -282,10 +287,10 @@
       "shares": 32,
       "cost_basis": 386.88,
       "initial_stop_loss": 11.1228,
-      "stop_loss": 11.1228,
+      "stop_loss": 12.1695,
       "take_profit": 13.5408,
-      "highest_price": 12.09,
-      "trailing_enabled": false,
+      "highest_price": 12.81,
+      "trailing_enabled": true,
       "signal_score": 6.331114736840234,
       "sector": "Software - Application",
       "multi_signal_tier": "none",
@@ -307,13 +312,6 @@
       "expires": "2026-02-21T12:02:57.014303",
       "signal_score": 8.511079977582686
     },
-    "KKR": {
-      "shares": 4,
-      "trigger_price": 102.9588,
-      "original_entry": 105.06,
-      "expires": "2026-02-24T12:04:37.133086",
-      "signal_score": 12.279752448469551
-    },
     "DEI": {
       "shares": 32,
       "trigger_price": 9.6334,
@@ -333,7 +331,7 @@
   "winning_trades": 30,
   "losing_trades": 12,
   "total_profit": 2188.2999999999997,
-  "max_portfolio_value": 12369.874999999995,
+  "max_portfolio_value": 12373.204999999994,
   "max_drawdown": -9.109194484777545,
-  "last_updated": "2026-02-19T12:05:23.780750"
+  "last_updated": "2026-02-20T11:50:22.964463"
 }

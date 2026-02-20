@@ -1,8 +1,8 @@
 {
-  "last_updated": "2026-02-19T12:05:45.067016",
+  "last_updated": "2026-02-20T11:50:29.003241",
   "status": "OK",
-  "total_insiders_tracked": 254,
-  "qualified_performers": 36,
+  "total_insiders_tracked": 182,
+  "qualified_performers": 18,
   "top_performers": [
     {
       "name": "Piconi Robert",
@@ -13,16 +13,6 @@
       "best_trade": 94.7,
       "worst_trade": 79.2,
       "sharpe_ratio": 7.9
-    },
-    {
-      "name": "Inc Ctt Pharmaceutical Holdings",
-      "score": 100.0,
-      "win_rate": 100.0,
-      "avg_return": 72.5,
-      "total_trades": 7,
-      "best_trade": 103.9,
-      "worst_trade": 27.3,
-      "sharpe_ratio": 2.58
     },
     {
       "name": "Merriman D Jonathan",
@@ -45,46 +35,6 @@
       "sharpe_ratio": 2.76
     },
     {
-      "name": "Salvucci Joseph V",
-      "score": 100.0,
-      "win_rate": 100.0,
-      "avg_return": 27.8,
-      "total_trades": 7,
-      "best_trade": 36.9,
-      "worst_trade": 13.5,
-      "sharpe_ratio": 2.64
-    },
-    {
-      "name": "Marin Kendall Leo",
-      "score": 98.9,
-      "win_rate": 100.0,
-      "avg_return": 6945.0,
-      "total_trades": 8,
-      "best_trade": 13825.0,
-      "worst_trade": 119.0,
-      "sharpe_ratio": 1.7
-    },
-    {
-      "name": "Klass Russell Kevin",
-      "score": 98.4,
-      "win_rate": 100.0,
-      "avg_return": 93.5,
-      "total_trades": 5,
-      "best_trade": 142.5,
-      "worst_trade": 28.0,
-      "sharpe_ratio": 1.58
-    },
-    {
-      "name": "Odowd William",
-      "score": 98.2,
-      "win_rate": 100.0,
-      "avg_return": 28.5,
-      "total_trades": 23,
-      "best_trade": 56.5,
-      "worst_trade": 8.3,
-      "sharpe_ratio": 1.65
-    },
-    {
       "name": "Sprott Eric",
       "score": 97.7,
       "win_rate": 100.0,
@@ -95,34 +45,14 @@
       "sharpe_ratio": 1.38
     },
     {
-      "name": "Carson William H",
-      "score": 97.5,
-      "win_rate": 100.0,
-      "avg_return": 55.5,
-      "total_trades": 5,
-      "best_trade": 97.6,
-      "worst_trade": 26.8,
-      "sharpe_ratio": 1.49
-    },
-    {
       "name": "Martell Frank",
       "score": 95.1,
       "win_rate": 100.0,
       "avg_return": 18.9,
-      "total_trades": 6,
+      "total_trades": 8,
       "best_trade": 36.9,
       "worst_trade": 9.6,
       "sharpe_ratio": 1.49
-    },
-    {
-      "name": "Billingsley Chester",
-      "score": 94.9,
-      "win_rate": 86.7,
-      "avg_return": 61.8,
-      "total_trades": 31,
-      "best_trade": 120.0,
-      "worst_trade": -30.8,
-      "sharpe_ratio": 1.34
     },
     {
       "name": "Galkin Vladimir",
@@ -153,6 +83,76 @@
       "best_trade": 117.4,
       "worst_trade": -15.6,
       "sharpe_ratio": 0.85
+    },
+    {
+      "name": "Kavanaugh Frank",
+      "score": 87.9,
+      "win_rate": 100.0,
+      "avg_return": 13.9,
+      "total_trades": 7,
+      "best_trade": 26.5,
+      "worst_trade": 7.5,
+      "sharpe_ratio": 2.05
+    },
+    {
+      "name": "Seidman Lawrence B",
+      "score": 76.8,
+      "win_rate": 100.0,
+      "avg_return": 8.0,
+      "total_trades": 5,
+      "best_trade": 11.3,
+      "worst_trade": 6.1,
+      "sharpe_ratio": 3.54
+    },
+    {
+      "name": "Nelson Jonathan Michael",
+      "score": 69.2,
+      "win_rate": 100.0,
+      "avg_return": 4.5,
+      "total_trades": 5,
+      "best_trade": 6.7,
+      "worst_trade": 3.0,
+      "sharpe_ratio": 2.9
+    },
+    {
+      "name": "Jensen Barry H",
+      "score": 68.8,
+      "win_rate": 100.0,
+      "avg_return": 4.2,
+      "total_trades": 10,
+      "best_trade": 5.4,
+      "worst_trade": 0.3,
+      "sharpe_ratio": 2.2
+    },
+    {
+      "name": "Cozzone Robert D",
+      "score": 68.2,
+      "win_rate": 90.9,
+      "avg_return": 6.6,
+      "total_trades": 14,
+      "best_trade": 26.3,
+      "worst_trade": -0.3,
+      "sharpe_ratio": 0.92
+    },
+    {
+      "name": "Donegal Mutual Insurance Co",
+      "score": 67.6,
+      "win_rate": 87.5,
+      "avg_return": 6.1,
+      "total_trades": 11,
+      "best_trade": 15.4,
+      "worst_trade": -0.3,
+      "sharpe_ratio": 1.04
+    },
+    {
+      "name": "Shattuck Katherine W",
+      "score": 63.8,
+      "win_rate": 66.7,
+      "avg_return": 7.6,
+      "total_trades": 6,
+      "best_trade": 24.4,
+      "worst_trade": -3.6,
+      "sharpe_ratio": 0.51
     }
   ]
 }
