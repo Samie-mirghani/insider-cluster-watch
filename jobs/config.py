@@ -18,14 +18,14 @@ STARTING_CAPITAL = 10000  # $10k starting capital
 
 # Position Sizing
 MAX_POSITION_PCT = 0.10  # 10% max per position
-MAX_TOTAL_EXPOSURE = 0.60  # 60% max total exposure
-MAX_POSITIONS = 15  # Max 15 concurrent positions
+MAX_TOTAL_EXPOSURE = 0.70  # 70% max total exposure (matches automated_trading/config.py)
+MAX_POSITIONS = 10  # Max 10 concurrent positions (matches automated_trading/config.py)
 
 # Score-Weighted Position Sizing
 # When enabled, position sizes scale with signal score (higher scores = larger positions)
 ENABLE_SCORE_WEIGHTED_SIZING = True  # Enable score-based position sizing
 SCORE_WEIGHT_MIN_POSITION_PCT = 0.05  # 5% min position size (for signals at MIN_SCORE)
-SCORE_WEIGHT_MAX_POSITION_PCT = 0.15  # 15% max position size (for signals at MAX_SCORE)
+SCORE_WEIGHT_MAX_POSITION_PCT = 0.12  # 12% max position size (for signals at MAX_SCORE, matches automated_trading/config.py)
 SCORE_WEIGHT_MIN_SCORE = 6.0  # Minimum score in range (signals below this are filtered)
 SCORE_WEIGHT_MAX_SCORE = 20.0  # Maximum score in range (adjust based on actual max scores)
 
@@ -68,7 +68,7 @@ OLD_POSITION_STOP_PCT = 0.10  # 10% stop from high for old modest positions
 MAX_DAILY_LOSS_PCT = 5.0  # Alert if down >5% in one day
 MAX_DRAWDOWN_ALERT = 10.0  # Alert if drawdown >10%
 MIN_WIN_RATE_ALERT = 35.0  # Alert if win rate <35%
-MAX_EXPOSURE_ALERT = 60.0  # Alert if exposure >60% (matches MAX_TOTAL_EXPOSURE)
+MAX_EXPOSURE_ALERT = 70.0  # Alert if exposure >70% (matches MAX_TOTAL_EXPOSURE)
 
 # Logging
 LOG_LEVEL = 'INFO'  # DEBUG, INFO, WARNING, ERROR
