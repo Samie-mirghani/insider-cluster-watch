@@ -668,12 +668,27 @@ class PositionMonitor:
             List of positions to exit with reasons
         """
         exits_needed = []
+        positions_updated = False
 
         for ticker, pos in self.positions.items():
             current_price = self.get_current_price(ticker)
-            if not current_price:
-                logger.warning(f"Cannot get price for {ticker}, skipping exit check")
-                continue
+            if current_price:
+                # Cache successful price lookups for fallback during outages
+                if pos.get('last_known_price') != current_price:
+                    pos['last_known_price'] = current_price
+                    positions_updated = True
+            else:
+                # Use last known price as fallback — never skip exit checks entirely
+                fallback_price = pos.get('last_known_price') or pos.get('entry_price')
+                if fallback_price:
+                    current_price = fallback_price
+                    logger.warning(
+                        f"Cannot get live price for {ticker}, using last known "
+                        f"price ${fallback_price:.2f} for exit checks"
+                    )
+                else:
+                    logger.error(f"No price data available for {ticker}, skipping exit check")
+                    continue
 
             entry_price = pos['entry_price']
             pnl_pct = calculate_pnl_pct(entry_price, current_price)
@@ -737,6 +752,9 @@ class PositionMonitor:
                     f"@ ${current_price:.2f} ({pnl_pct:+.2f}%)"
                 )
 
+        if positions_updated:
+            self.save_positions()
+
         return exits_needed
 
     def update_trailing_stops(self) -> List[Dict[str, Any]]:
@@ -750,8 +768,19 @@ class PositionMonitor:
 
         for ticker, pos in self.positions.items():
             current_price = self.get_current_price(ticker)
-            if not current_price:
-                continue
+            if current_price:
+                pos['last_known_price'] = current_price
+            else:
+                # Use last known price as fallback for trailing stop updates
+                fallback_price = pos.get('last_known_price')
+                if fallback_price:
+                    current_price = fallback_price
+                    logger.warning(
+                        f"Cannot get live price for {ticker}, using last known "
+                        f"price ${fallback_price:.2f} for trailing stop update"
+                    )
+                else:
+                    continue
 
             entry_price = pos['entry_price']
             pnl_pct = calculate_pnl_pct(entry_price, current_price)

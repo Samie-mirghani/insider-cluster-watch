@@ -373,6 +373,21 @@ class TradingEngine:
 
         # Calculate position size
         position_value = self._calculate_position_value(signal, portfolio_value)
+
+        # Check total exposure limit
+        # portfolio_value - cash accounts for existing positions and pending
+        # orders (Alpaca reduces buying power on order submission)
+        current_exposure = portfolio_value - cash
+        if portfolio_value > 0:
+            projected_exposure_pct = (current_exposure + position_value) / portfolio_value
+        else:
+            projected_exposure_pct = 1.0
+        if projected_exposure_pct > config.MAX_TOTAL_EXPOSURE:
+            return False, (
+                f"Would exceed max exposure: {projected_exposure_pct*100:.1f}% "
+                f"> {config.MAX_TOTAL_EXPOSURE*100:.0f}% limit"
+            )
+
         if position_value > cash * 0.95:
             return False, f"Insufficient cash (need ${position_value:.2f}, have ${cash:.2f})"
 
