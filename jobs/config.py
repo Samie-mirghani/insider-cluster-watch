@@ -11,14 +11,14 @@ import os
 MAX_SIGNALS_TO_ANALYZE = 200  # Maximum number of signals to analyze daily
 
 # Signal Quality Filtering
-MIN_SIGNAL_SCORE_THRESHOLD = 7.0  # Minimum rank_score required to trade (raised from 6.0 to filter marginal signals)
+MIN_SIGNAL_SCORE_THRESHOLD = 6.0  # Minimum rank_score required to trade (filter low-quality signals)
 
 # Portfolio Settings
 STARTING_CAPITAL = 10000  # $10k starting capital
 
 # Position Sizing
 MAX_POSITION_PCT = 0.10  # 10% max per position
-MAX_TOTAL_EXPOSURE = 0.80  # 80% max total exposure (raised from 60% to deploy more capital)
+MAX_TOTAL_EXPOSURE = 0.60  # 60% max total exposure
 MAX_POSITIONS = 15  # Max 15 concurrent positions
 
 # Score-Weighted Position Sizing
@@ -26,14 +26,14 @@ MAX_POSITIONS = 15  # Max 15 concurrent positions
 ENABLE_SCORE_WEIGHTED_SIZING = True  # Enable score-based position sizing
 SCORE_WEIGHT_MIN_POSITION_PCT = 0.05  # 5% min position size (for signals at MIN_SCORE)
 SCORE_WEIGHT_MAX_POSITION_PCT = 0.15  # 15% max position size (for signals at MAX_SCORE)
-SCORE_WEIGHT_MIN_SCORE = 7.0  # Minimum score in range (matches MIN_SIGNAL_SCORE_THRESHOLD)
+SCORE_WEIGHT_MIN_SCORE = 6.0  # Minimum score in range (signals below this are filtered)
 SCORE_WEIGHT_MAX_SCORE = 20.0  # Maximum score in range (adjust based on actual max scores)
 
 # Risk Management
 STOP_LOSS_PCT = 0.08  # 8% initial stop loss (matches automated trading)
-TAKE_PROFIT_PCT = 0.20  # 20% profit target (raised from 12% to let winners run)
+TAKE_PROFIT_PCT = 0.12  # 12% profit target (matches automated trading)
 TRAILING_STOP_PCT = 0.05  # 5% trailing stop
-TRAILING_TRIGGER_PCT = 0.05  # Enable trailing after +5% gain (raised from 3% to avoid premature activation)
+TRAILING_TRIGGER_PCT = 0.03  # Enable trailing after +3% gain
 
 # Position Scaling
 ENABLE_SCALING = True  # Enable 2-tranche entries
@@ -49,8 +49,8 @@ MAX_DAILY_TRADES = 5  # Limit new positions per day
 # Performance-Based Max Hold (Hybrid: time-based exits + dynamic stops)
 PERFORMANCE_BASED_MAX_HOLD = True  # Enable performance-based time exits
 MAX_HOLD_LOSS_DAYS = 21  # Exit after 21 days if losing money
-MAX_HOLD_STAGNANT_DAYS = 35  # Exit after 35 days if barely positive (extended from 30)
-MAX_HOLD_STAGNANT_THRESHOLD = 2.0  # "Barely positive" threshold (%) (lowered from 3% to keep small gainers longer)
+MAX_HOLD_STAGNANT_DAYS = 30  # Exit after 30 days if barely positive
+MAX_HOLD_STAGNANT_THRESHOLD = 3.0  # "Barely positive" threshold (%)
 MAX_HOLD_EXTREME_DAYS = 45  # Maximum hold regardless of performance
 MAX_HOLD_EXTREME_EXCEPTION = 15.0  # Exception: keep if gaining >15% at 45 days
 
@@ -68,7 +68,7 @@ OLD_POSITION_STOP_PCT = 0.10  # 10% stop from high for old modest positions
 MAX_DAILY_LOSS_PCT = 5.0  # Alert if down >5% in one day
 MAX_DRAWDOWN_ALERT = 10.0  # Alert if drawdown >10%
 MIN_WIN_RATE_ALERT = 35.0  # Alert if win rate <35%
-MAX_EXPOSURE_ALERT = 80.0  # Alert if exposure >80% (matches MAX_TOTAL_EXPOSURE)
+MAX_EXPOSURE_ALERT = 60.0  # Alert if exposure >60% (matches MAX_TOTAL_EXPOSURE)
 
 # Logging
 LOG_LEVEL = 'INFO'  # DEBUG, INFO, WARNING, ERROR
@@ -105,8 +105,8 @@ MULTI_SIGNAL_STOP_LOSS = {
     'tier0': 0.08,  # -8% stop for politician-only (tighter due to lower conviction)
     'tier1': 0.12,  # -12% stop for highest conviction
     'tier2': 0.10,  # -10% stop
-    'tier3': 0.09,  # -9% stop (widened from 8%)
-    'tier4': 0.08   # -8% stop (widened from 6% to reduce noise-triggered exits)
+    'tier3': 0.08,  # -8% stop
+    'tier4': 0.06   # -6% stop (tighter for lower conviction)
 }
 
 # Follow-the-Smart-Money Scoring Settings

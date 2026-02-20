@@ -47,17 +47,17 @@ ALPACA_LIVE_BASE_URL = 'https://api.alpaca.markets'
 MAX_POSITION_PCT = 0.10          # 10% max per position
 MIN_POSITION_PCT = 0.03          # 3% minimum position (avoid tiny positions)
 MAX_POSITIONS = 10               # Max concurrent positions
-MAX_TOTAL_EXPOSURE = 0.80        # 80% max exposure (raised from 70% to deploy more capital)
+MAX_TOTAL_EXPOSURE = 0.70        # 70% max exposure (keep 30% cash buffer)
 
 # Score-weighted position sizing
 ENABLE_SCORE_WEIGHTED_SIZING = True
 SCORE_WEIGHT_MIN_POSITION_PCT = 0.05   # 5% for lowest qualifying score
 SCORE_WEIGHT_MAX_POSITION_PCT = 0.12   # 12% for highest scores
-SCORE_WEIGHT_MIN_SCORE = 7.0
+SCORE_WEIGHT_MIN_SCORE = 6.0
 SCORE_WEIGHT_MAX_SCORE = 20.0
 
 # Minimum thresholds
-MIN_SIGNAL_SCORE_THRESHOLD = 7.0       # Minimum score to trade (raised from 6.0 to filter marginal signals)
+MIN_SIGNAL_SCORE_THRESHOLD = 6.0       # Minimum score to trade
 MIN_POSITION_VALUE = 50.0              # $50 minimum position (avoid fractional share issues)
 
 # =============================================================================
@@ -65,11 +65,11 @@ MIN_POSITION_VALUE = 50.0              # $50 minimum position (avoid fractional 
 # =============================================================================
 # Base stop loss (can be overridden by tier)
 STOP_LOSS_PCT = 0.08             # 8% default stop loss
-TAKE_PROFIT_PCT = 0.20           # 20% take profit target (raised from 12% to let winners run)
+TAKE_PROFIT_PCT = 0.12           # 12% take profit target
 
 # Trailing stops
 TRAILING_STOP_PCT = 0.05         # 5% trailing stop
-TRAILING_TRIGGER_PCT = 0.05      # Enable trailing after +5% gain (raised from 3% to avoid premature activation)
+TRAILING_TRIGGER_PCT = 0.03      # Enable trailing after +3% gain
 
 # Tiered stop losses (multi-signal trades)
 # Risk Management Strategy:
@@ -84,8 +84,8 @@ TRAILING_TRIGGER_PCT = 0.05      # Enable trailing after +5% gain (raised from 3
 MULTI_SIGNAL_STOP_LOSS = {
     'tier1': 0.12,  # -12% stop for highest conviction (widest - most room)
     'tier2': 0.10,  # -10% stop for high conviction
-    'tier3': 0.09,  # -9% stop for medium conviction (widened from 8%)
-    'tier4': 0.08   # -8% stop for lower conviction (widened from 6% to reduce noise-triggered exits)
+    'tier3': 0.08,  # -8% stop for medium conviction
+    'tier4': 0.06   # -6% stop for lower conviction (tightest - fail fast)
 }
 
 # Dynamic stop tightening
@@ -99,8 +99,8 @@ HUGE_WINNER_STOP_PCT = 0.07      # 7% trailing stop for huge winners
 # TIME-BASED EXITS
 # =============================================================================
 MAX_HOLD_LOSS_DAYS = 21          # Exit after 21 days if losing
-MAX_HOLD_STAGNANT_DAYS = 35      # Exit after 35 days if barely positive (extended from 30)
-MAX_HOLD_STAGNANT_THRESHOLD = 2.0  # "Barely positive" = < 2% (lowered from 3% to keep small gainers longer)
+MAX_HOLD_STAGNANT_DAYS = 30      # Exit after 30 days if barely positive
+MAX_HOLD_STAGNANT_THRESHOLD = 3.0  # "Barely positive" = < 3%
 MAX_HOLD_EXTREME_DAYS = 45       # Max hold regardless of performance
 MAX_HOLD_EXTREME_EXCEPTION = 15.0  # Exception: keep if +15%
 
@@ -298,7 +298,7 @@ Status:         {enabled_status}
 
 Position Sizing:
   Max Position: {MAX_POSITION_PCT*100:.1f}%
-  Max Exposure: {MAX_TOTAL_EXPOSURE*100:.0f}%
+  Max Exposure: {MAX_TOTAL_EXPOSURE*100:.1f}%
   Max Positions: {MAX_POSITIONS}
 
 Risk Management:
