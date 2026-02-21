@@ -33,10 +33,6 @@ ALPACA_PAPER_SECRET_KEY = os.getenv('ALPACA_PAPER_SECRET_KEY')
 ALPACA_LIVE_API_KEY = os.getenv('ALPACA_LIVE_API_KEY')
 ALPACA_LIVE_SECRET_KEY = os.getenv('ALPACA_LIVE_SECRET_KEY')
 
-# API base URLs
-ALPACA_PAPER_BASE_URL = 'https://paper-api.alpaca.markets'
-ALPACA_LIVE_BASE_URL = 'https://api.alpaca.markets'
-
 # =============================================================================
 # PORTFOLIO PARAMETERS (Scalable Design)
 # =============================================================================
@@ -153,10 +149,6 @@ USE_LIMIT_ORDERS = True          # Use limit orders for price protection
 LIMIT_ORDER_CUSHION_PCT = 1.5    # 1.5% cushion above signal price for buys
 STOP_LIMIT_SPREAD_PCT = 2.0      # 2% below stop for stop-limit orders
 
-# Time in force
-DEFAULT_TIME_IN_FORCE = 'day'    # Orders expire at market close
-STOP_TIME_IN_FORCE = 'gtc'       # Stops are good-til-cancelled
-
 # Retry settings
 ORDER_RETRY_MAX_ATTEMPTS = 3
 ORDER_RETRY_DELAY_SECONDS = 2    # Exponential backoff: 2, 4, 8 seconds
@@ -225,6 +217,15 @@ LOG_LEVEL = os.getenv('ALPACA_LOG_LEVEL', 'INFO')
 LOG_FILE = os.path.join(DATA_DIR, 'alpaca_trading.log')
 
 # =============================================================================
+# INTERNAL TUNABLE PARAMETERS
+# =============================================================================
+# Previously hardcoded values promoted to config for tunability.
+ACCOUNT_CACHE_TIMEOUT_SECONDS = 60   # Account data cache lifetime (non-forced fetches)
+ORDER_EXPIRATION_HOURS = 24          # Remove stale pending orders after this many hours
+SIGNAL_STALENESS_HOURS = 24          # Queued signals expire for redeployment after this
+PARTIAL_FILL_TIMEOUT_MINUTES = 15    # Cancel unfilled order remainder after this many minutes
+
+# =============================================================================
 # HELPER FUNCTIONS
 # =============================================================================
 
@@ -234,13 +235,11 @@ def get_api_credentials():
         return {
             'api_key': ALPACA_LIVE_API_KEY,
             'secret_key': ALPACA_LIVE_SECRET_KEY,
-            'base_url': ALPACA_LIVE_BASE_URL
         }
     else:
         return {
             'api_key': ALPACA_PAPER_API_KEY,
             'secret_key': ALPACA_PAPER_SECRET_KEY,
-            'base_url': ALPACA_PAPER_BASE_URL
         }
 
 

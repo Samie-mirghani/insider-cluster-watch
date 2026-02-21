@@ -185,9 +185,9 @@ class AlpacaTradingClient:
         Returns:
             Account object with balance, buying power, etc.
         """
-        # Use cache if recent (< 60 seconds)
+        # Use cache if recent
         if not force_refresh and self._cached_account and self._last_account_fetch:
-            if (datetime.now() - self._last_account_fetch).total_seconds() < 60:
+            if (datetime.now() - self._last_account_fetch).total_seconds() < config.ACCOUNT_CACHE_TIMEOUT_SECONDS:
                 return self._cached_account
 
         account = self._retry_operation(
