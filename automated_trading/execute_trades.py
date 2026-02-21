@@ -749,6 +749,62 @@ class TradingEngine:
         )
         if not is_synced:
             logger.warning(f"Reconciliation found {len(discrepancies)} discrepancies after sync")
+
+            # Auto-fix discrepancies that persist after sync
+            auto_fixes = self.position_monitor.reconciler.get_auto_fix_actions()
+            fixes_applied = []
+
+            for fix in auto_fixes:
+                ticker = fix['ticker']
+                try:
+                    if fix['action'] == 'ADD_POSITION_LOCALLY':
+                        broker_pos = {
+                            'qty': fix['qty'],
+                            'avg_entry_price': fix['details'].get('broker_avg_price', 0),
+                            'cost_basis': fix['qty'] * fix['details'].get('broker_avg_price', 0),
+                            'market_value': fix['details'].get('broker_market_value', 0)
+                        }
+                        result = self.position_monitor.reconciler.sync_position(
+                            ticker, broker_pos, self.position_monitor.positions
+                        )
+                        fixes_applied.append(result)
+                        logger.info(f"  Auto-fix: added {ticker} from broker")
+
+                    elif fix['action'] == 'REMOVE_POSITION_LOCALLY':
+                        result = self.position_monitor.reconciler.remove_phantom_position(
+                            ticker, self.position_monitor.positions
+                        )
+                        fixes_applied.append(result)
+                        logger.info(f"  Auto-fix: removed phantom {ticker}")
+
+                    elif fix['action'] == 'SYNC_QUANTITY':
+                        if ticker in self.position_monitor.positions:
+                            old_qty = self.position_monitor.positions[ticker]['shares']
+                            new_qty = fix['broker_qty']
+                            self.position_monitor.positions[ticker]['shares'] = new_qty
+                            self.position_monitor.positions[ticker]['cost_basis'] = (
+                                new_qty * self.position_monitor.positions[ticker]['entry_price']
+                            )
+                            fixes_applied.append({
+                                'ticker': ticker,
+                                'action': 'QTY_SYNCED',
+                                'old_qty': old_qty,
+                                'new_qty': new_qty
+                            })
+                            logger.info(f"  Auto-fix: {ticker} qty {old_qty} -> {new_qty}")
+
+                except Exception as e:
+                    logger.error(f"  Auto-fix failed for {ticker}: {e}")
+
+            if fixes_applied:
+                self.position_monitor.save_positions()
+                logger.info(f"Auto-fixed {len(fixes_applied)} discrepancies")
+
+                log_audit_event('RECONCILIATION_AUTO_FIX', {
+                    'fixes_applied': len(fixes_applied),
+                    'fixes': fixes_applied
+                })
+
             self.alert_sender.send_reconciliation_alert(
                 [d.to_dict() for d in discrepancies]
             )
@@ -806,7 +862,9 @@ class TradingEngine:
                     results['orders_failed'] += 1
 
                     # Queue for potential intraday redeployment
-                    if 'Insufficient cash' in message or 'Max positions' in message:
+                    if ('Insufficient cash' in message
+                            or 'Max positions' in message
+                            or 'max exposure' in message):
                         self.signal_queue.add_signal(signal, reason=message)
                         results['queued_for_later'] += 1
             else:
@@ -820,9 +878,9 @@ class TradingEngine:
                     'sector': signal.get('sector', 'Unknown')
                 })
 
-                # Queue signals rejected ONLY due to max positions — they become
+                # Queue signals rejected due to capacity — they become
                 # redeployment candidates if a position exits intraday
-                if 'Max positions' in reason:
+                if 'Max positions' in reason or 'max exposure' in reason:
                     self.signal_queue.add_signal(signal, reason=reason)
                     results['queued_for_later'] += 1
                     logger.info(f"  Queued {ticker} for intraday redeployment")

@@ -262,7 +262,7 @@ class SignalQueue:
 
             try:
                 queued_at = datetime.fromisoformat(signal['queued_at'])
-                if datetime.now() - queued_at > timedelta(hours=24):
+                if datetime.now() - queued_at > timedelta(hours=config.SIGNAL_STALENESS_HOURS):
                     logger.debug(f"Skipping stale signal: {ticker}")
                     continue
             except (ValueError, TypeError) as e:

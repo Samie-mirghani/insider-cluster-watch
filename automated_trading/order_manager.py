@@ -448,7 +448,7 @@ class OrderManager:
             if order['ticker'] == ticker and order['side'] == side:
                 # Check if still pending (not expired)
                 created = datetime.fromisoformat(order['created_at'])
-                if datetime.now() - created < timedelta(hours=24):
+                if datetime.now() - created < timedelta(hours=config.ORDER_EXPIRATION_HOURS):
                     return True
         return False
 
@@ -511,7 +511,7 @@ class OrderManager:
             List of removed orders
         """
         removed = []
-        cutoff = datetime.now() - timedelta(hours=24)
+        cutoff = datetime.now() - timedelta(hours=config.ORDER_EXPIRATION_HOURS)
 
         for client_order_id in list(self.pending_orders.keys()):
             order = self.pending_orders[client_order_id]
@@ -620,7 +620,35 @@ class OrderManager:
                 elif status == 'partially_filled':
                     order['filled_shares'] = broker_order['filled_qty']
                     order['state'] = OrderState.PARTIALLY_FILLED.value
-                    results['unchanged'].append(order)
+
+                    # Check if partial fill has exceeded timeout
+                    submitted_at_str = order.get('submitted_at') or order['created_at']
+                    submitted_at = datetime.fromisoformat(submitted_at_str)
+                    age_minutes = (datetime.now() - submitted_at).total_seconds() / 60
+
+                    if age_minutes > config.PARTIAL_FILL_TIMEOUT_MINUTES:
+                        # Cancel unfilled remainder at broker
+                        cancelled = alpaca_client.cancel_order(order['order_id'])
+                        if cancelled:
+                            logger.info(
+                                f"Cancelled partial fill remainder for {order['ticker']} "
+                                f"after {age_minutes:.0f}min "
+                                f"({broker_order['filled_qty']}/{order['shares']} shares filled)"
+                            )
+
+                        # Accept the filled portion as a completed order
+                        filled_order = self.mark_order_filled(
+                            client_order_id,
+                            broker_order['filled_qty'],
+                            broker_order['filled_avg_price'],
+                            execution_metrics=execution_metrics
+                        )
+                        if filled_order:
+                            results['filled'].append(filled_order)
+                            if on_fill_callback:
+                                on_fill_callback(filled_order)
+                    else:
+                        results['unchanged'].append(order)
 
                 else:
                     results['unchanged'].append(order)
