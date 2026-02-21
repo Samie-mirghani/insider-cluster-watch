@@ -629,7 +629,24 @@ class OrderManager:
                     if age_minutes > config.PARTIAL_FILL_TIMEOUT_MINUTES:
                         # Cancel unfilled remainder at broker
                         cancelled = alpaca_client.cancel_order(order['order_id'])
-                        if cancelled:
+
+                        if not cancelled:
+                            # Cancel failed — order may have fully filled in the
+                            # meantime. Re-fetch to get the true final state so we
+                            # don't record a stale partial qty as the fill.
+                            logger.warning(
+                                f"Failed to cancel partial fill remainder for "
+                                f"{order['ticker']} (order {order['order_id']}), "
+                                f"re-fetching order status"
+                            )
+                            refreshed = alpaca_client.get_order(order['order_id'])
+                            if refreshed:
+                                refreshed_status = normalize_order_status(refreshed['status'])
+                                if refreshed_status == 'filled':
+                                    broker_order = refreshed
+                                elif refreshed_status == 'partially_filled':
+                                    broker_order = refreshed
+                        else:
                             logger.info(
                                 f"Cancelled partial fill remainder for {order['ticker']} "
                                 f"after {age_minutes:.0f}min "
