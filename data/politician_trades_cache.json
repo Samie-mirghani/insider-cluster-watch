@@ -1,6 +1,24 @@
 {
-  "cached_at": "2026-02-20T11:48:39.677799",
+  "cached_at": "2026-02-23T12:02:44.519627",
   "trades": [
+    {
+      "ticker": "ABT",
+      "politician": "Thomas Kean Jr",
+      "party": "Republican",
+      "trade_date": "2026-01-29",
+      "amount_range": "1K-15K",
+      "asset_name": "Abbott Laboratories",
+      "chamber": "House",
+      "transaction_type": "buy",
+      "disclosure_date": null,
+      "state": "NJ",
+      "amount_min": 1000.0,
+      "amount_max": 15000.0,
+      "amount_mid": 8000.0,
+      "politician_weight": 1.0,
+      "weighted_amount": 8000.0,
+      "disclosure_lag_days": NaN
+    },
     {
       "ticker": "AJINY",
       "politician": "Gil Cisneros",
@@ -287,42 +305,6 @@
       "amount_mid": 32500.0,
       "politician_weight": 1.0,
       "weighted_amount": 32500.0,
-      "disclosure_lag_days": NaN
-    },
-    {
-      "ticker": "HD",
-      "politician": "Gil Cisneros",
-      "party": "Democrat",
-      "trade_date": "2026-01-30",
-      "amount_range": "1K-15K",
-      "asset_name": "The Home Depot Inc",
-      "chamber": "House",
-      "transaction_type": "buy",
-      "disclosure_date": null,
-      "state": "CA",
-      "amount_min": 1000.0,
-      "amount_max": 15000.0,
-      "amount_mid": 8000.0,
-      "politician_weight": 1.0,
-      "weighted_amount": 8000.0,
-      "disclosure_lag_days": NaN
-    },
-    {
-      "ticker": "ISRG",
-      "politician": "Gil Cisneros",
-      "party": "Democrat",
-      "trade_date": "2026-01-30",
-      "amount_range": "1K-15K",
-      "asset_name": "Intuitive Surgical Inc",
-      "chamber": "House",
-      "transaction_type": "buy",
-      "disclosure_date": null,
-      "state": "CA",
-      "amount_min": 1000.0,
-      "amount_max": 15000.0,
-      "amount_mid": 8000.0,
-      "politician_weight": 1.0,
-      "weighted_amount": 8000.0,
       "disclosure_lag_days": NaN
     }
   ]
