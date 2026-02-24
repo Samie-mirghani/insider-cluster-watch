@@ -1,24 +1,24 @@
 {
-  "last_updated": "February 23, 2026 at 12:05 UTC",
-  "total_return_pct": 23.86,
-  "win_rate": 71.4,
-  "completed_trades": 42,
-  "active_trades": 13,
-  "avg_return_per_trade": 8.82,
-  "sharpe_ratio": 9.42,
+  "last_updated": "February 24, 2026 at 11:58 UTC",
+  "total_return_pct": 21.71,
+  "win_rate": 66.7,
+  "completed_trades": 45,
+  "active_trades": 10,
+  "avg_return_per_trade": 7.97,
+  "sharpe_ratio": 8.57,
   "max_drawdown": -9.11,
-  "avg_hold_days": 8,
+  "avg_hold_days": 9,
   "best_trade_pct": 59.64,
   "worst_trade_pct": -32.78,
-  "alpha_vs_sp500": 24.73,
+  "alpha_vs_sp500": 23.59,
   "avg_winner": 15.08,
-  "avg_loser": -6.84,
-  "win_loss_ratio": 2.2,
-  "profit_factor": 5.51,
-  "last_30_days_return": 90.85,
-  "last_10_trades_win_rate": 60.0,
-  "current_streak": 1,
-  "current_streak_type": "wins",
+  "avg_loser": -6.25,
+  "win_loss_ratio": 2.41,
+  "profit_factor": 4.82,
+  "last_30_days_return": 79.15,
+  "last_10_trades_win_rate": 50.0,
+  "current_streak": 3,
+  "current_streak_type": "losses",
   "conviction_performance": [
     {
       "conviction": "VERY HIGH",
@@ -28,21 +28,21 @@
     },
     {
       "conviction": "HIGH",
-      "trades": 15,
-      "win_rate": 80.0,
-      "avg_return": 12.11
+      "trades": 16,
+      "win_rate": 75.0,
+      "avg_return": 10.66
     },
     {
       "conviction": "MEDIUM",
-      "trades": 9,
-      "win_rate": 55.6,
-      "avg_return": 6.0
+      "trades": 10,
+      "win_rate": 50.0,
+      "avg_return": 5.39
     },
     {
       "conviction": "LOW",
-      "trades": 7,
-      "win_rate": 71.4,
-      "avg_return": 4.85
+      "trades": 8,
+      "win_rate": 62.5,
+      "avg_return": 4.18
     }
   ],
   "monthly_returns": [
@@ -56,10 +56,37 @@
     },
     {
       "month": "2026-02",
-      "return": 52.74
+      "return": 41.04
     }
   ],
   "recent_trades": [
+    {
+      "ticker": "VERX",
+      "entry_date": "Feb 19, 2026",
+      "exit_date": "Feb 24, 2026",
+      "hold_days": 4,
+      "return_pct": -0.5,
+      "conviction": "LOW",
+      "exit_reason": "Trailing Stop"
+    },
+    {
+      "ticker": "KKR",
+      "entry_date": "Feb 19, 2026",
+      "exit_date": "Feb 24, 2026",
+      "hold_days": 4,
+      "return_pct": -11.09,
+      "conviction": "HIGH",
+      "exit_reason": "Stop Loss"
+    },
+    {
+      "ticker": "TCBI",
+      "entry_date": "Jan 28, 2026",
+      "exit_date": "Feb 24, 2026",
+      "hold_days": 27,
+      "return_pct": -0.11,
+      "conviction": "MEDIUM",
+      "exit_reason": "Time Stop"
+    },
     {
       "ticker": "EIKN",
       "entry_date": "Feb 09, 2026",
@@ -212,96 +239,62 @@
       "return_pct": 35.46,
       "conviction": "MEDIUM",
       "exit_reason": "Take Profit"
-    },
-    {
-      "ticker": "CABA",
-      "entry_date": "Jan 22, 2026",
-      "exit_date": "Jan 23, 2026",
-      "hold_days": 0,
-      "return_pct": 25.64,
-      "conviction": "VERY HIGH",
-      "exit_reason": "Take Profit"
-    },
-    {
-      "ticker": "AKTS",
-      "entry_date": "Jan 13, 2026",
-      "exit_date": "Jan 19, 2026",
-      "hold_days": 5,
-      "return_pct": -7.61,
-      "conviction": "HIGH",
-      "exit_reason": "Stop Loss"
-    },
-    {
-      "ticker": "ALMS",
-      "entry_date": "Jan 13, 2026",
-      "exit_date": "Jan 15, 2026",
-      "hold_days": 1,
-      "return_pct": 15.41,
-      "conviction": "HIGH",
-      "exit_reason": "Take Profit"
     }
   ],
   "open_positions": [
     {
       "ticker": "ABT",
       "entry_date": "Jan 27, 2026",
-      "days_held": 27,
-      "unrealized_return": 4.2,
-      "conviction": "MEDIUM"
-    },
-    {
-      "ticker": "TCBI",
-      "entry_date": "Jan 28, 2026",
-      "days_held": 26,
-      "unrealized_return": 7.57,
+      "days_held": 28,
+      "unrealized_return": 7.07,
       "conviction": "MEDIUM"
     },
     {
       "ticker": "GDV",
       "entry_date": "Jan 29, 2026",
-      "days_held": 25,
-      "unrealized_return": 5.0,
+      "days_held": 26,
+      "unrealized_return": 4.36,
       "conviction": "MEDIUM"
     },
     {
       "ticker": "CR",
       "entry_date": "Feb 03, 2026",
-      "days_held": 20,
-      "unrealized_return": 9.7,
+      "days_held": 21,
+      "unrealized_return": 8.32,
       "conviction": "HIGH"
     },
     {
       "ticker": "ARCC",
       "entry_date": "Feb 10, 2026",
-      "days_held": 12,
-      "unrealized_return": -1.69,
+      "days_held": 13,
+      "unrealized_return": -2.21,
       "conviction": "HIGH"
     },
     {
       "ticker": "HCIC",
       "entry_date": "Feb 10, 2026",
-      "days_held": 12,
+      "days_held": 13,
       "unrealized_return": 0.0,
       "conviction": "HIGH"
     },
     {
       "ticker": "CBC",
       "entry_date": "Feb 10, 2026",
-      "days_held": 12,
-      "unrealized_return": 3.66,
+      "days_held": 13,
+      "unrealized_return": 0.04,
       "conviction": "MEDIUM"
     },
     {
       "ticker": "MMS",
       "entry_date": "Feb 12, 2026",
       "days_held": 11,
-      "unrealized_return": -1.72,
+      "unrealized_return": -3.58,
       "conviction": "MEDIUM"
     },
     {
       "ticker": "THS",
       "entry_date": "Feb 13, 2026",
-      "days_held": 10,
+      "days_held": 11,
       "unrealized_return": 0.0,
       "conviction": "LOW"
     },
@@ -309,36 +302,22 @@
       "ticker": "NPB",
       "entry_date": "Feb 16, 2026",
       "days_held": 7,
-      "unrealized_return": 2.16,
+      "unrealized_return": -0.74,
       "conviction": "MEDIUM"
-    },
-    {
-      "ticker": "KKR",
-      "entry_date": "Feb 19, 2026",
-      "days_held": 4,
-      "unrealized_return": -2.42,
-      "conviction": "HIGH"
     },
     {
       "ticker": "DEI",
       "entry_date": "Feb 19, 2026",
       "days_held": 4,
-      "unrealized_return": 6.41,
+      "unrealized_return": 3.05,
       "conviction": "MEDIUM"
-    },
-    {
-      "ticker": "VERX",
-      "entry_date": "Feb 19, 2026",
-      "days_held": 4,
-      "unrealized_return": 5.38,
-      "conviction": "LOW"
     }
   ],
   "portfolio_composition": {
     "starting_capital": 10000,
-    "current_value": 12385.9,
-    "cash": 4963.27,
-    "invested_capital": 7422.63,
-    "capital_deployed_pct": 59.93
+    "current_value": 12171.25,
+    "cash": 6757.73,
+    "invested_capital": 5413.52,
+    "capital_deployed_pct": 44.48
   }
 }
