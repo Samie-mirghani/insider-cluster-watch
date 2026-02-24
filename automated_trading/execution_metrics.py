@@ -8,7 +8,7 @@ Tracks and analyzes order execution quality:
 - Execution timing
 - Daily/weekly statistics
 
-This data helps optimize LIMIT_ORDER_CUSHION_PCT and EXECUTION_START_TIME.
+This data helps optimize limit order cushion settings and EXECUTION_START_TIME.
 """
 
 import os
@@ -88,7 +88,8 @@ class ExecutionMetrics:
         shares: int,
         order_type: str,
         submitted_at: str,
-        filled_at: str
+        filled_at: str,
+        market_cap_tier: Optional[str] = None
     ) -> Dict[str, Any]:
         """
         Record an executed order with slippage calculation.
@@ -103,6 +104,7 @@ class ExecutionMetrics:
             order_type: 'MARKET' or 'LIMIT'
             submitted_at: When order was submitted (ISO format)
             filled_at: When order filled (ISO format)
+            market_cap_tier: Market cap tier ('large_cap', 'mid_cap', 'small_cap', or 'default')
 
         Returns:
             Execution record with calculated metrics
@@ -143,7 +145,8 @@ class ExecutionMetrics:
             'slippage_pct': slippage_pct,
             'slippage_cost': slippage_cost,
             'time_to_fill_seconds': time_to_fill_seconds,
-            'execution_time': datetime.fromisoformat(filled_at).strftime('%H:%M:%S')
+            'execution_time': datetime.fromisoformat(filled_at).strftime('%H:%M:%S'),
+            'market_cap_tier': market_cap_tier
         }
 
         self.executions.append(execution)
@@ -181,7 +184,8 @@ class ExecutionMetrics:
         shares: int,
         reason: str,
         submitted_at: str,
-        expired_at: str
+        expired_at: str,
+        market_cap_tier: Optional[str] = None
     ) -> Dict[str, Any]:
         """
         Record a limit order that did not fill.
@@ -197,6 +201,7 @@ class ExecutionMetrics:
             reason: Why order didn't fill (EXPIRED, CANCELLED, etc.)
             submitted_at: When order was submitted
             expired_at: When order expired/cancelled
+            market_cap_tier: Market cap tier ('large_cap', 'mid_cap', 'small_cap', or 'default')
 
         Returns:
             Unfilled order record
@@ -215,7 +220,8 @@ class ExecutionMetrics:
             'time_pending_seconds': (
                 (datetime.fromisoformat(expired_at) -
                  datetime.fromisoformat(submitted_at)).total_seconds()
-            )
+            ),
+            'market_cap_tier': market_cap_tier
         }
 
         self.executions.append(unfilled)
@@ -345,6 +351,65 @@ class ExecutionMetrics:
             reasons[reason] = reasons.get(reason, 0) + 1
         return reasons
 
+    def get_fill_rate_by_tier(
+        self,
+        days: int = 30,
+        side: Optional[str] = None
+    ) -> Dict[str, Dict[str, Any]]:
+        """
+        Calculate fill rate broken down by market cap tier.
+
+        Args:
+            days: Number of days to analyze
+            side: Optional filter by BUY/SELL
+
+        Returns:
+            Dict keyed by tier with fill rate stats for each
+        """
+        cutoff = (datetime.now() - timedelta(days=days)).isoformat()
+
+        limit_orders = [
+            e for e in self.executions
+            if e.get('timestamp', '') >= cutoff
+            and e.get('order_type') == 'LIMIT'
+        ]
+
+        if side:
+            limit_orders = [e for e in limit_orders if e['side'] == side]
+
+        tiers = ['large_cap', 'mid_cap', 'small_cap', 'default']
+        result = {}
+
+        for tier in tiers:
+            tier_orders = [
+                e for e in limit_orders
+                if e.get('market_cap_tier') == tier
+            ]
+
+            if not tier_orders:
+                result[tier] = {
+                    'total_orders': 0,
+                    'filled_orders': 0,
+                    'unfilled_orders': 0,
+                    'fill_rate_pct': 0,
+                }
+                continue
+
+            filled = [e for e in tier_orders if e.get('filled', True)]
+            unfilled = [e for e in tier_orders if not e.get('filled', True)]
+
+            slippages = [e['slippage_pct'] for e in filled if 'slippage_pct' in e]
+
+            result[tier] = {
+                'total_orders': len(tier_orders),
+                'filled_orders': len(filled),
+                'unfilled_orders': len(unfilled),
+                'fill_rate_pct': len(filled) / len(tier_orders) * 100,
+                'avg_slippage_pct': mean(slippages) if slippages else 0,
+            }
+
+        return result
+
     def get_daily_summary(self, date: Optional[str] = None) -> Dict[str, Any]:
         """
         Get execution summary for a specific date.
@@ -428,6 +493,28 @@ class ExecutionMetrics:
                     f"  {i}. {exec['ticker']} {exec['side']}: "
                     f"{exec['slippage_pct']:+.2f}% (${exec['slippage_cost']:+.2f})"
                 )
+            report_lines.append("")
+
+        # Fill rate by market cap tier
+        tier_stats = self.get_fill_rate_by_tier(days)
+        has_tier_data = any(t['total_orders'] > 0 for t in tier_stats.values())
+        if has_tier_data:
+            report_lines.append("FILL RATE BY MARKET CAP TIER:")
+            tier_labels = {
+                'large_cap': 'Large  (>=$10B)',
+                'mid_cap':   'Mid    ($2-10B)',
+                'small_cap': 'Small  (<$2B) ',
+                'default':   'Unknown       ',
+            }
+            for tier, label in tier_labels.items():
+                ts = tier_stats[tier]
+                if ts['total_orders'] > 0:
+                    report_lines.append(
+                        f"  {label}  "
+                        f"{ts['filled_orders']}/{ts['total_orders']} filled "
+                        f"({ts['fill_rate_pct']:.0f}%)  "
+                        f"avg slip: {ts['avg_slippage_pct']:+.2f}%"
+                    )
             report_lines.append("")
 
         report_lines.append("=" * 70)

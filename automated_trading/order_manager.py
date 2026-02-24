@@ -317,6 +317,9 @@ class OrderManager:
                     signal_price = filled_price  # For sells, just track the execution without slippage calc for now
 
                 if signal_price:
+                    signal_data = order.get('signal_data', {})
+                    market_cap = signal_data.get('market_cap') if signal_data else None
+                    cap_tier = config.get_market_cap_tier(market_cap)
                     execution_metrics.record_execution(
                         ticker=order['ticker'],
                         side=order['side'],
@@ -326,7 +329,8 @@ class OrderManager:
                         shares=filled_shares,
                         order_type=order.get('order_type', 'MARKET'),
                         submitted_at=order.get('submitted_at', order['created_at']),
-                        filled_at=order['filled_at']
+                        filled_at=order['filled_at'],
+                        market_cap_tier=cap_tier
                     )
             except Exception as e:
                 logger.warning(f"Failed to record execution metrics: {e}")
@@ -532,6 +536,9 @@ class OrderManager:
 
                     if signal_price:
                         try:
+                            signal_data = order.get('signal_data', {})
+                            market_cap = signal_data.get('market_cap') if signal_data else None
+                            cap_tier = config.get_market_cap_tier(market_cap)
                             execution_metrics.record_unfilled_order(
                                 ticker=order['ticker'],
                                 side=order['side'],
@@ -540,7 +547,8 @@ class OrderManager:
                                 shares=order['shares'],
                                 reason='EXPIRED',
                                 submitted_at=order.get('submitted_at', order['created_at']),
-                                expired_at=datetime.now().isoformat()
+                                expired_at=datetime.now().isoformat(),
+                                market_cap_tier=cap_tier
                             )
                         except Exception as e:
                             logger.warning(f"Failed to record unfilled order: {e}")

@@ -141,14 +141,24 @@ REDEPLOYMENT_MIN_FREED_CAPITAL = 100  # Minimum freed capital to trigger ($100)
 # ORDER EXECUTION PARAMETERS
 # =============================================================================
 # Order types and timing
-# CRITICAL FIX: Using limit orders with 0.75% cushion to protect against slippage
-# Analysis shows common slippage of 2-5% on market orders, which immediately puts
-# positions at a disadvantage. Limit orders prevent bad fills at the cost of some
-# unfilled orders (which get queued for redeployment).
-# Lowered from 1.5% to 0.75% for tighter entry price control.
+# Limit orders with a market-cap-tiered cushion protect against slippage while
+# keeping entries tight.  Large caps are liquid enough for a narrow cushion;
+# small caps need more room to fill.
 USE_LIMIT_ORDERS = True          # Use limit orders for price protection
-LIMIT_ORDER_CUSHION_PCT = 0.75   # 0.75% cushion above signal price for buys
 STOP_LIMIT_SPREAD_PCT = 2.0      # 2% below stop for stop-limit orders
+
+# Market cap tier boundaries (used for slippage cushion selection)
+MARKET_CAP_LARGE_THRESHOLD = 10_000_000_000   # >= $10B = large cap
+MARKET_CAP_MID_THRESHOLD   =  2_000_000_000   # >= $2B  = mid cap
+                                               # <  $2B  = small cap
+
+# Limit order cushion by market cap tier (% above signal price for buys)
+LIMIT_ORDER_CUSHION_BY_CAP = {
+    'large_cap': 0.75,   # Liquid names — tight cushion
+    'mid_cap':   1.25,   # Moderate liquidity
+    'small_cap': 1.75,   # Thinner books — more room to fill
+}
+LIMIT_ORDER_CUSHION_DEFAULT = 1.25  # Fallback when market_cap is unknown
 
 # Retry settings
 ORDER_RETRY_MAX_ATTEMPTS = 3
@@ -252,6 +262,23 @@ def get_daily_loss_limit_dollars(portfolio_value):
 def get_daily_loss_warning_dollars(portfolio_value):
     """Calculate daily loss warning threshold in dollars."""
     return portfolio_value * (DAILY_LOSS_WARNING_PCT / 100)
+
+
+def get_market_cap_tier(market_cap) -> str:
+    """Classify a market cap value into a tier label."""
+    if market_cap is None:
+        return 'default'
+    if market_cap >= MARKET_CAP_LARGE_THRESHOLD:
+        return 'large_cap'
+    if market_cap >= MARKET_CAP_MID_THRESHOLD:
+        return 'mid_cap'
+    return 'small_cap'
+
+
+def get_limit_order_cushion(market_cap) -> float:
+    """Return the limit-order cushion % for the given market cap."""
+    tier = get_market_cap_tier(market_cap)
+    return LIMIT_ORDER_CUSHION_BY_CAP.get(tier, LIMIT_ORDER_CUSHION_DEFAULT)
 
 
 def validate_config():

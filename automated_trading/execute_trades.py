@@ -496,12 +496,15 @@ class TradingEngine:
 
         # Determine order type and limit price
         if config.USE_LIMIT_ORDERS:
-            # Use limit order with cushion to protect against slippage
-            limit_price = entry_price * (1 + config.LIMIT_ORDER_CUSHION_PCT / 100)
+            # Use limit order with market-cap-tiered cushion
+            market_cap = signal.get('market_cap')
+            cushion_pct = config.get_limit_order_cushion(market_cap)
+            limit_price = entry_price * (1 + cushion_pct / 100)
             order_type = "LIMIT"
         else:
             # Market order (immediate fill, no price protection)
             limit_price = entry_price
+            cushion_pct = 0
             order_type = "MARKET"
 
         # Create order record
@@ -520,9 +523,10 @@ class TradingEngine:
         try:
             # Submit to Alpaca
             if config.USE_LIMIT_ORDERS:
+                cap_tier = config.get_market_cap_tier(signal.get('market_cap'))
                 logger.info(
                     f"Submitting LIMIT order: {ticker} x{shares} @ ${limit_price:.2f} "
-                    f"(signal: ${entry_price:.2f}, cushion: {config.LIMIT_ORDER_CUSHION_PCT}%)"
+                    f"(signal: ${entry_price:.2f}, cushion: {cushion_pct}% [{cap_tier}])"
                 )
                 alpaca_order = self.alpaca_client.submit_limit_buy(
                     symbol=ticker,
@@ -850,7 +854,8 @@ class TradingEngine:
                     portfolio_value = self.alpaca_client.get_portfolio_value()
                     position_value = self._calculate_position_value(signal, portfolio_value)
                     shares = int(position_value / entry_price)  # Divide by entry_price (not limit_price)
-                    limit_price = round(entry_price * (1 + config.LIMIT_ORDER_CUSHION_PCT / 100), 2)
+                    cushion_pct = config.get_limit_order_cushion(signal.get('market_cap'))
+                    limit_price = round(entry_price * (1 + cushion_pct / 100), 2)
 
                     executed_trades.append({
                         'ticker': ticker,
