@@ -9,6 +9,7 @@ Parameters are designed for safety-first operation with conservative defaults.
 from dotenv import load_dotenv
 load_dotenv()
 
+import math
 import os
 from datetime import time
 
@@ -265,8 +266,20 @@ def get_daily_loss_warning_dollars(portfolio_value):
 
 
 def get_market_cap_tier(market_cap) -> str:
-    """Classify a market cap value into a tier label."""
+    """Classify a market cap value into a tier label.
+
+    Handles None, NaN, strings, and other non-numeric types safely —
+    all fall back to 'default' rather than crashing.
+    """
     if market_cap is None:
+        return 'default'
+    try:
+        market_cap = float(market_cap)
+    except (TypeError, ValueError):
+        return 'default'
+    # math.isnan check: float('nan') comparisons always return False,
+    # which would silently misclassify NaN as small_cap.
+    if math.isnan(market_cap):
         return 'default'
     if market_cap >= MARKET_CAP_LARGE_THRESHOLD:
         return 'large_cap'
