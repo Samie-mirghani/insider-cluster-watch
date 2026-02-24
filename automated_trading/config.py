@@ -141,12 +141,13 @@ REDEPLOYMENT_MIN_FREED_CAPITAL = 100  # Minimum freed capital to trigger ($100)
 # ORDER EXECUTION PARAMETERS
 # =============================================================================
 # Order types and timing
-# CRITICAL FIX: Using limit orders with 1.5% cushion to protect against slippage
+# CRITICAL FIX: Using limit orders with 0.75% cushion to protect against slippage
 # Analysis shows common slippage of 2-5% on market orders, which immediately puts
 # positions at a disadvantage. Limit orders prevent bad fills at the cost of some
 # unfilled orders (which get queued for redeployment).
+# Lowered from 1.5% to 0.75% for tighter entry price control.
 USE_LIMIT_ORDERS = True          # Use limit orders for price protection
-LIMIT_ORDER_CUSHION_PCT = 1.5    # 1.5% cushion above signal price for buys
+LIMIT_ORDER_CUSHION_PCT = 0.75   # 0.75% cushion above signal price for buys
 STOP_LIMIT_SPREAD_PCT = 2.0      # 2% below stop for stop-limit orders
 
 # Retry settings
