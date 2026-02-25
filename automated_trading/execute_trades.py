@@ -374,24 +374,106 @@ class TradingEngine:
         # Calculate position size
         position_value = self._calculate_position_value(signal, portfolio_value)
 
-        # Check total exposure limit
-        # portfolio_value - cash accounts for existing positions and pending
-        # orders (Alpaca reduces buying power on order submission)
+        # Check total exposure limit (adaptive based on recent win rate)
+        max_exposure = config.MAX_TOTAL_EXPOSURE
+        if config.ENABLE_ADAPTIVE_EXPOSURE:
+            win_rate, total_trades = self._get_recent_win_rate()
+            max_exposure = config.get_adaptive_max_exposure(win_rate, total_trades)
+            if max_exposure != config.MAX_TOTAL_EXPOSURE:
+                logger.info(
+                    f"Adaptive exposure: WR {win_rate*100:.0f}% ({total_trades} trades) "
+                    f"→ max exposure {max_exposure*100:.0f}%"
+                )
+
         current_exposure = portfolio_value - cash
         if portfolio_value > 0:
             projected_exposure_pct = (current_exposure + position_value) / portfolio_value
         else:
             projected_exposure_pct = 1.0
-        if projected_exposure_pct > config.MAX_TOTAL_EXPOSURE:
+        if projected_exposure_pct > max_exposure:
             return False, (
                 f"Would exceed max exposure: {projected_exposure_pct*100:.1f}% "
-                f"> {config.MAX_TOTAL_EXPOSURE*100:.0f}% limit"
+                f"> {max_exposure*100:.0f}% limit"
             )
 
         if position_value > cash * 0.95:
             return False, f"Insufficient cash (need ${position_value:.2f}, have ${cash:.2f})"
 
+        # Sector concentration check — hard reject above threshold
+        sector = signal.get('sector', 'Unknown')
+        if sector and sector != 'Unknown' and portfolio_value > 0:
+            sector_value = sum(
+                pos.get('cost_basis', 0)
+                for pos in self.position_monitor.positions.values()
+                if pos.get('sector') == sector
+            )
+            new_sector_pct = (sector_value + position_value) / portfolio_value
+            if new_sector_pct > config.SECTOR_HIGH_CONCENTRATION_THRESHOLD:
+                return False, (
+                    f"Sector concentration: {sector} would be {new_sector_pct*100:.1f}% "
+                    f"(> {config.SECTOR_HIGH_CONCENTRATION_THRESHOLD*100:.0f}% limit)"
+                )
+
         return True, "Valid"
+
+    def _get_recent_win_rate(self) -> Tuple[float, int]:
+        """
+        Calculate win rate from recent POSITION_CLOSED audit events.
+
+        Returns:
+            Tuple of (win_rate as 0.0-1.0, total_closed_trades)
+        """
+        try:
+            recent_events = read_recent_audit_events(
+                event_type='POSITION_CLOSED', limit=100
+            )
+            if not recent_events:
+                return 0.0, 0
+            wins = sum(1 for e in recent_events if e.get('data', {}).get('pnl', 0) > 0)
+            total = len(recent_events)
+            return (wins / total if total > 0 else 0.0), total
+        except Exception:
+            return 0.0, 0
+
+    @staticmethod
+    def _calculate_atr_pct(ticker: str) -> Optional[float]:
+        """
+        Calculate the 20-day Average True Range as a percentage of price.
+
+        Returns:
+            ATR as % of closing price, or None if data is unavailable.
+        """
+        try:
+            lookback = config.VOLATILITY_ATR_LOOKBACK_DAYS + 5  # extra days for weekends
+            end_date = datetime.now()
+            start_date = end_date - timedelta(days=int(lookback * 1.8))
+            hist = yf.download(ticker, start=start_date, end=end_date, progress=False)
+
+            if hist.empty or len(hist) < config.VOLATILITY_ATR_LOOKBACK_DAYS:
+                return None
+
+            # True Range = max(high-low, |high-prev_close|, |low-prev_close|)
+            high = hist['High']
+            low = hist['Low']
+            close = hist['Close']
+            prev_close = close.shift(1)
+
+            tr = high - low
+            tr = tr.combine(abs(high - prev_close), max)
+            tr = tr.combine(abs(low - prev_close), max)
+
+            atr = tr.tail(config.VOLATILITY_ATR_LOOKBACK_DAYS).mean()
+            last_close = close.iloc[-1]
+
+            if last_close > 0:
+                # Handle pandas Series by extracting scalar
+                atr_val = float(atr.iloc[0]) if hasattr(atr, 'iloc') else float(atr)
+                close_val = float(last_close.iloc[0]) if hasattr(last_close, 'iloc') else float(last_close)
+                return (atr_val / close_val) * 100
+            return None
+        except Exception as e:
+            logger.debug(f"ATR calculation failed for {ticker}: {e}")
+            return None
 
     def _calculate_position_value(
         self,
@@ -399,11 +481,14 @@ class TradingEngine:
         portfolio_value: float
     ) -> float:
         """
-        Calculate position value for a signal using score-weighted sizing.
+        Calculate position value using score-weighted sizing with optional
+        volatility adjustment.
 
         Higher signal scores get larger positions within the configured range.
-        This allows the signal strength (not tier) to determine position size.
+        Volatility adjustment normalizes risk: high-vol stocks get smaller
+        positions, low-vol stocks get larger ones.
         """
+        ticker = signal.get('ticker', '')
         signal_score = signal.get('signal_score') or signal.get('rank_score', 0)
 
         if config.ENABLE_SCORE_WEIGHTED_SIZING:
@@ -426,9 +511,32 @@ class TradingEngine:
 
         position_value = portfolio_value * position_pct
 
+        # Volatility adjustment: scale position size by ATR ratio
+        vol_multiplier = 1.0
+        if config.ENABLE_VOLATILITY_ADJUSTED_SIZING:
+            atr_pct = self._calculate_atr_pct(ticker)
+            if atr_pct and atr_pct > 0:
+                # ratio > 1 means stock is more volatile than target → shrink position
+                # ratio < 1 means stock is less volatile than target → grow position
+                raw_multiplier = config.VOLATILITY_TARGET_ATR_PCT / atr_pct
+                vol_multiplier = max(
+                    config.VOLATILITY_SIZE_MIN_MULTIPLIER,
+                    min(raw_multiplier, config.VOLATILITY_SIZE_MAX_MULTIPLIER)
+                )
+                position_value *= vol_multiplier
+                logger.info(
+                    f"Vol adjustment for {ticker}: ATR {atr_pct:.2f}% vs target "
+                    f"{config.VOLATILITY_TARGET_ATR_PCT:.1f}% → {vol_multiplier:.2f}x "
+                    f"→ ${position_value:.2f}"
+                )
+            else:
+                logger.debug(f"No ATR data for {ticker}, skipping vol adjustment")
+
         logger.info(
             f"Position sizing: score={signal_score:.1f} → "
-            f"{position_pct*100:.1f}% of portfolio = ${position_value:.2f}"
+            f"{position_pct*100:.1f}% of portfolio"
+            f"{f' x {vol_multiplier:.2f} vol' if vol_multiplier != 1.0 else ''}"
+            f" = ${position_value:.2f}"
         )
 
         return position_value
@@ -1011,13 +1119,17 @@ class TradingEngine:
         # This is intentional risk management - we give high-conviction trades
         # more room to work while cutting losses quickly on lower-conviction trades.
         stop_loss_pct = config.STOP_LOSS_PCT
+        take_profit_pct = config.TAKE_PROFIT_PCT
         tier = signal_data.get('multi_signal_tier', 'none')
         if tier in config.MULTI_SIGNAL_STOP_LOSS:
             stop_loss_pct = config.MULTI_SIGNAL_STOP_LOSS[tier]
-            logger.info(f"Applied {tier} stop-loss: {stop_loss_pct*100:.0f}%")
+        if tier in config.MULTI_SIGNAL_TAKE_PROFIT:
+            take_profit_pct = config.MULTI_SIGNAL_TAKE_PROFIT[tier]
+        if tier != 'none':
+            logger.info(f"Applied {tier} risk params: SL {stop_loss_pct*100:.0f}%, TP {take_profit_pct*100:.0f}%")
 
         stop_loss = price * (1 - stop_loss_pct)
-        take_profit = price * (1 + config.TAKE_PROFIT_PCT)
+        take_profit = price * (1 + take_profit_pct)
 
         # Add to position monitor
         self.position_monitor.add_position(

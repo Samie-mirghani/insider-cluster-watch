@@ -44,7 +44,16 @@ ALPACA_LIVE_SECRET_KEY = os.getenv('ALPACA_LIVE_SECRET_KEY')
 MAX_POSITION_PCT = 0.10          # 10% max per position
 MIN_POSITION_PCT = 0.03          # 3% minimum position (avoid tiny positions)
 MAX_POSITIONS = 10               # Max concurrent positions
-MAX_TOTAL_EXPOSURE = 0.70        # 70% max exposure (keep 30% cash buffer)
+MAX_TOTAL_EXPOSURE = 0.70        # 70% max exposure (keep 30% cash buffer) — static fallback
+
+# Performance-adaptive exposure: dynamically scale max exposure based on
+# recent win rate.  Pulls back when losing and deploys more when winning.
+ENABLE_ADAPTIVE_EXPOSURE = True
+ADAPTIVE_EXPOSURE_MIN = 0.50           # Floor: 50% max exposure during drawdowns
+ADAPTIVE_EXPOSURE_MAX = 0.80           # Ceiling: 80% when strategy is performing
+ADAPTIVE_EXPOSURE_WIN_RATE_LOW = 0.30  # Below 30% WR → use min exposure
+ADAPTIVE_EXPOSURE_WIN_RATE_HIGH = 0.50 # Above 50% WR → use max exposure
+ADAPTIVE_EXPOSURE_MIN_TRADES = 10      # Need 10+ completed trades before adapting
 
 # Score-weighted position sizing
 ENABLE_SCORE_WEIGHTED_SIZING = True
@@ -52,6 +61,15 @@ SCORE_WEIGHT_MIN_POSITION_PCT = 0.05   # 5% for lowest qualifying score
 SCORE_WEIGHT_MAX_POSITION_PCT = 0.12   # 12% for highest scores
 SCORE_WEIGHT_MIN_SCORE = 6.0
 SCORE_WEIGHT_MAX_SCORE = 20.0
+
+# Volatility-adjusted position sizing
+# Normalizes position size by realized volatility so high-vol stocks get smaller
+# allocations and low-vol stocks get larger ones, evening out risk per position.
+ENABLE_VOLATILITY_ADJUSTED_SIZING = True
+VOLATILITY_TARGET_ATR_PCT = 2.0        # Target daily ATR as % of price
+VOLATILITY_SIZE_MIN_MULTIPLIER = 0.5   # Floor: halve position for very volatile names
+VOLATILITY_SIZE_MAX_MULTIPLIER = 1.5   # Ceiling: 50% larger for very stable names
+VOLATILITY_ATR_LOOKBACK_DAYS = 20      # Days of history for ATR calculation
 
 # Minimum thresholds
 MIN_SIGNAL_SCORE_THRESHOLD = 6.0       # Minimum score to trade
@@ -65,8 +83,11 @@ STOP_LOSS_PCT = 0.08             # 8% default stop loss
 TAKE_PROFIT_PCT = 0.12           # 12% take profit target
 
 # Trailing stops
-TRAILING_STOP_PCT = 0.05         # 5% trailing stop
-TRAILING_TRIGGER_PCT = 0.03      # Enable trailing after +3% gain
+# Previous: 5% trail triggered at +3% — too tight for multi-week thesis trades.
+# A stock hitting +3% then retracing 2% would get stopped at ~breakeven,
+# converting winners into scratches.  Widened to give trades room to develop.
+TRAILING_STOP_PCT = 0.08         # 8% trailing stop (was 5%)
+TRAILING_TRIGGER_PCT = 0.06      # Enable trailing after +6% gain (was 3%)
 
 # Tiered stop losses (multi-signal trades)
 # Risk Management Strategy:
@@ -84,6 +105,18 @@ MULTI_SIGNAL_STOP_LOSS = {
     'tier3': 0.08,  # -8% stop for medium conviction
     'tier4': 0.06   # -6% stop for lower conviction (tightest - fail fast)
 }
+
+# Tiered take-profit targets (must maintain >= 2:1 R:R at 33% win rate)
+# R:R = TP / SL.  At 33% WR, break-even requires R:R >= 2.03:1.
+MULTI_SIGNAL_TAKE_PROFIT = {
+    'tier1': 0.24,  # +24% TP for highest conviction  (R:R 2.0:1 with 12% SL)
+    'tier2': 0.20,  # +20% TP for high conviction      (R:R 2.0:1 with 10% SL)
+    'tier3': 0.16,  # +16% TP for medium conviction     (R:R 2.0:1 with 8% SL)
+    'tier4': 0.12   # +12% TP for lower conviction      (R:R 2.0:1 with 6% SL)
+}
+
+# Sector concentration limits (hard reject above threshold)
+SECTOR_HIGH_CONCENTRATION_THRESHOLD = 0.40  # 40% in one sector = reject entry
 
 # Dynamic stop tightening
 ENABLE_DYNAMIC_STOPS = True
@@ -265,6 +298,30 @@ def get_daily_loss_warning_dollars(portfolio_value):
     return portfolio_value * (DAILY_LOSS_WARNING_PCT / 100)
 
 
+def get_adaptive_max_exposure(win_rate: float, total_trades: int) -> float:
+    """
+    Return the max exposure limit based on recent win rate.
+
+    If adaptive exposure is disabled or we don't have enough trades yet,
+    falls back to the static MAX_TOTAL_EXPOSURE.
+    """
+    if not ENABLE_ADAPTIVE_EXPOSURE:
+        return MAX_TOTAL_EXPOSURE
+    if total_trades < ADAPTIVE_EXPOSURE_MIN_TRADES:
+        return MAX_TOTAL_EXPOSURE
+
+    # Linear interpolation between min and max exposure
+    if win_rate <= ADAPTIVE_EXPOSURE_WIN_RATE_LOW:
+        return ADAPTIVE_EXPOSURE_MIN
+    if win_rate >= ADAPTIVE_EXPOSURE_WIN_RATE_HIGH:
+        return ADAPTIVE_EXPOSURE_MAX
+
+    # Interpolate
+    wr_range = ADAPTIVE_EXPOSURE_WIN_RATE_HIGH - ADAPTIVE_EXPOSURE_WIN_RATE_LOW
+    normalized = (win_rate - ADAPTIVE_EXPOSURE_WIN_RATE_LOW) / wr_range
+    return ADAPTIVE_EXPOSURE_MIN + normalized * (ADAPTIVE_EXPOSURE_MAX - ADAPTIVE_EXPOSURE_MIN)
+
+
 def get_market_cap_tier(market_cap) -> str:
     """Classify a market cap value into a tier label.
 
@@ -344,7 +401,7 @@ Position Sizing:
 Risk Management:
   Stop Loss:    {STOP_LOSS_PCT*100:.1f}%
   Take Profit:  {TAKE_PROFIT_PCT*100:.1f}%
-  Trailing:     {TRAILING_STOP_PCT*100:.1f}% (after +{TRAILING_TRIGGER_PCT*100:.1f}%)
+  Trailing:     {TRAILING_STOP_PCT*100:.0f}% (after +{TRAILING_TRIGGER_PCT*100:.0f}%)
 
 Circuit Breakers:
   Daily Loss Halt:    {DAILY_LOSS_LIMIT_PCT:.1f}%
