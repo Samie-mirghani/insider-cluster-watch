@@ -103,6 +103,7 @@ class TradingEngine:
         # Session-level caches to avoid redundant I/O per job run
         self._atr_cache: Dict[str, Optional[float]] = {}
         self._win_rate_cache: Optional[Tuple[float, int]] = None
+        self._cooldown_cache: Optional[Dict[str, datetime]] = None  # {ticker: last_close_datetime}
 
         # Track exits for EOD summary (persisted to disk)
         self.exits_today: List[Dict[str, Any]] = self._load_exits_today()
@@ -250,35 +251,14 @@ class TradingEngine:
         buy_value = signal.get('buy_value', 0)
 
         # Filter 1: Repeat Trade Cooldown (7 calendar days)
-        # Read audit log to check for recent position closes
-        try:
-            audit_log_path = os.path.join(os.path.dirname(__file__), 'data', 'audit_log.jsonl')
-            if os.path.exists(audit_log_path):
-                cutoff_date = datetime.now() - timedelta(days=7)
-
-                with open(audit_log_path, 'r') as f:
-                    for line in f:
-                        try:
-                            event = json.loads(line.strip())
-                            event_data = event.get('data', {})
-                            event_ticker = event_data.get('ticker') or event_data.get('symbol', '')
-                            if event.get('event_type') == 'POSITION_CLOSED' and event_ticker == ticker:
-                                # Parse timestamp
-                                timestamp_str = event.get('timestamp', '')
-                                try:
-                                    event_date = datetime.fromisoformat(timestamp_str.replace('Z', '+00:00'))
-                                except:
-                                    continue
-
-                                if event_date >= cutoff_date:
-                                    close_date = event_date.strftime('%Y-%m-%d')
-                                    return False, f"Cooldown: {ticker} closed on {close_date}, 7-day cooldown required"
-                        except json.JSONDecodeError:
-                            continue
-        except Exception as e:
-            # File doesn't exist or can't be parsed - skip cooldown check
-            logger.debug(f"Cooldown check skipped for {ticker}: {e}")
-            pass
+        # Uses pre-built cache instead of scanning the full audit log per signal
+        cooldown_cache = self._get_cooldown_cache()
+        last_close = cooldown_cache.get(ticker)
+        if last_close is not None:
+            cutoff_date = datetime.now() - timedelta(days=7)
+            if last_close >= cutoff_date:
+                close_date = last_close.strftime('%Y-%m-%d')
+                return False, f"Cooldown: {ticker} closed on {close_date}, 7-day cooldown required"
 
         # Filter 2: Single Insider Micro-Cap & Go-Private Detection
         if insider_count == 1:
@@ -447,6 +427,70 @@ class TradingEngine:
         except Exception:
             self._win_rate_cache = (0.0, 0)
             return self._win_rate_cache
+
+    def _build_cooldown_cache(self) -> Dict[str, datetime]:
+        """
+        Build a {ticker: last_close_datetime} map from the audit log.
+
+        Reads the file once, extracts the most recent POSITION_CLOSED timestamp
+        per ticker, and stores it for O(1) lookups during signal validation.
+        Only retains entries within the cooldown window (7 days) to keep the
+        map small.
+        """
+        cache: Dict[str, datetime] = {}
+        audit_log_path = os.path.join(os.path.dirname(__file__), 'data', 'audit_log.jsonl')
+
+        if not os.path.exists(audit_log_path):
+            return cache
+
+        cutoff = datetime.now() - timedelta(days=7)
+
+        try:
+            with open(audit_log_path, 'r') as f:
+                for line in f:
+                    try:
+                        event = json.loads(line.strip())
+                        if event.get('event_type') != 'POSITION_CLOSED':
+                            continue
+
+                        event_data = event.get('data', {})
+                        ticker = event_data.get('ticker') or event_data.get('symbol', '')
+                        if not ticker:
+                            continue
+
+                        timestamp_str = event.get('timestamp', '')
+                        try:
+                            event_date = datetime.fromisoformat(
+                                timestamp_str.replace('Z', '+00:00')
+                            )
+                        except (ValueError, TypeError):
+                            continue
+
+                        if event_date < cutoff:
+                            continue
+
+                        # Keep the most recent close per ticker
+                        if ticker not in cache or event_date > cache[ticker]:
+                            cache[ticker] = event_date
+
+                    except json.JSONDecodeError:
+                        continue
+        except Exception as e:
+            logger.debug(f"Cooldown cache build failed: {e}")
+
+        logger.info(f"Cooldown cache built: {len(cache)} tickers in cooldown window")
+        return cache
+
+    def _get_cooldown_cache(self) -> Dict[str, datetime]:
+        """Return the cooldown cache, building it lazily on first access."""
+        if self._cooldown_cache is None:
+            self._cooldown_cache = self._build_cooldown_cache()
+        return self._cooldown_cache
+
+    def _record_cooldown(self, ticker: str) -> None:
+        """Record a position close in the cooldown cache (called after sells)."""
+        cache = self._get_cooldown_cache()
+        cache[ticker] = datetime.now()
 
     def _calculate_atr_pct(self, ticker: str) -> Optional[float]:
         """
@@ -795,6 +839,9 @@ class TradingEngine:
                 'sector': pos.get('sector', 'Unknown'),
                 'signal_score': pos.get('signal_score', 0),
             })
+
+            # Keep cooldown cache current for intra-session redeployment checks
+            self._record_cooldown(ticker)
 
             logger.info(f"Exit tracked for EOD summary: {ticker} ({reason}) - P&L: ${pnl:+,.2f}")
 
