@@ -463,6 +463,12 @@ class TradingEngine:
                             event_date = datetime.fromisoformat(
                                 timestamp_str.replace('Z', '+00:00')
                             )
+                            # Normalize to naive-local: the rest of the system
+                            # (datetime.now(), _record_cooldown, validate_signal)
+                            # uses naive datetimes.  Mixing tz-aware and naive
+                            # raises TypeError on comparison.
+                            if event_date.tzinfo is not None:
+                                event_date = event_date.replace(tzinfo=None)
                         except (ValueError, TypeError):
                             continue
 
@@ -482,15 +488,30 @@ class TradingEngine:
         return cache
 
     def _get_cooldown_cache(self) -> Dict[str, datetime]:
-        """Return the cooldown cache, building it lazily on first access."""
+        """Return the cooldown cache, building it lazily on first access.
+
+        NOTE: Not thread-safe. The TradingEngine is used in single-threaded
+        cron jobs (morning/monitor/eod).  If this is ever run in a threaded
+        context, wrap with threading.Lock.
+        """
         if self._cooldown_cache is None:
             self._cooldown_cache = self._build_cooldown_cache()
         return self._cooldown_cache
 
     def _record_cooldown(self, ticker: str) -> None:
-        """Record a position close in the cooldown cache (called after sells)."""
+        """Record a position close in the cooldown cache (called after sells).
+
+        Also prunes entries older than the 7-day cooldown window to prevent
+        unbounded growth in long-running processes.
+        """
         cache = self._get_cooldown_cache()
         cache[ticker] = datetime.now()
+
+        # Prune stale entries (older than cooldown window)
+        cutoff = datetime.now() - timedelta(days=7)
+        stale = [t for t, dt in cache.items() if dt < cutoff]
+        for t in stale:
+            del cache[t]
 
     def _calculate_atr_pct(self, ticker: str) -> Optional[float]:
         """
