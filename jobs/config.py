@@ -18,7 +18,15 @@ STARTING_CAPITAL = 10000  # $10k starting capital
 
 # Position Sizing
 MAX_POSITION_PCT = 0.10  # 10% max per position
-MAX_TOTAL_EXPOSURE = 0.70  # 70% max total exposure (matches automated_trading/config.py)
+MAX_TOTAL_EXPOSURE = 0.70  # 70% max total exposure — static fallback
+
+# Performance-adaptive exposure (matches automated_trading/config.py)
+ENABLE_ADAPTIVE_EXPOSURE = True
+ADAPTIVE_EXPOSURE_MIN = 0.50           # Floor: 50% during drawdowns
+ADAPTIVE_EXPOSURE_MAX = 0.625          # Ceiling: 62.5% (safe max given 8% trail + 5% daily loss limit)
+ADAPTIVE_EXPOSURE_WIN_RATE_LOW = 0.30  # Below 30% WR → min exposure
+ADAPTIVE_EXPOSURE_WIN_RATE_HIGH = 0.50 # Above 50% WR → max exposure
+ADAPTIVE_EXPOSURE_MIN_TRADES = 10      # Need 10+ trades before adapting
 MAX_POSITIONS = 10  # Max 10 concurrent positions (matches automated_trading/config.py)
 
 # Score-Weighted Position Sizing
@@ -29,11 +37,20 @@ SCORE_WEIGHT_MAX_POSITION_PCT = 0.12  # 12% max position size (for signals at MA
 SCORE_WEIGHT_MIN_SCORE = 6.0  # Minimum score in range (signals below this are filtered)
 SCORE_WEIGHT_MAX_SCORE = 20.0  # Maximum score in range (adjust based on actual max scores)
 
+# Volatility-adjusted position sizing (matches automated_trading/config.py)
+ENABLE_VOLATILITY_ADJUSTED_SIZING = True
+VOLATILITY_TARGET_ATR_PCT = 2.0        # Target daily ATR as % of price
+VOLATILITY_SIZE_MIN_MULTIPLIER = 0.5   # Floor: halve position for very volatile names
+VOLATILITY_SIZE_MAX_MULTIPLIER = 1.5   # Ceiling: 50% larger for very stable names
+VOLATILITY_ATR_LOOKBACK_DAYS = 20      # Days of history for ATR calculation
+
 # Risk Management
 STOP_LOSS_PCT = 0.08  # 8% initial stop loss (matches automated trading)
 TAKE_PROFIT_PCT = 0.12  # 12% profit target (matches automated trading)
-TRAILING_STOP_PCT = 0.05  # 5% trailing stop
-TRAILING_TRIGGER_PCT = 0.03  # Enable trailing after +3% gain
+# Previous: 5% trail at +3% trigger shook out winners via normal retracement.
+# Widened to match automated_trading/config.py for consistency.
+TRAILING_STOP_PCT = 0.08  # 8% trailing stop (was 5%)
+TRAILING_TRIGGER_PCT = 0.06  # Enable trailing after +6% gain (was 3%)
 
 # Position Scaling
 ENABLE_SCALING = True  # Enable 2-tranche entries
@@ -107,6 +124,15 @@ MULTI_SIGNAL_STOP_LOSS = {
     'tier2': 0.10,  # -10% stop
     'tier3': 0.08,  # -8% stop
     'tier4': 0.06   # -6% stop (tighter for lower conviction)
+}
+
+# Tiered take-profit targets (maintain >= 2:1 R:R — matches automated_trading/config.py)
+MULTI_SIGNAL_TAKE_PROFIT = {
+    'tier0': 0.16,  # +16% TP for politician-only      (R:R 2.0:1 with 8% SL)
+    'tier1': 0.24,  # +24% TP for highest conviction    (R:R 2.0:1 with 12% SL)
+    'tier2': 0.20,  # +20% TP for high conviction       (R:R 2.0:1 with 10% SL)
+    'tier3': 0.16,  # +16% TP for medium conviction     (R:R 2.0:1 with 8% SL)
+    'tier4': 0.12   # +12% TP for lower conviction      (R:R 2.0:1 with 6% SL)
 }
 
 # Follow-the-Smart-Money Scoring Settings

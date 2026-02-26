@@ -72,6 +72,9 @@ class PaperTradingPortfolio:
         self.max_portfolio_value = starting_capital
         self.max_drawdown = 0.0
         
+        # Session-level ATR cache to avoid redundant yfinance downloads
+        self._atr_cache = {}
+
         # Daily tracking for monitoring
         self.daily_trades_count = 0
         self.last_trade_date = None
@@ -209,16 +212,37 @@ class PaperTradingPortfolio:
         if len(self.positions) >= self.max_positions:
             return False, f"Already at max positions limit ({self.max_positions})"
         
-        # Check 3: Max total exposure
+        # Check 3: Max total exposure (adaptive based on recent win rate)
+        max_exposure = self.max_total_exposure
+        if ENABLE_ADAPTIVE_EXPOSURE:
+            sell_trades = [t for t in self.trade_history if t.get('action') == 'SELL']
+            total_closed = len(sell_trades)
+            if total_closed >= ADAPTIVE_EXPOSURE_MIN_TRADES:
+                wins = sum(1 for t in sell_trades if t.get('pnl', 0) > 0)
+                win_rate = wins / total_closed
+                wr_range = ADAPTIVE_EXPOSURE_WIN_RATE_HIGH - ADAPTIVE_EXPOSURE_WIN_RATE_LOW
+                if win_rate <= ADAPTIVE_EXPOSURE_WIN_RATE_LOW:
+                    max_exposure = ADAPTIVE_EXPOSURE_MIN
+                elif win_rate >= ADAPTIVE_EXPOSURE_WIN_RATE_HIGH:
+                    max_exposure = ADAPTIVE_EXPOSURE_MAX
+                else:
+                    normalized = (win_rate - ADAPTIVE_EXPOSURE_WIN_RATE_LOW) / wr_range
+                    max_exposure = ADAPTIVE_EXPOSURE_MIN + normalized * (ADAPTIVE_EXPOSURE_MAX - ADAPTIVE_EXPOSURE_MIN)
+                if max_exposure != self.max_total_exposure:
+                    logger.info(
+                        f"   📊 Adaptive exposure: WR {win_rate*100:.0f}% ({total_closed} trades) "
+                        f"→ max exposure {max_exposure*100:.0f}%"
+                    )
+
         total_exposure = sum(
-            p['shares'] * self._get_current_price(t, p['entry_price']) 
+            p['shares'] * self._get_current_price(t, p['entry_price'])
             for t, p in self.positions.items()
         )
         total_exposure += position_value
-        
+
         exposure_pct = (total_exposure / portfolio_value)
-        if exposure_pct > self.max_total_exposure:
-            return False, f"Exceeds max total exposure ({self.max_total_exposure*100}%): {exposure_pct*100:.1f}%"
+        if exposure_pct > max_exposure:
+            return False, f"Exceeds max total exposure ({max_exposure*100:.0f}%): {exposure_pct*100:.1f}%"
         
         # Check 4: Sufficient cash
         if position_value > self.cash:
@@ -395,12 +419,53 @@ class PaperTradingPortfolio:
 
         logger.info(f"{'='*60}\n")
 
+    def _calculate_atr_pct(self, ticker: str):
+        """Calculate 20-day ATR as % of price. Cached per session. Returns float or None."""
+        if ticker in self._atr_cache:
+            return self._atr_cache[ticker]
+        try:
+            lookback = VOLATILITY_ATR_LOOKBACK_DAYS + 5
+            end_date = datetime.now()
+            start_date = end_date - timedelta(days=int(lookback * 1.8))
+            hist = yf.download(ticker, start=start_date, end=end_date, progress=False)
+
+            if hist.empty or len(hist) < VOLATILITY_ATR_LOOKBACK_DAYS:
+                self._atr_cache[ticker] = None
+                return None
+
+            high = hist['High']
+            low = hist['Low']
+            close = hist['Close']
+            prev_close = close.shift(1)
+
+            tr = high - low
+            tr = tr.combine(abs(high - prev_close), max)
+            tr = tr.combine(abs(low - prev_close), max)
+
+            atr = tr.tail(VOLATILITY_ATR_LOOKBACK_DAYS).mean()
+            last_close = close.iloc[-1]
+
+            if last_close is not None:
+                atr_val = float(atr.iloc[0]) if hasattr(atr, 'iloc') else float(atr)
+                close_val = float(last_close.iloc[0]) if hasattr(last_close, 'iloc') else float(last_close)
+                if close_val > 0:
+                    result = (atr_val / close_val) * 100
+                    self._atr_cache[ticker] = result
+                    return result
+            self._atr_cache[ticker] = None
+            return None
+        except Exception as e:
+            logger.debug(f"ATR calculation failed for {ticker}: {e}")
+            self._atr_cache[ticker] = None
+            return None
+
     def calculate_position_size(self, signal):
         """
         Calculate appropriate position size based on portfolio value and risk params
         Enhanced with:
         - Multi-signal tier support
         - Score-weighted position sizing (higher scores = larger positions)
+        - Volatility adjustment (high-ATR stocks get smaller positions)
 
         Returns: (full_position_size, initial_size, second_tranche_size)
         """
@@ -465,6 +530,21 @@ class PaperTradingPortfolio:
 
         # Apply tier multiplier for multi-signal trades
         full_position_size = base_position_size * tier_multiplier
+
+        # Volatility adjustment: normalize position size by ATR
+        if ENABLE_VOLATILITY_ADJUSTED_SIZING:
+            atr_pct = self._calculate_atr_pct(ticker)
+            if atr_pct and atr_pct > 0:
+                raw_multiplier = VOLATILITY_TARGET_ATR_PCT / atr_pct
+                vol_multiplier = max(
+                    VOLATILITY_SIZE_MIN_MULTIPLIER,
+                    min(raw_multiplier, VOLATILITY_SIZE_MAX_MULTIPLIER)
+                )
+                full_position_size *= vol_multiplier
+                logger.info(
+                    f"   📊 Vol adjustment for {ticker}: ATR {atr_pct:.2f}% vs target "
+                    f"{VOLATILITY_TARGET_ATR_PCT:.1f}% → {vol_multiplier:.2f}x"
+                )
 
         # Don't exceed 90% of available cash (keep buffer)
         full_position_size = min(full_position_size, self.cash * 0.9)
@@ -676,25 +756,27 @@ class PaperTradingPortfolio:
         # Calculate actual cost
         actual_cost = initial_shares * entry_price
 
-        # Validation 4: Check sector concentration
+        # Validation 5: Check sector concentration — HARD REJECT above high threshold
         sector = signal.get('sector') if isinstance(signal, dict) else signal.get('sector', 'Unknown')
         is_sector_ok, sector_warning = self.check_sector_concentration_limit(sector, actual_cost)
         if not is_sector_ok:
-            logger.warning(f"   ⚠️  SECTOR WARNING: {sector_warning}")
-            logger.warning(f"   💡 Consider signals from underrepresented sectors for better diversification")
-            # Don't reject, just warn - allow trade to proceed but user is informed
+            logger.warning(f"   ❌ REJECTED: {sector_warning}")
+            return False
 
-        # Get tier-specific stop loss if multi-signal
+        # Get tier-specific stop loss and take profit if multi-signal
         try:
-            from config import MULTI_SIGNAL_STOP_LOSS
+            from config import MULTI_SIGNAL_STOP_LOSS, MULTI_SIGNAL_TAKE_PROFIT
             multi_signal_tier = signal.get('multi_signal_tier', 'none')
             if multi_signal_tier in MULTI_SIGNAL_STOP_LOSS:
                 stop_loss_pct = MULTI_SIGNAL_STOP_LOSS[multi_signal_tier]
-                logger.info(f"   🎯 Using {multi_signal_tier.upper()} stop loss: {stop_loss_pct*100:.0f}%")
             else:
                 stop_loss_pct = self.stop_loss_pct
+            take_profit_pct = MULTI_SIGNAL_TAKE_PROFIT.get(multi_signal_tier, self.take_profit_pct)
+            if multi_signal_tier != 'none':
+                logger.info(f"   🎯 Using {multi_signal_tier.upper()} risk params: SL {stop_loss_pct*100:.0f}%, TP {take_profit_pct*100:.0f}%")
         except ImportError:
             stop_loss_pct = self.stop_loss_pct
+            take_profit_pct = self.take_profit_pct
 
         # Execute first tranche
         logger.info(f"   ✅ VALIDATION PASSED")
@@ -717,7 +799,7 @@ class PaperTradingPortfolio:
             'cost_basis': actual_cost,
             'initial_stop_loss': entry_price * (1 - stop_loss_pct),
             'stop_loss': entry_price * (1 - stop_loss_pct),
-            'take_profit': entry_price * (1 + self.take_profit_pct),
+            'take_profit': entry_price * (1 + take_profit_pct),
             'highest_price': entry_price,  # For trailing stop
             'trailing_enabled': False,  # Enable after +3%
             'signal_score': signal_score,
@@ -750,8 +832,8 @@ class PaperTradingPortfolio:
         self.session_trades.append(trade_record)
         
         logger.info(f"   💰 Cash Remaining: ${self.cash:,.2f}")
-        logger.info(f"   🎯 Stop Loss: ${self.positions[ticker]['stop_loss']:.2f} (-{self.stop_loss_pct*100}%)")
-        logger.info(f"   🎯 Take Profit: ${self.positions[ticker]['take_profit']:.2f} (+{self.take_profit_pct*100}%)")
+        logger.info(f"   🎯 Stop Loss: ${self.positions[ticker]['stop_loss']:.2f} (-{stop_loss_pct*100:.0f}%)")
+        logger.info(f"   🎯 Take Profit: ${self.positions[ticker]['take_profit']:.2f} (+{take_profit_pct*100:.0f}%)")
         
         # Set up second tranche if scaling enabled
         if self.enable_scaling and second_tranche_size > 0:
@@ -819,9 +901,17 @@ class PaperTradingPortfolio:
                         pos['entry_price'] = pos['cost_basis'] / pos['shares']  # New average
                         pos['tranches'].append({'shares': shares, 'price': current_price, 'date': datetime.now()})
                         
-                        # Adjust stops to new average
-                        pos['stop_loss'] = pos['entry_price'] * (1 - self.stop_loss_pct)
-                        pos['take_profit'] = pos['entry_price'] * (1 + self.take_profit_pct)
+                        # Adjust stops to new average, preserving tier-specific SL/TP
+                        tier = pos.get('multi_signal_tier', 'none')
+                        try:
+                            from config import MULTI_SIGNAL_STOP_LOSS, MULTI_SIGNAL_TAKE_PROFIT
+                            sl_pct = MULTI_SIGNAL_STOP_LOSS.get(tier, self.stop_loss_pct)
+                            tp_pct = MULTI_SIGNAL_TAKE_PROFIT.get(tier, self.take_profit_pct)
+                        except ImportError:
+                            sl_pct = self.stop_loss_pct
+                            tp_pct = self.take_profit_pct
+                        pos['stop_loss'] = pos['entry_price'] * (1 - sl_pct)
+                        pos['take_profit'] = pos['entry_price'] * (1 + tp_pct)
                         
                         self.cash -= cost
                         
@@ -874,9 +964,9 @@ class PaperTradingPortfolio:
                 if current_price > pos['highest_price']:
                     pos['highest_price'] = current_price
 
-                    # Enable trailing stop after +3% gain
+                    # Enable trailing stop after configured gain threshold
                     if not pos['trailing_enabled']:
-                        if unrealized_pnl_pct >= 3.0:
+                        if unrealized_pnl_pct >= round(TRAILING_TRIGGER_PCT * 100, 10):
                             pos['trailing_enabled'] = True
                             logger.info(f"   📈 {ticker}: Trailing stop ENABLED at +{unrealized_pnl_pct:.1f}%")
 

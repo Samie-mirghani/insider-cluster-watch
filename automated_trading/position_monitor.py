@@ -432,20 +432,22 @@ class PositionMonitor:
                     signal_score = signal_info.get('signal_score', 0)
                     sector = signal_info.get('sector', 'Unknown')
 
-                    # Use tier-based stop loss if available
+                    # Use tier-based stop loss and take profit if available
                     if tier in config.MULTI_SIGNAL_STOP_LOSS:
                         stop_loss_pct = config.MULTI_SIGNAL_STOP_LOSS[tier]
-                        logger.info(f"  Using {tier} stop-loss ({stop_loss_pct*100:.0f}%) for {ticker}")
                     else:
                         stop_loss_pct = config.STOP_LOSS_PCT
+                    take_profit_pct = config.MULTI_SIGNAL_TAKE_PROFIT.get(tier, config.TAKE_PROFIT_PCT)
+                    logger.info(f"  Using {tier} risk params (SL {stop_loss_pct*100:.0f}%, TP {take_profit_pct*100:.0f}%) for {ticker}")
                 else:
                     tier = 'none'
                     signal_score = 0
                     sector = 'Unknown'
                     stop_loss_pct = config.STOP_LOSS_PCT
+                    take_profit_pct = config.TAKE_PROFIT_PCT
 
                 stop_loss = avg_entry * (1 - stop_loss_pct)
-                take_profit = avg_entry * (1 + config.TAKE_PROFIT_PCT)
+                take_profit = avg_entry * (1 + take_profit_pct)
 
                 # Add position with broker data
                 self.positions[ticker] = {
@@ -791,7 +793,7 @@ class PositionMonitor:
 
             # Enable trailing stop after threshold gain
             if not pos.get('trailing_enabled'):
-                if pnl_pct >= config.TRAILING_TRIGGER_PCT * 100:
+                if pnl_pct >= round(config.TRAILING_TRIGGER_PCT * 100, 10):
                     pos['trailing_enabled'] = True
                     logger.info(f"{ticker}: Trailing stop ENABLED at +{pnl_pct:.1f}%")
 
@@ -896,21 +898,23 @@ class PositionMonitor:
                         signal_score = signal_info.get('signal_score', 0)
                         sector = signal_info.get('sector', 'Unknown')
 
-                        # Use tier-based stop loss if available
+                        # Use tier-based stop loss and take profit if available
                         if tier in config.MULTI_SIGNAL_STOP_LOSS:
                             stop_loss_pct = config.MULTI_SIGNAL_STOP_LOSS[tier]
-                            logger.info(f"  Using {tier} stop-loss ({stop_loss_pct*100:.0f}%) for {ticker}")
                         else:
                             stop_loss_pct = config.STOP_LOSS_PCT
+                        take_profit_pct = config.MULTI_SIGNAL_TAKE_PROFIT.get(tier, config.TAKE_PROFIT_PCT)
+                        logger.info(f"  Using {tier} risk params (SL {stop_loss_pct*100:.0f}%, TP {take_profit_pct*100:.0f}%) for {ticker}")
                     else:
                         tier = 'none'
                         signal_score = 0
                         sector = 'Unknown'
                         stop_loss_pct = config.STOP_LOSS_PCT
-                        logger.info(f"  No signal history for {ticker}, using default {stop_loss_pct*100:.0f}% stop")
+                        take_profit_pct = config.TAKE_PROFIT_PCT
+                        logger.info(f"  No signal history for {ticker}, using default SL {stop_loss_pct*100:.0f}%/TP {take_profit_pct*100:.0f}%")
 
                     stop_loss = avg_entry * (1 - stop_loss_pct)
-                    take_profit = avg_entry * (1 + config.TAKE_PROFIT_PCT)
+                    take_profit = avg_entry * (1 + take_profit_pct)
 
                     self.positions[ticker] = {
                         'shares': shares,
