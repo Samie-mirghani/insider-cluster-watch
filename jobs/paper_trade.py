@@ -72,6 +72,9 @@ class PaperTradingPortfolio:
         self.max_portfolio_value = starting_capital
         self.max_drawdown = 0.0
         
+        # Session-level ATR cache to avoid redundant yfinance downloads
+        self._atr_cache = {}
+
         # Daily tracking for monitoring
         self.daily_trades_count = 0
         self.last_trade_date = None
@@ -416,9 +419,10 @@ class PaperTradingPortfolio:
 
         logger.info(f"{'='*60}\n")
 
-    @staticmethod
-    def _calculate_atr_pct(ticker: str):
-        """Calculate 20-day ATR as % of price. Returns float or None."""
+    def _calculate_atr_pct(self, ticker: str):
+        """Calculate 20-day ATR as % of price. Cached per session. Returns float or None."""
+        if ticker in self._atr_cache:
+            return self._atr_cache[ticker]
         try:
             lookback = VOLATILITY_ATR_LOOKBACK_DAYS + 5
             end_date = datetime.now()
@@ -426,6 +430,7 @@ class PaperTradingPortfolio:
             hist = yf.download(ticker, start=start_date, end=end_date, progress=False)
 
             if hist.empty or len(hist) < VOLATILITY_ATR_LOOKBACK_DAYS:
+                self._atr_cache[ticker] = None
                 return None
 
             high = hist['High']
@@ -444,10 +449,14 @@ class PaperTradingPortfolio:
                 atr_val = float(atr.iloc[0]) if hasattr(atr, 'iloc') else float(atr)
                 close_val = float(last_close.iloc[0]) if hasattr(last_close, 'iloc') else float(last_close)
                 if close_val > 0:
-                    return (atr_val / close_val) * 100
+                    result = (atr_val / close_val) * 100
+                    self._atr_cache[ticker] = result
+                    return result
+            self._atr_cache[ticker] = None
             return None
         except Exception as e:
             logger.debug(f"ATR calculation failed for {ticker}: {e}")
+            self._atr_cache[ticker] = None
             return None
 
     def calculate_position_size(self, signal):
@@ -892,9 +901,17 @@ class PaperTradingPortfolio:
                         pos['entry_price'] = pos['cost_basis'] / pos['shares']  # New average
                         pos['tranches'].append({'shares': shares, 'price': current_price, 'date': datetime.now()})
                         
-                        # Adjust stops to new average
-                        pos['stop_loss'] = pos['entry_price'] * (1 - self.stop_loss_pct)
-                        pos['take_profit'] = pos['entry_price'] * (1 + self.take_profit_pct)
+                        # Adjust stops to new average, preserving tier-specific SL/TP
+                        tier = pos.get('multi_signal_tier', 'none')
+                        try:
+                            from config import MULTI_SIGNAL_STOP_LOSS, MULTI_SIGNAL_TAKE_PROFIT
+                            sl_pct = MULTI_SIGNAL_STOP_LOSS.get(tier, self.stop_loss_pct)
+                            tp_pct = MULTI_SIGNAL_TAKE_PROFIT.get(tier, self.take_profit_pct)
+                        except ImportError:
+                            sl_pct = self.stop_loss_pct
+                            tp_pct = self.take_profit_pct
+                        pos['stop_loss'] = pos['entry_price'] * (1 - sl_pct)
+                        pos['take_profit'] = pos['entry_price'] * (1 + tp_pct)
                         
                         self.cash -= cost
                         
@@ -949,7 +966,7 @@ class PaperTradingPortfolio:
 
                     # Enable trailing stop after configured gain threshold
                     if not pos['trailing_enabled']:
-                        if unrealized_pnl_pct >= TRAILING_TRIGGER_PCT * 100:
+                        if unrealized_pnl_pct >= round(TRAILING_TRIGGER_PCT * 100, 10):
                             pos['trailing_enabled'] = True
                             logger.info(f"   📈 {ticker}: Trailing stop ENABLED at +{unrealized_pnl_pct:.1f}%")
 

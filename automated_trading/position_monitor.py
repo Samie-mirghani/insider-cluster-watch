@@ -793,7 +793,7 @@ class PositionMonitor:
 
             # Enable trailing stop after threshold gain
             if not pos.get('trailing_enabled'):
-                if pnl_pct >= config.TRAILING_TRIGGER_PCT * 100:
+                if pnl_pct >= round(config.TRAILING_TRIGGER_PCT * 100, 10):
                     pos['trailing_enabled'] = True
                     logger.info(f"{ticker}: Trailing stop ENABLED at +{pnl_pct:.1f}%")
 

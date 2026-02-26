@@ -100,6 +100,10 @@ class TradingEngine:
         self.alert_sender: Optional[AlertSender] = None
         self.execution_metrics: Optional[ExecutionMetrics] = None
 
+        # Session-level caches to avoid redundant I/O per job run
+        self._atr_cache: Dict[str, Optional[float]] = {}
+        self._win_rate_cache: Optional[Tuple[float, int]] = None
+
         # Track exits for EOD summary (persisted to disk)
         self.exits_today: List[Dict[str, Any]] = self._load_exits_today()
 
@@ -420,29 +424,41 @@ class TradingEngine:
         """
         Calculate win rate from recent POSITION_CLOSED audit events.
 
+        Results are cached for the entire session to avoid reading the
+        audit log on every signal validation.
+
         Returns:
             Tuple of (win_rate as 0.0-1.0, total_closed_trades)
         """
+        if self._win_rate_cache is not None:
+            return self._win_rate_cache
+
         try:
             recent_events = read_recent_audit_events(
                 event_type='POSITION_CLOSED', limit=100
             )
             if not recent_events:
-                return 0.0, 0
+                self._win_rate_cache = (0.0, 0)
+                return self._win_rate_cache
             wins = sum(1 for e in recent_events if e.get('data', {}).get('pnl', 0) > 0)
             total = len(recent_events)
-            return (wins / total if total > 0 else 0.0), total
+            self._win_rate_cache = ((wins / total if total > 0 else 0.0), total)
+            return self._win_rate_cache
         except Exception:
-            return 0.0, 0
+            self._win_rate_cache = (0.0, 0)
+            return self._win_rate_cache
 
-    @staticmethod
-    def _calculate_atr_pct(ticker: str) -> Optional[float]:
+    def _calculate_atr_pct(self, ticker: str) -> Optional[float]:
         """
         Calculate the 20-day Average True Range as a percentage of price.
+
+        Results are cached per session to avoid redundant yfinance downloads.
 
         Returns:
             ATR as % of closing price, or None if data is unavailable.
         """
+        if ticker in self._atr_cache:
+            return self._atr_cache[ticker]
         try:
             lookback = config.VOLATILITY_ATR_LOOKBACK_DAYS + 5  # extra days for weekends
             end_date = datetime.now()
@@ -469,10 +485,14 @@ class TradingEngine:
                 # Handle pandas Series by extracting scalar
                 atr_val = float(atr.iloc[0]) if hasattr(atr, 'iloc') else float(atr)
                 close_val = float(last_close.iloc[0]) if hasattr(last_close, 'iloc') else float(last_close)
-                return (atr_val / close_val) * 100
+                result = (atr_val / close_val) * 100
+                self._atr_cache[ticker] = result
+                return result
+            self._atr_cache[ticker] = None
             return None
         except Exception as e:
             logger.debug(f"ATR calculation failed for {ticker}: {e}")
+            self._atr_cache[ticker] = None
             return None
 
     def _calculate_position_value(

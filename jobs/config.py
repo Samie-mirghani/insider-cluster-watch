@@ -23,7 +23,7 @@ MAX_TOTAL_EXPOSURE = 0.70  # 70% max total exposure — static fallback
 # Performance-adaptive exposure (matches automated_trading/config.py)
 ENABLE_ADAPTIVE_EXPOSURE = True
 ADAPTIVE_EXPOSURE_MIN = 0.50           # Floor: 50% during drawdowns
-ADAPTIVE_EXPOSURE_MAX = 0.80           # Ceiling: 80% when winning
+ADAPTIVE_EXPOSURE_MAX = 0.625          # Ceiling: 62.5% (safe max given 8% trail + 5% daily loss limit)
 ADAPTIVE_EXPOSURE_WIN_RATE_LOW = 0.30  # Below 30% WR → min exposure
 ADAPTIVE_EXPOSURE_WIN_RATE_HIGH = 0.50 # Above 50% WR → max exposure
 ADAPTIVE_EXPOSURE_MIN_TRADES = 10      # Need 10+ trades before adapting

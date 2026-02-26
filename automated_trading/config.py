@@ -48,9 +48,13 @@ MAX_TOTAL_EXPOSURE = 0.70        # 70% max exposure (keep 30% cash buffer) — s
 
 # Performance-adaptive exposure: dynamically scale max exposure based on
 # recent win rate.  Pulls back when losing and deploys more when winning.
+# WARNING: Max exposure × trailing stop width = worst-case portfolio hit from
+# trailing stops.  At 0.625 × 8% = 5.0% exactly.  Ceiling of 0.625 is the
+# safe maximum given DAILY_LOSS_LIMIT_PCT = 5%.  Set higher only if you accept
+# that a synchronized trailing stop cascade could breach the daily loss limit.
 ENABLE_ADAPTIVE_EXPOSURE = True
 ADAPTIVE_EXPOSURE_MIN = 0.50           # Floor: 50% max exposure during drawdowns
-ADAPTIVE_EXPOSURE_MAX = 0.80           # Ceiling: 80% when strategy is performing
+ADAPTIVE_EXPOSURE_MAX = 0.625          # Ceiling: 62.5% (safe max given 8% trail + 5% daily loss limit)
 ADAPTIVE_EXPOSURE_WIN_RATE_LOW = 0.30  # Below 30% WR → use min exposure
 ADAPTIVE_EXPOSURE_WIN_RATE_HIGH = 0.50 # Above 50% WR → use max exposure
 ADAPTIVE_EXPOSURE_MIN_TRADES = 10      # Need 10+ completed trades before adapting
