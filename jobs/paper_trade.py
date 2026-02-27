@@ -546,6 +546,17 @@ class PaperTradingPortfolio:
                     f"{VOLATILITY_TARGET_ATR_PCT:.1f}% → {vol_multiplier:.2f}x"
                 )
 
+        # Hard clamp: never exceed score-weighted ceiling regardless of vol adjustment
+        clamp_pct = SCORE_WEIGHT_MAX_POSITION_PCT if ENABLE_SCORE_WEIGHTED_SIZING else self.max_position_pct
+        portfolio_value = self.get_portfolio_value(verbose=False)
+        max_allowed = portfolio_value * clamp_pct
+        if full_position_size > max_allowed:
+            logger.warning(
+                f"   ⚠️  Position size ${full_position_size:.2f} exceeds {clamp_pct*100:.0f}% "
+                f"cap (${max_allowed:.2f}), clamping"
+            )
+            full_position_size = max_allowed
+
         # Don't exceed 90% of available cash (keep buffer)
         full_position_size = min(full_position_size, self.cash * 0.9)
 
@@ -960,15 +971,23 @@ class PaperTradingPortfolio:
                 unrealized_pnl_pct = ((current_price - pos['entry_price']) / pos['entry_price']) * 100
                 days_held = (datetime.now() - pos['entry_date']).days
 
-                # Track highest price
-                if current_price > pos['highest_price']:
+                # Track highest price (with bad-tick protection)
+                # Reject price spikes > 50% above current highest as likely erroneous
+                prev_highest = pos.get('highest_price', pos['entry_price'])
+                spike_pct = ((current_price - prev_highest) / prev_highest) * 100 if prev_highest > 0 else 0
+                if current_price > prev_highest and spike_pct <= 50:
                     pos['highest_price'] = current_price
+                elif spike_pct > 50:
+                    logger.warning(
+                        f"   ⚠️  {ticker}: Rejected suspect price spike ${prev_highest:.2f} → "
+                        f"${current_price:.2f} (+{spike_pct:.1f}%) — not updating highest_price"
+                    )
 
-                    # Enable trailing stop after configured gain threshold
-                    if not pos['trailing_enabled']:
-                        if unrealized_pnl_pct >= round(TRAILING_TRIGGER_PCT * 100, 10):
-                            pos['trailing_enabled'] = True
-                            logger.info(f"   📈 {ticker}: Trailing stop ENABLED at +{unrealized_pnl_pct:.1f}%")
+                # Enable trailing stop after configured gain threshold
+                if not pos['trailing_enabled']:
+                    if unrealized_pnl_pct >= round(TRAILING_TRIGGER_PCT * 100, 10):
+                        pos['trailing_enabled'] = True
+                        logger.info(f"   📈 {ticker}: Trailing stop ENABLED at +{unrealized_pnl_pct:.1f}%")
 
                 # === HYBRID: Dynamic Stop Tightening for Winners ===
                 if dynamic_stops_enabled and pos['trailing_enabled']:
@@ -996,7 +1015,7 @@ class PaperTradingPortfolio:
                         continue  # Skip standard trailing update
 
                     # Update trailing stop with dynamic percentage
-                    new_stop = current_price * (1 - trailing_pct)
+                    new_stop = pos.get('highest_price', current_price) * (1 - trailing_pct)
 
                     # Only raise the stop, never lower it
                     if new_stop > pos['stop_loss']:
@@ -1009,7 +1028,7 @@ class PaperTradingPortfolio:
 
                 # Standard trailing stop (if dynamic stops disabled)
                 elif pos['trailing_enabled']:
-                    new_stop = current_price * (1 - self.trailing_stop_pct)
+                    new_stop = pos.get('highest_price', current_price) * (1 - self.trailing_stop_pct)
                     if new_stop > pos['stop_loss']:
                         old_stop = pos['stop_loss']
                         pos['stop_loss'] = new_stop
