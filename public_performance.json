@@ -1,6 +1,6 @@
 {
-  "last_updated": "February 26, 2026 at 11:57 UTC",
-  "total_return_pct": 22.34,
+  "last_updated": "February 27, 2026 at 12:11 UTC",
+  "total_return_pct": 22.7,
   "win_rate": 66.7,
   "completed_trades": 45,
   "active_trades": 10,
@@ -10,12 +10,12 @@
   "avg_hold_days": 9,
   "best_trade_pct": 59.64,
   "worst_trade_pct": -32.78,
-  "alpha_vs_sp500": 22.68,
+  "alpha_vs_sp500": 23.59,
   "avg_winner": 15.08,
   "avg_loser": -6.25,
   "win_loss_ratio": 2.41,
   "profit_factor": 4.82,
-  "last_30_days_return": 58.16,
+  "last_30_days_return": 43.42,
   "last_10_trades_win_rate": 50.0,
   "current_streak": 3,
   "current_streak_type": "losses",
@@ -245,79 +245,79 @@
     {
       "ticker": "ABT",
       "entry_date": "Jan 27, 2026",
-      "days_held": 30,
-      "unrealized_return": 6.57,
+      "days_held": 31,
+      "unrealized_return": 7.97,
       "conviction": "MEDIUM"
     },
     {
       "ticker": "GDV",
       "entry_date": "Jan 29, 2026",
-      "days_held": 28,
-      "unrealized_return": 4.93,
+      "days_held": 29,
+      "unrealized_return": 4.64,
       "conviction": "MEDIUM"
     },
     {
       "ticker": "CR",
       "entry_date": "Feb 03, 2026",
-      "days_held": 23,
-      "unrealized_return": 9.89,
+      "days_held": 24,
+      "unrealized_return": 10.22,
       "conviction": "HIGH"
     },
     {
       "ticker": "ARCC",
       "entry_date": "Feb 10, 2026",
-      "days_held": 15,
-      "unrealized_return": 0.15,
+      "days_held": 17,
+      "unrealized_return": -1.03,
       "conviction": "HIGH"
     },
     {
       "ticker": "HCIC",
       "entry_date": "Feb 10, 2026",
-      "days_held": 15,
+      "days_held": 17,
       "unrealized_return": 0.0,
       "conviction": "HIGH"
     },
     {
       "ticker": "CBC",
       "entry_date": "Feb 10, 2026",
-      "days_held": 15,
-      "unrealized_return": 0.0,
+      "days_held": 17,
+      "unrealized_return": 0.95,
       "conviction": "MEDIUM"
     },
     {
       "ticker": "MMS",
       "entry_date": "Feb 12, 2026",
-      "days_held": 13,
-      "unrealized_return": -1.32,
+      "days_held": 15,
+      "unrealized_return": 0.77,
       "conviction": "MEDIUM"
     },
     {
       "ticker": "THS",
       "entry_date": "Feb 13, 2026",
-      "days_held": 13,
+      "days_held": 14,
       "unrealized_return": 0.0,
       "conviction": "LOW"
     },
     {
       "ticker": "NPB",
       "entry_date": "Feb 16, 2026",
-      "days_held": 9,
-      "unrealized_return": 3.01,
+      "days_held": 11,
+      "unrealized_return": 4.95,
       "conviction": "MEDIUM"
     },
     {
       "ticker": "DEI",
       "entry_date": "Feb 19, 2026",
-      "days_held": 6,
-      "unrealized_return": 5.09,
+      "days_held": 8,
+      "unrealized_return": 6.82,
       "conviction": "MEDIUM"
     }
   ],
   "portfolio_composition": {
     "starting_capital": 10000,
-    "current_value": 12234.13,
+    "current_value": 12270.47,
     "cash": 6757.73,
-    "invested_capital": 5476.4,
-    "capital_deployed_pct": 44.76
+    "invested_capital": 5512.74,
+    "capital_deployed_pct": 44.93
   }
 }
