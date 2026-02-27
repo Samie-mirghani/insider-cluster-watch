@@ -617,11 +617,12 @@ class TradingEngine:
             else:
                 logger.debug(f"No ATR data for {ticker}, skipping vol adjustment")
 
-        # Hard clamp: never exceed MAX_POSITION_PCT regardless of vol adjustment
-        max_allowed = portfolio_value * config.MAX_POSITION_PCT
+        # Hard clamp: never exceed score-weighted ceiling regardless of vol adjustment
+        clamp_pct = config.SCORE_WEIGHT_MAX_POSITION_PCT if config.ENABLE_SCORE_WEIGHTED_SIZING else config.MAX_POSITION_PCT
+        max_allowed = portfolio_value * clamp_pct
         if position_value > max_allowed:
             logger.warning(
-                f"Position size ${position_value:.2f} exceeds {config.MAX_POSITION_PCT*100:.0f}% "
+                f"Position size ${position_value:.2f} exceeds {clamp_pct*100:.0f}% "
                 f"cap (${max_allowed:.2f}), clamping"
             )
             position_value = max_allowed

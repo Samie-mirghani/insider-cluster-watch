@@ -546,12 +546,13 @@ class PaperTradingPortfolio:
                     f"{VOLATILITY_TARGET_ATR_PCT:.1f}% → {vol_multiplier:.2f}x"
                 )
 
-        # Hard clamp: never exceed MAX_POSITION_PCT regardless of vol adjustment
+        # Hard clamp: never exceed score-weighted ceiling regardless of vol adjustment
+        clamp_pct = SCORE_WEIGHT_MAX_POSITION_PCT if ENABLE_SCORE_WEIGHTED_SIZING else self.max_position_pct
         portfolio_value = self.get_portfolio_value(verbose=False)
-        max_allowed = portfolio_value * self.max_position_pct
+        max_allowed = portfolio_value * clamp_pct
         if full_position_size > max_allowed:
             logger.warning(
-                f"   ⚠️  Position size ${full_position_size:.2f} exceeds {self.max_position_pct*100:.0f}% "
+                f"   ⚠️  Position size ${full_position_size:.2f} exceeds {clamp_pct*100:.0f}% "
                 f"cap (${max_allowed:.2f}), clamping"
             )
             full_position_size = max_allowed
