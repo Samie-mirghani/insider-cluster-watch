@@ -53,7 +53,9 @@ class CircuitBreakerState:
         self.trades_today: List[Dict] = []
         self.total_trades_today: int = 0  # Total buys + sells (for daily trade limit)
         self.last_reset_date: Optional[str] = None
+        self.peak_portfolio_value: float = 0.0  # High-water mark for drawdown tracking
         self._load_state()
+        self._load_high_water_mark()
         self.check_reset_flag()  # Check for manual reset request
 
     def _load_state(self):
@@ -94,6 +96,39 @@ class CircuitBreakerState:
             'last_updated': datetime.now().isoformat()
         }
         save_json_file(config.DAILY_STATE_FILE, data)
+
+    def _load_high_water_mark(self):
+        """Load peak portfolio value (high-water mark) from disk."""
+        data = load_json_file(config.HIGH_WATER_MARK_FILE, default={})
+        self.peak_portfolio_value = data.get('peak_portfolio_value', 0.0)
+
+    def _save_high_water_mark(self):
+        """Save peak portfolio value (high-water mark) to disk."""
+        data = {
+            'peak_portfolio_value': self.peak_portfolio_value,
+            'last_updated': datetime.now().isoformat()
+        }
+        save_json_file(config.HIGH_WATER_MARK_FILE, data)
+
+    def update_high_water_mark(self, portfolio_value: float) -> float:
+        """
+        Update peak portfolio value and return current drawdown percentage.
+
+        Args:
+            portfolio_value: Current total portfolio value
+
+        Returns:
+            Current drawdown as a positive percentage (e.g., 5.0 for a 5% drawdown)
+        """
+        if portfolio_value > self.peak_portfolio_value:
+            self.peak_portfolio_value = portfolio_value
+            self._save_high_water_mark()
+
+        if self.peak_portfolio_value <= 0:
+            return 0.0
+
+        drawdown_pct = ((self.peak_portfolio_value - portfolio_value) / self.peak_portfolio_value) * 100
+        return max(0.0, drawdown_pct)
 
     def record_trade(self, pnl: float, ticker: str) -> None:
         """
@@ -179,6 +214,23 @@ class CircuitBreakerState:
                 f"CONSECUTIVE_LOSSES: {self.consecutive_losses} consecutive losing trades"
             )
             return True, self.halt_reason
+
+        # Max drawdown from peak portfolio value (high-water mark)
+        drawdown_pct = self.update_high_water_mark(portfolio_value)
+        if drawdown_pct >= config.MAX_DRAWDOWN_HALT_PCT:
+            self._trigger_halt(
+                f"MAX_DRAWDOWN: {drawdown_pct:.1f}% drawdown from peak "
+                f"${self.peak_portfolio_value:,.2f} → ${portfolio_value:,.2f} "
+                f"(limit: {config.MAX_DRAWDOWN_HALT_PCT:.0f}%)"
+            )
+            return True, self.halt_reason
+
+        if drawdown_pct >= config.MAX_DRAWDOWN_WARNING_PCT:
+            logger.warning(
+                f"DRAWDOWN WARNING: {drawdown_pct:.1f}% from peak "
+                f"${self.peak_portfolio_value:,.2f} → ${portfolio_value:,.2f} "
+                f"(halt at {config.MAX_DRAWDOWN_HALT_PCT:.0f}%)"
+            )
 
         return False, None
 
@@ -816,7 +868,7 @@ class PositionMonitor:
                 else:
                     trailing_pct = config.TRAILING_STOP_PCT
 
-                new_stop = current_price * (1 - trailing_pct)
+                new_stop = pos.get('highest_price', current_price) * (1 - trailing_pct)
 
                 # Only raise stop, never lower
                 if new_stop > pos['stop_loss']:

@@ -241,6 +241,7 @@ AUDIT_LOG_FILE = os.path.join(DATA_DIR, 'audit_log.jsonl')
 TRADE_HISTORY_FILE = os.path.join(DATA_DIR, 'trade_history.csv')
 SIGNAL_HISTORY_FILE = os.path.join(DATA_DIR, 'signal_history.json')
 EXECUTION_METRICS_FILE = os.path.join(DATA_DIR, 'execution_metrics.json')
+HIGH_WATER_MARK_FILE = os.path.join(DATA_DIR, 'high_water_mark.json')
 
 # Path to approved signals from main pipeline (for tier lookup during broker sync)
 # Note: This is in the main data/ directory, not automated_trading/data/
