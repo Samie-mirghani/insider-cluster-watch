@@ -66,6 +66,7 @@ class CircuitBreakerState:
 
         # Reset if new day
         if data.get('date') != today:
+            previous_halt_reason = data.get('halt_reason')
             self.daily_pnl = 0.0
             self.consecutive_losses = 0
             self.is_halted = False
@@ -73,6 +74,11 @@ class CircuitBreakerState:
             self.trades_today = []
             self.total_trades_today = 0
             self.last_reset_date = today
+
+            # If yesterday halted due to drawdown, restart baseline for the new day.
+            if previous_halt_reason and previous_halt_reason.startswith("MAX_DRAWDOWN"):
+                self._clear_high_water_mark("new trading day after drawdown halt")
+
             logger.info("New trading day - circuit breakers reset")
         else:
             self.daily_pnl = data.get('daily_pnl', 0.0)
@@ -109,6 +115,17 @@ class CircuitBreakerState:
             'last_updated': datetime.now().isoformat()
         }
         save_json_file(config.HIGH_WATER_MARK_FILE, data)
+
+    def _clear_high_water_mark(self, context: str) -> None:
+        """Clear persisted high-water mark so drawdown checks can re-baseline."""
+        previous_peak = self.peak_portfolio_value
+        self.peak_portfolio_value = 0.0
+        self._save_high_water_mark()
+        logger.warning(
+            "High-water mark cleared (%s): previous peak was $%s",
+            context,
+            f"{previous_peak:,.2f}"
+        )
 
     def update_high_water_mark(self, portfolio_value: float) -> float:
         """
@@ -271,11 +288,17 @@ class CircuitBreakerState:
 
         self.save_state()
 
+        drawdown_halt_reset = bool(old_halt_reason and old_halt_reason.startswith("MAX_DRAWDOWN"))
+        if drawdown_halt_reset:
+            # Prevent immediate re-halt at the same equity level after manual reset.
+            self._clear_high_water_mark("manual reset after drawdown halt")
+
         log_audit_event('CIRCUIT_BREAKER_RESET', {
             'reset_reason': reason,
             'previous_halt_reason': old_halt_reason,
             'daily_pnl': old_daily_pnl,
-            'consecutive_losses': self.consecutive_losses
+            'consecutive_losses': self.consecutive_losses,
+            'high_water_mark_reset': drawdown_halt_reset
         }, outcome='WARNING')
 
         logger.warning(
