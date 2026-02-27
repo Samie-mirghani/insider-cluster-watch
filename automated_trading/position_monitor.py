@@ -243,7 +243,8 @@ class CircuitBreakerState:
         log_audit_event('CIRCUIT_BREAKER_TRIGGERED', {
             'reason': reason,
             'daily_pnl': self.daily_pnl,
-            'consecutive_losses': self.consecutive_losses
+            'consecutive_losses': self.consecutive_losses,
+            'peak_portfolio_value': self.peak_portfolio_value
         }, outcome='CRITICAL')
 
         logger.critical(f"CIRCUIT BREAKER TRIGGERED: {reason}")
@@ -328,7 +329,8 @@ class CircuitBreakerState:
             'consecutive_losses': self.consecutive_losses,
             'trades_today': len(self.trades_today),
             'total_trades_today': self.total_trades_today,
-            'trades_remaining': max(0, config.MAX_TRADES_PER_DAY - self.total_trades_today)
+            'trades_remaining': max(0, config.MAX_TRADES_PER_DAY - self.total_trades_today),
+            'peak_portfolio_value': self.peak_portfolio_value
         }
 
 
@@ -839,9 +841,18 @@ class PositionMonitor:
             entry_price = pos['entry_price']
             pnl_pct = calculate_pnl_pct(entry_price, current_price)
 
-            # Track highest price
-            if current_price > pos.get('highest_price', 0):
-                pos['highest_price'] = current_price
+            # Track highest price (with bad-tick protection)
+            # Reject price spikes > 50% above current highest as likely erroneous
+            prev_highest = pos.get('highest_price', entry_price)
+            if current_price > prev_highest:
+                spike_pct = ((current_price - prev_highest) / prev_highest) * 100 if prev_highest > 0 else 0
+                if spike_pct <= 50:
+                    pos['highest_price'] = current_price
+                else:
+                    logger.warning(
+                        f"{ticker}: Rejected suspect price spike ${prev_highest:.2f} → "
+                        f"${current_price:.2f} (+{spike_pct:.1f}%) — not updating highest_price"
+                    )
 
             # Enable trailing stop after threshold gain
             if not pos.get('trailing_enabled'):
