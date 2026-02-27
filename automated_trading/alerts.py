@@ -35,6 +35,19 @@ logger = logging.getLogger(__name__)
 
 
 # Email styling constants (matching dashboard-v2.html)
+# Base URL for GitHub-hosted icons (shared with generate_report.py)
+GITHUB_ICON_BASE_URL = "https://raw.githubusercontent.com/Samie-mirghani/insider-cluster-watch/main/docs/assets/icons"
+
+
+def _icon_img(name: str, width: int = 20, height: int = 20, alt: str = "") -> str:
+    """Return an <img> tag for a GitHub-hosted PNG icon."""
+    url = f"{GITHUB_ICON_BASE_URL}/{name}"
+    return (
+        f'<img src="{url}" width="{width}" height="{height}" '
+        f'alt="{alt}" style="vertical-align: middle; display: inline-block;" />'
+    )
+
+
 COLORS = {
     'bg_main': '#0b1120',
     'bg_card': '#151e32',
@@ -977,7 +990,7 @@ Insider Cluster Watch — Automated Trading System
                     </tr>
                     <tr>
                         <td style="background: {COLORS['warning']}; padding: 20px; text-align: center;">
-                            <div style="font-size: 36px; margin-bottom: 10px;">🔄</div>
+                            <div style="margin-bottom: 10px;">{_icon_img("trending.png", 36, 36, "Redeployment")}</div>
                             <h1 style="margin: 0; font-size: 20px; color: #000; font-weight: 700;">INTRADAY REDEPLOYMENT</h1>
                             <p style="margin: 5px 0 0 0; color: rgba(0,0,0,0.7); font-size: 12px;">Capital redeployed mid-day</p>
                         </td>
