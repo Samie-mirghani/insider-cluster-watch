@@ -935,10 +935,10 @@ Insider Cluster Watch — Automated Trading System
         Returns:
             True if sent successfully
         """
-        _, mode_label, mode_color = self._get_mode_indicator()
+        mode_emoji, mode_label, mode_color = self._get_mode_indicator()
         timestamp = format_datetime_for_display(datetime.now())
 
-        subject = f"[{mode_label}] Intraday Redeployment: {ticker} - {shares} shares @ ${price:.2f}"
+        subject = f"{mode_emoji} Intraday Redeployment: {ticker} - {shares} shares @ ${price:.2f}"
 
         html = self._render_redeployment_html(
             ticker=ticker,
