@@ -180,6 +180,7 @@ INDUSTRY_TO_SECTOR = {
     'Conglomerates': 'Industrials',
     'Integrated Freight & Logistics': 'Industrials',
     'Freight & Logistics Services': 'Industrials',
+    'Rental & Leasing Services': 'Industrials',
 
     # Materials industries
     'Steel': 'Basic Materials',
@@ -194,6 +195,7 @@ INDUSTRY_TO_SECTOR = {
     'Building Materials': 'Basic Materials',
     'Lumber & Wood Production': 'Basic Materials',
     'Paper & Paper Products': 'Basic Materials',
+    'Paper, Lumber & Forest Products': 'Basic Materials',
 
     # Real Estate industries
     'REIT': 'Real Estate',
