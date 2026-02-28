@@ -147,6 +147,11 @@ class FMPAnalytics:
         if len(self.data['cache_efficiency_history']) > 30:
             self.data['cache_efficiency_history'] = self.data['cache_efficiency_history'][-30:]
 
+    def daily_limit_reached(self) -> bool:
+        """Check if today's API calls have hit the free tier limit."""
+        today = datetime.now().strftime('%Y-%m-%d')
+        return self.data['daily_usage'].get(today, 0) >= FMP_FREE_TIER_LIMIT
+
     def save(self) -> None:
         """Save analytics to disk"""
         self._save_analytics()
@@ -291,6 +296,21 @@ class EnhancedFMPAPIClient:
             logger.error("Cannot fetch: FMP_API_KEY not configured")
             return None
 
+        # Rate-limit guard: return stale cache rather than blow through free tier
+        if self.analytics.daily_limit_reached():
+            cached = self.cache.get(ticker.upper().strip())
+            if cached:
+                logger.warning(
+                    f"Daily API limit ({FMP_FREE_TIER_LIMIT}) reached — "
+                    f"returning stale cache for {ticker}"
+                )
+                return cached
+            logger.warning(
+                f"Daily API limit ({FMP_FREE_TIER_LIMIT}) reached and "
+                f"no cache for {ticker} — skipping"
+            )
+            return None
+
         try:
             url = f"{FMP_API_BASE_URL}/profile"
             params = {
@@ -322,6 +342,8 @@ class EnhancedFMPAPIClient:
                 'price': profile.get('price'),
                 # FMP stable API uses 'marketCap'; legacy v3 used 'mktCap'
                 'marketCap': profile.get('marketCap') or profile.get('mktCap'),
+                # Average daily volume — prefer volAvg (stable API); fall back to
+                # volume only as a key-name alias, NOT as "today's volume".
                 'volume': profile.get('volAvg') or profile.get('volume'),
 
                 # Company info

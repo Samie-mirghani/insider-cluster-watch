@@ -768,6 +768,7 @@ class PositionMonitor:
 
         for ticker, pos in self.positions.items():
             current_price = self.get_current_price(ticker)
+            price_is_stale = False
             if current_price:
                 # Cache successful price lookups for fallback during outages
                 if pos.get('last_known_price') != current_price:
@@ -778,6 +779,7 @@ class PositionMonitor:
                 fallback_price = pos.get('last_known_price') or pos.get('entry_price')
                 if fallback_price:
                     current_price = fallback_price
+                    price_is_stale = True
                     logger.warning(
                         f"Cannot get live price for {ticker}, using last known "
                         f"price ${fallback_price:.2f} for exit checks"
@@ -795,11 +797,16 @@ class PositionMonitor:
             # Check stop loss (with gap-down detection)
             # NOTE: All exits use close_position() (market order) regardless of
             # gap-down flag. The flag is for audit/alerting, not order routing.
+            # Gap-down detection is suppressed when using stale prices to avoid
+            # false CRITICAL alerts — stale prices can't reliably detect gaps.
             if current_price <= pos['stop_loss']:
                 trailing_tag = " (TRAILING)" if pos.get('trailing_enabled') else ""
                 stop_price = pos['stop_loss']
                 gap_below_stop_pct = ((stop_price - current_price) / stop_price * 100) if stop_price > 0 else 0
-                is_gap_down = gap_below_stop_pct >= config.GAP_DOWN_THRESHOLD_PCT
+                is_gap_down = (
+                    gap_below_stop_pct >= config.GAP_DOWN_THRESHOLD_PCT
+                    and not price_is_stale
+                )
 
                 if is_gap_down:
                     reason = f'GAP_DOWN_EXIT{trailing_tag}'
@@ -818,7 +825,8 @@ class PositionMonitor:
                     'trigger_price': stop_price,
                     'pnl_pct': pnl_pct,
                     'gap_down': is_gap_down,
-                    'gap_below_stop_pct': round(gap_below_stop_pct, 2)
+                    'gap_below_stop_pct': round(gap_below_stop_pct, 2),
+                    'price_is_stale': price_is_stale
                 }
 
             # Check take profit
@@ -938,8 +946,10 @@ class PositionMonitor:
                     trailing_pct = config.BIG_WINNER_STOP_PCT
                 elif (config.ENABLE_DYNAMIC_STOPS
                       and days_held > config.OLD_POSITION_DAYS
-                      and 0 < pnl_pct < config.MODEST_GAIN_THRESHOLD):
-                    # Old position with modest gain: use tighter trailing from highest price
+                      and pnl_pct < config.MODEST_GAIN_THRESHOLD):
+                    # Old position with modest/no gain: use tighter trailing from highest price.
+                    # Covers both "modest gain" (0 < pnl < 10%) AND "gave back all gains"
+                    # (pnl <= 0) where trailing was enabled at +6% but gains evaporated.
                     trailing_pct = config.OLD_POSITION_STOP_PCT
                     old_pos_stop = pos.get('highest_price', current_price) * (1 - trailing_pct)
                     if old_pos_stop > pos['stop_loss']:
@@ -954,8 +964,9 @@ class PositionMonitor:
                             'pnl_pct': pnl_pct
                         })
 
+                        tag = f"+{pnl_pct:.1f}%" if pnl_pct > 0 else f"{pnl_pct:.1f}%"
                         logger.info(
-                            f"{ticker}: OLD+MODEST ({days_held}d, +{pnl_pct:.1f}%) "
+                            f"{ticker}: OLD+STALE ({days_held}d, {tag}) "
                             f"→ stop ${old_stop:.2f} → ${old_pos_stop:.2f}"
                         )
 
@@ -968,7 +979,7 @@ class PositionMonitor:
                             'highest_price': round(pos.get('highest_price', current_price), 2),
                             'entry_price': round(entry_price, 2),
                             'pnl_pct': round(pnl_pct, 2),
-                            'reason': f'OLD_POSITION ({days_held}d, +{pnl_pct:.1f}%)'
+                            'reason': f'OLD_POSITION ({days_held}d, {tag})'
                         })
 
                     # Fall through: if old-position stop didn't raise, the
