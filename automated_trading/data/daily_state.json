@@ -1,0 +1,21 @@
+{
+  "date": "2026-02-27",
+  "daily_pnl": -45.589999999999975,
+  "consecutive_losses": 2,
+  "is_halted": false,
+  "halt_reason": null,
+  "trades_today": [
+    {
+      "ticker": "HLNE",
+      "pnl": -3.0299999999999727,
+      "time": "2026-02-27T14:40:04.817393"
+    },
+    {
+      "ticker": "HTGC",
+      "pnl": -42.56,
+      "time": "2026-02-27T16:45:04.342253"
+    }
+  ],
+  "total_trades_today": 6,
+  "last_updated": "2026-02-27T16:45:04.342304"
+}
