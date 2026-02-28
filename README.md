@@ -1,6 +1,6 @@
 # Insider Cluster Watch
 
-Automated pipeline to detect and score insider open-market buys (Form 4), generate daily HTML/plain-text email reports with ranked signals, simulate paper trading, execute live trades via Alpaca Markets, and track performance over time. Built as a DIY-first, low-cost stack: Python scripts + GitHub Actions scheduler + Gmail for email.
+Automated pipeline to detect and score insider open-market buys (Form 4), generate a consolidated daily trading report via email, simulate paper trading, execute live trades via Alpaca Markets, and track performance over time. Built as a DIY-first, low-cost stack: Python scripts + GitHub Actions scheduler + Gmail for email.
 
 > **Repo owner:** Samie-Mirghani
 
@@ -20,9 +20,8 @@ Automated pipeline to detect and score insider open-market buys (Form 4), genera
 - **Insider Performance Tracking** - Scores individual insiders by historical trade outcomes (Follow-the-Smart-Money)
 - **Short Interest Analysis** - Identifies high short interest and potential squeeze setups
 - **Sector Relative Analysis** - Detects contrarian and momentum sector opportunities
-- **Detects** concerning insider selling patterns and adds warning banners to reports
-- **Generates** daily HTML + plain-text email reports with ranked buy signals and multi-signal badges
-- **Sends** urgent alerts when high-conviction clusters are detected (3+ insiders, $250k+)
+- **Detects** concerning insider selling patterns and includes warning flags in the report
+- **Generates** a single consolidated Daily Trading Report via email (portfolio dashboard + signals + positions)
 - **Tracks** all signals in CSV for historical backtesting
 - **Simulates** paper trading with score-weighted position sizing (5-12%), volatility-adjusted sizing, adaptive exposure, and dynamic stop losses
 - **Executes** live trades via Alpaca Markets API with full risk management (optional, paper mode by default)
@@ -87,20 +86,10 @@ Optional production-ready live trading via Alpaca Markets API:
 - Calculates: Hit rate, average return, alpha vs SPY (1-week and 1-month horizons)
 - Generates: Performance charts and weekly email summaries
 
-### 8. Urgent Alerts
-Separate email sent when signals meet all criteria:
-- 3+ insiders buying
-- $250k+ total purchase value
-- High conviction score (7.0+)
-- Price within 15% of 52-week low
-
-### 9. News Sentiment Analysis
+### 8. News Sentiment Analysis
 Checks recent news for each signal to identify potential catalysts or red flags.
 
-### 10. No-Activity Reports
-When no significant signals are detected, sends a summary explaining why and showing transaction statistics.
-
-### 11. Multi-Signal Detection
+### 9. Multi-Signal Detection
 Enhances insider signals by checking for confirmation from other data sources:
 - **Politician Trades:** Scrapes Capitol Trades for congressional trading activity (tracks 15+ high-performing politicians)
 - **Automated Time-Decay System:** Intelligently handles retiring/retired politicians
@@ -119,7 +108,7 @@ Enhances insider signals by checking for confirmation from other data sources:
   - **Tier 3** (1 signal): 50% positions, 8% stops, 16% take-profit
   - **Tier 4** (watch list): 25% positions, 6% stops, 12% take-profit
 
-### 12. Insider Performance Tracking (Follow-the-Smart-Money)
+### 10. Insider Performance Tracking (Follow-the-Smart-Money)
 Tracks and scores individual insider performance over time:
 - Analyzes 3+ years of historical trade outcomes
 - Scores insiders 0-100 based on win rate, average return, and consistency
@@ -127,14 +116,14 @@ Tracks and scores individual insider performance over time:
 - Automatically queues and updates outcome data daily
 - Requires minimum 3 trades for a reliable score
 
-### 13. Short Interest Analysis
+### 11. Short Interest Analysis
 Identifies high short interest and squeeze potential:
 - Tracks short interest percentage and days to cover
 - Thresholds: 20%+ = high, 30%+ = very high
 - Conviction boost (+1.0) for high short interest, additional +0.5 for squeeze setups
 - Weekly cached data (short interest updates bi-monthly)
 
-### 14. Sector Relative Analysis
+### 12. Sector Relative Analysis
 Analyzes sector performance relative to SPY:
 - Contrarian detection: Sector down 10-15%+ vs SPY = opportunity
 - Momentum detection: Sector up 10-15%+ vs SPY = caution
@@ -142,7 +131,7 @@ Analyzes sector performance relative to SPY:
 - Sector concentration limits: 40% max in one sector
 - FMP API integration for accurate industry classification
 
-### 15. Intelligent Signal Detection Enhancements
+### 13. Intelligent Signal Detection Enhancements
 Advanced filtering system that catches high-quality trades while maintaining signal standards:
 
 **Mega-Cluster Exception** - Bypasses volume filters for rare, high-conviction clusters:
@@ -162,7 +151,7 @@ Advanced filtering system that catches high-quality trades while maintaining sig
 - 4-6 insiders: $150k/day minimum
 - 1-3 insiders: $200k/day minimum
 
-### 16. Web Dashboard
+### 14. Web Dashboard
 Interactive HTML dashboards for signal visualization and insider performance leaderboards:
 - `index.html` - Dashboard homepage
 - `dashboard.html` / `dashboard-v2.html` - Interactive signal and performance dashboards
@@ -220,9 +209,7 @@ insider-cluster-watch/
 │   └── README.md                          # Alpaca setup and monitoring guide
 │
 ├── templates/                             # Jinja2 email templates
-│   ├── daily_report.html                  # Daily signal email
-│   ├── urgent_alert.html                  # High-conviction alert email
-│   ├── no_activity_report.html            # No-activity fallback report
+│   ├── daily_report.html                  # Consolidated daily trading report
 │   └── weekly_performance.html            # Weekly summary template
 │
 ├── .github/workflows/                     # GitHub Actions automation
@@ -332,14 +319,6 @@ python main.py --test
 ```
 
 This sends a test email and exits without saving to history.
-
-### 5. Generate a fake urgent alert (optional)
-
-```bash
-python main.py --urgent-test
-```
-
-This creates a fake urgent signal with multiple insiders to test the urgent email template.
 
 ---
 
@@ -491,7 +470,7 @@ MULTI_SIGNAL_TAKE_PROFIT = {
 - Generates buy signals with multi-signal detection
 - Detects sell warnings
 - Simulates paper trading execution
-- Sends daily and urgent emails
+- Sends consolidated daily trading report
 - Updates insider performance tracking
 - Commits updated data files to repo
 
@@ -526,33 +505,53 @@ MULTI_SIGNAL_TAKE_PROFIT = {
 
 ---
 
-## Email Report Types
+## Daily Trading Report (Email)
 
-### Daily Report
-Shows all signals detected with:
+The system sends a single consolidated Daily Trading Report each morning. There are no separate "Urgent," "No-Activity," or "Daily" emails - everything is unified into one structured email that functions as a paper-trading dashboard.
+
+### A. Portfolio Performance Snapshot
+- Portfolio value and total return
+- Daily P&L
+- Cash allocation and exposure percentage
+- Win rate
+- Open position count
+- Drawdown vs configured limit
+
+### B. Trading Activity Log
+- Trades executed (if any)
+- Position updates
+- Holding duration tracking
+- Account-level changes
+
+### C. Open Positions Overview
+Per position:
+- Ticker, entry price, current price
+- % gain/loss
+- Days held
+
+### D. Approved Insider Clusters ("Top Signals Detected")
+For each signal:
 - Ticker and company name
-- Number of insiders buying (cluster count)
-- Total purchase value
-- Conviction and rank scores
-- Multi-signal tier badges
-- Current price and distance from 52-week low
-- Short interest data and sector context
-- Suggested action (Urgent / Watchlist / Monitor)
+- Cluster size and total purchase value
+- Insider role breakdown
+- Conviction score and tier classification
+- Politician confirmation (if applicable)
+- Institutional confirmation (if applicable)
+- Warning flags (sell warnings, if triggered)
+- Execution decision (ENTERED / SKIPPED)
+- Position sizing recommendation
+- Stop loss / take profit parameters
+- Liquidity tier
 
-### Urgent Alert
-Sent immediately when high-conviction signals are detected:
-- Dynamic signal count
-- Multiple signal cards with key metrics
-- Red/urgent color scheme
-
-### No Activity Report
-Sent when no significant signals are found:
-- Explains why no signals were generated
-- Shows transaction statistics
-- Confirms system is monitoring correctly
+### E. Portfolio Health Monitoring
+Automated checks:
+- Win rate vs target
+- Drawdown vs limit
+- Exposure limits
+- Position aging alerts
 
 ### Weekly Performance Summary
-Comprehensive performance report including:
+Sent on Sundays with:
 - Paper trading portfolio status
 - Win rate and profit/loss metrics
 - Risk-adjusted returns (Sharpe ratio)
@@ -617,11 +616,8 @@ Displays current portfolio status, performance metrics, and position details.
 ```bash
 cd jobs
 
-# Test with current data (sends email)
+# Test with current data (sends daily trading report)
 python main.py --test
-
-# Test urgent alert template
-python main.py --urgent-test
 
 # Run without paper trading
 python main.py --no-paper-trading
@@ -638,7 +634,7 @@ python visualize.py
 1. **Check workflow runs:** Actions tab in GitHub
 2. **View logs:** Click on any workflow run to see detailed logs
 3. **Verify commits:** Check that data files are being updated daily
-4. **Review emails:** Confirm daily and urgent emails are arriving
+4. **Review emails:** Confirm daily trading reports are arriving
 
 ---
 
@@ -742,9 +738,9 @@ python visualize.py
    |
 15. Queue approved signals for Alpaca trading
    |
-16. Generate HTML/text reports (with tier badges)
+16. Generate consolidated daily trading report (HTML + text)
    |
-17. Send emails via Gmail SMTP
+17. Send report via Gmail SMTP
    |
 18. Save to signals_history.csv (with tier data)
    |
@@ -771,14 +767,6 @@ Insider performance multiplier: 0.5x (poor) to 2.0x (top performer)
 **Cluster Score (per ticker):**
 ```python
 cluster_score = (num_insiders x 2.0) + (avg_conviction / 10.0)
-```
-
-**Urgent Criteria (all must be true):**
-```
-cluster_count >= 3
-total_value >= $250,000
-avg_conviction >= 7.0
-price within 15% of 52-week low
 ```
 
 ### Position Sizing Algorithm
@@ -846,8 +834,7 @@ Based on insider trading research and backtesting:
 
 ### Current Status
 - Daily signal generation with deduplication
-- Email reports with sell warnings and multi-signal badges
-- Urgent alerts with dynamic counts
+- Consolidated daily trading report (portfolio dashboard + signals + positions)
 - Paper trading simulation with score-weighted and volatility-adjusted sizing
 - Multi-signal detection (politician trades + institutional holdings)
 - Tiered signal classification (Tier 0-4) with 2:1 R:R targets
@@ -993,6 +980,7 @@ Built with:
 **Version:** 3.0.0
 
 **Recent Updates:**
+- Consolidated Daily Trading Report replacing separate Daily/Urgent/No-Activity emails
 - Automated live trading via Alpaca Markets with full risk management
 - Insider performance tracking (Follow-the-Smart-Money scoring)
 - Short interest analysis and squeeze detection
@@ -1014,7 +1002,6 @@ Built with:
 - [ ] Create Gmail app password
 - [ ] Set up `.env` file with credentials
 - [ ] Test locally (`python jobs/main.py --test`)
-- [ ] Test urgent alerts (`python jobs/main.py --urgent-test`)
 - [ ] Set up GitHub Secrets
 - [ ] Enable GitHub Actions workflow permissions (read and write)
 - [ ] Wait 1 week for initial signal history to build
