@@ -147,6 +147,11 @@ class FMPAnalytics:
         if len(self.data['cache_efficiency_history']) > 30:
             self.data['cache_efficiency_history'] = self.data['cache_efficiency_history'][-30:]
 
+    def daily_limit_reached(self) -> bool:
+        """Check if today's API calls have hit the free tier limit."""
+        today = datetime.now().strftime('%Y-%m-%d')
+        return self.data['daily_usage'].get(today, 0) >= FMP_FREE_TIER_LIMIT
+
     def save(self) -> None:
         """Save analytics to disk"""
         self._save_analytics()
@@ -283,12 +288,27 @@ class EnhancedFMPAPIClient:
 
         Returns dict with all available fields:
         - industry, sector (classification)
-        - price, mktCap, volAvg (market data)
+        - price, marketCap, volume (market data)
         - beta, lastDiv, range (additional metrics)
         - And many more...
         """
         if not self.api_key:
             logger.error("Cannot fetch: FMP_API_KEY not configured")
+            return None
+
+        # Rate-limit guard: return stale cache rather than blow through free tier
+        if self.analytics.daily_limit_reached():
+            cached = self.cache.get(ticker.upper().strip())
+            if cached:
+                logger.warning(
+                    f"Daily API limit ({FMP_FREE_TIER_LIMIT}) reached — "
+                    f"returning stale cache for {ticker}"
+                )
+                return cached
+            logger.warning(
+                f"Daily API limit ({FMP_FREE_TIER_LIMIT}) reached and "
+                f"no cache for {ticker} — skipping"
+            )
             return None
 
         try:
@@ -320,16 +340,25 @@ class EnhancedFMPAPIClient:
 
                 # Market data
                 'price': profile.get('price'),
-                'marketCap': profile.get('mktCap'),
-                'volume': profile.get('volAvg'),
+                # FMP stable API uses 'marketCap'; legacy v3 used 'mktCap'
+                'marketCap': profile.get('marketCap') or profile.get('mktCap'),
+                # Average daily volume — prefer volAvg (stable API); fall back to
+                # volume only as a key-name alias, NOT as "today's volume".
+                'volume': profile.get('volAvg') or profile.get('volume'),
 
                 # Company info
                 'companyName': profile.get('companyName'),
                 'exchange': profile.get('exchangeShortName'),
                 'currency': profile.get('currency', 'USD'),
 
-                # Share structure
-                'sharesOutstanding': profile.get('mktCap') / profile.get('price') if (profile.get('mktCap') and profile.get('price') and profile.get('price') > 0) else None,
+                # Share structure (derive from marketCap / price)
+                'sharesOutstanding': (
+                    (profile.get('marketCap') or profile.get('mktCap', 0)) /
+                    profile.get('price')
+                    if (profile.get('marketCap') or profile.get('mktCap'))
+                    and profile.get('price') and profile.get('price') > 0
+                    else None
+                ),
 
                 # Additional metrics
                 'beta': profile.get('beta'),

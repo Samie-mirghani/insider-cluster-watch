@@ -440,6 +440,7 @@ class PositionMonitor:
             'multi_signal_tier': signal_data.get('multi_signal_tier', 'none'),
             'sector': signal_data.get('sector', 'Unknown'),
             'entry_price': signal_data.get('entry_price') or signal_data.get('currentPrice', 0),
+            'entry_date': datetime.now().isoformat(),
             'saved_at': datetime.now().isoformat()
         }
         self._save_signal_history()
@@ -526,11 +527,27 @@ class PositionMonitor:
                 stop_loss = avg_entry * (1 - stop_loss_pct)
                 take_profit = avg_entry * (1 + take_profit_pct)
 
+                # Restore entry_date from signal history if available;
+                # falling back to now() loses position age and disables
+                # time-based risk rules (old-position trailing, time exits).
+                entry_date = datetime.now()
+                if signal_info and signal_info.get('entry_date'):
+                    try:
+                        entry_date = datetime.fromisoformat(signal_info['entry_date'])
+                        logger.info(f"  Restored entry_date for {ticker}: {entry_date.date()}")
+                    except (ValueError, TypeError):
+                        logger.warning(f"  Bad entry_date in signal history for {ticker}, using now()")
+                else:
+                    logger.warning(
+                        f"  No entry_date in signal history for {ticker} — "
+                        f"days_held will be 0 (time-based exits disabled until re-entry)"
+                    )
+
                 # Add position with broker data
                 self.positions[ticker] = {
                     'shares': shares,
                     'entry_price': avg_entry,
-                    'entry_date': datetime.now(),  # Unknown, use current time
+                    'entry_date': entry_date,
                     'cost_basis': shares * avg_entry,
                     'stop_loss': stop_loss,
                     'initial_stop_loss': stop_loss,
@@ -751,6 +768,7 @@ class PositionMonitor:
 
         for ticker, pos in self.positions.items():
             current_price = self.get_current_price(ticker)
+            price_is_stale = False
             if current_price:
                 # Cache successful price lookups for fallback during outages
                 if pos.get('last_known_price') != current_price:
@@ -761,6 +779,7 @@ class PositionMonitor:
                 fallback_price = pos.get('last_known_price') or pos.get('entry_price')
                 if fallback_price:
                     current_price = fallback_price
+                    price_is_stale = True
                     logger.warning(
                         f"Cannot get live price for {ticker}, using last known "
                         f"price ${fallback_price:.2f} for exit checks"
@@ -775,15 +794,39 @@ class PositionMonitor:
 
             exit_info = None
 
-            # Check stop loss
+            # Check stop loss (with gap-down detection)
+            # NOTE: All exits use close_position() (market order) regardless of
+            # gap-down flag. The flag is for audit/alerting, not order routing.
+            # Gap-down detection is suppressed when using stale prices to avoid
+            # false CRITICAL alerts — stale prices can't reliably detect gaps.
             if current_price <= pos['stop_loss']:
                 trailing_tag = " (TRAILING)" if pos.get('trailing_enabled') else ""
+                stop_price = pos['stop_loss']
+                gap_below_stop_pct = ((stop_price - current_price) / stop_price * 100) if stop_price > 0 else 0
+                is_gap_down = (
+                    gap_below_stop_pct >= config.GAP_DOWN_THRESHOLD_PCT
+                    and not price_is_stale
+                )
+
+                if is_gap_down:
+                    reason = f'GAP_DOWN_EXIT{trailing_tag}'
+                    logger.warning(
+                        f"{ticker}: GAP-DOWN detected — price ${current_price:.2f} is "
+                        f"{gap_below_stop_pct:.1f}% below stop ${stop_price:.2f}. "
+                        f"Using market order for immediate exit."
+                    )
+                else:
+                    reason = f'STOP_LOSS{trailing_tag}'
+
                 exit_info = {
                     'ticker': ticker,
-                    'reason': f'STOP_LOSS{trailing_tag}',
+                    'reason': reason,
                     'current_price': current_price,
-                    'trigger_price': pos['stop_loss'],
-                    'pnl_pct': pnl_pct
+                    'trigger_price': stop_price,
+                    'pnl_pct': pnl_pct,
+                    'gap_down': is_gap_down,
+                    'gap_below_stop_pct': round(gap_below_stop_pct, 2),
+                    'price_is_stale': price_is_stale
                 }
 
             # Check take profit
@@ -894,11 +937,54 @@ class PositionMonitor:
 
             # Update trailing stop
             if pos.get('trailing_enabled'):
+                days_held = (datetime.now() - pos['entry_date']).days
+
                 # Determine trailing percentage based on gain
                 if pnl_pct > config.HUGE_WINNER_THRESHOLD:
                     trailing_pct = config.HUGE_WINNER_STOP_PCT
                 elif pnl_pct > config.BIG_WINNER_THRESHOLD:
                     trailing_pct = config.BIG_WINNER_STOP_PCT
+                elif (config.ENABLE_DYNAMIC_STOPS
+                      and days_held > config.OLD_POSITION_DAYS
+                      and pnl_pct < config.MODEST_GAIN_THRESHOLD):
+                    # Old position with modest/no gain: use tighter trailing from highest price.
+                    # Covers both "modest gain" (0 < pnl < 10%) AND "gave back all gains"
+                    # (pnl <= 0) where trailing was enabled at +6% but gains evaporated.
+                    trailing_pct = config.OLD_POSITION_STOP_PCT
+                    old_pos_stop = pos.get('highest_price', current_price) * (1 - trailing_pct)
+                    if old_pos_stop > pos['stop_loss']:
+                        old_stop = pos['stop_loss']
+                        pos['stop_loss'] = old_pos_stop
+
+                        updated.append({
+                            'ticker': ticker,
+                            'old_stop': old_stop,
+                            'new_stop': old_pos_stop,
+                            'trailing_pct': trailing_pct * 100,
+                            'pnl_pct': pnl_pct
+                        })
+
+                        tag = f"+{pnl_pct:.1f}%" if pnl_pct > 0 else f"{pnl_pct:.1f}%"
+                        logger.info(
+                            f"{ticker}: OLD+STALE ({days_held}d, {tag}) "
+                            f"→ stop ${old_stop:.2f} → ${old_pos_stop:.2f}"
+                        )
+
+                        log_audit_event('TRAILING_STOP_UPDATED', {
+                            'ticker': ticker,
+                            'old_stop': round(old_stop, 2),
+                            'new_stop': round(old_pos_stop, 2),
+                            'trailing_pct': trailing_pct * 100,
+                            'current_price': round(current_price, 2),
+                            'highest_price': round(pos.get('highest_price', current_price), 2),
+                            'entry_price': round(entry_price, 2),
+                            'pnl_pct': round(pnl_pct, 2),
+                            'reason': f'OLD_POSITION ({days_held}d, {tag})'
+                        })
+
+                    # Fall through: if old-position stop didn't raise, the
+                    # standard trailing logic below will still apply with
+                    # trailing_pct already set to OLD_POSITION_STOP_PCT.
                 else:
                     trailing_pct = config.TRAILING_STOP_PCT
 
@@ -1002,10 +1088,24 @@ class PositionMonitor:
                     stop_loss = avg_entry * (1 - stop_loss_pct)
                     take_profit = avg_entry * (1 + take_profit_pct)
 
+                    # Restore entry_date from signal history to preserve position age
+                    entry_date = datetime.now()
+                    if signal_info and signal_info.get('entry_date'):
+                        try:
+                            entry_date = datetime.fromisoformat(signal_info['entry_date'])
+                            logger.info(f"  Restored entry_date for {ticker}: {entry_date.date()}")
+                        except (ValueError, TypeError):
+                            logger.warning(f"  Bad entry_date in signal history for {ticker}, using now()")
+                    else:
+                        logger.warning(
+                            f"  No entry_date in signal history for {ticker} — "
+                            f"days_held will be 0 (time-based exits disabled until re-entry)"
+                        )
+
                     self.positions[ticker] = {
                         'shares': shares,
                         'entry_price': avg_entry,
-                        'entry_date': datetime.now(),
+                        'entry_date': entry_date,
                         'cost_basis': shares * avg_entry,
                         'stop_loss': stop_loss,
                         'initial_stop_loss': stop_loss,

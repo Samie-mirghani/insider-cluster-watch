@@ -1181,13 +1181,52 @@ class TradingEngine:
                 ticker = exit_info['ticker']
                 reason = exit_info['reason']
 
+                # Gap-down events: log, audit, and send CRITICAL alert
+                if exit_info.get('gap_down'):
+                    gap_pct = exit_info.get('gap_below_stop_pct', 0)
+                    stop_price = exit_info.get('trigger_price', 0)
+                    current_price = exit_info.get('current_price', 0)
+
+                    logger.warning(
+                        f"GAP-DOWN EXIT for {ticker}: price gapped "
+                        f"{gap_pct:.1f}% below stop. "
+                        f"Market order used for immediate exit."
+                    )
+                    log_audit_event('GAP_DOWN_EXIT', {
+                        'ticker': ticker,
+                        'current_price': current_price,
+                        'stop_price': stop_price,
+                        'gap_below_stop_pct': gap_pct,
+                    })
+
+                    # Send CRITICAL email — operator must know fill will be
+                    # significantly worse than stop price
+                    if self.alert_sender:
+                        try:
+                            subject = f"GAP-DOWN EXIT: {ticker} gapped {gap_pct:.1f}% below stop"
+                            text = (
+                                f"GAP-DOWN EXIT — {ticker}\n\n"
+                                f"Price: ${current_price:.2f}\n"
+                                f"Stop was: ${stop_price:.2f}\n"
+                                f"Gap below stop: {gap_pct:.1f}%\n"
+                                f"P&L: {exit_info.get('pnl_pct', 0):+.1f}%\n\n"
+                                f"Market order submitted for immediate exit. "
+                                f"Fill price will be at or below ${current_price:.2f}.\n"
+                                f"Review positions — multiple gap-downs may indicate a market-wide event."
+                            )
+                            html = f"<pre>{text}</pre>"
+                            self.alert_sender.send_alert(subject, html, text, 'CRITICAL')
+                        except Exception as e:
+                            logger.error(f"Failed to send gap-down alert for {ticker}: {e}")
+
                 success, message = self.execute_sell(ticker, reason)
 
                 if success:
                     results['exits_triggered'].append({
                         'ticker': ticker,
                         'reason': reason,
-                        'pnl_pct': exit_info.get('pnl_pct', 0)
+                        'pnl_pct': exit_info.get('pnl_pct', 0),
+                        'gap_down': exit_info.get('gap_down', False)
                     })
 
                     # Check for intraday redeployment opportunity
