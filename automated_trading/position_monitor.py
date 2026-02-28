@@ -776,6 +776,8 @@ class PositionMonitor:
             exit_info = None
 
             # Check stop loss (with gap-down detection)
+            # NOTE: All exits use close_position() (market order) regardless of
+            # gap-down flag. The flag is for audit/alerting, not order routing.
             if current_price <= pos['stop_loss']:
                 trailing_tag = " (TRAILING)" if pos.get('trailing_enabled') else ""
                 stop_price = pos['stop_loss']
@@ -920,8 +922,9 @@ class PositionMonitor:
                 elif (config.ENABLE_DYNAMIC_STOPS
                       and days_held > config.OLD_POSITION_DAYS
                       and 0 < pnl_pct < config.MODEST_GAIN_THRESHOLD):
-                    # Old position with modest gain: tighten from highest price
-                    old_pos_stop = pos.get('highest_price', current_price) * (1 - config.OLD_POSITION_STOP_PCT)
+                    # Old position with modest gain: use tighter trailing from highest price
+                    trailing_pct = config.OLD_POSITION_STOP_PCT
+                    old_pos_stop = pos.get('highest_price', current_price) * (1 - trailing_pct)
                     if old_pos_stop > pos['stop_loss']:
                         old_stop = pos['stop_loss']
                         pos['stop_loss'] = old_pos_stop
@@ -930,7 +933,7 @@ class PositionMonitor:
                             'ticker': ticker,
                             'old_stop': old_stop,
                             'new_stop': old_pos_stop,
-                            'trailing_pct': config.OLD_POSITION_STOP_PCT * 100,
+                            'trailing_pct': trailing_pct * 100,
                             'pnl_pct': pnl_pct
                         })
 
@@ -943,7 +946,7 @@ class PositionMonitor:
                             'ticker': ticker,
                             'old_stop': round(old_stop, 2),
                             'new_stop': round(old_pos_stop, 2),
-                            'trailing_pct': config.OLD_POSITION_STOP_PCT * 100,
+                            'trailing_pct': trailing_pct * 100,
                             'current_price': round(current_price, 2),
                             'highest_price': round(pos.get('highest_price', current_price), 2),
                             'entry_price': round(entry_price, 2),
@@ -951,7 +954,9 @@ class PositionMonitor:
                             'reason': f'OLD_POSITION ({days_held}d, +{pnl_pct:.1f}%)'
                         })
 
-                    continue  # Skip standard trailing update
+                    # Fall through: if old-position stop didn't raise, the
+                    # standard trailing logic below will still apply with
+                    # trailing_pct already set to OLD_POSITION_STOP_PCT.
                 else:
                     trailing_pct = config.TRAILING_STOP_PCT
 
