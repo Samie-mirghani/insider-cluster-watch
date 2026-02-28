@@ -1181,13 +1181,28 @@ class TradingEngine:
                 ticker = exit_info['ticker']
                 reason = exit_info['reason']
 
+                # Log gap-down events for post-trade analysis
+                if exit_info.get('gap_down'):
+                    logger.warning(
+                        f"GAP-DOWN EXIT for {ticker}: price gapped "
+                        f"{exit_info.get('gap_below_stop_pct', 0):.1f}% below stop. "
+                        f"Market order used for immediate exit."
+                    )
+                    log_audit_event('GAP_DOWN_EXIT', {
+                        'ticker': ticker,
+                        'current_price': exit_info.get('current_price'),
+                        'stop_price': exit_info.get('trigger_price'),
+                        'gap_below_stop_pct': exit_info.get('gap_below_stop_pct'),
+                    })
+
                 success, message = self.execute_sell(ticker, reason)
 
                 if success:
                     results['exits_triggered'].append({
                         'ticker': ticker,
                         'reason': reason,
-                        'pnl_pct': exit_info.get('pnl_pct', 0)
+                        'pnl_pct': exit_info.get('pnl_pct', 0),
+                        'gap_down': exit_info.get('gap_down', False)
                     })
 
                     # Check for intraday redeployment opportunity

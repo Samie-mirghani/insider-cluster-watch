@@ -775,15 +775,31 @@ class PositionMonitor:
 
             exit_info = None
 
-            # Check stop loss
+            # Check stop loss (with gap-down detection)
             if current_price <= pos['stop_loss']:
                 trailing_tag = " (TRAILING)" if pos.get('trailing_enabled') else ""
+                stop_price = pos['stop_loss']
+                gap_below_stop_pct = ((stop_price - current_price) / stop_price * 100) if stop_price > 0 else 0
+                is_gap_down = gap_below_stop_pct >= config.GAP_DOWN_THRESHOLD_PCT
+
+                if is_gap_down:
+                    reason = f'GAP_DOWN_EXIT{trailing_tag}'
+                    logger.warning(
+                        f"{ticker}: GAP-DOWN detected — price ${current_price:.2f} is "
+                        f"{gap_below_stop_pct:.1f}% below stop ${stop_price:.2f}. "
+                        f"Using market order for immediate exit."
+                    )
+                else:
+                    reason = f'STOP_LOSS{trailing_tag}'
+
                 exit_info = {
                     'ticker': ticker,
-                    'reason': f'STOP_LOSS{trailing_tag}',
+                    'reason': reason,
                     'current_price': current_price,
-                    'trigger_price': pos['stop_loss'],
-                    'pnl_pct': pnl_pct
+                    'trigger_price': stop_price,
+                    'pnl_pct': pnl_pct,
+                    'gap_down': is_gap_down,
+                    'gap_below_stop_pct': round(gap_below_stop_pct, 2)
                 }
 
             # Check take profit
@@ -894,11 +910,48 @@ class PositionMonitor:
 
             # Update trailing stop
             if pos.get('trailing_enabled'):
+                days_held = (datetime.now() - pos['entry_date']).days
+
                 # Determine trailing percentage based on gain
                 if pnl_pct > config.HUGE_WINNER_THRESHOLD:
                     trailing_pct = config.HUGE_WINNER_STOP_PCT
                 elif pnl_pct > config.BIG_WINNER_THRESHOLD:
                     trailing_pct = config.BIG_WINNER_STOP_PCT
+                elif (config.ENABLE_DYNAMIC_STOPS
+                      and days_held > config.OLD_POSITION_DAYS
+                      and 0 < pnl_pct < config.MODEST_GAIN_THRESHOLD):
+                    # Old position with modest gain: tighten from highest price
+                    old_pos_stop = pos.get('highest_price', current_price) * (1 - config.OLD_POSITION_STOP_PCT)
+                    if old_pos_stop > pos['stop_loss']:
+                        old_stop = pos['stop_loss']
+                        pos['stop_loss'] = old_pos_stop
+
+                        updated.append({
+                            'ticker': ticker,
+                            'old_stop': old_stop,
+                            'new_stop': old_pos_stop,
+                            'trailing_pct': config.OLD_POSITION_STOP_PCT * 100,
+                            'pnl_pct': pnl_pct
+                        })
+
+                        logger.info(
+                            f"{ticker}: OLD+MODEST ({days_held}d, +{pnl_pct:.1f}%) "
+                            f"→ stop ${old_stop:.2f} → ${old_pos_stop:.2f}"
+                        )
+
+                        log_audit_event('TRAILING_STOP_UPDATED', {
+                            'ticker': ticker,
+                            'old_stop': round(old_stop, 2),
+                            'new_stop': round(old_pos_stop, 2),
+                            'trailing_pct': config.OLD_POSITION_STOP_PCT * 100,
+                            'current_price': round(current_price, 2),
+                            'highest_price': round(pos.get('highest_price', current_price), 2),
+                            'entry_price': round(entry_price, 2),
+                            'pnl_pct': round(pnl_pct, 2),
+                            'reason': f'OLD_POSITION ({days_held}d, +{pnl_pct:.1f}%)'
+                        })
+
+                    continue  # Skip standard trailing update
                 else:
                     trailing_pct = config.TRAILING_STOP_PCT
 

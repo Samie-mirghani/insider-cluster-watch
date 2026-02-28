@@ -283,7 +283,7 @@ class EnhancedFMPAPIClient:
 
         Returns dict with all available fields:
         - industry, sector (classification)
-        - price, mktCap, volAvg (market data)
+        - price, marketCap, volume (market data)
         - beta, lastDiv, range (additional metrics)
         - And many more...
         """
@@ -320,16 +320,23 @@ class EnhancedFMPAPIClient:
 
                 # Market data
                 'price': profile.get('price'),
-                'marketCap': profile.get('mktCap'),
-                'volume': profile.get('volAvg'),
+                # FMP stable API uses 'marketCap'; legacy v3 used 'mktCap'
+                'marketCap': profile.get('marketCap') or profile.get('mktCap'),
+                'volume': profile.get('volAvg') or profile.get('volume'),
 
                 # Company info
                 'companyName': profile.get('companyName'),
                 'exchange': profile.get('exchangeShortName'),
                 'currency': profile.get('currency', 'USD'),
 
-                # Share structure
-                'sharesOutstanding': profile.get('mktCap') / profile.get('price') if (profile.get('mktCap') and profile.get('price') and profile.get('price') > 0) else None,
+                # Share structure (derive from marketCap / price)
+                'sharesOutstanding': (
+                    (profile.get('marketCap') or profile.get('mktCap', 0)) /
+                    profile.get('price')
+                    if (profile.get('marketCap') or profile.get('mktCap'))
+                    and profile.get('price') and profile.get('price') > 0
+                    else None
+                ),
 
                 # Additional metrics
                 'beta': profile.get('beta'),

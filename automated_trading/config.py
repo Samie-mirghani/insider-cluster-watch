@@ -128,6 +128,14 @@ BIG_WINNER_THRESHOLD = 20.0      # Tighten stop after +20% gain
 BIG_WINNER_STOP_PCT = 0.10       # 10% trailing stop for big winners
 HUGE_WINNER_THRESHOLD = 30.0     # Further tighten after +30%
 HUGE_WINNER_STOP_PCT = 0.07      # 7% trailing stop for huge winners
+OLD_POSITION_DAYS = 21           # Consider position "old" after 21 days
+OLD_POSITION_STOP_PCT = 0.10     # 10% stop from high for old modest positions
+MODEST_GAIN_THRESHOLD = 10.0     # "Modest gain" = < 10%
+
+# Gap-down protection
+# When a stock gaps below the stop by more than this %, use market sell
+# instead of stop-limit (which may not fill below the gap).
+GAP_DOWN_THRESHOLD_PCT = 2.0     # 2% below stop = gap-down, use market order
 
 # =============================================================================
 # TIME-BASED EXITS
