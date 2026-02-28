@@ -440,6 +440,7 @@ class PositionMonitor:
             'multi_signal_tier': signal_data.get('multi_signal_tier', 'none'),
             'sector': signal_data.get('sector', 'Unknown'),
             'entry_price': signal_data.get('entry_price') or signal_data.get('currentPrice', 0),
+            'entry_date': datetime.now().isoformat(),
             'saved_at': datetime.now().isoformat()
         }
         self._save_signal_history()
@@ -526,11 +527,27 @@ class PositionMonitor:
                 stop_loss = avg_entry * (1 - stop_loss_pct)
                 take_profit = avg_entry * (1 + take_profit_pct)
 
+                # Restore entry_date from signal history if available;
+                # falling back to now() loses position age and disables
+                # time-based risk rules (old-position trailing, time exits).
+                entry_date = datetime.now()
+                if signal_info and signal_info.get('entry_date'):
+                    try:
+                        entry_date = datetime.fromisoformat(signal_info['entry_date'])
+                        logger.info(f"  Restored entry_date for {ticker}: {entry_date.date()}")
+                    except (ValueError, TypeError):
+                        logger.warning(f"  Bad entry_date in signal history for {ticker}, using now()")
+                else:
+                    logger.warning(
+                        f"  No entry_date in signal history for {ticker} — "
+                        f"days_held will be 0 (time-based exits disabled until re-entry)"
+                    )
+
                 # Add position with broker data
                 self.positions[ticker] = {
                     'shares': shares,
                     'entry_price': avg_entry,
-                    'entry_date': datetime.now(),  # Unknown, use current time
+                    'entry_date': entry_date,
                     'cost_basis': shares * avg_entry,
                     'stop_loss': stop_loss,
                     'initial_stop_loss': stop_loss,
@@ -1060,10 +1077,24 @@ class PositionMonitor:
                     stop_loss = avg_entry * (1 - stop_loss_pct)
                     take_profit = avg_entry * (1 + take_profit_pct)
 
+                    # Restore entry_date from signal history to preserve position age
+                    entry_date = datetime.now()
+                    if signal_info and signal_info.get('entry_date'):
+                        try:
+                            entry_date = datetime.fromisoformat(signal_info['entry_date'])
+                            logger.info(f"  Restored entry_date for {ticker}: {entry_date.date()}")
+                        except (ValueError, TypeError):
+                            logger.warning(f"  Bad entry_date in signal history for {ticker}, using now()")
+                    else:
+                        logger.warning(
+                            f"  No entry_date in signal history for {ticker} — "
+                            f"days_held will be 0 (time-based exits disabled until re-entry)"
+                        )
+
                     self.positions[ticker] = {
                         'shares': shares,
                         'entry_price': avg_entry,
-                        'entry_date': datetime.now(),
+                        'entry_date': entry_date,
                         'cost_basis': shares * avg_entry,
                         'stop_loss': stop_loss,
                         'initial_stop_loss': stop_loss,
