@@ -13927,7 +13927,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:46:45.647993",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:36:03.851120",
+    "last_updated": "2026-03-02T11:35:38.145731",
     "outcomes": {
       "30d": {
         "price": 1.909999966621399,
@@ -13945,7 +13945,10 @@
         "date": "2025-12-01"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "CTTH_Ctt Pharmaceutical Holdings, Inc._2025-08-02 00:00:00",
@@ -19701,7 +19704,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:05.292873",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:40:03.515957",
+    "last_updated": "2026-03-02T11:35:38.888459",
     "outcomes": {
       "30d": {
         "price": 0.33000001311302185,
@@ -19719,7 +19722,10 @@
         "date": "2025-12-02"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "MDU_Vollmer Jason L_2025-09-08 00:00:00",
@@ -21018,7 +21024,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:07.723382",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:40:32.312360",
+    "last_updated": "2026-03-02T11:35:39.652245",
     "outcomes": {
       "30d": {
         "price": 17.950000762939453,
@@ -21036,7 +21042,10 @@
         "date": "2025-12-02"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "AFCG_Tannenbaum Leonard M_2025-09-05 00:00:00",
@@ -21146,7 +21155,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:07.957807",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:40:34.765637",
+    "last_updated": "2026-03-02T11:35:40.413540",
     "outcomes": {
       "30d": {
         "price": 47.779998779296875,
@@ -21164,7 +21173,10 @@
         "date": "2025-12-02"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "GLP_Global Gp LLC_2025-09-05 00:00:00",
@@ -22392,7 +22404,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:10.207733",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:40:58.020824",
+    "last_updated": "2026-03-02T11:35:41.127558",
     "outcomes": {
       "30d": {
         "price": 1.340000033378601,
@@ -22410,7 +22422,10 @@
         "date": "2025-12-02"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "NAUT_Murphy Matthew B._2025-09-04 00:00:00",
@@ -22456,7 +22471,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:10.324538",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:40:59.178170",
+    "last_updated": "2026-03-02T11:35:43.279491",
     "outcomes": {
       "30d": {
         "price": 21.989999771118164,
@@ -22474,7 +22489,10 @@
         "date": "2025-12-02"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "PGEN_Agee Nancy H_2025-09-04 00:00:00",
@@ -22584,7 +22602,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:10.562698",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:41:01.633996",
+    "last_updated": "2026-03-02T11:35:45.906552",
     "outcomes": {
       "30d": {
         "price": 11.013870239257812,
@@ -22602,7 +22620,10 @@
         "date": "2025-12-02"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "COO_White Albert G III_2025-09-05 00:00:00",
@@ -22648,7 +22669,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:10.679692",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:41:02.879439",
+    "last_updated": "2026-03-02T11:35:48.076805",
     "outcomes": {
       "30d": {
         "price": 3.359999895095825,
@@ -22666,7 +22687,10 @@
         "date": "2025-12-02"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "OMCC_Krebs Charles_2025-09-03 00:00:00",
@@ -22680,7 +22704,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:10.738325",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:41:03.485363",
+    "last_updated": "2026-03-02T11:35:50.403921",
     "outcomes": {
       "30d": {
         "price": 5.119999885559082,
@@ -22698,7 +22722,10 @@
         "date": "2025-12-02"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "AVBC_Cozzone Robert D_2025-09-04 00:00:00",
@@ -22744,7 +22771,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:10.857358",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:41:04.709685",
+    "last_updated": "2026-03-02T11:35:52.568297",
     "outcomes": {
       "30d": {
         "price": 2.0973315238952637,
@@ -22762,7 +22789,10 @@
         "date": "2025-12-02"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "PFX_Lorber David A_2025-09-03 00:00:00",
@@ -22776,7 +22806,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:10.917707",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:41:05.306855",
+    "last_updated": "2026-03-02T11:35:57.574120",
     "outcomes": {
       "30d": {
         "price": 47.779998779296875,
@@ -22794,7 +22824,10 @@
         "date": "2025-12-02"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "NIQ_Kapoor Mohit_2025-09-03 00:00:00",
@@ -22808,7 +22841,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:10.976814",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:41:05.901282",
+    "last_updated": "2026-03-02T11:35:57.685622",
     "outcomes": {
       "30d": {
         "price": 14.779999732971191,
@@ -22826,7 +22859,10 @@
         "date": "2025-12-02"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "GTHP_Imhoff John E_2025-08-29 00:00:00",
@@ -22909,7 +22945,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:11.154692",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:41:07.838933",
+    "last_updated": "2026-03-02T11:36:02.934695",
     "outcomes": {
       "30d": {
         "price": 14.298052787780762,
@@ -22927,7 +22963,10 @@
         "date": "2025-12-02"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "BWFG_Drexler Blake S_2025-09-04 00:00:00",
@@ -23069,7 +23108,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:11.452800",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:41:10.859139",
+    "last_updated": "2026-03-02T11:36:08.136584",
     "outcomes": {
       "30d": {
         "price": 0.09000000357627869,
@@ -23087,7 +23126,10 @@
         "date": "2025-12-02"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "BWFG_Dale Eric J_2025-09-04 00:00:00",
@@ -23490,7 +23532,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:12.234006",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:41:18.880696",
+    "last_updated": "2026-03-02T11:36:13.388580",
     "outcomes": {
       "30d": {
         "price": 1.559999942779541,
@@ -23508,7 +23550,10 @@
         "date": "2025-12-01"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "REZI_Cd&R Channel Holdings Ii, L.P._2025-09-02 00:00:00",
@@ -23522,7 +23567,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:12.293737",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:41:19.511316",
+    "last_updated": "2026-03-02T11:36:18.552625",
     "outcomes": {
       "30d": {
         "price": 43.119998931884766,
@@ -23540,7 +23585,10 @@
         "date": "2025-12-01"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "NYC_Schorsch Nicholas S_2025-09-02 00:00:00",
@@ -23554,7 +23602,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:12.354498",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:41:20.063937",
+    "last_updated": "2026-03-02T11:36:23.722339",
     "outcomes": {
       "30d": {
         "price": 10.199999809265137,
@@ -23572,7 +23620,10 @@
         "date": "2025-12-01"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "UMBF_Graves Greg M_2025-09-02 00:00:00",
@@ -23586,7 +23637,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:12.533952",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:41:27.879387",
+    "last_updated": "2026-03-02T11:36:29.204200",
     "outcomes": {
       "30d": {
         "price": 118.30000305175781,
@@ -23604,7 +23655,10 @@
         "date": "2025-12-01"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "GLIBK_Malone John C_2025-09-02 00:00:00",
@@ -23618,7 +23672,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:12.593439",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:41:28.467793",
+    "last_updated": "2026-03-02T11:36:34.328757",
     "outcomes": {
       "30d": {
         "price": 36.880001068115234,
@@ -23636,7 +23690,10 @@
         "date": "2025-12-01"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "ADMQ_Johnson Marc_2025-09-04 00:00:00",
@@ -23682,7 +23739,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:12.713821",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:41:29.673589",
+    "last_updated": "2026-03-02T11:36:39.729789",
     "outcomes": {
       "30d": {
         "price": 33.45765686035156,
@@ -23700,7 +23757,10 @@
         "date": "2025-12-02"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "NWPP_White Blaine Scott_2025-09-03 00:00:00",
@@ -23714,7 +23774,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:12.774949",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:41:30.310368",
+    "last_updated": "2026-03-02T11:36:44.924596",
     "outcomes": {
       "30d": {
         "price": 3.430000066757202,
@@ -23732,7 +23792,10 @@
         "date": "2025-12-02"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "FTRE_Russell Erin L_2025-09-02 00:00:00",
@@ -23746,7 +23809,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:12.834463",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:41:30.939269",
+    "last_updated": "2026-03-02T11:36:50.111725",
     "outcomes": {
       "30d": {
         "price": 9.600000381469727,
@@ -23764,7 +23827,10 @@
         "date": "2025-12-01"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "TPVG_Labe James_2025-09-02 00:00:00",
@@ -23778,7 +23844,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:12.894411",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:41:31.608508",
+    "last_updated": "2026-03-02T11:36:55.369307",
     "outcomes": {
       "30d": {
         "price": 5.78000020980835,
@@ -23796,7 +23862,10 @@
         "date": "2025-12-01"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "TPVG_Srivastava Sajal_2025-09-02 00:00:00",
@@ -23810,7 +23879,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:12.955882",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:41:32.209746",
+    "last_updated": "2026-03-02T11:37:00.375106",
     "outcomes": {
       "30d": {
         "price": 5.78000020980835,
@@ -23828,7 +23897,10 @@
         "date": "2025-12-01"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "KTCC_Voorhees Anthony Gene_2025-09-03 00:00:00",
@@ -23842,7 +23914,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:13.017291",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:41:32.868350",
+    "last_updated": "2026-03-02T11:37:00.641747",
     "outcomes": {
       "30d": {
         "price": 3.4200000762939453,
@@ -23860,7 +23932,10 @@
         "date": "2025-12-02"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "SHEN_Ecp Controlco, LLC_2025-09-02 00:00:00",
@@ -23874,7 +23949,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:13.078430",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:41:33.482853",
+    "last_updated": "2026-03-02T11:37:05.993948",
     "outcomes": {
       "30d": {
         "price": 13.100754737854004,
@@ -23892,7 +23967,10 @@
         "date": "2025-12-01"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "SHEN_Ecp Fiber Holdings Gp, LLC_2025-09-02 00:00:00",
@@ -23906,7 +23984,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:13.139465",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:41:34.007150",
+    "last_updated": "2026-03-02T11:37:10.999814",
     "outcomes": {
       "30d": {
         "price": 13.100754737854004,
@@ -23924,7 +24002,10 @@
         "date": "2025-12-01"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "ANNX_Carson William H._2025-09-02 00:00:00",
@@ -23938,7 +24019,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:13.200077",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:41:34.565501",
+    "last_updated": "2026-03-02T11:37:11.145131",
     "outcomes": {
       "30d": {
         "price": 3.109999895095825,
@@ -23956,7 +24037,10 @@
         "date": "2025-12-01"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "NWPP_Cox John D_2025-09-02 00:00:00",
@@ -23970,7 +24054,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:13.260449",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:41:35.126390",
+    "last_updated": "2026-03-02T11:37:16.149343",
     "outcomes": {
       "30d": {
         "price": 3.430000066757202,
@@ -23988,7 +24072,10 @@
         "date": "2025-12-01"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "BUSE_Maddox Mike_2025-09-02 00:00:00",
@@ -24002,7 +24089,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:13.321930",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:41:35.758244",
+    "last_updated": "2026-03-02T11:37:16.508919",
     "outcomes": {
       "30d": {
         "price": 22.811294555664062,
@@ -24020,7 +24107,10 @@
         "date": "2025-12-01"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "W_Kumin Michael Andrew_2025-08-28 00:00:00",
@@ -24071,7 +24161,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:13.441950",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:41:36.973563",
+    "last_updated": "2026-03-02T11:37:21.685006",
     "outcomes": {
       "30d": {
         "price": 15.239999771118164,
@@ -24089,7 +24179,10 @@
         "date": "2025-12-02"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "UMBF_Peterman Tamara_2025-09-02 00:00:00",
@@ -24103,7 +24196,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:13.562516",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:41:41.274670",
+    "last_updated": "2026-03-02T11:37:26.690903",
     "outcomes": {
       "30d": {
         "price": 118.30000305175781,
@@ -24121,7 +24214,10 @@
         "date": "2025-12-01"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "GGT_Gabelli Mario J_2025-09-02 00:00:00",
@@ -24135,7 +24231,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:13.621965",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:41:41.902008",
+    "last_updated": "2026-03-02T11:37:27.101676",
     "outcomes": {
       "30d": {
         "price": 4.087453365325928,
@@ -24153,7 +24249,10 @@
         "date": "2025-12-01"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "DMAC_Stahlberg Jan_2025-08-13 00:00:00",
@@ -24204,7 +24303,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:13.753101",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:41:43.158710",
+    "last_updated": "2026-03-02T11:37:32.518466",
     "outcomes": {
       "30d": {
         "price": 16.664621353149414,
@@ -24222,7 +24321,10 @@
         "date": "2025-12-02"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "BLNE_Moe Christopher R._2025-09-03 00:00:00",
@@ -24236,7 +24338,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:13.814597",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:41:43.711609",
+    "last_updated": "2026-03-02T11:37:37.706353",
     "outcomes": {
       "30d": {
         "price": 3.6700000762939453,
@@ -24254,7 +24356,10 @@
         "date": "2025-12-02"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "NGS_Holley Jean K_2025-09-04 00:00:00",
@@ -24300,7 +24405,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:13.936133",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:41:44.905811",
+    "last_updated": "2026-03-02T11:37:42.712612",
     "outcomes": {
       "30d": {
         "price": 1.2000000476837158,
@@ -24318,7 +24423,10 @@
         "date": "2025-12-02"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
   {
     "trade_id": "ORI_Risch Therace_2025-09-02 00:00:00",
@@ -24332,7 +24440,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:13.996054",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:41:45.560152",
+    "last_updated": "2026-03-02T11:37:48.234445",
     "outcomes": {
       "30d": {
         "price": 42.869998931884766,
@@ -24350,7 +24458,10 @@
         "date": "2025-12-01"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "SMG_Scheiwer Mark J_2025-09-03 00:00:00",
@@ -24364,7 +24475,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:14.057015",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:41:46.261757",
+    "last_updated": "2026-03-02T11:37:53.602484",
     "outcomes": {
       "30d": {
         "price": 57.097110748291016,
@@ -24382,7 +24493,10 @@
         "date": "2025-12-02"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "RVP_Shaw Thomas J_2025-09-03 00:00:00",
@@ -24396,7 +24510,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:14.118001",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:41:46.848617",
+    "last_updated": "2026-03-02T11:37:58.845276",
     "outcomes": {
       "30d": {
         "price": 0.8700000047683716,
@@ -24414,7 +24528,10 @@
         "date": "2025-12-02"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "ASA_Saba Capital Management, L.P._2025-09-02 00:00:00",
@@ -24428,7 +24545,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:14.178751",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:41:47.488096",
+    "last_updated": "2026-03-02T11:38:04.406673",
     "outcomes": {
       "30d": {
         "price": 45.28162384033203,
@@ -24446,7 +24563,10 @@
         "date": "2025-12-01"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "RCG_Stahl Murray_2025-09-03 00:00:00",
@@ -24460,7 +24580,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:14.240669",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:41:48.116318",
+    "last_updated": "2026-03-02T11:38:09.412593",
     "outcomes": {
       "30d": {
         "price": 2.5799999237060547,
@@ -24478,7 +24598,10 @@
         "date": "2025-12-02"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
   {
     "trade_id": "TPL_Horizon Kinetics Asset Management LLC_2025-09-03 00:00:00",
@@ -24492,7 +24615,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:14.301231",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:41:48.751288",
+    "last_updated": "2026-03-02T11:38:14.418477",
     "outcomes": {
       "30d": {
         "price": 944.1389770507812,
@@ -24510,7 +24633,10 @@
         "date": "2025-12-02"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
   {
     "trade_id": "CMTV_Caldwell Christopher L._2025-09-03 00:00:00",
@@ -24524,7 +24650,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:14.363748",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:41:49.336682",
+    "last_updated": "2026-03-02T11:38:19.756637",
     "outcomes": {
       "30d": {
         "price": 22.280664443969727,
@@ -24542,7 +24668,10 @@
         "date": "2025-12-02"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "HKHC_Stahl Murray_2025-09-03 00:00:00",
@@ -24556,7 +24685,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:14.426065",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:41:49.890644",
+    "last_updated": "2026-03-02T11:38:24.992567",
     "outcomes": {
       "30d": {
         "price": 35.861236572265625,
@@ -24574,7 +24703,10 @@
         "date": "2025-12-02"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "DGICA_Donegal Mutual Insurance Co_2025-09-02 00:00:00",
@@ -24588,7 +24720,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:14.488136",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:41:50.513922",
+    "last_updated": "2026-03-02T11:38:30.323205",
     "outcomes": {
       "30d": {
         "price": 19.01260757446289,
@@ -24606,7 +24738,10 @@
         "date": "2025-12-01"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "MMS_Rajan Gayathri_2025-08-29 00:00:00",
@@ -24694,7 +24829,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:14.671098",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:41:52.300644",
+    "last_updated": "2026-03-02T11:38:35.475636",
     "outcomes": {
       "30d": {
         "price": 1.409999966621399,
@@ -24712,7 +24847,10 @@
         "date": "2025-12-01"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "CWBC_Silva Dorothea D_2025-08-29 00:00:00",
@@ -24763,7 +24901,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:14.915496",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:42:00.717042",
+    "last_updated": "2026-03-02T11:38:40.626938",
     "outcomes": {
       "30d": {
         "price": 2.740000009536743,
@@ -24781,7 +24919,10 @@
         "date": "2025-12-02"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "COTY_Blazewicz Kristin_2025-09-03 00:00:00",
@@ -24795,7 +24936,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:14.977103",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:42:01.376056",
+    "last_updated": "2026-03-02T11:38:45.822792",
     "outcomes": {
       "30d": {
         "price": 4.010000228881836,
@@ -24813,7 +24954,10 @@
         "date": "2025-12-02"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "CWBC_Martin Jeffrey Michael_2025-08-29 00:00:00",
@@ -24864,7 +25008,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:15.098307",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:42:02.610154",
+    "last_updated": "2026-03-02T11:38:51.044387",
     "outcomes": {
       "30d": {
         "price": 3.880000114440918,
@@ -24882,7 +25026,10 @@
         "date": "2025-12-01"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "DLHC_Mink Brook Asset Management LLC_2025-09-02 00:00:00",
@@ -24896,7 +25043,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:15.160543",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:42:03.195028",
+    "last_updated": "2026-03-02T11:38:56.287673",
     "outcomes": {
       "30d": {
         "price": 5.610000133514404,
@@ -24914,7 +25061,10 @@
         "date": "2025-12-01"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "WEST_Ford Joe T_2025-09-02 00:00:00",
@@ -24928,7 +25078,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:15.222263",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:42:03.800911",
+    "last_updated": "2026-03-02T11:39:01.422212",
     "outcomes": {
       "30d": {
         "price": 4.889999866485596,
@@ -24946,7 +25096,10 @@
         "date": "2025-12-01"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "FCAP_Ernstberger Kathy_2025-08-29 00:00:00",
@@ -25071,7 +25224,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:15.528355",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:42:09.775848",
+    "last_updated": "2026-03-02T11:39:06.582876",
     "outcomes": {
       "30d": {
         "price": 42.90999984741211,
@@ -25089,7 +25242,10 @@
         "date": "2025-12-02"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "RHEP_Burleson Gene E_2025-08-29 00:00:00",
@@ -25177,7 +25333,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:15.713466",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:42:11.569932",
+    "last_updated": "2026-03-02T11:39:11.584124",
     "outcomes": {
       "30d": {
         "price": 3.6700000762939453,
@@ -25195,7 +25351,10 @@
         "date": "2025-12-02"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "PROP_Lee Stephen_2025-09-02 00:00:00",
@@ -25209,7 +25368,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:15.774948",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:42:12.154758",
+    "last_updated": "2026-03-02T11:39:11.767166",
     "outcomes": {
       "30d": {
         "price": 1.9600000381469727,
@@ -25227,7 +25386,10 @@
         "date": "2025-12-01"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "MDRR_Kavanaugh Frank_2025-08-29 00:00:00",
@@ -25278,7 +25440,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:15.896995",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:42:13.374235",
+    "last_updated": "2026-03-02T11:39:16.965757",
     "outcomes": {
       "30d": {
         "price": 11.479999542236328,
@@ -25296,7 +25458,10 @@
         "date": "2025-12-02"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "RGCO_Furcron Thomas Patrick_2025-09-02 00:00:00",
@@ -25310,7 +25475,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:15.958713",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:42:13.972318",
+    "last_updated": "2026-03-02T11:39:22.369073",
     "outcomes": {
       "30d": {
         "price": 21.68763542175293,
@@ -25328,7 +25493,10 @@
         "date": "2025-12-01"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "RGCO_Miles Christen Brooke_2025-09-02 00:00:00",
@@ -25342,7 +25510,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:16.019894",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:42:14.598793",
+    "last_updated": "2026-03-02T11:39:27.374980",
     "outcomes": {
       "30d": {
         "price": 21.68763542175293,
@@ -25360,7 +25528,10 @@
         "date": "2025-12-01"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "RGCO_Oliver Lawrence T._2025-09-02 00:00:00",
@@ -25374,7 +25545,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:16.080514",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:42:15.273631",
+    "last_updated": "2026-03-02T11:39:27.375340",
     "outcomes": {
       "30d": {
         "price": 21.68763542175293,
@@ -25392,7 +25563,10 @@
         "date": "2025-12-01"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "AVBC_Nelson Jonathan Michael_2025-09-03 00:00:00",
@@ -25406,7 +25580,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:16.144597",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:42:15.825948",
+    "last_updated": "2026-03-02T11:39:27.375676",
     "outcomes": {
       "30d": {
         "price": 14.949999809265137,
@@ -25424,7 +25598,10 @@
         "date": "2025-12-02"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
   {
     "trade_id": "CWBC_Avrett Shannon R_2025-08-29 00:00:00",
@@ -25512,7 +25689,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:16.329901",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-27T11:38:59.141583",
+    "last_updated": "2026-03-02T11:39:32.381546",
     "outcomes": {
       "30d": {
         "price": 15.010000228881836,
@@ -25531,7 +25708,7 @@
       },
       "180d": null
     },
-    "failure_count": 3,
+    "failure_count": 4,
     "failure_type": "NO_HORIZON_DATA",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -25547,7 +25724,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:16.451436",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:42:21.835648",
+    "last_updated": "2026-03-02T11:39:32.381894",
     "outcomes": {
       "30d": {
         "price": 37.56464385986328,
@@ -25565,7 +25742,10 @@
         "date": "2025-12-01"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "VWFB_Quinlan Peter Sebastian_2025-09-02 00:00:00",
@@ -25579,7 +25759,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:16.512432",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:42:22.424570",
+    "last_updated": "2026-03-02T11:39:32.505293",
     "outcomes": {
       "30d": {
         "price": 11.25,
@@ -25597,7 +25777,10 @@
         "date": "2025-12-01"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "CSBB_Steiner Eddie L_2025-09-02 00:00:00",
@@ -25611,7 +25794,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:16.573554",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:42:23.023608",
+    "last_updated": "2026-03-02T11:39:37.711361",
     "outcomes": {
       "30d": {
         "price": 49.327880859375,
@@ -25629,7 +25812,10 @@
         "date": "2025-12-01"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "RCG_Stahl Murray_2025-09-02 00:00:00",
@@ -25643,7 +25829,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:16.634673",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:42:23.652011",
+    "last_updated": "2026-03-02T11:39:42.717261",
     "outcomes": {
       "30d": {
         "price": 2.619999885559082,
@@ -25661,7 +25847,10 @@
         "date": "2025-12-01"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
   {
     "trade_id": "TPL_Horizon Kinetics Asset Management LLC_2025-09-02 00:00:00",
@@ -25675,7 +25864,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:16.696053",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:42:24.306486",
+    "last_updated": "2026-03-02T11:39:42.717690",
     "outcomes": {
       "30d": {
         "price": 965.948486328125,
@@ -25693,7 +25882,10 @@
         "date": "2025-12-01"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
   {
     "trade_id": "GOVB_Campanaro James Donald_2025-09-03 00:00:00",
@@ -25707,7 +25899,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:16.757006",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:42:24.893063",
+    "last_updated": "2026-03-02T11:39:43.114161",
     "outcomes": {
       "30d": {
         "price": 14.158392906188965,
@@ -25725,7 +25917,10 @@
         "date": "2025-12-02"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "RVP_Shaw Thomas J_2025-09-02 00:00:00",
@@ -25739,7 +25934,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:16.817746",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:42:25.483555",
+    "last_updated": "2026-03-02T11:39:48.120036",
     "outcomes": {
       "30d": {
         "price": 0.8600000143051147,
@@ -25757,7 +25952,10 @@
         "date": "2025-12-01"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "CWBHF_Kunkel Raymond J._2025-09-02 00:00:00",
@@ -25771,7 +25969,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:16.879226",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:42:26.115447",
+    "last_updated": "2026-03-02T11:39:48.283102",
     "outcomes": {
       "30d": {
         "price": 0.18799999356269836,
@@ -25789,7 +25987,10 @@
         "date": "2025-12-01"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "CECO_Wallman Richard F_2025-08-29 00:00:00",
@@ -25840,7 +26041,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:17.002017",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:42:27.280973",
+    "last_updated": "2026-03-02T11:39:53.288896",
     "outcomes": {
       "30d": {
         "price": 37.56464385986328,
@@ -25858,7 +26059,10 @@
         "date": "2025-12-01"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "NRDY_Blunt Abigail_2025-08-29 00:00:00",
@@ -25909,7 +26113,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:17.126687",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:42:28.488836",
+    "last_updated": "2026-03-02T11:39:53.464601",
     "outcomes": {
       "30d": {
         "price": 1.1100000143051147,
@@ -25927,7 +26131,10 @@
         "date": "2025-12-01"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "STTK_Orbimed Advisors LLC_2025-08-25 00:00:00",
@@ -26015,7 +26222,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:17.311148",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:42:30.225762",
+    "last_updated": "2026-03-02T11:39:58.470480",
     "outcomes": {
       "30d": {
         "price": 1.149999976158142,
@@ -26033,7 +26240,10 @@
         "date": "2025-12-01"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
   {
     "trade_id": "FOA_Cooperman Leon G_2025-05-22 00:00:00",
@@ -26083,7 +26293,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:17.434389",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:42:31.446967",
+    "last_updated": "2026-03-02T11:39:58.634417",
     "outcomes": {
       "30d": {
         "price": 55.75452423095703,
@@ -26101,7 +26311,10 @@
         "date": "2025-12-01"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "NYC_Schorsch Nicholas S_2025-08-28 00:00:00",
@@ -26337,7 +26550,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:17.869230",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:42:35.722560",
+    "last_updated": "2026-03-02T11:40:03.640277",
     "outcomes": {
       "30d": {
         "price": 2.75,
@@ -26355,7 +26568,10 @@
         "date": "2025-12-01"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "SHEN_Ecp Controlco, LLC_2025-08-28 00:00:00",
@@ -26406,7 +26622,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:18.056139",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:42:40.465516",
+    "last_updated": "2026-03-02T11:40:04.117880",
     "outcomes": {
       "30d": {
         "price": 69.12000274658203,
@@ -26424,7 +26640,10 @@
         "date": "2025-12-01"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "COO_Andrews Brian G_2025-09-02 00:00:00",
@@ -26438,7 +26657,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:18.118023",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:42:40.987789",
+    "last_updated": "2026-03-02T11:40:09.122966",
     "outcomes": {
       "30d": {
         "price": 69.12000274658203,
@@ -26456,7 +26675,10 @@
         "date": "2025-12-01"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "TPVG_Labe James_2025-08-28 00:00:00",
@@ -26618,7 +26840,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:18.429709",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:42:43.986365",
+    "last_updated": "2026-03-02T11:40:09.326638",
     "outcomes": {
       "30d": {
         "price": 1.3200000524520874,
@@ -26636,7 +26858,10 @@
         "date": "2025-12-01"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "MSIF_Gilbert Cory_2025-08-28 00:00:00",
@@ -26687,7 +26912,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:18.552502",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:42:45.147916",
+    "last_updated": "2026-03-02T11:40:14.332532",
     "outcomes": {
       "30d": {
         "price": 43.220001220703125,
@@ -26705,7 +26930,10 @@
         "date": "2025-12-01"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "HII_Stanage Nick L_2025-08-29 00:00:00",
@@ -26830,7 +27058,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:18.800238",
     "source": "daily_signal_detection",
-    "last_updated": "2025-12-04T11:42:47.657920",
+    "last_updated": "2026-03-02T11:40:14.488708",
     "outcomes": {
       "30d": {
         "price": 30.639999389648438,
@@ -26848,7 +27076,10 @@
         "date": "2025-12-01"
       },
       "180d": null
-    }
+    },
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "FRHC_Lukyanov Sergey_2025-08-29 00:00:00",
@@ -27047,7 +27278,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:19.183851",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-27T11:38:59.647487",
+    "last_updated": "2026-03-02T11:40:19.494640",
     "outcomes": {
       "30d": {
         "price": 918.9357299804688,
@@ -27066,7 +27297,7 @@
       },
       "180d": null
     },
-    "failure_count": 3,
+    "failure_count": 4,
     "failure_type": "NO_HORIZON_DATA",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -27082,7 +27313,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:19.246506",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-27T11:39:00.148712",
+    "last_updated": "2026-03-02T11:40:19.495018",
     "outcomes": {
       "30d": {
         "price": 2.609999895095825,
@@ -27101,7 +27332,7 @@
       },
       "180d": null
     },
-    "failure_count": 3,
+    "failure_count": 4,
     "failure_type": "NO_HORIZON_DATA",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -27225,10 +27456,10 @@
     "title": "SVP",
     "qty": 13,
     "value": 740,
-    "status": "TRACKING",
+    "status": "MATURED",
     "tracked_since": "2025-12-03T11:47:19.560183",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-27T11:39:01.344474",
+    "last_updated": "2026-03-02T11:40:19.831764",
     "outcomes": {
       "30d": {
         "price": 60.279998779296875,
@@ -27245,11 +27476,13 @@
         "return": -4.037921616200652,
         "date": "2025-12-01"
       },
-      "180d": null
-    },
-    "failure_count": 1,
-    "failure_type": "NO_HORIZON_DATA",
-    "failure_reason": "No trading data for required time horizon (will retry)"
+      "180d": {
+        "price": 60.060001373291016,
+        "return": 7.198036118839562,
+        "dividends": 1.0,
+        "date": "2026-02-27"
+      }
+    }
   },
   {
     "trade_id": "STRA_Jackson Daniel Wayne_2025-08-29 00:00:00",
@@ -27703,7 +27936,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:20.375994",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-27T11:39:01.845755",
+    "last_updated": "2026-03-02T11:40:20.435815",
     "outcomes": {
       "30d": {
         "price": 1.149999976158142,
@@ -27722,7 +27955,7 @@
       },
       "180d": null
     },
-    "failure_count": 3,
+    "failure_count": 4,
     "failure_type": "NO_HORIZON_DATA",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -27738,7 +27971,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:20.438246",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-27T11:39:03.848513",
+    "last_updated": "2026-03-02T11:40:20.436177",
     "outcomes": {
       "30d": {
         "price": 49.27000045776367,
@@ -27757,7 +27990,7 @@
       },
       "180d": null
     },
-    "failure_count": 4,
+    "failure_count": 5,
     "failure_type": "NO_HORIZON_DATA",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -28213,7 +28446,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:21.260778",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-27T11:39:05.851292",
+    "last_updated": "2026-03-02T11:40:20.937579",
     "outcomes": {
       "30d": {
         "price": 3.0199999809265137,
@@ -28232,7 +28465,7 @@
       },
       "180d": null
     },
-    "failure_count": 3,
+    "failure_count": 4,
     "failure_type": "NO_HORIZON_DATA",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -28285,7 +28518,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:21.391709",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-27T11:39:07.854063",
+    "last_updated": "2026-03-02T11:40:21.438944",
     "outcomes": {
       "30d": {
         "price": 3.0199999809265137,
@@ -28304,7 +28537,7 @@
       },
       "180d": null
     },
-    "failure_count": 3,
+    "failure_count": 4,
     "failure_type": "NO_HORIZON_DATA",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -28431,7 +28664,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:21.645803",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-27T11:39:07.854412",
+    "last_updated": "2026-03-02T11:40:21.439381",
     "outcomes": {
       "30d": {
         "price": 2.609999895095825,
@@ -28450,7 +28683,7 @@
       },
       "180d": null
     },
-    "failure_count": 4,
+    "failure_count": 5,
     "failure_type": "NO_HORIZON_DATA",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -28466,7 +28699,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:21.709491",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-27T11:39:07.854700",
+    "last_updated": "2026-03-02T11:40:21.439705",
     "outcomes": {
       "30d": {
         "price": 918.9357299804688,
@@ -28485,7 +28718,7 @@
       },
       "180d": null
     },
-    "failure_count": 4,
+    "failure_count": 5,
     "failure_type": "NO_HORIZON_DATA",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -28723,7 +28956,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:22.154079",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-27T11:39:07.854999",
+    "last_updated": "2026-03-02T11:40:21.440016",
     "outcomes": {
       "30d": {
         "price": 1.149999976158142,
@@ -28742,7 +28975,7 @@
       },
       "180d": null
     },
-    "failure_count": 4,
+    "failure_count": 5,
     "failure_type": "NO_HORIZON_DATA",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -29942,7 +30175,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:24.321525",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-27T11:39:07.855274",
+    "last_updated": "2026-03-02T11:40:21.440354",
     "outcomes": {
       "30d": {
         "price": 3.0199999809265137,
@@ -29961,7 +30194,7 @@
       },
       "180d": null
     },
-    "failure_count": 4,
+    "failure_count": 5,
     "failure_type": "NO_HORIZON_DATA",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -30014,7 +30247,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:24.450776",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-27T11:39:07.855550",
+    "last_updated": "2026-03-02T11:40:21.440676",
     "outcomes": {
       "30d": {
         "price": 3.0,
@@ -30033,7 +30266,7 @@
       },
       "180d": null
     },
-    "failure_count": 5,
+    "failure_count": 6,
     "failure_type": "NO_HORIZON_DATA",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -30086,7 +30319,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:24.580231",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-27T11:39:12.861286",
+    "last_updated": "2026-03-02T11:40:23.443550",
     "outcomes": {
       "30d": {
         "price": 15.010000228881836,
@@ -30105,7 +30338,7 @@
       },
       "180d": null
     },
-    "failure_count": 4,
+    "failure_count": 5,
     "failure_type": "NO_HORIZON_DATA",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -30121,7 +30354,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:24.644277",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-27T11:39:12.861626",
+    "last_updated": "2026-03-02T11:40:23.443882",
     "outcomes": {
       "30d": {
         "price": 3.0199999809265137,
@@ -30140,7 +30373,7 @@
       },
       "180d": null
     },
-    "failure_count": 4,
+    "failure_count": 5,
     "failure_type": "NO_HORIZON_DATA",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -30193,7 +30426,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:24.775254",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-27T11:39:12.861930",
+    "last_updated": "2026-03-02T11:40:23.444199",
     "outcomes": {
       "30d": {
         "price": 2.5899999141693115,
@@ -30212,7 +30445,7 @@
       },
       "180d": null
     },
-    "failure_count": 5,
+    "failure_count": 6,
     "failure_type": "NO_HORIZON_DATA",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -30228,7 +30461,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:24.839732",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-27T11:39:12.862209",
+    "last_updated": "2026-03-02T11:40:23.444530",
     "outcomes": {
       "30d": {
         "price": 3.0199999809265137,
@@ -30247,7 +30480,7 @@
       },
       "180d": null
     },
-    "failure_count": 4,
+    "failure_count": 5,
     "failure_type": "NO_HORIZON_DATA",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -30337,7 +30570,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:25.033494",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-27T11:39:12.862472",
+    "last_updated": "2026-03-02T11:40:23.444840",
     "outcomes": {
       "30d": {
         "price": 952.5134887695312,
@@ -30356,7 +30589,7 @@
       },
       "180d": null
     },
-    "failure_count": 5,
+    "failure_count": 6,
     "failure_type": "NO_HORIZON_DATA",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -30444,7 +30677,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:25.228053",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-27T11:39:12.862726",
+    "last_updated": "2026-03-02T11:40:23.445145",
     "outcomes": {
       "30d": {
         "price": 1.149999976158142,
@@ -30463,7 +30696,7 @@
       },
       "180d": null
     },
-    "failure_count": 5,
+    "failure_count": 6,
     "failure_type": "NO_HORIZON_DATA",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -31256,7 +31489,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:26.726992",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-27T11:39:12.863020",
+    "last_updated": "2026-03-02T11:40:23.445470",
     "outcomes": {
       "30d": {
         "price": 15.289999961853027,
@@ -31275,7 +31508,7 @@
       },
       "180d": null
     },
-    "failure_count": 5,
+    "failure_count": 6,
     "failure_type": "NO_HORIZON_DATA",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -31402,7 +31635,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:26.993865",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-27T11:39:12.863280",
+    "last_updated": "2026-03-02T11:40:23.445779",
     "outcomes": {
       "30d": {
         "price": 923.8565673828125,
@@ -31421,7 +31654,7 @@
       },
       "180d": null
     },
-    "failure_count": 5,
+    "failure_count": 6,
     "failure_type": "NO_HORIZON_DATA",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -31437,7 +31670,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:27.060378",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-27T11:39:12.863532",
+    "last_updated": "2026-03-02T11:40:23.446078",
     "outcomes": {
       "30d": {
         "price": 1.1100000143051147,
@@ -31456,7 +31689,7 @@
       },
       "180d": null
     },
-    "failure_count": 5,
+    "failure_count": 6,
     "failure_type": "NO_HORIZON_DATA",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -31472,7 +31705,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:27.127145",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-27T11:39:12.863780",
+    "last_updated": "2026-03-02T11:40:23.446399",
     "outcomes": {
       "30d": {
         "price": 15.289999961853027,
@@ -31491,7 +31724,7 @@
       },
       "180d": null
     },
-    "failure_count": 5,
+    "failure_count": 6,
     "failure_type": "NO_HORIZON_DATA",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -31544,7 +31777,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:27.259553",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-27T11:39:12.864088",
+    "last_updated": "2026-03-02T11:40:23.446698",
     "outcomes": {
       "30d": {
         "price": 2.5799999237060547,
@@ -31563,7 +31796,7 @@
       },
       "180d": null
     },
-    "failure_count": 5,
+    "failure_count": 6,
     "failure_type": "NO_HORIZON_DATA",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -31579,7 +31812,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:27.325312",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-27T11:39:12.864347",
+    "last_updated": "2026-03-02T11:40:23.446996",
     "outcomes": {
       "30d": {
         "price": 3.190000057220459,
@@ -31598,7 +31831,7 @@
       },
       "180d": null
     },
-    "failure_count": 5,
+    "failure_count": 6,
     "failure_type": "NO_HORIZON_DATA",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -33538,7 +33771,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:30.955236",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-27T11:39:12.864597",
+    "last_updated": "2026-03-02T11:40:23.447312",
     "outcomes": {
       "30d": {
         "price": 933.2691040039062,
@@ -33557,7 +33790,7 @@
       },
       "180d": null
     },
-    "failure_count": 5,
+    "failure_count": 6,
     "failure_type": "NO_HORIZON_DATA",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -33573,7 +33806,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:31.021981",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-27T11:39:12.864845",
+    "last_updated": "2026-03-02T11:40:23.447614",
     "outcomes": {
       "30d": {
         "price": 2.5999999046325684,
@@ -33592,7 +33825,7 @@
       },
       "180d": null
     },
-    "failure_count": 5,
+    "failure_count": 6,
     "failure_type": "NO_HORIZON_DATA",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -33682,7 +33915,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:31.221211",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-27T11:39:12.865118",
+    "last_updated": "2026-03-02T11:40:23.447909",
     "outcomes": {
       "30d": {
         "price": 1.190000057220459,
@@ -33701,7 +33934,7 @@
       },
       "180d": null
     },
-    "failure_count": 5,
+    "failure_count": 6,
     "failure_type": "NO_HORIZON_DATA",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -34416,7 +34649,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:32.576771",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-27T11:39:12.865369",
+    "last_updated": "2026-03-02T11:40:23.448206",
     "outcomes": {
       "30d": {
         "price": 2.950000047683716,
@@ -34435,7 +34668,7 @@
       },
       "180d": null
     },
-    "failure_count": 8,
+    "failure_count": 9,
     "failure_type": "NO_HORIZON_DATA",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -36476,7 +36709,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:47:36.439034",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-27T11:39:12.865631",
+    "last_updated": "2026-03-02T11:40:23.448543",
     "outcomes": {
       "30d": {
         "price": 9.6899995803833,
@@ -36495,7 +36728,7 @@
       },
       "180d": null
     },
-    "failure_count": 8,
+    "failure_count": 9,
     "failure_type": "NO_HORIZON_DATA",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -65479,7 +65712,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:48:39.535026",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-27T11:39:17.871405",
+    "last_updated": "2026-03-02T11:40:28.454442",
     "outcomes": {
       "30d": {
         "price": 51.72468948364258,
@@ -65498,7 +65731,7 @@
       },
       "180d": null
     },
-    "failure_count": 8,
+    "failure_count": 9,
     "failure_type": "NO_HORIZON_DATA",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -69319,7 +69552,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:48:49.076792",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-27T11:39:17.871736",
+    "last_updated": "2026-03-02T11:40:28.454846",
     "outcomes": {
       "30d": {
         "price": 51.04984664916992,
@@ -69338,7 +69571,7 @@
       },
       "180d": null
     },
-    "failure_count": 8,
+    "failure_count": 9,
     "failure_type": "NO_HORIZON_DATA",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -71865,7 +72098,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:48:55.387747",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-27T11:39:17.872088",
+    "last_updated": "2026-03-02T11:40:28.455165",
     "outcomes": {
       "30d": {
         "price": 50.95060729980469,
@@ -71884,7 +72117,7 @@
       },
       "180d": null
     },
-    "failure_count": 8,
+    "failure_count": 9,
     "failure_type": "NO_HORIZON_DATA",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -72807,7 +73040,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:48:58.026788",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-27T11:39:17.872396",
+    "last_updated": "2026-03-02T11:40:28.455529",
     "outcomes": {
       "30d": {
         "price": 19.8700008392334,
@@ -72826,7 +73059,7 @@
       },
       "180d": null
     },
-    "failure_count": 8,
+    "failure_count": 9,
     "failure_type": "NO_HORIZON_DATA",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -74893,7 +75126,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:49:03.393552",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-27T11:39:22.878176",
+    "last_updated": "2026-03-02T11:40:33.461364",
     "outcomes": {
       "30d": {
         "price": 50.47425079345703,
@@ -74912,7 +75145,7 @@
       },
       "180d": null
     },
-    "failure_count": 8,
+    "failure_count": 9,
     "failure_type": "NO_HORIZON_DATA",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -74928,7 +75161,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-03T11:49:03.487772",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-27T11:39:22.878515",
+    "last_updated": "2026-03-02T11:40:33.461704",
     "outcomes": {
       "30d": {
         "price": 50.47425079345703,
@@ -74947,7 +75180,7 @@
       },
       "180d": null
     },
-    "failure_count": 8,
+    "failure_count": 9,
     "failure_type": "NO_HORIZON_DATA",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -104748,14 +104981,14 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-23T11:28:37.796736",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-27T11:39:22.942261",
+    "last_updated": "2026-03-02T11:40:33.538299",
     "outcomes": {
       "30d": null,
       "60d": null,
       "90d": null,
       "180d": null
     },
-    "failure_count": 8,
+    "failure_count": 9,
     "failure_type": "NO_HORIZON_DATA",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -106284,7 +106517,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-24T11:28:54.204812",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-27T11:39:27.958566",
+    "last_updated": "2026-03-02T11:40:38.556879",
     "outcomes": {
       "30d": {
         "price": 2.6700000762939453,
@@ -106296,7 +106529,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 6,
+    "failure_count": 7,
     "failure_type": "NO_HORIZON_DATA",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -106621,7 +106854,7 @@
     "status": "TRACKING",
     "tracked_since": "2025-12-24T11:28:57.493141",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-27T11:39:27.960791",
+    "last_updated": "2026-03-02T11:40:38.559566",
     "outcomes": {
       "30d": {
         "price": 346.2300109863281,
@@ -106633,7 +106866,7 @@
       "90d": null,
       "180d": null
     },
-    "failure_count": 6,
+    "failure_count": 7,
     "failure_type": "NO_HORIZON_DATA",
     "failure_reason": "Blacklisted: No trading data for required time horizon"
   },
@@ -107178,7 +107411,7 @@
     "status": "TRACKING",
     "tracked_since": "2026-01-08T11:32:01.457758",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-27T11:39:27.964274",
+    "last_updated": "2026-03-02T11:40:38.563755",
     "outcomes": {
       "30d": null,
       "60d": null,
@@ -107188,7 +107421,7 @@
     "filing_date": null,
     "filing_url": null,
     "accession_number": null,
-    "failure_count": 8,
+    "failure_count": 9,
     "failure_type": "BLACKLISTED",
     "failure_reason": "Blacklisted: No price data from yfinance"
   },
@@ -108408,7 +108641,7 @@
     "status": "TRACKING",
     "tracked_since": "2026-01-08T11:32:08.648944",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-18T12:02:42.290864",
+    "last_updated": "2026-03-02T11:40:43.727368",
     "outcomes": {
       "30d": {
         "price": 5.679999828338623,
@@ -108422,7 +108655,10 @@
     },
     "filing_date": null,
     "filing_url": null,
-    "accession_number": null
+    "accession_number": null,
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "JYNT_Jobson Charles E_2025-12-31 00:00:00",
@@ -108620,7 +108856,7 @@
     "status": "TRACKING",
     "tracked_since": "2026-01-08T11:32:09.660117",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-18T12:02:43.926144",
+    "last_updated": "2026-03-02T11:40:48.979490",
     "outcomes": {
       "30d": {
         "price": 13.420000076293945,
@@ -108634,7 +108870,10 @@
     },
     "filing_date": null,
     "filing_url": null,
-    "accession_number": null
+    "accession_number": null,
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "KFS_Fitzgerald John Taylor Maloney_2025-12-31 00:00:00",
@@ -108648,7 +108887,7 @@
     "status": "TRACKING",
     "tracked_since": "2026-01-08T11:32:09.766065",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-18T12:02:44.755430",
+    "last_updated": "2026-03-02T11:40:53.985409",
     "outcomes": {
       "30d": {
         "price": 13.420000076293945,
@@ -108662,7 +108901,10 @@
     },
     "filing_date": null,
     "filing_url": null,
-    "accession_number": null
+    "accession_number": null,
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "ALT_Sohn Catherine A._2026-01-05 00:00:00",
@@ -108704,7 +108946,7 @@
     "status": "TRACKING",
     "tracked_since": "2026-01-08T11:32:10.063137",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-18T12:02:46.397818",
+    "last_updated": "2026-03-02T11:40:54.374836",
     "outcomes": {
       "30d": {
         "price": 191.30999755859375,
@@ -108718,7 +108960,10 @@
     },
     "filing_date": null,
     "filing_url": null,
-    "accession_number": null
+    "accession_number": null,
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "SPG_Smith Daniel C._2025-12-31 00:00:00",
@@ -108732,7 +108977,7 @@
     "status": "TRACKING",
     "tracked_since": "2026-01-08T11:32:10.167318",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-18T12:02:47.341398",
+    "last_updated": "2026-03-02T11:40:59.380735",
     "outcomes": {
       "30d": {
         "price": 191.30999755859375,
@@ -108746,7 +108991,10 @@
     },
     "filing_date": null,
     "filing_url": null,
-    "accession_number": null
+    "accession_number": null,
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "SPG_Selig Stefan M_2025-12-31 00:00:00",
@@ -108760,7 +109008,7 @@
     "status": "TRACKING",
     "tracked_since": "2026-01-08T11:32:10.358072",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-18T12:02:48.033418",
+    "last_updated": "2026-03-02T11:40:59.381072",
     "outcomes": {
       "30d": {
         "price": 191.30999755859375,
@@ -108774,7 +109022,10 @@
     },
     "filing_date": null,
     "filing_url": null,
-    "accession_number": null
+    "accession_number": null,
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "SPG_Roe Peggy_2025-12-31 00:00:00",
@@ -108788,7 +109039,7 @@
     "status": "TRACKING",
     "tracked_since": "2026-01-08T11:32:10.463258",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-18T12:02:49.002883",
+    "last_updated": "2026-03-02T11:40:59.381412",
     "outcomes": {
       "30d": {
         "price": 191.30999755859375,
@@ -108802,7 +109053,10 @@
     },
     "filing_date": null,
     "filing_url": null,
-    "accession_number": null
+    "accession_number": null,
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "SPG_Rodkin Gary M_2025-12-31 00:00:00",
@@ -108816,7 +109070,7 @@
     "status": "TRACKING",
     "tracked_since": "2026-01-08T11:32:10.569382",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-18T12:02:50.000780",
+    "last_updated": "2026-03-02T11:40:59.381727",
     "outcomes": {
       "30d": {
         "price": 191.30999755859375,
@@ -108830,7 +109084,10 @@
     },
     "filing_date": null,
     "filing_url": null,
-    "accession_number": null
+    "accession_number": null,
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "SPG_Lewis Randall J_2025-12-31 00:00:00",
@@ -108844,7 +109101,7 @@
     "status": "TRACKING",
     "tracked_since": "2026-01-08T11:32:10.675562",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-18T12:02:50.987748",
+    "last_updated": "2026-03-02T11:40:59.382037",
     "outcomes": {
       "30d": {
         "price": 191.30999755859375,
@@ -108858,7 +109115,10 @@
     },
     "filing_date": null,
     "filing_url": null,
-    "accession_number": null
+    "accession_number": null,
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "SPG_Leibowitz Reuben S_2025-12-31 00:00:00",
@@ -108872,7 +109132,7 @@
     "status": "TRACKING",
     "tracked_since": "2026-01-08T11:32:10.781427",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-18T12:02:51.980767",
+    "last_updated": "2026-03-02T11:40:59.382363",
     "outcomes": {
       "30d": {
         "price": 191.30999755859375,
@@ -108886,7 +109146,10 @@
     },
     "filing_date": null,
     "filing_url": null,
-    "accession_number": null
+    "accession_number": null,
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "SPG_Jones Nina P_2025-12-31 00:00:00",
@@ -108900,7 +109163,7 @@
     "status": "TRACKING",
     "tracked_since": "2026-01-08T11:32:10.888528",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-18T12:02:52.959065",
+    "last_updated": "2026-03-02T11:40:59.382667",
     "outcomes": {
       "30d": {
         "price": 191.30999755859375,
@@ -108914,7 +109177,10 @@
     },
     "filing_date": null,
     "filing_url": null,
-    "accession_number": null
+    "accession_number": null,
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "SPG_Glasscock Larry C_2025-12-31 00:00:00",
@@ -108928,7 +109194,7 @@
     "status": "TRACKING",
     "tracked_since": "2026-01-08T11:32:10.995057",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-18T12:02:53.893800",
+    "last_updated": "2026-03-02T11:40:59.382970",
     "outcomes": {
       "30d": {
         "price": 191.30999755859375,
@@ -108942,7 +109208,10 @@
     },
     "filing_date": null,
     "filing_url": null,
-    "accession_number": null
+    "accession_number": null,
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "SPG_Aeppel Glyn_2025-12-31 00:00:00",
@@ -108956,7 +109225,7 @@
     "status": "TRACKING",
     "tracked_since": "2026-01-08T11:32:11.099744",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-18T12:02:54.912747",
+    "last_updated": "2026-03-02T11:40:59.383290",
     "outcomes": {
       "30d": {
         "price": 191.30999755859375,
@@ -108970,7 +109239,10 @@
     },
     "filing_date": null,
     "filing_url": null,
-    "accession_number": null
+    "accession_number": null,
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "VKI_Bank of America Corp /de/_2026-01-02 00:00:00",
@@ -109146,7 +109418,7 @@
     "status": "TRACKING",
     "tracked_since": "2026-01-08T11:32:12.347232",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-18T12:02:58.112817",
+    "last_updated": "2026-03-02T11:41:00.053862",
     "outcomes": {
       "30d": {
         "price": 3.5199999809265137,
@@ -109160,7 +109432,10 @@
     },
     "filing_date": null,
     "filing_url": null,
-    "accession_number": null
+    "accession_number": null,
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "TOFB_A-6684 Ltd._2025-12-31 00:00:00",
@@ -109174,7 +109449,7 @@
     "status": "TRACKING",
     "tracked_since": "2026-01-08T11:32:12.536695",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-18T12:02:58.903091",
+    "last_updated": "2026-03-02T11:41:05.315927",
     "outcomes": {
       "30d": {
         "price": 0.8199999928474426,
@@ -109188,7 +109463,10 @@
     },
     "filing_date": null,
     "filing_url": null,
-    "accession_number": null
+    "accession_number": null,
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "RNXT_Agah Ramtin_2025-12-31 00:00:00",
@@ -109202,7 +109480,7 @@
     "status": "TRACKING",
     "tracked_since": "2026-01-08T11:32:12.724921",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-19T11:48:48.226031",
+    "last_updated": "2026-03-02T11:41:10.521586",
     "outcomes": {
       "30d": {
         "price": 1.0399999618530273,
@@ -109216,7 +109494,10 @@
     },
     "filing_date": null,
     "filing_url": null,
-    "accession_number": null
+    "accession_number": null,
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "LTC_Boitano David M_2025-12-31 00:00:00",
@@ -109256,7 +109537,7 @@
     "status": "TRACKING",
     "tracked_since": "2026-01-08T11:32:12.934596",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-18T12:02:59.555352",
+    "last_updated": "2026-03-02T11:41:15.647723",
     "outcomes": {
       "30d": {
         "price": 5.489999771118164,
@@ -109270,7 +109551,10 @@
     },
     "filing_date": null,
     "filing_url": null,
-    "accession_number": null
+    "accession_number": null,
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "GF_Saba Capital Management, L.P._2025-12-30 00:00:00",
@@ -109284,7 +109568,7 @@
     "status": "TRACKING",
     "tracked_since": "2026-01-08T11:32:13.040672",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-18T12:03:00.541111",
+    "last_updated": "2026-03-02T11:41:21.125610",
     "outcomes": {
       "30d": {
         "price": 11.970000267028809,
@@ -109298,7 +109582,10 @@
     },
     "filing_date": null,
     "filing_url": null,
-    "accession_number": null
+    "accession_number": null,
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "WRB_Mitsui Sumitomo Insurance Co Ltd_2025-12-30 00:00:00",
@@ -109312,7 +109599,7 @@
     "status": "TRACKING",
     "tracked_since": "2026-01-08T11:32:13.232561",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-18T12:03:01.567147",
+    "last_updated": "2026-03-02T11:41:26.685711",
     "outcomes": {
       "30d": {
         "price": 68.26000213623047,
@@ -109326,7 +109613,10 @@
     },
     "filing_date": null,
     "filing_url": null,
-    "accession_number": null
+    "accession_number": null,
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "UA_Watsa V Prem Et Al_2025-12-30 00:00:00",
@@ -109392,7 +109682,7 @@
     "status": "TRACKING",
     "tracked_since": "2026-01-08T11:32:13.550943",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-18T12:03:02.409313",
+    "last_updated": "2026-03-02T11:41:31.961735",
     "outcomes": {
       "30d": {
         "price": 8.430000305175781,
@@ -109406,7 +109696,10 @@
     },
     "filing_date": null,
     "filing_url": null,
-    "accession_number": null
+    "accession_number": null,
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "FGBI_Reynolds Marshall T_2025-12-31 00:00:00",
@@ -109420,7 +109713,7 @@
     "status": "TRACKING",
     "tracked_since": "2026-01-08T11:32:13.740865",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-18T12:03:02.973446",
+    "last_updated": "2026-03-02T11:41:36.967594",
     "outcomes": {
       "30d": {
         "price": 8.430000305175781,
@@ -109434,7 +109727,10 @@
     },
     "filing_date": null,
     "filing_url": null,
-    "accession_number": null
+    "accession_number": null,
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "RNXT_Agah Ramtin_2025-12-30 00:00:00",
@@ -109448,7 +109744,7 @@
     "status": "TRACKING",
     "tracked_since": "2026-01-08T11:32:13.845952",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-19T11:48:48.945111",
+    "last_updated": "2026-03-02T11:41:36.967935",
     "outcomes": {
       "30d": {
         "price": 0.9599999785423279,
@@ -109462,7 +109758,10 @@
     },
     "filing_date": null,
     "filing_url": null,
-    "accession_number": null
+    "accession_number": null,
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "JOBY_Thompson Michael N. Jr._2025-12-31 00:00:00",
@@ -109502,7 +109801,7 @@
     "status": "TRACKING",
     "tracked_since": "2026-01-08T11:32:14.142359",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-18T12:03:03.807679",
+    "last_updated": "2026-03-02T11:41:36.968269",
     "outcomes": {
       "30d": {
         "price": 6.519999980926514,
@@ -109516,7 +109815,10 @@
     },
     "filing_date": null,
     "filing_url": null,
-    "accession_number": null
+    "accession_number": null,
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "FG_Blunt Christopher O_2026-01-02 00:00:00",
@@ -109556,7 +109858,7 @@
     "status": "TRACKING",
     "tracked_since": "2026-01-08T11:32:14.435867",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-27T11:39:33.477943",
+    "last_updated": "2026-03-02T11:41:37.146372",
     "outcomes": {
       "30d": {
         "price": 1.190000057220459,
@@ -109564,16 +109866,18 @@
         "dividends": 0.0,
         "date": "2026-01-28"
       },
-      "60d": null,
+      "60d": {
+        "price": 1.1200000047683716,
+        "return": 8.737864540618597,
+        "dividends": 0.0,
+        "date": "2026-02-27"
+      },
       "90d": null,
       "180d": null
     },
     "filing_date": null,
     "filing_url": null,
-    "accession_number": null,
-    "failure_count": 1,
-    "failure_type": "NO_HORIZON_DATA",
-    "failure_reason": "No trading data for required time horizon (will retry)"
+    "accession_number": null
   },
   {
     "trade_id": "FGBI_McAnally Bruce_2025-12-31 00:00:00",
@@ -109587,7 +109891,7 @@
     "status": "TRACKING",
     "tracked_since": "2026-01-08T11:32:14.543329",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-18T12:03:05.278914",
+    "last_updated": "2026-03-02T11:41:37.746570",
     "outcomes": {
       "30d": {
         "price": 8.430000305175781,
@@ -109601,7 +109905,10 @@
     },
     "filing_date": null,
     "filing_url": null,
-    "accession_number": null
+    "accession_number": null,
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "SUNS_Tannenbaum Leonard M_2025-12-30 00:00:00",
@@ -109771,7 +110078,7 @@
     "status": "TRACKING",
     "tracked_since": "2026-01-08T11:32:15.373408",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-18T12:03:06.164344",
+    "last_updated": "2026-03-02T11:41:38.130333",
     "outcomes": {
       "30d": {
         "price": 32.73211669921875,
@@ -109785,7 +110092,10 @@
     },
     "filing_date": null,
     "filing_url": null,
-    "accession_number": null
+    "accession_number": null,
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "MPB_Brumbaugh Kimberly J_2025-12-31 00:00:00",
@@ -109799,7 +110109,7 @@
     "status": "TRACKING",
     "tracked_since": "2026-01-08T11:32:15.479083",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-18T12:03:07.083784",
+    "last_updated": "2026-03-02T11:41:38.631742",
     "outcomes": {
       "30d": {
         "price": 32.73211669921875,
@@ -109813,7 +110123,10 @@
     },
     "filing_date": null,
     "filing_url": null,
-    "accession_number": null
+    "accession_number": null,
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "MPB_De Soto Matthew G_2025-12-31 00:00:00",
@@ -109827,7 +110140,7 @@
     "status": "TRACKING",
     "tracked_since": "2026-01-08T11:32:15.584934",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-18T12:03:08.024805",
+    "last_updated": "2026-03-02T11:41:38.632082",
     "outcomes": {
       "30d": {
         "price": 32.73211669921875,
@@ -109841,7 +110154,10 @@
     },
     "filing_date": null,
     "filing_url": null,
-    "accession_number": null
+    "accession_number": null,
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "MPB_Evans Albert J._2025-12-31 00:00:00",
@@ -109855,7 +110171,7 @@
     "status": "TRACKING",
     "tracked_since": "2026-01-08T11:32:15.689226",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-18T12:03:08.932297",
+    "last_updated": "2026-03-02T11:41:38.632420",
     "outcomes": {
       "30d": {
         "price": 32.73211669921875,
@@ -109869,7 +110185,10 @@
     },
     "filing_date": null,
     "filing_url": null,
-    "accession_number": null
+    "accession_number": null,
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "MPB_Frank Joel L._2025-12-31 00:00:00",
@@ -109883,7 +110202,7 @@
     "status": "TRACKING",
     "tracked_since": "2026-01-08T11:32:15.879235",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-18T12:03:09.721401",
+    "last_updated": "2026-03-02T11:41:38.632729",
     "outcomes": {
       "30d": {
         "price": 32.73211669921875,
@@ -109897,7 +110216,10 @@
     },
     "filing_date": null,
     "filing_url": null,
-    "accession_number": null
+    "accession_number": null,
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "MPB_Mowery Theodore W_2025-12-31 00:00:00",
@@ -109911,7 +110233,7 @@
     "status": "TRACKING",
     "tracked_since": "2026-01-08T11:32:16.068631",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-18T12:03:10.569072",
+    "last_updated": "2026-03-02T11:41:38.633032",
     "outcomes": {
       "30d": {
         "price": 32.73211669921875,
@@ -109925,7 +110247,10 @@
     },
     "filing_date": null,
     "filing_url": null,
-    "accession_number": null
+    "accession_number": null,
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "BDL_Flanigan James II_2025-12-29 00:00:00",
@@ -109991,7 +110316,7 @@
     "status": "TRACKING",
     "tracked_since": "2026-01-08T11:32:16.472845",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-18T12:03:11.415997",
+    "last_updated": "2026-03-02T11:41:38.834356",
     "outcomes": {
       "30d": {
         "price": 10.899999618530273,
@@ -110005,7 +110330,10 @@
     },
     "filing_date": null,
     "filing_url": null,
-    "accession_number": null
+    "accession_number": null,
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "CME_Shepard William R_2025-12-30 00:00:00",
@@ -110149,7 +110477,7 @@
     "status": "TRACKING",
     "tracked_since": "2026-01-08T11:32:17.280807",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-27T11:39:38.946718",
+    "last_updated": "2026-03-02T11:41:40.837203",
     "outcomes": {
       "30d": {
         "price": 1.850000023841858,
@@ -110164,7 +110492,7 @@
     "filing_date": null,
     "filing_url": null,
     "accession_number": null,
-    "failure_count": 1,
+    "failure_count": 2,
     "failure_type": "NO_HORIZON_DATA",
     "failure_reason": "No trading data for required time horizon (will retry)"
   },
@@ -110180,7 +110508,7 @@
     "status": "TRACKING",
     "tracked_since": "2026-01-08T11:32:17.468659",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-19T11:48:49.820980",
+    "last_updated": "2026-03-02T11:41:41.042131",
     "outcomes": {
       "30d": {
         "price": 0.20999999344348907,
@@ -110194,7 +110522,10 @@
     },
     "filing_date": null,
     "filing_url": null,
-    "accession_number": null
+    "accession_number": null,
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "STAA_Broadwood Partners, L.P._2026-01-06 00:00:00",
@@ -110448,7 +110779,7 @@
     "status": "TRACKING",
     "tracked_since": "2026-01-09T11:31:32.784651",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-18T12:03:15.320877",
+    "last_updated": "2026-03-02T11:41:46.317842",
     "outcomes": {
       "30d": {
         "price": 1.4500000476837158,
@@ -110462,7 +110793,10 @@
     },
     "filing_date": null,
     "filing_url": null,
-    "accession_number": null
+    "accession_number": null,
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "INTZ_Pinson Kimberly_2025-12-31 00:00:00",
@@ -110502,7 +110836,7 @@
     "status": "TRACKING",
     "tracked_since": "2026-01-12T13:47:05.336243",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-18T12:03:16.170630",
+    "last_updated": "2026-03-02T11:41:51.580879",
     "outcomes": {
       "30d": {
         "price": 1.0399999618530273,
@@ -110516,7 +110850,10 @@
     },
     "filing_date": null,
     "filing_url": null,
-    "accession_number": null
+    "accession_number": null,
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "ADC_Agree Richard_2026-01-09 00:00:00",
@@ -113818,19 +114155,21 @@
     "status": "TRACKING",
     "tracked_since": "2026-01-29T11:48:24.172438",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-27T11:39:54.929726",
+    "last_updated": "2026-03-02T11:41:57.077389",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 41.29999923706055,
+        "return": -0.6972848351513742,
+        "dividends": 0.0,
+        "date": "2026-02-27"
+      },
       "60d": null,
       "90d": null,
       "180d": null
     },
     "filing_date": null,
     "filing_url": null,
-    "accession_number": null,
-    "failure_count": 1,
-    "failure_type": "NO_HORIZON_DATA",
-    "failure_reason": "No trading data for required time horizon (will retry)"
+    "accession_number": null
   },
   {
     "trade_id": "GDV_Bogan Elizabeth C_2026-01-27 00:00:00",
@@ -113928,7 +114267,7 @@
     "status": "TRACKING",
     "tracked_since": "2026-01-30T11:45:35.554509",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-30T11:45:35.554514",
+    "last_updated": "2026-03-02T11:41:57.738008",
     "outcomes": {
       "30d": null,
       "60d": null,
@@ -113937,7 +114276,10 @@
     },
     "filing_date": null,
     "filing_url": null,
-    "accession_number": null
+    "accession_number": null,
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "WS_Kelly Scott J_2026-01-27 00:00:00",
@@ -114007,7 +114349,7 @@
     "status": "TRACKING",
     "tracked_since": "2026-01-30T11:45:36.196155",
     "source": "daily_signal_detection",
-    "last_updated": "2026-01-30T11:45:36.196161",
+    "last_updated": "2026-03-02T11:41:58.240115",
     "outcomes": {
       "30d": null,
       "60d": null,
@@ -114016,7 +114358,10 @@
     },
     "filing_date": null,
     "filing_url": null,
-    "accession_number": null
+    "accession_number": null,
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "NFJ_Saba Capital Management, L.P._2026-01-27 00:00:00",
@@ -114058,19 +114403,21 @@
     "status": "TRACKING",
     "tracked_since": "2026-01-30T11:45:36.626596",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-27T11:40:02.743503",
+    "last_updated": "2026-03-02T11:41:58.651727",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 42.720001220703125,
+        "return": -0.5817984158642631,
+        "dividends": 0.0,
+        "date": "2026-02-27"
+      },
       "60d": null,
       "90d": null,
       "180d": null
     },
     "filing_date": null,
     "filing_url": null,
-    "accession_number": null,
-    "failure_count": 1,
-    "failure_type": "NO_HORIZON_DATA",
-    "failure_reason": "No trading data for required time horizon (will retry)"
+    "accession_number": null
   },
   {
     "trade_id": "BY_Cabrera Phillip R._2026-01-28 00:00:00",
@@ -114084,19 +114431,21 @@
     "status": "TRACKING",
     "tracked_since": "2026-01-30T11:45:36.838228",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-27T11:40:03.729339",
+    "last_updated": "2026-03-02T11:41:59.443932",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 31.200000762939453,
+        "return": 0.9345818979679406,
+        "dividends": 0.12,
+        "date": "2026-02-27"
+      },
       "60d": null,
       "90d": null,
       "180d": null
     },
     "filing_date": null,
     "filing_url": null,
-    "accession_number": null,
-    "failure_count": 1,
-    "failure_type": "NO_HORIZON_DATA",
-    "failure_reason": "No trading data for required time horizon (will retry)"
+    "accession_number": null
   },
   {
     "trade_id": "LIFE_Wheeler William J_2026-01-30 00:00:00",
@@ -114110,7 +114459,7 @@
     "status": "TRACKING",
     "tracked_since": "2026-02-02T11:50:53.160330",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-02T11:50:53.160335",
+    "last_updated": "2026-03-02T11:42:00.075929",
     "outcomes": {
       "30d": null,
       "60d": null,
@@ -114119,7 +114468,10 @@
     },
     "filing_date": null,
     "filing_url": null,
-    "accession_number": null
+    "accession_number": null,
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "LIFE_Mullin Mark W._2026-01-30 00:00:00",
@@ -114133,7 +114485,7 @@
     "status": "TRACKING",
     "tracked_since": "2026-02-02T11:50:53.380095",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-02T11:50:53.380101",
+    "last_updated": "2026-03-02T11:42:00.577329",
     "outcomes": {
       "30d": null,
       "60d": null,
@@ -114142,7 +114494,10 @@
     },
     "filing_date": null,
     "filing_url": null,
-    "accession_number": null
+    "accession_number": null,
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "EMPD_Atg Capital Opportunities Fund LP_2026-01-28 00:00:00",
@@ -114156,19 +114511,21 @@
     "status": "TRACKING",
     "tracked_since": "2026-02-02T11:50:53.598972",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-27T11:40:04.708972",
+    "last_updated": "2026-03-02T11:42:00.713413",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 3.7799999713897705,
+        "return": -23.481781955672666,
+        "dividends": 0.0,
+        "date": "2026-02-27"
+      },
       "60d": null,
       "90d": null,
       "180d": null
     },
     "filing_date": null,
     "filing_url": null,
-    "accession_number": null,
-    "failure_count": 1,
-    "failure_type": "NO_HORIZON_DATA",
-    "failure_reason": "No trading data for required time horizon (will retry)"
+    "accession_number": null
   },
   {
     "trade_id": "MIGI_Endeavor Blockchain, LLC_2026-01-28 00:00:00",
@@ -114182,19 +114539,21 @@
     "status": "TRACKING",
     "tracked_since": "2026-02-02T11:50:53.825619",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-27T11:40:05.727727",
+    "last_updated": "2026-03-02T11:42:01.385436",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 2.9600000381469727,
+        "return": -35.229758465055305,
+        "dividends": 0.0,
+        "date": "2026-02-27"
+      },
       "60d": null,
       "90d": null,
       "180d": null
     },
     "filing_date": null,
     "filing_url": null,
-    "accession_number": null,
-    "failure_count": 1,
-    "failure_type": "NO_HORIZON_DATA",
-    "failure_reason": "No trading data for required time horizon (will retry)"
+    "accession_number": null
   },
   {
     "trade_id": "MLAA_Grinberg Paul_2026-01-28 00:00:00",
@@ -114208,7 +114567,7 @@
     "status": "TRACKING",
     "tracked_since": "2026-02-02T11:50:54.043886",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-27T11:40:06.229018",
+    "last_updated": "2026-03-02T11:42:01.888197",
     "outcomes": {
       "30d": null,
       "60d": null,
@@ -114218,7 +114577,7 @@
     "filing_date": null,
     "filing_url": null,
     "accession_number": null,
-    "failure_count": 1,
+    "failure_count": 2,
     "failure_type": "BLACKLISTED",
     "failure_reason": "Blacklisted: No price data from yfinance"
   },
@@ -114262,7 +114621,7 @@
     "status": "TRACKING",
     "tracked_since": "2026-02-02T11:50:54.477541",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-02T11:50:54.477546",
+    "last_updated": "2026-03-02T11:42:03.243539",
     "outcomes": {
       "30d": null,
       "60d": null,
@@ -114271,7 +114630,10 @@
     },
     "filing_date": null,
     "filing_url": null,
-    "accession_number": null
+    "accession_number": null,
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "THM_Paulson & Co. Inc._2026-01-28 00:00:00",
@@ -114285,19 +114647,21 @@
     "status": "TRACKING",
     "tracked_since": "2026-02-02T11:50:54.693028",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-27T11:40:09.653573",
+    "last_updated": "2026-03-02T11:42:03.948323",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 3.509999990463257,
+        "return": 58.108107678525066,
+        "dividends": 0.0,
+        "date": "2026-02-27"
+      },
       "60d": null,
       "90d": null,
       "180d": null
     },
     "filing_date": null,
     "filing_url": null,
-    "accession_number": null,
-    "failure_count": 1,
-    "failure_type": "NO_HORIZON_DATA",
-    "failure_reason": "No trading data for required time horizon (will retry)"
+    "accession_number": null
   },
   {
     "trade_id": "IP_Silvernail Andrew K_2026-01-30 00:00:00",
@@ -114311,7 +114675,7 @@
     "status": "TRACKING",
     "tracked_since": "2026-02-02T11:50:54.909889",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-02T11:50:54.909894",
+    "last_updated": "2026-03-02T11:42:05.203768",
     "outcomes": {
       "30d": null,
       "60d": null,
@@ -114320,7 +114684,10 @@
     },
     "filing_date": null,
     "filing_url": null,
-    "accession_number": null
+    "accession_number": null,
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "PW_Posner Henry III_2026-01-28 00:00:00",
@@ -114334,19 +114701,21 @@
     "status": "TRACKING",
     "tracked_since": "2026-02-02T11:50:55.128476",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-27T11:40:11.011236",
+    "last_updated": "2026-03-02T11:42:06.160435",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 0.8899999856948853,
+        "return": -89.41736045547104,
+        "dividends": 0.0,
+        "date": "2026-02-27"
+      },
       "60d": null,
       "90d": null,
       "180d": null
     },
     "filing_date": null,
     "filing_url": null,
-    "accession_number": null,
-    "failure_count": 1,
-    "failure_type": "NO_HORIZON_DATA",
-    "failure_reason": "No trading data for required time horizon (will retry)"
+    "accession_number": null
   },
   {
     "trade_id": "CBK_Robertson Dennis Michael_2026-01-28 00:00:00",
@@ -114360,19 +114729,21 @@
     "status": "TRACKING",
     "tracked_since": "2026-02-02T11:50:55.344311",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-27T11:40:11.788348",
+    "last_updated": "2026-03-02T11:42:06.785182",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 26.010000228881836,
+        "return": 1.4430586149837574,
+        "dividends": 0.0,
+        "date": "2026-02-27"
+      },
       "60d": null,
       "90d": null,
       "180d": null
     },
     "filing_date": null,
     "filing_url": null,
-    "accession_number": null,
-    "failure_count": 1,
-    "failure_type": "NO_HORIZON_DATA",
-    "failure_reason": "No trading data for required time horizon (will retry)"
+    "accession_number": null
   },
   {
     "trade_id": "RMBI_Daily William A. Jr._2026-01-28 00:00:00",
@@ -114386,19 +114757,21 @@
     "status": "TRACKING",
     "tracked_since": "2026-02-02T11:50:55.561116",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-27T11:40:12.917246",
+    "last_updated": "2026-03-02T11:42:07.551619",
     "outcomes": {
-      "30d": null,
+      "30d": {
+        "price": 13.5,
+        "return": -2.916073968705551,
+        "dividends": 0.15,
+        "date": "2026-02-27"
+      },
       "60d": null,
       "90d": null,
       "180d": null
     },
     "filing_date": null,
     "filing_url": null,
-    "accession_number": null,
-    "failure_count": 1,
-    "failure_type": "NO_HORIZON_DATA",
-    "failure_reason": "No trading data for required time horizon (will retry)"
+    "accession_number": null
   },
   {
     "trade_id": "CWBC_Lokey James W_2026-01-28 00:00:00",
@@ -114412,7 +114785,35 @@
     "status": "TRACKING",
     "tracked_since": "2026-02-02T11:50:55.777581",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-27T11:40:14.202918",
+    "last_updated": "2026-03-02T11:42:08.396044",
+    "outcomes": {
+      "30d": {
+        "price": 23.229999542236328,
+        "return": 0.25761933119935154,
+        "dividends": 0.12,
+        "date": "2026-02-27"
+      },
+      "60d": null,
+      "90d": null,
+      "180d": null
+    },
+    "filing_date": null,
+    "filing_url": null,
+    "accession_number": null
+  },
+  {
+    "trade_id": "SHCO_Popstefanov Gjorgi_2026-01-29 00:00:00",
+    "ticker": "SHCO",
+    "insider_name": "Popstefanov Gjorgi",
+    "trade_date": "2026-01-29",
+    "entry_price": 9.0,
+    "title": "Dir",
+    "qty": 11111111,
+    "value": 99999999,
+    "status": "TRACKING",
+    "tracked_since": "2026-02-03T11:51:26.516845",
+    "source": "daily_signal_detection",
+    "last_updated": "2026-03-02T11:42:09.126815",
     "outcomes": {
       "30d": null,
       "60d": null,
@@ -114427,29 +114828,6 @@
     "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
-    "trade_id": "SHCO_Popstefanov Gjorgi_2026-01-29 00:00:00",
-    "ticker": "SHCO",
-    "insider_name": "Popstefanov Gjorgi",
-    "trade_date": "2026-01-29",
-    "entry_price": 9.0,
-    "title": "Dir",
-    "qty": 11111111,
-    "value": 99999999,
-    "status": "TRACKING",
-    "tracked_since": "2026-02-03T11:51:26.516845",
-    "source": "daily_signal_detection",
-    "last_updated": "2026-02-03T11:51:26.516850",
-    "outcomes": {
-      "30d": null,
-      "60d": null,
-      "90d": null,
-      "180d": null
-    },
-    "filing_date": null,
-    "filing_url": null,
-    "accession_number": null
-  },
-  {
     "trade_id": "LIFE_Botha Roelof_2026-01-29 00:00:00",
     "ticker": "LIFE",
     "insider_name": "Botha Roelof",
@@ -114461,7 +114839,7 @@
     "status": "TRACKING",
     "tracked_since": "2026-02-03T11:51:26.729288",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-03T11:51:26.729293",
+    "last_updated": "2026-03-02T11:42:09.628098",
     "outcomes": {
       "30d": null,
       "60d": null,
@@ -114470,7 +114848,10 @@
     },
     "filing_date": null,
     "filing_url": null,
-    "accession_number": null
+    "accession_number": null,
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "ADX_Kerns Janis F._2026-01-30 00:00:00",
@@ -114484,7 +114865,7 @@
     "status": "TRACKING",
     "tracked_since": "2026-02-03T11:51:26.940763",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-03T11:51:26.940770",
+    "last_updated": "2026-03-02T11:42:10.149844",
     "outcomes": {
       "30d": null,
       "60d": null,
@@ -114493,7 +114874,10 @@
     },
     "filing_date": null,
     "filing_url": null,
-    "accession_number": null
+    "accession_number": null,
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "IP_Connor Christopher M_2026-01-30 00:00:00",
@@ -114507,7 +114891,7 @@
     "status": "TRACKING",
     "tracked_since": "2026-02-03T11:51:27.153652",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-03T11:51:27.153657",
+    "last_updated": "2026-03-02T11:42:10.651195",
     "outcomes": {
       "30d": null,
       "60d": null,
@@ -114516,7 +114900,10 @@
     },
     "filing_date": null,
     "filing_url": null,
-    "accession_number": null
+    "accession_number": null,
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "CR_Pollino Jennifer_2026-01-29 00:00:00",
@@ -114530,7 +114917,7 @@
     "status": "TRACKING",
     "tracked_since": "2026-02-03T11:51:27.366342",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-03T11:51:27.366347",
+    "last_updated": "2026-03-02T11:42:10.790364",
     "outcomes": {
       "30d": null,
       "60d": null,
@@ -114539,7 +114926,10 @@
     },
     "filing_date": null,
     "filing_url": null,
-    "accession_number": null
+    "accession_number": null,
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "CR_Lynch Susan D_2026-01-29 00:00:00",
@@ -114553,7 +114943,7 @@
     "status": "TRACKING",
     "tracked_since": "2026-02-03T11:51:27.577195",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-03T11:51:27.577200",
+    "last_updated": "2026-03-02T11:42:12.793216",
     "outcomes": {
       "30d": null,
       "60d": null,
@@ -114562,7 +114952,10 @@
     },
     "filing_date": null,
     "filing_url": null,
-    "accession_number": null
+    "accession_number": null,
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "CR_Kapoor Sanjay_2026-01-29 00:00:00",
@@ -114576,7 +114969,7 @@
     "status": "TRACKING",
     "tracked_since": "2026-02-03T11:51:27.787356",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-03T11:51:27.787362",
+    "last_updated": "2026-03-02T11:42:12.793659",
     "outcomes": {
       "30d": null,
       "60d": null,
@@ -114585,7 +114978,10 @@
     },
     "filing_date": null,
     "filing_url": null,
-    "accession_number": null
+    "accession_number": null,
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "CR_Mitchell Max H_2026-01-30 00:00:00",
@@ -114599,7 +114995,7 @@
     "status": "TRACKING",
     "tracked_since": "2026-02-03T11:51:27.999100",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-03T11:51:27.999106",
+    "last_updated": "2026-03-02T11:42:12.794041",
     "outcomes": {
       "30d": null,
       "60d": null,
@@ -114608,7 +115004,10 @@
     },
     "filing_date": null,
     "filing_url": null,
-    "accession_number": null
+    "accession_number": null,
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "NEOG_Nassif Mikheal_2026-01-26 00:00:00",
@@ -114650,7 +115049,7 @@
     "status": "TRACKING",
     "tracked_since": "2026-02-03T11:51:28.421635",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-03T11:51:28.421640",
+    "last_updated": "2026-03-02T11:42:12.879863",
     "outcomes": {
       "30d": null,
       "60d": null,
@@ -114659,7 +115058,10 @@
     },
     "filing_date": null,
     "filing_url": null,
-    "accession_number": null
+    "accession_number": null,
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "TCBI_Stallings Robert W_2026-01-29 00:00:00",
@@ -114673,7 +115075,7 @@
     "status": "TRACKING",
     "tracked_since": "2026-02-03T11:51:28.634919",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-03T11:51:28.634925",
+    "last_updated": "2026-03-02T11:42:15.093552",
     "outcomes": {
       "30d": null,
       "60d": null,
@@ -114682,7 +115084,10 @@
     },
     "filing_date": null,
     "filing_url": null,
-    "accession_number": null
+    "accession_number": null,
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "FCCO_Reynolds E. Leland_2026-02-02 00:00:00",
@@ -114719,7 +115124,7 @@
     "status": "TRACKING",
     "tracked_since": "2026-02-03T11:51:29.056404",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-03T11:51:29.056409",
+    "last_updated": "2026-03-02T11:42:20.530957",
     "outcomes": {
       "30d": null,
       "60d": null,
@@ -114728,7 +115133,10 @@
     },
     "filing_date": null,
     "filing_url": null,
-    "accession_number": null
+    "accession_number": null,
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "CCNE_Peduzzi Michael D_2026-01-30 00:00:00",
@@ -114742,7 +115150,7 @@
     "status": "TRACKING",
     "tracked_since": "2026-02-03T11:51:29.267867",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-03T11:51:29.267873",
+    "last_updated": "2026-03-02T11:42:25.536823",
     "outcomes": {
       "30d": null,
       "60d": null,
@@ -114751,7 +115159,10 @@
     },
     "filing_date": null,
     "filing_url": null,
-    "accession_number": null
+    "accession_number": null,
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "NFJ_Saba Capital Management, L.P._2026-01-29 00:00:00",
@@ -114765,7 +115176,7 @@
     "status": "TRACKING",
     "tracked_since": "2026-02-03T11:51:29.480485",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-03T11:51:29.480491",
+    "last_updated": "2026-03-02T11:42:25.828037",
     "outcomes": {
       "30d": null,
       "60d": null,
@@ -114774,7 +115185,10 @@
     },
     "filing_date": null,
     "filing_url": null,
-    "accession_number": null
+    "accession_number": null,
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "BCAL_Volk David J._2026-02-03 00:00:00",
@@ -116030,7 +116444,7 @@
     "status": "TRACKING",
     "tracked_since": "2026-02-09T12:05:43.050070",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-09T12:05:43.050076",
+    "last_updated": "2026-03-02T11:42:30.975290",
     "outcomes": {
       "30d": null,
       "60d": null,
@@ -116039,7 +116453,10 @@
     },
     "filing_date": null,
     "filing_url": null,
-    "accession_number": null
+    "accession_number": null,
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "YSS_Letarte Tyler_2026-01-30 00:00:00",
@@ -116053,7 +116470,7 @@
     "status": "TRACKING",
     "tracked_since": "2026-02-09T12:05:43.271277",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-09T12:05:43.271282",
+    "last_updated": "2026-03-02T11:42:35.981127",
     "outcomes": {
       "30d": null,
       "60d": null,
@@ -116062,7 +116479,10 @@
     },
     "filing_date": null,
     "filing_url": null,
-    "accession_number": null
+    "accession_number": null,
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "DXC_Fernandez Raul J_2026-02-02 00:00:00",
@@ -116099,7 +116519,7 @@
     "status": "TRACKING",
     "tracked_since": "2026-02-09T12:05:43.714412",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-09T12:05:43.714419",
+    "last_updated": "2026-03-02T11:42:36.141605",
     "outcomes": {
       "30d": null,
       "60d": null,
@@ -116108,7 +116528,10 @@
     },
     "filing_date": null,
     "filing_url": null,
-    "accession_number": null
+    "accession_number": null,
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "YSS_Blackrock Portfolio Management LLC_2026-01-30 00:00:00",
@@ -116122,7 +116545,7 @@
     "status": "TRACKING",
     "tracked_since": "2026-02-09T12:05:43.933493",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-09T12:05:43.933499",
+    "last_updated": "2026-03-02T11:42:41.147525",
     "outcomes": {
       "30d": null,
       "60d": null,
@@ -116131,7 +116554,10 @@
     },
     "filing_date": null,
     "filing_url": null,
-    "accession_number": null
+    "accession_number": null,
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "WS_Bowsher Jon J_2026-01-30 00:00:00",
@@ -116145,7 +116571,7 @@
     "status": "TRACKING",
     "tracked_since": "2026-02-09T12:05:44.157363",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-09T12:05:44.157369",
+    "last_updated": "2026-03-02T11:42:41.320787",
     "outcomes": {
       "30d": null,
       "60d": null,
@@ -116154,7 +116580,10 @@
     },
     "filing_date": null,
     "filing_url": null,
-    "accession_number": null
+    "accession_number": null,
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "FEAM_Malm Joshua_2026-02-02 00:00:00",
@@ -116214,7 +116643,7 @@
     "status": "TRACKING",
     "tracked_since": "2026-02-09T12:05:44.831735",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-09T12:05:44.831743",
+    "last_updated": "2026-03-02T11:42:46.616282",
     "outcomes": {
       "30d": null,
       "60d": null,
@@ -116223,7 +116652,10 @@
     },
     "filing_date": null,
     "filing_url": null,
-    "accession_number": null
+    "accession_number": null,
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "SWZ_Goldstein Phillip_2026-01-30 00:00:00",
@@ -116237,7 +116669,7 @@
     "status": "TRACKING",
     "tracked_since": "2026-02-09T12:05:45.055642",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-09T12:05:45.055652",
+    "last_updated": "2026-03-02T11:42:52.078946",
     "outcomes": {
       "30d": null,
       "60d": null,
@@ -116246,7 +116678,10 @@
     },
     "filing_date": null,
     "filing_url": null,
-    "accession_number": null
+    "accession_number": null,
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "NFJ_Saba Capital Management, L.P._2026-02-02 00:00:00",
@@ -116283,7 +116718,7 @@
     "status": "TRACKING",
     "tracked_since": "2026-02-09T12:05:45.501448",
     "source": "daily_signal_detection",
-    "last_updated": "2026-02-09T12:05:45.501453",
+    "last_updated": "2026-03-02T11:42:57.560159",
     "outcomes": {
       "30d": null,
       "60d": null,
@@ -116292,7 +116727,10 @@
     },
     "filing_date": null,
     "filing_url": null,
-    "accession_number": null
+    "accession_number": null,
+    "failure_count": 1,
+    "failure_type": "NO_HORIZON_DATA",
+    "failure_reason": "No trading data for required time horizon (will retry)"
   },
   {
     "trade_id": "NFRX_Harrison Street Real Assets Fund LLC_2026-02-02 00:00:00",
@@ -127255,6 +127693,1133 @@
     "tracked_since": "2026-02-27T11:52:20.280403",
     "source": "daily_signal_detection",
     "last_updated": "2026-02-27T11:52:20.280409",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    },
+    "filing_date": null,
+    "filing_url": null,
+    "accession_number": null
+  },
+  {
+    "trade_id": "FOUR_Isaacman Jared_2026-02-26 00:00:00",
+    "ticker": "FOUR",
+    "insider_name": "Isaacman Jared",
+    "trade_date": "2026-02-26",
+    "entry_price": 46.11,
+    "title": "10%",
+    "qty": 296237,
+    "value": 13658260,
+    "status": "TRACKING",
+    "tracked_since": "2026-03-02T11:50:06.459803",
+    "source": "daily_signal_detection",
+    "last_updated": "2026-03-02T11:50:06.459808",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    },
+    "filing_date": null,
+    "filing_url": null,
+    "accession_number": null
+  },
+  {
+    "trade_id": "IONQ_Teuber William J Jr_2026-02-27 00:00:00",
+    "ticker": "IONQ",
+    "insider_name": "Teuber William J Jr",
+    "trade_date": "2026-02-27",
+    "entry_price": 38.39,
+    "title": "Dir",
+    "qty": 3000,
+    "value": 115155,
+    "status": "TRACKING",
+    "tracked_since": "2026-03-02T11:50:06.717905",
+    "source": "daily_signal_detection",
+    "last_updated": "2026-03-02T11:50:06.717910",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    },
+    "filing_date": null,
+    "filing_url": null,
+    "accession_number": null
+  },
+  {
+    "trade_id": "PATK_Welch M Scott_2026-02-27 00:00:00",
+    "ticker": "PATK",
+    "insider_name": "Welch M Scott",
+    "trade_date": "2026-02-27",
+    "entry_price": 122.75,
+    "title": "Dir",
+    "qty": 60,
+    "value": 7365,
+    "status": "TRACKING",
+    "tracked_since": "2026-03-02T11:50:06.974087",
+    "source": "daily_signal_detection",
+    "last_updated": "2026-03-02T11:50:06.974093",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    },
+    "filing_date": null,
+    "filing_url": null,
+    "accession_number": null
+  },
+  {
+    "trade_id": "REXR_Clark Laura E_2026-02-27 00:00:00",
+    "ticker": "REXR",
+    "insider_name": "Clark Laura E",
+    "trade_date": "2026-02-27",
+    "entry_price": 37.73,
+    "title": "COO",
+    "qty": 5310,
+    "value": 200338,
+    "status": "TRACKING",
+    "tracked_since": "2026-03-02T11:50:07.229871",
+    "source": "daily_signal_detection",
+    "last_updated": "2026-03-02T11:50:07.229876",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    },
+    "filing_date": null,
+    "filing_url": null,
+    "accession_number": null
+  },
+  {
+    "trade_id": "REXR_Stockert David P_2026-02-27 00:00:00",
+    "ticker": "REXR",
+    "insider_name": "Stockert David P",
+    "trade_date": "2026-02-27",
+    "entry_price": 37.39,
+    "title": "Dir",
+    "qty": 5000,
+    "value": 186958,
+    "status": "TRACKING",
+    "tracked_since": "2026-03-02T11:50:07.486675",
+    "source": "daily_signal_detection",
+    "last_updated": "2026-03-02T11:50:07.486680",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    },
+    "filing_date": null,
+    "filing_url": null,
+    "accession_number": null
+  },
+  {
+    "trade_id": "REXR_Fitzmaurice Michael_2026-02-27 00:00:00",
+    "ticker": "REXR",
+    "insider_name": "Fitzmaurice Michael",
+    "trade_date": "2026-02-27",
+    "entry_price": 37.55,
+    "title": "CFO",
+    "qty": 2650,
+    "value": 99508,
+    "status": "TRACKING",
+    "tracked_since": "2026-03-02T11:50:07.742243",
+    "source": "daily_signal_detection",
+    "last_updated": "2026-03-02T11:50:07.742249",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    },
+    "filing_date": null,
+    "filing_url": null,
+    "accession_number": null
+  },
+  {
+    "trade_id": "TWN_Kirby William C._2026-02-26 00:00:00",
+    "ticker": "TWN",
+    "insider_name": "Kirby William C.",
+    "trade_date": "2026-02-26",
+    "entry_price": 64.9,
+    "title": "Dir",
+    "qty": 50687,
+    "value": 3289580,
+    "status": "TRACKING",
+    "tracked_since": "2026-03-02T11:50:08.002378",
+    "source": "daily_signal_detection",
+    "last_updated": "2026-03-02T11:50:08.002383",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    },
+    "filing_date": null,
+    "filing_url": null,
+    "accession_number": null
+  },
+  {
+    "trade_id": "WRB_Mitsui Sumitomo Insurance Co Ltd_2026-02-26 00:00:00",
+    "ticker": "WRB",
+    "insider_name": "Mitsui Sumitomo Insurance Co Ltd",
+    "trade_date": "2026-02-26",
+    "entry_price": 71.65,
+    "title": "10%",
+    "qty": 300000,
+    "value": 21494315,
+    "status": "TRACKING",
+    "tracked_since": "2026-03-02T11:50:08.259125",
+    "source": "daily_signal_detection",
+    "last_updated": "2026-03-02T11:50:08.259130",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    },
+    "filing_date": null,
+    "filing_url": null,
+    "accession_number": null
+  },
+  {
+    "trade_id": "PMNT_Gottschalk Max_2026-02-25 00:00:00",
+    "ticker": "PMNT",
+    "insider_name": "Gottschalk Max",
+    "trade_date": "2026-02-25",
+    "entry_price": 0.25,
+    "title": "Dir, 10%",
+    "qty": 29050,
+    "value": 7260,
+    "status": "TRACKING",
+    "tracked_since": "2026-03-02T11:50:08.510253",
+    "source": "daily_signal_detection",
+    "last_updated": "2026-03-02T11:50:08.510259",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    },
+    "filing_date": null,
+    "filing_url": null,
+    "accession_number": null
+  },
+  {
+    "trade_id": "AXR_Dahl James H_2026-02-26 00:00:00",
+    "ticker": "AXR",
+    "insider_name": "Dahl James H",
+    "trade_date": "2026-02-26",
+    "entry_price": 25.76,
+    "title": "10%",
+    "qty": 7000,
+    "value": 180315,
+    "status": "TRACKING",
+    "tracked_since": "2026-03-02T11:50:08.762758",
+    "source": "daily_signal_detection",
+    "last_updated": "2026-03-02T11:50:08.762763",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    },
+    "filing_date": null,
+    "filing_url": null,
+    "accession_number": null
+  },
+  {
+    "trade_id": "OESX_Brodin J Per_2026-02-27 00:00:00",
+    "ticker": "OESX",
+    "insider_name": "Brodin J Per",
+    "trade_date": "2026-02-27",
+    "entry_price": 11.07,
+    "title": "EVP, CFO, CAO, Treasurer",
+    "qty": 500,
+    "value": 5535,
+    "status": "TRACKING",
+    "tracked_since": "2026-03-02T11:50:09.016851",
+    "source": "daily_signal_detection",
+    "last_updated": "2026-03-02T11:50:09.016857",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    },
+    "filing_date": null,
+    "filing_url": null,
+    "accession_number": null
+  },
+  {
+    "trade_id": "APCX_Derosa Thomas Joseph_2026-02-26 00:00:00",
+    "ticker": "APCX",
+    "insider_name": "Derosa Thomas Joseph",
+    "trade_date": "2026-02-26",
+    "entry_price": 0.34,
+    "title": "CEO",
+    "qty": 20000,
+    "value": 6754,
+    "status": "TRACKING",
+    "tracked_since": "2026-03-02T11:50:09.272962",
+    "source": "daily_signal_detection",
+    "last_updated": "2026-03-02T11:50:09.272968",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    },
+    "filing_date": null,
+    "filing_url": null,
+    "accession_number": null
+  },
+  {
+    "trade_id": "BRN_Horowitz Joshua_2026-02-26 00:00:00",
+    "ticker": "BRN",
+    "insider_name": "Horowitz Joshua",
+    "trade_date": "2026-02-26",
+    "entry_price": 1.05,
+    "title": "Dir",
+    "qty": 4433,
+    "value": 4655,
+    "status": "TRACKING",
+    "tracked_since": "2026-03-02T11:50:09.529603",
+    "source": "daily_signal_detection",
+    "last_updated": "2026-03-02T11:50:09.529608",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    },
+    "filing_date": null,
+    "filing_url": null,
+    "accession_number": null
+  },
+  {
+    "trade_id": "TRGS_Trg Latin America Acquisitions LLC_2026-02-27 00:00:00",
+    "ticker": "TRGS",
+    "insider_name": "Trg Latin America Acquisitions LLC",
+    "trade_date": "2026-02-27",
+    "entry_price": 10.0,
+    "title": "10%",
+    "qty": 225000,
+    "value": 2250000,
+    "status": "TRACKING",
+    "tracked_since": "2026-03-02T11:50:09.784069",
+    "source": "daily_signal_detection",
+    "last_updated": "2026-03-02T11:50:09.784074",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    },
+    "filing_date": null,
+    "filing_url": null,
+    "accession_number": null
+  },
+  {
+    "trade_id": "HTGC_Theodosopoulos Nikos_2026-02-27 00:00:00",
+    "ticker": "HTGC",
+    "insider_name": "Theodosopoulos Nikos",
+    "trade_date": "2026-02-27",
+    "entry_price": 14.21,
+    "title": "Dir",
+    "qty": 2600,
+    "value": 36946,
+    "status": "TRACKING",
+    "tracked_since": "2026-03-02T11:50:10.041267",
+    "source": "daily_signal_detection",
+    "last_updated": "2026-03-02T11:50:10.041272",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    },
+    "filing_date": null,
+    "filing_url": null,
+    "accession_number": null
+  },
+  {
+    "trade_id": "NAII_Ledoux Mark A_2026-02-25 00:00:00",
+    "ticker": "NAII",
+    "insider_name": "Ledoux Mark A",
+    "trade_date": "2026-02-25",
+    "entry_price": 2.82,
+    "title": "CEO, COB, 10%",
+    "qty": 1250,
+    "value": 3528,
+    "status": "TRACKING",
+    "tracked_since": "2026-03-02T11:50:10.294078",
+    "source": "daily_signal_detection",
+    "last_updated": "2026-03-02T11:50:10.294084",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    },
+    "filing_date": null,
+    "filing_url": null,
+    "accession_number": null
+  },
+  {
+    "trade_id": "SKWD_Robinson Andrew S_2026-02-27 00:00:00",
+    "ticker": "SKWD",
+    "insider_name": "Robinson Andrew S",
+    "trade_date": "2026-02-27",
+    "entry_price": 46.76,
+    "title": "COB, CEO, Skyward Group",
+    "qty": 22100,
+    "value": 1033370,
+    "status": "TRACKING",
+    "tracked_since": "2026-03-02T11:50:10.553027",
+    "source": "daily_signal_detection",
+    "last_updated": "2026-03-02T11:50:10.553032",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    },
+    "filing_date": null,
+    "filing_url": null,
+    "accession_number": null
+  },
+  {
+    "trade_id": "HTGC_Badavas Robert P_2026-02-27 00:00:00",
+    "ticker": "HTGC",
+    "insider_name": "Badavas Robert P",
+    "trade_date": "2026-02-27",
+    "entry_price": 14.27,
+    "title": "Dir",
+    "qty": 5000,
+    "value": 71350,
+    "status": "TRACKING",
+    "tracked_since": "2026-03-02T11:50:10.805213",
+    "source": "daily_signal_detection",
+    "last_updated": "2026-03-02T11:50:10.805219",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    },
+    "filing_date": null,
+    "filing_url": null,
+    "accession_number": null
+  },
+  {
+    "trade_id": "MYGN_Phanstiel S. Louise_2026-02-25 00:00:00",
+    "ticker": "MYGN",
+    "insider_name": "Phanstiel S. Louise",
+    "trade_date": "2026-02-25",
+    "entry_price": 4.73,
+    "title": "Dir",
+    "qty": 104507,
+    "value": 494722,
+    "status": "TRACKING",
+    "tracked_since": "2026-03-02T11:50:11.057947",
+    "source": "daily_signal_detection",
+    "last_updated": "2026-03-02T11:50:11.057952",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    },
+    "filing_date": null,
+    "filing_url": null,
+    "accession_number": null
+  },
+  {
+    "trade_id": "ATLO_Cassabaum Michelle R_2026-02-27 00:00:00",
+    "ticker": "ATLO",
+    "insider_name": "Cassabaum Michelle R",
+    "trade_date": "2026-02-27",
+    "entry_price": 27.25,
+    "title": "Dir",
+    "qty": 205,
+    "value": 5586,
+    "status": "TRACKING",
+    "tracked_since": "2026-03-02T11:50:11.311018",
+    "source": "daily_signal_detection",
+    "last_updated": "2026-03-02T11:50:11.311023",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    },
+    "filing_date": null,
+    "filing_url": null,
+    "accession_number": null
+  },
+  {
+    "trade_id": "AMH_Benham Douglas N_2026-02-25 00:00:00",
+    "ticker": "AMH",
+    "insider_name": "Benham Douglas N",
+    "trade_date": "2026-02-25",
+    "entry_price": 24.0,
+    "title": "Dir",
+    "qty": 1571,
+    "value": 37704,
+    "status": "TRACKING",
+    "tracked_since": "2026-03-02T11:50:11.565644",
+    "source": "daily_signal_detection",
+    "last_updated": "2026-03-02T11:50:11.565650",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    },
+    "filing_date": null,
+    "filing_url": null,
+    "accession_number": null
+  },
+  {
+    "trade_id": "HTGC_Botelho Kiersten Zaza_2026-02-27 00:00:00",
+    "ticker": "HTGC",
+    "insider_name": "Botelho Kiersten Zaza",
+    "trade_date": "2026-02-27",
+    "entry_price": 14.21,
+    "title": "GC, CCO",
+    "qty": 1300,
+    "value": 18473,
+    "status": "TRACKING",
+    "tracked_since": "2026-03-02T11:50:11.815546",
+    "source": "daily_signal_detection",
+    "last_updated": "2026-03-02T11:50:11.815551",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    },
+    "filing_date": null,
+    "filing_url": null,
+    "accession_number": null
+  },
+  {
+    "trade_id": "HTGC_Fallon Thomas J_2026-02-27 00:00:00",
+    "ticker": "HTGC",
+    "insider_name": "Fallon Thomas J",
+    "trade_date": "2026-02-27",
+    "entry_price": 14.2,
+    "title": "Dir",
+    "qty": 20000,
+    "value": 284000,
+    "status": "TRACKING",
+    "tracked_since": "2026-03-02T11:50:12.069778",
+    "source": "daily_signal_detection",
+    "last_updated": "2026-03-02T11:50:12.069783",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    },
+    "filing_date": null,
+    "filing_url": null,
+    "accession_number": null
+  },
+  {
+    "trade_id": "HTGC_Meyer Seth H_2026-02-27 00:00:00",
+    "ticker": "HTGC",
+    "insider_name": "Meyer Seth H",
+    "trade_date": "2026-02-27",
+    "entry_price": 14.33,
+    "title": "CFO",
+    "qty": 7000,
+    "value": 100310,
+    "status": "TRACKING",
+    "tracked_since": "2026-03-02T11:50:12.319096",
+    "source": "daily_signal_detection",
+    "last_updated": "2026-03-02T11:50:12.319101",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    },
+    "filing_date": null,
+    "filing_url": null,
+    "accession_number": null
+  },
+  {
+    "trade_id": "HTGC_Bluestein Scott_2026-02-27 00:00:00",
+    "ticker": "HTGC",
+    "insider_name": "Bluestein Scott",
+    "trade_date": "2026-02-27",
+    "entry_price": 14.35,
+    "title": "CEO",
+    "qty": 7000,
+    "value": 100450,
+    "status": "TRACKING",
+    "tracked_since": "2026-03-02T11:50:12.572659",
+    "source": "daily_signal_detection",
+    "last_updated": "2026-03-02T11:50:12.572664",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    },
+    "filing_date": null,
+    "filing_url": null,
+    "accession_number": null
+  },
+  {
+    "trade_id": "MSEX_Hoglund Robert N_2026-02-27 00:00:00",
+    "ticker": "MSEX",
+    "insider_name": "Hoglund Robert N",
+    "trade_date": "2026-02-27",
+    "entry_price": 54.31,
+    "title": "Dir",
+    "qty": 2000,
+    "value": 108619,
+    "status": "TRACKING",
+    "tracked_since": "2026-03-02T11:50:12.825245",
+    "source": "daily_signal_detection",
+    "last_updated": "2026-03-02T11:50:12.825251",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    },
+    "filing_date": null,
+    "filing_url": null,
+    "accession_number": null
+  },
+  {
+    "trade_id": "TDG_Small Robert J_2026-02-25 00:00:00",
+    "ticker": "TDG",
+    "insider_name": "Small Robert J",
+    "trade_date": "2026-02-25",
+    "entry_price": 1285.0,
+    "title": "Dir",
+    "qty": 1,
+    "value": 1285,
+    "status": "TRACKING",
+    "tracked_since": "2026-03-02T11:50:13.079755",
+    "source": "daily_signal_detection",
+    "last_updated": "2026-03-02T11:50:13.079760",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    },
+    "filing_date": null,
+    "filing_url": null,
+    "accession_number": null
+  },
+  {
+    "trade_id": "ABCL_Thermopylae Holdings Ltd._2026-02-26 00:00:00",
+    "ticker": "ABCL",
+    "insider_name": "Thermopylae Holdings Ltd.",
+    "trade_date": "2026-02-26",
+    "entry_price": 3.27,
+    "title": "10%",
+    "qty": 177457,
+    "value": 580284,
+    "status": "TRACKING",
+    "tracked_since": "2026-03-02T11:50:13.332816",
+    "source": "daily_signal_detection",
+    "last_updated": "2026-03-02T11:50:13.332822",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    },
+    "filing_date": null,
+    "filing_url": null,
+    "accession_number": null
+  },
+  {
+    "trade_id": "OVLY_Lafferty Allison_2026-02-27 00:00:00",
+    "ticker": "OVLY",
+    "insider_name": "Lafferty Allison",
+    "trade_date": "2026-02-27",
+    "entry_price": 32.59,
+    "title": "Dir",
+    "qty": 506,
+    "value": 16492,
+    "status": "TRACKING",
+    "tracked_since": "2026-03-02T11:50:13.588493",
+    "source": "daily_signal_detection",
+    "last_updated": "2026-03-02T11:50:13.588498",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    },
+    "filing_date": null,
+    "filing_url": null,
+    "accession_number": null
+  },
+  {
+    "trade_id": "BATRK_Malone John C_2026-02-25 00:00:00",
+    "ticker": "BATRK",
+    "insider_name": "Malone John C",
+    "trade_date": "2026-02-25",
+    "entry_price": 58.0,
+    "title": "10%",
+    "qty": 10868,
+    "value": 630344,
+    "status": "TRACKING",
+    "tracked_since": "2026-03-02T11:50:13.843018",
+    "source": "daily_signal_detection",
+    "last_updated": "2026-03-02T11:50:13.843043",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    },
+    "filing_date": null,
+    "filing_url": null,
+    "accession_number": null
+  },
+  {
+    "trade_id": "POOL_Hope James D_2026-02-25 00:00:00",
+    "ticker": "POOL",
+    "insider_name": "Hope James D",
+    "trade_date": "2026-02-25",
+    "entry_price": 213.64,
+    "title": "Dir",
+    "qty": 1405,
+    "value": 300162,
+    "status": "TRACKING",
+    "tracked_since": "2026-03-02T11:50:14.098157",
+    "source": "daily_signal_detection",
+    "last_updated": "2026-03-02T11:50:14.098163",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    },
+    "filing_date": null,
+    "filing_url": null,
+    "accession_number": null
+  },
+  {
+    "trade_id": "RHP_Reed Colin V_2026-02-27 00:00:00",
+    "ticker": "RHP",
+    "insider_name": "Reed Colin V",
+    "trade_date": "2026-02-27",
+    "entry_price": 100.67,
+    "title": "Exec. COB",
+    "qty": 7800,
+    "value": 785226,
+    "status": "TRACKING",
+    "tracked_since": "2026-03-02T11:50:14.353778",
+    "source": "daily_signal_detection",
+    "last_updated": "2026-03-02T11:50:14.353784",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    },
+    "filing_date": null,
+    "filing_url": null,
+    "accession_number": null
+  },
+  {
+    "trade_id": "FRHC_Lukyanov Sergey_2026-02-24 00:00:00",
+    "ticker": "FRHC",
+    "insider_name": "Lukyanov Sergey",
+    "trade_date": "2026-02-24",
+    "entry_price": 120.52,
+    "title": "*See Remarks",
+    "qty": 20000,
+    "value": 2410320,
+    "status": "TRACKING",
+    "tracked_since": "2026-03-02T11:50:14.608164",
+    "source": "daily_signal_detection",
+    "last_updated": "2026-03-02T11:50:14.608169",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    },
+    "filing_date": null,
+    "filing_url": null,
+    "accession_number": null
+  },
+  {
+    "trade_id": "FSCO_Forman Michael C._2026-02-25 00:00:00",
+    "ticker": "FSCO",
+    "insider_name": "Forman Michael C.",
+    "trade_date": "2026-02-25",
+    "entry_price": 5.2,
+    "title": "See Remarks",
+    "qty": 34295,
+    "value": 178334,
+    "status": "TRACKING",
+    "tracked_since": "2026-03-02T11:50:14.863087",
+    "source": "daily_signal_detection",
+    "last_updated": "2026-03-02T11:50:14.863093",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    },
+    "filing_date": null,
+    "filing_url": null,
+    "accession_number": null
+  },
+  {
+    "trade_id": "AHCO_Rew Richard W. II_2026-02-26 00:00:00",
+    "ticker": "AHCO",
+    "insider_name": "Rew Richard W. II",
+    "trade_date": "2026-02-26",
+    "entry_price": 8.91,
+    "title": "CLO, GC",
+    "qty": 5000,
+    "value": 44550,
+    "status": "TRACKING",
+    "tracked_since": "2026-03-02T11:50:15.116432",
+    "source": "daily_signal_detection",
+    "last_updated": "2026-03-02T11:50:15.116438",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    },
+    "filing_date": null,
+    "filing_url": null,
+    "accession_number": null
+  },
+  {
+    "trade_id": "IBCP_Kruse Ronia F_2026-02-24 00:00:00",
+    "ticker": "IBCP",
+    "insider_name": "Kruse Ronia F",
+    "trade_date": "2026-02-24",
+    "entry_price": 35.27,
+    "title": "Dir",
+    "qty": 1200,
+    "value": 42324,
+    "status": "TRACKING",
+    "tracked_since": "2026-03-02T11:50:15.372084",
+    "source": "daily_signal_detection",
+    "last_updated": "2026-03-02T11:50:15.372090",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    },
+    "filing_date": null,
+    "filing_url": null,
+    "accession_number": null
+  },
+  {
+    "trade_id": "ABCL_Booth Andrew_2026-02-27 00:00:00",
+    "ticker": "ABCL",
+    "insider_name": "Booth Andrew",
+    "trade_date": "2026-02-27",
+    "entry_price": 3.42,
+    "title": "CFO",
+    "qty": 42600,
+    "value": 145692,
+    "status": "TRACKING",
+    "tracked_since": "2026-03-02T11:50:15.627268",
+    "source": "daily_signal_detection",
+    "last_updated": "2026-03-02T11:50:15.627273",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    },
+    "filing_date": null,
+    "filing_url": null,
+    "accession_number": null
+  },
+  {
+    "trade_id": "MERC_Laberge Alice_2026-02-25 00:00:00",
+    "ticker": "MERC",
+    "insider_name": "Laberge Alice",
+    "trade_date": "2026-02-25",
+    "entry_price": 1.9,
+    "title": "Dir",
+    "qty": 1000,
+    "value": 1900,
+    "status": "TRACKING",
+    "tracked_since": "2026-03-02T11:50:15.880616",
+    "source": "daily_signal_detection",
+    "last_updated": "2026-03-02T11:50:15.880622",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    },
+    "filing_date": null,
+    "filing_url": null,
+    "accession_number": null
+  },
+  {
+    "trade_id": "HMN_Fetter Victor_2026-02-25 00:00:00",
+    "ticker": "HMN",
+    "insider_name": "Fetter Victor",
+    "trade_date": "2026-02-25",
+    "entry_price": 42.73,
+    "title": "Dir",
+    "qty": 3500,
+    "value": 149540,
+    "status": "TRACKING",
+    "tracked_since": "2026-03-02T11:50:16.135754",
+    "source": "daily_signal_detection",
+    "last_updated": "2026-03-02T11:50:16.135759",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    },
+    "filing_date": null,
+    "filing_url": null,
+    "accession_number": null
+  },
+  {
+    "trade_id": "LKFN_Welch M Scott_2026-02-27 00:00:00",
+    "ticker": "LKFN",
+    "insider_name": "Welch M Scott",
+    "trade_date": "2026-02-27",
+    "entry_price": 57.95,
+    "title": "Dir",
+    "qty": 10000,
+    "value": 579500,
+    "status": "TRACKING",
+    "tracked_since": "2026-03-02T11:50:16.389977",
+    "source": "daily_signal_detection",
+    "last_updated": "2026-03-02T11:50:16.389982",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    },
+    "filing_date": null,
+    "filing_url": null,
+    "accession_number": null
+  },
+  {
+    "trade_id": "ERH_Shlissel Brian S_2026-02-27 00:00:00",
+    "ticker": "ERH",
+    "insider_name": "Shlissel Brian S",
+    "trade_date": "2026-02-27",
+    "entry_price": 12.78,
+    "title": "Dir",
+    "qty": 400,
+    "value": 5113,
+    "status": "TRACKING",
+    "tracked_since": "2026-03-02T11:50:16.644858",
+    "source": "daily_signal_detection",
+    "last_updated": "2026-03-02T11:50:16.644864",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    },
+    "filing_date": null,
+    "filing_url": null,
+    "accession_number": null
+  },
+  {
+    "trade_id": "ERC_Shlissel Brian S_2026-02-27 00:00:00",
+    "ticker": "ERC",
+    "insider_name": "Shlissel Brian S",
+    "trade_date": "2026-02-27",
+    "entry_price": 9.37,
+    "title": "Dir",
+    "qty": 400,
+    "value": 3747,
+    "status": "TRACKING",
+    "tracked_since": "2026-03-02T11:50:16.901027",
+    "source": "daily_signal_detection",
+    "last_updated": "2026-03-02T11:50:16.901032",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    },
+    "filing_date": null,
+    "filing_url": null,
+    "accession_number": null
+  },
+  {
+    "trade_id": "EAD_Shlissel Brian S_2026-02-27 00:00:00",
+    "ticker": "EAD",
+    "insider_name": "Shlissel Brian S",
+    "trade_date": "2026-02-27",
+    "entry_price": 6.82,
+    "title": "Dir",
+    "qty": 500,
+    "value": 3410,
+    "status": "TRACKING",
+    "tracked_since": "2026-03-02T11:50:17.155907",
+    "source": "daily_signal_detection",
+    "last_updated": "2026-03-02T11:50:17.155912",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    },
+    "filing_date": null,
+    "filing_url": null,
+    "accession_number": null
+  },
+  {
+    "trade_id": "MNTR_Billingsley Chester_2026-02-25 00:00:00",
+    "ticker": "MNTR",
+    "insider_name": "Billingsley Chester",
+    "trade_date": "2026-02-25",
+    "entry_price": 0.08,
+    "title": "CEO, 10%",
+    "qty": 5300,
+    "value": 445,
+    "status": "TRACKING",
+    "tracked_since": "2026-03-02T11:50:17.413362",
+    "source": "daily_signal_detection",
+    "last_updated": "2026-03-02T11:50:17.413368",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    },
+    "filing_date": null,
+    "filing_url": null,
+    "accession_number": null
+  },
+  {
+    "trade_id": "EOD_Shlissel Brian S_2026-02-27 00:00:00",
+    "ticker": "EOD",
+    "insider_name": "Shlissel Brian S",
+    "trade_date": "2026-02-27",
+    "entry_price": 6.26,
+    "title": "Dir",
+    "qty": 500,
+    "value": 3130,
+    "status": "TRACKING",
+    "tracked_since": "2026-03-02T11:50:17.665061",
+    "source": "daily_signal_detection",
+    "last_updated": "2026-03-02T11:50:17.665066",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    },
+    "filing_date": null,
+    "filing_url": null,
+    "accession_number": null
+  },
+  {
+    "trade_id": "NZF_Bank of America Corp /de/_2026-02-25 00:00:00",
+    "ticker": "NZF",
+    "insider_name": "Bank of America Corp /de/",
+    "trade_date": "2026-02-25",
+    "entry_price": 12.88,
+    "title": "10%",
+    "qty": 8,
+    "value": 103,
+    "status": "TRACKING",
+    "tracked_since": "2026-03-02T11:50:17.920949",
+    "source": "daily_signal_detection",
+    "last_updated": "2026-03-02T11:50:17.920955",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    },
+    "filing_date": null,
+    "filing_url": null,
+    "accession_number": null
+  },
+  {
+    "trade_id": "CMS_Leopold Diane_2026-02-25 00:00:00",
+    "ticker": "CMS",
+    "insider_name": "Leopold Diane",
+    "trade_date": "2026-02-25",
+    "entry_price": 76.7,
+    "title": "Dir",
+    "qty": 2000,
+    "value": 153398,
+    "status": "TRACKING",
+    "tracked_since": "2026-03-02T11:50:18.175640",
+    "source": "daily_signal_detection",
+    "last_updated": "2026-03-02T11:50:18.175645",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    },
+    "filing_date": null,
+    "filing_url": null,
+    "accession_number": null
+  },
+  {
+    "trade_id": "NFRX_Becker Robert_2026-02-26 00:00:00",
+    "ticker": "NFRX",
+    "insider_name": "Becker Robert",
+    "trade_date": "2026-02-26",
+    "entry_price": 27.55,
+    "title": "Portfolio Manager of Adviser",
+    "qty": 2000,
+    "value": 55100,
+    "status": "TRACKING",
+    "tracked_since": "2026-03-02T11:50:18.429680",
+    "source": "daily_signal_detection",
+    "last_updated": "2026-03-02T11:50:18.429685",
+    "outcomes": {
+      "30d": null,
+      "60d": null,
+      "90d": null,
+      "180d": null
+    },
+    "filing_date": null,
+    "filing_url": null,
+    "accession_number": null
+  },
+  {
+    "trade_id": "LXRX_Debbane Raymond_2026-02-25 00:00:00",
+    "ticker": "LXRX",
+    "insider_name": "Debbane Raymond",
+    "trade_date": "2026-02-25",
+    "entry_price": 1.49,
+    "title": "Dir",
+    "qty": 2000,
+    "value": 2980,
+    "status": "TRACKING",
+    "tracked_since": "2026-03-02T11:50:18.682107",
+    "source": "daily_signal_detection",
+    "last_updated": "2026-03-02T11:50:18.682112",
     "outcomes": {
       "30d": null,
       "60d": null,

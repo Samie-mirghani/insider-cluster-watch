@@ -1,6 +1,6 @@
 {
   "starting_capital": 10000,
-  "cash": 6757.734999999993,
+  "cash": 6745.344999999994,
   "positions": {
     "ABT": {
       "entry_date": "2026-01-27T11:39:21.361467",
@@ -10,7 +10,7 @@
       "initial_stop_loss": 100.0684,
       "stop_loss": 107.9105,
       "take_profit": 120.60383999999999,
-      "highest_price": 116.26,
+      "highest_price": 116.35,
       "trailing_enabled": true,
       "signal_score": 7.44335654875845,
       "sector": null,
@@ -210,35 +210,43 @@
         }
       ]
     },
-    "DEI": {
-      "entry_date": "2026-02-19T12:04:48.588149",
-      "entry_price": 9.83,
-      "shares": 48,
-      "cost_basis": 471.84000000000003,
-      "initial_stop_loss": 9.0436,
-      "stop_loss": 9.937000000000001,
-      "take_profit": 11.0096,
-      "highest_price": 10.5,
-      "trailing_enabled": true,
-      "signal_score": 8.079930789177563,
-      "sector": "REIT - Office",
+    "REXR": {
+      "entry_date": "2026-03-02T11:53:01.741378",
+      "entry_price": 37.47,
+      "shares": 13,
+      "cost_basis": 487.11,
+      "initial_stop_loss": 34.4724,
+      "stop_loss": 34.4724,
+      "take_profit": 41.9664,
+      "highest_price": 37.47,
+      "trailing_enabled": false,
+      "signal_score": 9.46318413580805,
+      "sector": "REIT - Industrial",
       "multi_signal_tier": "none",
       "has_politician_signal": false,
       "tranches": [
         {
-          "shares": 48,
-          "price": 9.83,
-          "date": "2026-02-19T12:04:48.588153"
+          "shares": 13,
+          "price": 37.47,
+          "date": "2026-03-02T11:53:01.741384"
         }
       ]
     }
   },
-  "pending_entries": {},
-  "total_trades": 55,
-  "winning_trades": 30,
+  "pending_entries": {
+    "REXR": {
+      "shares": 8,
+      "trigger_price": 36.7206,
+      "original_entry": 37.47,
+      "expires": "2026-03-07T11:53:01.964086",
+      "signal_score": 9.46318413580805
+    }
+  },
+  "total_trades": 56,
+  "winning_trades": 31,
   "losing_trades": 15,
-  "total_profit": 2070.8099999999995,
+  "total_profit": 2073.6899999999996,
   "max_portfolio_value": 12385.904999999993,
   "max_drawdown": -9.109194484777545,
-  "last_updated": "2026-02-27T12:11:06.180646"
+  "last_updated": "2026-03-02T11:53:11.909000"
 }
