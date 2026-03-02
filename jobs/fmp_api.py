@@ -299,7 +299,7 @@ class EnhancedFMPAPIClient:
         # Rate-limit guard: return stale cache rather than blow through free tier
         if self.analytics.daily_limit_reached():
             cached = self.cache.get(ticker.upper().strip())
-            if cached:
+            if cached and not cached.get('_fmp_no_data'):
                 logger.warning(
                     f"Daily API limit ({FMP_FREE_TIER_LIMIT}) reached — "
                     f"returning stale cache for {ticker}"
@@ -327,7 +327,12 @@ class EnhancedFMPAPIClient:
             self.analytics.record_api_call(success=True)
 
             if not data or not isinstance(data, list) or len(data) == 0:
-                logger.warning(f"Empty response for {ticker}")
+                logger.warning(f"Empty response for {ticker} — caching no-data sentinel to skip future fetches")
+                self.cache[ticker.upper().strip()] = {
+                    "_fmp_no_data": True,
+                    "updated": datetime.now().isoformat(),
+                    "source": "fmp_api",
+                }
                 return None
 
             profile = data[0]
@@ -406,8 +411,12 @@ class EnhancedFMPAPIClient:
 
         # Check cache
         if not force_refresh and self._is_cache_valid(ticker, 'profile'):
+            cached = self.cache[ticker]
+            if cached.get('_fmp_no_data'):
+                # Sentinel: FMP previously returned no data — don't leak to caller
+                return None
             self.analytics.record_cache_hit()
-            return self.cache[ticker]
+            return cached
 
         # Fetch from API
         self.analytics.record_cache_miss()
@@ -417,8 +426,11 @@ class EnhancedFMPAPIClient:
             self.cache[ticker] = profile
             self._save_cache()
             return profile
-        else:
-            return None
+
+        # Persist sentinel written by _fetch_profile() so it survives restarts
+        if ticker in self.cache and self.cache[ticker].get('_fmp_no_data'):
+            self._save_cache()
+        return None
 
     def get_field(self, ticker: str, field: str) -> Optional[any]:
         """
@@ -453,8 +465,13 @@ class EnhancedFMPAPIClient:
         missing_tickers = []
         for ticker in tickers:
             if not force_refresh and self._is_cache_valid(ticker, 'profile'):
-                self.analytics.record_cache_hit()
-                results[ticker] = self.cache[ticker]
+                cached = self.cache[ticker]
+                if cached.get('_fmp_no_data'):
+                    # Sentinel: FMP had no data last time — skip API call, don't populate results
+                    logger.debug(f"Skipping {ticker} — FMP returned no data previously (sentinel cached)")
+                else:
+                    self.analytics.record_cache_hit()
+                    results[ticker] = cached
             else:
                 missing_tickers.append(ticker)
 

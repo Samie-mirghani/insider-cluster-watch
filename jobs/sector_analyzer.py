@@ -130,9 +130,11 @@ INDUSTRY_TO_SECTOR = {
     'Oil & Gas Midstream': 'Energy',
     'Oil & Gas Refining & Marketing': 'Energy',
     'Oil & Gas Equipment & Services': 'Energy',
+    'Oil & Gas Drilling': 'Energy',
     'Uranium': 'Energy',
     'Renewable Energy': 'Energy',
     'Solar': 'Energy',
+    'Coal': 'Energy',
 
     # Consumer Cyclical industries
     'Apparel - Manufacturers': 'Consumer Cyclical',
@@ -414,7 +416,7 @@ class SectorAnalyzer:
 
         # Energy keywords
         if any(kw in industry_lower for kw in ['oil', 'gas', 'energy', 'petroleum', 'renewable',
-                                                  'solar', 'uranium']):
+                                                  'solar', 'uranium', 'coal']):
             return 'XLE', 'Energy'
 
         # Consumer keywords
