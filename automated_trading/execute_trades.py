@@ -688,6 +688,20 @@ class TradingEngine:
         if shares <= 0:
             return False, "Cannot afford any shares"
 
+        # Re-check MAX_POSITIONS right before order submission
+        # (closes race condition: positions may have been added since validate_signal)
+        current_positions = len(self.position_monitor.positions)
+        if current_positions >= config.MAX_POSITIONS:
+            reason = f"Max positions ({config.MAX_POSITIONS}) reached (pre-submit re-check)"
+            logger.warning(f"Signal rejected at pre-submit: {reason}")
+            log_audit_event('SIGNAL_REJECTED', {
+                'ticker': ticker,
+                'reason': reason,
+                'current_positions': current_positions,
+                'context': 'redeployment' if is_redeployment else 'morning'
+            })
+            return False, reason
+
         # Generate idempotent order ID
         client_order_id = generate_client_order_id(ticker, 'BUY')
 
@@ -968,6 +982,21 @@ class TradingEngine:
                 ticker = fix['ticker']
                 try:
                     if fix['action'] == 'ADD_POSITION_LOCALLY':
+                        # Check MAX_POSITIONS before auto-adding
+                        if len(self.position_monitor.positions) >= config.MAX_POSITIONS:
+                            logger.warning(
+                                f"Skipping auto-fix ADD for {ticker}: "
+                                f"already at MAX_POSITIONS ({config.MAX_POSITIONS}). "
+                                f"Manual review required."
+                            )
+                            log_audit_event('AUTO_FIX_BLOCKED', {
+                                'ticker': ticker,
+                                'action': 'ADD_POSITION_LOCALLY',
+                                'reason': f'MAX_POSITIONS ({config.MAX_POSITIONS}) reached',
+                                'current_positions': len(self.position_monitor.positions)
+                            }, outcome='WARNING')
+                            continue
+
                         broker_pos = {
                             'qty': fix['qty'],
                             'avg_entry_price': fix['details'].get('broker_avg_price', 0),
@@ -1267,6 +1296,21 @@ class TradingEngine:
 
         stop_loss = price * (1 - stop_loss_pct)
         take_profit = price * (1 + take_profit_pct)
+
+        # Warn if adding this position exceeds MAX_POSITIONS
+        current_positions = len(self.position_monitor.positions)
+        if current_positions >= config.MAX_POSITIONS:
+            logger.critical(
+                f"MAX_POSITIONS ({config.MAX_POSITIONS}) exceeded on order fill! "
+                f"{ticker} fill brings total to {current_positions + 1}. "
+                f"Order already filled at broker — must track position."
+            )
+            log_audit_event('MAX_POSITIONS_EXCEEDED', {
+                'ticker': ticker,
+                'current_positions': current_positions,
+                'max_positions': config.MAX_POSITIONS,
+                'source': 'order_fill'
+            }, outcome='WARNING')
 
         # Add to position monitor
         self.position_monitor.add_position(

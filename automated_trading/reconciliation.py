@@ -271,6 +271,19 @@ class Reconciler:
             local_positions[ticker]['shares'] = broker_position['qty']
             action = 'UPDATED'
         else:
+            # Check MAX_POSITIONS before adding
+            if len(local_positions) >= config.MAX_POSITIONS:
+                logger.warning(
+                    f"Cannot sync {ticker}: MAX_POSITIONS ({config.MAX_POSITIONS}) reached. "
+                    f"Manual review required."
+                )
+                return {
+                    'ticker': ticker,
+                    'action': 'BLOCKED',
+                    'reason': f'MAX_POSITIONS ({config.MAX_POSITIONS}) reached',
+                    'qty': broker_position['qty']
+                }
+
             # Add new position
             local_positions[ticker] = {
                 'shares': broker_position['qty'],
