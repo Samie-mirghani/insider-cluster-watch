@@ -1,7 +1,7 @@
 {
-  "last_updated": "2026-03-02T11:53:16.735951",
+  "last_updated": "2026-03-03T11:54:20.158029",
   "status": "OK",
-  "total_insiders_tracked": 186,
+  "total_insiders_tracked": 187,
   "qualified_performers": 18,
   "top_performers": [
     {
@@ -45,16 +45,6 @@
       "sharpe_ratio": 1.38
     },
     {
-      "name": "Martell Frank",
-      "score": 95.1,
-      "win_rate": 100.0,
-      "avg_return": 18.9,
-      "total_trades": 8,
-      "best_trade": 36.9,
-      "worst_trade": 9.6,
-      "sharpe_ratio": 1.49
-    },
-    {
       "name": "Galkin Vladimir",
       "score": 94.4,
       "win_rate": 88.9,
@@ -93,6 +83,16 @@
       "best_trade": 26.5,
       "worst_trade": 7.5,
       "sharpe_ratio": 2.05
+    },
+    {
+      "name": "Martell Frank",
+      "score": 79.8,
+      "win_rate": 80.0,
+      "avg_return": 13.7,
+      "total_trades": 8,
+      "best_trade": 36.9,
+      "worst_trade": -7.1,
+      "sharpe_ratio": 0.86
     },
     {
       "name": "Seidman Lawrence B",
