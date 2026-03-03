@@ -350,10 +350,16 @@ class TradingEngine:
         portfolio_value = self.alpaca_client.get_portfolio_value()
         cash = self.alpaca_client.get_cash()
 
-        # Max positions
+        # Max positions (include pending buy orders as occupied slots to prevent
+        # batch loops from over-submitting before fills update the position count)
         current_positions = len(self.position_monitor.positions)
-        if current_positions >= config.MAX_POSITIONS:
-            return False, f"Max positions ({config.MAX_POSITIONS}) reached"
+        pending_buys = len(self.order_manager.get_pending_orders(side='BUY')) if self.order_manager else 0
+        effective_positions = current_positions + pending_buys
+        if effective_positions >= config.MAX_POSITIONS:
+            return False, (
+                f"Max positions ({config.MAX_POSITIONS}) reached "
+                f"({current_positions} held + {pending_buys} pending)"
+            )
 
         # Calculate position size
         position_value = self._calculate_position_value(signal, portfolio_value)
@@ -690,14 +696,21 @@ class TradingEngine:
 
         # Re-check MAX_POSITIONS right before order submission
         # (closes race condition: positions may have been added since validate_signal)
+        # Include pending buy orders as occupied slots
         current_positions = len(self.position_monitor.positions)
-        if current_positions >= config.MAX_POSITIONS:
-            reason = f"Max positions ({config.MAX_POSITIONS}) reached (pre-submit re-check)"
+        pending_buys = len(self.order_manager.get_pending_orders(side='BUY')) if self.order_manager else 0
+        effective_positions = current_positions + pending_buys
+        if effective_positions >= config.MAX_POSITIONS:
+            reason = (
+                f"Max positions ({config.MAX_POSITIONS}) reached "
+                f"({current_positions} held + {pending_buys} pending) (pre-submit re-check)"
+            )
             logger.warning(f"Signal rejected at pre-submit: {reason}")
             log_audit_event('SIGNAL_REJECTED', {
                 'ticker': ticker,
                 'reason': reason,
                 'current_positions': current_positions,
+                'pending_buys': pending_buys,
                 'context': 'redeployment' if is_redeployment else 'morning'
             })
             return False, reason
@@ -982,20 +995,23 @@ class TradingEngine:
                 ticker = fix['ticker']
                 try:
                     if fix['action'] == 'ADD_POSITION_LOCALLY':
-                        # Check MAX_POSITIONS before auto-adding
+                        # Warn if over MAX_POSITIONS, but always add —
+                        # broker is source of truth; orphaning live risk is worse
+                        # than temporarily exceeding the soft limit.
                         if len(self.position_monitor.positions) >= config.MAX_POSITIONS:
-                            logger.warning(
-                                f"Skipping auto-fix ADD for {ticker}: "
-                                f"already at MAX_POSITIONS ({config.MAX_POSITIONS}). "
-                                f"Manual review required."
+                            logger.critical(
+                                f"MAX_POSITIONS ({config.MAX_POSITIONS}) exceeded! "
+                                f"Auto-fix adding {ticker} from broker "
+                                f"(total: {len(self.position_monitor.positions) + 1}). "
+                                f"Position exists at broker — must track to manage risk."
                             )
-                            log_audit_event('AUTO_FIX_BLOCKED', {
+                            log_audit_event('MAX_POSITIONS_EXCEEDED', {
                                 'ticker': ticker,
                                 'action': 'ADD_POSITION_LOCALLY',
-                                'reason': f'MAX_POSITIONS ({config.MAX_POSITIONS}) reached',
-                                'current_positions': len(self.position_monitor.positions)
+                                'current_positions': len(self.position_monitor.positions),
+                                'max_positions': config.MAX_POSITIONS,
+                                'source': 'reconciliation_auto_fix'
                             }, outcome='WARNING')
-                            continue
 
                         broker_pos = {
                             'qty': fix['qty'],
