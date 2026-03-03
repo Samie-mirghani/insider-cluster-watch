@@ -27,7 +27,7 @@ ADAPTIVE_EXPOSURE_MAX = 0.625          # Ceiling: 62.5% (safe max given 8% trail
 ADAPTIVE_EXPOSURE_WIN_RATE_LOW = 0.30  # Below 30% WR → min exposure
 ADAPTIVE_EXPOSURE_WIN_RATE_HIGH = 0.50 # Above 50% WR → max exposure
 ADAPTIVE_EXPOSURE_MIN_TRADES = 10      # Need 10+ trades before adapting
-MAX_POSITIONS = 10  # Max 10 concurrent positions (matches automated_trading/config.py)
+MAX_POSITIONS = 12  # Max 12 concurrent positions (matches automated_trading/config.py)
 
 # Score-Weighted Position Sizing
 # When enabled, position sizes scale with signal score (higher scores = larger positions)

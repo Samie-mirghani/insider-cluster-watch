@@ -183,6 +183,7 @@ INDUSTRY_TO_SECTOR = {
     'Integrated Freight & Logistics': 'Industrials',
     'Freight & Logistics Services': 'Industrials',
     'Rental & Leasing Services': 'Industrials',
+    'Staffing & Employment Services': 'Industrials',
 
     # Materials industries
     'Steel': 'Basic Materials',

@@ -43,7 +43,7 @@ ALPACA_LIVE_SECRET_KEY = os.getenv('ALPACA_LIVE_SECRET_KEY')
 # Position sizing (as percentage of portfolio)
 MAX_POSITION_PCT = 0.10          # 10% max per position
 MIN_POSITION_PCT = 0.03          # 3% minimum position (avoid tiny positions)
-MAX_POSITIONS = 10               # Max concurrent positions
+MAX_POSITIONS = 12               # Max concurrent positions
 MAX_TOTAL_EXPOSURE = 0.70        # 70% max exposure (keep 30% cash buffer) — static fallback
 
 # Performance-adaptive exposure: dynamically scale max exposure based on
