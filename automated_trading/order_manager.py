@@ -616,8 +616,11 @@ class OrderManager:
                     if on_fill_callback:
                         on_fill_callback(filled_order)
 
-                # Handle rejection/cancellation/expiration
-                elif status in ['rejected', 'cancelled', 'expired', 'done_for_day', 'suspended']:
+                # Handle terminal broker states that should stop local tracking.
+                # NOTE: `done_for_day` and `suspended` are intentionally excluded
+                # because brokers can later transition those orders back to active
+                # or filled states.
+                elif status in ['rejected', 'cancelled', 'expired']:
                     rejected_order = self.mark_order_rejected(
                         client_order_id,
                         f"Broker status: {status}"
