@@ -1,8 +1,8 @@
 {
-  "last_updated": "2026-03-03T11:54:20.158029",
+  "last_updated": "2026-03-04T11:53:08.668576",
   "status": "OK",
   "total_insiders_tracked": 187,
-  "qualified_performers": 18,
+  "qualified_performers": 19,
   "top_performers": [
     {
       "name": "Piconi Robert",
@@ -53,6 +53,16 @@
       "best_trade": 170.8,
       "worst_trade": -25.1,
       "sharpe_ratio": 1.09
+    },
+    {
+      "name": "Stallings Robert W",
+      "score": 92.5,
+      "win_rate": 100.0,
+      "avg_return": 326.7,
+      "total_trades": 5,
+      "best_trade": 326.7,
+      "worst_trade": 326.7,
+      "sharpe_ratio": null
     },
     {
       "name": "Daly Joseph Patrick",
@@ -143,16 +153,6 @@
       "best_trade": 15.4,
       "worst_trade": -0.3,
       "sharpe_ratio": 1.04
-    },
-    {
-      "name": "Shattuck Katherine W",
-      "score": 63.8,
-      "win_rate": 66.7,
-      "avg_return": 7.6,
-      "total_trades": 6,
-      "best_trade": 24.4,
-      "worst_trade": -3.6,
-      "sharpe_ratio": 0.51
     }
   ]
 }
