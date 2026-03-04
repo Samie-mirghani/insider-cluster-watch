@@ -616,8 +616,8 @@ class OrderManager:
                     if on_fill_callback:
                         on_fill_callback(filled_order)
 
-                # Handle rejection/cancellation
-                elif status in ['rejected', 'cancelled']:
+                # Handle rejection/cancellation/expiration
+                elif status in ['rejected', 'cancelled', 'expired', 'done_for_day', 'suspended']:
                     rejected_order = self.mark_order_rejected(
                         client_order_id,
                         f"Broker status: {status}"
