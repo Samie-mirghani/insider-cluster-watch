@@ -271,6 +271,16 @@ class Reconciler:
             local_positions[ticker]['shares'] = broker_position['qty']
             action = 'UPDATED'
         else:
+            # Warn if adding would exceed MAX_POSITIONS, but always add —
+            # broker is source of truth and orphaning live risk is worse
+            # than temporarily exceeding the soft limit.
+            if len(local_positions) >= config.MAX_POSITIONS:
+                logger.critical(
+                    f"MAX_POSITIONS ({config.MAX_POSITIONS}) exceeded! "
+                    f"Syncing {ticker} from broker brings total to {len(local_positions) + 1}. "
+                    f"Position exists at broker — must track to manage risk."
+                )
+
             # Add new position
             local_positions[ticker] = {
                 'shares': broker_position['qty'],

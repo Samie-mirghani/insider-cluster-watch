@@ -1058,6 +1058,14 @@ class PositionMonitor:
             # Find positions at broker but not local (ADD)
             for ticker, broker_pos in broker_tickers.items():
                 if ticker not in local_tickers:
+                    # Check if adding would exceed MAX_POSITIONS
+                    if len(self.positions) >= config.MAX_POSITIONS:
+                        logger.critical(
+                            f"MAX_POSITIONS ({config.MAX_POSITIONS}) exceeded! "
+                            f"Adding {ticker} from broker sync brings total to {len(self.positions) + 1}. "
+                            f"Position exists at broker and must be tracked locally."
+                        )
+
                     # Add missing position
                     shares = broker_pos['qty']
                     avg_entry = broker_pos['avg_entry_price']
