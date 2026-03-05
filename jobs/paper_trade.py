@@ -10,8 +10,10 @@ from datetime import datetime, timedelta
 import os
 import json
 import logging
+import config
 from config import *
 from ticker_validator import get_failed_ticker_cache
+from fmp_api import search_mergers_acquisitions, get_company_profile
 
 DATA_DIR = os.path.join(os.path.dirname(__file__), '..', 'data')
 PAPER_PORTFOLIO_FILE = os.path.join(DATA_DIR, 'paper_portfolio.json')
@@ -621,7 +623,113 @@ class PaperTradingPortfolio:
                     logger.warning(f"   ❌ REJECTED: Cooldown: {ticker} closed on {close_date}, 7-day cooldown required")
                     return False
 
-        # Filter 2: Single Insider Micro-Cap & Go-Private Detection
+        # Filter 2: Shell Company / SPAC Rejection
+        if getattr(config, 'ENABLE_SHELL_COMPANY_FILTER', False):
+            sector = signal.get('sector') if isinstance(signal, dict) else signal.get('sector', '')
+            industry = signal.get('industry') if isinstance(signal, dict) else signal.get('industry', '')
+            company_name = signal.get('company') if isinstance(signal, dict) else signal.get('company', '')
+            sector = sector or ''
+            industry = industry or ''
+            company_name = company_name or ''
+
+            blocked_sectors = getattr(config, 'SHELL_COMPANY_SECTORS', ['Shell Companies'])
+            if sector in blocked_sectors or industry in blocked_sectors:
+                logger.warning(f"   ❌ REJECTED: Shell company/SPAC — sector '{sector or industry}'")
+                return False
+
+            name_patterns = getattr(config, 'SHELL_COMPANY_NAME_PATTERNS', [])
+            name_upper = company_name.upper()
+            for pattern in name_patterns:
+                if pattern.upper() in name_upper:
+                    logger.warning(f"   ❌ REJECTED: Shell company/SPAC — name '{company_name}' matches '{pattern}'")
+                    return False
+
+        # Filter 3: Stale / Delisted Ticker Check
+        if getattr(config, 'ENABLE_STALE_TICKER_FILTER', False):
+            if not entry_price or entry_price <= 0:
+                # Price is null/zero — check if market_cap also missing
+                if not market_cap or market_cap <= 0:
+                    logger.warning(f"   ❌ REJECTED: No price or market cap data (likely delisted or non-trading)")
+                    return False
+
+            # Verify ticker has recent trading activity
+            try:
+                max_stale_days = getattr(config, 'STALE_PRICE_MAX_DAYS', 5)
+                hist = yf.download(ticker, period=f'{max_stale_days + 5}d', progress=False)
+                if hist.empty or len(hist) == 0:
+                    logger.warning(f"   ❌ REJECTED: No trading history (likely delisted)")
+                    return False
+                last_trade_date = hist.index[-1]
+                if hasattr(last_trade_date, 'tz_localize'):
+                    last_trade_date = last_trade_date.tz_localize(None) if last_trade_date.tzinfo else last_trade_date
+                days_since = (datetime.now() - pd.Timestamp(last_trade_date).to_pydatetime()).days
+                if days_since > max_stale_days:
+                    logger.warning(f"   ❌ REJECTED: Last traded {days_since} days ago (>{max_stale_days}d limit)")
+                    return False
+            except Exception as e:
+                logger.debug(f"Stale ticker check failed for {ticker}: {e}")
+
+        # Filter 4: M&A / Acquisition Status Check
+        if getattr(config, 'ENABLE_MA_STATUS_CHECK', False):
+            company_name = signal.get('company') if isinstance(signal, dict) else signal.get('company', '')
+            company_name = company_name or ''
+
+            # If company name is just the ticker, try FMP profile
+            if not company_name or company_name == ticker:
+                profile = get_company_profile(ticker)
+                if profile:
+                    company_name = profile.get('companyName', '') or ''
+
+            is_ma_target = False
+            ma_details = ''
+
+            # Option A: FMP M&A API
+            if company_name:
+                ma_results = search_mergers_acquisitions(company_name)
+                if ma_results:
+                    for deal in ma_results:
+                        target_symbol = (deal.get('targetedSymbol') or '').upper()
+                        target_name = (deal.get('targetedCompanyName') or '').upper()
+                        if target_symbol == ticker.upper() or \
+                           (company_name and company_name.upper() in target_name):
+                            is_ma_target = True
+                            acquirer = deal.get('companyName', 'Unknown acquirer')
+                            tx_date = deal.get('transactionDate', 'Unknown date')
+                            ma_details = f"target of {acquirer} (filed {tx_date})"
+                            break
+
+            # Option B: Price-action heuristic fallback
+            if not is_ma_target and getattr(config, 'ENABLE_ACQUISITION_PRICE_HEURISTIC', False):
+                try:
+                    lookback = getattr(config, 'ACQUISITION_HEURISTIC_LOOKBACK_DAYS', 10)
+                    atr_threshold = getattr(config, 'ACQUISITION_ATR_THRESHOLD_PCT', 0.3)
+                    hist = yf.download(ticker, period=f'{lookback + 5}d', progress=False)
+                    if not hist.empty and len(hist) >= lookback:
+                        high_col = hist['High']
+                        low_col = hist['Low']
+                        close_col = hist['Close']
+                        if isinstance(high_col, pd.DataFrame):
+                            high_col = high_col.squeeze()
+                        if isinstance(low_col, pd.DataFrame):
+                            low_col = low_col.squeeze()
+                        if isinstance(close_col, pd.DataFrame):
+                            close_col = close_col.squeeze()
+                        tr = high_col.tail(lookback) - low_col.tail(lookback)
+                        atr = float(tr.mean())
+                        avg_price = float(close_col.tail(lookback).mean())
+                        if avg_price > 0:
+                            atr_pct = (atr / avg_price) * 100
+                            if atr_pct < atr_threshold:
+                                is_ma_target = True
+                                ma_details = f"abnormally low volatility (ATR {atr_pct:.2f}%)"
+                except Exception as e:
+                    logger.debug(f"Acquisition heuristic failed for {ticker}: {e}")
+
+            if is_ma_target:
+                logger.warning(f"   ❌ REJECTED: M&A target — {ma_details}")
+                return False
+
+        # Filter 5: Single Insider Micro-Cap & Go-Private Detection
         if insider_count == 1:
             # Check 1: Micro-cap with low score
             if market_cap is not None and market_cap < 100_000_000:

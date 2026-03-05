@@ -46,6 +46,15 @@ from .utils import (
     format_percentage,
     update_trading_calendar
 )
+import pandas as pd
+
+# Import FMP API helpers from parent jobs directory
+try:
+    from fmp_api import search_mergers_acquisitions, get_company_profile
+except ImportError:
+    # Fallback: fmp_api may not be on path in all contexts
+    search_mergers_acquisitions = None
+    get_company_profile = None
 
 # Configure logging
 logging.basicConfig(
@@ -260,7 +269,100 @@ class TradingEngine:
                 close_date = last_close.strftime('%Y-%m-%d')
                 return False, f"Cooldown: {ticker} closed on {close_date}, 7-day cooldown required"
 
-        # Filter 2: Single Insider Micro-Cap & Go-Private Detection
+        # Filter 2: Shell Company / SPAC Rejection
+        if getattr(config, 'ENABLE_SHELL_COMPANY_FILTER', False):
+            sector = signal.get('sector', '') or ''
+            industry = signal.get('industry', '') or ''
+            company_name = signal.get('company', '') or ''
+
+            blocked_sectors = getattr(config, 'SHELL_COMPANY_SECTORS', ['Shell Companies'])
+            if sector in blocked_sectors or industry in blocked_sectors:
+                return False, f"Shell company/SPAC — sector '{sector or industry}'"
+
+            name_patterns = getattr(config, 'SHELL_COMPANY_NAME_PATTERNS', [])
+            name_upper = company_name.upper()
+            for pattern in name_patterns:
+                if pattern.upper() in name_upper:
+                    return False, f"Shell company/SPAC — name matches '{pattern}'"
+
+        # Filter 3: Stale / Delisted Ticker Check
+        if getattr(config, 'ENABLE_STALE_TICKER_FILTER', False):
+            if (not entry_price or entry_price <= 0) and (not market_cap or market_cap <= 0):
+                return False, "No price or market cap data (likely delisted)"
+
+            try:
+                max_stale_days = getattr(config, 'STALE_PRICE_MAX_DAYS', 5)
+                hist = yf.download(ticker, period=f'{max_stale_days + 5}d', progress=False)
+                if hist.empty or len(hist) == 0:
+                    return False, "No trading history (likely delisted)"
+                last_trade_date = hist.index[-1]
+                if hasattr(last_trade_date, 'tz_localize'):
+                    last_trade_date = last_trade_date.tz_localize(None) if last_trade_date.tzinfo else last_trade_date
+                days_since = (datetime.now() - pd.Timestamp(last_trade_date).to_pydatetime()).days
+                if days_since > max_stale_days:
+                    return False, f"Last traded {days_since} days ago (>{max_stale_days}d limit)"
+            except Exception as e:
+                logger.debug(f"Stale ticker check failed for {ticker}: {e}")
+
+        # Filter 4: M&A / Acquisition Status Check
+        if getattr(config, 'ENABLE_MA_STATUS_CHECK', False) and search_mergers_acquisitions is not None:
+            company_name = signal.get('company', '') or ''
+
+            if not company_name or company_name == ticker:
+                if get_company_profile is not None:
+                    profile = get_company_profile(ticker)
+                    if profile:
+                        company_name = profile.get('companyName', '') or ''
+
+            is_ma_target = False
+            ma_details = ''
+
+            # Option A: FMP M&A API
+            if company_name:
+                ma_results = search_mergers_acquisitions(company_name)
+                if ma_results:
+                    for deal in ma_results:
+                        target_symbol = (deal.get('targetedSymbol') or '').upper()
+                        target_name = (deal.get('targetedCompanyName') or '').upper()
+                        if target_symbol == ticker.upper() or \
+                           (company_name and company_name.upper() in target_name):
+                            is_ma_target = True
+                            acquirer = deal.get('companyName', 'Unknown acquirer')
+                            tx_date = deal.get('transactionDate', 'Unknown date')
+                            ma_details = f"target of {acquirer} (filed {tx_date})"
+                            break
+
+            # Option B: Price-action heuristic fallback
+            if not is_ma_target and getattr(config, 'ENABLE_ACQUISITION_PRICE_HEURISTIC', False):
+                try:
+                    lookback = getattr(config, 'ACQUISITION_HEURISTIC_LOOKBACK_DAYS', 10)
+                    atr_threshold = getattr(config, 'ACQUISITION_ATR_THRESHOLD_PCT', 0.3)
+                    hist = yf.download(ticker, period=f'{lookback + 5}d', progress=False)
+                    if not hist.empty and len(hist) >= lookback:
+                        high_col = hist['High']
+                        low_col = hist['Low']
+                        close_col = hist['Close']
+                        if isinstance(high_col, pd.DataFrame):
+                            high_col = high_col.squeeze()
+                        if isinstance(low_col, pd.DataFrame):
+                            low_col = low_col.squeeze()
+                        if isinstance(close_col, pd.DataFrame):
+                            close_col = close_col.squeeze()
+                        tr = high_col.tail(lookback) - low_col.tail(lookback)
+                        atr = float(tr.mean())
+                        avg_price = float(close_col.tail(lookback).mean())
+                        if avg_price > 0:
+                            atr_pct = (atr / avg_price) * 100
+                            if atr_pct < atr_threshold:
+                                is_ma_target = True
+                                ma_details = f"abnormally low volatility (ATR {atr_pct:.2f}%)"
+                except Exception as e:
+                    logger.debug(f"Acquisition heuristic failed for {ticker}: {e}")
+
+            if is_ma_target:
+                return False, f"M&A target — {ma_details}"
+
+        # Filter 5: Single Insider Micro-Cap & Go-Private Detection
         if insider_count == 1:
             # Check 1: Micro-cap with low score
             if market_cap is not None and market_cap < 100_000_000:

@@ -20,7 +20,9 @@ import logging
 from fmp_api import (
     fetch_profiles_batch,
     get_analytics_summary,
-    save_analytics
+    save_analytics,
+    search_mergers_acquisitions,
+    get_company_profile
 )
 from ticker_validator import get_failed_ticker_cache
 
@@ -1101,7 +1103,202 @@ def apply_quality_filters(cluster_df):
         logger.debug(f"Cooldown check skipped: {e}")
         pass
 
-    # Filter 0b: Single Insider Micro-Cap & Go-Private Detection
+    # Filter 0b: Shell Company / SPAC Rejection
+    if getattr(config, 'ENABLE_SHELL_COMPANY_FILTER', False):
+        before = len(filtered)
+        shell_rejections = []
+        blocked_sectors = getattr(config, 'SHELL_COMPANY_SECTORS', ['Shell Companies'])
+        name_patterns = getattr(config, 'SHELL_COMPANY_NAME_PATTERNS', [])
+
+        for idx, row in list(filtered.iterrows()):
+            ticker = row['ticker']
+            sector = row.get('sector', '') or ''
+            industry = row.get('industry', '') or ''
+            company_name = row.get('company', '') or ''
+
+            # Check 1: Blocked sector
+            if sector in blocked_sectors or industry in blocked_sectors:
+                shell_rejections.append(f"{ticker}: sector '{sector or industry}' is a shell company/SPAC")
+                filtered = filtered.drop(idx)
+                continue
+
+            # Check 2: Company name matches SPAC/acquisition vehicle patterns
+            name_upper = company_name.upper()
+            matched_pattern = None
+            for pattern in name_patterns:
+                if pattern.upper() in name_upper:
+                    matched_pattern = pattern
+                    break
+            if matched_pattern:
+                shell_rejections.append(f"{ticker}: company name '{company_name}' matches SPAC pattern '{matched_pattern}'")
+                filtered = filtered.drop(idx)
+                continue
+
+        if shell_rejections:
+            print(f"   ❌ Removed {len(shell_rejections)} shell companies / SPACs")
+            for rej in shell_rejections[:5]:
+                print(f"      • {rej}")
+
+    # Filter 0c: Stale / Delisted Ticker Check
+    if getattr(config, 'ENABLE_STALE_TICKER_FILTER', False):
+        before = len(filtered)
+        stale_rejections = []
+
+        for idx, row in list(filtered.iterrows()):
+            ticker = row['ticker']
+            current_price = row.get('currentPrice')
+            market_cap = row.get('marketCap')
+
+            # If both price and market cap are missing, the ticker is likely delisted
+            if (current_price is None or pd.isna(current_price) or current_price <= 0) and \
+               (market_cap is None or pd.isna(market_cap) or market_cap <= 0):
+                stale_rejections.append(f"{ticker}: no price or market cap data (likely delisted or non-trading)")
+                filtered = filtered.drop(idx)
+                continue
+
+            # If price is available, verify it's fresh via a quick yfinance check
+            if current_price is not None and not pd.isna(current_price) and current_price > 0:
+                try:
+                    max_stale_days = getattr(config, 'STALE_PRICE_MAX_DAYS', 5)
+                    hist = yf.download(ticker, period=f'{max_stale_days + 5}d', progress=False)
+                    if hist.empty or len(hist) == 0:
+                        stale_rejections.append(f"{ticker}: no trading history in last {max_stale_days} days (likely delisted)")
+                        filtered = filtered.drop(idx)
+                        continue
+                    # Check if the most recent trading day is within the allowed window
+                    last_trade_date = hist.index[-1]
+                    if hasattr(last_trade_date, 'tz_localize'):
+                        last_trade_date = last_trade_date.tz_localize(None) if last_trade_date.tzinfo else last_trade_date
+                    days_since_trade = (datetime.now() - pd.Timestamp(last_trade_date).to_pydatetime()).days
+                    if days_since_trade > max_stale_days:
+                        stale_rejections.append(
+                            f"{ticker}: last traded {days_since_trade} days ago (>{max_stale_days}d limit, likely delisted)"
+                        )
+                        filtered = filtered.drop(idx)
+                        continue
+                except Exception as e:
+                    logger.debug(f"Stale ticker check failed for {ticker}: {e}")
+                    # Don't block on check failure — allow trade through
+
+        if stale_rejections:
+            print(f"   ❌ Removed {len(stale_rejections)} stale/delisted tickers")
+            for rej in stale_rejections[:5]:
+                print(f"      • {rej}")
+
+    # Filter 0d: M&A / Acquisition Status Check
+    if getattr(config, 'ENABLE_MA_STATUS_CHECK', False):
+        before = len(filtered)
+        ma_rejections = []
+        ma_cache_file = getattr(config, 'MA_CACHE_FILE', 'data/ma_status_cache.json')
+        ma_cache_ttl = getattr(config, 'MA_CACHE_TTL_DAYS', 7)
+
+        # Load M&A cache
+        import json as _json
+        ma_cache = {}
+        try:
+            cache_path = os.path.join(os.path.dirname(__file__), '..', ma_cache_file)
+            if os.path.exists(cache_path):
+                with open(cache_path, 'r') as f:
+                    ma_cache = _json.load(f)
+        except Exception:
+            pass
+
+        for idx, row in list(filtered.iterrows()):
+            ticker = row['ticker']
+            company_name = row.get('company', '') or ''
+
+            # If company name is just the ticker symbol, try FMP profile
+            if not company_name or company_name == ticker:
+                profile = get_company_profile(ticker)
+                if profile:
+                    company_name = profile.get('companyName', '') or ''
+
+            # Check cache first
+            cached = ma_cache.get(ticker)
+            if cached:
+                cache_age = (datetime.now() - datetime.fromisoformat(cached.get('checked', '2000-01-01'))).days
+                if cache_age < ma_cache_ttl:
+                    if cached.get('is_target', False):
+                        ma_rejections.append(
+                            f"{ticker}: M&A target (cached) — {cached.get('details', 'acquisition detected')}"
+                        )
+                        filtered = filtered.drop(idx)
+                    continue  # Cache is fresh, skip API call
+
+            # Option A: FMP M&A API search
+            is_ma_target = False
+            ma_details = ''
+
+            if company_name:
+                # Search by company name
+                ma_results = search_mergers_acquisitions(company_name)
+                if ma_results:
+                    # Check if this ticker appears as a target
+                    for deal in ma_results:
+                        target_symbol = (deal.get('targetedSymbol') or '').upper()
+                        target_name = (deal.get('targetedCompanyName') or '').upper()
+                        if target_symbol == ticker.upper() or \
+                           (company_name and company_name.upper() in target_name):
+                            is_ma_target = True
+                            acquirer = deal.get('companyName', 'Unknown acquirer')
+                            tx_date = deal.get('transactionDate', 'Unknown date')
+                            ma_details = f"target of {acquirer} (filed {tx_date})"
+                            break
+
+            # Option B: Price-action heuristic fallback (only if M&A API found nothing)
+            if not is_ma_target and getattr(config, 'ENABLE_ACQUISITION_PRICE_HEURISTIC', False):
+                try:
+                    lookback = getattr(config, 'ACQUISITION_HEURISTIC_LOOKBACK_DAYS', 10)
+                    atr_threshold = getattr(config, 'ACQUISITION_ATR_THRESHOLD_PCT', 0.3)
+                    hist = yf.download(ticker, period=f'{lookback + 5}d', progress=False)
+                    if not hist.empty and len(hist) >= lookback:
+                        high_col = hist['High']
+                        low_col = hist['Low']
+                        close_col = hist['Close']
+                        if isinstance(high_col, pd.DataFrame):
+                            high_col = high_col.squeeze()
+                        if isinstance(low_col, pd.DataFrame):
+                            low_col = low_col.squeeze()
+                        if isinstance(close_col, pd.DataFrame):
+                            close_col = close_col.squeeze()
+
+                        # Calculate ATR over the lookback period
+                        tr = high_col.tail(lookback) - low_col.tail(lookback)
+                        atr = float(tr.mean())
+                        avg_price = float(close_col.tail(lookback).mean())
+                        if avg_price > 0:
+                            atr_pct = (atr / avg_price) * 100
+                            if atr_pct < atr_threshold:
+                                is_ma_target = True
+                                ma_details = f"abnormally low volatility (ATR {atr_pct:.2f}% < {atr_threshold}% threshold, likely acquisition-pinned)"
+                except Exception as e:
+                    logger.debug(f"Acquisition heuristic failed for {ticker}: {e}")
+
+            # Cache result
+            ma_cache[ticker] = {
+                'is_target': is_ma_target,
+                'details': ma_details,
+                'checked': datetime.now().isoformat()
+            }
+
+            if is_ma_target:
+                ma_rejections.append(f"{ticker}: {ma_details}")
+                filtered = filtered.drop(idx)
+
+        # Save M&A cache
+        try:
+            cache_path = os.path.join(os.path.dirname(__file__), '..', ma_cache_file)
+            with open(cache_path, 'w') as f:
+                _json.dump(ma_cache, f, indent=2)
+        except Exception as e:
+            logger.debug(f"Failed to save M&A cache: {e}")
+
+        if ma_rejections:
+            print(f"   ❌ Removed {len(ma_rejections)} M&A / acquisition targets")
+            for rej in ma_rejections[:5]:
+                print(f"      • {rej}")
+
+    # Filter 0e: Single Insider Micro-Cap & Go-Private Detection
     # When conviction is low, require a higher bar
     before = len(filtered)
     single_insider_rejections = []

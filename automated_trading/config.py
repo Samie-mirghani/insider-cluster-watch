@@ -122,6 +122,28 @@ MULTI_SIGNAL_TAKE_PROFIT = {
 # Sector concentration limits (hard reject above threshold)
 SECTOR_HIGH_CONCENTRATION_THRESHOLD = 0.40  # 40% in one sector = reject entry
 
+# Shell Company / SPAC Filter
+ENABLE_SHELL_COMPANY_FILTER = True  # Reject shell companies, blank-check SPACs
+SHELL_COMPANY_SECTORS = ['Shell Companies']  # Sectors to block
+SHELL_COMPANY_NAME_PATTERNS = [
+    'Acquisition Corp', 'Acquisition Co', 'Blank Check',
+    'Capital Investment Corp', 'Merger Corp', 'Merger Sub',
+]
+
+# M&A / Acquisition Status Filter
+ENABLE_MA_STATUS_CHECK = True  # Check FMP M&A database before entering trades
+MA_CACHE_FILE = "data/ma_status_cache.json"
+MA_CACHE_TTL_DAYS = 7  # Re-check M&A status weekly
+
+# Stale / Delisted Ticker Filter
+ENABLE_STALE_TICKER_FILTER = True  # Reject tickers with no recent price data
+STALE_PRICE_MAX_DAYS = 5  # Reject if price data is older than 5 trading days
+
+# Price-Action Acquisition Heuristic (fallback for M&A check)
+ENABLE_ACQUISITION_PRICE_HEURISTIC = True
+ACQUISITION_ATR_THRESHOLD_PCT = 0.3  # ATR < 0.3% of price over 10 days = likely acquired
+ACQUISITION_HEURISTIC_LOOKBACK_DAYS = 10
+
 # Dynamic stop tightening
 ENABLE_DYNAMIC_STOPS = True
 BIG_WINNER_THRESHOLD = 20.0      # Tighten stop after +20% gain
