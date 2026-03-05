@@ -611,6 +611,43 @@ def save_analytics() -> None:
     client.save_analytics()
 
 
+def search_mergers_acquisitions(company_name: str) -> Optional[list]:
+    """
+    Search FMP M&A database for pending/completed acquisitions involving a company.
+
+    Args:
+        company_name: Company name to search (e.g. "TreeHouse Foods")
+
+    Returns:
+        List of M&A records, or None on error. Empty list means no M&A found.
+    """
+    api_key = FMP_API_KEY
+    if not api_key:
+        logger.debug("FMP_API_KEY not configured — skipping M&A check")
+        return None
+
+    try:
+        url = f"{FMP_API_BASE_URL}/mergers-acquisitions-search"
+        params = {
+            'name': company_name,
+            'apikey': api_key
+        }
+
+        session = requests.Session()
+        response = session.get(url, params=params, timeout=10)
+        response.raise_for_status()
+
+        data = response.json()
+        if not data or not isinstance(data, list):
+            return []
+
+        return data
+
+    except Exception as e:
+        logger.debug(f"M&A search failed for '{company_name}': {e}")
+        return None
+
+
 if __name__ == "__main__":
     # Test the enhanced module
     logging.basicConfig(level=logging.INFO)

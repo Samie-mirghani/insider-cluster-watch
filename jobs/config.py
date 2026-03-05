@@ -18,7 +18,7 @@ STARTING_CAPITAL = 10000  # $10k starting capital
 
 # Position Sizing
 MAX_POSITION_PCT = 0.10  # 10% max per position
-MAX_TOTAL_EXPOSURE = 0.70  # 70% max total exposure — static fallback
+MAX_TOTAL_EXPOSURE = 0.65  # 65% max total exposure — static fallback
 
 # Performance-adaptive exposure (matches automated_trading/config.py)
 ENABLE_ADAPTIVE_EXPOSURE = True
@@ -85,7 +85,7 @@ OLD_POSITION_STOP_PCT = 0.10  # 10% stop from high for old modest positions
 MAX_DAILY_LOSS_PCT = 5.0  # Alert if down >5% in one day
 MAX_DRAWDOWN_ALERT = 10.0  # Alert if drawdown >10%
 MIN_WIN_RATE_ALERT = 35.0  # Alert if win rate <35%
-MAX_EXPOSURE_ALERT = 70.0  # Alert if exposure >70% (matches MAX_TOTAL_EXPOSURE)
+MAX_EXPOSURE_ALERT = 65.0  # Alert if exposure >65% (matches MAX_TOTAL_EXPOSURE)
 
 # Logging
 LOG_LEVEL = 'INFO'  # DEBUG, INFO, WARNING, ERROR
@@ -230,6 +230,29 @@ FMP_API_KEY = os.getenv('FMP_API_KEY', None)  # FMP API key for company profile 
 INDUSTRY_CACHE_FILE = "data/company_profiles_cache.json"  # Cache file for company profiles
 INDUSTRY_CACHE_TTL_DAYS = 30  # Industry cache TTL (30 days - industry rarely changes)
 MAX_PARALLEL_WORKERS = 5  # Max parallel workers for batch API fetching
+
+# Shell Company / SPAC Filter
+ENABLE_SHELL_COMPANY_FILTER = True  # Reject shell companies, blank-check SPACs
+SHELL_COMPANY_SECTORS = ['Shell Companies']  # Sectors to block
+SHELL_COMPANY_NAME_PATTERNS = [
+    'Acquisition Corp', 'Acquisition Co', 'Blank Check',
+    'Capital Investment Corp', 'Merger Corp', 'Merger Sub',
+]
+
+# M&A / Acquisition Status Filter
+ENABLE_MA_STATUS_CHECK = True  # Check FMP M&A database before entering trades
+MA_CACHE_FILE = "data/ma_status_cache.json"
+MA_CACHE_TTL_DAYS = 7  # Re-check M&A status weekly
+
+# Stale / Delisted Ticker Filter
+ENABLE_STALE_TICKER_FILTER = True  # Reject tickers with no recent price data
+STALE_PRICE_MAX_DAYS = 5  # Reject if price data is older than 5 trading days
+
+# Price-Action Acquisition Heuristic (fallback for M&A check)
+# Stocks being acquired trade at extremely low volatility pinned near deal price
+ENABLE_ACQUISITION_PRICE_HEURISTIC = True
+ACQUISITION_ATR_THRESHOLD_PCT = 0.3  # ATR < 0.3% of price over 10 days = likely acquired
+ACQUISITION_HEURISTIC_LOOKBACK_DAYS = 10
 
 # Sector Relative Analysis Settings
 ENABLE_SECTOR_ANALYSIS = True  # Enable sector relative performance analysis

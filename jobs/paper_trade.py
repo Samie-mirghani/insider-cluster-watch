@@ -10,8 +10,11 @@ from datetime import datetime, timedelta
 import os
 import json
 import logging
+import config
 from config import *
 from ticker_validator import get_failed_ticker_cache
+from fmp_api import search_mergers_acquisitions, get_company_profile
+from signal_filters import check_shell_company, check_stale_ticker, check_ma_target
 
 DATA_DIR = os.path.join(os.path.dirname(__file__), '..', 'data')
 PAPER_PORTFOLIO_FILE = os.path.join(DATA_DIR, 'paper_portfolio.json')
@@ -621,7 +624,55 @@ class PaperTradingPortfolio:
                     logger.warning(f"   ❌ REJECTED: Cooldown: {ticker} closed on {close_date}, 7-day cooldown required")
                     return False
 
-        # Filter 2: Single Insider Micro-Cap & Go-Private Detection
+        # Filter 2: Shell Company / SPAC Rejection
+        if getattr(config, 'ENABLE_SHELL_COMPANY_FILTER', False):
+            sector = signal.get('sector') if isinstance(signal, dict) else signal.get('sector', '')
+            industry = signal.get('industry') if isinstance(signal, dict) else signal.get('industry', '')
+            company_name_val = signal.get('company') if isinstance(signal, dict) else signal.get('company', '')
+
+            is_shell, shell_reason = check_shell_company(
+                ticker=ticker,
+                sector=sector or '',
+                industry=industry or '',
+                company_name=company_name_val or '',
+                blocked_sectors=getattr(config, 'SHELL_COMPANY_SECTORS', ['Shell Companies']),
+                name_patterns=getattr(config, 'SHELL_COMPANY_NAME_PATTERNS', []),
+            )
+            if is_shell:
+                logger.warning(f"   ❌ REJECTED: Shell company/SPAC — {shell_reason}")
+                return False
+
+        # Filter 3: Stale / Delisted Ticker Check
+        if getattr(config, 'ENABLE_STALE_TICKER_FILTER', False):
+            is_stale, stale_reason = check_stale_ticker(
+                ticker=ticker,
+                current_price=entry_price,
+                market_cap=market_cap,
+                max_stale_days=getattr(config, 'STALE_PRICE_MAX_DAYS', 5),
+            )
+            if is_stale:
+                logger.warning(f"   ❌ REJECTED: {stale_reason}")
+                return False
+
+        # Filter 4: M&A / Acquisition Status Check
+        if getattr(config, 'ENABLE_MA_STATUS_CHECK', False):
+            company_name_val = signal.get('company') if isinstance(signal, dict) else signal.get('company', '')
+
+            is_target, ma_details, _ = check_ma_target(
+                ticker=ticker,
+                company_name=company_name_val or '',
+                search_fn=search_mergers_acquisitions,
+                profile_fn=get_company_profile,
+                enable_heuristic=getattr(config, 'ENABLE_ACQUISITION_PRICE_HEURISTIC', False),
+                atr_threshold_pct=getattr(config, 'ACQUISITION_ATR_THRESHOLD_PCT', 0.3),
+                heuristic_lookback_days=getattr(config, 'ACQUISITION_HEURISTIC_LOOKBACK_DAYS', 10),
+                market_cap=market_cap,
+            )
+            if is_target:
+                logger.warning(f"   ❌ REJECTED: M&A target — {ma_details}")
+                return False
+
+        # Filter 5: Single Insider Micro-Cap & Go-Private Detection
         if insider_count == 1:
             # Check 1: Micro-cap with low score
             if market_cap is not None and market_cap < 100_000_000:

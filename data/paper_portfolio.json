@@ -1,6 +1,6 @@
 {
   "starting_capital": 10000,
-  "cash": 6318.454999999994,
+  "cash": 7297.954999999994,
   "positions": {
     "ABT": {
       "entry_date": "2026-01-27T11:39:21.361467",
@@ -73,28 +73,6 @@
         }
       ]
     },
-    "HCIC": {
-      "entry_date": "2026-02-10T12:11:14.899190",
-      "entry_price": 10.05,
-      "shares": 61,
-      "cost_basis": 613.0500000000001,
-      "initial_stop_loss": 9.246,
-      "stop_loss": 9.246,
-      "take_profit": 11.256000000000002,
-      "highest_price": 10.05,
-      "trailing_enabled": false,
-      "signal_score": 11.179777414494788,
-      "sector": "Shell Companies",
-      "multi_signal_tier": "none",
-      "has_politician_signal": false,
-      "tranches": [
-        {
-          "shares": 61,
-          "price": 10.05,
-          "date": "2026-02-10T12:11:14.899194"
-        }
-      ]
-    },
     "CBC": {
       "entry_date": "2026-02-10T12:11:17.997180",
       "entry_price": 24.3,
@@ -141,28 +119,6 @@
           "shares": 7,
           "price": 75.07,
           "date": "2026-02-12T12:03:27.651232"
-        }
-      ]
-    },
-    "THS": {
-      "entry_date": "2026-02-13T11:53:34.241802",
-      "entry_price": 24.43,
-      "shares": 15,
-      "cost_basis": 366.45,
-      "initial_stop_loss": 22.4756,
-      "stop_loss": 22.4756,
-      "take_profit": 27.361600000000003,
-      "highest_price": 24.43,
-      "trailing_enabled": false,
-      "signal_score": 6.398545115946184,
-      "sector": "Packaged Foods",
-      "multi_signal_tier": "none",
-      "has_politician_signal": false,
-      "tranches": [
-        {
-          "shares": 15,
-          "price": 24.43,
-          "date": "2026-02-13T11:53:34.241807"
         }
       ]
     },

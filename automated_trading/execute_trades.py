@@ -46,6 +46,19 @@ from .utils import (
     format_percentage,
     update_trading_calendar
 )
+import pandas as pd
+
+# Import filter helpers from parent jobs directory
+try:
+    from fmp_api import search_mergers_acquisitions, get_company_profile
+    from signal_filters import check_shell_company, check_stale_ticker, check_ma_target
+except ImportError:
+    # Fallback: may not be on path in all contexts
+    search_mergers_acquisitions = None
+    get_company_profile = None
+    check_shell_company = None
+    check_stale_ticker = None
+    check_ma_target = None
 
 # Configure logging
 logging.basicConfig(
@@ -260,7 +273,46 @@ class TradingEngine:
                 close_date = last_close.strftime('%Y-%m-%d')
                 return False, f"Cooldown: {ticker} closed on {close_date}, 7-day cooldown required"
 
-        # Filter 2: Single Insider Micro-Cap & Go-Private Detection
+        # Filter 2: Shell Company / SPAC Rejection
+        if getattr(config, 'ENABLE_SHELL_COMPANY_FILTER', False) and check_shell_company is not None:
+            is_shell, shell_reason = check_shell_company(
+                ticker=ticker,
+                sector=signal.get('sector', '') or '',
+                industry=signal.get('industry', '') or '',
+                company_name=signal.get('company', '') or '',
+                blocked_sectors=getattr(config, 'SHELL_COMPANY_SECTORS', ['Shell Companies']),
+                name_patterns=getattr(config, 'SHELL_COMPANY_NAME_PATTERNS', []),
+            )
+            if is_shell:
+                return False, f"Shell company/SPAC — {shell_reason}"
+
+        # Filter 3: Stale / Delisted Ticker Check
+        if getattr(config, 'ENABLE_STALE_TICKER_FILTER', False) and check_stale_ticker is not None:
+            is_stale, stale_reason = check_stale_ticker(
+                ticker=ticker,
+                current_price=entry_price,
+                market_cap=market_cap,
+                max_stale_days=getattr(config, 'STALE_PRICE_MAX_DAYS', 5),
+            )
+            if is_stale:
+                return False, stale_reason
+
+        # Filter 4: M&A / Acquisition Status Check
+        if getattr(config, 'ENABLE_MA_STATUS_CHECK', False) and check_ma_target is not None:
+            is_target, ma_details, _ = check_ma_target(
+                ticker=ticker,
+                company_name=signal.get('company', '') or '',
+                search_fn=search_mergers_acquisitions,
+                profile_fn=get_company_profile,
+                enable_heuristic=getattr(config, 'ENABLE_ACQUISITION_PRICE_HEURISTIC', False),
+                atr_threshold_pct=getattr(config, 'ACQUISITION_ATR_THRESHOLD_PCT', 0.3),
+                heuristic_lookback_days=getattr(config, 'ACQUISITION_HEURISTIC_LOOKBACK_DAYS', 10),
+                market_cap=market_cap,
+            )
+            if is_target:
+                return False, f"M&A target — {ma_details}"
+
+        # Filter 5: Single Insider Micro-Cap & Go-Private Detection
         if insider_count == 1:
             # Check 1: Micro-cap with low score
             if market_cap is not None and market_cap < 100_000_000:

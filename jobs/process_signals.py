@@ -20,7 +20,15 @@ import logging
 from fmp_api import (
     fetch_profiles_batch,
     get_analytics_summary,
-    save_analytics
+    save_analytics,
+    search_mergers_acquisitions,
+    get_company_profile
+)
+from signal_filters import (
+    check_shell_company,
+    check_stale_ticker,
+    check_ma_target,
+    prefetch_price_history
 )
 from ticker_validator import get_failed_ticker_cache
 
@@ -1101,7 +1109,119 @@ def apply_quality_filters(cluster_df):
         logger.debug(f"Cooldown check skipped: {e}")
         pass
 
-    # Filter 0b: Single Insider Micro-Cap & Go-Private Detection
+    # Filter 0b: Shell Company / SPAC Rejection
+    if getattr(config, 'ENABLE_SHELL_COMPANY_FILTER', False):
+        before = len(filtered)
+        shell_rejections = []
+        blocked_sectors = getattr(config, 'SHELL_COMPANY_SECTORS', ['Shell Companies'])
+        name_patterns = getattr(config, 'SHELL_COMPANY_NAME_PATTERNS', [])
+
+        for idx, row in list(filtered.iterrows()):
+            ticker = row['ticker']
+            is_shell, reason = check_shell_company(
+                ticker=ticker,
+                sector=row.get('sector', ''),
+                industry=row.get('industry', ''),
+                company_name=row.get('company', ''),
+                blocked_sectors=blocked_sectors,
+                name_patterns=name_patterns,
+            )
+            if is_shell:
+                shell_rejections.append(f"{ticker}: {reason}")
+                filtered = filtered.drop(idx)
+
+        if shell_rejections:
+            print(f"   ❌ Removed {len(shell_rejections)} shell companies / SPACs")
+            for rej in shell_rejections[:5]:
+                print(f"      • {rej}")
+
+    # Batch-prefetch price history for stale ticker + M&A heuristic + price health checks.
+    # This replaces per-signal yfinance calls with a single batch download.
+    _remaining_tickers = filtered['ticker'].tolist()
+    _price_history_cache = {}
+    if _remaining_tickers and (
+        getattr(config, 'ENABLE_STALE_TICKER_FILTER', False) or
+        getattr(config, 'ENABLE_MA_STATUS_CHECK', False)
+    ):
+        _price_history_cache = prefetch_price_history(_remaining_tickers, period='20d')
+
+    # Filter 0c: Stale / Delisted Ticker Check
+    if getattr(config, 'ENABLE_STALE_TICKER_FILTER', False):
+        before = len(filtered)
+        stale_rejections = []
+        max_stale_days = getattr(config, 'STALE_PRICE_MAX_DAYS', 5)
+
+        for idx, row in list(filtered.iterrows()):
+            ticker = row['ticker']
+            is_stale, reason = check_stale_ticker(
+                ticker=ticker,
+                current_price=row.get('currentPrice'),
+                market_cap=row.get('marketCap'),
+                max_stale_days=max_stale_days,
+                price_history=_price_history_cache.get(ticker),
+            )
+            if is_stale:
+                stale_rejections.append(f"{ticker}: {reason}")
+                filtered = filtered.drop(idx)
+
+        if stale_rejections:
+            print(f"   ❌ Removed {len(stale_rejections)} stale/delisted tickers")
+            for rej in stale_rejections[:5]:
+                print(f"      • {rej}")
+
+    # Filter 0d: M&A / Acquisition Status Check
+    if getattr(config, 'ENABLE_MA_STATUS_CHECK', False):
+        before = len(filtered)
+        ma_rejections = []
+        ma_cache_file = getattr(config, 'MA_CACHE_FILE', 'data/ma_status_cache.json')
+        ma_cache_ttl = getattr(config, 'MA_CACHE_TTL_DAYS', 7)
+
+        # Load M&A cache
+        import json as _json
+        ma_cache = {}
+        try:
+            cache_path = os.path.join(os.path.dirname(__file__), '..', ma_cache_file)
+            if os.path.exists(cache_path):
+                with open(cache_path, 'r') as f:
+                    ma_cache = _json.load(f)
+        except Exception:
+            pass
+
+        for idx, row in list(filtered.iterrows()):
+            ticker = row['ticker']
+            is_target, details, cache_entry = check_ma_target(
+                ticker=ticker,
+                company_name=row.get('company', ''),
+                ma_cache=ma_cache,
+                ma_cache_ttl_days=ma_cache_ttl,
+                search_fn=search_mergers_acquisitions,
+                profile_fn=get_company_profile,
+                enable_heuristic=getattr(config, 'ENABLE_ACQUISITION_PRICE_HEURISTIC', False),
+                atr_threshold_pct=getattr(config, 'ACQUISITION_ATR_THRESHOLD_PCT', 0.3),
+                heuristic_lookback_days=getattr(config, 'ACQUISITION_HEURISTIC_LOOKBACK_DAYS', 10),
+                market_cap=row.get('marketCap'),
+                price_history=_price_history_cache.get(ticker),
+            )
+            if cache_entry:
+                ma_cache[ticker] = cache_entry
+            if is_target:
+                ma_rejections.append(f"{ticker}: {details}")
+                filtered = filtered.drop(idx)
+
+        # Save M&A cache
+        try:
+            cache_path = os.path.join(os.path.dirname(__file__), '..', ma_cache_file)
+            with open(cache_path, 'w') as f:
+                _json.dump(ma_cache, f, indent=2)
+        except Exception as e:
+            logger.debug(f"Failed to save M&A cache: {e}")
+
+        if ma_rejections:
+            print(f"   ❌ Removed {len(ma_rejections)} M&A / acquisition targets")
+            for rej in ma_rejections[:5]:
+                print(f"      • {rej}")
+
+    # Filter 0e: Single Insider Micro-Cap & Go-Private Detection
     # When conviction is low, require a higher bar
     before = len(filtered)
     single_insider_rejections = []
