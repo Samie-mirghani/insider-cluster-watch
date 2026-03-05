@@ -206,6 +206,24 @@ REDEPLOYMENT_MAX_PER_DAY = 5     # Max 5 intraday redeployments per day
 REDEPLOYMENT_MIN_FREED_CAPITAL = 100  # Minimum freed capital to trigger ($100)
 
 # =============================================================================
+# SIGNAL ROTATION
+# =============================================================================
+# When all position slots are full, rotation swaps underperforming positions for
+# stronger incoming signals.  Turnover cost is ~0.30% round-trip (slippage both
+# sides), so the score advantage must offset this drag.
+ENABLE_SIGNAL_ROTATION = True
+
+ROTATION_MIN_INCOMING_SCORE = 10.0     # Incoming signal must score >= this
+ROTATION_SCORE_ADVANTAGE_THRESHOLD = 4.0  # Must beat weakest position's effective score by this
+ROTATION_MAX_POSITION_PNL = 5.0        # Only rotate out positions with P&L < 5%
+ROTATION_MIN_DAYS_HELD = 3             # Position must be >= 3 days old
+ROTATION_COOLDOWN_HOURS = 48           # Hours between consecutive rotations
+ROTATION_MAX_PER_DAY = 2               # Max rotations per calendar day
+ROTATION_PROTECT_TRAILING = True       # Don't rotate out positions with active trailing stops
+ROTATION_PROTECT_MOMENTUM = True       # Don't rotate out positions with strong gains
+ROTATION_MOMENTUM_THRESHOLD = 8.0      # Positions gaining > 8% are protected
+
+# =============================================================================
 # ORDER EXECUTION PARAMETERS
 # =============================================================================
 # Order types and timing

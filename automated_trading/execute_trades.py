@@ -34,6 +34,10 @@ from .position_monitor import PositionMonitor, create_position_monitor, CircuitB
 from .reconciliation import Reconciler
 from .alerts import AlertSender, create_alert_sender
 from .execution_metrics import ExecutionMetrics, create_execution_metrics
+
+# Import rotation scorer — uses automated_trading/config.py settings
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'jobs'))
+from rotation_scorer import build_live_rotation_scorer
 from .utils import (
     load_json_file,
     save_json_file,
@@ -117,6 +121,9 @@ class TradingEngine:
         self._atr_cache: Dict[str, Optional[float]] = {}
         self._win_rate_cache: Optional[Tuple[float, int]] = None
         self._cooldown_cache: Optional[Dict[str, datetime]] = None  # {ticker: last_close_datetime}
+
+        # Signal rotation scorer (recycles dead positions for stronger signals)
+        self._rotation_scorer = build_live_rotation_scorer()
 
         # Track exits for EOD summary (persisted to disk)
         self.exits_today: List[Dict[str, Any]] = self._load_exits_today()
@@ -695,6 +702,118 @@ class TradingEngine:
         return position_value
 
     # =========================================================================
+    # Signal Rotation
+    # =========================================================================
+
+    def _attempt_rotation_for_signal(self, signal: Dict[str, Any]) -> bool:
+        """
+        Attempt to rotate out the weakest position to make room for a stronger signal.
+
+        This submits a market sell for the weakest position via Alpaca and removes
+        it from the local position tracker.  The freed slot allows the incoming
+        signal to proceed to execution.
+
+        Args:
+            signal: The incoming signal that was rejected due to max positions.
+
+        Returns:
+            True if a position was successfully sold and the slot was freed.
+            False if rotation is not viable or the sell failed.
+        """
+        if not self.position_monitor or not self.alpaca_client:
+            return False
+
+        def _get_price(ticker, fallback):
+            price = self.position_monitor.get_current_price(ticker)
+            return price if price else fallback
+
+        result = self._rotation_scorer.find_rotation_target(
+            incoming_signal=signal,
+            positions=self.position_monitor.positions,
+            get_current_price_fn=_get_price,
+            max_positions=config.MAX_POSITIONS,
+        )
+
+        if result is None:
+            return False
+
+        exit_ticker, exit_pos, incoming = result
+        incoming_ticker = incoming.get('ticker', '?')
+
+        logger.info(f"\n{'='*60}")
+        logger.info(f"SIGNAL ROTATION: Selling {exit_ticker} to make room for {incoming_ticker}")
+        logger.info(f"{'='*60}")
+
+        try:
+            # Submit market sell order for the position being rotated out
+            shares = exit_pos.get('shares', 0)
+            if shares <= 0:
+                logger.warning(f"Rotation aborted: {exit_ticker} has {shares} shares")
+                return False
+
+            # Use close_position if available on the client, otherwise market sell
+            close_result = self.alpaca_client.close_position(exit_ticker)
+
+            if close_result:
+                # Remove from local position tracker
+                self.position_monitor.remove_position(exit_ticker)
+
+                # Calculate P&L for logging
+                current_price = _get_price(exit_ticker, exit_pos['entry_price'])
+                pnl_pct = ((current_price - exit_pos['entry_price']) / exit_pos['entry_price'] * 100) if exit_pos['entry_price'] > 0 else 0
+                pnl_dollars = (current_price - exit_pos['entry_price']) * shares
+
+                # Record the exit
+                log_audit_event('ROTATION_EXIT', {
+                    'exited_ticker': exit_ticker,
+                    'incoming_ticker': incoming_ticker,
+                    'shares': shares,
+                    'entry_price': round(exit_pos['entry_price'], 2),
+                    'exit_price': round(current_price, 2),
+                    'pnl_pct': round(pnl_pct, 2),
+                    'pnl_dollars': round(pnl_dollars, 2),
+                    'signal_score_old': exit_pos.get('signal_score', 0),
+                    'signal_score_new': signal.get('signal_score', 0),
+                    'days_held': (datetime.now() - exit_pos.get('entry_date', datetime.now())).days if isinstance(exit_pos.get('entry_date'), datetime) else 0,
+                })
+
+                # Track for circuit breaker
+                self.position_monitor.circuit_breaker.record_trade(pnl_dollars, exit_ticker)
+
+                # Track for EOD summary
+                self.exits_today.append({
+                    'ticker': exit_ticker,
+                    'reason': 'ROTATION_EXIT',
+                    'pnl_pct': round(pnl_pct, 2),
+                    'pnl_dollars': round(pnl_dollars, 2),
+                    'replaced_by': incoming_ticker,
+                    'timestamp': datetime.now().isoformat(),
+                })
+                self._save_exits_today()
+
+                # Record rotation event for cooldown tracking
+                self._rotation_scorer.record_rotation(exit_ticker, incoming_ticker)
+
+                logger.info(
+                    f"Rotation complete: Sold {exit_ticker} ({pnl_pct:+.1f}%) "
+                    f"→ slot freed for {incoming_ticker}"
+                )
+                logger.info(f"{'='*60}\n")
+                return True
+            else:
+                logger.warning(f"Rotation failed: Could not close {exit_ticker} position")
+                return False
+
+        except Exception as e:
+            logger.error(f"Rotation error for {exit_ticker}: {e}")
+            log_audit_event('ROTATION_ERROR', {
+                'exited_ticker': exit_ticker,
+                'incoming_ticker': incoming_ticker,
+                'error': str(e),
+            }, outcome='ERROR')
+            return False
+
+    # =========================================================================
     # Trade Execution
     # =========================================================================
 
@@ -725,18 +844,42 @@ class TradingEngine:
         # Validate
         is_valid, reason = self.validate_signal(signal)
         if not is_valid:
-            logger.warning(f"Signal rejected: {reason}")
-
-            # Log rejection to audit trail for analysis
-            log_audit_event('SIGNAL_REJECTED', {
-                'ticker': ticker,
-                'reason': reason,
-                'signal_score': signal.get('signal_score') or signal.get('rank_score', 0),
-                'sector': signal.get('sector', 'Unknown'),
-                'context': 'redeployment' if is_redeployment else 'morning'
-            })
-
-            return False, reason
+            # If rejected due to max positions, attempt signal rotation
+            if 'max positions' in reason.lower() and not is_redeployment:
+                rotated = self._attempt_rotation_for_signal(signal)
+                if rotated:
+                    # Slot freed — re-validate
+                    is_valid, reason = self.validate_signal(signal)
+                    if not is_valid:
+                        logger.warning(f"Signal rejected after rotation: {reason}")
+                        log_audit_event('SIGNAL_REJECTED', {
+                            'ticker': ticker,
+                            'reason': f"Post-rotation: {reason}",
+                            'signal_score': signal.get('signal_score') or signal.get('rank_score', 0),
+                            'context': 'rotation_retry'
+                        })
+                        return False, reason
+                    # Fall through to continue with buy
+                else:
+                    logger.warning(f"Signal rejected: {reason} (rotation not viable)")
+                    log_audit_event('SIGNAL_REJECTED', {
+                        'ticker': ticker,
+                        'reason': reason,
+                        'signal_score': signal.get('signal_score') or signal.get('rank_score', 0),
+                        'sector': signal.get('sector', 'Unknown'),
+                        'context': 'redeployment' if is_redeployment else 'morning'
+                    })
+                    return False, reason
+            else:
+                logger.warning(f"Signal rejected: {reason}")
+                log_audit_event('SIGNAL_REJECTED', {
+                    'ticker': ticker,
+                    'reason': reason,
+                    'signal_score': signal.get('signal_score') or signal.get('rank_score', 0),
+                    'sector': signal.get('sector', 'Unknown'),
+                    'context': 'redeployment' if is_redeployment else 'morning'
+                })
+                return False, reason
 
         # Calculate position size
         portfolio_value = self.alpaca_client.get_portfolio_value()
@@ -753,6 +896,7 @@ class TradingEngine:
         pending_buys = len(self.order_manager.get_pending_orders(side='BUY')) if self.order_manager else 0
         effective_positions = current_positions + pending_buys
         if effective_positions >= config.MAX_POSITIONS:
+            # Rotation may have already freed a slot above; if still full, reject
             reason = (
                 f"Max positions ({config.MAX_POSITIONS}) reached "
                 f"({current_positions} held + {pending_buys} pending) (pre-submit re-check)"
@@ -1793,6 +1937,11 @@ class TradingEngine:
         exits_count = len(self.exits_today)
         self._clear_exits_today()
 
+        # Count rotation exits from today's activity
+        rotation_exits_today = sum(
+            1 for e in self.exits_today if e.get('reason') == 'ROTATION_EXIT'
+        )
+
         summary = {
             'date': datetime.now().strftime('%Y-%m-%d'),
             'portfolio_value': portfolio_value,
@@ -1800,6 +1949,8 @@ class TradingEngine:
             'trades_executed': trades_today,
             'open_positions': open_positions,
             'exits_reported': exits_count,
+            'rotation_exits': rotation_exits_today,
+            'rotation_stats': self._rotation_scorer.get_rotation_stats() if self._rotation_scorer else {},
             'circuit_breaker': self.position_monitor.circuit_breaker.get_status(),
             'broker_summary': broker_summary,
         }

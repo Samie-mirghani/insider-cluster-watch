@@ -272,3 +272,43 @@ SECTOR_WARNING_CONCENTRATION_THRESHOLD = 0.30  # 30% in one sector = elevated co
 ENABLE_SECTOR_CONVICTION_ADJUSTMENT = True  # Adjust conviction based on sector performance
 SECTOR_CONTRARIAN_BOOST = 1.0  # Add conviction points for contrarian setup
 SECTOR_MOMENTUM_CAUTION = -0.5  # Reduce conviction for late momentum
+
+# =============================================================================
+# Signal Rotation Settings
+# =============================================================================
+# When the portfolio is at max capacity, rotation allows replacing underperforming
+# positions with stronger incoming signals.  This recycles dead capital and keeps
+# the portfolio concentrated in the highest-conviction ideas.
+#
+# Turnover cost: ~0.15% slippage per side = ~0.30% round-trip per rotation.
+# The score-advantage threshold must offset this drag to be profitable.
+ENABLE_SIGNAL_ROTATION = True
+
+# Incoming signal must score at least this high to be considered for rotation.
+# Based on historical analysis: score 13-16 (decile 9) produced +2.9% 1w alpha.
+ROTATION_MIN_INCOMING_SCORE = 10.0
+
+# The incoming signal must beat the weakest position's *effective* score by this
+# many points.  Effective score decays with negative P&L and stale hold time.
+# 4.0 points ≈ the difference between a marginal and a strong signal.
+ROTATION_SCORE_ADVANTAGE_THRESHOLD = 4.0
+
+# Only rotate out positions with P&L below this % (don't sell winners).
+ROTATION_MAX_POSITION_PNL = 5.0  # Positions gaining > 5% are protected
+
+# Minimum days a position must be held before it becomes rotation-eligible.
+# Prevents rapid churn on freshly opened positions.
+ROTATION_MIN_DAYS_HELD = 3
+
+# Hours between consecutive rotations (prevents over-trading).
+ROTATION_COOLDOWN_HOURS = 48
+
+# Maximum rotations per calendar day.
+ROTATION_MAX_PER_DAY = 2
+
+# Protect positions with active trailing stops (they're working — don't exit).
+ROTATION_PROTECT_TRAILING = True
+
+# Protect positions with strong positive momentum (don't sell runners).
+ROTATION_PROTECT_MOMENTUM = True
+ROTATION_MOMENTUM_THRESHOLD = 8.0  # Positions gaining > 8% are momentum-protected
