@@ -18,7 +18,7 @@ STARTING_CAPITAL = 10000  # $10k starting capital
 
 # Position Sizing
 MAX_POSITION_PCT = 0.10  # 10% max per position
-MAX_TOTAL_EXPOSURE = 0.70  # 70% max total exposure — static fallback
+MAX_TOTAL_EXPOSURE = 0.65  # 65% max total exposure — static fallback
 
 # Performance-adaptive exposure (matches automated_trading/config.py)
 ENABLE_ADAPTIVE_EXPOSURE = True
@@ -85,7 +85,7 @@ OLD_POSITION_STOP_PCT = 0.10  # 10% stop from high for old modest positions
 MAX_DAILY_LOSS_PCT = 5.0  # Alert if down >5% in one day
 MAX_DRAWDOWN_ALERT = 10.0  # Alert if drawdown >10%
 MIN_WIN_RATE_ALERT = 35.0  # Alert if win rate <35%
-MAX_EXPOSURE_ALERT = 70.0  # Alert if exposure >70% (matches MAX_TOTAL_EXPOSURE)
+MAX_EXPOSURE_ALERT = 65.0  # Alert if exposure >65% (matches MAX_TOTAL_EXPOSURE)
 
 # Logging
 LOG_LEVEL = 'INFO'  # DEBUG, INFO, WARNING, ERROR

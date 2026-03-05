@@ -199,6 +199,7 @@ INDUSTRY_TO_SECTOR = {
     'Lumber & Wood Production': 'Basic Materials',
     'Paper & Paper Products': 'Basic Materials',
     'Paper, Lumber & Forest Products': 'Basic Materials',
+    'Packaging & Containers': 'Basic Materials',
 
     # Real Estate industries
     'REIT': 'Real Estate',
