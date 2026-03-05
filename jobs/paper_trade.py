@@ -221,7 +221,7 @@ class PaperTradingPortfolio:
             sell_trades = [t for t in self.trade_history if t.get('action') == 'SELL']
             total_closed = len(sell_trades)
             if total_closed >= ADAPTIVE_EXPOSURE_MIN_TRADES:
-                wins = sum(1 for t in sell_trades if t.get('pnl', 0) > 0)
+                wins = sum(1 for t in sell_trades if t.get('profit', 0) > 0)
                 win_rate = wins / total_closed
                 wr_range = ADAPTIVE_EXPOSURE_WIN_RATE_HIGH - ADAPTIVE_EXPOSURE_WIN_RATE_LOW
                 if win_rate <= ADAPTIVE_EXPOSURE_WIN_RATE_LOW:
