@@ -184,7 +184,7 @@ class FailedTickerCache:
         if ticker in self.cache:
             del self.cache[ticker]
             self._save_cache()
-            logger.info(f"{ticker}: Removed from failed ticker cache (successful fetch)")
+            logger.debug(f"{ticker}: Removed from failed ticker cache (successful fetch)")
 
     def get_stats(self) -> Dict:
         """Get cache statistics"""
