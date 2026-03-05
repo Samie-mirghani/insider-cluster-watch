@@ -1,24 +1,24 @@
 {
-  "last_updated": "March 04, 2026 at 11:53 UTC",
-  "total_return_pct": 21.73,
-  "win_rate": 66.0,
-  "completed_trades": 47,
+  "last_updated": "March 05, 2026 at 11:54 UTC",
+  "total_return_pct": 23.3,
+  "win_rate": 66.7,
+  "completed_trades": 48,
   "active_trades": 11,
-  "avg_return_per_trade": 7.59,
-  "sharpe_ratio": 8.27,
+  "avg_return_per_trade": 7.74,
+  "sharpe_ratio": 8.51,
   "max_drawdown": -9.11,
   "avg_hold_days": 9,
   "best_trade_pct": 59.64,
   "worst_trade_pct": -32.78,
-  "alpha_vs_sp500": 23.91,
-  "avg_winner": 14.62,
+  "alpha_vs_sp500": 24.79,
+  "avg_winner": 14.63,
   "avg_loser": -6.03,
-  "win_loss_ratio": 2.42,
-  "profit_factor": 4.69,
-  "last_30_days_return": 47.99,
+  "win_loss_ratio": 2.43,
+  "profit_factor": 4.85,
+  "last_30_days_return": 63.05,
   "last_10_trades_win_rate": 40.0,
   "current_streak": 1,
-  "current_streak_type": "losses",
+  "current_streak_type": "wins",
   "conviction_performance": [
     {
       "conviction": "VERY HIGH",
@@ -28,9 +28,9 @@
     },
     {
       "conviction": "HIGH",
-      "trades": 17,
-      "win_rate": 70.6,
-      "avg_return": 9.87
+      "trades": 18,
+      "win_rate": 72.2,
+      "avg_return": 10.16
     },
     {
       "conviction": "MEDIUM",
@@ -60,10 +60,19 @@
     },
     {
       "month": "2026-03",
-      "return": -2.11
+      "return": 12.95
     }
   ],
   "recent_trades": [
+    {
+      "ticker": "CMTG",
+      "entry_date": "Mar 04, 2026",
+      "exit_date": "Mar 05, 2026",
+      "hold_days": 0,
+      "return_pct": 15.06,
+      "conviction": "HIGH",
+      "exit_reason": "Take Profit"
+    },
     {
       "ticker": "ARCC",
       "entry_date": "Feb 10, 2026",
@@ -234,91 +243,82 @@
       "return_pct": 14.74,
       "conviction": "HIGH",
       "exit_reason": "Take Profit"
-    },
-    {
-      "ticker": "IMRX",
-      "entry_date": "Jan 23, 2026",
-      "exit_date": "Jan 26, 2026",
-      "hold_days": 2,
-      "return_pct": 20.99,
-      "conviction": "LOW",
-      "exit_reason": "Take Profit"
     }
   ],
   "open_positions": [
     {
       "ticker": "ABT",
       "entry_date": "Jan 27, 2026",
-      "days_held": 36,
-      "unrealized_return": 5.51,
+      "days_held": 37,
+      "unrealized_return": 5.03,
       "conviction": "MEDIUM"
     },
     {
       "ticker": "GDV",
       "entry_date": "Jan 29, 2026",
-      "days_held": 34,
-      "unrealized_return": 3.13,
+      "days_held": 35,
+      "unrealized_return": 3.02,
       "conviction": "MEDIUM"
     },
     {
       "ticker": "CR",
       "entry_date": "Feb 03, 2026",
-      "days_held": 29,
-      "unrealized_return": 8.41,
+      "days_held": 30,
+      "unrealized_return": 9.89,
       "conviction": "HIGH"
     },
     {
       "ticker": "HCIC",
       "entry_date": "Feb 10, 2026",
-      "days_held": 21,
+      "days_held": 22,
       "unrealized_return": 0.0,
       "conviction": "HIGH"
     },
     {
       "ticker": "CBC",
       "entry_date": "Feb 10, 2026",
-      "days_held": 21,
-      "unrealized_return": 0.41,
+      "days_held": 22,
+      "unrealized_return": 1.23,
       "conviction": "MEDIUM"
     },
     {
       "ticker": "MMS",
       "entry_date": "Feb 12, 2026",
-      "days_held": 19,
-      "unrealized_return": 1.27,
+      "days_held": 20,
+      "unrealized_return": 3.76,
       "conviction": "MEDIUM"
     },
     {
       "ticker": "THS",
       "entry_date": "Feb 13, 2026",
-      "days_held": 18,
+      "days_held": 20,
       "unrealized_return": 0.0,
       "conviction": "LOW"
     },
     {
       "ticker": "NPB",
       "entry_date": "Feb 16, 2026",
-      "days_held": 15,
-      "unrealized_return": 4.43,
+      "days_held": 16,
+      "unrealized_return": 4.89,
       "conviction": "MEDIUM"
     },
     {
       "ticker": "REXR",
       "entry_date": "Mar 02, 2026",
-      "days_held": 2,
-      "unrealized_return": -0.85,
+      "days_held": 3,
+      "unrealized_return": -0.43,
       "conviction": "MEDIUM"
-    },
-    {
-      "ticker": "CMTG",
-      "entry_date": "Mar 04, 2026",
-      "days_held": 0,
-      "unrealized_return": -3.35,
-      "conviction": "HIGH"
     },
     {
       "ticker": "KKR",
       "entry_date": "Mar 04, 2026",
+      "days_held": 1,
+      "unrealized_return": 3.62,
+      "conviction": "HIGH"
+    },
+    {
+      "ticker": "TTD",
+      "entry_date": "Mar 05, 2026",
       "days_held": 0,
       "unrealized_return": 0.0,
       "conviction": "HIGH"
@@ -326,9 +326,9 @@
   ],
   "portfolio_composition": {
     "starting_capital": 10000,
-    "current_value": 12173.28,
-    "cash": 6218.11,
-    "invested_capital": 5955.17,
-    "capital_deployed_pct": 48.92
+    "current_value": 12330.3,
+    "cash": 6318.45,
+    "invested_capital": 6011.85,
+    "capital_deployed_pct": 48.76
   }
 }

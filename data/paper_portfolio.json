@@ -1,6 +1,6 @@
 {
   "starting_capital": 10000,
-  "cash": 6218.114999999993,
+  "cash": 6318.454999999994,
   "positions": {
     "ABT": {
       "entry_date": "2026-01-27T11:39:21.361467",
@@ -130,7 +130,7 @@
       "initial_stop_loss": 69.06439999999999,
       "stop_loss": 69.06439999999999,
       "take_profit": 84.0784,
-      "highest_price": 76.02,
+      "highest_price": 77.89,
       "trailing_enabled": false,
       "signal_score": 9.585031303842138,
       "sector": "Specialty Business Services",
@@ -210,28 +210,6 @@
         }
       ]
     },
-    "CMTG": {
-      "entry_date": "2026-03-04T11:52:30.515845",
-      "entry_price": 2.39,
-      "shares": 247,
-      "cost_basis": 590.33,
-      "initial_stop_loss": 2.1988000000000003,
-      "stop_loss": 2.1988000000000003,
-      "take_profit": 2.6768000000000005,
-      "highest_price": 2.39,
-      "trailing_enabled": false,
-      "signal_score": 12.188638768905172,
-      "sector": "REIT - Mortgage",
-      "multi_signal_tier": "none",
-      "has_politician_signal": false,
-      "tranches": [
-        {
-          "shares": 247,
-          "price": 2.39,
-          "date": "2026-03-04T11:52:30.515849"
-        }
-      ]
-    },
     "KKR": {
       "entry_date": "2026-03-04T11:52:33.677834",
       "entry_price": 90.55,
@@ -240,7 +218,7 @@
       "initial_stop_loss": 83.306,
       "stop_loss": 83.306,
       "take_profit": 101.41600000000001,
-      "highest_price": 90.55,
+      "highest_price": 93.83,
       "trailing_enabled": false,
       "signal_score": 11.979776312711003,
       "sector": "Asset Management",
@@ -253,6 +231,28 @@
           "date": "2026-03-04T11:52:33.677838"
         }
       ]
+    },
+    "TTD": {
+      "entry_date": "2026-03-05T11:53:43.827373",
+      "entry_price": 25.17,
+      "shares": 23,
+      "cost_basis": 578.9100000000001,
+      "initial_stop_loss": 23.1564,
+      "stop_loss": 23.1564,
+      "take_profit": 28.190400000000004,
+      "highest_price": 25.17,
+      "trailing_enabled": false,
+      "signal_score": 12.055027562836932,
+      "sector": "Software - Application",
+      "multi_signal_tier": "none",
+      "has_politician_signal": false,
+      "tranches": [
+        {
+          "shares": 23,
+          "price": 25.17,
+          "date": "2026-03-05T11:53:43.827378"
+        }
+      ]
     }
   },
   "pending_entries": {
@@ -263,26 +263,26 @@
       "expires": "2026-03-07T11:53:01.964086",
       "signal_score": 9.46318413580805
     },
-    "CMTG": {
-      "shares": 165,
-      "trigger_price": 2.3422,
-      "original_entry": 2.39,
-      "expires": "2026-03-09T11:52:30.691357",
-      "signal_score": 12.188638768905172
-    },
     "KKR": {
       "shares": 4,
       "trigger_price": 88.73899999999999,
       "original_entry": 90.55,
       "expires": "2026-03-09T11:52:33.867801",
       "signal_score": 11.979776312711003
+    },
+    "TTD": {
+      "shares": 15,
+      "trigger_price": 24.666600000000003,
+      "original_entry": 25.17,
+      "expires": "2026-03-10T11:53:44.100537",
+      "signal_score": 12.055027562836932
     }
   },
-  "total_trades": 58,
-  "winning_trades": 31,
+  "total_trades": 59,
+  "winning_trades": 32,
   "losing_trades": 16,
-  "total_profit": 2056.7299999999996,
+  "total_profit": 2145.6499999999996,
   "max_portfolio_value": 12385.904999999993,
   "max_drawdown": -9.109194484777545,
-  "last_updated": "2026-03-04T11:53:02.575057"
+  "last_updated": "2026-03-05T11:53:57.793165"
 }
