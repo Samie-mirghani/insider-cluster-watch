@@ -1,6 +1,6 @@
 {
   "starting_capital": 10000,
-  "cash": 7297.954999999994,
+  "cash": 7359.074999999993,
   "positions": {
     "ABT": {
       "entry_date": "2026-01-27T11:39:21.361467",
@@ -29,28 +29,6 @@
         }
       ]
     },
-    "GDV": {
-      "entry_date": "2026-01-29T11:49:25.508593",
-      "entry_price": 27.78,
-      "shares": 15,
-      "cost_basis": 416.70000000000005,
-      "initial_stop_loss": 25.5576,
-      "stop_loss": 27.7685,
-      "take_profit": 31.113600000000005,
-      "highest_price": 29.23,
-      "trailing_enabled": true,
-      "signal_score": 7.388243095394204,
-      "sector": "Asset Management - Income",
-      "multi_signal_tier": "none",
-      "has_politician_signal": false,
-      "tranches": [
-        {
-          "shares": 15,
-          "price": 27.78,
-          "date": "2026-01-29T11:49:25.508599"
-        }
-      ]
-    },
     "CR": {
       "entry_date": "2026-02-03T11:52:37.722038",
       "entry_price": 185.27,
@@ -73,33 +51,6 @@
         }
       ]
     },
-    "CBC": {
-      "entry_date": "2026-02-10T12:11:17.997180",
-      "entry_price": 24.3,
-      "shares": 30,
-      "cost_basis": 729.0,
-      "initial_stop_loss": 22.540000000000003,
-      "stop_loss": 23.9305,
-      "take_profit": 27.216000000000005,
-      "highest_price": 25.19,
-      "trailing_enabled": true,
-      "signal_score": 8.073194905513356,
-      "sector": "Banks - Regional",
-      "multi_signal_tier": "none",
-      "has_politician_signal": false,
-      "tranches": [
-        {
-          "shares": 18,
-          "price": 24.5,
-          "date": "2026-02-10T12:11:17.997184"
-        },
-        {
-          "shares": 12,
-          "price": 24.0,
-          "date": "2026-02-12T11:57:21.221320"
-        }
-      ]
-    },
     "MMS": {
       "entry_date": "2026-02-12T12:03:27.651227",
       "entry_price": 75.07,
@@ -108,7 +59,7 @@
       "initial_stop_loss": 69.06439999999999,
       "stop_loss": 69.06439999999999,
       "take_profit": 84.0784,
-      "highest_price": 77.89,
+      "highest_price": 78.79,
       "trailing_enabled": false,
       "signal_score": 9.585031303842138,
       "sector": "Specialty Business Services",
@@ -174,7 +125,7 @@
       "initial_stop_loss": 83.306,
       "stop_loss": 83.306,
       "take_profit": 101.41600000000001,
-      "highest_price": 93.83,
+      "highest_price": 95.59,
       "trailing_enabled": false,
       "signal_score": 11.979776312711003,
       "sector": "Asset Management",
@@ -188,25 +139,69 @@
         }
       ]
     },
-    "TTD": {
-      "entry_date": "2026-03-05T11:53:43.827373",
-      "entry_price": 25.17,
-      "shares": 23,
-      "cost_basis": 578.9100000000001,
-      "initial_stop_loss": 23.1564,
-      "stop_loss": 23.1564,
-      "take_profit": 28.190400000000004,
-      "highest_price": 25.17,
+    "SSP": {
+      "entry_date": "2026-03-06T11:51:32.668312",
+      "entry_price": 4.41,
+      "shares": 166,
+      "cost_basis": 732.0600000000001,
+      "initial_stop_loss": 4.0572,
+      "stop_loss": 4.0572,
+      "take_profit": 4.9392000000000005,
+      "highest_price": 4.41,
       "trailing_enabled": false,
-      "signal_score": 12.055027562836932,
-      "sector": "Software - Application",
+      "signal_score": 15.720085850668989,
+      "sector": "Broadcasting",
       "multi_signal_tier": "none",
       "has_politician_signal": false,
       "tranches": [
         {
-          "shares": 23,
-          "price": 25.17,
-          "date": "2026-03-05T11:53:43.827378"
+          "shares": 166,
+          "price": 4.41,
+          "date": "2026-03-06T11:51:32.668318"
+        }
+      ]
+    },
+    "MSDL": {
+      "entry_date": "2026-03-06T11:51:35.742870",
+      "entry_price": 14.57,
+      "shares": 40,
+      "cost_basis": 582.8,
+      "initial_stop_loss": 13.4044,
+      "stop_loss": 13.4044,
+      "take_profit": 16.3184,
+      "highest_price": 14.57,
+      "trailing_enabled": false,
+      "signal_score": 11.705444192099314,
+      "sector": "Financial - Conglomerates",
+      "multi_signal_tier": "none",
+      "has_politician_signal": false,
+      "tranches": [
+        {
+          "shares": 40,
+          "price": 14.57,
+          "date": "2026-03-06T11:51:35.742874"
+        }
+      ]
+    },
+    "SWZ": {
+      "entry_date": "2026-03-06T11:51:39.694437",
+      "entry_price": 6.21,
+      "shares": 74,
+      "cost_basis": 459.54,
+      "initial_stop_loss": 5.7132000000000005,
+      "stop_loss": 5.7132000000000005,
+      "take_profit": 6.9552000000000005,
+      "highest_price": 6.21,
+      "trailing_enabled": false,
+      "signal_score": 8.439573439403901,
+      "sector": "Asset Management",
+      "multi_signal_tier": "none",
+      "has_politician_signal": false,
+      "tranches": [
+        {
+          "shares": 74,
+          "price": 6.21,
+          "date": "2026-03-06T11:51:39.694442"
         }
       ]
     }
@@ -226,19 +221,33 @@
       "expires": "2026-03-09T11:52:33.867801",
       "signal_score": 11.979776312711003
     },
-    "TTD": {
-      "shares": 15,
-      "trigger_price": 24.666600000000003,
-      "original_entry": 25.17,
-      "expires": "2026-03-10T11:53:44.100537",
-      "signal_score": 12.055027562836932
+    "SSP": {
+      "shares": 110,
+      "trigger_price": 4.3218,
+      "original_entry": 4.41,
+      "expires": "2026-03-11T11:51:32.835906",
+      "signal_score": 15.720085850668989
+    },
+    "MSDL": {
+      "shares": 26,
+      "trigger_price": 14.2786,
+      "original_entry": 14.57,
+      "expires": "2026-03-11T11:51:35.889358",
+      "signal_score": 11.705444192099314
+    },
+    "SWZ": {
+      "shares": 49,
+      "trigger_price": 6.0858,
+      "original_entry": 6.21,
+      "expires": "2026-03-11T11:51:39.847779",
+      "signal_score": 8.439573439403901
     }
   },
-  "total_trades": 59,
-  "winning_trades": 32,
-  "losing_trades": 16,
-  "total_profit": 2145.6499999999996,
-  "max_portfolio_value": 12385.904999999993,
+  "total_trades": 62,
+  "winning_trades": 34,
+  "losing_trades": 17,
+  "total_profit": 2256.5599999999995,
+  "max_portfolio_value": 12413.654999999993,
   "max_drawdown": -9.109194484777545,
-  "last_updated": "2026-03-05T11:53:57.793165"
+  "last_updated": "2026-03-06T11:51:44.528511"
 }
