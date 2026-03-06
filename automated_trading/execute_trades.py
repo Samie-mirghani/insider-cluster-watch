@@ -751,17 +751,52 @@ class TradingEngine:
                 logger.warning(f"Rotation aborted: {exit_ticker} has {shares} shares")
                 return False
 
-            # Use close_position if available on the client, otherwise market sell
+            # Submit market sell and WAIT for fill before proceeding.
+            # Without this, the buy order would race against the sell:
+            # - Alpaca still counts the position as open (slot occupied)
+            # - Buying power hasn't been freed yet (proceeds not settled)
             close_result = self.alpaca_client.close_position(exit_ticker)
 
             if close_result:
-                # Remove from local position tracker
+                order_id = close_result.get('order_id')
+
+                # Block until the sell fills (or times out after 30s)
+                try:
+                    fill_result = self.alpaca_client.await_fill(order_id, timeout_seconds=30)
+                    fill_status = fill_result.get('status', '').lower()
+
+                    if fill_status != 'filled':
+                        logger.warning(
+                            f"Rotation sell for {exit_ticker} ended in '{fill_status}' "
+                            f"(not 'filled') — aborting rotation"
+                        )
+                        log_audit_event('ROTATION_SELL_NOT_FILLED', {
+                            'ticker': exit_ticker,
+                            'order_id': order_id,
+                            'terminal_status': fill_status,
+                        }, outcome='WARNING')
+                        return False
+
+                    # Use actual fill price for accurate P&L
+                    actual_fill_price = fill_result.get('filled_avg_price')
+
+                except Exception as e:
+                    logger.error(f"Rotation sell await_fill failed for {exit_ticker}: {e}")
+                    log_audit_event('ROTATION_SELL_TIMEOUT', {
+                        'ticker': exit_ticker,
+                        'order_id': order_id,
+                        'error': str(e),
+                    }, outcome='ERROR')
+                    # Don't remove position locally — the sell may still be pending
+                    return False
+
+                # Sell confirmed filled — now safe to update local state
                 self.position_monitor.remove_position(exit_ticker)
 
-                # Calculate P&L for logging
-                current_price = _get_price(exit_ticker, exit_pos['entry_price'])
-                pnl_pct = ((current_price - exit_pos['entry_price']) / exit_pos['entry_price'] * 100) if exit_pos['entry_price'] > 0 else 0
-                pnl_dollars = (current_price - exit_pos['entry_price']) * shares
+                # Calculate P&L using actual fill price (falls back to estimated)
+                exit_price = actual_fill_price if actual_fill_price else _get_price(exit_ticker, exit_pos['entry_price'])
+                pnl_pct = ((exit_price - exit_pos['entry_price']) / exit_pos['entry_price'] * 100) if exit_pos['entry_price'] > 0 else 0
+                pnl_dollars = (exit_price - exit_pos['entry_price']) * shares
 
                 # Record the exit
                 log_audit_event('ROTATION_EXIT', {
@@ -769,7 +804,7 @@ class TradingEngine:
                     'incoming_ticker': incoming_ticker,
                     'shares': shares,
                     'entry_price': round(exit_pos['entry_price'], 2),
-                    'exit_price': round(current_price, 2),
+                    'exit_price': round(exit_price, 2),
                     'pnl_pct': round(pnl_pct, 2),
                     'pnl_dollars': round(pnl_dollars, 2),
                     'signal_score_old': exit_pos.get('signal_score', 0),

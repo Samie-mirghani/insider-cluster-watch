@@ -425,6 +425,52 @@ class AlpacaTradingClient:
             'status': str(order.status)
         }
 
+    def await_fill(self, order_id: str, timeout_seconds: int = 30, poll_interval: float = 0.5) -> Dict[str, Any]:
+        """
+        Poll an order until it reaches a terminal state (filled, cancelled, expired, rejected).
+
+        Used by signal rotation to ensure the sell order completes before
+        submitting the replacement buy, preventing race conditions on position
+        count and buying power.
+
+        Args:
+            order_id: Alpaca order ID to poll.
+            timeout_seconds: Max seconds to wait before giving up.
+            poll_interval: Seconds between polls (starts at this, doubles up to 2s).
+
+        Returns:
+            Final order dict with status, filled_avg_price, etc.
+
+        Raises:
+            AlpacaClientError: If timeout is exceeded without reaching terminal state.
+        """
+        terminal_states = {'filled', 'cancelled', 'expired', 'rejected',
+                           'canceled', 'done_for_day', 'replaced'}
+        elapsed = 0.0
+        current_interval = poll_interval
+
+        while elapsed < timeout_seconds:
+            order_data = self.get_order(order_id)
+            if order_data is None:
+                raise AlpacaClientError(f"Order {order_id} not found during await_fill")
+
+            status = order_data.get('status', '').lower()
+            if status in terminal_states:
+                logger.info(
+                    f"Order {order_id} reached terminal state: {status} "
+                    f"(elapsed {elapsed:.1f}s)"
+                )
+                return order_data
+
+            time.sleep(current_interval)
+            elapsed += current_interval
+            current_interval = min(current_interval * 1.5, 2.0)  # Backoff up to 2s
+
+        raise AlpacaClientError(
+            f"Order {order_id} did not fill within {timeout_seconds}s "
+            f"(last status: {order_data.get('status', 'unknown')})"
+        )
+
     # =========================================================================
     # Order Operations
     # =========================================================================

@@ -15,7 +15,9 @@ Rotation Philosophy:
   are handled by the normal exit logic.
 """
 
+import json
 import logging
+import os
 from datetime import datetime, timedelta
 from typing import Dict, List, Optional, Tuple
 
@@ -37,16 +39,16 @@ class RotationCandidate:
         trailing_enabled: bool = False,
     ):
         self.ticker = ticker
-        self.entry_price = entry_price
-        self.current_price = current_price
-        self.signal_score = signal_score
-        self.days_held = days_held
+        self.entry_price = entry_price or 0.0
+        self.current_price = current_price or 0.0
+        self.signal_score = signal_score if signal_score is not None else 0.0
+        self.days_held = max(days_held, 0)
         self.sector = sector
         self.multi_signal_tier = multi_signal_tier
         self.trailing_enabled = trailing_enabled
 
-        # Derived
-        self.pnl_pct = ((current_price - entry_price) / entry_price * 100) if entry_price > 0 else 0.0
+        # Derived — guard against entry_price=0 (division by zero)
+        self.pnl_pct = ((self.current_price - self.entry_price) / self.entry_price * 100) if self.entry_price > 0 else 0.0
 
     @property
     def effective_score(self) -> float:
@@ -117,7 +119,11 @@ class RotationScorer:
         self.protect_positive_momentum = protect_positive_momentum
         self.positive_momentum_threshold = positive_momentum_threshold
 
+        # Persistent rotation history file path (set by factory helpers)
+        self._state_file: Optional[str] = None
+
         # Track rotation events to enforce cooldown and daily limits
+        # Loaded from disk if a state file is configured.
         self._rotation_history: List[Dict] = []
 
     # --------------------------------------------------------------------- #
@@ -152,7 +158,7 @@ class RotationScorer:
         if len(positions) < max_positions:
             return None
 
-        incoming_score = incoming_signal.get('signal_score', 0)
+        incoming_score = incoming_signal.get('signal_score') or 0
         incoming_ticker = incoming_signal.get('ticker', '')
 
         # Gate 1: incoming signal must meet minimum quality bar
@@ -237,6 +243,56 @@ class RotationScorer:
 
         return (weakest.ticker, positions[weakest.ticker], incoming_signal)
 
+    def set_state_file(self, path: str) -> None:
+        """Set the persistent state file and load any existing history from it."""
+        self._state_file = path
+        self._load_state()
+
+    def _load_state(self) -> None:
+        """Load rotation history from disk. Prunes entries older than cooldown window."""
+        if not self._state_file or not os.path.exists(self._state_file):
+            return
+        try:
+            with open(self._state_file, 'r') as f:
+                data = json.load(f)
+            # Deserialise timestamps and prune stale entries
+            cutoff = datetime.now() - timedelta(hours=max(self.rotation_cooldown_hours, 72))
+            loaded = []
+            for entry in data.get('history', []):
+                ts = entry.get('timestamp')
+                if isinstance(ts, str):
+                    try:
+                        ts = datetime.fromisoformat(ts)
+                    except (ValueError, TypeError):
+                        continue
+                elif not isinstance(ts, datetime):
+                    continue
+                if ts >= cutoff:
+                    loaded.append({**entry, 'timestamp': ts})
+            self._rotation_history = loaded
+            logger.info(f"Loaded {len(loaded)} rotation history entries from {self._state_file}")
+        except Exception as e:
+            logger.warning(f"Failed to load rotation state from {self._state_file}: {e}")
+            self._rotation_history = []
+
+    def _save_state(self) -> None:
+        """Persist rotation history to disk."""
+        if not self._state_file:
+            return
+        try:
+            serialisable = []
+            for entry in self._rotation_history:
+                ts = entry.get('timestamp')
+                serialisable.append({
+                    **entry,
+                    'timestamp': ts.isoformat() if isinstance(ts, datetime) else str(ts),
+                })
+            os.makedirs(os.path.dirname(self._state_file), exist_ok=True)
+            with open(self._state_file, 'w') as f:
+                json.dump({'history': serialisable, 'last_updated': datetime.now().isoformat()}, f, indent=2)
+        except Exception as e:
+            logger.error(f"Failed to save rotation state to {self._state_file}: {e}")
+
     def record_rotation(self, exited_ticker: str, entered_ticker: str) -> None:
         """Record a rotation event for cooldown and daily-limit tracking."""
         self._rotation_history.append({
@@ -244,6 +300,7 @@ class RotationScorer:
             'entered': entered_ticker,
             'timestamp': datetime.now(),
         })
+        self._save_state()
 
     def get_rotation_stats(self) -> Dict:
         """Return rotation statistics for reporting."""
@@ -311,7 +368,7 @@ def build_paper_rotation_scorer():
     except ImportError:
         from jobs import config as cfg
 
-    return RotationScorer(
+    scorer = RotationScorer(
         enable_rotation=getattr(cfg, 'ENABLE_SIGNAL_ROTATION', True),
         min_incoming_score=getattr(cfg, 'ROTATION_MIN_INCOMING_SCORE', 10.0),
         score_advantage_threshold=getattr(cfg, 'ROTATION_SCORE_ADVANTAGE_THRESHOLD', 4.0),
@@ -323,13 +380,17 @@ def build_paper_rotation_scorer():
         protect_positive_momentum=getattr(cfg, 'ROTATION_PROTECT_MOMENTUM', True),
         positive_momentum_threshold=getattr(cfg, 'ROTATION_MOMENTUM_THRESHOLD', 8.0),
     )
+    # Persist rotation state alongside other paper trading data
+    state_file = os.path.join(os.path.dirname(__file__), '..', 'data', 'rotation_state.json')
+    scorer.set_state_file(state_file)
+    return scorer
 
 
 def build_live_rotation_scorer():
     """Build a RotationScorer using automated_trading/config.py settings."""
     from automated_trading import config as cfg
 
-    return RotationScorer(
+    scorer = RotationScorer(
         enable_rotation=getattr(cfg, 'ENABLE_SIGNAL_ROTATION', True),
         min_incoming_score=getattr(cfg, 'ROTATION_MIN_INCOMING_SCORE', 10.0),
         score_advantage_threshold=getattr(cfg, 'ROTATION_SCORE_ADVANTAGE_THRESHOLD', 4.0),
@@ -341,3 +402,7 @@ def build_live_rotation_scorer():
         protect_positive_momentum=getattr(cfg, 'ROTATION_PROTECT_MOMENTUM', True),
         positive_momentum_threshold=getattr(cfg, 'ROTATION_MOMENTUM_THRESHOLD', 8.0),
     )
+    # Persist rotation state in the automated trading data directory
+    state_file = os.path.join(cfg.DATA_DIR, 'rotation_state.json')
+    scorer.set_state_file(state_file)
+    return scorer
