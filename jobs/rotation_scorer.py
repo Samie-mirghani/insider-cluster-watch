@@ -403,6 +403,5 @@ def build_live_rotation_scorer():
         positive_momentum_threshold=getattr(cfg, 'ROTATION_MOMENTUM_THRESHOLD', 8.0),
     )
     # Persist rotation state in the automated trading data directory
-    state_file = os.path.join(cfg.DATA_DIR, 'rotation_state.json')
-    scorer.set_state_file(state_file)
+    scorer.set_state_file(cfg.ROTATION_STATE_FILE)
     return scorer
