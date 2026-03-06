@@ -867,8 +867,8 @@ class PaperTradingPortfolio:
             self.daily_trades_count = 0
             self.last_trade_date = today
         
-        if self.daily_trades_count >= 3:
-            logger.warning(f"   ⚠️  REJECTED: Daily trade limit reached (3)")
+        if self.daily_trades_count >= 5:
+            logger.warning(f"   ⚠️  REJECTED: Daily trade limit reached (5)")
             return False
         
         # Calculate position sizing
