@@ -15,6 +15,7 @@ from config import *
 from ticker_validator import get_failed_ticker_cache
 from fmp_api import search_mergers_acquisitions, get_company_profile
 from signal_filters import check_shell_company, check_stale_ticker, check_ma_target
+from rotation_scorer import build_paper_rotation_scorer
 
 DATA_DIR = os.path.join(os.path.dirname(__file__), '..', 'data')
 PAPER_PORTFOLIO_FILE = os.path.join(DATA_DIR, 'paper_portfolio.json')
@@ -88,6 +89,9 @@ class PaperTradingPortfolio:
         self.session_start_positions_count = None
         self.session_start_positions_cost = None
         self.session_trades = []  # Trades during this session
+
+        # Signal rotation scorer (lazy init on first use)
+        self._rotation_scorer = None
 
         logger.info(f"📊 Paper Trading Portfolio Initialized")
         logger.info(f"   Starting Capital: ${starting_capital:,.2f}")
@@ -462,6 +466,72 @@ class PaperTradingPortfolio:
             self._atr_cache[ticker] = None
             return None
 
+    def _get_rotation_scorer(self):
+        """Lazy-initialise the rotation scorer on first use."""
+        if self._rotation_scorer is None:
+            self._rotation_scorer = build_paper_rotation_scorer()
+        return self._rotation_scorer
+
+    def evaluate_and_execute_rotation(self, signal):
+        """
+        When the portfolio is at max capacity, check whether the incoming signal
+        is strong enough to justify rotating out of the weakest position.
+
+        If a rotation is warranted:
+          1. Close the weakest position (recording it as a ROTATION_EXIT).
+          2. Return True so the caller can proceed with execute_signal.
+
+        Returns:
+            True if a rotation was executed and a slot was freed.
+            False if no rotation is warranted.
+        """
+        scorer = self._get_rotation_scorer()
+        if not scorer.enable_rotation:
+            return False
+
+        result = scorer.find_rotation_target(
+            incoming_signal=signal if isinstance(signal, dict) else signal.to_dict(),
+            positions=self.positions,
+            get_current_price_fn=self._get_current_price,
+            max_positions=self.max_positions,
+        )
+
+        if result is None:
+            return False
+
+        exit_ticker, exit_pos, incoming = result
+        incoming_ticker = incoming.get('ticker', '?')
+
+        # Get current price for the position we're rotating out of
+        current_price = self._get_current_price(exit_ticker, exit_pos['entry_price'])
+
+        # Calculate effective score for logging
+        entry_date = exit_pos.get('entry_date', datetime.now())
+        if isinstance(entry_date, str):
+            try:
+                entry_date = datetime.fromisoformat(entry_date)
+            except (ValueError, TypeError):
+                entry_date = datetime.now()
+        days_held = (datetime.now() - entry_date).days
+        pnl_pct = ((current_price - exit_pos['entry_price']) / exit_pos['entry_price'] * 100) if exit_pos['entry_price'] > 0 else 0
+
+        logger.info(f"\n{'='*60}")
+        logger.info(f"🔄 SIGNAL ROTATION: {exit_ticker} → {incoming_ticker}")
+        logger.info(f"{'='*60}")
+        logger.info(f"   Exiting:  {exit_ticker} (signal_score={exit_pos.get('signal_score', 0):.1f}, pnl={pnl_pct:+.1f}%, days={days_held})")
+        logger.info(f"   Entering: {incoming_ticker} (score={incoming.get('signal_score', 0):.1f})")
+
+        # Close the position with a ROTATION_EXIT reason
+        self._close_position(exit_ticker, current_price, 'ROTATION_EXIT')
+
+        # Record the rotation event for cooldown/limit tracking
+        scorer.record_rotation(exit_ticker, incoming_ticker)
+
+        logger.info(f"   Slot freed — proceeding to open {incoming_ticker}")
+        logger.info(f"{'='*60}\n")
+
+        return True
+
     def calculate_position_size(self, signal):
         """
         Calculate appropriate position size based on portfolio value and risk params
@@ -812,8 +882,21 @@ class PaperTradingPortfolio:
         # Validate position size
         is_valid, reason = self.validate_position_size(ticker, initial_shares, entry_price)
         if not is_valid:
-            logger.warning(f"   ❌ REJECTED: {reason}")
-            return False
+            # If rejected due to max positions, attempt rotation
+            if 'max positions' in reason.lower():
+                rotated = self.evaluate_and_execute_rotation(signal)
+                if rotated:
+                    # Slot freed — re-validate (position count is now below max)
+                    is_valid, reason = self.validate_position_size(ticker, initial_shares, entry_price)
+                    if not is_valid:
+                        logger.warning(f"   ❌ REJECTED after rotation: {reason}")
+                        return False
+                else:
+                    logger.warning(f"   ❌ REJECTED: {reason} (rotation not viable)")
+                    return False
+            else:
+                logger.warning(f"   ❌ REJECTED: {reason}")
+                return False
 
         # Calculate actual cost
         actual_cost = initial_shares * entry_price
@@ -1362,6 +1445,17 @@ class PaperTradingPortfolio:
         )
         exposure_pct = (total_exposure / current_value * 100) if current_value > 0 else 0
 
+        # Rotation stats
+        rotation_stats = {}
+        if self._rotation_scorer:
+            rotation_stats = self._rotation_scorer.get_rotation_stats()
+
+        # Count rotation exits from trade history
+        rotation_exits = sum(
+            1 for t in self.trade_history
+            if t.get('action') == 'SELL' and t.get('exit_reason') == 'ROTATION_EXIT'
+        )
+
         # Build stats dictionary
         stats = {
             'starting_capital': self.starting_capital,
@@ -1383,7 +1477,9 @@ class PaperTradingPortfolio:
             'max_drawdown': self.max_drawdown,
             'current_exposure': total_exposure,
             'exposure_pct': exposure_pct,
-            'realized_pnl': self.total_profit
+            'realized_pnl': self.total_profit,
+            'rotation_exits': rotation_exits,
+            'rotation_stats': rotation_stats,
         }
 
         # ENHANCED LOGGING: Log summary generation for debugging
@@ -1688,6 +1784,7 @@ def generate_paper_trading_report(portfolio):
         Avg Win:           ${stats['avg_win']:>12.2f} ({stats['avg_win_pct']:+.2f}%)
         Avg Loss:          ${stats['avg_loss']:>12.2f} ({stats['avg_loss_pct']:+.2f}%)
         Avg Hold Time:     {stats['avg_hold_days']:>12.1f} days
+        Rotation Exits:    {stats.get('rotation_exits', 0):>12}
 
         """
     
