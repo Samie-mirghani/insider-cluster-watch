@@ -1119,7 +1119,7 @@ class PaperTradingPortfolio:
 
                 # Enable trailing stop after threshold gain AND minimum hold period
                 if not pos['trailing_enabled']:
-                    signal_score = pos.get('signal_score', 0)
+                    signal_score = pos.get('signal_score') or 0
                     trailing_params = get_trailing_params(signal_score)
                     trigger_pct = round(trailing_params['trigger_pct'] * 100, 10)
 
@@ -1135,7 +1135,7 @@ class PaperTradingPortfolio:
 
                 # === HYBRID: Dynamic Stop Tightening for Winners ===
                 if dynamic_stops_enabled and pos['trailing_enabled']:
-                    signal_score = pos.get('signal_score', 0)
+                    signal_score = pos.get('signal_score') or 0
                     trailing_pct = get_trailing_params(signal_score)['trail_pct']
                     stop_reason = "standard trailing"
 
@@ -1173,7 +1173,7 @@ class PaperTradingPortfolio:
 
                 # Standard trailing stop (if dynamic stops disabled)
                 elif pos['trailing_enabled']:
-                    signal_score = pos.get('signal_score', 0)
+                    signal_score = pos.get('signal_score') or 0
                     score_trail_pct = get_trailing_params(signal_score)['trail_pct']
                     new_stop = pos.get('highest_price', current_price) * (1 - score_trail_pct)
                     if new_stop > pos['stop_loss']:
@@ -1811,7 +1811,7 @@ def generate_paper_trading_report(portfolio):
                 unrealized_pct = (unrealized_pl / pos['cost_basis']) * 100
                 days_held = (datetime.now() - pos['entry_date']).days
                 
-                signal_score = pos.get('signal_score', 0)
+                signal_score = pos.get('signal_score') or 0
                 trailing_params = get_trailing_params(signal_score)
                 if pos.get('trailing_enabled'):
                     if unrealized_pct > HUGE_WINNER_THRESHOLD:

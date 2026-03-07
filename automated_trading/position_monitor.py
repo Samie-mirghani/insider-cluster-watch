@@ -790,7 +790,7 @@ class PositionMonitor:
 
             entry_price = pos['entry_price']
             pnl_pct = calculate_pnl_pct(entry_price, current_price)
-            days_held = (datetime.now() - pos['entry_date']).days
+            days_held = (datetime.now() - pos['entry_date']).days if isinstance(pos.get('entry_date'), datetime) else 0
 
             exit_info = None
 
@@ -922,8 +922,8 @@ class PositionMonitor:
 
             # Enable trailing stop after threshold gain AND minimum hold period
             if not pos.get('trailing_enabled'):
-                days_held = (datetime.now() - pos['entry_date']).days
-                signal_score = pos.get('signal_score', 0)
+                days_held = (datetime.now() - pos['entry_date']).days if isinstance(pos.get('entry_date'), datetime) else 0
+                signal_score = pos.get('signal_score') or 0
                 trailing_params = config.get_trailing_params(signal_score)
                 trigger_pct = round(trailing_params['trigger_pct'] * 100, 10)
 
@@ -952,8 +952,8 @@ class PositionMonitor:
 
             # Update trailing stop
             if pos.get('trailing_enabled'):
-                days_held = (datetime.now() - pos['entry_date']).days
-                signal_score = pos.get('signal_score', 0)
+                days_held = (datetime.now() - pos['entry_date']).days if isinstance(pos.get('entry_date'), datetime) else 0
+                signal_score = pos.get('signal_score') or 0
 
                 # Determine trailing percentage based on gain thresholds, then
                 # fall back to score-tiered trail width instead of flat default.
@@ -1358,7 +1358,7 @@ class PositionMonitor:
             target_dist = ((take_profit - current_price) / current_price * 100) if current_price > 0 else 0
 
             # Trailing tier label
-            signal_score = pos.get('signal_score', 0)
+            signal_score = pos.get('signal_score') or 0
             trailing_params = config.get_trailing_params(signal_score)
             if trailing_enabled:
                 if pnl_pct > config.HUGE_WINNER_THRESHOLD:

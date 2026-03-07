@@ -396,15 +396,22 @@ def get_adaptive_max_exposure(win_rate: float, total_trades: int) -> float:
     return ADAPTIVE_EXPOSURE_MIN + normalized * (ADAPTIVE_EXPOSURE_MAX - ADAPTIVE_EXPOSURE_MIN)
 
 
-def get_trailing_params(signal_score: float) -> dict:
+def get_trailing_params(signal_score) -> dict:
     """Return trailing stop parameters (trail_pct, trigger_pct) for a given signal score.
 
     Iterates TRAILING_TIERS from highest min_score to lowest, returning the
     first tier whose min_score the signal qualifies for.  Falls back to the
     global TRAILING_STOP_PCT / TRAILING_TRIGGER_PCT defaults.
+
+    Handles None/non-numeric scores safely by treating them as 0.
     """
+    try:
+        score = float(signal_score) if signal_score is not None else 0.0
+    except (TypeError, ValueError):
+        score = 0.0
+
     for tier in sorted(TRAILING_TIERS.values(), key=lambda t: t['min_score'], reverse=True):
-        if signal_score >= tier['min_score']:
+        if score >= tier['min_score']:
             return {
                 'trail_pct': tier['trail_pct'],
                 'trigger_pct': tier['trigger_pct'],
