@@ -920,11 +920,23 @@ class PositionMonitor:
                         f"${current_price:.2f} (+{spike_pct:.1f}%) — not updating highest_price"
                     )
 
-            # Enable trailing stop after threshold gain
+            # Enable trailing stop after threshold gain AND minimum hold period
             if not pos.get('trailing_enabled'):
-                if pnl_pct >= round(config.TRAILING_TRIGGER_PCT * 100, 10):
+                days_held = (datetime.now() - pos['entry_date']).days
+                signal_score = pos.get('signal_score', 0)
+                trailing_params = config.get_trailing_params(signal_score)
+                trigger_pct = round(trailing_params['trigger_pct'] * 100, 10)
+
+                if days_held < config.TRAILING_MIN_HOLD_DAYS:
+                    # Too early — let the thesis develop before trailing
+                    pass
+                elif pnl_pct >= trigger_pct:
                     pos['trailing_enabled'] = True
-                    logger.info(f"{ticker}: Trailing stop ENABLED at +{pnl_pct:.1f}%")
+                    logger.info(
+                        f"{ticker}: Trailing stop ENABLED at +{pnl_pct:.1f}% "
+                        f"(score {signal_score:.1f}, trigger {trigger_pct:.0f}%, "
+                        f"held {days_held}d)"
+                    )
 
                     # Audit log trailing stop activation
                     log_audit_event('TRAILING_STOP_ENABLED', {
@@ -932,14 +944,19 @@ class PositionMonitor:
                         'trigger_pnl_pct': round(pnl_pct, 2),
                         'current_price': round(current_price, 2),
                         'entry_price': round(entry_price, 2),
-                        'current_stop': round(pos['stop_loss'], 2)
+                        'current_stop': round(pos['stop_loss'], 2),
+                        'signal_score': signal_score,
+                        'days_held': days_held,
+                        'trigger_threshold': trigger_pct,
                     })
 
             # Update trailing stop
             if pos.get('trailing_enabled'):
                 days_held = (datetime.now() - pos['entry_date']).days
+                signal_score = pos.get('signal_score', 0)
 
-                # Determine trailing percentage based on gain
+                # Determine trailing percentage based on gain thresholds, then
+                # fall back to score-tiered trail width instead of flat default.
                 if pnl_pct > config.HUGE_WINNER_THRESHOLD:
                     trailing_pct = config.HUGE_WINNER_STOP_PCT
                 elif pnl_pct > config.BIG_WINNER_THRESHOLD:
@@ -986,7 +1003,8 @@ class PositionMonitor:
                     # standard trailing logic below will still apply with
                     # trailing_pct already set to OLD_POSITION_STOP_PCT.
                 else:
-                    trailing_pct = config.TRAILING_STOP_PCT
+                    # Score-tiered trailing width
+                    trailing_pct = config.get_trailing_params(signal_score)['trail_pct']
 
                 new_stop = pos.get('highest_price', current_price) * (1 - trailing_pct)
 
@@ -1340,16 +1358,22 @@ class PositionMonitor:
             target_dist = ((take_profit - current_price) / current_price * 100) if current_price > 0 else 0
 
             # Trailing tier label
+            signal_score = pos.get('signal_score', 0)
+            trailing_params = config.get_trailing_params(signal_score)
             if trailing_enabled:
                 if pnl_pct > config.HUGE_WINNER_THRESHOLD:
                     trail_label = f"ACTIVE  {config.HUGE_WINNER_STOP_PCT*100:.0f}% huge-winner"
                 elif pnl_pct > config.BIG_WINNER_THRESHOLD:
                     trail_label = f"ACTIVE  {config.BIG_WINNER_STOP_PCT*100:.0f}% big-winner"
                 else:
-                    trail_label = f"ACTIVE  {config.TRAILING_STOP_PCT*100:.0f}% standard"
+                    trail_label = f"ACTIVE  {trailing_params['trail_pct']*100:.0f}% (score {signal_score:.0f})"
             else:
-                pct_to_trigger = config.TRAILING_TRIGGER_PCT * 100 - pnl_pct
-                if pct_to_trigger > 0:
+                trigger_pct = trailing_params['trigger_pct'] * 100
+                pct_to_trigger = trigger_pct - pnl_pct
+                hold_remaining = max(0, config.TRAILING_MIN_HOLD_DAYS - days_held)
+                if hold_remaining > 0:
+                    trail_label = f"OFF  (hold lock: {hold_remaining}d remaining)"
+                elif pct_to_trigger > 0:
                     trail_label = f"OFF  (need +{pct_to_trigger:.1f}% to activate)"
                 else:
                     trail_label = "OFF"
