@@ -11,7 +11,7 @@ import os
 MAX_SIGNALS_TO_ANALYZE = 200  # Maximum number of signals to analyze daily
 
 # Signal Quality Filtering
-MIN_SIGNAL_SCORE_THRESHOLD = 6.0  # Minimum rank_score required to trade (filter low-quality signals)
+MIN_SIGNAL_SCORE_THRESHOLD = 7.0  # Minimum rank_score required to trade (raised from 6.0 — sub-7 scores had negative avg P&L)
 
 # Portfolio Settings
 STARTING_CAPITAL = 10000  # $10k starting capital
@@ -47,10 +47,51 @@ VOLATILITY_ATR_LOOKBACK_DAYS = 20      # Days of history for ATR calculation
 # Risk Management
 STOP_LOSS_PCT = 0.08  # 8% initial stop loss (matches automated trading)
 TAKE_PROFIT_PCT = 0.12  # 12% profit target (matches automated trading)
-# Previous: 5% trail at +3% trigger shook out winners via normal retracement.
-# Widened to match automated_trading/config.py for consistency.
-TRAILING_STOP_PCT = 0.08  # 8% trailing stop (was 5%)
-TRAILING_TRIGGER_PCT = 0.06  # Enable trailing after +6% gain (was 3%)
+# Trailing stops — score-tiered approach (matches automated_trading/config.py)
+# Higher-score signals get wider trails and higher triggers to let thesis trades
+# develop over multiple weeks.  Lower-score signals lock in gains faster.
+# A 5-day minimum hold prevents whipsaw exits in the first week.
+TRAILING_STOP_PCT = 0.08  # 8% default trailing stop (fallback)
+TRAILING_TRIGGER_PCT = 0.06  # 6% default trailing trigger (fallback)
+TRAILING_MIN_HOLD_DAYS = 5  # Don't enable trailing until position is 5 days old
+
+# Score-tiered trailing parameters
+TRAILING_TIERS = {
+    'high': {                    # Score >= 12: high conviction, widest room
+        'min_score': 12.0,
+        'trail_pct': 0.10,      # 10% trail
+        'trigger_pct': 0.08,    # Activate after +8% gain
+    },
+    'medium': {                  # Score >= 9: moderate conviction
+        'min_score': 9.0,
+        'trail_pct': 0.08,      # 8% trail
+        'trigger_pct': 0.06,    # Activate after +6% gain
+    },
+    'low': {                     # Score < 9: lower conviction, lock in faster
+        'min_score': 0.0,
+        'trail_pct': 0.06,      # 6% trail
+        'trigger_pct': 0.05,    # Activate after +5% gain
+    },
+}
+
+
+def get_trailing_params(signal_score: float) -> dict:
+    """Return trailing stop parameters (trail_pct, trigger_pct) for a given signal score.
+
+    Iterates TRAILING_TIERS from highest min_score to lowest, returning the
+    first tier whose min_score the signal qualifies for.  Falls back to the
+    global TRAILING_STOP_PCT / TRAILING_TRIGGER_PCT defaults.
+    """
+    for tier in sorted(TRAILING_TIERS.values(), key=lambda t: t['min_score'], reverse=True):
+        if signal_score >= tier['min_score']:
+            return {
+                'trail_pct': tier['trail_pct'],
+                'trigger_pct': tier['trigger_pct'],
+            }
+    return {
+        'trail_pct': TRAILING_STOP_PCT,
+        'trigger_pct': TRAILING_TRIGGER_PCT,
+    }
 
 # Position Scaling
 ENABLE_SCALING = True  # Enable 2-tranche entries
