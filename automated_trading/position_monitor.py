@@ -21,6 +21,7 @@ import logging
 from datetime import datetime, timedelta
 from typing import Dict, List, Optional, Any, Tuple
 
+import numpy as np
 import yfinance as yf
 
 from . import config
@@ -37,6 +38,17 @@ from .utils import (
 from .reconciliation import Reconciler, CashReconciler
 
 logger = logging.getLogger(__name__)
+
+
+def _business_days_held(entry_date) -> int:
+    """Count business days (Mon-Fri) between entry_date and now.
+
+    Uses np.busday_count which excludes weekends.  Returns 0 if
+    entry_date is not a datetime (e.g. corrupt JSON load).
+    """
+    if not isinstance(entry_date, datetime):
+        return 0
+    return int(np.busday_count(entry_date.date(), datetime.now().date()))
 
 
 class CircuitBreakerState:
@@ -790,7 +802,7 @@ class PositionMonitor:
 
             entry_price = pos['entry_price']
             pnl_pct = calculate_pnl_pct(entry_price, current_price)
-            days_held = (datetime.now() - pos['entry_date']).days if isinstance(pos.get('entry_date'), datetime) else 0
+            days_held = _business_days_held(pos.get('entry_date'))
 
             exit_info = None
 
@@ -922,7 +934,7 @@ class PositionMonitor:
 
             # Enable trailing stop after threshold gain AND minimum hold period
             if not pos.get('trailing_enabled'):
-                days_held = (datetime.now() - pos['entry_date']).days if isinstance(pos.get('entry_date'), datetime) else 0
+                days_held = _business_days_held(pos.get('entry_date'))
                 signal_score = pos.get('signal_score') or 0
                 trailing_params = config.get_trailing_params(signal_score)
                 trigger_pct = round(trailing_params['trigger_pct'] * 100, 10)
@@ -952,7 +964,7 @@ class PositionMonitor:
 
             # Update trailing stop
             if pos.get('trailing_enabled'):
-                days_held = (datetime.now() - pos['entry_date']).days if isinstance(pos.get('entry_date'), datetime) else 0
+                days_held = _business_days_held(pos.get('entry_date'))
                 signal_score = pos.get('signal_score') or 0
 
                 # Determine trailing percentage based on gain thresholds, then
@@ -1347,7 +1359,7 @@ class PositionMonitor:
             pnl_dollars = (current_price - entry_price) * shares
             cost = entry_price * shares
             value = current_price * shares
-            days_held = (datetime.now() - pos['entry_date']).days if isinstance(pos.get('entry_date'), datetime) else 0
+            days_held = _business_days_held(pos.get('entry_date'))
 
             stop_loss = pos.get('stop_loss', entry_price * (1 - config.STOP_LOSS_PCT))
             take_profit = pos.get('take_profit', entry_price * (1 + config.TAKE_PROFIT_PCT))

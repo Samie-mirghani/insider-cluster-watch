@@ -4,6 +4,7 @@ Enhanced Paper Trading Simulator
 Simulates real trading with virtual money to test strategy before risking real capital.
 """
 
+import numpy as np
 import pandas as pd
 import yfinance as yf
 from datetime import datetime, timedelta
@@ -32,6 +33,18 @@ logging.basicConfig(
     ]
 )
 logger = logging.getLogger(__name__)
+
+
+def _business_days_held(entry_date) -> int:
+    """Count business days (Mon-Fri) between entry_date and now.
+
+    Uses np.busday_count which excludes weekends.  Returns 0 if
+    entry_date is not a datetime (e.g. corrupt JSON load).
+    """
+    if not isinstance(entry_date, datetime):
+        return 0
+    return int(np.busday_count(entry_date.date(), datetime.now().date()))
+
 
 class PaperTradingPortfolio:
     """
@@ -512,7 +525,7 @@ class PaperTradingPortfolio:
                 entry_date = datetime.fromisoformat(entry_date)
             except (ValueError, TypeError):
                 entry_date = datetime.now()
-        days_held = (datetime.now() - entry_date).days
+        days_held = _business_days_held(entry_date)
         pnl_pct = ((current_price - exit_pos['entry_price']) / exit_pos['entry_price'] * 100) if exit_pos['entry_price'] > 0 else 0
 
         logger.info(f"\n{'='*60}")
@@ -1103,7 +1116,7 @@ class PaperTradingPortfolio:
             try:
                 current_price = self._get_current_price(ticker, pos['entry_price'])
                 unrealized_pnl_pct = ((current_price - pos['entry_price']) / pos['entry_price']) * 100
-                days_held = (datetime.now() - pos['entry_date']).days
+                days_held = _business_days_held(pos.get('entry_date'))
 
                 # Track highest price (with bad-tick protection)
                 # Reject price spikes > 50% above current highest as likely erroneous
@@ -1211,7 +1224,7 @@ class PaperTradingPortfolio:
                 current_price = self._get_current_price(ticker, pos['entry_price'])
                 
                 unrealized_pnl = (current_price - pos['entry_price']) / pos['entry_price'] * 100
-                days_held = (datetime.now() - pos['entry_date']).days
+                days_held = _business_days_held(pos.get('entry_date'))
                 
                 logger.info(f"\n📊 {ticker}:")
                 logger.info(f"   Entry: ${pos['entry_price']:.2f} | Current: ${current_price:.2f}")
@@ -1291,7 +1304,7 @@ class PaperTradingPortfolio:
         proceeds = pos['shares'] * exit_price
         profit = proceeds - pos['cost_basis']
         profit_pct = (profit / pos['cost_basis']) * 100
-        days_held = (datetime.now() - pos['entry_date']).days
+        days_held = _business_days_held(pos.get('entry_date'))
 
         # Update cash and stats
         self.cash += proceeds
@@ -1809,7 +1822,7 @@ def generate_paper_trading_report(portfolio):
                 current_value = pos['shares'] * current_price
                 unrealized_pl = current_value - pos['cost_basis']
                 unrealized_pct = (unrealized_pl / pos['cost_basis']) * 100
-                days_held = (datetime.now() - pos['entry_date']).days
+                days_held = _business_days_held(pos.get('entry_date'))
                 
                 signal_score = pos.get('signal_score') or 0
                 trailing_params = get_trailing_params(signal_score)
