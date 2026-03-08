@@ -76,7 +76,7 @@ VOLATILITY_SIZE_MAX_MULTIPLIER = 1.5   # Ceiling: 50% larger for very stable nam
 VOLATILITY_ATR_LOOKBACK_DAYS = 20      # Days of history for ATR calculation
 
 # Minimum thresholds
-MIN_SIGNAL_SCORE_THRESHOLD = 6.0       # Minimum score to trade
+MIN_SIGNAL_SCORE_THRESHOLD = 7.0       # Minimum score to trade (raised from 6.0 — sub-7 scores had negative avg P&L)
 MIN_POSITION_VALUE = 50.0              # $50 minimum position (avoid fractional share issues)
 
 # =============================================================================
@@ -86,12 +86,32 @@ MIN_POSITION_VALUE = 50.0              # $50 minimum position (avoid fractional 
 STOP_LOSS_PCT = 0.08             # 8% default stop loss
 TAKE_PROFIT_PCT = 0.12           # 12% take profit target
 
-# Trailing stops
-# Previous: 5% trail triggered at +3% — too tight for multi-week thesis trades.
-# A stock hitting +3% then retracing 2% would get stopped at ~breakeven,
-# converting winners into scratches.  Widened to give trades room to develop.
-TRAILING_STOP_PCT = 0.08         # 8% trailing stop (was 5%)
-TRAILING_TRIGGER_PCT = 0.06      # Enable trailing after +6% gain (was 3%)
+# Trailing stops — score-tiered approach
+# Higher-score signals get wider trails and higher triggers to let thesis trades
+# develop over multiple weeks.  Lower-score signals lock in gains faster.
+# A 5-day minimum hold prevents whipsaw exits in the first week.
+TRAILING_STOP_PCT = 0.08         # 8% default trailing stop (fallback)
+TRAILING_TRIGGER_PCT = 0.06      # 6% default trailing trigger (fallback)
+TRAILING_MIN_HOLD_DAYS = 3       # ~5 calendar days in business days
+
+# Score-tiered trailing parameters
+TRAILING_TIERS = {
+    'high': {                    # Score >= 12: high conviction, widest room
+        'min_score': 12.0,
+        'trail_pct': 0.10,      # 10% trail
+        'trigger_pct': 0.08,    # Activate after +8% gain
+    },
+    'medium': {                  # Score >= 9: moderate conviction
+        'min_score': 9.0,
+        'trail_pct': 0.08,      # 8% trail
+        'trigger_pct': 0.06,    # Activate after +6% gain
+    },
+    'low': {                     # Score < 9: lower conviction, lock in faster
+        'min_score': 0.0,
+        'trail_pct': 0.06,      # 6% trail
+        'trigger_pct': 0.05,    # Activate after +5% gain
+    },
+}
 
 # Tiered stop losses (multi-signal trades)
 # Risk Management Strategy:
@@ -150,7 +170,7 @@ BIG_WINNER_THRESHOLD = 20.0      # Tighten stop after +20% gain
 BIG_WINNER_STOP_PCT = 0.10       # 10% trailing stop for big winners
 HUGE_WINNER_THRESHOLD = 30.0     # Further tighten after +30%
 HUGE_WINNER_STOP_PCT = 0.07      # 7% trailing stop for huge winners
-OLD_POSITION_DAYS = 21           # Consider position "old" after 21 days
+OLD_POSITION_DAYS = 15           # ~21 calendar days in business days
 OLD_POSITION_STOP_PCT = 0.10     # 10% stop from high for old modest positions
 MODEST_GAIN_THRESHOLD = 10.0     # "Modest gain" = < 10%
 
@@ -162,10 +182,10 @@ GAP_DOWN_THRESHOLD_PCT = 2.0     # 2% below stop = gap-down, use market order
 # =============================================================================
 # TIME-BASED EXITS
 # =============================================================================
-MAX_HOLD_LOSS_DAYS = 21          # Exit after 21 days if losing
-MAX_HOLD_STAGNANT_DAYS = 30      # Exit after 30 days if barely positive
+MAX_HOLD_LOSS_DAYS = 15          # ~21 calendar days in business days
+MAX_HOLD_STAGNANT_DAYS = 22      # ~30 calendar days in business days
 MAX_HOLD_STAGNANT_THRESHOLD = 3.0  # "Barely positive" = < 3%
-MAX_HOLD_EXTREME_DAYS = 45       # Max hold regardless of performance
+MAX_HOLD_EXTREME_DAYS = 32       # ~45 calendar days in business days
 MAX_HOLD_EXTREME_EXCEPTION = 15.0  # Exception: keep if +15%
 
 # =============================================================================
@@ -244,7 +264,7 @@ LIMIT_ORDER_CUSHION_BY_CAP = {
     'mid_cap':   1.25,   # Moderate liquidity
     'small_cap': 1.75,   # Thinner books — more room to fill
 }
-LIMIT_ORDER_CUSHION_DEFAULT = 1.25  # Fallback when market_cap is unknown
+LIMIT_ORDER_CUSHION_DEFAULT = 1.75  # Fallback when market_cap is unknown (raised from 1.25 — unknown caps are likely small/micro)
 
 # Retry settings
 ORDER_RETRY_MAX_ATTEMPTS = 3
@@ -374,6 +394,32 @@ def get_adaptive_max_exposure(win_rate: float, total_trades: int) -> float:
     wr_range = ADAPTIVE_EXPOSURE_WIN_RATE_HIGH - ADAPTIVE_EXPOSURE_WIN_RATE_LOW
     normalized = (win_rate - ADAPTIVE_EXPOSURE_WIN_RATE_LOW) / wr_range
     return ADAPTIVE_EXPOSURE_MIN + normalized * (ADAPTIVE_EXPOSURE_MAX - ADAPTIVE_EXPOSURE_MIN)
+
+
+def get_trailing_params(signal_score) -> dict:
+    """Return trailing stop parameters (trail_pct, trigger_pct) for a given signal score.
+
+    Iterates TRAILING_TIERS from highest min_score to lowest, returning the
+    first tier whose min_score the signal qualifies for.  Falls back to the
+    global TRAILING_STOP_PCT / TRAILING_TRIGGER_PCT defaults.
+
+    Handles None/non-numeric scores safely by treating them as 0.
+    """
+    try:
+        score = float(signal_score) if signal_score is not None else 0.0
+    except (TypeError, ValueError):
+        score = 0.0
+
+    for tier in sorted(TRAILING_TIERS.values(), key=lambda t: t['min_score'], reverse=True):
+        if score >= tier['min_score']:
+            return {
+                'trail_pct': tier['trail_pct'],
+                'trigger_pct': tier['trigger_pct'],
+            }
+    return {
+        'trail_pct': TRAILING_STOP_PCT,
+        'trigger_pct': TRAILING_TRIGGER_PCT,
+    }
 
 
 def get_market_cap_tier(market_cap) -> str:

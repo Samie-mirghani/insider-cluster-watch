@@ -4,6 +4,7 @@ Enhanced Paper Trading Simulator
 Simulates real trading with virtual money to test strategy before risking real capital.
 """
 
+import numpy as np
 import pandas as pd
 import yfinance as yf
 from datetime import datetime, timedelta
@@ -32,6 +33,24 @@ logging.basicConfig(
     ]
 )
 logger = logging.getLogger(__name__)
+
+
+def _business_days_held(entry_date) -> int:
+    """Count business days (Mon-Fri) between entry_date and now.
+
+    Uses np.busday_count which excludes weekends.  Returns 0 if
+    entry_date is not a date/datetime (e.g. corrupt JSON load) or if
+    the result would be negative (clock drift / timezone mismatch).
+    """
+    import datetime as _dt_mod
+    if isinstance(entry_date, datetime):
+        start = entry_date.date()
+    elif isinstance(entry_date, _dt_mod.date):
+        start = entry_date
+    else:
+        return 0
+    return max(0, int(np.busday_count(start, datetime.now().date())))
+
 
 class PaperTradingPortfolio:
     """
@@ -512,7 +531,7 @@ class PaperTradingPortfolio:
                 entry_date = datetime.fromisoformat(entry_date)
             except (ValueError, TypeError):
                 entry_date = datetime.now()
-        days_held = (datetime.now() - entry_date).days
+        days_held = _business_days_held(entry_date)
         pnl_pct = ((current_price - exit_pos['entry_price']) / exit_pos['entry_price'] * 100) if exit_pos['entry_price'] > 0 else 0
 
         logger.info(f"\n{'='*60}")
@@ -1103,7 +1122,7 @@ class PaperTradingPortfolio:
             try:
                 current_price = self._get_current_price(ticker, pos['entry_price'])
                 unrealized_pnl_pct = ((current_price - pos['entry_price']) / pos['entry_price']) * 100
-                days_held = (datetime.now() - pos['entry_date']).days
+                days_held = _business_days_held(pos.get('entry_date'))
 
                 # Track highest price (with bad-tick protection)
                 # Reject price spikes > 50% above current highest as likely erroneous
@@ -1117,15 +1136,26 @@ class PaperTradingPortfolio:
                         f"${current_price:.2f} (+{spike_pct:.1f}%) — not updating highest_price"
                     )
 
-                # Enable trailing stop after configured gain threshold
+                # Enable trailing stop after threshold gain AND minimum hold period
                 if not pos['trailing_enabled']:
-                    if unrealized_pnl_pct >= round(TRAILING_TRIGGER_PCT * 100, 10):
+                    signal_score = pos.get('signal_score') or 0
+                    trailing_params = get_trailing_params(signal_score)
+                    trigger_pct = round(trailing_params['trigger_pct'] * 100, 10)
+
+                    if days_held < TRAILING_MIN_HOLD_DAYS:
+                        # Too early — let the thesis develop before trailing
+                        pass
+                    elif unrealized_pnl_pct >= trigger_pct:
                         pos['trailing_enabled'] = True
-                        logger.info(f"   📈 {ticker}: Trailing stop ENABLED at +{unrealized_pnl_pct:.1f}%")
+                        logger.info(
+                            f"   📈 {ticker}: Trailing stop ENABLED at +{unrealized_pnl_pct:.1f}% "
+                            f"(score {signal_score:.1f}, trigger {trigger_pct:.0f}%, held {days_held}d)"
+                        )
 
                 # === HYBRID: Dynamic Stop Tightening for Winners ===
                 if dynamic_stops_enabled and pos['trailing_enabled']:
-                    trailing_pct = self.trailing_stop_pct  # Default 5%
+                    signal_score = pos.get('signal_score') or 0
+                    trailing_pct = get_trailing_params(signal_score)['trail_pct']
                     stop_reason = "standard trailing"
 
                     # 1. Huge winner: +30% → 7% trailing stop
@@ -1162,7 +1192,9 @@ class PaperTradingPortfolio:
 
                 # Standard trailing stop (if dynamic stops disabled)
                 elif pos['trailing_enabled']:
-                    new_stop = pos.get('highest_price', current_price) * (1 - self.trailing_stop_pct)
+                    signal_score = pos.get('signal_score') or 0
+                    score_trail_pct = get_trailing_params(signal_score)['trail_pct']
+                    new_stop = pos.get('highest_price', current_price) * (1 - score_trail_pct)
                     if new_stop > pos['stop_loss']:
                         old_stop = pos['stop_loss']
                         pos['stop_loss'] = new_stop
@@ -1198,7 +1230,7 @@ class PaperTradingPortfolio:
                 current_price = self._get_current_price(ticker, pos['entry_price'])
                 
                 unrealized_pnl = (current_price - pos['entry_price']) / pos['entry_price'] * 100
-                days_held = (datetime.now() - pos['entry_date']).days
+                days_held = _business_days_held(pos.get('entry_date'))
                 
                 logger.info(f"\n📊 {ticker}:")
                 logger.info(f"   Entry: ${pos['entry_price']:.2f} | Current: ${current_price:.2f}")
@@ -1278,7 +1310,7 @@ class PaperTradingPortfolio:
         proceeds = pos['shares'] * exit_price
         profit = proceeds - pos['cost_basis']
         profit_pct = (profit / pos['cost_basis']) * 100
-        days_held = (datetime.now() - pos['entry_date']).days
+        days_held = _business_days_held(pos.get('entry_date'))
 
         # Update cash and stats
         self.cash += proceeds
@@ -1796,10 +1828,29 @@ def generate_paper_trading_report(portfolio):
                 current_value = pos['shares'] * current_price
                 unrealized_pl = current_value - pos['cost_basis']
                 unrealized_pct = (unrealized_pl / pos['cost_basis']) * 100
-                days_held = (datetime.now() - pos['entry_date']).days
+                days_held = _business_days_held(pos.get('entry_date'))
                 
-                trailing_status = "🔼 TRAILING" if pos.get('trailing_enabled') else "🔒 FIXED"
-                
+                signal_score = pos.get('signal_score') or 0
+                trailing_params = get_trailing_params(signal_score)
+                if pos.get('trailing_enabled'):
+                    if unrealized_pct > HUGE_WINNER_THRESHOLD:
+                        trailing_status = f"🔼 TRAILING {HUGE_WINNER_STOP_PCT*100:.0f}% huge-winner"
+                    elif unrealized_pct > BIG_WINNER_THRESHOLD:
+                        trailing_status = f"🔼 TRAILING {BIG_WINNER_STOP_PCT*100:.0f}% big-winner"
+                    else:
+                        trailing_status = f"🔼 TRAILING {trailing_params['trail_pct']*100:.0f}% (score {signal_score:.0f})"
+                else:
+                    hold_remaining = max(0, TRAILING_MIN_HOLD_DAYS - days_held)
+                    if hold_remaining > 0:
+                        trailing_status = f"🔒 HOLD LOCK ({hold_remaining}d remaining)"
+                    else:
+                        trigger_pct = trailing_params['trigger_pct'] * 100
+                        pct_to_trigger = trigger_pct - unrealized_pct
+                        if pct_to_trigger > 0:
+                            trailing_status = f"🔒 FIXED (need +{pct_to_trigger:.1f}% to activate)"
+                        else:
+                            trailing_status = "🔒 FIXED"
+
                 report += f"\n  {ticker}:\n"
                 report += f"    Entry Date:       {pos['entry_date'].strftime('%Y-%m-%d')}\n"
                 report += f"    Shares:           {pos['shares']} @ ${pos['entry_price']:.2f}\n"

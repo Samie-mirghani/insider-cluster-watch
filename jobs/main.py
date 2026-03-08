@@ -889,9 +889,30 @@ def main(test=False, enable_paper_trading=True):
                               f"score {row['rank_score']:.1f} {bipartisan_flag} {conv_flag}")
 
             # Create lookup dictionary for detailed multi-signal data
+            # Include ALL tiers (tier1-tier4) so every signal gets its correct tier
+            # assigned during enrichment. Previously only tier1+tier2 were included,
+            # causing tier3/tier4 signals to fall through to 'none' and miss their
+            # tier-specific stop loss / take profit parameters.
+            tier3_tickers = {s['ticker'] for s in multi_signal_results['tier3']}
+            tier4_tickers_set = {s['ticker'] for s in multi_signal_results['tier4']}
+
             multi_signal_lookup = {}
-            for signal in multi_signal_results['tier1'] + multi_signal_results['tier2']:
+            all_tiered_signals = (
+                multi_signal_results['tier1'] + multi_signal_results['tier2'] +
+                multi_signal_results['tier3'] + multi_signal_results['tier4']
+            )
+            for signal in all_tiered_signals:
                 ticker = signal['ticker']
+
+                # Determine tier
+                if ticker in tier1_tickers:
+                    tier = 'tier1'
+                elif ticker in tier2_tickers:
+                    tier = 'tier2'
+                elif ticker in tier3_tickers:
+                    tier = 'tier3'
+                else:
+                    tier = 'tier4'
 
                 # Extract politician details
                 politician_names = []
@@ -938,7 +959,7 @@ def main(test=False, enable_paper_trading=True):
                 explanation = f"Insider Buying + {' + '.join(signals)}" if signals else "Insider Buying"
 
                 multi_signal_lookup[ticker] = {
-                    'tier': 'tier1' if ticker in tier1_tickers else 'tier2',
+                    'tier': tier,
                     'politician_names': politician_names,
                     'politician_details': politician_details,
                     'institutional_names': institutional_names,
@@ -992,11 +1013,14 @@ def main(test=False, enable_paper_trading=True):
 
             # Log results
             total_multi = len(tier0_signals) + len(tier1_tickers) + len(tier2_tickers)
-            if total_multi > 0:
-                print(f"   ✅ Found {total_multi} multi-signal stocks!")
+            total_all_tiers = total_multi + len(tier3_tickers) + len(tier4_tickers_set)
+            if total_all_tiers > 0:
+                print(f"   ✅ Found {total_all_tiers} classified signals!")
                 print(f"      • Tier 0 (politician-only): {len(tier0_signals)}")
                 print(f"      • Tier 1 (3+ signals): {len(tier1_tickers)}")
                 print(f"      • Tier 2 (2 signals): {len(tier2_tickers)}")
+                print(f"      • Tier 3 (5+ insiders): {len(tier3_tickers)}")
+                print(f"      • Tier 4 (watch list): {len(tier4_tickers_set)}")
 
                 if tier1_tickers:
                     print(f"      • Tier 1 tickers: {', '.join(tier1_tickers[:5])}")
