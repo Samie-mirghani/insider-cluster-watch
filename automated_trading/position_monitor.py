@@ -44,11 +44,17 @@ def _business_days_held(entry_date) -> int:
     """Count business days (Mon-Fri) between entry_date and now.
 
     Uses np.busday_count which excludes weekends.  Returns 0 if
-    entry_date is not a datetime (e.g. corrupt JSON load).
+    entry_date is not a date/datetime (e.g. corrupt JSON load) or if
+    the result would be negative (clock drift / timezone mismatch).
     """
-    if not isinstance(entry_date, datetime):
+    import datetime as _dt_mod
+    if isinstance(entry_date, datetime):
+        start = entry_date.date()
+    elif isinstance(entry_date, _dt_mod.date):
+        start = entry_date
+    else:
         return 0
-    return int(np.busday_count(entry_date.date(), datetime.now().date()))
+    return max(0, int(np.busday_count(start, datetime.now().date())))
 
 
 class CircuitBreakerState:
