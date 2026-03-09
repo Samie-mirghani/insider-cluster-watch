@@ -1,0 +1,55 @@
+2026-02-06 21:30:02,567 - __main__ - INFO - ============================================================
+2026-02-06 21:30:02,568 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-06 21:30:02,568 - __main__ - INFO - Mode: PAPER
+2026-02-06 21:30:02,568 - __main__ - INFO - Trading Enabled: True
+2026-02-06 21:30:02,568 - __main__ - INFO - ============================================================
+2026-02-06 21:30:02,568 - __main__ - INFO - Loaded 1 exits from today
+2026-02-06 21:30:02,569 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-06 21:30:02,710 - automated_trading.alpaca_client - INFO - Account verified: $94,866.72 portfolio value
+2026-02-06 21:30:02,711 - __main__ - INFO - Connected to Alpaca (paper mode)
+2026-02-06 21:30:02,711 - __main__ - INFO - Account verified:
+2026-02-06 21:30:02,711 - __main__ - INFO -   Portfolio Value: $94,866.72
+2026-02-06 21:30:02,711 - __main__ - INFO -   Cash: $66,834.32
+2026-02-06 21:30:02,711 - __main__ - INFO -   Buying Power: $161,701.04
+2026-02-06 21:30:02,746 - automated_trading.utils - INFO - Trading calendar updated: 41 trading days cached
+2026-02-06 21:30:02,747 - automated_trading.order_manager - INFO - Loaded 0 pending orders
+2026-02-06 21:30:02,747 - automated_trading.signal_queue - INFO - Loaded 1 queued signals
+2026-02-06 21:30:02,748 - automated_trading.position_monitor - INFO - Loaded 4 positions
+2026-02-06 21:30:02,748 - automated_trading.position_monitor - INFO - Loaded signal history for 13 tickers
+2026-02-06 21:30:02,781 - automated_trading.execution_metrics - INFO - Loaded 6 execution records
+2026-02-06 21:30:02,781 - __main__ - INFO - All components initialized successfully
+2026-02-06 21:30:02,781 - __main__ - INFO - 
+============================================================
+2026-02-06 21:30:02,781 - __main__ - INFO - END OF DAY SUMMARY
+2026-02-06 21:30:02,781 - __main__ - INFO - ============================================================
+2026-02-06 21:30:02,912 - automated_trading.signal_queue - INFO - Removed stale signal: CR
+2026-02-06 21:30:02,912 - automated_trading.signal_queue - INFO - Cleanup removed 1 signal(s)
+2026-02-06 21:30:02,912 - __main__ - INFO - Generating AI insights...
+2026-02-06 21:30:03,622 - __main__ - INFO - ✅ AI insights generated
+2026-02-06 21:30:03,622 - __main__ - INFO - Sending EOD summary with 1 exits
+2026-02-06 21:30:04,609 - automated_trading.alerts - INFO - ✅ Alert sent successfully: 🧪 Daily Summary: $+892.28 | February 06, 2026
+2026-02-06 21:30:04,611 - __main__ - INFO - Cleared exits_today after EOD summary
+2026-02-06 21:30:04,611 - __main__ - INFO - Portfolio Value: $94,866.72
+2026-02-06 21:30:04,611 - __main__ - INFO - Daily P&L: $+892.28
+2026-02-06 21:30:04,611 - __main__ - INFO - Trades Today: 2
+2026-02-06 21:30:04,611 - __main__ - INFO - Open Positions: 4
+2026-02-06 21:30:04,611 - __main__ - INFO - ============================================================
+  [DEBUG] Scanned 188 audit log lines, found 0 rejections for 2026-02-06
+  [DEBUG] Loaded 1 exits from exits_today.json
+{
+  "date": "2026-02-06",
+  "portfolio_value": 94866.72,
+  "daily_pnl": 892.2799999999988,
+  "trades_executed": 2,
+  "open_positions": 4,
+  "exits_reported": 1,
+  "circuit_breaker": {
+    "is_halted": false,
+    "halt_reason": null,
+    "daily_pnl": 660.62,
+    "consecutive_losses": 0,
+    "trades_today": 1,
+    "total_trades_today": 2,
+    "trades_remaining": 13
+  }
+}

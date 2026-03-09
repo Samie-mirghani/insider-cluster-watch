@@ -1,0 +1,84 @@
+2026-02-18 14:36:04,469 - __main__ - INFO - ============================================================
+2026-02-18 14:36:04,469 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-18 14:36:04,469 - __main__ - INFO - Mode: PAPER
+2026-02-18 14:36:04,469 - __main__ - INFO - Trading Enabled: True
+2026-02-18 14:36:04,469 - __main__ - INFO - ============================================================
+2026-02-18 14:36:04,470 - __main__ - INFO - Loaded 0 exits from today
+2026-02-18 14:36:04,470 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-18 14:36:04,624 - automated_trading.alpaca_client - INFO - Account verified: $94,457.20 portfolio value
+2026-02-18 14:36:04,624 - __main__ - INFO - Connected to Alpaca (paper mode)
+2026-02-18 14:36:04,624 - __main__ - INFO - Account verified:
+2026-02-18 14:36:04,624 - __main__ - INFO -   Portfolio Value: $94,457.20
+2026-02-18 14:36:04,624 - __main__ - INFO -   Cash: $30,887.73
+2026-02-18 14:36:04,624 - __main__ - INFO -   Buying Power: $125,344.93
+2026-02-18 14:36:04,659 - automated_trading.utils - INFO - Trading calendar updated: 41 trading days cached
+2026-02-18 14:36:04,660 - automated_trading.order_manager - INFO - Loaded 0 pending orders
+2026-02-18 14:36:04,660 - automated_trading.signal_queue - INFO - Loaded 1 queued signals
+2026-02-18 14:36:04,660 - automated_trading.position_monitor - INFO - New trading day - circuit breakers reset
+2026-02-18 14:36:04,661 - automated_trading.position_monitor - INFO - Loaded 10 positions
+2026-02-18 14:36:04,661 - automated_trading.position_monitor - INFO - Loaded signal history for 28 tickers
+2026-02-18 14:36:04,697 - automated_trading.execution_metrics - INFO - Loaded 26 execution records
+2026-02-18 14:36:04,698 - __main__ - INFO - All components initialized successfully
+2026-02-18 14:36:04,698 - __main__ - INFO - 
+============================================================
+2026-02-18 14:36:04,698 - __main__ - INFO - MORNING TRADE EXECUTION
+2026-02-18 14:36:04,698 - __main__ - INFO - Time: 2026-02-18 14:36:04.698425
+2026-02-18 14:36:04,698 - __main__ - INFO - ============================================================
+2026-02-18 14:36:04,771 - __main__ - INFO - Syncing with broker before trading...
+2026-02-18 14:36:04,806 - automated_trading.reconciliation - INFO - Starting position reconciliation...
+2026-02-18 14:36:04,843 - automated_trading.reconciliation - INFO - Reconciliation PASSED: 10 positions match
+2026-02-18 14:36:04,844 - __main__ - INFO - Loaded 15 signals from /home/samie_mirghani/insider-cluster-watch/automated_trading/../data/approved_signals.json
+2026-02-18 14:36:05,329 - __main__ - WARNING - CNVS: Downtrend check failed (The truth value of a Series is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().), allowing trade
+2026-02-18 14:36:05,432 - __main__ - INFO - Skipping CNVS: Max positions (10) reached
+2026-02-18 14:36:05,434 - automated_trading.signal_queue - INFO - Signal queued: CNVS (score: 21.77) - Max positions (10) reached
+2026-02-18 14:36:05,434 - __main__ - INFO -   Queued CNVS for intraday redeployment
+2026-02-18 14:36:05,625 - __main__ - WARNING - SONO: Downtrend check failed (The truth value of a Series is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().), allowing trade
+2026-02-18 14:36:05,725 - __main__ - INFO - Skipping SONO: Max positions (10) reached
+2026-02-18 14:36:05,726 - automated_trading.signal_queue - INFO - Signal queued: SONO (score: 13.32) - Max positions (10) reached
+2026-02-18 14:36:05,726 - __main__ - INFO -   Queued SONO for intraday redeployment
+2026-02-18 14:36:05,921 - __main__ - WARNING - QDEL: Downtrend check failed (The truth value of a Series is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().), allowing trade
+2026-02-18 14:36:06,026 - __main__ - INFO - Skipping QDEL: Max positions (10) reached
+2026-02-18 14:36:06,028 - automated_trading.signal_queue - INFO - Signal queued: QDEL (score: 11.79) - Max positions (10) reached
+2026-02-18 14:36:06,028 - __main__ - INFO -   Queued QDEL for intraday redeployment
+2026-02-18 14:36:06,205 - __main__ - WARNING - MSCI: Downtrend check failed (The truth value of a Series is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().), allowing trade
+2026-02-18 14:36:06,309 - __main__ - INFO - Skipping MSCI: Max positions (10) reached
+2026-02-18 14:36:06,311 - automated_trading.signal_queue - INFO - Signal queued: MSCI (score: 7.66) - Max positions (10) reached
+2026-02-18 14:36:06,311 - __main__ - INFO -   Queued MSCI for intraday redeployment
+2026-02-18 14:36:06,572 - __main__ - WARNING - ZBIO: Downtrend check failed (The truth value of a Series is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().), allowing trade
+2026-02-18 14:36:06,670 - __main__ - INFO - Skipping ZBIO: Max positions (10) reached
+2026-02-18 14:36:06,672 - automated_trading.signal_queue - INFO - Signal queued: ZBIO (score: 7.65) - Max positions (10) reached
+2026-02-18 14:36:06,672 - __main__ - INFO -   Queued ZBIO for intraday redeployment
+2026-02-18 14:36:07,092 - __main__ - INFO - Skipping ASA: Max positions (10) reached
+2026-02-18 14:36:07,094 - automated_trading.signal_queue - INFO - Signal queued: ASA (score: 7.43) - Max positions (10) reached
+2026-02-18 14:36:07,094 - __main__ - INFO -   Queued ASA for intraday redeployment
+2026-02-18 14:36:07,377 - __main__ - WARNING - WTW: Downtrend check failed (The truth value of a Series is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().), allowing trade
+2026-02-18 14:36:07,478 - __main__ - INFO - Skipping WTW: Max positions (10) reached
+2026-02-18 14:36:07,480 - automated_trading.signal_queue - INFO - Signal queued: WTW (score: 6.92) - Max positions (10) reached
+2026-02-18 14:36:07,480 - __main__ - INFO -   Queued WTW for intraday redeployment
+2026-02-18 14:36:07,714 - __main__ - WARNING - EKSO: Downtrend check failed (The truth value of a Series is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().), allowing trade
+2026-02-18 14:36:07,814 - __main__ - INFO - Skipping EKSO: Max positions (10) reached
+2026-02-18 14:36:07,816 - automated_trading.signal_queue - INFO - Signal queued: EKSO (score: 6.72) - Max positions (10) reached
+2026-02-18 14:36:07,816 - __main__ - INFO -   Queued EKSO for intraday redeployment
+2026-02-18 14:36:07,816 - __main__ - INFO - Skipping RXO: Score 5.458728029642 below threshold 6.0
+2026-02-18 14:36:07,816 - __main__ - INFO - Skipping WRB: Score 4.157293361065589 below threshold 6.0
+2026-02-18 14:36:07,816 - __main__ - INFO - Skipping ARE: Score 4.064256370593856 below threshold 6.0
+2026-02-18 14:36:07,817 - __main__ - INFO - Skipping CMIIU: Score 3.8487588219151028 below threshold 6.0
+2026-02-18 14:36:07,817 - __main__ - INFO - Skipping XFLH: Score 3.7816965708826755 below threshold 6.0
+2026-02-18 14:36:07,817 - __main__ - INFO - Skipping MXF: Score 3.6874183378846053 below threshold 6.0
+2026-02-18 14:36:07,817 - __main__ - INFO - Skipping DMLP: Score 3.44147756466899 below threshold 6.0
+2026-02-18 14:36:07,817 - __main__ - INFO - 
+============================================================
+2026-02-18 14:36:07,817 - __main__ - INFO - MORNING EXECUTION COMPLETE
+2026-02-18 14:36:07,817 - __main__ - INFO - Signals: 15 loaded, 0 validated
+2026-02-18 14:36:07,817 - __main__ - INFO - Orders: 0 submitted, 0 failed
+2026-02-18 14:36:07,817 - __main__ - INFO - Queued: 8
+2026-02-18 14:36:07,817 - __main__ - INFO - ============================================================
+{
+  "timestamp": "2026-02-18T14:36:04.698500",
+  "signals_loaded": 15,
+  "signals_validated": 0,
+  "orders_submitted": 0,
+  "orders_failed": 0,
+  "queued_for_later": 8,
+  "errors": []
+}

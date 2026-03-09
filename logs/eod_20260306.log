@@ -1,0 +1,79 @@
+2026-03-06 21:30:03,642 - __main__ - INFO - ============================================================
+2026-03-06 21:30:03,649 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-03-06 21:30:03,650 - __main__ - INFO - Mode: PAPER
+2026-03-06 21:30:03,650 - __main__ - INFO - Trading Enabled: True
+2026-03-06 21:30:03,650 - __main__ - INFO - ============================================================
+2026-03-06 21:30:03,650 - __main__ - INFO - Loaded 1 exits from today
+2026-03-06 21:30:03,650 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-03-06 21:30:03,826 - automated_trading.alpaca_client - INFO - Account verified: $9,946.91 portfolio value
+2026-03-06 21:30:03,826 - __main__ - INFO - Connected to Alpaca (paper mode)
+2026-03-06 21:30:03,826 - __main__ - INFO - Account verified:
+2026-03-06 21:30:03,826 - __main__ - INFO -   Portfolio Value: $9,946.91
+2026-03-06 21:30:03,826 - __main__ - INFO -   Cash: $2,639.55
+2026-03-06 21:30:03,827 - __main__ - INFO -   Buying Power: $12,586.46
+2026-03-06 21:30:03,864 - automated_trading.utils - INFO - Trading calendar updated: 43 trading days cached
+2026-03-06 21:30:03,865 - automated_trading.order_manager - INFO - Loaded 0 pending orders
+2026-03-06 21:30:03,865 - automated_trading.signal_queue - INFO - Loaded 12 queued signals
+2026-03-06 21:30:03,873 - automated_trading.position_monitor - INFO - Loaded 13 positions
+2026-03-06 21:30:03,873 - automated_trading.position_monitor - INFO - Loaded signal history for 0 tickers
+2026-03-06 21:30:03,909 - automated_trading.execution_metrics - INFO - Loaded 38 execution records
+2026-03-06 21:30:03,911 - __main__ - INFO - All components initialized successfully
+2026-03-06 21:30:03,911 - __main__ - INFO - 
+============================================================
+2026-03-06 21:30:03,912 - __main__ - INFO - END OF DAY SUMMARY
+2026-03-06 21:30:03,912 - __main__ - INFO - ============================================================
+2026-03-06 21:30:04,278 - __main__ - INFO - Audit log has 1 POSITION_CLOSED events for today - audit log OK
+2026-03-06 21:30:04,278 - __main__ - INFO - Found 1 sell orders from Alpaca today
+2026-03-06 21:30:04,327 - __main__ - WARNING -   XRAY: No entry price found, P&L will be approximate
+2026-03-06 21:30:04,327 - __main__ - INFO -   Found: XRAY x39 @ $12.37 (P&L: $+0.00)
+2026-03-06 21:30:04,327 - __main__ - INFO - Broker EOD metrics | filled=1 buys=0 sells=1 closed=1 win_rate=0.0% notional=$482.45
+2026-03-06 21:30:04,327 - __main__ - INFO - Generating AI insights...
+2026-03-06 21:30:05,907 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-06 21:30:05,927 - __main__ - INFO - ✅ AI insights generated
+2026-03-06 21:30:05,927 - __main__ - INFO - Sending EOD summary with 1 exits
+2026-03-06 21:30:06,981 - automated_trading.alerts - INFO - ✅ Alert sent successfully: 🧪 Daily Summary: $-97.54 | March 06, 2026
+2026-03-06 21:30:06,982 - __main__ - INFO - Cleared exits_today after EOD summary
+2026-03-06 21:30:06,982 - __main__ - INFO - Portfolio Value: $9,946.91
+2026-03-06 21:30:06,982 - __main__ - INFO - Daily P&L: $-97.54
+2026-03-06 21:30:06,982 - __main__ - INFO - Trades Today: 1
+2026-03-06 21:30:06,982 - __main__ - INFO - Open Positions: 13
+2026-03-06 21:30:06,982 - __main__ - INFO - ============================================================
+  [DEBUG] Scanned 1117 audit log lines, found 11 rejections for 2026-03-06
+  [DEBUG] Loading exits from audit log (LIVE trades)
+  [DEBUG] Found 1 exits in audit log for 2026-03-06
+{
+  "date": "2026-03-06",
+  "portfolio_value": 9946.91,
+  "daily_pnl": -97.54000000000087,
+  "trades_executed": 1,
+  "open_positions": 13,
+  "exits_reported": 1,
+  "rotation_exits": 0,
+  "rotation_stats": {
+    "total_rotations": 0,
+    "rotations_today": 0,
+    "max_per_day": 2,
+    "cooldown_hours": 48,
+    "in_cooldown": false,
+    "last_rotation": null
+  },
+  "circuit_breaker": {
+    "is_halted": false,
+    "halt_reason": null,
+    "daily_pnl": -42.70500000000003,
+    "consecutive_losses": 1,
+    "trades_today": 1,
+    "total_trades_today": 1,
+    "trades_remaining": 14,
+    "peak_portfolio_value": 10198.51
+  },
+  "broker_summary": {
+    "total_filled_orders": 1,
+    "buy_orders": 0,
+    "sell_orders": 1,
+    "executed_notional": 482.45,
+    "closed_positions": 1,
+    "wins": 0,
+    "win_rate": 0.0
+  }
+}

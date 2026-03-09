@@ -1,0 +1,61 @@
+2026-02-12 21:30:03,981 - __main__ - INFO - ============================================================
+2026-02-12 21:30:03,981 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-12 21:30:03,981 - __main__ - INFO - Mode: PAPER
+2026-02-12 21:30:03,981 - __main__ - INFO - Trading Enabled: True
+2026-02-12 21:30:03,981 - __main__ - INFO - ============================================================
+2026-02-12 21:30:03,982 - __main__ - INFO - Loaded 2 exits from today
+2026-02-12 21:30:03,982 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-12 21:30:04,127 - automated_trading.alpaca_client - INFO - Account verified: $93,992.36 portfolio value
+2026-02-12 21:30:04,127 - __main__ - INFO - Connected to Alpaca (paper mode)
+2026-02-12 21:30:04,127 - __main__ - INFO - Account verified:
+2026-02-12 21:30:04,127 - __main__ - INFO -   Portfolio Value: $93,992.36
+2026-02-12 21:30:04,127 - __main__ - INFO -   Cash: $31,869.95
+2026-02-12 21:30:04,127 - __main__ - INFO -   Buying Power: $125,862.31
+2026-02-12 21:30:04,163 - automated_trading.utils - INFO - Trading calendar updated: 41 trading days cached
+2026-02-12 21:30:04,163 - automated_trading.order_manager - INFO - Loaded 1 pending orders
+2026-02-12 21:30:04,163 - automated_trading.signal_queue - INFO - Loaded 1 queued signals
+2026-02-12 21:30:04,164 - automated_trading.position_monitor - INFO - Loaded 10 positions
+2026-02-12 21:30:04,165 - automated_trading.position_monitor - INFO - Loaded signal history for 27 tickers
+2026-02-12 21:30:04,200 - automated_trading.execution_metrics - INFO - Loaded 24 execution records
+2026-02-12 21:30:04,201 - __main__ - INFO - All components initialized successfully
+2026-02-12 21:30:04,201 - __main__ - INFO - 
+============================================================
+2026-02-12 21:30:04,201 - __main__ - INFO - END OF DAY SUMMARY
+2026-02-12 21:30:04,201 - __main__ - INFO - ============================================================
+2026-02-12 21:30:04,340 - automated_trading.execution_metrics - INFO - Unfilled order recorded: LEE BUY @ $5.67 - EXPIRED
+2026-02-12 21:30:04,340 - automated_trading.order_manager - INFO - Expired order removed: LEE BUY
+2026-02-12 21:30:04,393 - __main__ - INFO - Audit log has 2 POSITION_CLOSED events for today - audit log OK
+2026-02-12 21:30:04,393 - __main__ - INFO - Found 2 sell orders from Alpaca today
+2026-02-12 21:30:04,393 - __main__ - INFO -   Found: VRNS x291 @ $24.43 (P&L: $-532.53)
+2026-02-12 21:30:04,394 - __main__ - INFO -   Found: CING x1281 @ $6.30 (P&L: $-667.73)
+2026-02-12 21:30:04,394 - __main__ - INFO - Generating AI insights...
+2026-02-12 21:30:06,526 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-12 21:30:06,611 - __main__ - INFO - ✅ AI insights generated
+2026-02-12 21:30:06,612 - __main__ - INFO - Sending EOD summary with 2 exits
+2026-02-12 21:30:07,604 - automated_trading.alerts - INFO - ✅ Alert sent successfully: 🧪 Daily Summary: $-1,038.17 | February 12, 2026
+2026-02-12 21:30:07,605 - __main__ - INFO - Cleared exits_today after EOD summary
+2026-02-12 21:30:07,606 - __main__ - INFO - Portfolio Value: $93,992.36
+2026-02-12 21:30:07,606 - __main__ - INFO - Daily P&L: $-1,038.17
+2026-02-12 21:30:07,606 - __main__ - INFO - Trades Today: 2
+2026-02-12 21:30:07,606 - __main__ - INFO - Open Positions: 10
+2026-02-12 21:30:07,606 - __main__ - INFO - ============================================================
+  [DEBUG] Scanned 607 audit log lines, found 3 rejections for 2026-02-12
+  [DEBUG] Loading exits from audit log (LIVE trades)
+  [DEBUG] Found 2 exits in audit log for 2026-02-12
+{
+  "date": "2026-02-12",
+  "portfolio_value": 93992.36,
+  "daily_pnl": -1038.1699999999983,
+  "trades_executed": 2,
+  "open_positions": 10,
+  "exits_reported": 2,
+  "circuit_breaker": {
+    "is_halted": false,
+    "halt_reason": null,
+    "daily_pnl": -1346.8800090000002,
+    "consecutive_losses": 2,
+    "trades_today": 2,
+    "total_trades_today": 2,
+    "trades_remaining": 13
+  }
+}

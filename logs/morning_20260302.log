@@ -1,0 +1,121 @@
+2026-03-02 14:36:06,457 - __main__ - INFO - ============================================================
+2026-03-02 14:36:06,457 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-03-02 14:36:06,457 - __main__ - INFO - Mode: PAPER
+2026-03-02 14:36:06,457 - __main__ - INFO - Trading Enabled: True
+2026-03-02 14:36:06,458 - __main__ - INFO - ============================================================
+2026-03-02 14:36:06,458 - __main__ - INFO - Loaded 0 exits from today
+2026-03-02 14:36:06,458 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-03-02 14:36:06,624 - automated_trading.alpaca_client - INFO - Account verified: $9,878.87 portfolio value
+2026-03-02 14:36:06,624 - __main__ - INFO - Connected to Alpaca (paper mode)
+2026-03-02 14:36:06,624 - __main__ - INFO - Account verified:
+2026-03-02 14:36:06,624 - __main__ - INFO -   Portfolio Value: $9,878.87
+2026-03-02 14:36:06,624 - __main__ - INFO -   Cash: $5,308.56
+2026-03-02 14:36:06,624 - __main__ - INFO -   Buying Power: $15,187.43
+2026-03-02 14:36:06,657 - automated_trading.utils - INFO - Trading calendar updated: 43 trading days cached
+2026-03-02 14:36:06,658 - automated_trading.order_manager - INFO - Loaded 2 pending orders
+2026-03-02 14:36:06,658 - automated_trading.signal_queue - INFO - Loaded 3 queued signals
+2026-03-02 14:36:06,658 - automated_trading.position_monitor - INFO - New trading day - circuit breakers reset
+2026-03-02 14:36:06,659 - automated_trading.position_monitor - INFO - Loaded 9 positions
+2026-03-02 14:36:06,659 - automated_trading.position_monitor - INFO - Loaded signal history for 0 tickers
+2026-03-02 14:36:06,698 - automated_trading.execution_metrics - INFO - Loaded 24 execution records
+2026-03-02 14:36:06,698 - __main__ - INFO - All components initialized successfully
+2026-03-02 14:36:06,698 - __main__ - INFO - 
+============================================================
+2026-03-02 14:36:06,698 - __main__ - INFO - MORNING TRADE EXECUTION
+2026-03-02 14:36:06,698 - __main__ - INFO - Time: 2026-03-02 14:36:06.698978
+2026-03-02 14:36:06,699 - __main__ - INFO - ============================================================
+2026-03-02 14:36:06,767 - __main__ - INFO - Syncing with broker before trading...
+2026-03-02 14:36:06,803 - automated_trading.reconciliation - INFO - Starting position reconciliation...
+2026-03-02 14:36:06,838 - automated_trading.reconciliation - INFO - Reconciliation PASSED: 9 positions match
+2026-03-02 14:36:06,839 - __main__ - INFO - Loaded 11 signals from /home/samie_mirghani/insider-cluster-watch/automated_trading/../data/approved_signals.json
+2026-03-02 14:36:06,999 - __main__ - INFO - Cooldown cache built: 6 tickers in cooldown window
+2026-03-02 14:36:06,999 - __main__ - INFO - Skipping HTGC: Cooldown: HTGC closed on 2026-02-27, 7-day cooldown required
+2026-03-02 14:36:08,324 - __main__ - WARNING - REXR: Downtrend check failed (The truth value of a Series is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().), allowing trade
+2026-03-02 14:36:08,620 - __main__ - INFO - Position sizing: score=9.5 → 6.7% of portfolio = $664.99
+2026-03-02 14:36:08,625 - __main__ - INFO - 
+==================================================
+2026-03-02 14:36:08,625 - __main__ - INFO - EXECUTING BUY: REXR
+2026-03-02 14:36:08,625 - __main__ - INFO - ==================================================
+2026-03-02 14:36:08,851 - __main__ - WARNING - REXR: Downtrend check failed (The truth value of a Series is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().), allowing trade
+2026-03-02 14:36:08,983 - __main__ - INFO - Position sizing: score=9.5 → 6.7% of portfolio = $664.99
+2026-03-02 14:36:09,017 - __main__ - INFO - Position sizing: score=9.5 → 6.7% of portfolio = $664.99
+2026-03-02 14:36:09,059 - automated_trading.order_manager - INFO - ✅ Created LIMIT BUY order: REXR x17 @ $37.94
+2026-03-02 14:36:09,059 - __main__ - INFO - Submitting LIMIT order: REXR x17 @ $37.94 (signal: $37.47, cushion: 1.25% [mid_cap])
+2026-03-02 14:36:09,059 - automated_trading.alpaca_client - INFO - Submitting LIMIT BUY: REXR x17 @ $37.94
+2026-03-02 14:36:09,099 - automated_trading.position_monitor - INFO - Order executed: BUY REXR | Total trades today: 1/15
+2026-03-02 14:36:09,099 - __main__ - INFO - Order submitted: fc53893e-5529-440a-a5f2-5ae51f625d35
+2026-03-02 14:36:09,099 - __main__ - INFO - Status: OrderStatus.PENDING_NEW
+2026-03-02 14:36:09,141 - __main__ - INFO - Position sizing: score=9.5 → 6.7% of portfolio = $664.99
+2026-03-02 14:36:09,389 - __main__ - WARNING - SKWD: Downtrend check failed (The truth value of a Series is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().), allowing trade
+2026-03-02 14:36:09,684 - __main__ - INFO - Position sizing: score=8.1 → 6.0% of portfolio = $597.29
+2026-03-02 14:36:09,685 - __main__ - INFO - 
+==================================================
+2026-03-02 14:36:09,685 - __main__ - INFO - EXECUTING BUY: SKWD
+2026-03-02 14:36:09,685 - __main__ - INFO - ==================================================
+2026-03-02 14:36:09,959 - __main__ - WARNING - SKWD: Downtrend check failed (The truth value of a Series is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().), allowing trade
+2026-03-02 14:36:10,078 - __main__ - INFO - Position sizing: score=8.1 → 6.0% of portfolio = $597.27
+2026-03-02 14:36:10,113 - __main__ - INFO - Position sizing: score=8.1 → 6.0% of portfolio = $597.27
+2026-03-02 14:36:10,153 - automated_trading.order_manager - INFO - ✅ Created LIMIT BUY order: SKWD x12 @ $47.28
+2026-03-02 14:36:10,154 - __main__ - INFO - Submitting LIMIT order: SKWD x12 @ $47.28 (signal: $46.47, cushion: 1.75% [small_cap])
+2026-03-02 14:36:10,154 - automated_trading.alpaca_client - INFO - Submitting LIMIT BUY: SKWD x12 @ $47.28
+2026-03-02 14:36:10,194 - automated_trading.position_monitor - INFO - Order executed: BUY SKWD | Total trades today: 2/15
+2026-03-02 14:36:10,194 - __main__ - INFO - Order submitted: 5ae77c5c-009f-422c-8916-f79149885b6d
+2026-03-02 14:36:10,194 - __main__ - INFO - Status: OrderStatus.PENDING_NEW
+2026-03-02 14:36:10,232 - __main__ - INFO - Position sizing: score=8.1 → 6.0% of portfolio = $597.28
+2026-03-02 14:36:10,396 - __main__ - WARNING - ABCL: Downtrend check failed (The truth value of a Series is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().), allowing trade
+2026-03-02 14:36:10,686 - __main__ - INFO - Position sizing: score=8.1 → 6.0% of portfolio = $597.02
+2026-03-02 14:36:10,687 - __main__ - INFO - 
+==================================================
+2026-03-02 14:36:10,687 - __main__ - INFO - EXECUTING BUY: ABCL
+2026-03-02 14:36:10,687 - __main__ - INFO - ==================================================
+2026-03-02 14:36:10,809 - __main__ - WARNING - ABCL: Downtrend check failed (The truth value of a Series is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().), allowing trade
+2026-03-02 14:36:10,911 - __main__ - INFO - Position sizing: score=8.1 → 6.0% of portfolio = $597.03
+2026-03-02 14:36:10,945 - __main__ - INFO - Position sizing: score=8.1 → 6.0% of portfolio = $597.02
+2026-03-02 14:36:10,982 - automated_trading.order_manager - INFO - ✅ Created LIMIT BUY order: ABCL x165 @ $3.67
+2026-03-02 14:36:10,982 - __main__ - INFO - Submitting LIMIT order: ABCL x165 @ $3.67 (signal: $3.61, cushion: 1.75% [small_cap])
+2026-03-02 14:36:10,982 - automated_trading.alpaca_client - INFO - Submitting LIMIT BUY: ABCL x165 @ $3.67
+2026-03-02 14:36:11,019 - automated_trading.position_monitor - INFO - Order executed: BUY ABCL | Total trades today: 3/15
+2026-03-02 14:36:11,019 - __main__ - INFO - Order submitted: e98cd374-6bab-45a1-b042-230ca1880259
+2026-03-02 14:36:11,019 - __main__ - INFO - Status: OrderStatus.PENDING_NEW
+2026-03-02 14:36:11,054 - __main__ - INFO - Position sizing: score=8.1 → 6.0% of portfolio = $597.02
+2026-03-02 14:36:11,389 - __main__ - WARNING - FOUR: Downtrend check failed (The truth value of a Series is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().), allowing trade
+2026-03-02 14:36:11,638 - __main__ - INFO - Position sizing: score=7.1 → 5.5% of portfolio = $545.97
+2026-03-02 14:36:11,639 - __main__ - INFO - 
+==================================================
+2026-03-02 14:36:11,639 - __main__ - INFO - EXECUTING BUY: FOUR
+2026-03-02 14:36:11,639 - __main__ - INFO - ==================================================
+2026-03-02 14:36:11,794 - __main__ - WARNING - FOUR: Downtrend check failed (The truth value of a Series is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().), allowing trade
+2026-03-02 14:36:11,894 - __main__ - INFO - Position sizing: score=7.1 → 5.5% of portfolio = $545.97
+2026-03-02 14:36:11,933 - __main__ - INFO - Position sizing: score=7.1 → 5.5% of portfolio = $545.97
+2026-03-02 14:36:11,971 - automated_trading.order_manager - INFO - ✅ Created LIMIT BUY order: FOUR x12 @ $44.62
+2026-03-02 14:36:11,971 - __main__ - INFO - Submitting LIMIT order: FOUR x12 @ $44.62 (signal: $44.07, cushion: 1.25% [mid_cap])
+2026-03-02 14:36:11,971 - automated_trading.alpaca_client - INFO - Submitting LIMIT BUY: FOUR x12 @ $44.62
+2026-03-02 14:36:12,010 - automated_trading.position_monitor - INFO - Order executed: BUY FOUR | Total trades today: 4/15
+2026-03-02 14:36:12,010 - __main__ - INFO - Order submitted: b1e7201f-067d-4d84-8ba0-8608d3d63ba1
+2026-03-02 14:36:12,010 - __main__ - INFO - Status: OrderStatus.PENDING_NEW
+2026-03-02 14:36:12,044 - __main__ - INFO - Position sizing: score=7.1 → 5.5% of portfolio = $545.97
+2026-03-02 14:36:12,771 - __main__ - WARNING - WRB: Downtrend check failed (The truth value of a Series is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().), allowing trade
+2026-03-02 14:36:12,771 - __main__ - INFO - Skipping WRB: Already have position
+2026-03-02 14:36:12,771 - __main__ - INFO - Skipping FRHC: Score 5.33690881145224 below threshold 6.0
+2026-03-02 14:36:12,772 - __main__ - INFO - Skipping RHP: Score 3.9967160158671136 below threshold 6.0
+2026-03-02 14:36:12,772 - __main__ - INFO - Skipping LKFN: Score 3.958740333423249 below threshold 6.0
+2026-03-02 14:36:12,772 - __main__ - INFO - Skipping TWN: Score 3.875783844876005 below threshold 6.0
+2026-03-02 14:36:12,772 - __main__ - INFO - Skipping TRGS: Score 3.828305152328119 below threshold 6.0
+2026-03-02 14:36:12,772 - __main__ - INFO - Sending batch email for 4 morning trades
+2026-03-02 14:36:13,803 - automated_trading.alerts - INFO - ✅ Alert sent successfully: 🧪 Morning Trades: 4 positions opened ($2,353)
+2026-03-02 14:36:13,803 - __main__ - INFO - 
+============================================================
+2026-03-02 14:36:13,804 - __main__ - INFO - MORNING EXECUTION COMPLETE
+2026-03-02 14:36:13,804 - __main__ - INFO - Signals: 11 loaded, 4 validated
+2026-03-02 14:36:13,804 - __main__ - INFO - Orders: 4 submitted, 0 failed
+2026-03-02 14:36:13,804 - __main__ - INFO - Queued: 0
+2026-03-02 14:36:13,804 - __main__ - INFO - ============================================================
+{
+  "timestamp": "2026-03-02T14:36:06.699078",
+  "signals_loaded": 11,
+  "signals_validated": 4,
+  "orders_submitted": 4,
+  "orders_failed": 0,
+  "queued_for_later": 0,
+  "errors": []
+}

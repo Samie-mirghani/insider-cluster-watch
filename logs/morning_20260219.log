@@ -1,0 +1,61 @@
+2026-02-19 14:36:06,366 - __main__ - INFO - ============================================================
+2026-02-19 14:36:06,366 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-19 14:36:06,366 - __main__ - INFO - Mode: PAPER
+2026-02-19 14:36:06,366 - __main__ - INFO - Trading Enabled: True
+2026-02-19 14:36:06,366 - __main__ - INFO - ============================================================
+2026-02-19 14:36:06,366 - __main__ - INFO - Loaded 0 exits from today
+2026-02-19 14:36:06,367 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-19 14:36:06,517 - automated_trading.alpaca_client - INFO - Account verified: $94,386.67 portfolio value
+2026-02-19 14:36:06,517 - __main__ - INFO - Connected to Alpaca (paper mode)
+2026-02-19 14:36:06,517 - __main__ - INFO - Account verified:
+2026-02-19 14:36:06,517 - __main__ - INFO -   Portfolio Value: $94,386.67
+2026-02-19 14:36:06,517 - __main__ - INFO -   Cash: $30,887.68
+2026-02-19 14:36:06,517 - __main__ - INFO -   Buying Power: $125,274.35
+2026-02-19 14:36:06,549 - automated_trading.utils - INFO - Trading calendar updated: 41 trading days cached
+2026-02-19 14:36:06,549 - automated_trading.order_manager - INFO - Loaded 0 pending orders
+2026-02-19 14:36:06,549 - automated_trading.signal_queue - INFO - Loaded 9 queued signals
+2026-02-19 14:36:06,550 - automated_trading.position_monitor - INFO - New trading day - circuit breakers reset
+2026-02-19 14:36:06,550 - automated_trading.position_monitor - INFO - Loaded 10 positions
+2026-02-19 14:36:06,550 - automated_trading.position_monitor - INFO - Loaded signal history for 28 tickers
+2026-02-19 14:36:06,585 - automated_trading.execution_metrics - INFO - Loaded 26 execution records
+2026-02-19 14:36:06,585 - __main__ - INFO - All components initialized successfully
+2026-02-19 14:36:06,585 - __main__ - INFO - 
+============================================================
+2026-02-19 14:36:06,586 - __main__ - INFO - MORNING TRADE EXECUTION
+2026-02-19 14:36:06,586 - __main__ - INFO - Time: 2026-02-19 14:36:06.586050
+2026-02-19 14:36:06,586 - __main__ - INFO - ============================================================
+2026-02-19 14:36:06,686 - __main__ - INFO - Syncing with broker before trading...
+2026-02-19 14:36:06,719 - automated_trading.reconciliation - INFO - Starting position reconciliation...
+2026-02-19 14:36:06,764 - automated_trading.reconciliation - INFO - Reconciliation PASSED: 10 positions match
+2026-02-19 14:36:06,764 - __main__ - INFO - Loaded 6 signals from /home/samie_mirghani/insider-cluster-watch/automated_trading/../data/approved_signals.json
+2026-02-19 14:36:08,430 - __main__ - WARNING - KKR: Downtrend check failed (The truth value of a Series is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().), allowing trade
+2026-02-19 14:36:08,535 - __main__ - INFO - Skipping KKR: Max positions (10) reached
+2026-02-19 14:36:08,539 - automated_trading.signal_queue - INFO - Signal queued: KKR (score: 12.28) - Max positions (10) reached
+2026-02-19 14:36:08,539 - __main__ - INFO -   Queued KKR for intraday redeployment
+2026-02-19 14:36:08,758 - __main__ - WARNING - DEI: Downtrend check failed (The truth value of a Series is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().), allowing trade
+2026-02-19 14:36:08,856 - __main__ - INFO - Skipping DEI: Max positions (10) reached
+2026-02-19 14:36:08,858 - automated_trading.signal_queue - INFO - Signal queued: DEI (score: 8.08) - Max positions (10) reached
+2026-02-19 14:36:08,859 - __main__ - INFO -   Queued DEI for intraday redeployment
+2026-02-19 14:36:09,106 - __main__ - WARNING - VERX: Downtrend check failed (The truth value of a Series is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().), allowing trade
+2026-02-19 14:36:09,236 - __main__ - INFO - Skipping VERX: Max positions (10) reached
+2026-02-19 14:36:09,238 - automated_trading.signal_queue - INFO - Signal queued: VERX (score: 6.33) - Max positions (10) reached
+2026-02-19 14:36:09,238 - __main__ - INFO -   Queued VERX for intraday redeployment
+2026-02-19 14:36:09,238 - __main__ - INFO - Skipping FAF: Score 4.801781577993845 below threshold 6.0
+2026-02-19 14:36:09,238 - __main__ - INFO - Skipping DKNG: Score 4.124640855522204 below threshold 6.0
+2026-02-19 14:36:09,238 - __main__ - INFO - Skipping MSFT: Score 3.8127513998921114 below threshold 6.0
+2026-02-19 14:36:09,239 - __main__ - INFO - 
+============================================================
+2026-02-19 14:36:09,239 - __main__ - INFO - MORNING EXECUTION COMPLETE
+2026-02-19 14:36:09,239 - __main__ - INFO - Signals: 6 loaded, 0 validated
+2026-02-19 14:36:09,239 - __main__ - INFO - Orders: 0 submitted, 0 failed
+2026-02-19 14:36:09,239 - __main__ - INFO - Queued: 3
+2026-02-19 14:36:09,239 - __main__ - INFO - ============================================================
+{
+  "timestamp": "2026-02-19T14:36:06.586126",
+  "signals_loaded": 6,
+  "signals_validated": 0,
+  "orders_submitted": 0,
+  "orders_failed": 0,
+  "queued_for_later": 3,
+  "errors": []
+}

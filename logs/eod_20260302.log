@@ -1,0 +1,75 @@
+2026-03-02 21:30:03,194 - __main__ - INFO - ============================================================
+2026-03-02 21:30:03,197 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-03-02 21:30:03,197 - __main__ - INFO - Mode: PAPER
+2026-03-02 21:30:03,197 - __main__ - INFO - Trading Enabled: True
+2026-03-02 21:30:03,197 - __main__ - INFO - ============================================================
+2026-03-02 21:30:03,198 - __main__ - INFO - Loaded 0 exits from today
+2026-03-02 21:30:03,198 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-03-02 21:30:03,348 - automated_trading.alpaca_client - INFO - Account verified: $10,068.99 portfolio value
+2026-03-02 21:30:03,349 - __main__ - INFO - Connected to Alpaca (paper mode)
+2026-03-02 21:30:03,349 - __main__ - INFO - Account verified:
+2026-03-02 21:30:03,349 - __main__ - INFO -   Portfolio Value: $10,068.99
+2026-03-02 21:30:03,350 - __main__ - INFO -   Cash: $3,555.29
+2026-03-02 21:30:03,350 - __main__ - INFO -   Buying Power: $13,624.28
+2026-03-02 21:30:03,386 - automated_trading.utils - INFO - Trading calendar updated: 43 trading days cached
+2026-03-02 21:30:03,386 - automated_trading.order_manager - INFO - Loaded 3 pending orders
+2026-03-02 21:30:03,387 - automated_trading.signal_queue - INFO - Loaded 3 queued signals
+2026-03-02 21:30:03,387 - automated_trading.position_monitor - INFO - Loaded 12 positions
+2026-03-02 21:30:03,388 - automated_trading.position_monitor - INFO - Loaded signal history for 0 tickers
+2026-03-02 21:30:03,423 - automated_trading.execution_metrics - INFO - Loaded 27 execution records
+2026-03-02 21:30:03,424 - __main__ - INFO - All components initialized successfully
+2026-03-02 21:30:03,424 - __main__ - INFO - 
+============================================================
+2026-03-02 21:30:03,424 - __main__ - INFO - END OF DAY SUMMARY
+2026-03-02 21:30:03,424 - __main__ - INFO - ============================================================
+2026-03-02 21:30:03,567 - automated_trading.execution_metrics - INFO - Unfilled order recorded: LEE BUY @ $5.66 - EXPIRED
+2026-03-02 21:30:03,567 - automated_trading.order_manager - INFO - Expired order removed: LEE BUY
+2026-03-02 21:30:03,569 - automated_trading.execution_metrics - INFO - Unfilled order recorded: AAT BUY @ $19.11 - EXPIRED
+2026-03-02 21:30:03,569 - automated_trading.order_manager - INFO - Expired order removed: AAT BUY
+2026-03-02 21:30:03,570 - automated_trading.signal_queue - INFO - Removed stale signal: SWZ
+2026-03-02 21:30:03,571 - automated_trading.signal_queue - INFO - Removed stale signal: SONO
+2026-03-02 21:30:03,572 - automated_trading.signal_queue - INFO - Removed stale signal: TYL
+2026-03-02 21:30:03,573 - automated_trading.signal_queue - INFO - Cleanup removed 3 signal(s)
+2026-03-02 21:30:03,577 - __main__ - INFO - No sell orders today - no backfill needed
+2026-03-02 21:30:03,577 - __main__ - INFO - Broker EOD metrics | filled=3 buys=3 sells=0 closed=0 win_rate=0.0% notional=$1,753.27
+2026-03-02 21:30:03,577 - __main__ - INFO - Generating AI insights...
+2026-03-02 21:30:06,268 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-02 21:30:06,367 - __main__ - INFO - ✅ AI insights generated
+2026-03-02 21:30:06,368 - __main__ - INFO - Sending EOD summary with 0 exits
+2026-03-02 21:30:07,834 - automated_trading.alerts - INFO - ✅ Alert sent successfully: 🧪 Daily Summary: $+136.99 | March 02, 2026
+2026-03-02 21:30:07,834 - __main__ - INFO - Cleared exits_today after EOD summary
+2026-03-02 21:30:07,835 - __main__ - INFO - Portfolio Value: $10,068.99
+2026-03-02 21:30:07,835 - __main__ - INFO - Daily P&L: $+136.99
+2026-03-02 21:30:07,835 - __main__ - INFO - Trades Today: 3
+2026-03-02 21:30:07,835 - __main__ - INFO - Open Positions: 12
+2026-03-02 21:30:07,835 - __main__ - INFO - ============================================================
+  [DEBUG] Scanned 596 audit log lines, found 7 rejections for 2026-03-02
+  [DEBUG] Loading exits from audit log (LIVE trades)
+  [DEBUG] Found 0 exits in audit log for 2026-03-02
+{
+  "date": "2026-03-02",
+  "portfolio_value": 10068.99,
+  "daily_pnl": 136.98999999999978,
+  "trades_executed": 3,
+  "open_positions": 12,
+  "exits_reported": 0,
+  "circuit_breaker": {
+    "is_halted": false,
+    "halt_reason": null,
+    "daily_pnl": 0.0,
+    "consecutive_losses": 0,
+    "trades_today": 0,
+    "total_trades_today": 4,
+    "trades_remaining": 11,
+    "peak_portfolio_value": 10073.07
+  },
+  "broker_summary": {
+    "total_filled_orders": 3,
+    "buy_orders": 3,
+    "sell_orders": 0,
+    "executed_notional": 1753.27,
+    "closed_positions": 0,
+    "wins": 0,
+    "win_rate": 0.0
+  }
+}

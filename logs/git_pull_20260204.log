@@ -1,0 +1,22 @@
+From https://github.com/samie-mirghani/insider-cluster-watch
+ * branch            main       -> FETCH_HEAD
+   7465402..11eb4c1  main       -> origin/main
+Updating 7465402..11eb4c1
+Fast-forward
+ CODE_REVIEW_GO_PRIVATE_DETECTION.md |  634 +++++
+ automated_trading/execute_trades.py |  116 +
+ data/api_rate_limit.json            |    2 +-
+ data/failed_tickers_cache.json      |  431 +++-
+ data/fmp_analytics.json             |   31 +-
+ data/insider_name_mapping.json      |   20 +-
+ data/insider_tracking_queue.json    | 4693 +++++++++++++++++++----------------
+ data/insider_trades_history.csv     |  110 +-
+ data/paper_portfolio.json           |   98 +-
+ data/paper_trades.csv               |   10 +-
+ data/politician_trades_cache.json   |  428 +++-
+ jobs/main.py                        |    6 +-
+ jobs/paper_trade.py                 |  122 +
+ jobs/process_signals.py             |  355 ++-
+ public_performance.json             |  126 +-
+ 15 files changed, 4661 insertions(+), 2521 deletions(-)
+ create mode 100644 CODE_REVIEW_GO_PRIVATE_DETECTION.md

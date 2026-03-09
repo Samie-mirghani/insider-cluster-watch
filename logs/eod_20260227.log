@@ -1,0 +1,74 @@
+2026-02-27 21:30:02,643 - __main__ - INFO - ============================================================
+2026-02-27 21:30:02,643 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-27 21:30:02,643 - __main__ - INFO - Mode: PAPER
+2026-02-27 21:30:02,643 - __main__ - INFO - Trading Enabled: True
+2026-02-27 21:30:02,643 - __main__ - INFO - ============================================================
+2026-02-27 21:30:02,643 - __main__ - INFO - Loaded 2 exits from today
+2026-02-27 21:30:02,644 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-27 21:30:02,799 - automated_trading.alpaca_client - INFO - Account verified: $9,933.12 portfolio value
+2026-02-27 21:30:02,799 - __main__ - INFO - Connected to Alpaca (paper mode)
+2026-02-27 21:30:02,799 - __main__ - INFO - Account verified:
+2026-02-27 21:30:02,800 - __main__ - INFO -   Portfolio Value: $9,933.12
+2026-02-27 21:30:02,800 - __main__ - INFO -   Cash: $5,308.57
+2026-02-27 21:30:02,800 - __main__ - INFO -   Buying Power: $15,241.69
+2026-02-27 21:30:02,835 - automated_trading.utils - INFO - Trading calendar updated: 41 trading days cached
+2026-02-27 21:30:02,836 - automated_trading.order_manager - INFO - Loaded 3 pending orders
+2026-02-27 21:30:02,836 - automated_trading.signal_queue - INFO - Loaded 3 queued signals
+2026-02-27 21:30:02,837 - automated_trading.position_monitor - INFO - Loaded 9 positions
+2026-02-27 21:30:02,837 - automated_trading.position_monitor - INFO - Loaded signal history for 0 tickers
+2026-02-27 21:30:02,872 - automated_trading.execution_metrics - INFO - Loaded 23 execution records
+2026-02-27 21:30:02,872 - __main__ - INFO - All components initialized successfully
+2026-02-27 21:30:02,872 - __main__ - INFO - 
+============================================================
+2026-02-27 21:30:02,872 - __main__ - INFO - END OF DAY SUMMARY
+2026-02-27 21:30:02,872 - __main__ - INFO - ============================================================
+2026-02-27 21:30:03,012 - automated_trading.execution_metrics - INFO - Unfilled order recorded: TCBI BUY @ $98.85 - EXPIRED
+2026-02-27 21:30:03,012 - automated_trading.order_manager - INFO - Expired order removed: TCBI BUY
+2026-02-27 21:30:03,017 - __main__ - INFO - Audit log has 2 POSITION_CLOSED events for today - audit log OK
+2026-02-27 21:30:03,017 - __main__ - INFO - Found 2 sell orders from Alpaca today
+2026-02-27 21:30:03,018 - __main__ - WARNING -   HTGC: No entry price found, P&L will be approximate
+2026-02-27 21:30:03,046 - __main__ - INFO -   Found: HTGC x32 @ $14.18 (P&L: $+0.00)
+2026-02-27 21:30:03,047 - __main__ - WARNING -   HLNE: No entry price found, P&L will be approximate
+2026-02-27 21:30:03,048 - __main__ - INFO -   Found: HLNE x8 @ $102.09 (P&L: $+0.00)
+2026-02-27 21:30:03,048 - __main__ - INFO - Broker EOD metrics | filled=4 buys=2 sells=2 closed=2 win_rate=0.0% notional=$2,380.05
+2026-02-27 21:30:03,048 - __main__ - INFO - Generating AI insights...
+2026-02-27 21:30:05,704 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-27 21:30:05,784 - __main__ - INFO - ✅ AI insights generated
+2026-02-27 21:30:05,784 - __main__ - INFO - Sending EOD summary with 2 exits
+2026-02-27 21:30:06,749 - automated_trading.alerts - INFO - ✅ Alert sent successfully: 🧪 Daily Summary: $-107.95 | February 27, 2026
+2026-02-27 21:30:06,750 - __main__ - INFO - Cleared exits_today after EOD summary
+2026-02-27 21:30:06,751 - __main__ - INFO - Portfolio Value: $9,933.12
+2026-02-27 21:30:06,751 - __main__ - INFO - Daily P&L: $-107.95
+2026-02-27 21:30:06,751 - __main__ - INFO - Trades Today: 4
+2026-02-27 21:30:06,751 - __main__ - INFO - Open Positions: 9
+2026-02-27 21:30:06,751 - __main__ - INFO - ============================================================
+  [DEBUG] Scanned 478 audit log lines, found 5 rejections for 2026-02-27
+  [DEBUG] Loading exits from audit log (LIVE trades)
+  [DEBUG] Found 2 exits in audit log for 2026-02-27
+{
+  "date": "2026-02-27",
+  "portfolio_value": 9933.12,
+  "daily_pnl": -107.95499999999993,
+  "trades_executed": 4,
+  "open_positions": 9,
+  "exits_reported": 2,
+  "circuit_breaker": {
+    "is_halted": false,
+    "halt_reason": null,
+    "daily_pnl": -45.589999999999975,
+    "consecutive_losses": 2,
+    "trades_today": 2,
+    "total_trades_today": 6,
+    "trades_remaining": 9,
+    "peak_portfolio_value": 9969.5
+  },
+  "broker_summary": {
+    "total_filled_orders": 4,
+    "buy_orders": 2,
+    "sell_orders": 2,
+    "executed_notional": 2380.05,
+    "closed_positions": 2,
+    "wins": 0,
+    "win_rate": 0.0
+  }
+}

@@ -1,0 +1,80 @@
+2026-02-20 21:30:03,800 - __main__ - INFO - ============================================================
+2026-02-20 21:30:03,801 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 21:30:03,801 - __main__ - INFO - Mode: PAPER
+2026-02-20 21:30:03,801 - __main__ - INFO - Trading Enabled: True
+2026-02-20 21:30:03,801 - __main__ - INFO - ============================================================
+2026-02-20 21:30:03,802 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 21:30:03,802 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 21:30:03,983 - automated_trading.alpaca_client - INFO - Account verified: $9,989.04 portfolio value
+2026-02-20 21:30:03,983 - __main__ - INFO - Connected to Alpaca (paper mode)
+2026-02-20 21:30:03,984 - __main__ - INFO - Account verified:
+2026-02-20 21:30:03,984 - __main__ - INFO -   Portfolio Value: $9,989.04
+2026-02-20 21:30:03,984 - __main__ - INFO -   Cash: $8,336.22
+2026-02-20 21:30:03,984 - __main__ - INFO -   Buying Power: $18,325.26
+2026-02-20 21:30:04,085 - automated_trading.utils - INFO - Trading calendar updated: 41 trading days cached
+2026-02-20 21:30:04,090 - automated_trading.order_manager - INFO - Loaded 3 pending orders
+2026-02-20 21:30:04,092 - automated_trading.signal_queue - INFO - Loaded 10 queued signals
+2026-02-20 21:30:04,096 - automated_trading.position_monitor - INFO - Loaded 0 positions
+2026-02-20 21:30:04,098 - automated_trading.position_monitor - INFO - Loaded signal history for 0 tickers
+2026-02-20 21:30:04,156 - automated_trading.position_monitor - INFO -   ➕ Added ASST: 76 shares @ $8.29 (stop: $7.63)
+2026-02-20 21:30:04,157 - automated_trading.position_monitor - INFO -   ➕ Added HTGC: 32 shares @ $15.51 (stop: $14.27)
+2026-02-20 21:30:04,157 - automated_trading.position_monitor - INFO -   ➕ Added WLIIU: 53 shares @ $10.14 (stop: $9.33)
+2026-02-20 21:30:04,160 - automated_trading.position_monitor - INFO - ✅ Synced 3 corrections to positions.json
+2026-02-20 21:30:04,161 - automated_trading.position_monitor - INFO - Position sync completed on initialization
+2026-02-20 21:30:04,162 - automated_trading.execution_metrics - INFO - Loaded 0 execution records
+2026-02-20 21:30:04,165 - __main__ - INFO - All components initialized successfully
+2026-02-20 21:30:04,165 - __main__ - INFO - 
+============================================================
+2026-02-20 21:30:04,165 - __main__ - INFO - END OF DAY SUMMARY
+2026-02-20 21:30:04,165 - __main__ - INFO - ============================================================
+2026-02-20 21:30:04,323 - automated_trading.signal_queue - INFO - Removed stale signal: CNVS
+2026-02-20 21:30:04,325 - automated_trading.signal_queue - INFO - Removed stale signal: SONO
+2026-02-20 21:30:04,326 - automated_trading.signal_queue - INFO - Removed stale signal: QDEL
+2026-02-20 21:30:04,327 - automated_trading.signal_queue - INFO - Removed stale signal: MSCI
+2026-02-20 21:30:04,328 - automated_trading.signal_queue - INFO - Removed stale signal: ZBIO
+2026-02-20 21:30:04,330 - automated_trading.signal_queue - INFO - Removed stale signal: ASA
+2026-02-20 21:30:04,330 - automated_trading.signal_queue - INFO - Removed stale signal: WTW
+2026-02-20 21:30:04,331 - automated_trading.signal_queue - INFO - Removed stale signal: EKSO
+2026-02-20 21:30:04,332 - automated_trading.signal_queue - INFO - Cleanup removed 8 signal(s)
+2026-02-20 21:30:04,332 - __main__ - INFO - No sell orders today - no backfill needed
+2026-02-20 21:30:04,332 - __main__ - INFO - Broker EOD metrics | filled=3 buys=3 sells=0 closed=0 win_rate=0.0% notional=$1,663.78
+2026-02-20 21:30:04,332 - __main__ - INFO - Generating AI insights...
+2026-02-20 21:30:06,102 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-20 21:30:06,172 - __main__ - INFO - ✅ AI insights generated
+2026-02-20 21:30:06,172 - __main__ - INFO - Sending EOD summary with 0 exits
+2026-02-20 21:30:07,028 - automated_trading.alerts - INFO - ✅ Alert sent successfully: 🧪 Daily Summary: $-10.96 | February 20, 2026
+2026-02-20 21:30:07,029 - __main__ - INFO - Cleared exits_today after EOD summary
+2026-02-20 21:30:07,029 - __main__ - INFO - Portfolio Value: $9,989.04
+2026-02-20 21:30:07,029 - __main__ - INFO - Daily P&L: $-10.96
+2026-02-20 21:30:07,029 - __main__ - INFO - Trades Today: 3
+2026-02-20 21:30:07,029 - __main__ - INFO - Open Positions: 3
+2026-02-20 21:30:07,030 - __main__ - INFO - ============================================================
+  [DEBUG] Scanned 21 audit log lines, found 3 rejections for 2026-02-20
+  [DEBUG] Loading exits from audit log (LIVE trades)
+  [DEBUG] Found 0 exits in audit log for 2026-02-20
+{
+  "date": "2026-02-20",
+  "portfolio_value": 9989.04,
+  "daily_pnl": -10.959999999999127,
+  "trades_executed": 3,
+  "open_positions": 3,
+  "exits_reported": 0,
+  "circuit_breaker": {
+    "is_halted": false,
+    "halt_reason": null,
+    "daily_pnl": 0.0,
+    "consecutive_losses": 0,
+    "trades_today": 0,
+    "total_trades_today": 3,
+    "trades_remaining": 12
+  },
+  "broker_summary": {
+    "total_filled_orders": 3,
+    "buy_orders": 3,
+    "sell_orders": 0,
+    "executed_notional": 1663.78,
+    "closed_positions": 0,
+    "wins": 0,
+    "win_rate": 0.0
+  }
+}

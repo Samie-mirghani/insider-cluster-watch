@@ -1,0 +1,79 @@
+2026-02-26 21:30:03,252 - __main__ - INFO - ============================================================
+2026-02-26 21:30:03,252 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-26 21:30:03,252 - __main__ - INFO - Mode: PAPER
+2026-02-26 21:30:03,252 - __main__ - INFO - Trading Enabled: True
+2026-02-26 21:30:03,252 - __main__ - INFO - ============================================================
+2026-02-26 21:30:03,253 - __main__ - INFO - Loaded 1 exits from today
+2026-02-26 21:30:03,253 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-26 21:30:03,399 - automated_trading.alpaca_client - INFO - Account verified: $10,034.55 portfolio value
+2026-02-26 21:30:03,399 - __main__ - INFO - Connected to Alpaca (paper mode)
+2026-02-26 21:30:03,399 - __main__ - INFO - Account verified:
+2026-02-26 21:30:03,399 - __main__ - INFO -   Portfolio Value: $10,034.55
+2026-02-26 21:30:03,399 - __main__ - INFO -   Cash: $5,147.68
+2026-02-26 21:30:03,399 - __main__ - INFO -   Buying Power: $15,182.23
+2026-02-26 21:30:03,433 - automated_trading.utils - INFO - Trading calendar updated: 41 trading days cached
+2026-02-26 21:30:03,433 - automated_trading.order_manager - INFO - Loaded 6 pending orders
+2026-02-26 21:30:03,434 - automated_trading.signal_queue - INFO - Loaded 3 queued signals
+2026-02-26 21:30:03,434 - automated_trading.position_monitor - INFO - Loaded 9 positions
+2026-02-26 21:30:03,434 - automated_trading.position_monitor - INFO - Loaded signal history for 0 tickers
+2026-02-26 21:30:03,482 - automated_trading.execution_metrics - INFO - Loaded 16 execution records
+2026-02-26 21:30:03,482 - __main__ - INFO - All components initialized successfully
+2026-02-26 21:30:03,482 - __main__ - INFO - 
+============================================================
+2026-02-26 21:30:03,482 - __main__ - INFO - END OF DAY SUMMARY
+2026-02-26 21:30:03,482 - __main__ - INFO - ============================================================
+2026-02-26 21:30:03,655 - automated_trading.execution_metrics - INFO - Unfilled order recorded: TZOO BUY @ $5.60 - EXPIRED
+2026-02-26 21:30:03,655 - automated_trading.order_manager - INFO - Expired order removed: TZOO BUY
+2026-02-26 21:30:03,657 - automated_trading.execution_metrics - INFO - Unfilled order recorded: BLCO BUY @ $18.21 - EXPIRED
+2026-02-26 21:30:03,657 - automated_trading.order_manager - INFO - Expired order removed: BLCO BUY
+2026-02-26 21:30:03,658 - automated_trading.execution_metrics - INFO - Unfilled order recorded: VRSK BUY @ $193.56 - EXPIRED
+2026-02-26 21:30:03,658 - automated_trading.order_manager - INFO - Expired order removed: VRSK BUY
+2026-02-26 21:30:03,660 - automated_trading.execution_metrics - INFO - Unfilled order recorded: CVI BUY @ $21.98 - EXPIRED
+2026-02-26 21:30:03,660 - automated_trading.order_manager - INFO - Expired order removed: CVI BUY
+2026-02-26 21:30:03,661 - automated_trading.execution_metrics - INFO - Unfilled order recorded: FIG BUY @ $27.77 - EXPIRED
+2026-02-26 21:30:03,662 - automated_trading.order_manager - INFO - Expired order removed: FIG BUY
+2026-02-26 21:30:03,748 - __main__ - INFO - Audit log has 1 POSITION_CLOSED events for today - audit log OK
+2026-02-26 21:30:03,748 - __main__ - INFO - Found 1 sell orders from Alpaca today
+2026-02-26 21:30:03,780 - __main__ - WARNING -   ACOG: No entry price found, P&L will be approximate
+2026-02-26 21:30:03,780 - __main__ - INFO -   Found: ACOG x89 @ $5.49 (P&L: $+0.00)
+2026-02-26 21:30:03,780 - __main__ - INFO - Broker EOD metrics | filled=1 buys=0 sells=1 closed=1 win_rate=100.0% notional=$488.61
+2026-02-26 21:30:03,780 - __main__ - INFO - Generating AI insights...
+2026-02-26 21:30:05,914 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-26 21:30:05,988 - __main__ - INFO - ✅ AI insights generated
+2026-02-26 21:30:05,989 - __main__ - INFO - Sending EOD summary with 1 exits
+2026-02-26 21:30:06,962 - automated_trading.alerts - INFO - ✅ Alert sent successfully: 🧪 Daily Summary: $+9.89 | February 26, 2026
+2026-02-26 21:30:06,963 - __main__ - INFO - Cleared exits_today after EOD summary
+2026-02-26 21:30:06,963 - __main__ - INFO - Portfolio Value: $10,034.55
+2026-02-26 21:30:06,963 - __main__ - INFO - Daily P&L: $+9.89
+2026-02-26 21:30:06,963 - __main__ - INFO - Trades Today: 1
+2026-02-26 21:30:06,964 - __main__ - INFO - Open Positions: 9
+2026-02-26 21:30:06,964 - __main__ - INFO - ============================================================
+  [DEBUG] Scanned 378 audit log lines, found 8 rejections for 2026-02-26
+  [DEBUG] Loading exits from audit log (LIVE trades)
+  [DEBUG] Found 1 exits in audit log for 2026-02-26
+{
+  "date": "2026-02-26",
+  "portfolio_value": 10034.55,
+  "daily_pnl": 9.894999999998618,
+  "trades_executed": 1,
+  "open_positions": 9,
+  "exits_reported": 1,
+  "circuit_breaker": {
+    "is_halted": false,
+    "halt_reason": null,
+    "daily_pnl": 1.779999999999962,
+    "consecutive_losses": 0,
+    "trades_today": 1,
+    "total_trades_today": 2,
+    "trades_remaining": 13
+  },
+  "broker_summary": {
+    "total_filled_orders": 1,
+    "buy_orders": 0,
+    "sell_orders": 1,
+    "executed_notional": 488.61,
+    "closed_positions": 1,
+    "wins": 1,
+    "win_rate": 100.0
+  }
+}

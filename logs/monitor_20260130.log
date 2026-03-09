@@ -1,0 +1,77 @@
+2026-01-30 23:01:35,536 - __main__ - INFO - ============================================================
+2026-01-30 23:01:35,536 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-01-30 23:01:35,536 - __main__ - INFO - Mode: PAPER
+2026-01-30 23:01:35,536 - __main__ - INFO - Trading Enabled: True
+2026-01-30 23:01:35,536 - __main__ - INFO - ============================================================
+2026-01-30 23:01:35,536 - __main__ - INFO - Loaded 0 exits from today
+2026-01-30 23:01:35,537 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-01-30 23:01:35,668 - automated_trading.alpaca_client - INFO - Account verified: $94,683.22 portfolio value
+2026-01-30 23:01:35,668 - __main__ - INFO - Connected to Alpaca (paper mode)
+2026-01-30 23:01:35,668 - __main__ - INFO - Account verified:
+2026-01-30 23:01:35,668 - __main__ - INFO -   Portfolio Value: $94,683.22
+2026-01-30 23:01:35,668 - __main__ - INFO -   Cash: $49,631.46
+2026-01-30 23:01:35,668 - __main__ - INFO -   Buying Power: $144,314.68
+2026-01-30 23:01:35,700 - automated_trading.utils - INFO - Trading calendar updated: 39 trading days cached
+2026-01-30 23:01:35,700 - automated_trading.order_manager - INFO - Loaded 0 pending orders
+2026-01-30 23:01:35,700 - automated_trading.signal_queue - INFO - Loaded 0 queued signals
+2026-01-30 23:01:35,701 - automated_trading.position_monitor - INFO - New trading day - circuit breakers reset
+2026-01-30 23:01:35,701 - automated_trading.position_monitor - INFO - Loaded 6 positions
+2026-01-30 23:01:35,701 - automated_trading.position_monitor - INFO - Loaded signal history for 7 tickers
+2026-01-30 23:01:35,734 - automated_trading.execution_metrics - INFO - Loaded 0 execution records
+2026-01-30 23:01:35,734 - __main__ - INFO - All components initialized successfully
+2026-01-30 23:01:35,734 - __main__ - INFO - 
+--- Monitoring Cycle: 23:01:35 ---
+{
+  "timestamp": "2026-01-30T23:01:35.734731",
+  "exits_triggered": [],
+  "orders_filled": [],
+  "redeployments": [],
+  "circuit_breaker": null,
+  "errors": [],
+  "skipped": "Market closed"
+}
+
+======================================================================
+  POSITION DASHBOARD
+======================================================================
+  2026-01-30 23:01:35  |  6 position(s)
+  Portfolio Value: $45,051.76  |  Cost Basis: $45,258.24
+  Total P&L: $-206.48  (-0.46%)
+======================================================================
+  TCBI    66 shares  |  Tier: ?  |  Day 2
+    Price    : $97.45 -> $101.17  (+3.82% / +$245.52)
+    Stop Loss: $96.16  (5.0% below current)
+    Target   : $109.14  (7.9% above current)
+    Trailing : ACTIVE  5% standard  |  High: $101.22
+----------------------------------------------------------------------
+  ALLY    137 shares  |  Tier: ?  |  Day 4
+    Price    : $41.65 -> $42.52  (+2.09% / +$119.19)
+    Stop Loss: $40.98  (3.6% below current)
+    Target   : $46.65  (9.7% above current)
+    Trailing : ACTIVE  5% standard  |  High: $43.13
+----------------------------------------------------------------------
+  GDV     195 shares  |  Tier: ?  |  Day 1
+    Price    : $28.68 -> $28.40  (-0.98% / $-54.60)
+    Stop Loss: $26.39  (7.1% below current)
+    Target   : $32.12  (13.1% above current)
+    Trailing : OFF  (need +4.0% to activate)
+----------------------------------------------------------------------
+  UA      2634 shares  |  Tier: ?  |  Day 4
+    Price    : $6.15 -> $6.09  (-1.02% / $-164.85)
+    Stop Loss: $5.66  (7.1% below current)
+    Target   : $6.89  (13.2% above current)
+    Trailing : OFF  (need +4.0% to activate)
+----------------------------------------------------------------------
+  HLXC    554 shares  |  Tier: ?  |  Day 1
+    Price    : $10.35 -> $10.21  (-1.35% / $-77.56)
+    Stop Loss: $9.52  (6.7% below current)
+    Target   : $11.59  (13.5% above current)
+    Trailing : OFF  (need +4.4% to activate)
+----------------------------------------------------------------------
+  USAR    235 shares  |  Tier: ?  |  Day 0
+    Price    : $23.77 -> $22.60  (-4.91% / $-274.18)
+    Stop Loss: $21.87  (3.3% below current)
+    Target   : $26.62  (17.8% above current)
+    Trailing : OFF  (need +7.9% to activate)
+======================================================================
+

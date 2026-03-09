@@ -1,0 +1,49 @@
+2026-02-05 14:36:04,365 - __main__ - INFO - ============================================================
+2026-02-05 14:36:04,365 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-05 14:36:04,365 - __main__ - INFO - Mode: PAPER
+2026-02-05 14:36:04,365 - __main__ - INFO - Trading Enabled: True
+2026-02-05 14:36:04,365 - __main__ - INFO - ============================================================
+2026-02-05 14:36:04,365 - __main__ - INFO - Loaded 1 exits from today
+2026-02-05 14:36:04,366 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-05 14:36:04,504 - automated_trading.alpaca_client - INFO - Account verified: $94,951.09 portfolio value
+2026-02-05 14:36:04,504 - __main__ - INFO - Connected to Alpaca (paper mode)
+2026-02-05 14:36:04,504 - __main__ - INFO - Account verified:
+2026-02-05 14:36:04,504 - __main__ - INFO -   Portfolio Value: $94,951.09
+2026-02-05 14:36:04,504 - __main__ - INFO -   Cash: $40,444.14
+2026-02-05 14:36:04,504 - __main__ - INFO -   Buying Power: $135,395.23
+2026-02-05 14:36:04,540 - automated_trading.utils - INFO - Trading calendar updated: 41 trading days cached
+2026-02-05 14:36:04,540 - automated_trading.order_manager - INFO - Loaded 0 pending orders
+2026-02-05 14:36:04,541 - automated_trading.signal_queue - INFO - Loaded 1 queued signals
+2026-02-05 14:36:04,541 - automated_trading.position_monitor - INFO - Loaded 7 positions
+2026-02-05 14:36:04,541 - automated_trading.position_monitor - INFO - Loaded signal history for 12 tickers
+2026-02-05 14:36:04,575 - automated_trading.execution_metrics - INFO - Loaded 5 execution records
+2026-02-05 14:36:04,575 - __main__ - INFO - All components initialized successfully
+2026-02-05 14:36:04,575 - __main__ - INFO - 
+============================================================
+2026-02-05 14:36:04,575 - __main__ - INFO - MORNING TRADE EXECUTION
+2026-02-05 14:36:04,575 - __main__ - INFO - Time: 2026-02-05 14:36:04.575829
+2026-02-05 14:36:04,575 - __main__ - INFO - ============================================================
+2026-02-05 14:36:04,642 - __main__ - INFO - Syncing with broker before trading...
+2026-02-05 14:36:04,677 - automated_trading.reconciliation - INFO - Starting position reconciliation...
+2026-02-05 14:36:04,710 - automated_trading.reconciliation - INFO - Reconciliation PASSED: 7 positions match
+2026-02-05 14:36:04,712 - __main__ - INFO - Loaded 3 signals from /home/samie_mirghani/insider-cluster-watch/automated_trading/../data/approved_signals.json
+2026-02-05 14:36:05,679 - __main__ - WARNING - CR: Downtrend check failed (The truth value of a Series is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().), allowing trade
+2026-02-05 14:36:05,680 - __main__ - INFO - Skipping CR: Already have position
+2026-02-05 14:36:05,681 - __main__ - INFO - Skipping TCBI: Single insider weak conviction: buy_value $146,445 < $500K minimum
+2026-02-05 14:36:05,901 - __main__ - INFO - Skipping SHCO: Not tradeable: Asset is not tradeable
+2026-02-05 14:36:05,901 - __main__ - INFO - 
+============================================================
+2026-02-05 14:36:05,901 - __main__ - INFO - MORNING EXECUTION COMPLETE
+2026-02-05 14:36:05,901 - __main__ - INFO - Signals: 3 loaded, 0 validated
+2026-02-05 14:36:05,901 - __main__ - INFO - Orders: 0 submitted, 0 failed
+2026-02-05 14:36:05,901 - __main__ - INFO - Queued: 0
+2026-02-05 14:36:05,901 - __main__ - INFO - ============================================================
+{
+  "timestamp": "2026-02-05T14:36:04.575922",
+  "signals_loaded": 3,
+  "signals_validated": 0,
+  "orders_submitted": 0,
+  "orders_failed": 0,
+  "queued_for_later": 0,
+  "errors": []
+}

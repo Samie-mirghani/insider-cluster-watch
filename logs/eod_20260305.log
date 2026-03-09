@@ -1,0 +1,88 @@
+2026-03-05 21:30:03,277 - __main__ - INFO - ============================================================
+2026-03-05 21:30:03,294 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-03-05 21:30:03,294 - __main__ - INFO - Mode: PAPER
+2026-03-05 21:30:03,294 - __main__ - INFO - Trading Enabled: True
+2026-03-05 21:30:03,294 - __main__ - INFO - ============================================================
+2026-03-05 21:30:03,294 - __main__ - INFO - Loaded 3 exits from today
+2026-03-05 21:30:03,295 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-03-05 21:30:03,447 - automated_trading.alpaca_client - INFO - Account verified: $10,043.54 portfolio value
+2026-03-05 21:30:03,447 - __main__ - INFO - Connected to Alpaca (paper mode)
+2026-03-05 21:30:03,447 - __main__ - INFO - Account verified:
+2026-03-05 21:30:03,447 - __main__ - INFO -   Portfolio Value: $10,043.54
+2026-03-05 21:30:03,447 - __main__ - INFO -   Cash: $2,157.16
+2026-03-05 21:30:03,447 - __main__ - INFO -   Buying Power: $12,200.70
+2026-03-05 21:30:03,482 - automated_trading.utils - INFO - Trading calendar updated: 43 trading days cached
+2026-03-05 21:30:03,482 - automated_trading.order_manager - INFO - Loaded 0 pending orders
+2026-03-05 21:30:03,483 - automated_trading.signal_queue - INFO - Loaded 18 queued signals
+2026-03-05 21:30:03,510 - automated_trading.position_monitor - INFO - Loaded 14 positions
+2026-03-05 21:30:03,510 - automated_trading.position_monitor - INFO - Loaded signal history for 0 tickers
+2026-03-05 21:30:03,545 - automated_trading.execution_metrics - INFO - Loaded 38 execution records
+2026-03-05 21:30:03,547 - __main__ - INFO - All components initialized successfully
+2026-03-05 21:30:03,547 - __main__ - INFO - 
+============================================================
+2026-03-05 21:30:03,547 - __main__ - INFO - END OF DAY SUMMARY
+2026-03-05 21:30:03,547 - __main__ - INFO - ============================================================
+2026-03-05 21:30:03,725 - automated_trading.signal_queue - INFO - Removed stale signal: LRMR
+2026-03-05 21:30:03,726 - automated_trading.signal_queue - INFO - Removed stale signal: CTEV
+2026-03-05 21:30:03,728 - automated_trading.signal_queue - INFO - Removed stale signal: TNC
+2026-03-05 21:30:03,730 - automated_trading.signal_queue - INFO - Removed stale signal: GENB
+2026-03-05 21:30:03,731 - automated_trading.signal_queue - INFO - Removed stale signal: BWFG
+2026-03-05 21:30:03,733 - automated_trading.signal_queue - INFO - Removed stale signal: LAW
+2026-03-05 21:30:03,734 - automated_trading.signal_queue - INFO - Removed stale signal: TBI
+2026-03-05 21:30:03,735 - automated_trading.signal_queue - INFO - Removed stale signal: CSGP
+2026-03-05 21:30:03,736 - automated_trading.signal_queue - INFO - Removed stale signal: NOW
+2026-03-05 21:30:03,737 - automated_trading.signal_queue - INFO - Removed stale signal: SOFI
+2026-03-05 21:30:03,738 - automated_trading.signal_queue - INFO - Removed stale signal: ZURA
+2026-03-05 21:30:03,739 - automated_trading.signal_queue - INFO - Removed stale signal: PVLA
+2026-03-05 21:30:03,740 - automated_trading.signal_queue - INFO - Removed stale signal: BCAX
+2026-03-05 21:30:03,740 - automated_trading.signal_queue - INFO - Cleanup removed 13 signal(s)
+2026-03-05 21:30:03,883 - __main__ - INFO - Audit log has 3 POSITION_CLOSED events for today - audit log OK
+2026-03-05 21:30:03,883 - __main__ - INFO - Found 3 sell orders from Alpaca today
+2026-03-05 21:30:03,904 - __main__ - WARNING -   CADL: No entry price found, P&L will be approximate
+2026-03-05 21:30:03,904 - __main__ - INFO -   Found: CADL x105 @ $4.78 (P&L: $+0.00)
+2026-03-05 21:30:03,905 - __main__ - WARNING -   ABCL: No entry price found, P&L will be approximate
+2026-03-05 21:30:03,905 - __main__ - INFO -   Found: ABCL x165 @ $3.50 (P&L: $+0.00)
+2026-03-05 21:30:03,905 - __main__ - WARNING -   LEE: No entry price found, P&L will be approximate
+2026-03-05 21:30:03,905 - __main__ - INFO -   Found: LEE x79 @ $8.78 (P&L: $+0.00)
+2026-03-05 21:30:03,905 - __main__ - INFO - Broker EOD metrics | filled=3 buys=0 sells=3 closed=3 win_rate=33.3% notional=$1,773.02
+2026-03-05 21:30:03,906 - __main__ - INFO - Generating AI insights...
+2026-03-05 21:30:05,918 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-05 21:30:05,962 - __main__ - INFO - ✅ AI insights generated
+2026-03-05 21:30:05,962 - __main__ - INFO - Sending EOD summary with 3 exits
+2026-03-05 21:30:08,815 - automated_trading.alerts - INFO - ✅ Alert sent successfully: 🧪 Daily Summary: $-114.57 | March 05, 2026
+2026-03-05 21:30:08,817 - __main__ - INFO - Cleared exits_today after EOD summary
+2026-03-05 21:30:08,817 - __main__ - INFO - Portfolio Value: $10,043.54
+2026-03-05 21:30:08,817 - __main__ - INFO - Daily P&L: $-114.57
+2026-03-05 21:30:08,817 - __main__ - INFO - Trades Today: 3
+2026-03-05 21:30:08,817 - __main__ - INFO - Open Positions: 14
+2026-03-05 21:30:08,817 - __main__ - INFO - ============================================================
+  [DEBUG] Scanned 1016 audit log lines, found 12 rejections for 2026-03-05
+  [DEBUG] Loading exits from audit log (LIVE trades)
+  [DEBUG] Found 3 exits in audit log for 2026-03-05
+{
+  "date": "2026-03-05",
+  "portfolio_value": 10043.54,
+  "daily_pnl": -114.56999999999971,
+  "trades_executed": 3,
+  "open_positions": 14,
+  "exits_reported": 3,
+  "circuit_breaker": {
+    "is_halted": false,
+    "halt_reason": null,
+    "daily_pnl": -50.367090000000054,
+    "consecutive_losses": 2,
+    "trades_today": 3,
+    "total_trades_today": 3,
+    "trades_remaining": 12,
+    "peak_portfolio_value": 10198.51
+  },
+  "broker_summary": {
+    "total_filled_orders": 3,
+    "buy_orders": 0,
+    "sell_orders": 3,
+    "executed_notional": 1773.02,
+    "closed_positions": 3,
+    "wins": 1,
+    "win_rate": 33.3
+  }
+}

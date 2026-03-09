@@ -1,0 +1,70 @@
+2026-03-04 21:30:02,684 - __main__ - INFO - ============================================================
+2026-03-04 21:30:02,684 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-03-04 21:30:02,684 - __main__ - INFO - Mode: PAPER
+2026-03-04 21:30:02,684 - __main__ - INFO - Trading Enabled: True
+2026-03-04 21:30:02,684 - __main__ - INFO - ============================================================
+2026-03-04 21:30:02,685 - __main__ - INFO - Loaded 1 exits from today
+2026-03-04 21:30:02,685 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-03-04 21:30:02,835 - automated_trading.alpaca_client - INFO - Account verified: $10,169.10 portfolio value
+2026-03-04 21:30:02,835 - __main__ - INFO - Connected to Alpaca (paper mode)
+2026-03-04 21:30:02,835 - __main__ - INFO - Account verified:
+2026-03-04 21:30:02,835 - __main__ - INFO -   Portfolio Value: $10,169.10
+2026-03-04 21:30:02,835 - __main__ - INFO -   Cash: $384.16
+2026-03-04 21:30:02,835 - __main__ - INFO -   Buying Power: $10,553.26
+2026-03-04 21:30:02,869 - automated_trading.utils - INFO - Trading calendar updated: 43 trading days cached
+2026-03-04 21:30:02,869 - automated_trading.order_manager - INFO - Loaded 5 pending orders
+2026-03-04 21:30:02,870 - automated_trading.signal_queue - INFO - Loaded 13 queued signals
+2026-03-04 21:30:02,870 - automated_trading.position_monitor - INFO - Loaded 17 positions
+2026-03-04 21:30:02,871 - automated_trading.position_monitor - INFO - Loaded signal history for 0 tickers
+2026-03-04 21:30:02,906 - automated_trading.execution_metrics - INFO - Loaded 38 execution records
+2026-03-04 21:30:02,906 - __main__ - INFO - All components initialized successfully
+2026-03-04 21:30:02,906 - __main__ - INFO - 
+============================================================
+2026-03-04 21:30:02,906 - __main__ - INFO - END OF DAY SUMMARY
+2026-03-04 21:30:02,906 - __main__ - INFO - ============================================================
+2026-03-04 21:30:03,048 - __main__ - INFO - Audit log has 1 POSITION_CLOSED events for today - audit log OK
+2026-03-04 21:30:03,049 - __main__ - INFO - Found 1 sell orders from Alpaca today
+2026-03-04 21:30:03,049 - __main__ - WARNING -   SXC: No entry price found, P&L will be approximate
+2026-03-04 21:30:03,049 - __main__ - INFO -   Found: SXC x98 @ $6.47 (P&L: $+0.00)
+2026-03-04 21:30:03,049 - __main__ - INFO - Broker EOD metrics | filled=9 buys=8 sells=1 closed=1 win_rate=100.0% notional=$5,585.14
+2026-03-04 21:30:03,050 - __main__ - INFO - Generating AI insights...
+2026-03-04 21:30:05,150 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-04 21:30:05,169 - __main__ - INFO - ✅ AI insights generated
+2026-03-04 21:30:05,169 - __main__ - INFO - Sending EOD summary with 1 exits
+2026-03-04 21:30:06,203 - automated_trading.alerts - INFO - ✅ Alert sent successfully: 🧪 Daily Summary: $+103.51 | March 04, 2026
+2026-03-04 21:30:06,204 - __main__ - INFO - Cleared exits_today after EOD summary
+2026-03-04 21:30:06,204 - __main__ - INFO - Portfolio Value: $10,169.10
+2026-03-04 21:30:06,204 - __main__ - INFO - Daily P&L: $+103.51
+2026-03-04 21:30:06,204 - __main__ - INFO - Trades Today: 9
+2026-03-04 21:30:06,204 - __main__ - INFO - Open Positions: 17
+2026-03-04 21:30:06,204 - __main__ - INFO - ============================================================
+  [DEBUG] Scanned 889 audit log lines, found 2 rejections for 2026-03-04
+  [DEBUG] Loading exits from audit log (LIVE trades)
+  [DEBUG] Found 1 exits in audit log for 2026-03-04
+{
+  "date": "2026-03-04",
+  "portfolio_value": 10169.1,
+  "daily_pnl": 103.50500000000102,
+  "trades_executed": 9,
+  "open_positions": 17,
+  "exits_reported": 1,
+  "circuit_breaker": {
+    "is_halted": false,
+    "halt_reason": null,
+    "daily_pnl": 72.02999999999994,
+    "consecutive_losses": 0,
+    "trades_today": 1,
+    "total_trades_today": 14,
+    "trades_remaining": 1,
+    "peak_portfolio_value": 10192.57
+  },
+  "broker_summary": {
+    "total_filled_orders": 9,
+    "buy_orders": 8,
+    "sell_orders": 1,
+    "executed_notional": 5585.14,
+    "closed_positions": 1,
+    "wins": 1,
+    "win_rate": 100.0
+  }
+}

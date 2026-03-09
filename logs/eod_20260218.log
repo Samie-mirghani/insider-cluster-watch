@@ -1,0 +1,67 @@
+2026-02-18 21:30:03,091 - __main__ - INFO - ============================================================
+2026-02-18 21:30:03,091 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-18 21:30:03,091 - __main__ - INFO - Mode: PAPER
+2026-02-18 21:30:03,092 - __main__ - INFO - Trading Enabled: True
+2026-02-18 21:30:03,092 - __main__ - INFO - ============================================================
+2026-02-18 21:30:03,092 - __main__ - INFO - Loaded 0 exits from today
+2026-02-18 21:30:03,092 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-18 21:30:03,234 - automated_trading.alpaca_client - INFO - Account verified: $94,543.91 portfolio value
+2026-02-18 21:30:03,234 - __main__ - INFO - Connected to Alpaca (paper mode)
+2026-02-18 21:30:03,235 - __main__ - INFO - Account verified:
+2026-02-18 21:30:03,235 - __main__ - INFO -   Portfolio Value: $94,543.91
+2026-02-18 21:30:03,235 - __main__ - INFO -   Cash: $30,887.73
+2026-02-18 21:30:03,235 - __main__ - INFO -   Buying Power: $125,431.64
+2026-02-18 21:30:03,271 - automated_trading.utils - INFO - Trading calendar updated: 41 trading days cached
+2026-02-18 21:30:03,271 - automated_trading.order_manager - INFO - Loaded 0 pending orders
+2026-02-18 21:30:03,272 - automated_trading.signal_queue - INFO - Loaded 9 queued signals
+2026-02-18 21:30:03,272 - automated_trading.position_monitor - INFO - New trading day - circuit breakers reset
+2026-02-18 21:30:03,273 - automated_trading.position_monitor - INFO - Loaded 10 positions
+2026-02-18 21:30:03,273 - automated_trading.position_monitor - INFO - Loaded signal history for 28 tickers
+2026-02-18 21:30:03,308 - automated_trading.execution_metrics - INFO - Loaded 26 execution records
+2026-02-18 21:30:03,310 - __main__ - INFO - All components initialized successfully
+2026-02-18 21:30:03,310 - __main__ - INFO - 
+============================================================
+2026-02-18 21:30:03,310 - __main__ - INFO - END OF DAY SUMMARY
+2026-02-18 21:30:03,310 - __main__ - INFO - ============================================================
+2026-02-18 21:30:03,465 - __main__ - INFO - No sell orders today - no backfill needed
+2026-02-18 21:30:03,465 - __main__ - INFO - Broker EOD metrics | filled=0 buys=0 sells=0 closed=0 win_rate=0.0% notional=$0.00
+2026-02-18 21:30:03,465 - __main__ - INFO - Generating AI insights...
+2026-02-18 21:30:05,746 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-18 21:30:05,806 - __main__ - INFO - ✅ AI insights generated
+2026-02-18 21:30:05,806 - __main__ - INFO - Sending EOD summary with 0 exits
+2026-02-18 21:30:06,746 - automated_trading.alerts - INFO - ✅ Alert sent successfully: 🧪 Daily Summary: $+197.07 | February 18, 2026
+2026-02-18 21:30:06,747 - __main__ - INFO - Cleared exits_today after EOD summary
+2026-02-18 21:30:06,747 - __main__ - INFO - Portfolio Value: $94,543.91
+2026-02-18 21:30:06,748 - __main__ - INFO - Daily P&L: $+197.07
+2026-02-18 21:30:06,748 - __main__ - INFO - Trades Today: 0
+2026-02-18 21:30:06,748 - __main__ - INFO - Open Positions: 10
+2026-02-18 21:30:06,748 - __main__ - INFO - ============================================================
+  [DEBUG] Scanned 1010 audit log lines, found 15 rejections for 2026-02-18
+  [DEBUG] Loading exits from audit log (LIVE trades)
+  [DEBUG] Found 0 exits in audit log for 2026-02-18
+{
+  "date": "2026-02-18",
+  "portfolio_value": 94543.91,
+  "daily_pnl": 197.0749999999971,
+  "trades_executed": 0,
+  "open_positions": 10,
+  "exits_reported": 0,
+  "circuit_breaker": {
+    "is_halted": false,
+    "halt_reason": null,
+    "daily_pnl": 0.0,
+    "consecutive_losses": 0,
+    "trades_today": 0,
+    "total_trades_today": 0,
+    "trades_remaining": 15
+  },
+  "broker_summary": {
+    "total_filled_orders": 0,
+    "buy_orders": 0,
+    "sell_orders": 0,
+    "executed_notional": 0.0,
+    "closed_positions": 0,
+    "wins": 0,
+    "win_rate": 0.0
+  }
+}

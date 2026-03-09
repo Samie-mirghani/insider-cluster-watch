@@ -1,0 +1,65 @@
+2026-02-04 14:36:05,487 - __main__ - INFO - ============================================================
+2026-02-04 14:36:05,487 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-04 14:36:05,488 - __main__ - INFO - Mode: PAPER
+2026-02-04 14:36:05,488 - __main__ - INFO - Trading Enabled: True
+2026-02-04 14:36:05,488 - __main__ - INFO - ============================================================
+2026-02-04 14:36:05,488 - __main__ - INFO - Loaded 1 exits from today
+2026-02-04 14:36:05,488 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-04 14:36:05,658 - automated_trading.alpaca_client - INFO - Account verified: $95,376.26 portfolio value
+2026-02-04 14:36:05,659 - __main__ - INFO - Connected to Alpaca (paper mode)
+2026-02-04 14:36:05,659 - __main__ - INFO - Account verified:
+2026-02-04 14:36:05,659 - __main__ - INFO -   Portfolio Value: $95,376.26
+2026-02-04 14:36:05,659 - __main__ - INFO -   Cash: $43,701.31
+2026-02-04 14:36:05,659 - __main__ - INFO -   Buying Power: $139,077.57
+2026-02-04 14:36:05,692 - automated_trading.utils - INFO - Trading calendar updated: 41 trading days cached
+2026-02-04 14:36:05,693 - automated_trading.order_manager - INFO - Loaded 0 pending orders
+2026-02-04 14:36:05,693 - automated_trading.signal_queue - INFO - Loaded 1 queued signals
+2026-02-04 14:36:05,693 - automated_trading.position_monitor - INFO - Loaded 7 positions
+2026-02-04 14:36:05,694 - automated_trading.position_monitor - INFO - Loaded signal history for 11 tickers
+2026-02-04 14:36:05,725 - automated_trading.execution_metrics - INFO - Loaded 4 execution records
+2026-02-04 14:36:05,725 - __main__ - INFO - All components initialized successfully
+2026-02-04 14:36:05,726 - __main__ - INFO - 
+============================================================
+2026-02-04 14:36:05,726 - __main__ - INFO - MORNING TRADE EXECUTION
+2026-02-04 14:36:05,726 - __main__ - INFO - Time: 2026-02-04 14:36:05.726083
+2026-02-04 14:36:05,726 - __main__ - INFO - ============================================================
+2026-02-04 14:36:05,802 - __main__ - INFO - Syncing with broker before trading...
+2026-02-04 14:36:05,837 - automated_trading.reconciliation - INFO - Starting position reconciliation...
+2026-02-04 14:36:05,869 - automated_trading.reconciliation - INFO - Reconciliation PASSED: 7 positions match
+2026-02-04 14:36:05,870 - __main__ - INFO - Loaded 3 signals from /home/samie_mirghani/insider-cluster-watch/automated_trading/../data/approved_signals.json
+2026-02-04 14:36:07,644 - __main__ - WARNING - CR: Downtrend check failed (The truth value of a Series is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().), allowing trade
+2026-02-04 14:36:07,743 - __main__ - INFO - Position sizing: score=11.8 → 7.9% of portfolio = $7538.84
+2026-02-04 14:36:07,743 - __main__ - INFO - 
+==================================================
+2026-02-04 14:36:07,743 - __main__ - INFO - EXECUTING BUY: CR
+2026-02-04 14:36:07,743 - __main__ - INFO - ==================================================
+2026-02-04 14:36:07,856 - __main__ - WARNING - CR: Downtrend check failed (The truth value of a Series is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().), allowing trade
+2026-02-04 14:36:07,969 - __main__ - INFO - Position sizing: score=11.8 → 7.9% of portfolio = $7538.84
+2026-02-04 14:36:08,004 - __main__ - INFO - Position sizing: score=11.8 → 7.9% of portfolio = $7539.44
+2026-02-04 14:36:09,750 - automated_trading.order_manager - INFO - ✅ Created LIMIT BUY order: CR x40 @ $188.05
+2026-02-04 14:36:09,750 - __main__ - INFO - Submitting LIMIT order: CR x40 @ $188.05 (signal: $185.27, cushion: 1.5%)
+2026-02-04 14:36:09,750 - automated_trading.alpaca_client - INFO - Submitting LIMIT BUY: CR x40 @ $188.05
+2026-02-04 14:36:09,801 - automated_trading.position_monitor - INFO - Order executed: BUY CR | Total trades today: 2/15
+2026-02-04 14:36:09,801 - __main__ - INFO - Order submitted: 7d85dad8-2fe5-4a47-ab71-05905e3f66c4
+2026-02-04 14:36:09,802 - __main__ - INFO - Status: OrderStatus.PENDING_NEW
+2026-02-04 14:36:09,835 - __main__ - INFO - Position sizing: score=11.8 → 7.9% of portfolio = $7539.43
+2026-02-04 14:36:09,836 - __main__ - INFO - Skipping TCBI: Single insider weak conviction: buy_value $146,445 < $500K minimum
+2026-02-04 14:36:10,074 - __main__ - INFO - Skipping SHCO: Not tradeable: Asset is not tradeable
+2026-02-04 14:36:10,074 - __main__ - INFO - Sending batch email for 1 morning trades
+2026-02-04 14:36:10,964 - automated_trading.alerts - INFO - ✅ Alert sent successfully: 🧪 Morning Trades: 1 positions opened ($7,522)
+2026-02-04 14:36:10,964 - __main__ - INFO - 
+============================================================
+2026-02-04 14:36:10,964 - __main__ - INFO - MORNING EXECUTION COMPLETE
+2026-02-04 14:36:10,964 - __main__ - INFO - Signals: 3 loaded, 1 validated
+2026-02-04 14:36:10,964 - __main__ - INFO - Orders: 1 submitted, 0 failed
+2026-02-04 14:36:10,965 - __main__ - INFO - Queued: 0
+2026-02-04 14:36:10,965 - __main__ - INFO - ============================================================
+{
+  "timestamp": "2026-02-04T14:36:05.726160",
+  "signals_loaded": 3,
+  "signals_validated": 1,
+  "orders_submitted": 1,
+  "orders_failed": 0,
+  "queued_for_later": 0,
+  "errors": []
+}

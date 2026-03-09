@@ -1,0 +1,68 @@
+2026-02-17 21:30:03,436 - __main__ - INFO - ============================================================
+2026-02-17 21:30:03,436 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-17 21:30:03,436 - __main__ - INFO - Mode: PAPER
+2026-02-17 21:30:03,436 - __main__ - INFO - Trading Enabled: True
+2026-02-17 21:30:03,436 - __main__ - INFO - ============================================================
+2026-02-17 21:30:03,437 - __main__ - INFO - Loaded 1 exits from today
+2026-02-17 21:30:03,437 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-17 21:30:03,593 - automated_trading.alpaca_client - INFO - Account verified: $94,448.14 portfolio value
+2026-02-17 21:30:03,593 - __main__ - INFO - Connected to Alpaca (paper mode)
+2026-02-17 21:30:03,593 - __main__ - INFO - Account verified:
+2026-02-17 21:30:03,593 - __main__ - INFO -   Portfolio Value: $94,448.14
+2026-02-17 21:30:03,593 - __main__ - INFO -   Cash: $30,887.73
+2026-02-17 21:30:03,593 - __main__ - INFO -   Buying Power: $125,335.87
+2026-02-17 21:30:03,626 - automated_trading.utils - INFO - Trading calendar updated: 41 trading days cached
+2026-02-17 21:30:03,627 - automated_trading.order_manager - INFO - Loaded 0 pending orders
+2026-02-17 21:30:03,627 - automated_trading.signal_queue - INFO - Loaded 1 queued signals
+2026-02-17 21:30:03,628 - automated_trading.position_monitor - INFO - Loaded 10 positions
+2026-02-17 21:30:03,628 - automated_trading.position_monitor - INFO - Loaded signal history for 28 tickers
+2026-02-17 21:30:03,662 - automated_trading.execution_metrics - INFO - Loaded 26 execution records
+2026-02-17 21:30:03,662 - __main__ - INFO - All components initialized successfully
+2026-02-17 21:30:03,663 - __main__ - INFO - 
+============================================================
+2026-02-17 21:30:03,663 - __main__ - INFO - END OF DAY SUMMARY
+2026-02-17 21:30:03,663 - __main__ - INFO - ============================================================
+2026-02-17 21:30:03,809 - __main__ - INFO - Audit log has 1 POSITION_CLOSED events for today - audit log OK
+2026-02-17 21:30:03,809 - __main__ - INFO - Found 1 sell orders from Alpaca today
+2026-02-17 21:30:03,850 - __main__ - INFO -   Found: SGP x178 @ $27.94 (P&L: $+19.58)
+2026-02-17 21:30:03,851 - __main__ - INFO - Broker EOD metrics | filled=2 buys=1 sells=1 closed=1 win_rate=0.0% notional=$10,928.54
+2026-02-17 21:30:03,851 - __main__ - INFO - Generating AI insights...
+2026-02-17 21:30:05,968 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-17 21:30:05,990 - __main__ - INFO - ✅ AI insights generated
+2026-02-17 21:30:05,990 - __main__ - INFO - Sending EOD summary with 1 exits
+2026-02-17 21:30:06,881 - automated_trading.alerts - INFO - ✅ Alert sent successfully: 🧪 Daily Summary: $+101.30 | February 17, 2026
+2026-02-17 21:30:06,882 - __main__ - INFO - Cleared exits_today after EOD summary
+2026-02-17 21:30:06,882 - __main__ - INFO - Portfolio Value: $94,448.14
+2026-02-17 21:30:06,882 - __main__ - INFO - Daily P&L: $+101.30
+2026-02-17 21:30:06,882 - __main__ - INFO - Trades Today: 2
+2026-02-17 21:30:06,882 - __main__ - INFO - Open Positions: 10
+2026-02-17 21:30:06,882 - __main__ - INFO - ============================================================
+  [DEBUG] Scanned 899 audit log lines, found 4 rejections for 2026-02-17
+  [DEBUG] Loading exits from audit log (LIVE trades)
+  [DEBUG] Found 1 exits in audit log for 2026-02-17
+{
+  "date": "2026-02-17",
+  "portfolio_value": 94448.14,
+  "daily_pnl": 101.30499999999302,
+  "trades_executed": 2,
+  "open_positions": 10,
+  "exits_reported": 1,
+  "circuit_breaker": {
+    "is_halted": false,
+    "halt_reason": null,
+    "daily_pnl": -0.8899999999998229,
+    "consecutive_losses": 1,
+    "trades_today": 1,
+    "total_trades_today": 2,
+    "trades_remaining": 13
+  },
+  "broker_summary": {
+    "total_filled_orders": 2,
+    "buy_orders": 1,
+    "sell_orders": 1,
+    "executed_notional": 10928.54,
+    "closed_positions": 1,
+    "wins": 0,
+    "win_rate": 0.0
+  }
+}

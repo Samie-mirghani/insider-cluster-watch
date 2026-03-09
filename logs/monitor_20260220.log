@@ -1,0 +1,1326 @@
+2026-02-20 14:35:03,489 - __main__ - INFO - ============================================================
+2026-02-20 14:35:03,545 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 14:35:03,545 - __main__ - INFO - Mode: PAPER
+2026-02-20 14:35:03,545 - __main__ - INFO - Trading Enabled: True
+2026-02-20 14:35:03,545 - __main__ - INFO - ============================================================
+2026-02-20 14:35:03,608 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 14:35:03,609 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 14:35:03,768 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 14:35:04,800 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 14:35:06,830 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 14:35:10,830 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 14:35:10,831 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 14:40:02,583 - __main__ - INFO - ============================================================
+2026-02-20 14:40:02,583 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 14:40:02,584 - __main__ - INFO - Mode: PAPER
+2026-02-20 14:40:02,584 - __main__ - INFO - Trading Enabled: True
+2026-02-20 14:40:02,584 - __main__ - INFO - ============================================================
+2026-02-20 14:40:02,584 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 14:40:02,584 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 14:40:02,720 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 14:40:04,134 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 14:40:06,324 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 14:40:10,324 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 14:40:10,325 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 14:45:03,081 - __main__ - INFO - ============================================================
+2026-02-20 14:45:03,081 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 14:45:03,081 - __main__ - INFO - Mode: PAPER
+2026-02-20 14:45:03,081 - __main__ - INFO - Trading Enabled: True
+2026-02-20 14:45:03,081 - __main__ - INFO - ============================================================
+2026-02-20 14:45:03,081 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 14:45:03,082 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 14:45:03,539 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 14:45:04,569 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 14:45:06,601 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 14:45:10,601 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 14:45:10,601 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 14:50:03,154 - __main__ - INFO - ============================================================
+2026-02-20 14:50:03,154 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 14:50:03,154 - __main__ - INFO - Mode: PAPER
+2026-02-20 14:50:03,154 - __main__ - INFO - Trading Enabled: True
+2026-02-20 14:50:03,154 - __main__ - INFO - ============================================================
+2026-02-20 14:50:03,154 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 14:50:03,155 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 14:50:03,676 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 14:50:04,707 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 14:50:06,747 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 14:50:10,747 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 14:50:10,748 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 14:55:02,576 - __main__ - INFO - ============================================================
+2026-02-20 14:55:02,576 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 14:55:02,577 - __main__ - INFO - Mode: PAPER
+2026-02-20 14:55:02,577 - __main__ - INFO - Trading Enabled: True
+2026-02-20 14:55:02,577 - __main__ - INFO - ============================================================
+2026-02-20 14:55:02,577 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 14:55:02,577 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 14:55:02,719 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 14:55:04,010 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 14:55:06,151 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 14:55:10,152 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 14:55:10,152 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 15:00:02,440 - __main__ - INFO - ============================================================
+2026-02-20 15:00:02,440 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 15:00:02,440 - __main__ - INFO - Mode: PAPER
+2026-02-20 15:00:02,440 - __main__ - INFO - Trading Enabled: True
+2026-02-20 15:00:02,440 - __main__ - INFO - ============================================================
+2026-02-20 15:00:02,441 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 15:00:02,441 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 15:00:02,571 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 15:00:03,668 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 15:00:05,712 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 15:00:09,713 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 15:00:09,713 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 15:05:02,424 - __main__ - INFO - ============================================================
+2026-02-20 15:05:02,425 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 15:05:02,425 - __main__ - INFO - Mode: PAPER
+2026-02-20 15:05:02,425 - __main__ - INFO - Trading Enabled: True
+2026-02-20 15:05:02,425 - __main__ - INFO - ============================================================
+2026-02-20 15:05:02,425 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 15:05:02,425 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 15:05:02,568 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 15:05:03,601 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 15:05:05,630 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 15:05:09,630 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 15:05:09,631 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 15:10:02,986 - __main__ - INFO - ============================================================
+2026-02-20 15:10:02,987 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 15:10:02,987 - __main__ - INFO - Mode: PAPER
+2026-02-20 15:10:02,987 - __main__ - INFO - Trading Enabled: True
+2026-02-20 15:10:02,987 - __main__ - INFO - ============================================================
+2026-02-20 15:10:02,987 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 15:10:02,987 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 15:10:03,118 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 15:10:04,148 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 15:10:06,177 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 15:10:10,177 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 15:10:10,177 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 15:15:02,800 - __main__ - INFO - ============================================================
+2026-02-20 15:15:02,800 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 15:15:02,801 - __main__ - INFO - Mode: PAPER
+2026-02-20 15:15:02,801 - __main__ - INFO - Trading Enabled: True
+2026-02-20 15:15:02,801 - __main__ - INFO - ============================================================
+2026-02-20 15:15:02,801 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 15:15:02,801 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 15:15:03,423 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 15:15:04,546 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 15:15:06,577 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 15:15:10,578 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 15:15:10,578 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 15:20:02,907 - __main__ - INFO - ============================================================
+2026-02-20 15:20:02,908 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 15:20:02,908 - __main__ - INFO - Mode: PAPER
+2026-02-20 15:20:02,908 - __main__ - INFO - Trading Enabled: True
+2026-02-20 15:20:02,908 - __main__ - INFO - ============================================================
+2026-02-20 15:20:02,908 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 15:20:02,908 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 15:20:03,043 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 15:20:04,075 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 15:20:06,105 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 15:20:10,106 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 15:20:10,106 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 15:25:03,024 - __main__ - INFO - ============================================================
+2026-02-20 15:25:03,024 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 15:25:03,024 - __main__ - INFO - Mode: PAPER
+2026-02-20 15:25:03,024 - __main__ - INFO - Trading Enabled: True
+2026-02-20 15:25:03,025 - __main__ - INFO - ============================================================
+2026-02-20 15:25:03,025 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 15:25:03,026 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 15:25:03,165 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 15:25:04,195 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 15:25:06,397 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 15:25:10,398 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 15:25:10,398 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 15:30:02,940 - __main__ - INFO - ============================================================
+2026-02-20 15:30:02,940 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 15:30:02,941 - __main__ - INFO - Mode: PAPER
+2026-02-20 15:30:02,941 - __main__ - INFO - Trading Enabled: True
+2026-02-20 15:30:02,941 - __main__ - INFO - ============================================================
+2026-02-20 15:30:02,941 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 15:30:02,942 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 15:30:03,088 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 15:30:04,120 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 15:30:06,151 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 15:30:10,152 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 15:30:10,152 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 15:35:02,996 - __main__ - INFO - ============================================================
+2026-02-20 15:35:02,996 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 15:35:02,996 - __main__ - INFO - Mode: PAPER
+2026-02-20 15:35:02,996 - __main__ - INFO - Trading Enabled: True
+2026-02-20 15:35:02,996 - __main__ - INFO - ============================================================
+2026-02-20 15:35:02,996 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 15:35:02,997 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 15:35:03,133 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 15:35:04,165 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 15:35:06,194 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 15:35:10,195 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 15:35:10,195 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 15:40:02,593 - __main__ - INFO - ============================================================
+2026-02-20 15:40:02,594 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 15:40:02,594 - __main__ - INFO - Mode: PAPER
+2026-02-20 15:40:02,594 - __main__ - INFO - Trading Enabled: True
+2026-02-20 15:40:02,594 - __main__ - INFO - ============================================================
+2026-02-20 15:40:02,594 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 15:40:02,594 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 15:40:02,729 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 15:40:03,893 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 15:40:06,163 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 15:40:10,164 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 15:40:10,164 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 15:45:02,874 - __main__ - INFO - ============================================================
+2026-02-20 15:45:02,874 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 15:45:02,874 - __main__ - INFO - Mode: PAPER
+2026-02-20 15:45:02,874 - __main__ - INFO - Trading Enabled: True
+2026-02-20 15:45:02,874 - __main__ - INFO - ============================================================
+2026-02-20 15:45:02,875 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 15:45:02,875 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 15:45:03,208 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 15:45:04,240 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 15:45:06,310 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 15:45:10,310 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 15:45:10,311 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 15:50:02,652 - __main__ - INFO - ============================================================
+2026-02-20 15:50:02,652 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 15:50:02,652 - __main__ - INFO - Mode: PAPER
+2026-02-20 15:50:02,652 - __main__ - INFO - Trading Enabled: True
+2026-02-20 15:50:02,652 - __main__ - INFO - ============================================================
+2026-02-20 15:50:02,653 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 15:50:02,653 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 15:50:02,783 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 15:50:03,816 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 15:50:05,847 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 15:50:09,848 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 15:50:09,848 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 15:55:02,605 - __main__ - INFO - ============================================================
+2026-02-20 15:55:02,605 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 15:55:02,605 - __main__ - INFO - Mode: PAPER
+2026-02-20 15:55:02,605 - __main__ - INFO - Trading Enabled: True
+2026-02-20 15:55:02,605 - __main__ - INFO - ============================================================
+2026-02-20 15:55:02,605 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 15:55:02,606 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 15:55:02,748 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 15:55:03,920 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 15:55:05,951 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 15:55:09,952 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 15:55:09,952 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 16:00:02,444 - __main__ - INFO - ============================================================
+2026-02-20 16:00:02,444 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 16:00:02,444 - __main__ - INFO - Mode: PAPER
+2026-02-20 16:00:02,444 - __main__ - INFO - Trading Enabled: True
+2026-02-20 16:00:02,444 - __main__ - INFO - ============================================================
+2026-02-20 16:00:02,445 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 16:00:02,445 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 16:00:02,583 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 16:00:04,086 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 16:00:06,119 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 16:00:10,119 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 16:00:10,120 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 16:05:03,093 - __main__ - INFO - ============================================================
+2026-02-20 16:05:03,093 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 16:05:03,093 - __main__ - INFO - Mode: PAPER
+2026-02-20 16:05:03,093 - __main__ - INFO - Trading Enabled: True
+2026-02-20 16:05:03,093 - __main__ - INFO - ============================================================
+2026-02-20 16:05:03,094 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 16:05:03,094 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 16:05:03,244 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 16:05:04,274 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 16:05:06,304 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 16:05:10,304 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 16:05:10,304 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 16:10:02,692 - __main__ - INFO - ============================================================
+2026-02-20 16:10:02,692 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 16:10:02,692 - __main__ - INFO - Mode: PAPER
+2026-02-20 16:10:02,692 - __main__ - INFO - Trading Enabled: True
+2026-02-20 16:10:02,692 - __main__ - INFO - ============================================================
+2026-02-20 16:10:02,693 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 16:10:02,693 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 16:10:02,917 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 16:10:03,990 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 16:10:06,084 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 16:10:10,085 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 16:10:10,085 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 16:15:02,843 - __main__ - INFO - ============================================================
+2026-02-20 16:15:02,844 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 16:15:02,844 - __main__ - INFO - Mode: PAPER
+2026-02-20 16:15:02,844 - __main__ - INFO - Trading Enabled: True
+2026-02-20 16:15:02,844 - __main__ - INFO - ============================================================
+2026-02-20 16:15:02,844 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 16:15:02,844 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 16:15:02,987 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 16:15:04,017 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 16:15:06,328 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 16:15:10,329 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 16:15:10,329 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 16:20:03,146 - __main__ - INFO - ============================================================
+2026-02-20 16:20:03,146 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 16:20:03,146 - __main__ - INFO - Mode: PAPER
+2026-02-20 16:20:03,146 - __main__ - INFO - Trading Enabled: True
+2026-02-20 16:20:03,146 - __main__ - INFO - ============================================================
+2026-02-20 16:20:03,147 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 16:20:03,147 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 16:20:03,311 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 16:20:04,340 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 16:20:06,368 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 16:20:10,369 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 16:20:10,369 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 16:25:02,916 - __main__ - INFO - ============================================================
+2026-02-20 16:25:02,916 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 16:25:02,917 - __main__ - INFO - Mode: PAPER
+2026-02-20 16:25:02,917 - __main__ - INFO - Trading Enabled: True
+2026-02-20 16:25:02,917 - __main__ - INFO - ============================================================
+2026-02-20 16:25:02,917 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 16:25:02,917 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 16:25:03,199 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 16:25:04,269 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 16:25:06,300 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 16:25:10,301 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 16:25:10,301 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 16:30:02,865 - __main__ - INFO - ============================================================
+2026-02-20 16:30:02,866 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 16:30:02,866 - __main__ - INFO - Mode: PAPER
+2026-02-20 16:30:02,866 - __main__ - INFO - Trading Enabled: True
+2026-02-20 16:30:02,866 - __main__ - INFO - ============================================================
+2026-02-20 16:30:02,866 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 16:30:02,867 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 16:30:03,011 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 16:30:04,040 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 16:30:06,070 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 16:30:10,070 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 16:30:10,070 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 16:35:04,496 - __main__ - INFO - ============================================================
+2026-02-20 16:35:04,496 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 16:35:04,496 - __main__ - INFO - Mode: PAPER
+2026-02-20 16:35:04,496 - __main__ - INFO - Trading Enabled: True
+2026-02-20 16:35:04,497 - __main__ - INFO - ============================================================
+2026-02-20 16:35:04,497 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 16:35:04,497 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 16:35:04,814 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 16:35:05,931 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 16:35:07,978 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 16:35:11,979 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 16:35:11,979 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 16:40:04,263 - __main__ - INFO - ============================================================
+2026-02-20 16:40:04,264 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 16:40:04,264 - __main__ - INFO - Mode: PAPER
+2026-02-20 16:40:04,264 - __main__ - INFO - Trading Enabled: True
+2026-02-20 16:40:04,264 - __main__ - INFO - ============================================================
+2026-02-20 16:40:04,264 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 16:40:04,264 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 16:40:04,469 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 16:40:05,499 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 16:40:07,531 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 16:40:11,532 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 16:40:11,532 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 16:45:03,741 - __main__ - INFO - ============================================================
+2026-02-20 16:45:03,741 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 16:45:03,741 - __main__ - INFO - Mode: PAPER
+2026-02-20 16:45:03,741 - __main__ - INFO - Trading Enabled: True
+2026-02-20 16:45:03,741 - __main__ - INFO - ============================================================
+2026-02-20 16:45:03,741 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 16:45:03,743 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 16:45:04,019 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 16:45:05,098 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 16:45:07,139 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 16:45:11,139 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 16:45:11,140 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 16:50:02,965 - __main__ - INFO - ============================================================
+2026-02-20 16:50:02,966 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 16:50:02,966 - __main__ - INFO - Mode: PAPER
+2026-02-20 16:50:02,966 - __main__ - INFO - Trading Enabled: True
+2026-02-20 16:50:02,966 - __main__ - INFO - ============================================================
+2026-02-20 16:50:02,966 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 16:50:02,967 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 16:50:03,121 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 16:50:04,151 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 16:50:06,182 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 16:50:10,182 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 16:50:10,182 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 16:55:02,765 - __main__ - INFO - ============================================================
+2026-02-20 16:55:02,766 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 16:55:02,766 - __main__ - INFO - Mode: PAPER
+2026-02-20 16:55:02,766 - __main__ - INFO - Trading Enabled: True
+2026-02-20 16:55:02,766 - __main__ - INFO - ============================================================
+2026-02-20 16:55:02,766 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 16:55:02,766 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 16:55:02,922 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 16:55:04,021 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 16:55:06,089 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 16:55:10,090 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 16:55:10,090 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 17:00:02,919 - __main__ - INFO - ============================================================
+2026-02-20 17:00:02,920 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 17:00:02,920 - __main__ - INFO - Mode: PAPER
+2026-02-20 17:00:02,920 - __main__ - INFO - Trading Enabled: True
+2026-02-20 17:00:02,920 - __main__ - INFO - ============================================================
+2026-02-20 17:00:02,922 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 17:00:02,923 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 17:00:03,112 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 17:00:04,142 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 17:00:06,172 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 17:00:10,173 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 17:00:10,173 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 17:05:02,563 - __main__ - INFO - ============================================================
+2026-02-20 17:05:02,563 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 17:05:02,563 - __main__ - INFO - Mode: PAPER
+2026-02-20 17:05:02,564 - __main__ - INFO - Trading Enabled: True
+2026-02-20 17:05:02,564 - __main__ - INFO - ============================================================
+2026-02-20 17:05:02,564 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 17:05:02,565 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 17:05:02,704 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 17:05:03,736 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 17:05:05,777 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 17:05:09,778 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 17:05:09,778 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 17:10:02,278 - __main__ - INFO - ============================================================
+2026-02-20 17:10:02,279 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 17:10:02,279 - __main__ - INFO - Mode: PAPER
+2026-02-20 17:10:02,279 - __main__ - INFO - Trading Enabled: True
+2026-02-20 17:10:02,279 - __main__ - INFO - ============================================================
+2026-02-20 17:10:02,280 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 17:10:02,280 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 17:10:02,543 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 17:10:03,667 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 17:10:05,698 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 17:10:09,698 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 17:10:09,699 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 17:15:03,183 - __main__ - INFO - ============================================================
+2026-02-20 17:15:03,183 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 17:15:03,183 - __main__ - INFO - Mode: PAPER
+2026-02-20 17:15:03,183 - __main__ - INFO - Trading Enabled: True
+2026-02-20 17:15:03,183 - __main__ - INFO - ============================================================
+2026-02-20 17:15:03,183 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 17:15:03,184 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 17:15:03,317 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 17:15:04,357 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 17:15:06,386 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 17:15:10,386 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 17:15:10,387 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 17:20:02,930 - __main__ - INFO - ============================================================
+2026-02-20 17:20:02,930 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 17:20:02,930 - __main__ - INFO - Mode: PAPER
+2026-02-20 17:20:02,931 - __main__ - INFO - Trading Enabled: True
+2026-02-20 17:20:02,931 - __main__ - INFO - ============================================================
+2026-02-20 17:20:02,931 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 17:20:02,932 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 17:20:03,065 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 17:20:04,094 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 17:20:06,140 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 17:20:10,141 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 17:20:10,141 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 17:25:02,834 - __main__ - INFO - ============================================================
+2026-02-20 17:25:02,834 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 17:25:02,835 - __main__ - INFO - Mode: PAPER
+2026-02-20 17:25:02,835 - __main__ - INFO - Trading Enabled: True
+2026-02-20 17:25:02,835 - __main__ - INFO - ============================================================
+2026-02-20 17:25:02,835 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 17:25:02,835 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 17:25:02,976 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 17:25:04,191 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 17:25:06,364 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 17:25:10,364 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 17:25:10,364 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 17:30:02,983 - __main__ - INFO - ============================================================
+2026-02-20 17:30:02,983 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 17:30:02,983 - __main__ - INFO - Mode: PAPER
+2026-02-20 17:30:02,983 - __main__ - INFO - Trading Enabled: True
+2026-02-20 17:30:02,983 - __main__ - INFO - ============================================================
+2026-02-20 17:30:02,983 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 17:30:02,984 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 17:30:03,122 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 17:30:04,152 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 17:30:06,183 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 17:30:10,184 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 17:30:10,184 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 17:35:02,639 - __main__ - INFO - ============================================================
+2026-02-20 17:35:02,639 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 17:35:02,639 - __main__ - INFO - Mode: PAPER
+2026-02-20 17:35:02,639 - __main__ - INFO - Trading Enabled: True
+2026-02-20 17:35:02,639 - __main__ - INFO - ============================================================
+2026-02-20 17:35:02,639 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 17:35:02,640 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 17:35:02,772 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 17:35:03,803 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 17:35:06,106 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 17:35:10,106 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 17:35:10,107 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 17:40:02,562 - __main__ - INFO - ============================================================
+2026-02-20 17:40:02,562 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 17:40:02,562 - __main__ - INFO - Mode: PAPER
+2026-02-20 17:40:02,562 - __main__ - INFO - Trading Enabled: True
+2026-02-20 17:40:02,562 - __main__ - INFO - ============================================================
+2026-02-20 17:40:02,563 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 17:40:02,564 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 17:40:02,696 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 17:40:03,726 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 17:40:05,757 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 17:40:09,758 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 17:40:09,758 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 17:45:02,338 - __main__ - INFO - ============================================================
+2026-02-20 17:45:02,338 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 17:45:02,338 - __main__ - INFO - Mode: PAPER
+2026-02-20 17:45:02,338 - __main__ - INFO - Trading Enabled: True
+2026-02-20 17:45:02,339 - __main__ - INFO - ============================================================
+2026-02-20 17:45:02,339 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 17:45:02,339 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 17:45:02,487 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 17:45:03,519 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 17:45:05,552 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 17:45:09,553 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 17:45:09,553 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 17:50:03,347 - __main__ - INFO - ============================================================
+2026-02-20 17:50:03,348 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 17:50:03,348 - __main__ - INFO - Mode: PAPER
+2026-02-20 17:50:03,348 - __main__ - INFO - Trading Enabled: True
+2026-02-20 17:50:03,348 - __main__ - INFO - ============================================================
+2026-02-20 17:50:03,349 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 17:50:03,349 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 17:50:03,500 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 17:50:04,753 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 17:50:06,817 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 17:50:10,818 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 17:50:10,818 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 17:55:02,278 - __main__ - INFO - ============================================================
+2026-02-20 17:55:02,278 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 17:55:02,278 - __main__ - INFO - Mode: PAPER
+2026-02-20 17:55:02,278 - __main__ - INFO - Trading Enabled: True
+2026-02-20 17:55:02,278 - __main__ - INFO - ============================================================
+2026-02-20 17:55:02,278 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 17:55:02,278 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 17:55:02,414 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 17:55:03,445 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 17:55:05,475 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 17:55:09,475 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 17:55:09,475 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 18:00:03,612 - __main__ - INFO - ============================================================
+2026-02-20 18:00:03,613 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 18:00:03,613 - __main__ - INFO - Mode: PAPER
+2026-02-20 18:00:03,613 - __main__ - INFO - Trading Enabled: True
+2026-02-20 18:00:03,613 - __main__ - INFO - ============================================================
+2026-02-20 18:00:03,614 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 18:00:03,614 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 18:00:03,771 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 18:00:04,800 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 18:00:07,089 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 18:00:11,089 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 18:00:11,090 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 18:05:02,740 - __main__ - INFO - ============================================================
+2026-02-20 18:05:02,741 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 18:05:02,741 - __main__ - INFO - Mode: PAPER
+2026-02-20 18:05:02,741 - __main__ - INFO - Trading Enabled: True
+2026-02-20 18:05:02,741 - __main__ - INFO - ============================================================
+2026-02-20 18:05:02,741 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 18:05:02,741 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 18:05:02,884 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 18:05:03,915 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 18:05:06,206 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 18:05:10,207 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 18:05:10,207 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 18:10:02,853 - __main__ - INFO - ============================================================
+2026-02-20 18:10:02,853 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 18:10:02,853 - __main__ - INFO - Mode: PAPER
+2026-02-20 18:10:02,853 - __main__ - INFO - Trading Enabled: True
+2026-02-20 18:10:02,853 - __main__ - INFO - ============================================================
+2026-02-20 18:10:02,853 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 18:10:02,854 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 18:10:03,005 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 18:10:04,195 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 18:10:06,227 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 18:10:10,228 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 18:10:10,228 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 18:15:02,912 - __main__ - INFO - ============================================================
+2026-02-20 18:15:02,912 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 18:15:02,912 - __main__ - INFO - Mode: PAPER
+2026-02-20 18:15:02,912 - __main__ - INFO - Trading Enabled: True
+2026-02-20 18:15:02,912 - __main__ - INFO - ============================================================
+2026-02-20 18:15:02,913 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 18:15:02,914 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 18:15:03,053 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 18:15:04,235 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 18:15:06,264 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 18:15:10,265 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 18:15:10,265 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 18:20:02,968 - __main__ - INFO - ============================================================
+2026-02-20 18:20:02,969 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 18:20:02,969 - __main__ - INFO - Mode: PAPER
+2026-02-20 18:20:02,969 - __main__ - INFO - Trading Enabled: True
+2026-02-20 18:20:02,969 - __main__ - INFO - ============================================================
+2026-02-20 18:20:02,969 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 18:20:02,969 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 18:20:03,108 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 18:20:04,138 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 18:20:06,168 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 18:20:10,169 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 18:20:10,169 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 18:25:02,749 - __main__ - INFO - ============================================================
+2026-02-20 18:25:02,749 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 18:25:02,749 - __main__ - INFO - Mode: PAPER
+2026-02-20 18:25:02,749 - __main__ - INFO - Trading Enabled: True
+2026-02-20 18:25:02,749 - __main__ - INFO - ============================================================
+2026-02-20 18:25:02,749 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 18:25:02,750 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 18:25:02,894 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 18:25:03,925 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 18:25:05,954 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 18:25:09,955 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 18:25:09,955 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 18:30:02,730 - __main__ - INFO - ============================================================
+2026-02-20 18:30:02,730 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 18:30:02,730 - __main__ - INFO - Mode: PAPER
+2026-02-20 18:30:02,730 - __main__ - INFO - Trading Enabled: True
+2026-02-20 18:30:02,730 - __main__ - INFO - ============================================================
+2026-02-20 18:30:02,730 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 18:30:02,731 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 18:30:02,903 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 18:30:04,144 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 18:30:06,277 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 18:30:10,278 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 18:30:10,278 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 18:35:02,900 - __main__ - INFO - ============================================================
+2026-02-20 18:35:02,901 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 18:35:02,901 - __main__ - INFO - Mode: PAPER
+2026-02-20 18:35:02,901 - __main__ - INFO - Trading Enabled: True
+2026-02-20 18:35:02,901 - __main__ - INFO - ============================================================
+2026-02-20 18:35:02,901 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 18:35:02,902 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 18:35:03,410 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 18:35:04,696 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 18:35:06,728 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 18:35:10,729 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 18:35:10,729 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 18:40:03,521 - __main__ - INFO - ============================================================
+2026-02-20 18:40:03,521 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 18:40:03,521 - __main__ - INFO - Mode: PAPER
+2026-02-20 18:40:03,521 - __main__ - INFO - Trading Enabled: True
+2026-02-20 18:40:03,521 - __main__ - INFO - ============================================================
+2026-02-20 18:40:03,521 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 18:40:03,522 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 18:40:03,660 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 18:40:04,689 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 18:40:06,717 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 18:40:10,718 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 18:40:10,718 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 18:45:02,484 - __main__ - INFO - ============================================================
+2026-02-20 18:45:02,484 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 18:45:02,484 - __main__ - INFO - Mode: PAPER
+2026-02-20 18:45:02,484 - __main__ - INFO - Trading Enabled: True
+2026-02-20 18:45:02,484 - __main__ - INFO - ============================================================
+2026-02-20 18:45:02,484 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 18:45:02,485 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 18:45:02,635 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 18:45:03,664 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 18:45:05,694 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 18:45:09,694 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 18:45:09,695 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 18:50:02,660 - __main__ - INFO - ============================================================
+2026-02-20 18:50:02,660 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 18:50:02,661 - __main__ - INFO - Mode: PAPER
+2026-02-20 18:50:02,661 - __main__ - INFO - Trading Enabled: True
+2026-02-20 18:50:02,661 - __main__ - INFO - ============================================================
+2026-02-20 18:50:02,662 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 18:50:02,662 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 18:50:02,975 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 18:50:04,015 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 18:50:06,086 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 18:50:10,087 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 18:50:10,087 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 18:55:02,653 - __main__ - INFO - ============================================================
+2026-02-20 18:55:02,653 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 18:55:02,654 - __main__ - INFO - Mode: PAPER
+2026-02-20 18:55:02,654 - __main__ - INFO - Trading Enabled: True
+2026-02-20 18:55:02,654 - __main__ - INFO - ============================================================
+2026-02-20 18:55:02,654 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 18:55:02,654 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 18:55:02,913 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 18:55:03,943 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 18:55:05,997 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 18:55:09,998 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 18:55:09,998 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 19:00:02,910 - __main__ - INFO - ============================================================
+2026-02-20 19:00:02,910 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 19:00:02,910 - __main__ - INFO - Mode: PAPER
+2026-02-20 19:00:02,910 - __main__ - INFO - Trading Enabled: True
+2026-02-20 19:00:02,910 - __main__ - INFO - ============================================================
+2026-02-20 19:00:02,911 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 19:00:02,911 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 19:00:03,080 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 19:00:04,109 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 19:00:06,138 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 19:00:10,139 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 19:00:10,139 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 19:05:02,773 - __main__ - INFO - ============================================================
+2026-02-20 19:05:02,773 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 19:05:02,773 - __main__ - INFO - Mode: PAPER
+2026-02-20 19:05:02,773 - __main__ - INFO - Trading Enabled: True
+2026-02-20 19:05:02,774 - __main__ - INFO - ============================================================
+2026-02-20 19:05:02,774 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 19:05:02,774 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 19:05:03,030 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 19:05:04,061 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 19:05:06,118 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 19:05:10,119 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 19:05:10,119 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 19:10:02,785 - __main__ - INFO - ============================================================
+2026-02-20 19:10:02,785 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 19:10:02,785 - __main__ - INFO - Mode: PAPER
+2026-02-20 19:10:02,785 - __main__ - INFO - Trading Enabled: True
+2026-02-20 19:10:02,785 - __main__ - INFO - ============================================================
+2026-02-20 19:10:02,786 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 19:10:02,786 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 19:10:02,929 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 19:10:04,075 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 19:10:06,106 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 19:10:10,106 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 19:10:10,107 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 19:15:03,038 - __main__ - INFO - ============================================================
+2026-02-20 19:15:03,039 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 19:15:03,039 - __main__ - INFO - Mode: PAPER
+2026-02-20 19:15:03,040 - __main__ - INFO - Trading Enabled: True
+2026-02-20 19:15:03,040 - __main__ - INFO - ============================================================
+2026-02-20 19:15:03,040 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 19:15:03,040 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 19:15:03,237 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 19:15:04,276 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 19:15:06,333 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 19:15:10,334 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 19:15:10,334 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 19:20:03,122 - __main__ - INFO - ============================================================
+2026-02-20 19:20:03,123 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 19:20:03,123 - __main__ - INFO - Mode: PAPER
+2026-02-20 19:20:03,123 - __main__ - INFO - Trading Enabled: True
+2026-02-20 19:20:03,123 - __main__ - INFO - ============================================================
+2026-02-20 19:20:03,124 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 19:20:03,124 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 19:20:03,291 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 19:20:04,342 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 19:20:06,426 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 19:20:10,427 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 19:20:10,427 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 19:25:03,026 - __main__ - INFO - ============================================================
+2026-02-20 19:25:03,026 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 19:25:03,026 - __main__ - INFO - Mode: PAPER
+2026-02-20 19:25:03,026 - __main__ - INFO - Trading Enabled: True
+2026-02-20 19:25:03,027 - __main__ - INFO - ============================================================
+2026-02-20 19:25:03,028 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 19:25:03,029 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 19:25:03,207 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 19:25:04,242 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 19:25:06,272 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 19:25:10,272 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 19:25:10,273 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 19:30:03,447 - __main__ - INFO - ============================================================
+2026-02-20 19:30:03,448 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 19:30:03,448 - __main__ - INFO - Mode: PAPER
+2026-02-20 19:30:03,448 - __main__ - INFO - Trading Enabled: True
+2026-02-20 19:30:03,448 - __main__ - INFO - ============================================================
+2026-02-20 19:30:03,449 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 19:30:03,450 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 19:30:03,837 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 19:30:04,921 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 19:30:06,978 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 19:30:10,979 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 19:30:10,979 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 19:35:03,012 - __main__ - INFO - ============================================================
+2026-02-20 19:35:03,012 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 19:35:03,013 - __main__ - INFO - Mode: PAPER
+2026-02-20 19:35:03,013 - __main__ - INFO - Trading Enabled: True
+2026-02-20 19:35:03,013 - __main__ - INFO - ============================================================
+2026-02-20 19:35:03,013 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 19:35:03,014 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 19:35:03,191 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 19:35:04,231 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 19:35:06,267 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 19:35:10,268 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 19:35:10,268 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 19:40:02,981 - __main__ - INFO - ============================================================
+2026-02-20 19:40:02,981 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 19:40:02,981 - __main__ - INFO - Mode: PAPER
+2026-02-20 19:40:02,981 - __main__ - INFO - Trading Enabled: True
+2026-02-20 19:40:02,981 - __main__ - INFO - ============================================================
+2026-02-20 19:40:02,981 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 19:40:02,982 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 19:40:03,126 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 19:40:04,157 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 19:40:06,230 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 19:40:10,231 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 19:40:10,231 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 19:45:03,042 - __main__ - INFO - ============================================================
+2026-02-20 19:45:03,043 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 19:45:03,043 - __main__ - INFO - Mode: PAPER
+2026-02-20 19:45:03,043 - __main__ - INFO - Trading Enabled: True
+2026-02-20 19:45:03,043 - __main__ - INFO - ============================================================
+2026-02-20 19:45:03,044 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 19:45:03,045 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 19:45:03,227 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 19:45:04,270 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 19:45:06,308 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 19:45:10,309 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 19:45:10,309 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 19:50:03,030 - __main__ - INFO - ============================================================
+2026-02-20 19:50:03,031 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 19:50:03,031 - __main__ - INFO - Mode: PAPER
+2026-02-20 19:50:03,031 - __main__ - INFO - Trading Enabled: True
+2026-02-20 19:50:03,031 - __main__ - INFO - ============================================================
+2026-02-20 19:50:03,032 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 19:50:03,032 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 19:50:03,205 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 19:50:04,244 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 19:50:06,288 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 19:50:10,289 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 19:50:10,289 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 19:55:03,058 - __main__ - INFO - ============================================================
+2026-02-20 19:55:03,058 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 19:55:03,058 - __main__ - INFO - Mode: PAPER
+2026-02-20 19:55:03,059 - __main__ - INFO - Trading Enabled: True
+2026-02-20 19:55:03,059 - __main__ - INFO - ============================================================
+2026-02-20 19:55:03,059 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 19:55:03,059 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 19:55:03,227 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 19:55:04,257 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 19:55:06,292 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 19:55:10,292 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 19:55:10,293 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 20:00:03,161 - __main__ - INFO - ============================================================
+2026-02-20 20:00:03,161 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 20:00:03,161 - __main__ - INFO - Mode: PAPER
+2026-02-20 20:00:03,161 - __main__ - INFO - Trading Enabled: True
+2026-02-20 20:00:03,161 - __main__ - INFO - ============================================================
+2026-02-20 20:00:03,162 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 20:00:03,162 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 20:00:03,402 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 20:00:04,432 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 20:00:06,461 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 20:00:10,462 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 20:00:10,462 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 20:05:03,247 - __main__ - INFO - ============================================================
+2026-02-20 20:05:03,247 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 20:05:03,248 - __main__ - INFO - Mode: PAPER
+2026-02-20 20:05:03,248 - __main__ - INFO - Trading Enabled: True
+2026-02-20 20:05:03,248 - __main__ - INFO - ============================================================
+2026-02-20 20:05:03,248 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 20:05:03,249 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 20:05:03,464 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 20:05:04,523 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 20:05:06,574 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 20:05:10,574 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 20:05:10,575 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 20:10:03,229 - __main__ - INFO - ============================================================
+2026-02-20 20:10:03,229 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 20:10:03,229 - __main__ - INFO - Mode: PAPER
+2026-02-20 20:10:03,229 - __main__ - INFO - Trading Enabled: True
+2026-02-20 20:10:03,229 - __main__ - INFO - ============================================================
+2026-02-20 20:10:03,230 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 20:10:03,230 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 20:10:03,503 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 20:10:04,606 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 20:10:06,671 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 20:10:10,671 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 20:10:10,672 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 20:15:02,188 - __main__ - INFO - ============================================================
+2026-02-20 20:15:02,189 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 20:15:02,189 - __main__ - INFO - Mode: PAPER
+2026-02-20 20:15:02,189 - __main__ - INFO - Trading Enabled: True
+2026-02-20 20:15:02,189 - __main__ - INFO - ============================================================
+2026-02-20 20:15:02,189 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 20:15:02,190 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 20:15:02,344 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 20:15:03,424 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 20:15:05,475 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 20:15:09,476 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 20:15:09,476 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 20:20:03,678 - __main__ - INFO - ============================================================
+2026-02-20 20:20:03,678 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 20:20:03,679 - __main__ - INFO - Mode: PAPER
+2026-02-20 20:20:03,679 - __main__ - INFO - Trading Enabled: True
+2026-02-20 20:20:03,679 - __main__ - INFO - ============================================================
+2026-02-20 20:20:03,679 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 20:20:03,679 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 20:20:04,037 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 20:20:05,111 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 20:20:07,149 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 20:20:11,150 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 20:20:11,150 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 20:25:02,736 - __main__ - INFO - ============================================================
+2026-02-20 20:25:02,736 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 20:25:02,736 - __main__ - INFO - Mode: PAPER
+2026-02-20 20:25:02,736 - __main__ - INFO - Trading Enabled: True
+2026-02-20 20:25:02,736 - __main__ - INFO - ============================================================
+2026-02-20 20:25:02,737 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 20:25:02,738 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 20:25:02,925 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 20:25:03,958 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 20:25:05,988 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 20:25:09,989 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 20:25:09,989 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 20:30:02,983 - __main__ - INFO - ============================================================
+2026-02-20 20:30:02,983 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 20:30:02,983 - __main__ - INFO - Mode: PAPER
+2026-02-20 20:30:02,983 - __main__ - INFO - Trading Enabled: True
+2026-02-20 20:30:02,983 - __main__ - INFO - ============================================================
+2026-02-20 20:30:02,984 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 20:30:02,985 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 20:30:03,179 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 20:30:04,209 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 20:30:06,243 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 20:30:10,244 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 20:30:10,244 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 20:35:04,715 - __main__ - INFO - ============================================================
+2026-02-20 20:35:04,718 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 20:35:04,719 - __main__ - INFO - Mode: PAPER
+2026-02-20 20:35:04,719 - __main__ - INFO - Trading Enabled: True
+2026-02-20 20:35:04,719 - __main__ - INFO - ============================================================
+2026-02-20 20:35:04,719 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 20:35:04,720 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 20:35:04,858 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 20:35:05,953 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 20:35:08,070 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 20:35:12,071 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 20:35:12,071 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 20:40:08,378 - __main__ - INFO - ============================================================
+2026-02-20 20:40:08,378 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 20:40:08,378 - __main__ - INFO - Mode: PAPER
+2026-02-20 20:40:08,378 - __main__ - INFO - Trading Enabled: True
+2026-02-20 20:40:08,378 - __main__ - INFO - ============================================================
+2026-02-20 20:40:08,402 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 20:40:08,402 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 20:40:08,543 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 20:40:09,574 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 20:40:11,604 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 20:40:15,605 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 20:40:15,605 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 20:45:03,177 - __main__ - INFO - ============================================================
+2026-02-20 20:45:03,177 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 20:45:03,177 - __main__ - INFO - Mode: PAPER
+2026-02-20 20:45:03,177 - __main__ - INFO - Trading Enabled: True
+2026-02-20 20:45:03,177 - __main__ - INFO - ============================================================
+2026-02-20 20:45:03,178 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 20:45:03,178 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 20:45:03,318 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 20:45:04,405 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 20:45:06,440 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 20:45:10,442 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 20:45:10,442 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 20:50:03,188 - __main__ - INFO - ============================================================
+2026-02-20 20:50:03,191 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 20:50:03,191 - __main__ - INFO - Mode: PAPER
+2026-02-20 20:50:03,191 - __main__ - INFO - Trading Enabled: True
+2026-02-20 20:50:03,191 - __main__ - INFO - ============================================================
+2026-02-20 20:50:03,191 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 20:50:03,192 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 20:50:03,331 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 20:50:04,368 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 20:50:06,398 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 20:50:10,399 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 20:50:10,399 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 20:55:03,233 - __main__ - INFO - ============================================================
+2026-02-20 20:55:03,233 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 20:55:03,233 - __main__ - INFO - Mode: PAPER
+2026-02-20 20:55:03,233 - __main__ - INFO - Trading Enabled: True
+2026-02-20 20:55:03,233 - __main__ - INFO - ============================================================
+2026-02-20 20:55:03,234 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 20:55:03,234 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 20:55:03,425 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 20:55:04,456 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 20:55:06,485 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 20:55:10,485 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 20:55:10,486 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 21:00:03,408 - __main__ - INFO - ============================================================
+2026-02-20 21:00:03,408 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 21:00:03,408 - __main__ - INFO - Mode: PAPER
+2026-02-20 21:00:03,408 - __main__ - INFO - Trading Enabled: True
+2026-02-20 21:00:03,408 - __main__ - INFO - ============================================================
+2026-02-20 21:00:03,409 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 21:00:03,409 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 21:00:03,546 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 21:00:04,580 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 21:00:06,609 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 21:00:10,610 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 21:00:10,610 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+

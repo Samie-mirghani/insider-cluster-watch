@@ -1,0 +1,132 @@
+2026-02-20 14:36:04,716 - __main__ - INFO - ============================================================
+2026-02-20 14:36:04,716 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 14:36:04,716 - __main__ - INFO - Mode: PAPER
+2026-02-20 14:36:04,716 - __main__ - INFO - Trading Enabled: True
+2026-02-20 14:36:04,716 - __main__ - INFO - ============================================================
+2026-02-20 14:36:04,716 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 14:36:04,717 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 14:36:04,969 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 14:36:06,004 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 14:36:08,032 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 14:36:12,033 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 14:36:12,033 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 16:20:24,849 - __main__ - INFO - ============================================================
+2026-02-20 16:20:24,850 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 16:20:24,850 - __main__ - INFO - Mode: PAPER
+2026-02-20 16:20:24,850 - __main__ - INFO - Trading Enabled: True
+2026-02-20 16:20:24,850 - __main__ - INFO - ============================================================
+2026-02-20 16:20:24,850 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 16:20:24,850 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 16:20:24,980 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 1/3): {"message": "unauthorized."}
+. Retrying in 1s...
+2026-02-20 16:20:26,010 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 2/3): {"message": "unauthorized."}
+. Retrying in 2s...
+2026-02-20 16:20:28,187 - automated_trading.alpaca_client - WARNING - Get account failed (attempt 3/3): {"message": "unauthorized."}
+. Retrying in 4s...
+2026-02-20 16:20:32,188 - __main__ - ERROR - Failed to connect to Alpaca: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 16:20:32,188 - __main__ - ERROR - Engine error: Failed to connect to Alpaca API: Get account failed after 3 attempts: {"message": "unauthorized."}
+
+2026-02-20 16:28:33,371 - __main__ - INFO - ============================================================
+2026-02-20 16:28:33,372 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-20 16:28:33,372 - __main__ - INFO - Mode: PAPER
+2026-02-20 16:28:33,372 - __main__ - INFO - Trading Enabled: True
+2026-02-20 16:28:33,372 - __main__ - INFO - ============================================================
+2026-02-20 16:28:33,372 - __main__ - INFO - Loaded 0 exits from today
+2026-02-20 16:28:33,372 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-20 16:28:33,508 - automated_trading.alpaca_client - INFO - Account verified: $10,000.00 portfolio value
+2026-02-20 16:28:33,509 - __main__ - INFO - Connected to Alpaca (paper mode)
+2026-02-20 16:28:33,509 - __main__ - INFO - Account verified:
+2026-02-20 16:28:33,509 - __main__ - INFO -   Portfolio Value: $10,000.00
+2026-02-20 16:28:33,509 - __main__ - INFO -   Cash: $10,000.00
+2026-02-20 16:28:33,509 - __main__ - INFO -   Buying Power: $20,000.00
+2026-02-20 16:28:33,543 - automated_trading.utils - INFO - Trading calendar updated: 41 trading days cached
+2026-02-20 16:28:33,570 - automated_trading.order_manager - INFO - Loaded 0 pending orders
+2026-02-20 16:28:33,572 - automated_trading.signal_queue - INFO - Loaded 10 queued signals
+2026-02-20 16:28:33,596 - automated_trading.position_monitor - INFO - Loaded 0 positions
+2026-02-20 16:28:33,597 - automated_trading.position_monitor - INFO - Loaded signal history for 0 tickers
+2026-02-20 16:28:33,632 - automated_trading.execution_metrics - INFO - Loaded 0 execution records
+2026-02-20 16:28:33,632 - __main__ - INFO - All components initialized successfully
+2026-02-20 16:28:33,632 - __main__ - INFO - 
+============================================================
+2026-02-20 16:28:33,632 - __main__ - INFO - MORNING TRADE EXECUTION
+2026-02-20 16:28:33,632 - __main__ - INFO - Time: 2026-02-20 16:28:33.632813
+2026-02-20 16:28:33,632 - __main__ - INFO - ============================================================
+2026-02-20 16:28:33,698 - __main__ - INFO - Syncing with broker before trading...
+2026-02-20 16:28:33,730 - automated_trading.reconciliation - INFO - Starting position reconciliation...
+2026-02-20 16:28:33,761 - automated_trading.reconciliation - INFO - Reconciliation PASSED: 0 positions match
+2026-02-20 16:28:33,762 - __main__ - INFO - Loaded 6 signals from /home/samie_mirghani/insider-cluster-watch/automated_trading/../data/approved_signals.json
+2026-02-20 16:28:34,277 - __main__ - WARNING - ASST: Downtrend check failed (The truth value of a Series is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().), allowing trade
+2026-02-20 16:28:34,382 - __main__ - INFO - Position sizing: score=8.5 → 6.3% of portfolio = $627.03
+2026-02-20 16:28:34,382 - __main__ - INFO - 
+==================================================
+2026-02-20 16:28:34,382 - __main__ - INFO - EXECUTING BUY: ASST
+2026-02-20 16:28:34,382 - __main__ - INFO - ==================================================
+2026-02-20 16:28:34,484 - __main__ - WARNING - ASST: Downtrend check failed (The truth value of a Series is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().), allowing trade
+2026-02-20 16:28:34,584 - __main__ - INFO - Position sizing: score=8.5 → 6.3% of portfolio = $627.03
+2026-02-20 16:28:34,624 - __main__ - INFO - Position sizing: score=8.5 → 6.3% of portfolio = $627.03
+2026-02-20 16:28:34,664 - automated_trading.order_manager - INFO - ✅ Created LIMIT BUY order: ASST x76 @ $8.30
+2026-02-20 16:28:34,664 - __main__ - INFO - Submitting LIMIT order: ASST x76 @ $8.30 (signal: $8.18, cushion: 1.5%)
+2026-02-20 16:28:34,665 - automated_trading.alpaca_client - INFO - Submitting LIMIT BUY: ASST x76 @ $8.30
+2026-02-20 16:28:34,704 - automated_trading.position_monitor - INFO - Order executed: BUY ASST | Total trades today: 1/15
+2026-02-20 16:28:34,704 - __main__ - INFO - Order submitted: 1337f331-3b3e-463b-bb63-3c83dc279b74
+2026-02-20 16:28:34,704 - __main__ - INFO - Status: OrderStatus.PENDING_NEW
+2026-02-20 16:28:34,741 - __main__ - INFO - Position sizing: score=8.5 → 6.3% of portfolio = $627.03
+2026-02-20 16:28:34,922 - __main__ - WARNING - WLIIU: Downtrend check failed (The truth value of a Series is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().), allowing trade
+2026-02-20 16:28:35,021 - __main__ - INFO - Position sizing: score=6.9 → 5.4% of portfolio = $544.53
+2026-02-20 16:28:35,021 - __main__ - INFO - 
+==================================================
+2026-02-20 16:28:35,021 - __main__ - INFO - EXECUTING BUY: WLIIU
+2026-02-20 16:28:35,021 - __main__ - INFO - ==================================================
+2026-02-20 16:28:35,138 - __main__ - WARNING - WLIIU: Downtrend check failed (The truth value of a Series is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().), allowing trade
+2026-02-20 16:28:35,281 - __main__ - INFO - Position sizing: score=6.9 → 5.4% of portfolio = $544.53
+2026-02-20 16:28:35,317 - __main__ - INFO - Position sizing: score=6.9 → 5.4% of portfolio = $544.53
+2026-02-20 16:28:35,356 - automated_trading.order_manager - INFO - ✅ Created LIMIT BUY order: WLIIU x53 @ $10.26
+2026-02-20 16:28:35,356 - __main__ - INFO - Submitting LIMIT order: WLIIU x53 @ $10.26 (signal: $10.11, cushion: 1.5%)
+2026-02-20 16:28:35,356 - automated_trading.alpaca_client - INFO - Submitting LIMIT BUY: WLIIU x53 @ $10.26
+2026-02-20 16:28:35,396 - automated_trading.position_monitor - INFO - Order executed: BUY WLIIU | Total trades today: 2/15
+2026-02-20 16:28:35,397 - __main__ - INFO - Order submitted: 3505c5c3-9b9c-41da-bd22-a6449253b747
+2026-02-20 16:28:35,397 - __main__ - INFO - Status: OrderStatus.PENDING_NEW
+2026-02-20 16:28:35,434 - __main__ - INFO - Position sizing: score=6.9 → 5.4% of portfolio = $544.53
+2026-02-20 16:28:35,752 - __main__ - WARNING - HTGC: Downtrend check failed (The truth value of a Series is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().), allowing trade
+2026-02-20 16:28:35,854 - __main__ - INFO - Position sizing: score=6.3 → 5.2% of portfolio = $515.51
+2026-02-20 16:28:35,854 - __main__ - INFO - 
+==================================================
+2026-02-20 16:28:35,855 - __main__ - INFO - EXECUTING BUY: HTGC
+2026-02-20 16:28:35,855 - __main__ - INFO - ==================================================
+2026-02-20 16:28:36,027 - __main__ - WARNING - HTGC: Downtrend check failed (The truth value of a Series is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().), allowing trade
+2026-02-20 16:28:36,122 - __main__ - INFO - Position sizing: score=6.3 → 5.2% of portfolio = $515.51
+2026-02-20 16:28:36,154 - __main__ - INFO - Position sizing: score=6.3 → 5.2% of portfolio = $515.51
+2026-02-20 16:28:36,189 - automated_trading.order_manager - INFO - ✅ Created LIMIT BUY order: HTGC x32 @ $15.88
+2026-02-20 16:28:36,189 - __main__ - INFO - Submitting LIMIT order: HTGC x32 @ $15.88 (signal: $15.65, cushion: 1.5%)
+2026-02-20 16:28:36,189 - automated_trading.alpaca_client - INFO - Submitting LIMIT BUY: HTGC x32 @ $15.88
+2026-02-20 16:28:36,229 - automated_trading.position_monitor - INFO - Order executed: BUY HTGC | Total trades today: 3/15
+2026-02-20 16:28:36,229 - __main__ - INFO - Order submitted: ba7f434f-d68a-4f43-943b-75316ea636e3
+2026-02-20 16:28:36,229 - __main__ - INFO - Status: OrderStatus.PENDING_NEW
+2026-02-20 16:28:36,263 - __main__ - INFO - Position sizing: score=6.3 → 5.2% of portfolio = $515.51
+2026-02-20 16:28:36,263 - __main__ - INFO - Skipping AAT: Score 5.364585237848328 below threshold 6.0
+2026-02-20 16:28:36,264 - __main__ - INFO - Skipping MH: Score 5.198199422607086 below threshold 6.0
+2026-02-20 16:28:36,264 - __main__ - INFO - Skipping NDAQ: Score 3.721617259237181 below threshold 6.0
+2026-02-20 16:28:36,264 - __main__ - INFO - Sending batch email for 3 morning trades
+2026-02-20 16:28:37,228 - automated_trading.alerts - INFO - ✅ Alert sent successfully: 🧪 Morning Trades: 3 positions opened ($1,683)
+2026-02-20 16:28:37,229 - __main__ - INFO - 
+============================================================
+2026-02-20 16:28:37,229 - __main__ - INFO - MORNING EXECUTION COMPLETE
+2026-02-20 16:28:37,229 - __main__ - INFO - Signals: 6 loaded, 3 validated
+2026-02-20 16:28:37,229 - __main__ - INFO - Orders: 3 submitted, 0 failed
+2026-02-20 16:28:37,229 - __main__ - INFO - Queued: 0
+2026-02-20 16:28:37,229 - __main__ - INFO - ============================================================
+{
+  "timestamp": "2026-02-20T16:28:33.632965",
+  "signals_loaded": 6,
+  "signals_validated": 3,
+  "orders_submitted": 3,
+  "orders_failed": 0,
+  "queued_for_later": 0,
+  "errors": []
+}

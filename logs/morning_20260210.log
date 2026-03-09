@@ -1,0 +1,120 @@
+2026-02-10 14:36:03,666 - __main__ - INFO - ============================================================
+2026-02-10 14:36:03,667 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-10 14:36:03,667 - __main__ - INFO - Mode: PAPER
+2026-02-10 14:36:03,667 - __main__ - INFO - Trading Enabled: True
+2026-02-10 14:36:03,667 - __main__ - INFO - ============================================================
+2026-02-10 14:36:03,667 - __main__ - INFO - Loaded 0 exits from today
+2026-02-10 14:36:03,667 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-10 14:36:03,858 - automated_trading.alpaca_client - INFO - Account verified: $95,615.33 portfolio value
+2026-02-10 14:36:03,858 - __main__ - INFO - Connected to Alpaca (paper mode)
+2026-02-10 14:36:03,858 - __main__ - INFO - Account verified:
+2026-02-10 14:36:03,858 - __main__ - INFO -   Portfolio Value: $95,615.33
+2026-02-10 14:36:03,858 - __main__ - INFO -   Cash: $32,575.43
+2026-02-10 14:36:03,858 - __main__ - INFO -   Buying Power: $128,190.76
+2026-02-10 14:36:03,892 - automated_trading.utils - INFO - Trading calendar updated: 41 trading days cached
+2026-02-10 14:36:03,892 - automated_trading.order_manager - INFO - Loaded 4 pending orders
+2026-02-10 14:36:03,892 - automated_trading.signal_queue - INFO - Loaded 0 queued signals
+2026-02-10 14:36:03,893 - automated_trading.position_monitor - INFO - New trading day - circuit breakers reset
+2026-02-10 14:36:03,893 - automated_trading.position_monitor - INFO - Loaded 9 positions
+2026-02-10 14:36:03,893 - automated_trading.position_monitor - INFO - Loaded signal history for 20 tickers
+2026-02-10 14:36:03,928 - automated_trading.execution_metrics - INFO - Loaded 13 execution records
+2026-02-10 14:36:03,929 - __main__ - INFO - All components initialized successfully
+2026-02-10 14:36:03,929 - __main__ - INFO - 
+============================================================
+2026-02-10 14:36:03,929 - __main__ - INFO - MORNING TRADE EXECUTION
+2026-02-10 14:36:03,929 - __main__ - INFO - Time: 2026-02-10 14:36:03.929451
+2026-02-10 14:36:03,929 - __main__ - INFO - ============================================================
+2026-02-10 14:36:03,997 - __main__ - INFO - Syncing with broker before trading...
+2026-02-10 14:36:04,031 - automated_trading.reconciliation - INFO - Starting position reconciliation...
+2026-02-10 14:36:04,064 - automated_trading.reconciliation - INFO - Reconciliation PASSED: 9 positions match
+2026-02-10 14:36:04,064 - __main__ - INFO - Loaded 9 signals from /home/samie_mirghani/insider-cluster-watch/automated_trading/../data/approved_signals.json
+2026-02-10 14:36:04,682 - __main__ - WARNING - ARCC: Downtrend check failed (The truth value of a Series is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().), allowing trade
+2026-02-10 14:36:04,781 - __main__ - INFO - Position sizing: score=11.5 → 7.7% of portfolio = $7393.92
+2026-02-10 14:36:04,781 - __main__ - INFO - 
+==================================================
+2026-02-10 14:36:04,781 - __main__ - INFO - EXECUTING BUY: ARCC
+2026-02-10 14:36:04,781 - __main__ - INFO - ==================================================
+2026-02-10 14:36:04,912 - __main__ - WARNING - ARCC: Downtrend check failed (The truth value of a Series is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().), allowing trade
+2026-02-10 14:36:05,012 - __main__ - INFO - Position sizing: score=11.5 → 7.7% of portfolio = $7393.92
+2026-02-10 14:36:05,048 - __main__ - INFO - Position sizing: score=11.5 → 7.7% of portfolio = $7393.92
+2026-02-10 14:36:05,088 - automated_trading.order_manager - INFO - ✅ Created LIMIT BUY order: ARCC x379 @ $19.77
+2026-02-10 14:36:05,088 - __main__ - INFO - Submitting LIMIT order: ARCC x379 @ $19.77 (signal: $19.48, cushion: 1.5%)
+2026-02-10 14:36:05,088 - automated_trading.alpaca_client - INFO - Submitting LIMIT BUY: ARCC x379 @ $19.77
+2026-02-10 14:36:05,129 - automated_trading.position_monitor - INFO - Order executed: BUY ARCC | Total trades today: 1/15
+2026-02-10 14:36:05,129 - __main__ - INFO - Order submitted: 7b85e4a2-c750-497b-ac26-c15f6e7db1b5
+2026-02-10 14:36:05,129 - __main__ - INFO - Status: OrderStatus.PENDING_NEW
+2026-02-10 14:36:05,163 - __main__ - INFO - Position sizing: score=11.5 → 7.7% of portfolio = $7393.92
+2026-02-10 14:36:05,633 - yfinance - ERROR - $HCIC: possibly delisted; no timezone found
+2026-02-10 14:36:05,637 - yfinance - ERROR - 
+1 Failed download:
+2026-02-10 14:36:05,637 - yfinance - ERROR - ['HCIC']: possibly delisted; no timezone found
+2026-02-10 14:36:05,641 - __main__ - WARNING - HCIC: No price history available for downtrend check, allowing trade
+2026-02-10 14:36:05,671 - __main__ - INFO - Skipping HCIC: Not tradeable: Asset is not tradeable
+2026-02-10 14:36:05,867 - __main__ - WARNING - CBC: Downtrend check failed (The truth value of a Series is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().), allowing trade
+2026-02-10 14:36:06,023 - __main__ - INFO - Position sizing: score=8.1 → 6.0% of portfolio = $5771.91
+2026-02-10 14:36:06,023 - __main__ - INFO - 
+==================================================
+2026-02-10 14:36:06,024 - __main__ - INFO - EXECUTING BUY: CBC
+2026-02-10 14:36:06,024 - __main__ - INFO - ==================================================
+2026-02-10 14:36:06,135 - __main__ - WARNING - CBC: Downtrend check failed (The truth value of a Series is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().), allowing trade
+2026-02-10 14:36:06,233 - __main__ - INFO - Position sizing: score=8.1 → 6.0% of portfolio = $5771.91
+2026-02-10 14:36:06,269 - __main__ - INFO - Position sizing: score=8.1 → 6.0% of portfolio = $5771.91
+2026-02-10 14:36:06,309 - automated_trading.order_manager - INFO - ✅ Created LIMIT BUY order: CBC x235 @ $24.87
+2026-02-10 14:36:06,309 - __main__ - INFO - Submitting LIMIT order: CBC x235 @ $24.87 (signal: $24.50, cushion: 1.5%)
+2026-02-10 14:36:06,309 - automated_trading.alpaca_client - INFO - Submitting LIMIT BUY: CBC x235 @ $24.87
+2026-02-10 14:36:06,347 - automated_trading.position_monitor - INFO - Order executed: BUY CBC | Total trades today: 2/15
+2026-02-10 14:36:06,347 - __main__ - INFO - Order submitted: 6bcf8dfe-e18e-457f-b02d-62b73d4cd3f5
+2026-02-10 14:36:06,347 - __main__ - INFO - Status: OrderStatus.PENDING_NEW
+2026-02-10 14:36:06,381 - __main__ - INFO - Position sizing: score=8.1 → 6.0% of portfolio = $5771.91
+2026-02-10 14:36:06,738 - __main__ - WARNING - TDG: Downtrend check failed (The truth value of a Series is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().), allowing trade
+2026-02-10 14:36:06,834 - __main__ - INFO - Position sizing: score=7.3 → 5.6% of portfolio = $5380.94
+2026-02-10 14:36:06,835 - __main__ - INFO - 
+==================================================
+2026-02-10 14:36:06,835 - __main__ - INFO - EXECUTING BUY: TDG
+2026-02-10 14:36:06,835 - __main__ - INFO - ==================================================
+2026-02-10 14:36:06,967 - __main__ - WARNING - TDG: Downtrend check failed (The truth value of a Series is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().), allowing trade
+2026-02-10 14:36:07,069 - __main__ - INFO - Position sizing: score=7.3 → 5.6% of portfolio = $5380.94
+2026-02-10 14:36:07,104 - __main__ - INFO - Position sizing: score=7.3 → 5.6% of portfolio = $5380.94
+2026-02-10 14:36:07,141 - automated_trading.order_manager - INFO - ✅ Created LIMIT BUY order: TDG x4 @ $1319.60
+2026-02-10 14:36:07,141 - __main__ - INFO - Submitting LIMIT order: TDG x4 @ $1319.60 (signal: $1300.10, cushion: 1.5%)
+2026-02-10 14:36:07,142 - automated_trading.alpaca_client - INFO - Submitting LIMIT BUY: TDG x4 @ $1319.60
+2026-02-10 14:36:07,187 - automated_trading.position_monitor - INFO - Order executed: BUY TDG | Total trades today: 3/15
+2026-02-10 14:36:07,187 - __main__ - INFO - Order submitted: dd69891d-427b-4338-a67d-37ee1e47bab8
+2026-02-10 14:36:07,188 - __main__ - INFO - Status: OrderStatus.PENDING_NEW
+2026-02-10 14:36:07,221 - __main__ - INFO - Position sizing: score=7.3 → 5.6% of portfolio = $5380.94
+2026-02-10 14:36:07,503 - __main__ - INFO - Position sizing: score=6.9 → 5.4% of portfolio = $5193.95
+2026-02-10 14:36:07,503 - __main__ - INFO - 
+==================================================
+2026-02-10 14:36:07,503 - __main__ - INFO - EXECUTING BUY: CEPS
+2026-02-10 14:36:07,503 - __main__ - INFO - ==================================================
+2026-02-10 14:36:07,715 - __main__ - INFO - Position sizing: score=6.9 → 5.4% of portfolio = $5193.95
+2026-02-10 14:36:07,749 - __main__ - INFO - Position sizing: score=6.9 → 5.4% of portfolio = $5193.75
+2026-02-10 14:36:07,789 - automated_trading.order_manager - INFO - ✅ Created LIMIT BUY order: CEPS x511 @ $10.30
+2026-02-10 14:36:07,789 - __main__ - INFO - Submitting LIMIT order: CEPS x511 @ $10.30 (signal: $10.15, cushion: 1.5%)
+2026-02-10 14:36:07,789 - automated_trading.alpaca_client - INFO - Submitting LIMIT BUY: CEPS x511 @ $10.30
+2026-02-10 14:36:07,828 - automated_trading.position_monitor - INFO - Order executed: BUY CEPS | Total trades today: 4/15
+2026-02-10 14:36:07,828 - __main__ - INFO - Order submitted: f33037a9-9ce9-42a3-83e5-d34f538eca0c
+2026-02-10 14:36:07,829 - __main__ - INFO - Status: OrderStatus.PENDING_NEW
+2026-02-10 14:36:07,863 - __main__ - INFO - Position sizing: score=6.9 → 5.4% of portfolio = $5193.75
+2026-02-10 14:36:07,863 - __main__ - INFO - Skipping BMI: Score 4.268700307709508 below threshold 6.0
+2026-02-10 14:36:07,863 - __main__ - INFO - Skipping KMB: Score 3.7320177267868946 below threshold 6.0
+2026-02-10 14:36:07,863 - __main__ - INFO - Skipping BSTZ: Score 3.7165350030711575 below threshold 6.0
+2026-02-10 14:36:07,864 - __main__ - INFO - Skipping BST: Score 3.7164829620571957 below threshold 6.0
+2026-02-10 14:36:07,864 - __main__ - INFO - Sending batch email for 4 morning trades
+2026-02-10 14:36:08,913 - automated_trading.alerts - INFO - ✅ Alert sent successfully: 🧪 Morning Trades: 4 positions opened ($23,879)
+2026-02-10 14:36:08,913 - __main__ - INFO - 
+============================================================
+2026-02-10 14:36:08,913 - __main__ - INFO - MORNING EXECUTION COMPLETE
+2026-02-10 14:36:08,913 - __main__ - INFO - Signals: 9 loaded, 4 validated
+2026-02-10 14:36:08,913 - __main__ - INFO - Orders: 4 submitted, 0 failed
+2026-02-10 14:36:08,913 - __main__ - INFO - Queued: 0
+2026-02-10 14:36:08,913 - __main__ - INFO - ============================================================
+{
+  "timestamp": "2026-02-10T14:36:03.929528",
+  "signals_loaded": 9,
+  "signals_validated": 4,
+  "orders_submitted": 4,
+  "orders_failed": 0,
+  "queued_for_later": 0,
+  "errors": []
+}

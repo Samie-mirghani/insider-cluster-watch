@@ -1,0 +1,34 @@
+From https://github.com/samie-mirghani/insider-cluster-watch
+ * branch            main       -> FETCH_HEAD
+   c648d74..da71bd9  main       -> origin/main
+Updating c648d74..da71bd9
+Fast-forward
+ automated_trading/alpaca_client.py   |   46 +
+ automated_trading/config.py          |   41 +
+ automated_trading/execute_trades.py  |  264 ++++-
+ data/api_rate_limit.json             |    2 +-
+ data/approved_signals.json           |  190 ++--
+ data/company_profiles_cache.json     |  334 +++++-
+ data/failed_tickers_cache.json       |  219 ++--
+ data/fmp_analytics.json              |   31 +-
+ data/insider_name_mapping.json       |   38 +-
+ data/insider_profiles.json           |  126 +--
+ data/insider_tracking_queue.json     | 1881 ++++++++++++++++++++++++++++------
+ data/insider_trades_history.csv      |  129 ++-
+ data/paper_portfolio.json            |  209 ++--
+ data/paper_trades.csv                |   12 +-
+ data/politician_trades_cache.json    |  254 +----
+ data/signals_history.csv             |   26 +-
+ docs/insider_performance_public.json |    4 +-
+ jobs/config.py                       |   63 ++
+ jobs/fmp_api.py                      |   37 +
+ jobs/paper_trade.py                  |  158 ++-
+ jobs/process_signals.py              |  124 ++-
+ jobs/rotation_scorer.py              |  407 ++++++++
+ jobs/sector_analyzer.py              |    1 +
+ jobs/signal_filters.py               |  288 ++++++
+ jobs/ticker_validator.py             |    2 +-
+ public_performance.json              |  166 ++-
+ 26 files changed, 3971 insertions(+), 1081 deletions(-)
+ create mode 100644 jobs/rotation_scorer.py
+ create mode 100644 jobs/signal_filters.py

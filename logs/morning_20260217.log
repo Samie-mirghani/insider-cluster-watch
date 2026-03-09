@@ -1,0 +1,56 @@
+2026-02-17 14:36:04,628 - __main__ - INFO - ============================================================
+2026-02-17 14:36:04,628 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-17 14:36:04,628 - __main__ - INFO - Mode: PAPER
+2026-02-17 14:36:04,628 - __main__ - INFO - Trading Enabled: True
+2026-02-17 14:36:04,628 - __main__ - INFO - ============================================================
+2026-02-17 14:36:04,629 - __main__ - INFO - Loaded 0 exits from today
+2026-02-17 14:36:04,629 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-17 14:36:04,764 - automated_trading.alpaca_client - INFO - Account verified: $94,534.99 portfolio value
+2026-02-17 14:36:04,764 - __main__ - INFO - Connected to Alpaca (paper mode)
+2026-02-17 14:36:04,764 - __main__ - INFO - Account verified:
+2026-02-17 14:36:04,764 - __main__ - INFO -   Portfolio Value: $94,534.99
+2026-02-17 14:36:04,764 - __main__ - INFO -   Cash: $31,869.63
+2026-02-17 14:36:04,764 - __main__ - INFO -   Buying Power: $126,404.62
+2026-02-17 14:36:04,799 - automated_trading.utils - INFO - Trading calendar updated: 41 trading days cached
+2026-02-17 14:36:04,799 - automated_trading.order_manager - INFO - Loaded 0 pending orders
+2026-02-17 14:36:04,800 - automated_trading.signal_queue - INFO - Loaded 0 queued signals
+2026-02-17 14:36:04,800 - automated_trading.position_monitor - INFO - New trading day - circuit breakers reset
+2026-02-17 14:36:04,800 - automated_trading.position_monitor - INFO - Loaded 10 positions
+2026-02-17 14:36:04,800 - automated_trading.position_monitor - INFO - Loaded signal history for 27 tickers
+2026-02-17 14:36:04,836 - automated_trading.execution_metrics - INFO - Loaded 25 execution records
+2026-02-17 14:36:04,836 - __main__ - INFO - All components initialized successfully
+2026-02-17 14:36:04,837 - __main__ - INFO - 
+============================================================
+2026-02-17 14:36:04,837 - __main__ - INFO - MORNING TRADE EXECUTION
+2026-02-17 14:36:04,837 - __main__ - INFO - Time: 2026-02-17 14:36:04.837134
+2026-02-17 14:36:04,837 - __main__ - INFO - ============================================================
+2026-02-17 14:36:04,914 - __main__ - INFO - Syncing with broker before trading...
+2026-02-17 14:36:04,948 - automated_trading.reconciliation - INFO - Starting position reconciliation...
+2026-02-17 14:36:04,981 - automated_trading.reconciliation - INFO - Reconciliation PASSED: 10 positions match
+2026-02-17 14:36:04,982 - __main__ - INFO - Loaded 4 signals from /home/samie_mirghani/insider-cluster-watch/automated_trading/../data/approved_signals.json
+2026-02-17 14:36:06,022 - __main__ - WARNING - CHRW: Downtrend check failed (The truth value of a Series is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().), allowing trade
+2026-02-17 14:36:06,120 - __main__ - INFO - Skipping CHRW: Max positions (10) reached
+2026-02-17 14:36:06,122 - automated_trading.signal_queue - INFO - Signal queued: CHRW (score: 13.37) - Max positions (10) reached
+2026-02-17 14:36:06,122 - __main__ - INFO -   Queued CHRW for intraday redeployment
+2026-02-17 14:36:06,382 - __main__ - WARNING - NPB: Downtrend check failed (The truth value of a Series is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().), allowing trade
+2026-02-17 14:36:06,477 - __main__ - INFO - Skipping NPB: Max positions (10) reached
+2026-02-17 14:36:06,478 - automated_trading.signal_queue - INFO - Signal queued: NPB (score: 8.51) - Max positions (10) reached
+2026-02-17 14:36:06,479 - __main__ - INFO -   Queued NPB for intraday redeployment
+2026-02-17 14:36:06,479 - __main__ - INFO - Skipping NDAQ: Score 4.372216978394083 below threshold 6.0
+2026-02-17 14:36:06,479 - __main__ - INFO - Skipping PSEC: Score 3.8533785241810143 below threshold 6.0
+2026-02-17 14:36:06,479 - __main__ - INFO - 
+============================================================
+2026-02-17 14:36:06,479 - __main__ - INFO - MORNING EXECUTION COMPLETE
+2026-02-17 14:36:06,479 - __main__ - INFO - Signals: 4 loaded, 0 validated
+2026-02-17 14:36:06,479 - __main__ - INFO - Orders: 0 submitted, 0 failed
+2026-02-17 14:36:06,479 - __main__ - INFO - Queued: 2
+2026-02-17 14:36:06,479 - __main__ - INFO - ============================================================
+{
+  "timestamp": "2026-02-17T14:36:04.837224",
+  "signals_loaded": 4,
+  "signals_validated": 0,
+  "orders_submitted": 0,
+  "orders_failed": 0,
+  "queued_for_later": 2,
+  "errors": []
+}

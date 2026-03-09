@@ -1,0 +1,21 @@
+From https://github.com/samie-mirghani/insider-cluster-watch
+ * branch            main       -> FETCH_HEAD
+   94957db..7cc5fc4  main       -> origin/main
+Updating 94957db..7cc5fc4
+Fast-forward
+ data/api_rate_limit.json             |    2 +-
+ data/approved_signals.json           |  142 +-
+ data/company_profiles_cache.json     |  232 ++-
+ data/failed_tickers_cache.json       | 1270 ++------------
+ data/fmp_analytics.json              |   31 +-
+ data/insider_name_mapping.json       |   32 +-
+ data/insider_profiles.json           |   12 +-
+ data/insider_tracking_queue.json     | 3206 +++++++++++++++++++++++-----------
+ data/insider_trades_history.csv      |  244 +--
+ data/paper_portfolio.json            |   88 +-
+ data/paper_trades.csv                |    3 +
+ data/politician_trades_cache.json    |  164 +-
+ data/signals_history.csv             |   14 +-
+ docs/insider_performance_public.json |    2 +-
+ public_performance.json              |  165 +-
+ 15 files changed, 3136 insertions(+), 2471 deletions(-)

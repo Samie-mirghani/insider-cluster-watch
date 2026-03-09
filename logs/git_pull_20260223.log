@@ -1,0 +1,31 @@
+From https://github.com/samie-mirghani/insider-cluster-watch
+ * branch            main       -> FETCH_HEAD
+   48ca3ac..94957db  main       -> origin/main
+Updating 48ca3ac..94957db
+Fast-forward
+ automated_trading/alpaca_client.py    |    4 +-
+ automated_trading/config.py           |   19 +-
+ automated_trading/execute_trades.py   |   79 +-
+ automated_trading/order_manager.py    |   51 +-
+ automated_trading/position_monitor.py |   39 +-
+ automated_trading/signal_queue.py     |    2 +-
+ data/api_rate_limit.json              |    2 +-
+ data/approved_signals.json            |  106 +-
+ data/backtest_results.csv             |  514 ++++----
+ data/company_profiles_cache.json      |  198 ++-
+ data/failed_tickers_cache.json        | 1335 +++++++++++++++++++-
+ data/fmp_analytics.json               |   31 +-
+ data/insider_name_mapping.json        |   29 +-
+ data/insider_profiles.json            |  354 +++---
+ data/insider_tracking_queue.json      | 2244 ++++++++++++++++++++++++++-------
+ data/insider_trades_history.csv       |   84 +-
+ data/paper_portfolio.json             |   19 +-
+ data/paper_trades.csv                 |    2 +-
+ data/plots/cumulative_alpha_1m.png    |  Bin 36359 -> 36493 bytes
+ data/plots/rolling_hit_rate_20.png    |  Bin 49790 -> 51985 bytes
+ data/politician_trades_cache.json     |   56 +-
+ data/signals_history.csv              |   14 +-
+ docs/insider_performance_public.json  |    4 +-
+ jobs/config.py                        |    8 +-
+ public_performance.json               |   62 +-
+ 25 files changed, 4097 insertions(+), 1159 deletions(-)

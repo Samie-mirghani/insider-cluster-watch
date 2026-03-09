@@ -1,0 +1,77 @@
+2026-03-05 14:36:05,415 - __main__ - INFO - ============================================================
+2026-03-05 14:36:05,415 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-03-05 14:36:05,416 - __main__ - INFO - Mode: PAPER
+2026-03-05 14:36:05,416 - __main__ - INFO - Trading Enabled: True
+2026-03-05 14:36:05,416 - __main__ - INFO - ============================================================
+2026-03-05 14:36:05,416 - __main__ - INFO - Loaded 0 exits from today
+2026-03-05 14:36:05,416 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-03-05 14:36:05,559 - automated_trading.alpaca_client - INFO - Account verified: $10,139.39 portfolio value
+2026-03-05 14:36:05,559 - __main__ - INFO - Connected to Alpaca (paper mode)
+2026-03-05 14:36:05,559 - __main__ - INFO - Account verified:
+2026-03-05 14:36:05,559 - __main__ - INFO -   Portfolio Value: $10,139.39
+2026-03-05 14:36:05,559 - __main__ - INFO -   Cash: $384.14
+2026-03-05 14:36:05,559 - __main__ - INFO -   Buying Power: $10,523.53
+2026-03-05 14:36:05,590 - automated_trading.utils - INFO - Trading calendar updated: 43 trading days cached
+2026-03-05 14:36:05,591 - automated_trading.order_manager - INFO - Loaded 5 pending orders
+2026-03-05 14:36:05,591 - automated_trading.signal_queue - INFO - Loaded 13 queued signals
+2026-03-05 14:36:05,592 - automated_trading.position_monitor - INFO - New trading day - circuit breakers reset
+2026-03-05 14:36:05,592 - automated_trading.position_monitor - INFO - Loaded 17 positions
+2026-03-05 14:36:05,592 - automated_trading.position_monitor - INFO - Loaded signal history for 0 tickers
+2026-03-05 14:36:05,628 - automated_trading.execution_metrics - INFO - Loaded 38 execution records
+2026-03-05 14:36:05,628 - __main__ - INFO - All components initialized successfully
+2026-03-05 14:36:05,628 - __main__ - INFO - 
+============================================================
+2026-03-05 14:36:05,629 - __main__ - INFO - MORNING TRADE EXECUTION
+2026-03-05 14:36:05,629 - __main__ - INFO - Time: 2026-03-05 14:36:05.629043
+2026-03-05 14:36:05,629 - __main__ - INFO - ============================================================
+2026-03-05 14:36:05,698 - __main__ - INFO - Syncing with broker before trading...
+2026-03-05 14:36:05,740 - automated_trading.reconciliation - INFO - Starting position reconciliation...
+2026-03-05 14:36:05,773 - automated_trading.reconciliation - INFO - Reconciliation PASSED: 17 positions match
+2026-03-05 14:36:05,774 - __main__ - INFO - Loaded 9 signals from /home/samie_mirghani/insider-cluster-watch/automated_trading/../data/approved_signals.json
+2026-03-05 14:36:05,870 - __main__ - INFO - Cooldown cache built: 6 tickers in cooldown window
+2026-03-05 14:36:05,870 - __main__ - WARNING - ⚠️  TTD: EXCEPTIONALLY LARGE PURCHASE - Manual review recommended
+2026-03-05 14:36:05,870 - __main__ - WARNING -    Buy Amount: $148.1M
+2026-03-05 14:36:05,870 - __main__ - WARNING -    Market Cap: $12306.7M
+2026-03-05 14:36:05,870 - __main__ - WARNING -    % of Company: 1.2%
+2026-03-05 14:36:05,871 - __main__ - WARNING -    Risk: Exceptional transaction size warrants investigation
+2026-03-05 14:36:05,871 - __main__ - WARNING -    Action: Signal ALLOWED but flagged for investigation
+2026-03-05 14:36:07,070 - __main__ - WARNING - TTD: Downtrend check failed (The truth value of a Series is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().), allowing trade
+2026-03-05 14:36:07,186 - __main__ - INFO - Skipping TTD: Max positions (12) reached (17 held + 5 pending)
+2026-03-05 14:36:07,189 - automated_trading.signal_queue - INFO - Signal queued: TTD (score: 12.06) - Max positions (12) reached (17 held + 5 pending)
+2026-03-05 14:36:07,189 - __main__ - INFO -   Queued TTD for intraday redeployment
+2026-03-05 14:36:07,459 - __main__ - WARNING - EOSE: Downtrend check failed (The truth value of a Series is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().), allowing trade
+2026-03-05 14:36:07,567 - __main__ - INFO - Skipping EOSE: Max positions (12) reached (17 held + 5 pending)
+2026-03-05 14:36:07,570 - automated_trading.signal_queue - INFO - Signal queued: EOSE (score: 7.90) - Max positions (12) reached (17 held + 5 pending)
+2026-03-05 14:36:07,570 - __main__ - INFO -   Queued EOSE for intraday redeployment
+2026-03-05 14:36:07,854 - __main__ - WARNING - WD: Downtrend check failed (The truth value of a Series is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().), allowing trade
+2026-03-05 14:36:07,951 - __main__ - INFO - Skipping WD: Max positions (12) reached (17 held + 5 pending)
+2026-03-05 14:36:07,954 - automated_trading.signal_queue - INFO - Signal queued: WD (score: 7.88) - Max positions (12) reached (17 held + 5 pending)
+2026-03-05 14:36:07,954 - __main__ - INFO -   Queued WD for intraday redeployment
+2026-03-05 14:36:08,215 - __main__ - WARNING - GPK: Downtrend check failed (The truth value of a Series is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().), allowing trade
+2026-03-05 14:36:08,312 - __main__ - INFO - Skipping GPK: Max positions (12) reached (17 held + 5 pending)
+2026-03-05 14:36:08,315 - automated_trading.signal_queue - INFO - Signal queued: GPK (score: 7.22) - Max positions (12) reached (17 held + 5 pending)
+2026-03-05 14:36:08,315 - __main__ - INFO -   Queued GPK for intraday redeployment
+2026-03-05 14:36:08,552 - __main__ - WARNING - POOL: Downtrend check failed (The truth value of a Series is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().), allowing trade
+2026-03-05 14:36:08,648 - __main__ - INFO - Skipping POOL: Max positions (12) reached (17 held + 5 pending)
+2026-03-05 14:36:08,651 - automated_trading.signal_queue - INFO - Signal queued: POOL (score: 6.46) - Max positions (12) reached (17 held + 5 pending)
+2026-03-05 14:36:08,651 - __main__ - INFO -   Queued POOL for intraday redeployment
+2026-03-05 14:36:08,651 - __main__ - INFO - Skipping FMNB: Score 5.142672918195195 below threshold 6.0
+2026-03-05 14:36:08,651 - __main__ - INFO - Skipping GTE: Score 4.664031818199712 below threshold 6.0
+2026-03-05 14:36:08,652 - __main__ - INFO - Skipping BWIN: Score 4.027158751152717 below threshold 6.0
+2026-03-05 14:36:08,652 - __main__ - INFO - Skipping CARG: Score 4.0269431946689735 below threshold 6.0
+2026-03-05 14:36:08,652 - __main__ - INFO - 
+============================================================
+2026-03-05 14:36:08,652 - __main__ - INFO - MORNING EXECUTION COMPLETE
+2026-03-05 14:36:08,652 - __main__ - INFO - Signals: 9 loaded, 0 validated
+2026-03-05 14:36:08,652 - __main__ - INFO - Orders: 0 submitted, 0 failed
+2026-03-05 14:36:08,653 - __main__ - INFO - Queued: 5
+2026-03-05 14:36:08,653 - __main__ - INFO - ============================================================
+{
+  "timestamp": "2026-03-05T14:36:05.629134",
+  "signals_loaded": 9,
+  "signals_validated": 0,
+  "orders_submitted": 0,
+  "orders_failed": 0,
+  "queued_for_later": 5,
+  "errors": []
+}

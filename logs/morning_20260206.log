@@ -1,0 +1,66 @@
+2026-02-06 14:36:04,783 - __main__ - INFO - ============================================================
+2026-02-06 14:36:04,784 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-02-06 14:36:04,784 - __main__ - INFO - Mode: PAPER
+2026-02-06 14:36:04,784 - __main__ - INFO - Trading Enabled: True
+2026-02-06 14:36:04,784 - __main__ - INFO - ============================================================
+2026-02-06 14:36:04,784 - __main__ - INFO - Loaded 0 exits from today
+2026-02-06 14:36:04,784 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-02-06 14:36:04,923 - automated_trading.alpaca_client - INFO - Account verified: $94,283.04 portfolio value
+2026-02-06 14:36:04,923 - __main__ - INFO - Connected to Alpaca (paper mode)
+2026-02-06 14:36:04,923 - __main__ - INFO - Account verified:
+2026-02-06 14:36:04,923 - __main__ - INFO -   Portfolio Value: $94,283.04
+2026-02-06 14:36:04,923 - __main__ - INFO -   Cash: $69,280.11
+2026-02-06 14:36:04,923 - __main__ - INFO -   Buying Power: $163,563.15
+2026-02-06 14:36:04,960 - automated_trading.utils - INFO - Trading calendar updated: 41 trading days cached
+2026-02-06 14:36:04,960 - automated_trading.order_manager - INFO - Loaded 0 pending orders
+2026-02-06 14:36:04,961 - automated_trading.signal_queue - INFO - Loaded 1 queued signals
+2026-02-06 14:36:04,961 - automated_trading.position_monitor - INFO - New trading day - circuit breakers reset
+2026-02-06 14:36:04,961 - automated_trading.position_monitor - INFO - Loaded 4 positions
+2026-02-06 14:36:04,961 - automated_trading.position_monitor - INFO - Loaded signal history for 12 tickers
+2026-02-06 14:36:04,995 - automated_trading.execution_metrics - INFO - Loaded 5 execution records
+2026-02-06 14:36:04,995 - __main__ - INFO - All components initialized successfully
+2026-02-06 14:36:04,995 - __main__ - INFO - 
+============================================================
+2026-02-06 14:36:04,995 - __main__ - INFO - MORNING TRADE EXECUTION
+2026-02-06 14:36:04,995 - __main__ - INFO - Time: 2026-02-06 14:36:04.995766
+2026-02-06 14:36:04,995 - __main__ - INFO - ============================================================
+2026-02-06 14:36:05,068 - __main__ - INFO - Syncing with broker before trading...
+2026-02-06 14:36:05,101 - automated_trading.reconciliation - INFO - Starting position reconciliation...
+2026-02-06 14:36:05,133 - automated_trading.reconciliation - INFO - Reconciliation PASSED: 4 positions match
+2026-02-06 14:36:05,136 - __main__ - INFO - Loaded 5 signals from /home/samie_mirghani/insider-cluster-watch/automated_trading/../data/approved_signals.json
+2026-02-06 14:36:06,478 - __main__ - INFO - Position sizing: score=14.2 → 9.1% of portfolio = $8594.13
+2026-02-06 14:36:06,478 - __main__ - INFO - 
+==================================================
+2026-02-06 14:36:06,478 - __main__ - INFO - EXECUTING BUY: MANE
+2026-02-06 14:36:06,478 - __main__ - INFO - ==================================================
+2026-02-06 14:36:06,737 - __main__ - INFO - Position sizing: score=14.2 → 9.1% of portfolio = $8594.13
+2026-02-06 14:36:06,774 - __main__ - INFO - Position sizing: score=14.2 → 9.1% of portfolio = $8594.13
+2026-02-06 14:36:06,817 - automated_trading.order_manager - INFO - ✅ Created LIMIT BUY order: MANE x231 @ $37.72
+2026-02-06 14:36:06,817 - __main__ - INFO - Submitting LIMIT order: MANE x231 @ $37.72 (signal: $37.16, cushion: 1.5%)
+2026-02-06 14:36:06,818 - automated_trading.alpaca_client - INFO - Submitting LIMIT BUY: MANE x231 @ $37.72
+2026-02-06 14:36:06,880 - automated_trading.position_monitor - INFO - Order executed: BUY MANE | Total trades today: 1/15
+2026-02-06 14:36:06,880 - __main__ - INFO - Order submitted: 570116d6-284d-4485-a5b8-07f630c6d81b
+2026-02-06 14:36:06,880 - __main__ - INFO - Status: OrderStatus.PENDING_NEW
+2026-02-06 14:36:06,917 - __main__ - INFO - Position sizing: score=14.2 → 9.1% of portfolio = $8594.13
+2026-02-06 14:36:06,917 - __main__ - INFO - Skipping BCAL: Score 5.14111299265093 below threshold 6.0
+2026-02-06 14:36:06,917 - __main__ - INFO - Skipping CLBRU: Score 3.7776220415923603 below threshold 6.0
+2026-02-06 14:36:06,918 - __main__ - INFO - Skipping JCI: Score 3.728345994378274 below threshold 6.0
+2026-02-06 14:36:06,918 - __main__ - INFO - Skipping HYT: Score 3.7092435182144445 below threshold 6.0
+2026-02-06 14:36:06,918 - __main__ - INFO - Sending batch email for 1 morning trades
+2026-02-06 14:36:07,868 - automated_trading.alerts - INFO - ✅ Alert sent successfully: 🧪 Morning Trades: 1 positions opened ($8,713)
+2026-02-06 14:36:07,868 - __main__ - INFO - 
+============================================================
+2026-02-06 14:36:07,868 - __main__ - INFO - MORNING EXECUTION COMPLETE
+2026-02-06 14:36:07,868 - __main__ - INFO - Signals: 5 loaded, 1 validated
+2026-02-06 14:36:07,868 - __main__ - INFO - Orders: 1 submitted, 0 failed
+2026-02-06 14:36:07,868 - __main__ - INFO - Queued: 0
+2026-02-06 14:36:07,868 - __main__ - INFO - ============================================================
+{
+  "timestamp": "2026-02-06T14:36:04.995841",
+  "signals_loaded": 5,
+  "signals_validated": 1,
+  "orders_submitted": 1,
+  "orders_failed": 0,
+  "queued_for_later": 0,
+  "errors": []
+}

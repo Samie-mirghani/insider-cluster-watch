@@ -1,0 +1,42 @@
+{
+  "orders": {
+    "AHCO-BUY-20260304-143616-246fb3": {
+      "client_order_id": "AHCO-BUY-20260304-143616-246fb3",
+      "order_id": "e35db44f-2001-40bf-bc03-691d7ae6bf08",
+      "ticker": "AHCO",
+      "side": "BUY",
+      "order_type": "LIMIT",
+      "shares": 55,
+      "limit_price": 9.310125000000001,
+      "filled_shares": 0,
+      "filled_price": null,
+      "state": "submitted",
+      "created_at": "2026-03-04T14:36:16.367083",
+      "submitted_at": "2026-03-04T14:36:16.405660",
+      "filled_at": null,
+      "signal_score": 6.167773179861281,
+      "signal_data": {
+        "ticker": "AHCO",
+        "signal_score": 6.167773179861281,
+        "entry_price": 9.15,
+        "company_name": "",
+        "sector": "Medical - Devices",
+        "industry": "Medical - Devices",
+        "market_cap": 1239132656.0,
+        "quality_score": 0,
+        "multi_signal_tier": "none",
+        "politician_trades": 0,
+        "institutional_count": 0,
+        "pattern_detected": null,
+        "insider_count": 2,
+        "total_shares_bought": 0,
+        "buy_value": 116230.0,
+        "short_percent_float": 0.0728,
+        "squeeze_potential": false,
+        "date_generated": "2026-03-04 11:52:27"
+      },
+      "error_message": null
+    }
+  },
+  "last_updated": "2026-03-05T14:40:03.707570"
+}

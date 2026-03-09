@@ -1,0 +1,64 @@
+2026-03-09 14:36:05,208 - __main__ - INFO - ============================================================
+2026-03-09 14:36:05,209 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-03-09 14:36:05,209 - __main__ - INFO - Mode: PAPER
+2026-03-09 14:36:05,209 - __main__ - INFO - Trading Enabled: True
+2026-03-09 14:36:05,209 - __main__ - INFO - ============================================================
+2026-03-09 14:36:05,209 - __main__ - INFO - Loaded 0 exits from today
+2026-03-09 14:36:05,209 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-03-09 14:36:05,347 - automated_trading.alpaca_client - INFO - Account verified: $9,778.96 portfolio value
+2026-03-09 14:36:05,347 - __main__ - INFO - Connected to Alpaca (paper mode)
+2026-03-09 14:36:05,348 - __main__ - INFO - Account verified:
+2026-03-09 14:36:05,348 - __main__ - INFO -   Portfolio Value: $9,778.96
+2026-03-09 14:36:05,348 - __main__ - INFO -   Cash: $2,639.54
+2026-03-09 14:36:05,348 - __main__ - INFO -   Buying Power: $12,418.50
+2026-03-09 14:36:05,381 - automated_trading.utils - INFO - Trading calendar updated: 43 trading days cached
+2026-03-09 14:36:05,382 - automated_trading.order_manager - INFO - Loaded 0 pending orders
+2026-03-09 14:36:05,382 - automated_trading.signal_queue - INFO - Loaded 12 queued signals
+2026-03-09 14:36:05,383 - automated_trading.position_monitor - INFO - New trading day - circuit breakers reset
+2026-03-09 14:36:05,383 - automated_trading.position_monitor - INFO - Loaded 13 positions
+2026-03-09 14:36:05,383 - automated_trading.position_monitor - INFO - Loaded signal history for 0 tickers
+2026-03-09 14:36:05,418 - automated_trading.execution_metrics - INFO - Loaded 38 execution records
+2026-03-09 14:36:05,418 - __main__ - INFO - All components initialized successfully
+2026-03-09 14:36:05,418 - __main__ - INFO - 
+============================================================
+2026-03-09 14:36:05,418 - __main__ - INFO - MORNING TRADE EXECUTION
+2026-03-09 14:36:05,418 - __main__ - INFO - Time: 2026-03-09 14:36:05.418773
+2026-03-09 14:36:05,418 - __main__ - INFO - ============================================================
+2026-03-09 14:36:05,486 - __main__ - INFO - Syncing with broker before trading...
+2026-03-09 14:36:05,520 - automated_trading.reconciliation - INFO - Starting position reconciliation...
+2026-03-09 14:36:05,552 - automated_trading.reconciliation - INFO - Reconciliation PASSED: 13 positions match
+2026-03-09 14:36:05,553 - __main__ - INFO - Loaded 6 signals from /home/samie_mirghani/insider-cluster-watch/automated_trading/../data/approved_signals.json
+2026-03-09 14:36:05,565 - __main__ - INFO - Cooldown cache built: 7 tickers in cooldown window
+2026-03-09 14:36:06,737 - fmp_api - WARNING - FMP_API_KEY not set. API calls will fail.
+2026-03-09 14:36:06,748 - fmp_api - INFO - Loaded 804 cached profiles
+2026-03-09 14:36:07,029 - __main__ - WARNING - BH: Downtrend check failed (The truth value of a Series is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().), allowing trade
+2026-03-09 14:36:07,123 - __main__ - INFO - Skipping BH: Max positions (12) reached (13 held + 0 pending)
+2026-03-09 14:36:07,126 - automated_trading.signal_queue - INFO - Signal queued: BH (score: 10.45) - Max positions (12) reached (13 held + 0 pending)
+2026-03-09 14:36:07,126 - __main__ - INFO -   Queued BH for intraday redeployment
+2026-03-09 14:36:07,745 - __main__ - WARNING - FFIN: Downtrend check failed (The truth value of a Series is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().), allowing trade
+2026-03-09 14:36:07,851 - __main__ - INFO - Skipping FFIN: Max positions (12) reached (13 held + 0 pending)
+2026-03-09 14:36:07,853 - automated_trading.signal_queue - INFO - Signal queued: FFIN (score: 8.73) - Max positions (12) reached (13 held + 0 pending)
+2026-03-09 14:36:07,853 - __main__ - INFO -   Queued FFIN for intraday redeployment
+2026-03-09 14:36:08,554 - __main__ - WARNING - CSX: Downtrend check failed (The truth value of a Series is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().), allowing trade
+2026-03-09 14:36:08,663 - __main__ - INFO - Skipping CSX: Max positions (12) reached (13 held + 0 pending)
+2026-03-09 14:36:08,665 - automated_trading.signal_queue - INFO - Signal queued: CSX (score: 7.18) - Max positions (12) reached (13 held + 0 pending)
+2026-03-09 14:36:08,666 - __main__ - INFO -   Queued CSX for intraday redeployment
+2026-03-09 14:36:08,666 - __main__ - INFO - Skipping NMFC: Score 6.993075031727036 below threshold 7.0
+2026-03-09 14:36:08,666 - __main__ - INFO - Skipping HR: Score 6.336997441753794 below threshold 7.0
+2026-03-09 14:36:08,666 - __main__ - INFO - Skipping ELV: Score 3.7094622205370262 below threshold 7.0
+2026-03-09 14:36:08,666 - __main__ - INFO - 
+============================================================
+2026-03-09 14:36:08,666 - __main__ - INFO - MORNING EXECUTION COMPLETE
+2026-03-09 14:36:08,666 - __main__ - INFO - Signals: 6 loaded, 0 validated
+2026-03-09 14:36:08,667 - __main__ - INFO - Orders: 0 submitted, 0 failed
+2026-03-09 14:36:08,667 - __main__ - INFO - Queued: 3
+2026-03-09 14:36:08,667 - __main__ - INFO - ============================================================
+{
+  "timestamp": "2026-03-09T14:36:05.418853",
+  "signals_loaded": 6,
+  "signals_validated": 0,
+  "orders_submitted": 0,
+  "orders_failed": 0,
+  "queued_for_later": 3,
+  "errors": []
+}

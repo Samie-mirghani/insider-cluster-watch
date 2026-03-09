@@ -405,38 +405,9 @@
         "date_generated": "2026-03-09 12:07:54"
       },
       "eligible_for_redeployment": true
-    },
-    "CSX": {
-      "ticker": "CSX",
-      "signal_score": 7.183339577003174,
-      "entry_price": 39.95,
-      "original_price": 39.95,
-      "queued_at": "2026-03-09T14:36:08.664199",
-      "queued_reason": "Max positions (12) reached (13 held + 0 pending)",
-      "signal_data": {
-        "ticker": "CSX",
-        "signal_score": 7.183339577003174,
-        "entry_price": 39.95,
-        "company_name": "",
-        "sector": "Railroads",
-        "industry": "Railroads",
-        "market_cap": 74289422000.0,
-        "quality_score": 0,
-        "multi_signal_tier": "tier4",
-        "politician_trades": 0,
-        "institutional_count": 0,
-        "pattern_detected": null,
-        "insider_count": 1,
-        "total_shares_bought": 0,
-        "buy_value": 1006750.0,
-        "short_percent_float": 0.0167,
-        "squeeze_potential": false,
-        "date_generated": "2026-03-09 12:07:54"
-      },
-      "eligible_for_redeployment": true
     }
   },
   "daily_redeployments": 0,
   "last_reset_date": "2026-03-09",
-  "last_updated": "2026-03-09T14:36:08.664207"
+  "last_updated": "2026-03-09T14:36:07.851530"
 }
