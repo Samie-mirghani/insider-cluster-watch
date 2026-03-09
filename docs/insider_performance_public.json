@@ -1,8 +1,8 @@
 {
-  "last_updated": "2026-03-06T11:51:48.619445",
+  "last_updated": "2026-03-09T12:08:22.898584",
   "status": "OK",
   "total_insiders_tracked": 187,
-  "qualified_performers": 19,
+  "qualified_performers": 20,
   "top_performers": [
     {
       "name": "Piconi Robert",
@@ -95,6 +95,16 @@
       "sharpe_ratio": 2.05
     },
     {
+      "name": "Sell Moritz A",
+      "score": 87.9,
+      "win_rate": 66.7,
+      "avg_return": 64.6,
+      "total_trades": 5,
+      "best_trade": 196.8,
+      "worst_trade": -3.9,
+      "sharpe_ratio": 0.56
+    },
+    {
       "name": "Martell Frank",
       "score": 79.8,
       "win_rate": 80.0,
@@ -103,16 +113,6 @@
       "best_trade": 36.9,
       "worst_trade": -7.1,
       "sharpe_ratio": 0.86
-    },
-    {
-      "name": "Seidman Lawrence B",
-      "score": 76.8,
-      "win_rate": 100.0,
-      "avg_return": 8.0,
-      "total_trades": 5,
-      "best_trade": 11.3,
-      "worst_trade": 6.1,
-      "sharpe_ratio": 3.54
     },
     {
       "name": "Nelson Jonathan Michael",
@@ -135,6 +135,16 @@
       "sharpe_ratio": 2.2
     },
     {
+      "name": "Seidman Lawrence B",
+      "score": 68.3,
+      "win_rate": 80.0,
+      "avg_return": 6.2,
+      "total_trades": 5,
+      "best_trade": 11.3,
+      "worst_trade": -1.1,
+      "sharpe_ratio": 1.37
+    },
+    {
       "name": "Cozzone Robert D",
       "score": 68.2,
       "win_rate": 90.9,
@@ -143,16 +153,6 @@
       "best_trade": 26.3,
       "worst_trade": -0.3,
       "sharpe_ratio": 0.92
-    },
-    {
-      "name": "Donegal Mutual Insurance Co",
-      "score": 67.6,
-      "win_rate": 87.5,
-      "avg_return": 6.1,
-      "total_trades": 11,
-      "best_trade": 15.4,
-      "worst_trade": -0.3,
-      "sharpe_ratio": 1.04
     }
   ]
 }

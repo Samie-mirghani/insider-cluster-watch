@@ -97,7 +97,7 @@
     "recent_avg_return_90d": 1.77,
     "recent_trade_count": 3,
     "overall_score": 48.66,
-    "score_percentile": 41.2
+    "score_percentile": 41.7
   },
   "Canup Edward G": {
     "name": "Canup Edward G",
@@ -147,7 +147,7 @@
     "recent_avg_return_90d": -0.96,
     "recent_trade_count": 5,
     "overall_score": 39.85,
-    "score_percentile": 33.7
+    "score_percentile": 34.2
   },
   "Hansen Kent A": {
     "name": "Hansen Kent A",
@@ -197,7 +197,7 @@
     "recent_avg_return_90d": -0.66,
     "recent_trade_count": 13,
     "overall_score": 42.39,
-    "score_percentile": 36.4
+    "score_percentile": 36.9
   },
   "Caldwell Christopher A": {
     "name": "Caldwell Christopher A",
@@ -297,7 +297,7 @@
     "recent_avg_return_90d": -0.66,
     "recent_trade_count": 13,
     "overall_score": 42.39,
-    "score_percentile": 36.4
+    "score_percentile": 36.9
   },
   "Lp Saba Capital Management": {
     "name": "Lp Saba Capital Management",
@@ -502,7 +502,7 @@
     "recent_avg_return_90d": 4.21,
     "recent_trade_count": 10,
     "overall_score": 68.76,
-    "score_percentile": 72.7
+    "score_percentile": 73.3
   },
   "Foran Joseph Wm": {
     "name": "Foran Joseph Wm",
@@ -552,7 +552,7 @@
     "recent_avg_return_90d": -0.44,
     "recent_trade_count": 6,
     "overall_score": 41.23,
-    "score_percentile": 34.8
+    "score_percentile": 35.3
   },
   "Davidson Spencer": {
     "name": "Davidson Spencer",
@@ -702,7 +702,7 @@
     "recent_avg_return_90d": 4.25,
     "recent_trade_count": 3,
     "overall_score": 65.03,
-    "score_percentile": 69.5
+    "score_percentile": 68.4
   },
   "Stallings Robert W": {
     "name": "Stallings Robert W",
@@ -857,8 +857,8 @@
   },
   "Sell Moritz A": {
     "name": "Sell Moritz A",
-    "total_trades": 4,
-    "most_recent_trade": "2025-10-27T00:00:00",
+    "total_trades": 5,
+    "most_recent_trade": "2026-02-02T00:00:00",
     "oldest_trade": "2025-06-30T00:00:00",
     "companies_traded": 3,
     "tickers": [
@@ -866,15 +866,15 @@
       "IAF",
       "FAX"
     ],
-    "alpha_30d": 42.34,
-    "alpha_sample_size_30d": 4,
-    "win_rate_30d": 25.0,
-    "avg_return_30d": 43.53,
-    "median_return_30d": -1.5,
+    "alpha_30d": 34.47,
+    "alpha_sample_size_30d": 5,
+    "win_rate_30d": 40.0,
+    "avg_return_30d": 35.13,
+    "median_return_30d": -0.5,
     "best_return_30d": 179.81,
     "worst_return_30d": -2.68,
-    "sharpe_30d": 0.48,
-    "sample_size_30d": 4,
+    "sharpe_30d": 0.43,
+    "sample_size_30d": 5,
     "alpha_60d": 59.29,
     "alpha_sample_size_60d": 3,
     "win_rate_60d": 33.33,
@@ -903,7 +903,7 @@
     "alpha_180d": null,
     "alpha_sample_size_180d": 0,
     "recent_avg_return_90d": 64.61,
-    "recent_trade_count": 4,
+    "recent_trade_count": 5,
     "overall_score": 87.93,
     "score_percentile": 87.7
   },
@@ -1257,7 +1257,7 @@
     "recent_avg_return_90d": -0.78,
     "recent_trade_count": 3,
     "overall_score": 42.33,
-    "score_percentile": 35.3
+    "score_percentile": 35.8
   },
   "Sims Luke E": {
     "name": "Sims Luke E",
@@ -1557,7 +1557,7 @@
     "recent_avg_return_90d": 0.87,
     "recent_trade_count": 5,
     "overall_score": 46.71,
-    "score_percentile": 39.0
+    "score_percentile": 39.6
   },
   "Sack Peter": {
     "name": "Sack Peter",
@@ -2008,7 +2008,7 @@
     "recent_avg_return_90d": 1.79,
     "recent_trade_count": 3,
     "overall_score": 44.31,
-    "score_percentile": 37.4
+    "score_percentile": 38.0
   },
   "Marlett Christopher A": {
     "name": "Marlett Christopher A",
@@ -2137,15 +2137,15 @@
     "worst_return_60d": -5.95,
     "sharpe_60d": 0.44,
     "sample_size_60d": 6,
-    "alpha_90d": 0.56,
-    "alpha_sample_size_90d": 4,
-    "win_rate_90d": 75.0,
-    "avg_return_90d": 5.89,
-    "median_return_90d": 1.41,
+    "alpha_90d": 2.4,
+    "alpha_sample_size_90d": 5,
+    "win_rate_90d": 80.0,
+    "avg_return_90d": 6.6,
+    "median_return_90d": 2.04,
     "best_return_90d": 24.35,
     "worst_return_90d": -3.62,
-    "sharpe_90d": 0.47,
-    "sample_size_90d": 4,
+    "sharpe_90d": 0.6,
+    "sample_size_90d": 5,
     "alpha_180d": 14.31,
     "alpha_sample_size_180d": 2,
     "win_rate_180d": 100.0,
@@ -2155,10 +2155,10 @@
     "worst_return_180d": 13.82,
     "sharpe_180d": 1.95,
     "sample_size_180d": 2,
-    "recent_avg_return_90d": 5.89,
+    "recent_avg_return_90d": 6.6,
     "recent_trade_count": 6,
-    "overall_score": 61.83,
-    "score_percentile": 66.3
+    "overall_score": 66.0,
+    "score_percentile": 70.1
   },
   "Pellegrino Frank G": {
     "name": "Pellegrino Frank G",
@@ -2187,15 +2187,15 @@
     "worst_return_60d": -5.95,
     "sharpe_60d": 0.44,
     "sample_size_60d": 6,
-    "alpha_90d": 0.56,
-    "alpha_sample_size_90d": 4,
-    "win_rate_90d": 75.0,
-    "avg_return_90d": 5.89,
-    "median_return_90d": 1.41,
+    "alpha_90d": 2.4,
+    "alpha_sample_size_90d": 5,
+    "win_rate_90d": 80.0,
+    "avg_return_90d": 6.6,
+    "median_return_90d": 2.04,
     "best_return_90d": 24.35,
     "worst_return_90d": -3.62,
-    "sharpe_90d": 0.47,
-    "sample_size_90d": 4,
+    "sharpe_90d": 0.6,
+    "sample_size_90d": 5,
     "alpha_180d": 14.31,
     "alpha_sample_size_180d": 2,
     "win_rate_180d": 100.0,
@@ -2205,10 +2205,10 @@
     "worst_return_180d": 13.82,
     "sharpe_180d": 1.95,
     "sample_size_180d": 2,
-    "recent_avg_return_90d": 5.89,
+    "recent_avg_return_90d": 6.6,
     "recent_trade_count": 6,
-    "overall_score": 61.83,
-    "score_percentile": 66.3
+    "overall_score": 66.0,
+    "score_percentile": 70.1
   },
   "Dixon Robert E": {
     "name": "Dixon Robert E",
@@ -2258,7 +2258,7 @@
     "recent_avg_return_90d": -0.47,
     "recent_trade_count": 8,
     "overall_score": 45.79,
-    "score_percentile": 38.5
+    "score_percentile": 39.0
   },
   "Sherpa Angche": {
     "name": "Sherpa Angche",
@@ -2608,7 +2608,7 @@
     "recent_avg_return_90d": 1.28,
     "recent_trade_count": 6,
     "overall_score": 47.42,
-    "score_percentile": 40.6
+    "score_percentile": 41.2
   },
   "Miles Christen Brooke": {
     "name": "Miles Christen Brooke",
@@ -2658,7 +2658,7 @@
     "recent_avg_return_90d": 1.28,
     "recent_trade_count": 6,
     "overall_score": 47.42,
-    "score_percentile": 40.6
+    "score_percentile": 41.2
   },
   "Agree Joey": {
     "name": "Agree Joey",
@@ -2708,7 +2708,7 @@
     "recent_avg_return_90d": 1.64,
     "recent_trade_count": 3,
     "overall_score": 63.38,
-    "score_percentile": 67.4
+    "score_percentile": 66.3
   },
   "Lamendola Damien": {
     "name": "Lamendola Damien",
@@ -2758,7 +2758,7 @@
     "recent_avg_return_90d": 11.98,
     "recent_trade_count": 4,
     "overall_score": 70.13,
-    "score_percentile": 74.3
+    "score_percentile": 74.9
   },
   "Stewart Marta R": {
     "name": "Stewart Marta R",
@@ -2858,7 +2858,7 @@
     "recent_avg_return_90d": 4.05,
     "recent_trade_count": 3,
     "overall_score": 64.36,
-    "score_percentile": 69.0
+    "score_percentile": 67.9
   },
   "Inglis John C": {
     "name": "Inglis John C",
@@ -3063,7 +3063,7 @@
     "recent_avg_return_90d": 3.09,
     "recent_trade_count": 6,
     "overall_score": 63.57,
-    "score_percentile": 67.9
+    "score_percentile": 66.8
   },
   "Barry John F": {
     "name": "Barry John F",
@@ -3266,7 +3266,7 @@
     "recent_avg_return_90d": 2.0,
     "recent_trade_count": 3,
     "overall_score": 45.11,
-    "score_percentile": 38.0
+    "score_percentile": 38.5
   },
   "Rebrook Jason C": {
     "name": "Rebrook Jason C",
@@ -3466,7 +3466,7 @@
     "recent_avg_return_90d": 0.13,
     "recent_trade_count": 5,
     "overall_score": 49.08,
-    "score_percentile": 41.7
+    "score_percentile": 42.2
   },
   "Roberts Eric W": {
     "name": "Roberts Eric W",
@@ -3566,7 +3566,7 @@
     "recent_avg_return_90d": 0.28,
     "recent_trade_count": 5,
     "overall_score": 49.53,
-    "score_percentile": 42.2
+    "score_percentile": 42.8
   },
   "Piconi Robert": {
     "name": "Piconi Robert",
@@ -3866,7 +3866,7 @@
     "recent_avg_return_90d": 6.99,
     "recent_trade_count": 4,
     "overall_score": 70.99,
-    "score_percentile": 75.4
+    "score_percentile": 75.9
   },
   "Miller Matthew Reade": {
     "name": "Miller Matthew Reade",
@@ -4346,15 +4346,15 @@
     "worst_return_60d": -1.79,
     "sharpe_60d": 0.21,
     "sample_size_60d": 5,
-    "alpha_90d": 2.85,
-    "alpha_sample_size_90d": 4,
-    "win_rate_90d": 100.0,
-    "avg_return_90d": 8.01,
-    "median_return_90d": 7.34,
+    "alpha_90d": 2.13,
+    "alpha_sample_size_90d": 5,
+    "win_rate_90d": 80.0,
+    "avg_return_90d": 6.19,
+    "median_return_90d": 6.98,
     "best_return_90d": 11.26,
-    "worst_return_90d": 6.1,
-    "sharpe_90d": 3.54,
-    "sample_size_90d": 4,
+    "worst_return_90d": -1.09,
+    "sharpe_90d": 1.37,
+    "sample_size_90d": 5,
     "alpha_180d": 7.16,
     "alpha_sample_size_180d": 1,
     "win_rate_180d": 100.0,
@@ -4364,10 +4364,10 @@
     "worst_return_180d": 12.57,
     "sharpe_180d": 0,
     "sample_size_180d": 1,
-    "recent_avg_return_90d": 8.01,
+    "recent_avg_return_90d": 6.19,
     "recent_trade_count": 5,
-    "overall_score": 76.83,
-    "score_percentile": 77.5
+    "overall_score": 68.26,
+    "score_percentile": 72.7
   },
   "Greathouse Steven Robert": {
     "name": "Greathouse Steven Robert",
@@ -4418,7 +4418,7 @@
     "recent_avg_return_90d": 8.99,
     "recent_trade_count": 3,
     "overall_score": 74.99,
-    "score_percentile": 76.5
+    "score_percentile": 77.0
   },
   "Huang Victor": {
     "name": "Huang Victor",
@@ -4518,7 +4518,7 @@
     "recent_avg_return_90d": 7.82,
     "recent_trade_count": 3,
     "overall_score": 74.1,
-    "score_percentile": 75.9
+    "score_percentile": 76.5
   },
   "Young Caroline": {
     "name": "Young Caroline",
@@ -5170,7 +5170,7 @@
     "recent_avg_return_90d": 4.79,
     "recent_trade_count": 3,
     "overall_score": 70.6,
-    "score_percentile": 74.9
+    "score_percentile": 75.4
   },
   "Mason Peter Daniel Charles": {
     "name": "Mason Peter Daniel Charles",
@@ -5472,7 +5472,7 @@
     "recent_avg_return_90d": 4.5,
     "recent_trade_count": 5,
     "overall_score": 69.19,
-    "score_percentile": 73.3
+    "score_percentile": 73.8
   },
   "Christensen Richard": {
     "name": "Christensen Richard",
@@ -5824,7 +5824,7 @@
     "recent_avg_return_90d": 3.19,
     "recent_trade_count": 3,
     "overall_score": 69.46,
-    "score_percentile": 73.8
+    "score_percentile": 74.3
   },
   "Hill Jaime": {
     "name": "Hill Jaime",
@@ -5874,7 +5874,7 @@
     "recent_avg_return_90d": -0.7,
     "recent_trade_count": 3,
     "overall_score": 40.43,
-    "score_percentile": 34.2
+    "score_percentile": 34.8
   },
   "Oliver Eric L": {
     "name": "Oliver Eric L",
@@ -6126,7 +6126,7 @@
     "recent_avg_return_90d": 13.43,
     "recent_trade_count": 3,
     "overall_score": 75.33,
-    "score_percentile": 77.0
+    "score_percentile": 77.5
   },
   "Galkin Vladimir": {
     "name": "Galkin Vladimir",
@@ -6427,7 +6427,7 @@
     "recent_avg_return_90d": 1.26,
     "recent_trade_count": 3,
     "overall_score": 47.29,
-    "score_percentile": 39.6
+    "score_percentile": 40.1
   },
   "Brinker Scott M": {
     "name": "Brinker Scott M",
@@ -6579,7 +6579,7 @@
     "recent_avg_return_90d": 1.95,
     "recent_trade_count": 3,
     "overall_score": 43.01,
-    "score_percentile": 36.9
+    "score_percentile": 37.4
   },
   "Laffer Arthur B": {
     "name": "Laffer Arthur B",
@@ -6729,7 +6729,7 @@
     "recent_avg_return_90d": 3.06,
     "recent_trade_count": 3,
     "overall_score": 63.21,
-    "score_percentile": 66.8
+    "score_percentile": 65.8
   },
   "Amlani Ajay K": {
     "name": "Amlani Ajay K",
@@ -7382,7 +7382,7 @@
     "recent_avg_return_90d": 0.0,
     "recent_trade_count": 4,
     "overall_score": 65.64,
-    "score_percentile": 70.1
+    "score_percentile": 69.0
   },
   "Seger Andrew M": {
     "name": "Seger Andrew M",
@@ -7613,15 +7613,15 @@
     "worst_return_60d": 6.47,
     "sharpe_60d": 0,
     "sample_size_60d": 1,
-    "win_rate_90d": null,
-    "avg_return_90d": null,
-    "median_return_90d": null,
-    "best_return_90d": null,
-    "worst_return_90d": null,
-    "sharpe_90d": null,
-    "sample_size_90d": 0,
-    "alpha_90d": null,
-    "alpha_sample_size_90d": 0,
+    "alpha_90d": -0.37,
+    "alpha_sample_size_90d": 1,
+    "win_rate_90d": 0.0,
+    "avg_return_90d": -0.71,
+    "median_return_90d": -0.71,
+    "best_return_90d": -0.71,
+    "worst_return_90d": -0.71,
+    "sharpe_90d": 0,
+    "sample_size_90d": 1,
     "win_rate_180d": null,
     "avg_return_180d": null,
     "median_return_180d": null,
@@ -7631,10 +7631,10 @@
     "sample_size_180d": 0,
     "alpha_180d": null,
     "alpha_sample_size_180d": 0,
-    "recent_avg_return_90d": null,
-    "recent_trade_count": 0,
-    "overall_score": 50,
-    "score_percentile": 51.9
+    "recent_avg_return_90d": -0.71,
+    "recent_trade_count": 3,
+    "overall_score": 39.04,
+    "score_percentile": 33.7
   },
   "White Blaine Scott": {
     "name": "White Blaine Scott",
@@ -7684,7 +7684,7 @@
     "recent_avg_return_90d": 5.92,
     "recent_trade_count": 3,
     "overall_score": 64.16,
-    "score_percentile": 68.4
+    "score_percentile": 67.4
   },
   "Reynolds Marshall T": {
     "name": "Reynolds Marshall T",
