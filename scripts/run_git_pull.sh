@@ -1,3 +1,3 @@
 #!/bin/bash
-cd /home/samie_mirghani/insider-cluster-watch
-exec git pull origin main
+cd ~/insider-cluster-watch
+git pull origin main >> logs/git_pull.log 2>&1
