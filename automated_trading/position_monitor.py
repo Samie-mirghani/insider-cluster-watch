@@ -79,6 +79,8 @@ class CircuitBreakerState:
     def _load_state(self):
         """Load daily state from disk."""
         data = load_json_file(config.DAILY_STATE_FILE, default={})
+        if not isinstance(data, dict):
+            data = {}
 
         today = datetime.now().strftime('%Y-%m-%d')
 
@@ -124,6 +126,8 @@ class CircuitBreakerState:
     def _load_high_water_mark(self):
         """Load peak portfolio value (high-water mark) from disk."""
         data = load_json_file(config.HIGH_WATER_MARK_FILE, default={})
+        if not isinstance(data, dict):
+            data = {}
         self.peak_portfolio_value = data.get('peak_portfolio_value', 0.0)
 
     def _save_high_water_mark(self):
@@ -413,7 +417,13 @@ class PositionMonitor:
     def _load_positions(self):
         """Load positions from disk."""
         data = load_json_file(config.LIVE_POSITIONS_FILE, default={})
+        if not isinstance(data, dict):
+            logger.warning(f"live_positions.json has unexpected type {type(data).__name__}, resetting")
+            data = {}
         self.positions = data.get('positions', {})
+        if not isinstance(self.positions, dict):
+            logger.warning(f"positions field has unexpected type {type(self.positions).__name__}, resetting")
+            self.positions = {}
 
         # Convert date strings back to datetime
         for ticker, pos in self.positions.items():
@@ -429,7 +439,13 @@ class PositionMonitor:
     def _load_signal_history(self):
         """Load signal history from disk."""
         data = load_json_file(config.SIGNAL_HISTORY_FILE, default={})
+        if not isinstance(data, dict):
+            logger.warning(f"signal_history.json has unexpected type {type(data).__name__}, resetting")
+            data = {}
         self.signal_history = data.get('signals', {})
+        if not isinstance(self.signal_history, dict):
+            logger.warning(f"signals field has unexpected type {type(self.signal_history).__name__}, resetting to empty dict")
+            self.signal_history = {}
         logger.info(f"Loaded signal history for {len(self.signal_history)} tickers")
 
     def _save_signal_history(self):

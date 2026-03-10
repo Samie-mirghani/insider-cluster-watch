@@ -133,6 +133,8 @@ class TradingEngine:
     def _load_exits_today(self) -> List[Dict[str, Any]]:
         """Load today's exits from disk (persisted across job runs)."""
         data = load_json_file(config.EXITS_TODAY_FILE, default={'date': None, 'exits': []})
+        if not isinstance(data, dict):
+            data = {'date': None, 'exits': []}
         today = datetime.now().strftime('%Y-%m-%d')
 
         # Only load exits from today; if it's a new day, start fresh
@@ -2032,7 +2034,9 @@ def main():
             print(json.dumps(status, indent=2, default=str))
 
     except Exception as e:
+        import traceback
         logger.error(f"Engine error: {e}")
+        logger.error(traceback.format_exc())
         sys.exit(1)
 
 

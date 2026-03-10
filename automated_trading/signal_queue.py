@@ -51,7 +51,11 @@ class SignalQueue:
     def _load_state(self):
         """Load queued signals from disk with automatic schema migration."""
         data = load_json_file(config.QUEUED_SIGNALS_FILE, default={})
+        if not isinstance(data, dict):
+            data = {}
         self.queued_signals = data.get('signals', {})
+        if not isinstance(self.queued_signals, dict):
+            self.queued_signals = {}
         self.daily_redeployments = data.get('daily_redeployments', 0)
         self.last_reset_date = data.get('last_reset_date')
 

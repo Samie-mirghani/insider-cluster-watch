@@ -105,7 +105,11 @@ class OrderManager:
     def _load_state(self):
         """Load pending orders from disk."""
         data = load_json_file(config.PENDING_ORDERS_FILE, default={})
+        if not isinstance(data, dict):
+            data = {}
         self.pending_orders = data.get('orders', {})
+        if not isinstance(self.pending_orders, dict):
+            self.pending_orders = {}
         logger.info(f"Loaded {len(self.pending_orders)} pending orders")
 
     def _save_state(self):
