@@ -49,6 +49,8 @@ class ExecutionMetrics:
         """Load execution history from disk."""
         file_exists = os.path.exists(config.EXECUTION_METRICS_FILE)
         data = load_json_file(config.EXECUTION_METRICS_FILE, default={})
+        if not isinstance(data, dict):
+            data = {}
         self.executions = data.get('executions', [])
         self.daily_stats = data.get('daily_stats', {})
 
