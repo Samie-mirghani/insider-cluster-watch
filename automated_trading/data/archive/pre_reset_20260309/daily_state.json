@@ -1,0 +1,21 @@
+{
+  "date": "2026-03-09",
+  "daily_pnl": -55.189999999999884,
+  "consecutive_losses": 1,
+  "is_halted": false,
+  "halt_reason": null,
+  "trades_today": [
+    {
+      "ticker": "UBER",
+      "pnl": 6.510000000000048,
+      "time": "2026-03-09T14:45:04.220614"
+    },
+    {
+      "ticker": "TCBI",
+      "pnl": -61.69999999999993,
+      "time": "2026-03-09T15:20:04.140202"
+    }
+  ],
+  "total_trades_today": 2,
+  "last_updated": "2026-03-09T15:20:04.140245"
+}
