@@ -48590,3 +48590,171 @@ status
 2026-03-09 20:50:02,666 - __main__ - INFO - All components initialized successfully
 2026-03-09 20:50:02,666 - __main__ - INFO - 
 --- Monitoring Cycle: 20:50:02 ---
+2026-03-09 20:55:02,629 - __main__ - INFO - ============================================================
+2026-03-09 20:55:02,629 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-03-09 20:55:02,629 - __main__ - INFO - Mode: PAPER
+2026-03-09 20:55:02,629 - __main__ - INFO - Trading Enabled: True
+2026-03-09 20:55:02,629 - __main__ - INFO - ============================================================
+2026-03-09 20:55:02,629 - __main__ - INFO - Loaded 2 exits from today
+2026-03-09 20:55:02,630 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-03-09 20:55:02,776 - automated_trading.alpaca_client - INFO - Account verified: $9,873.17 portfolio value
+2026-03-09 20:55:02,776 - __main__ - INFO - Connected to Alpaca (paper mode)
+2026-03-09 20:55:02,776 - __main__ - INFO - Account verified:
+2026-03-09 20:55:02,776 - __main__ - INFO -   Portfolio Value: $9,873.17
+2026-03-09 20:55:02,776 - __main__ - INFO -   Cash: $3,859.86
+2026-03-09 20:55:02,776 - __main__ - INFO -   Buying Power: $13,733.03
+2026-03-09 20:55:02,809 - automated_trading.utils - INFO - Trading calendar updated: 43 trading days cached
+2026-03-09 20:55:02,810 - automated_trading.order_manager - INFO - Loaded 0 pending orders
+2026-03-09 20:55:02,811 - automated_trading.signal_queue - INFO - Loaded 15 queued signals
+2026-03-09 20:55:02,812 - automated_trading.position_monitor - INFO - Loaded 11 positions
+2026-03-09 20:55:02,812 - automated_trading.position_monitor - INFO - Loaded signal history for 0 tickers
+2026-03-09 20:55:02,849 - automated_trading.execution_metrics - INFO - Loaded 38 execution records
+2026-03-09 20:55:02,849 - __main__ - INFO - All components initialized successfully
+2026-03-09 20:55:02,849 - __main__ - INFO - 
+--- Monitoring Cycle: 20:55:02 ---
+2026-03-09 21:00:02,743 - __main__ - INFO - ============================================================
+2026-03-09 21:00:02,743 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-03-09 21:00:02,743 - __main__ - INFO - Mode: PAPER
+2026-03-09 21:00:02,743 - __main__ - INFO - Trading Enabled: True
+2026-03-09 21:00:02,743 - __main__ - INFO - ============================================================
+2026-03-09 21:00:02,744 - __main__ - INFO - Loaded 2 exits from today
+2026-03-09 21:00:02,744 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-03-09 21:00:02,892 - automated_trading.alpaca_client - INFO - Account verified: $9,873.17 portfolio value
+2026-03-09 21:00:02,892 - __main__ - INFO - Connected to Alpaca (paper mode)
+2026-03-09 21:00:02,892 - __main__ - INFO - Account verified:
+2026-03-09 21:00:02,893 - __main__ - INFO -   Portfolio Value: $9,873.17
+2026-03-09 21:00:02,893 - __main__ - INFO -   Cash: $3,859.86
+2026-03-09 21:00:02,893 - __main__ - INFO -   Buying Power: $13,733.03
+2026-03-09 21:00:02,925 - automated_trading.utils - INFO - Trading calendar updated: 43 trading days cached
+2026-03-09 21:00:02,926 - automated_trading.order_manager - INFO - Loaded 0 pending orders
+2026-03-09 21:00:02,927 - automated_trading.signal_queue - INFO - Loaded 15 queued signals
+2026-03-09 21:00:02,927 - automated_trading.position_monitor - INFO - Loaded 11 positions
+2026-03-09 21:00:02,928 - automated_trading.position_monitor - INFO - Loaded signal history for 0 tickers
+2026-03-09 21:00:02,965 - automated_trading.execution_metrics - INFO - Loaded 38 execution records
+2026-03-09 21:00:02,965 - __main__ - INFO - All components initialized successfully
+2026-03-09 21:00:02,965 - __main__ - INFO - 
+--- Monitoring Cycle: 21:00:02 ---
+2026-03-09 21:08:06,540 - __main__ - INFO - ============================================================
+2026-03-09 21:08:06,568 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-03-09 21:08:06,568 - __main__ - INFO - Mode: PAPER
+2026-03-09 21:08:06,568 - __main__ - INFO - Trading Enabled: True
+2026-03-09 21:08:06,568 - __main__ - INFO - ============================================================
+2026-03-09 21:08:06,569 - __main__ - INFO - Loaded 2 exits from today
+2026-03-09 21:08:06,569 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-03-09 21:08:06,714 - automated_trading.alpaca_client - INFO - Account verified: $9,874.97 portfolio value
+2026-03-09 21:08:06,714 - __main__ - INFO - Connected to Alpaca (paper mode)
+2026-03-09 21:08:06,714 - __main__ - INFO - Account verified:
+2026-03-09 21:08:06,714 - __main__ - INFO -   Portfolio Value: $9,874.97
+2026-03-09 21:08:06,714 - __main__ - INFO -   Cash: $3,859.86
+2026-03-09 21:08:06,714 - __main__ - INFO -   Buying Power: $13,734.83
+2026-03-09 21:08:06,746 - automated_trading.utils - INFO - Trading calendar updated: 43 trading days cached
+2026-03-09 21:08:06,746 - automated_trading.order_manager - INFO - Loaded 0 pending orders
+2026-03-09 21:08:06,747 - automated_trading.signal_queue - INFO - Loaded 15 queued signals
+2026-03-09 21:08:06,747 - automated_trading.position_monitor - INFO - Loaded 11 positions
+2026-03-09 21:08:06,748 - automated_trading.position_monitor - INFO - Loaded signal history for 0 tickers
+2026-03-09 21:08:06,784 - automated_trading.execution_metrics - INFO - Loaded 38 execution records
+2026-03-09 21:08:06,784 - __main__ - INFO - All components initialized successfully
+2026-03-09 21:08:06,785 - __main__ - INFO - 
+============================================================
+2026-03-09 21:08:06,785 - __main__ - INFO - MORNING TRADE EXECUTION
+2026-03-09 21:08:06,785 - __main__ - INFO - Time: 2026-03-09 21:08:06.785126
+2026-03-09 21:08:06,785 - __main__ - INFO - ============================================================
+2026-03-09 21:08:06,785 - __main__ - WARNING - Market is closed - skipping execution
+2026-03-09 21:08:14,053 - __main__ - INFO - ============================================================
+2026-03-09 21:08:14,053 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-03-09 21:08:14,053 - __main__ - INFO - Mode: PAPER
+2026-03-09 21:08:14,053 - __main__ - INFO - Trading Enabled: True
+2026-03-09 21:08:14,053 - __main__ - INFO - ============================================================
+2026-03-09 21:08:14,053 - __main__ - INFO - Loaded 2 exits from today
+2026-03-09 21:08:14,054 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-03-09 21:08:14,187 - automated_trading.alpaca_client - INFO - Account verified: $9,874.97 portfolio value
+2026-03-09 21:08:14,188 - __main__ - INFO - Connected to Alpaca (paper mode)
+2026-03-09 21:08:14,188 - __main__ - INFO - Account verified:
+2026-03-09 21:08:14,188 - __main__ - INFO -   Portfolio Value: $9,874.97
+2026-03-09 21:08:14,188 - __main__ - INFO -   Cash: $3,859.86
+2026-03-09 21:08:14,188 - __main__ - INFO -   Buying Power: $13,734.83
+2026-03-09 21:08:14,222 - automated_trading.utils - INFO - Trading calendar updated: 43 trading days cached
+2026-03-09 21:08:14,222 - automated_trading.order_manager - INFO - Loaded 0 pending orders
+2026-03-09 21:08:14,223 - automated_trading.signal_queue - INFO - Loaded 15 queued signals
+2026-03-09 21:08:14,224 - automated_trading.position_monitor - INFO - Loaded 11 positions
+2026-03-09 21:08:14,224 - automated_trading.position_monitor - INFO - Loaded signal history for 0 tickers
+2026-03-09 21:08:14,256 - automated_trading.execution_metrics - INFO - Loaded 38 execution records
+2026-03-09 21:08:14,257 - __main__ - INFO - All components initialized successfully
+2026-03-09 21:08:14,257 - __main__ - INFO - 
+============================================================
+2026-03-09 21:08:14,257 - __main__ - INFO - END OF DAY SUMMARY
+2026-03-09 21:08:14,257 - __main__ - INFO - ============================================================
+2026-03-09 21:08:14,392 - automated_trading.signal_queue - INFO - Removed stale signal: TTD
+2026-03-09 21:08:14,394 - automated_trading.signal_queue - INFO - Removed stale signal: EOSE
+2026-03-09 21:08:14,395 - automated_trading.signal_queue - INFO - Removed stale signal: WD
+2026-03-09 21:08:14,396 - automated_trading.signal_queue - INFO - Removed stale signal: GPK
+2026-03-09 21:08:14,398 - automated_trading.signal_queue - INFO - Removed stale signal: POOL
+2026-03-09 21:08:14,399 - automated_trading.signal_queue - INFO - Removed stale signal: SSP
+2026-03-09 21:08:14,400 - automated_trading.signal_queue - INFO - Removed stale signal: HYMC
+2026-03-09 21:08:14,401 - automated_trading.signal_queue - INFO - Removed stale signal: SWZ
+2026-03-09 21:08:14,402 - automated_trading.signal_queue - INFO - Removed stale signal: NCDL
+2026-03-09 21:08:14,403 - automated_trading.signal_queue - INFO - Removed stale signal: TPC
+2026-03-09 21:08:14,404 - automated_trading.signal_queue - INFO - Removed stale signal: WGS
+2026-03-09 21:08:14,406 - automated_trading.signal_queue - INFO - Removed stale signal: SLRC
+2026-03-09 21:08:14,406 - automated_trading.signal_queue - INFO - Cleanup removed 12 signal(s)
+2026-03-09 21:08:14,491 - __main__ - INFO - Audit log has 2 POSITION_CLOSED events for today - audit log OK
+2026-03-09 21:08:14,492 - __main__ - INFO - Found 2 sell orders from Alpaca today
+2026-03-09 21:08:14,507 - __main__ - WARNING -   TCBI: No entry price found, P&L will be approximate
+2026-03-09 21:08:14,562 - __main__ - INFO -   Found: TCBI x8 @ $88.49 (P&L: $+0.00)
+2026-03-09 21:08:14,562 - __main__ - WARNING -   UBER: No entry price found, P&L will be approximate
+2026-03-09 21:08:14,563 - __main__ - INFO -   Found: UBER x7 @ $73.20 (P&L: $+0.00)
+2026-03-09 21:08:14,563 - __main__ - INFO - Broker EOD metrics | filled=2 buys=0 sells=2 closed=2 win_rate=50.0% notional=$1,220.32
+2026-03-09 21:08:14,563 - __main__ - INFO - Generating AI insights...
+2026-03-09 21:08:16,604 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-09 21:08:16,668 - __main__ - INFO - ✅ AI insights generated
+2026-03-09 21:08:16,668 - __main__ - INFO - Sending EOD summary with 2 exits
+2026-03-09 21:08:17,607 - automated_trading.alerts - INFO - ✅ Alert sent successfully: 🧪 Daily Summary: $-59.45 | March 09, 2026
+2026-03-09 21:08:17,608 - __main__ - INFO - Cleared exits_today after EOD summary
+2026-03-09 21:08:17,609 - __main__ - INFO - Portfolio Value: $9,874.97
+2026-03-09 21:08:17,609 - __main__ - INFO - Daily P&L: $-59.45
+2026-03-09 21:08:17,609 - __main__ - INFO - Trades Today: 2
+2026-03-09 21:08:17,609 - __main__ - INFO - Open Positions: 11
+2026-03-09 21:08:17,609 - __main__ - INFO - ============================================================
+2026-03-09 21:30:03,025 - __main__ - INFO - ============================================================
+2026-03-09 21:30:03,041 - __main__ - INFO - INITIALIZING TRADING ENGINE
+2026-03-09 21:30:03,041 - __main__ - INFO - Mode: PAPER
+2026-03-09 21:30:03,041 - __main__ - INFO - Trading Enabled: True
+2026-03-09 21:30:03,041 - __main__ - INFO - ============================================================
+2026-03-09 21:30:03,087 - __main__ - INFO - Loaded 0 exits from today
+2026-03-09 21:30:03,088 - automated_trading.alpaca_client - INFO - Connected to Alpaca paper trading API
+2026-03-09 21:30:03,231 - automated_trading.alpaca_client - INFO - Account verified: $9,880.11 portfolio value
+2026-03-09 21:30:03,231 - __main__ - INFO - Connected to Alpaca (paper mode)
+2026-03-09 21:30:03,231 - __main__ - INFO - Account verified:
+2026-03-09 21:30:03,231 - __main__ - INFO -   Portfolio Value: $9,880.11
+2026-03-09 21:30:03,231 - __main__ - INFO -   Cash: $3,859.86
+2026-03-09 21:30:03,231 - __main__ - INFO -   Buying Power: $13,739.97
+2026-03-09 21:30:03,265 - automated_trading.utils - INFO - Trading calendar updated: 43 trading days cached
+2026-03-09 21:30:03,265 - automated_trading.order_manager - INFO - Loaded 0 pending orders
+2026-03-09 21:30:03,267 - automated_trading.signal_queue - INFO - Loaded 3 queued signals
+2026-03-09 21:30:03,269 - automated_trading.position_monitor - INFO - Loaded 11 positions
+2026-03-09 21:30:03,270 - automated_trading.position_monitor - INFO - Loaded signal history for 0 tickers
+2026-03-09 21:30:03,307 - automated_trading.execution_metrics - INFO - Loaded 38 execution records
+2026-03-09 21:30:03,310 - __main__ - INFO - All components initialized successfully
+2026-03-09 21:30:03,310 - __main__ - INFO - 
+============================================================
+2026-03-09 21:30:03,310 - __main__ - INFO - END OF DAY SUMMARY
+2026-03-09 21:30:03,310 - __main__ - INFO - ============================================================
+2026-03-09 21:30:03,513 - __main__ - INFO - Audit log has 2 POSITION_CLOSED events for today - audit log OK
+2026-03-09 21:30:03,513 - __main__ - INFO - Found 2 sell orders from Alpaca today
+2026-03-09 21:30:03,545 - __main__ - WARNING -   TCBI: No entry price found, P&L will be approximate
+2026-03-09 21:30:03,585 - __main__ - INFO -   Found: TCBI x8 @ $88.49 (P&L: $+0.00)
+2026-03-09 21:30:03,585 - __main__ - WARNING -   UBER: No entry price found, P&L will be approximate
+2026-03-09 21:30:03,585 - __main__ - INFO -   Found: UBER x7 @ $73.20 (P&L: $+0.00)
+2026-03-09 21:30:03,587 - __main__ - INFO - Populated 2 exits from Alpaca sell orders (total: 2)
+2026-03-09 21:30:03,587 - __main__ - INFO - Broker EOD metrics | filled=2 buys=0 sells=2 closed=2 win_rate=0.0% notional=$1,220.32
+2026-03-09 21:30:03,587 - __main__ - INFO - Generating AI insights...
+2026-03-09 21:30:05,503 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-09 21:30:05,571 - __main__ - INFO - ✅ AI insights generated
+2026-03-09 21:30:05,571 - __main__ - INFO - Sending EOD summary with 2 exits
+2026-03-09 21:30:06,479 - automated_trading.alerts - INFO - ✅ Alert sent successfully: 🧪 Daily Summary: $-54.31 | March 09, 2026
+2026-03-09 21:30:06,480 - __main__ - INFO - Cleared exits_today after EOD summary
+2026-03-09 21:30:06,480 - __main__ - INFO - Portfolio Value: $9,880.11
+2026-03-09 21:30:06,480 - __main__ - INFO - Daily P&L: $-54.31
+2026-03-09 21:30:06,480 - __main__ - INFO - Trades Today: 2
+2026-03-09 21:30:06,480 - __main__ - INFO - Open Positions: 11
+2026-03-09 21:30:06,480 - __main__ - INFO - ============================================================

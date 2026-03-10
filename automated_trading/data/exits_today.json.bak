@@ -2,14 +2,25 @@
   "date": "2026-03-09",
   "exits": [
     {
+      "ticker": "TCBI",
+      "shares": 8,
+      "entry_price": 88.49,
+      "exit_price": 88.49,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "reason": "broker_exit",
+      "time": "2026-03-09T15:20:06.368160+00:00",
+      "source_order_id": "5d70f536-fac4-4cb2-b3e8-2660bd1ce6b7"
+    },
+    {
       "ticker": "UBER",
       "shares": 7,
-      "entry_price": 72.27,
+      "entry_price": 73.2,
       "exit_price": 73.2,
-      "pnl": 6.510000000000048,
-      "pnl_pct": 1.2868410128684198,
-      "reason": "STOP_LOSS (TRAILING)",
-      "time": "2026-03-09T14:45:04.223395",
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "reason": "broker_exit",
+      "time": "2026-03-09T14:45:05.646785+00:00",
       "source_order_id": "73285430-346e-4673-877f-e6fce3e178ac"
     }
   ]
