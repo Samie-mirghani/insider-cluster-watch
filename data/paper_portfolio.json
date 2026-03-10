@@ -1,6 +1,6 @@
 {
   "starting_capital": 10000,
-  "cash": 7841.414999999993,
+  "cash": 7526.294999999993,
   "positions": {
     "ABT": {
       "entry_date": "2026-01-27T11:39:21.361467",
@@ -125,7 +125,7 @@
       "initial_stop_loss": 4.0572,
       "stop_loss": 4.0572,
       "take_profit": 4.9392000000000005,
-      "highest_price": 4.57,
+      "highest_price": 4.6,
       "trailing_enabled": false,
       "signal_score": 15.720085850668989,
       "sector": "Broadcasting",
@@ -204,6 +204,72 @@
           "date": "2026-03-09T12:08:08.725063"
         }
       ]
+    },
+    "TCBI": {
+      "entry_date": "2026-03-10T11:56:46.701218",
+      "entry_price": 95.3,
+      "shares": 1,
+      "cost_basis": 95.3,
+      "initial_stop_loss": 89.582,
+      "stop_loss": 89.582,
+      "take_profit": 106.736,
+      "highest_price": 95.3,
+      "trailing_enabled": false,
+      "signal_score": 11.734614332522757,
+      "sector": "Banks - Regional",
+      "multi_signal_tier": "tier4",
+      "has_politician_signal": false,
+      "tranches": [
+        {
+          "shares": 1,
+          "price": 95.3,
+          "date": "2026-03-10T11:56:46.701222"
+        }
+      ]
+    },
+    "AMRZ": {
+      "entry_date": "2026-03-10T11:56:50.725186",
+      "entry_price": 58.91,
+      "shares": 2,
+      "cost_basis": 117.82,
+      "initial_stop_loss": 55.37539999999999,
+      "stop_loss": 55.37539999999999,
+      "take_profit": 65.9792,
+      "highest_price": 58.91,
+      "trailing_enabled": false,
+      "signal_score": 11.24265174738687,
+      "sector": "Construction Materials",
+      "multi_signal_tier": "tier4",
+      "has_politician_signal": false,
+      "tranches": [
+        {
+          "shares": 2,
+          "price": 58.91,
+          "date": "2026-03-10T11:56:50.725191"
+        }
+      ]
+    },
+    "LYEL": {
+      "entry_date": "2026-03-10T11:56:54.908589",
+      "entry_price": 25.5,
+      "shares": 4,
+      "cost_basis": 102.0,
+      "initial_stop_loss": 23.97,
+      "stop_loss": 23.97,
+      "take_profit": 28.560000000000002,
+      "highest_price": 25.5,
+      "trailing_enabled": false,
+      "signal_score": 9.542654760283988,
+      "sector": "Biotechnology",
+      "multi_signal_tier": "tier4",
+      "has_politician_signal": false,
+      "tranches": [
+        {
+          "shares": 4,
+          "price": 25.5,
+          "date": "2026-03-10T11:56:54.908593"
+        }
+      ]
     }
   },
   "pending_entries": {
@@ -234,13 +300,34 @@
       "original_entry": 30.34,
       "expires": "2026-03-14T12:08:09.639989",
       "signal_score": 8.72616034283792
+    },
+    "TCBI": {
+      "shares": 1,
+      "trigger_price": 93.39399999999999,
+      "original_entry": 95.3,
+      "expires": "2026-03-15T11:56:46.955692",
+      "signal_score": 11.734614332522757
+    },
+    "AMRZ": {
+      "shares": 1,
+      "trigger_price": 57.73179999999999,
+      "original_entry": 58.91,
+      "expires": "2026-03-15T11:56:50.911008",
+      "signal_score": 11.24265174738687
+    },
+    "LYEL": {
+      "shares": 3,
+      "trigger_price": 24.99,
+      "original_entry": 25.5,
+      "expires": "2026-03-15T11:56:55.287344",
+      "signal_score": 9.542654760283988
     }
   },
-  "total_trades": 63,
+  "total_trades": 66,
   "winning_trades": 35,
   "losing_trades": 17,
   "total_profit": 2274.1099999999997,
   "max_portfolio_value": 12413.654999999993,
   "max_drawdown": -9.109194484777545,
-  "last_updated": "2026-03-09T12:08:14.870992"
+  "last_updated": "2026-03-10T11:57:09.537367"
 }

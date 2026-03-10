@@ -1,7 +1,7 @@
 {
-  "total_api_calls": 982,
-  "total_cache_hits": 3387,
-  "total_cache_misses": 1234,
+  "total_api_calls": 1032,
+  "total_cache_hits": 3516,
+  "total_cache_misses": 1284,
   "total_errors": 0,
   "daily_usage": {
     "2025-12-23": 126,
@@ -57,22 +57,16 @@
     "2026-03-04": 40,
     "2026-03-05": 37,
     "2026-03-06": 24,
-    "2026-03-09": 18
+    "2026-03-09": 18,
+    "2026-03-10": 50
   },
   "monthly_usage": {
     "2025-12": 204,
     "2026-01": 158,
     "2026-02": 339,
-    "2026-03": 281
+    "2026-03": 331
   },
   "cache_efficiency_history": [
-    {
-      "timestamp": "2026-01-27T11:38:38.343071",
-      "cache_size": 365,
-      "hit_rate_pct": 73.9,
-      "total_hits": 1656,
-      "total_misses": 585
-    },
     {
       "timestamp": "2026-01-28T11:39:11.468827",
       "cache_size": 379,
@@ -275,13 +269,20 @@
       "hit_rate_pct": 73.3,
       "total_hits": 3387,
       "total_misses": 1234
+    },
+    {
+      "timestamp": "2026-03-10T11:52:04.400555",
+      "cache_size": 841,
+      "hit_rate_pct": 73.25,
+      "total_hits": 3516,
+      "total_misses": 1284
     }
   ],
   "cost_tracking": {
-    "total_free_calls": 982,
+    "total_free_calls": 1032,
     "total_paid_calls": 0,
-    "estimated_cost_saved": 0.09483600000000078
+    "estimated_cost_saved": 0.09844800000000081
   },
   "created_at": "2025-12-23T11:27:31.371555",
-  "last_updated": "2026-03-09T12:03:35.921291"
+  "last_updated": "2026-03-10T11:52:04.400629"
 }
