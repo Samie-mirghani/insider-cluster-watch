@@ -1,34 +1,7 @@
 {
   "starting_capital": 10000,
-  "cash": 7526.294999999993,
+  "cash": 7840.484999999993,
   "positions": {
-    "ABT": {
-      "entry_date": "2026-01-27T11:39:21.361467",
-      "entry_price": 107.68199999999999,
-      "shares": 5,
-      "cost_basis": 538.41,
-      "initial_stop_loss": 100.0684,
-      "stop_loss": 107.9105,
-      "take_profit": 120.60383999999999,
-      "highest_price": 116.35,
-      "trailing_enabled": true,
-      "signal_score": 7.44335654875845,
-      "sector": null,
-      "multi_signal_tier": "none",
-      "has_politician_signal": false,
-      "tranches": [
-        {
-          "shares": 3,
-          "price": 108.77,
-          "date": "2026-01-27T11:39:21.361469"
-        },
-        {
-          "shares": 2,
-          "price": 106.05,
-          "date": "2026-01-29T11:45:09.610619"
-        }
-      ]
-    },
     "MMS": {
       "entry_date": "2026-02-12T12:03:27.651227",
       "entry_price": 75.07,
@@ -191,7 +164,7 @@
       "initial_stop_loss": 28.519599999999997,
       "stop_loss": 28.519599999999997,
       "take_profit": 33.9808,
-      "highest_price": 30.34,
+      "highest_price": 30.39,
       "trailing_enabled": false,
       "signal_score": 8.72616034283792,
       "sector": "Banks - Regional",
@@ -207,12 +180,12 @@
     },
     "TCBI": {
       "entry_date": "2026-03-10T11:56:46.701218",
-      "entry_price": 95.3,
-      "shares": 1,
-      "cost_basis": 95.3,
+      "entry_price": 93.72999999999999,
+      "shares": 2,
+      "cost_basis": 187.45999999999998,
       "initial_stop_loss": 89.582,
-      "stop_loss": 89.582,
-      "take_profit": 106.736,
+      "stop_loss": 88.10619999999999,
+      "take_profit": 104.9776,
       "highest_price": 95.3,
       "trailing_enabled": false,
       "signal_score": 11.734614332522757,
@@ -224,6 +197,11 @@
           "shares": 1,
           "price": 95.3,
           "date": "2026-03-10T11:56:46.701222"
+        },
+        {
+          "shares": 1,
+          "price": 92.16,
+          "date": "2026-03-11T11:48:50.641210"
         }
       ]
     },
@@ -235,7 +213,7 @@
       "initial_stop_loss": 55.37539999999999,
       "stop_loss": 55.37539999999999,
       "take_profit": 65.9792,
-      "highest_price": 58.91,
+      "highest_price": 59.17,
       "trailing_enabled": false,
       "signal_score": 11.24265174738687,
       "sector": "Construction Materials",
@@ -257,7 +235,7 @@
       "initial_stop_loss": 23.97,
       "stop_loss": 23.97,
       "take_profit": 28.560000000000002,
-      "highest_price": 25.5,
+      "highest_price": 25.63,
       "trailing_enabled": false,
       "signal_score": 9.542654760283988,
       "sector": "Biotechnology",
@@ -268,6 +246,28 @@
           "shares": 4,
           "price": 25.5,
           "date": "2026-03-10T11:56:54.908593"
+        }
+      ]
+    },
+    "BLCO": {
+      "entry_date": "2026-03-11T11:58:46.913318",
+      "entry_price": 18.3,
+      "shares": 8,
+      "cost_basis": 146.4,
+      "initial_stop_loss": 17.201999999999998,
+      "stop_loss": 17.201999999999998,
+      "take_profit": 20.496000000000002,
+      "highest_price": 18.3,
+      "trailing_enabled": false,
+      "signal_score": 12.486040025153411,
+      "sector": "Medical - Instruments & Supplies",
+      "multi_signal_tier": "tier4",
+      "has_politician_signal": false,
+      "tranches": [
+        {
+          "shares": 8,
+          "price": 18.3,
+          "date": "2026-03-11T11:58:46.913323"
         }
       ]
     }
@@ -301,13 +301,6 @@
       "expires": "2026-03-14T12:08:09.639989",
       "signal_score": 8.72616034283792
     },
-    "TCBI": {
-      "shares": 1,
-      "trigger_price": 93.39399999999999,
-      "original_entry": 95.3,
-      "expires": "2026-03-15T11:56:46.955692",
-      "signal_score": 11.734614332522757
-    },
     "AMRZ": {
       "shares": 1,
       "trigger_price": 57.73179999999999,
@@ -321,13 +314,20 @@
       "original_entry": 25.5,
       "expires": "2026-03-15T11:56:55.287344",
       "signal_score": 9.542654760283988
+    },
+    "BLCO": {
+      "shares": 5,
+      "trigger_price": 17.934,
+      "original_entry": 18.3,
+      "expires": "2026-03-16T11:58:47.486736",
+      "signal_score": 12.486040025153411
     }
   },
-  "total_trades": 66,
-  "winning_trades": 35,
+  "total_trades": 67,
+  "winning_trades": 36,
   "losing_trades": 17,
-  "total_profit": 2274.1099999999997,
+  "total_profit": 2288.45,
   "max_portfolio_value": 12413.654999999993,
   "max_drawdown": -9.109194484777545,
-  "last_updated": "2026-03-10T11:57:09.537367"
+  "last_updated": "2026-03-11T11:59:04.525106"
 }
