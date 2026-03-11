@@ -1,7 +1,8 @@
 #!/bin/bash
-if [ -f ~/.env ]; then
-    export $(cat ~/.env | xargs)
+PROJECT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+if [ -f "$HOME/.env" ]; then
+    export $(cat "$HOME/.env" | xargs)
 fi
-cd ~/insider-cluster-watch
+cd "$PROJECT_DIR"
 source venv/bin/activate
 exec python3 -m automated_trading.execute_trades morning
