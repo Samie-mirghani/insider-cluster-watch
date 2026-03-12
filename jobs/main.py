@@ -287,7 +287,7 @@ def format_sell_warning(sell_df):
 def append_to_history(cluster_df):
     """
     Append new signals to the historical tracking CSV.
-    Now includes sector, industry, quality_score, float analysis metrics, multi-signal fields, and current prices.
+    Now includes sector, industry, float analysis metrics, multi-signal fields, and current prices.
     Industry and price data sourced from FMP API for reliable tracking and traceability.
     """
     if cluster_df is None or cluster_df.empty:
@@ -310,8 +310,7 @@ def append_to_history(cluster_df):
             'cluster_count': int(r.get('cluster_count', 0)),
             'total_value': float(r.get('total_value', 0)),
             'sector': r.get('sector', 'Unknown'),
-            'industry': r.get('industry', 'Unknown'),  # Add industry column for traceability
-            'quality_score': float(r.get('quality_score', 0)),
+            'industry': r.get('industry', 'Unknown'),
             'pattern_detected': r.get('pattern_detected', 'None'),
             # Float analysis metrics
             'pct_of_float': float(r.get('pct_of_float')) if r.get('pct_of_float') is not None else None,
@@ -588,11 +587,7 @@ def main(test=False, enable_paper_trading=True):
 
     print(f"✅ Found {len(cluster_df)} buy cluster(s)")
     
-    # Show quality and sector breakdown
-    if 'quality_score' in cluster_df.columns:
-        high_quality = len(cluster_df[cluster_df['quality_score'] >= 7])
-        print(f"   • {high_quality} high-quality signals (score ≥7)")
-    
+    # Show sector breakdown
     if 'sector' in cluster_df.columns:
         sector_counts = cluster_df['sector'].value_counts()
         print(f"   • Sectors: {dict(sector_counts.head(3))}")
@@ -1105,17 +1100,14 @@ def main(test=False, enable_paper_trading=True):
                 'ticker': row.get('ticker'),
                 'signal_score': row.get('rank_score', 0),  # Use rank_score as signal_score
                 'entry_price': row.get('currentPrice'),
-                'company_name': row.get('companyName', ''),
+                'company': row.get('company', ''),
                 'sector': row.get('sector', ''),
                 'industry': row.get('industry', ''),
                 'market_cap': row.get('marketCap'),
-                'quality_score': row.get('quality_score', 0),
                 'multi_signal_tier': row.get('multi_signal_tier', 'none'),
-                'politician_trades': row.get('politician_trades', 0),
-                'institutional_count': row.get('institutional_count', 0),
                 'pattern_detected': row.get('pattern_detected', 'None'),
-                'insider_count': row.get('cluster_count', 0),  # cluster_count is the actual field name
-                'total_shares_bought': row.get('total_shares', 0),
+                'insider_count': row.get('cluster_count', 0),
+                'shares_purchased': row.get('shares_purchased', 0),
                 'buy_value': row.get('total_value', 0),  # total_value is the actual field name
                 'short_percent_float': row.get('short_percent_float'),
                 'squeeze_potential': row.get('squeeze_potential', False),
@@ -1140,7 +1132,6 @@ def main(test=False, enable_paper_trading=True):
     # Show top signals with enhanced info
     print("\n📊 New signals:")
     for idx, row in cluster_df.head(5).iterrows():
-        quality = f", Quality={row.get('quality_score', 0):.1f}" if 'quality_score' in row else ""
         sector = f", {row.get('sector', 'N/A')}" if 'sector' in row else ""
         pattern = f", Pattern: {row.get('pattern_detected', 'None')}" if 'pattern_detected' in row and row.get('pattern_detected') != 'None' else ""
 
@@ -1171,7 +1162,7 @@ def main(test=False, enable_paper_trading=True):
             if si_pct >= 20:
                 squeeze_flag = f" [SI:{si_pct:.0f}%]"
 
-        print(f"   {row['ticker']}: Cluster={row['cluster_count']}, Score={row['rank_score']:.2f}{quality}{sector}{pattern}, ${int(row['total_value']):,}{multi_tier}{politician_flag}{squeeze_flag}")
+        print(f"   {row['ticker']}: Cluster={row['cluster_count']}, Score={row['rank_score']:.2f}{sector}{pattern}, ${int(row['total_value']):,}{multi_tier}{politician_flag}{squeeze_flag}")
     print()
 
     
