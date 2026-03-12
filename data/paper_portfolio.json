@@ -1,6 +1,6 @@
 {
   "starting_capital": 10000,
-  "cash": 7840.484999999993,
+  "cash": 7752.984999999993,
   "positions": {
     "MMS": {
       "entry_date": "2026-02-12T12:03:27.651227",
@@ -251,12 +251,12 @@
     },
     "BLCO": {
       "entry_date": "2026-03-11T11:58:46.913318",
-      "entry_price": 18.3,
-      "shares": 8,
-      "cost_basis": 146.4,
+      "entry_price": 17.992307692307694,
+      "shares": 13,
+      "cost_basis": 233.9,
       "initial_stop_loss": 17.201999999999998,
-      "stop_loss": 17.201999999999998,
-      "take_profit": 20.496000000000002,
+      "stop_loss": 16.912769230769232,
+      "take_profit": 20.151384615384618,
       "highest_price": 18.3,
       "trailing_enabled": false,
       "signal_score": 12.486040025153411,
@@ -268,32 +268,16 @@
           "shares": 8,
           "price": 18.3,
           "date": "2026-03-11T11:58:46.913323"
+        },
+        {
+          "shares": 5,
+          "price": 17.5,
+          "date": "2026-03-12T11:44:06.003099"
         }
       ]
     }
   },
   "pending_entries": {
-    "SSP": {
-      "shares": 110,
-      "trigger_price": 4.3218,
-      "original_entry": 4.41,
-      "expires": "2026-03-11T11:51:32.835906",
-      "signal_score": 15.720085850668989
-    },
-    "MSDL": {
-      "shares": 26,
-      "trigger_price": 14.2786,
-      "original_entry": 14.57,
-      "expires": "2026-03-11T11:51:35.889358",
-      "signal_score": 11.705444192099314
-    },
-    "SWZ": {
-      "shares": 49,
-      "trigger_price": 6.0858,
-      "original_entry": 6.21,
-      "expires": "2026-03-11T11:51:39.847779",
-      "signal_score": 8.439573439403901
-    },
     "FFIN": {
       "shares": 2,
       "trigger_price": 29.7332,
@@ -314,13 +298,6 @@
       "original_entry": 25.5,
       "expires": "2026-03-15T11:56:55.287344",
       "signal_score": 9.542654760283988
-    },
-    "BLCO": {
-      "shares": 5,
-      "trigger_price": 17.934,
-      "original_entry": 18.3,
-      "expires": "2026-03-16T11:58:47.486736",
-      "signal_score": 12.486040025153411
     }
   },
   "total_trades": 67,
@@ -329,5 +306,5 @@
   "total_profit": 2288.45,
   "max_portfolio_value": 12413.654999999993,
   "max_drawdown": -9.109194484777545,
-  "last_updated": "2026-03-11T11:59:04.525106"
+  "last_updated": "2026-03-12T12:07:56.764268"
 }
