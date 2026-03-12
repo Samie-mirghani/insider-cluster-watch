@@ -1,3 +1,4 @@
 #!/bin/bash
 cd ~/insider-cluster-watch
-git pull origin main >> logs/git_pull.log 2>&1
+git checkout -- data/company_profiles_cache.json 2>/dev/null
+git pull origin main
