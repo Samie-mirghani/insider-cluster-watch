@@ -1,5 +1,4 @@
 #!/bin/bash
 cd ~/insider-cluster-watch
-git stash --quiet
+git checkout -- data/company_profiles_cache.json 2>/dev/null
 git pull origin main
-git stash pop --quiet 2>/dev/null
