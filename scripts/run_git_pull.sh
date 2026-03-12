@@ -1,3 +1,5 @@
 #!/bin/bash
 cd ~/insider-cluster-watch
-exec git pull origin main
+git stash --quiet
+git pull origin main
+git stash pop --quiet 2>/dev/null
