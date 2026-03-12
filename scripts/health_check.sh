@@ -62,7 +62,7 @@ else
 
     # Git pull check (if hour >= 15)
     if [ $CURRENT_HOUR -ge 15 ]; then
-        check_log_freshness "$LOG_DIR/git_pull.log" 480 "Git Pull"
+        check_log_freshness "$LOG_DIR/git_pull_$TODAY.log" 480 "Git Pull"
     fi
 fi
 
