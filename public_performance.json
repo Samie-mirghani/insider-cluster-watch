@@ -1,24 +1,24 @@
 {
-  "last_updated": "March 12, 2026 at 12:08 UTC",
-  "total_return_pct": 21.88,
-  "win_rate": 67.9,
-  "completed_trades": 53,
+  "last_updated": "March 13, 2026 at 11:56 UTC",
+  "total_return_pct": 21.2,
+  "win_rate": 65.5,
+  "completed_trades": 55,
   "active_trades": 12,
-  "avg_return_per_trade": 7.49,
-  "sharpe_ratio": 8.54,
+  "avg_return_per_trade": 7.01,
+  "sharpe_ratio": 8.01,
   "max_drawdown": -9.11,
   "avg_hold_days": 10,
   "best_trade_pct": 59.64,
   "worst_trade_pct": -32.78,
-  "alpha_vs_sp500": 22.61,
+  "alpha_vs_sp500": 23.66,
   "avg_winner": 13.72,
   "avg_loser": -5.69,
   "win_loss_ratio": 2.41,
-  "profit_factor": 5.11,
-  "last_30_days_return": 87.45,
+  "profit_factor": 4.57,
+  "last_30_days_return": 76.09,
   "last_10_trades_win_rate": 60.0,
-  "current_streak": 3,
-  "current_streak_type": "wins",
+  "current_streak": 2,
+  "current_streak_type": "losses",
   "conviction_performance": [
     {
       "conviction": "VERY HIGH",
@@ -28,15 +28,15 @@
     },
     {
       "conviction": "HIGH",
-      "trades": 20,
-      "win_rate": 75.0,
-      "avg_return": 10.22
+      "trades": 21,
+      "win_rate": 71.4,
+      "avg_return": 9.36
     },
     {
       "conviction": "MEDIUM",
-      "trades": 14,
-      "win_rate": 57.1,
-      "avg_return": 4.18
+      "trades": 15,
+      "win_rate": 53.3,
+      "avg_return": 3.66
     },
     {
       "conviction": "LOW",
@@ -60,10 +60,28 @@
     },
     {
       "month": "2026-03",
-      "return": 38.4
+      "return": 27.03
     }
   ],
   "recent_trades": [
+    {
+      "ticker": "BLCO",
+      "entry_date": "Mar 11, 2026",
+      "exit_date": "Mar 13, 2026",
+      "hold_days": 2,
+      "return_pct": -7.85,
+      "conviction": "HIGH",
+      "exit_reason": "Stop Loss"
+    },
+    {
+      "ticker": "MMS",
+      "entry_date": "Feb 12, 2026",
+      "exit_date": "Mar 13, 2026",
+      "hold_days": 21,
+      "return_pct": -3.52,
+      "conviction": "MEDIUM",
+      "exit_reason": "Time Stop"
+    },
     {
       "ticker": "ABT",
       "entry_date": "Jan 27, 2026",
@@ -225,117 +243,99 @@
       "return_pct": 13.43,
       "conviction": "HIGH",
       "exit_reason": "Take Profit"
-    },
-    {
-      "ticker": "IP",
-      "entry_date": "Feb 02, 2026",
-      "exit_date": "Feb 09, 2026",
-      "hold_days": 7,
-      "return_pct": 15.53,
-      "conviction": "MEDIUM",
-      "exit_reason": "Take Profit"
-    },
-    {
-      "ticker": "EMPD",
-      "entry_date": "Feb 02, 2026",
-      "exit_date": "Feb 06, 2026",
-      "hold_days": 3,
-      "return_pct": -32.78,
-      "conviction": "LOW",
-      "exit_reason": "Stop Loss"
     }
   ],
   "open_positions": [
     {
-      "ticker": "MMS",
-      "entry_date": "Feb 12, 2026",
-      "days_held": 28,
-      "unrealized_return": -1.76,
-      "conviction": "MEDIUM"
-    },
-    {
       "ticker": "NPB",
       "entry_date": "Feb 16, 2026",
       "days_held": 24,
-      "unrealized_return": 1.82,
+      "unrealized_return": 1.31,
       "conviction": "MEDIUM"
     },
     {
       "ticker": "REXR",
       "entry_date": "Mar 02, 2026",
-      "days_held": 10,
-      "unrealized_return": -5.84,
+      "days_held": 11,
+      "unrealized_return": -6.97,
       "conviction": "MEDIUM"
     },
     {
       "ticker": "KKR",
       "entry_date": "Mar 04, 2026",
-      "days_held": 8,
-      "unrealized_return": -3.78,
+      "days_held": 9,
+      "unrealized_return": -7.37,
       "conviction": "HIGH"
     },
     {
       "ticker": "SSP",
       "entry_date": "Mar 06, 2026",
-      "days_held": 6,
-      "unrealized_return": -5.44,
+      "days_held": 7,
+      "unrealized_return": -7.71,
       "conviction": "VERY HIGH"
     },
     {
       "ticker": "MSDL",
       "entry_date": "Mar 06, 2026",
-      "days_held": 6,
-      "unrealized_return": 0.07,
+      "days_held": 7,
+      "unrealized_return": -0.21,
       "conviction": "HIGH"
     },
     {
       "ticker": "SWZ",
       "entry_date": "Mar 06, 2026",
-      "days_held": 6,
+      "days_held": 7,
       "unrealized_return": -3.22,
       "conviction": "MEDIUM"
     },
     {
       "ticker": "FFIN",
       "entry_date": "Mar 09, 2026",
-      "days_held": 2,
-      "unrealized_return": -1.52,
+      "days_held": 3,
+      "unrealized_return": -1.46,
       "conviction": "MEDIUM"
     },
     {
       "ticker": "TCBI",
       "entry_date": "Mar 10, 2026",
       "days_held": 2,
-      "unrealized_return": -3.0,
+      "unrealized_return": -1.48,
       "conviction": "HIGH"
     },
     {
       "ticker": "AMRZ",
       "entry_date": "Mar 10, 2026",
       "days_held": 2,
-      "unrealized_return": -1.19,
+      "unrealized_return": -3.0,
       "conviction": "HIGH"
     },
     {
       "ticker": "LYEL",
       "entry_date": "Mar 10, 2026",
       "days_held": 2,
-      "unrealized_return": -1.41,
+      "unrealized_return": -1.64,
       "conviction": "MEDIUM"
     },
     {
-      "ticker": "BLCO",
-      "entry_date": "Mar 11, 2026",
-      "days_held": 1,
-      "unrealized_return": -2.74,
-      "conviction": "HIGH"
+      "ticker": "KRRO",
+      "entry_date": "Mar 13, 2026",
+      "days_held": 0,
+      "unrealized_return": 0.0,
+      "conviction": "VERY HIGH"
+    },
+    {
+      "ticker": "ROCK",
+      "entry_date": "Mar 13, 2026",
+      "days_held": 0,
+      "unrealized_return": 2.07,
+      "conviction": "MEDIUM"
     }
   ],
   "portfolio_composition": {
     "starting_capital": 10000,
-    "current_value": 12188.25,
-    "cash": 7752.98,
-    "invested_capital": 4435.27,
-    "capital_deployed_pct": 36.39
+    "current_value": 12119.84,
+    "cash": 7777.23,
+    "invested_capital": 4342.62,
+    "capital_deployed_pct": 35.83
   }
 }
