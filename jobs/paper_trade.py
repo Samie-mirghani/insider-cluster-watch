@@ -1093,11 +1093,14 @@ class PaperTradingPortfolio:
                             'portfolio_value': self.get_portfolio_value()
                         })
                         
+                        # Track in session
+                        self.session_trades.append(self.trade_history[-1])
+
                         logger.info(f"   📈 New Position: {pos['shares']} shares @ ${pos['entry_price']:.2f} avg")
                         logger.info(f"   🎯 New Stop: ${pos['stop_loss']:.2f}")
                         logger.info(f"   🎯 New Target: ${pos['take_profit']:.2f}")
                         logger.info(f"{'='*60}\n")
-                        
+
                         # Remove from pending
                         del self.pending_entries[ticker]
                     else:
@@ -1433,7 +1436,7 @@ class PaperTradingPortfolio:
             # This properly accounts for both buys and sells during the session
             if self.session_start_cash is not None and self.session_trades:
                 # Calculate expected cash based on session activity
-                buys_total = sum(t.get('cost', 0) for t in self.session_trades if t.get('action') == 'BUY')
+                buys_total = sum(t.get('cost', 0) for t in self.session_trades if t.get('action') in ('BUY', 'BUY_SCALE'))
                 sells_total = sum(t.get('proceeds', 0) for t in self.session_trades if t.get('action') == 'SELL')
                 expected_cash = self.session_start_cash - buys_total + sells_total
 

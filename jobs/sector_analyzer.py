@@ -153,6 +153,7 @@ INDUSTRY_TO_SECTOR = {
     'Gambling': 'Consumer Cyclical',
     'Textile Manufacturing': 'Consumer Cyclical',
     'Furnishings, Fixtures & Appliances': 'Consumer Cyclical',
+    'Luxury Goods': 'Consumer Cyclical',
 
     # Consumer Defensive industries
     'Food': 'Consumer Defensive',
@@ -164,6 +165,7 @@ INDUSTRY_TO_SECTOR = {
     'Tobacco': 'Consumer Defensive',
     'Household & Personal Products': 'Consumer Defensive',
     'Discount Stores': 'Consumer Defensive',
+    'Personal Products & Services': 'Consumer Defensive',
 
     # Industrials industries
     'Aerospace & Defense': 'Industrials',
@@ -184,6 +186,7 @@ INDUSTRY_TO_SECTOR = {
     'Freight & Logistics Services': 'Industrials',
     'Rental & Leasing Services': 'Industrials',
     'Staffing & Employment Services': 'Industrials',
+    'Manufacturing - Tools & Accessories': 'Industrials',
 
     # Materials industries
     'Steel': 'Basic Materials',
@@ -424,15 +427,17 @@ class SectorAnalyzer:
         # Consumer keywords
         if any(kw in industry_lower for kw in ['retail', 'apparel', 'restaurant', 'hotel',
                                                   'auto', 'consumer', 'casino', 'gambling',
-                                                  'resort', 'leisure']):
-            if any(kw in industry_lower for kw in ['food', 'beverage', 'grocery', 'tobacco']):
+                                                  'resort', 'leisure', 'luxury']):
+            if any(kw in industry_lower for kw in ['food', 'beverage', 'grocery', 'tobacco',
+                                                      'personal product']):
                 return 'XLP', 'Consumer Defensive'
             return 'XLY', 'Consumer Cyclical'
 
         # Industrial keywords
         if any(kw in industry_lower for kw in ['industrial', 'aerospace', 'defense', 'airline',
                                                   'machinery', 'construction', 'transport',
-                                                  'freight', 'logistics', 'shipping']):
+                                                  'freight', 'logistics', 'shipping',
+                                                  'manufacturing']):
             return 'XLI', 'Industrials'
 
         # Materials keywords
